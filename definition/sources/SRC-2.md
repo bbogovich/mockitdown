@@ -5,7 +5,7 @@ recorded: 2026-11-23
 ---
 
 > We are productizing the markdown extension currently defined as a prototype in
-> /Users/brianbogovich/Documents/Projects/Dev/DevTools/MockItOut/prototype/MockItOut/mockitout-python. The final name
+> ~/…/MockItOut/prototype/MockItOut/mockitout-python. The final name
 > will be "mockitdown", both for the project and the id in markdown fenced code blocks. This will be a VibeItOut project
 > with specification and implementation in the same repository. This repository will have the specification and
 > implementation documentation both in the docs branch, published to github pages. We are switching from MkDocs to

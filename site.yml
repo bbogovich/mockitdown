@@ -1,4 +1,6 @@
 site_name: mockitdown
+site_url: https://bbogovich.github.io/mockitdown/
+repo_url: https://github.com/bbogovich/mockitdown
 site_description: UI mockups written in SwiftUI syntax inside Markdown, rendered as HTML styled after real UI frameworks — definition, specification and implementation.
 docs_dir: docs
 
