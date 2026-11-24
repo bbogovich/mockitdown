@@ -37,13 +37,16 @@ section of the published site (R-PACK-012).
 | `mui` | Material UI (MUI Core + MUI X) · React, default theme | v9 | desktop · browser | `pack="mui"`, `import MaterialUI`, `import MUI` | 116 |
 | `nextstep` | NeXTSTEP 3.x Application Kit / OPENSTEP 4 · Workspace Manager (1989–1997) | NeXTSTEP 3.3 | desktop · window | `pack="nextstep"`, `import NeXTSTEP`, `import AppKitNeXT`, `import OpenStep` | 78 |
 | `nls` | oN-Line System, SRI Augmentation Research Center — as shown at the Fall Joint Computer Conference, 9 December 1968 | NLS on the SDS 940, 1968 | desktop · none | `pack="nls"`, `import NLS`, `import OnLineSystem`, `import ARC` | 30 |
+| `prime` | PrimeVue 4 / PrimeNG 18+ / PrimeReact (styled mode) · Aura theme preset | PrimeVue 4 · @primeuix/themes Aura | desktop · browser | `pack="prime"`, `import PrimeVue`, `import PrimeNG`, `import PrimeReact`, `import Prime` | 123 |
 | `primer` | GitHub Primer · Primer React components and Primer CSS, primitives light/dark default themes | Primer React 37 · Primer Primitives 10 | desktop · browser | `pack="primer"`, `import Primer`, `import PrimerReact`, `import GitHub` | 140 |
 | `qt` | Qt 6 Widgets · Fusion style (cross-platform default palette) | Qt 6.8 | desktop · windows | `pack="qt"`, `import Qt`, `import QtWidgets`, `import Qt6`, `import PySide`, `import PyQt` | 76 |
 | `sapui5` | SAPUI5 / OpenUI5 · SAP Fiori Horizon theme (sap_horizon, sap_horizon_dark) | 1.136 | desktop · browser | `pack="sapui5"`, `import SAPUI5`, `import OpenUI5`, `import UI5`, `import Fiori`, `import sap.m`, `import sap.f`, `import sap.uxap`, `import sap.tnt` | 128 |
 | `shadcn` | shadcn/ui · new-york style, neutral base (Radix primitives, Tailwind CSS v4) | shadcn 3 · Tailwind CSS 4 | desktop · browser | `pack="shadcn"`, `import Shadcn`, `import ShadcnUI`, `import Radix` | 154 |
+| `sketch` | Hand-drawn wireframe sketch of the neutral core (paper and pencil, one highlighter) | 1 | desktop · browser | `pack="sketch"`, `import Sketch`, `import HandDrawn`, `import Napkin` | 8 |
 | `swiftui` | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) | iOS 26 SDK | phone · ios | `pack="swiftui"`, `import SwiftUI` | 86 |
 | `tailwind` | Catalyst — the Tailwind Plus application UI kit (Headless UI + Tailwind CSS v4), zinc neutrals, plus Tailwind Plus marketing sections | Catalyst 2025 · Tailwind CSS 4.1 | desktop · browser | `pack="tailwind"`, `import Tailwind`, `import TailwindPlus`, `import TailwindCatalyst` | 107 |
 | `vista` | Windows Vista / Windows 7 · Aero Glass (common controls v6, Explorer, Task Dialog, UAC) | Windows Vista (2007) – Windows 7 (2009) | desktop · window | `pack="vista"`, `import WindowsVista`, `import Vista`, `import Aero`, `import Windows7` | 78 |
+| `vuetify` | Vuetify 3 · Vue 3, default theme (Material Design 2 blueprint) | 3.x | desktop · browser | `pack="vuetify"`, `import Vuetify`, `import Vue` | 141 |
 | `win1` | Microsoft Windows 1.01–1.04 (1985–87), tiled windows, EGA 16 colours / CGA monochrome | Windows 1.03 | desktop · window | `pack="win1"`, `import Windows1`, `import Win1`, `import Windows101`, `import MSDOSExecutive1` | 53 |
 | `win2` | Microsoft Windows 2.0 / 2.1 (1987–88), EGA/VGA 16 colours | Windows 2.11 | desktop · window | `pack="win2"`, `import Windows2`, `import Win2`, `import MSDOSExecutive` | 43 |
 | `win31` | Windows 3.1 / Windows for Workgroups 3.11 (Win16, Windows Default colour scheme) | 3.11 | desktop · win31 | `pack="win31"`, `import Windows31`, `import Win31`, `import Win16` | 85 |
@@ -160,6 +163,23 @@ the [Role catalogue](../rendering/roles.md).
 | `ZStack` | zstack |  |  | Overlapping layers. alignment: |
 
 <!-- end catalogue: base -->
+
+## sketch — Wireframe sketch (hand-drawn)
+
+<!-- catalogue: sketch — generate with `mockitdown elements sketch --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Annotation` | stickynote | text | variant: "left" | Handwritten margin note in the highlighter colour with an arrow: Annotation("tap to edit", variant: .up); place with .position(x:y:) |
+| `Arrow` | divider | label | variant: "right" | A pencil arrow between screens or boxes in a flow, optional label: Arrow("tap"), Arrow(variant: .down) |
+| `CrossedImage` | placeholder | label |  | A box with a big pencil X for an image still to come: CrossedImage("hero shot", height: 180) |
+| `Highlight` | text | content |  | Text swiped with the highlighter marker: Highlight("Free for 30 days") |
+| `Lorem` | text | content | content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore." | Filler copy in the handwriting font: Lorem() or Lorem("short custom filler") |
+| `Note` | stickynote | text |  | A taped paper note (slightly rotated): Note("ask legal", title: "TODO", author: "BB", rotation: 2) |
+| `Scribble` | skeleton |  | lines: 3 | Squiggle lines standing in for body text: Scribble(lines: 4) · avatar:, image: add a crossed box |
+| `Squiggle` | skeleton |  | lines: 1 | One squiggle line (a heading or label still to be written) |
+
+<!-- end catalogue: sketch -->
 
 ## fluent — Fluent 2 · WinUI 3
 
@@ -1907,6 +1927,288 @@ the [Role catalogue](../rendering/roles.md).
 | `UnderlinePanelsTab` | tab | label |  |  |
 
 <!-- end catalogue: primer -->
+
+## vuetify — Vuetify 3
+
+<!-- catalogue: vuetify — generate with `mockitdown elements vuetify --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Td` | text | content |  | Td("value") — a table cell |
+| `Tr` | tablerow |  |  | A table row (children are cells) |
+| `VAlert` | alert | message | variant: "flat" | VAlert("Saved.", type: "success", title:, variant: "tonal" / "outlined" / "flat", closable: true, density:) |
+| `VAlertTitle` | text | content |  | Bold first line of a VAlert |
+| `VApp` | vstack |  | alignment: "stretch", spacing: 0 | Root of every Vuetify app: a full-height column on the theme background |
+| `VAppBar` | appbar | title |  | VAppBar(title: "Inbox", color: "primary", density: "compact") { VBtn(icon: "mdi-magnify") } — 64px top bar, elevation 4; leading: { VAppBarNavIcon() } |
+| `VAppBarNavIcon` | button |  | icon: "mdi-menu", iconOnly: true, variant: "text" | The ☰ icon button at the start of a VAppBar |
+| `VAppBarTitle` | text | content |  | Title text of a VAppBar (1.25rem) |
+| `VAutocomplete` | select | label | variant: "filled" | VAutocomplete("State", items: [..], modelValue: [..]) — filterable select; multiple values render chips |
+| `VAvatar` | avatar | name |  | VAvatar(image: "avatar-1.svg", size: 40) · VAvatar("Ana Lima", color: "primary") · VAvatar(icon: "mdi-account", rounded: 0) |
+| `VBadge` | badge | content |  | VBadge(content: 6, color: "error") { VIcon("mdi-bell") } · dot: true |
+| `VBanner` | alert | message | severity: "info" | VBanner("No internet connection", icon: "mdi-wifi-strength-alert-outline") actions: { VBtn("Retry", variant: "text") } — full-width strip with a bottom border |
+| `VBannerActions` | hstack |  |  | Action buttons of a VBanner |
+| `VBannerText` | text | content |  | Text of a VBanner |
+| `VBottomNavigation` | tabs |  | placement: "bottom" | VBottomNavigation(value: 0, color: "primary", items: [["title": "Home", "icon": "mdi-home"], …]) — 56px bar, icon above label (or VTab children) |
+| `VBottomSheet` | dialog | title | variant: "sheet" | VBottomSheet { VList … } — sheet sliding up from the bottom |
+| `VBreadcrumbs` | breadcrumb | items |  | VBreadcrumbs(items: ["Dashboard", "Orders", "#10423"], divider: "/") |
+| `VBreadcrumbsItem` | link | label |  | One item of a VBreadcrumbs |
+| `VBtn` | button | label | variant: "elevated" | VBtn("Save", color: "primary", variant: "tonal", size: "small", density: "compact", rounded: "pill", prependIcon: "mdi-content-save") · VBtn(icon: "mdi-heart") |
+| `VBtnGroup` | toolbar |  | variant: "elevated" | VBtnGroup(variant: "outlined", divided: true) { VBtn … } — joined buttons |
+| `VBtnToggle` | toolbar |  | variant: "text" | VBtnToggle(variant: "outlined", divided: true) { VBtn(icon: "mdi-format-bold").selected() … } — joined toggle buttons |
+| `VCard` | card | title | variant: "elevated" | VCard(title:, subtitle:, prependIcon:, image:, variant: "outlined") { VCardText … } actions: { VBtn("Ok", variant: "text") } |
+| `VCardActions` | hstack |  | spacing: 8 | VCardActions { VSpacer(); VBtn("Cancel", variant: "text") … } — 8px-padded button row |
+| `VCardItem` | vstack |  | alignment: "stretch" | Header block of a VCard (title, subtitle, prepend/append) |
+| `VCardSubtitle` | text | content |  | VCardSubtitle("…") — medium-emphasis 0.875rem line under the title |
+| `VCardText` | vstack | text | alignment: "stretch" | VCardText { … } — 16px-padded body of a VCard (0.875rem) |
+| `VCardTitle` | text | content |  | VCardTitle("Title") — 1.25rem / 500 heading of a VCard |
+| `VCarousel` | image | src |  | VCarousel("photo.svg") — slideshow (shows its first slide) |
+| `VCarouselItem` | image | src |  | VCarouselItem(src: "photo.svg") |
+| `VCheckbox` | checkbox | label |  | VCheckbox("Remember me", modelValue: true, color: "primary", density: "compact") |
+| `VCheckboxBtn` | checkbox | label |  | The bare checkbox control (no label) |
+| `VChip` | chip | label | variant: "tonal" | VChip("Active", color: "success", variant: "tonal" / "flat" / "outlined" / "elevated" / "text", size: "small", closable: true, prependIcon:, label: true) |
+| `VChipGroup` | hstack |  | spacing: 8 | VChipGroup(selectedClass: "text-primary", column: true) { VChip … } |
+| `VCode` | code | code |  | Inline code |
+| `VCol` | vstack | size | alignment: "stretch" | VCol(cols: 6) — column spanning cols/12 of a VRow (cols: 0 = auto grow) |
+| `VColorPicker` | swatches |  |  | Colour picker (swatch grid) |
+| `VCombobox` | select | label | variant: "filled" | VCombobox("Tags", items: [..], modelValue: [..], chips: true) — select that accepts new values |
+| `VConfirmEdit` | hstack |  |  | Save / Cancel wrapper around an editable value |
+| `VContainer` | vstack |  | alignment: "stretch" | Centered, padded (16px) content column; fluid: true for full width |
+| `VDataIterator` | vstack |  | alignment: "stretch" | Custom layout over items with the data-table plumbing |
+| `VDataTable` | table |  |  | VDataTable(headers: [..], items: [[..]], search:, sortBy: 2, showSelect: true, selectedRows: [1], itemsPerPage: 10) — sortable table with footer |
+| `VDataTableFooter` | pagination | summary |  | VDataTableFooter("Items per page:  10 ▾     1-10 of 42") — the table footer with first/prev/next/last |
+| `VDataTableServer` | table |  |  | Server-side VDataTable (same look) |
+| `VDataTableVirtual` | table |  |  | Virtualised VDataTable (no footer) |
+| `VDateInput` | datepicker | label | variant: "filled" | VDateInput("Delivery date", modelValue: "2026-11-23") — text field opening a VDatePicker |
+| `VDatePicker` | calendar |  |  | VDatePicker(modelValue: "2026-11-23", title: "Select date", showAdjacentMonths: true) |
+| `VDefaultsProvider` | group |  |  | Sets default props for its subtree (renders its children) |
+| `VDialog` | dialog | title |  | VDialog(title: "Delete file?", maxWidth: 400) { VCardText … } actions: { VBtn … } — modal card over a scrim |
+| `VDivider` | divider |  |  | VDivider() · VDivider(vertical: true) · inset: true · thickness: |
+| `VEmptyState` | emptystate | title |  | VEmptyState(headline: "No orders yet", title:, text:, icon: "mdi-cart") { VBtn … } |
+| `VExpansionPanel` | accordion | title |  | VExpansionPanel(title: "Shipping", text: "…", expanded: true) { content } |
+| `VExpansionPanelText` | vstack |  | alignment: "stretch" | Body of a VExpansionPanel |
+| `VExpansionPanelTitle` | text | content |  | Header of a VExpansionPanel |
+| `VExpansionPanels` | vstack |  | alignment: "stretch", spacing: 0 | VExpansionPanels(variant: "accordion" / "inset" / "popout") { VExpansionPanel(title:, text:) … } |
+| `VFab` | fab | icon | color: "primary" | VFab(icon: "mdi-plus", color: "primary") · extended: VFab(icon:, label: "Compose") |
+| `VField` | textfield | label | variant: "filled" | The bare field box of an input |
+| `VFileInput` | textfield | label | icon: "mdi-paperclip", variant: "filled" | VFileInput("Attachment", modelValue: "report.pdf", chips: true) — file field with a paperclip prepend icon |
+| `VFileUpload` | dropzone | label |  | VFileUpload(title: "Drag and drop files") — drop zone with browse button |
+| `VFooter` | toolbar |  |  | VFooter(border: true) { Text("© 2026 Acme") } — footer bar at the bottom of the app |
+| `VForm` | vstack |  | alignment: "stretch" | VForm { VTextField … } — a column of fields with 8px gaps |
+| `VHotkey` | kbd | keys |  | Keyboard shortcut display |
+| `VHover` | group |  |  | Hover state provider (renders its children) |
+| `VIcon` | icon | name |  | VIcon("mdi-home", color: "primary", size: "large") — Material Design Icons by name |
+| `VIconBtn` | button | icon | iconOnly: true, variant: "text" | VIconBtn(icon: "mdi-cog") — compact icon-only button |
+| `VImg` | image | src |  | VImg(src: "photo.svg", height: 200, cover: true) |
+| `VInfiniteScroll` | scroll |  |  | VInfiniteScroll(height: 300) { items … VProgressCircular } — scroll area that loads more at its end |
+| `VInput` | textfield | label | variant: "plain" | Base input wrapper |
+| `VItem` | group |  |  | One selectable item of a VItemGroup |
+| `VItemGroup` | hstack |  |  | Selection group around VItem children |
+| `VKbd` | kbd | keys |  | VKbd("Ctrl") — keyboard key |
+| `VLabel` | text | content |  | Medium-emphasis form label |
+| `VLayout` | hstack |  | alignment: "top", spacing: 0 | Layout container for app bar / drawer / main (row; nest VLayout for columns) |
+| `VLazy` | group |  |  | Renders its children when visible |
+| `VList` | list |  |  | VList(nav: true, density: "compact", lines: "two") { VListSubheader("…"); VListItem(title:, subtitle:, prependIcon:) } |
+| `VListGroup` | navitem | label |  | VListGroup("Admin", prependIcon:, expanded: true) { VListItem … } — collapsible group in a nav list |
+| `VListImg` | image | src |  | Image inside a VList |
+| `VListItem` | listitem | title |  | VListItem(title: "Inbox", subtitle:, prependIcon: "mdi-inbox", value:, active: true) — 48px row; prepend: / append: slots |
+| `VListItemAction` | hstack |  |  | Trailing action area of a VListItem |
+| `VListItemSubtitle` | text | content |  | Subtitle text of a VListItem |
+| `VListItemTitle` | text | content |  | Title text of a VListItem |
+| `VListSubheader` | text | content |  | VListSubheader("REPORTS") — 0.875rem / 500 label inside a VList |
+| `VLocaleProvider` | group |  |  | Applies a locale to its subtree |
+| `VMain` | vstack |  | alignment: "stretch" | Main content area beside VNavigationDrawer and under VAppBar |
+| `VMenu` | menu | label |  | VMenu("Options", open: true) { VListItem(title: "Edit", prependIcon: "mdi-pencil") … } · VMenu(icon: "mdi-dots-vertical") |
+| `VMessages` | text | content |  | Hint / error line under a control |
+| `VNavigationDrawer` | sidebar | title |  | VNavigationDrawer(title:) { VList(nav: true) { VListItem(title:, prependIcon:) } } — 256px drawer; rail: true for 56px |
+| `VNoSsr` | group |  |  | Client-only children |
+| `VNumberInput` | textfield | label | trailingIcon: "mdi-unfold-more-horizontal", variant: "filled" | VNumberInput("Quantity", modelValue: 2) — number field with − / + controls |
+| `VOtpInput` | textfield | label | variant: "outlined" | One-time-code field |
+| `VOverlay` | dialog |  | variant: "backdrop" | Scrim with centred content |
+| `VPagination` | pagination |  |  | VPagination(length: 10, modelValue: 2, totalVisible: 7, rounded: "circle", activeColor: "primary") |
+| `VParallax` | image | src |  | VParallax(src:) — scrolling background image |
+| `VProgressCircular` | progress |  | kind: "circular" | VProgressCircular(modelValue: 70, size: 48, width: 4, color: "primary") · indeterminate: true |
+| `VProgressLinear` | progress |  |  | VProgressLinear(modelValue: 40, color: "primary", height: 6, rounded: true) · indeterminate: true |
+| `VRadio` | radio | label |  | VRadio("Express", value:) inside VRadioGroup |
+| `VRadioGroup` | radiogroup | label |  | VRadioGroup("Shipping", items: [..], modelValue: "Express", inline: true) — or VRadio children |
+| `VRangeSlider` | slider | label |  | VRangeSlider(modelValue: [20, 60], max: 100) |
+| `VRating` | rating | value |  | VRating(modelValue: 3.5, halfIncrements: true, color: "amber", density: "compact", size: "small") |
+| `VResponsive` | vstack |  | alignment: "stretch" | Aspect-ratio box |
+| `VRow` | hstack |  | alignment: "top" | Flex row of VCol in a 12-column grid (24px gutters) |
+| `VSelect` | select | label | variant: "filled" | VSelect("Country", items: ["France", "Peru"], modelValue: "Peru", chips: true, multiple: true, open: true) |
+| `VSheet` | card |  | elevation: 0 | VSheet(elevation: 2, rounded: true, color:) { … } — plain surface with no padding |
+| `VSkeletonLoader` | skeleton |  |  | VSkeletonLoader(type: "list-item-avatar") — use avatar: true, lines: 3, image: true |
+| `VSlideGroup` | hstack |  |  | Horizontally scrolling group with arrows |
+| `VSlideGroupItem` | group |  |  | One item of a VSlideGroup |
+| `VSlider` | slider | label |  | VSlider(modelValue: 40, min: 0, max: 100, step: 10, thumbLabel: true, color:) |
+| `VSnackbar` | toast | message |  | VSnackbar("Saved", action: "Undo", color:, location: .bottom) — 344px dark message bar |
+| `VSnackbarQueue` | toast | message |  | A queue of VSnackbar messages (shows the first) |
+| `VSpacer` | spacer |  |  | Flexible space in a VToolbar, VCardActions or VRow |
+| `VSparkline` | chart | values | kind: "sparkline" | VSparkline(modelValue: [1, 4, 2, 6], color: "primary", fill: true, smooth: true) — trend line |
+| `VSpeedDial` | fab | icon | color: "primary" | Fab that opens a list of action buttons |
+| `VStepper` | steps | steps |  | VStepper(items: ["Cart", "Shipping", "Payment"], modelValue: 1, altLabels: true) — numbered header; modelValue is the 0-based current step |
+| `VStepperActions` | hstack |  |  | VStepperActions() — Previous / Next buttons of a VStepper |
+| `VStepperHeader` | hstack |  |  | Header row of a VStepper |
+| `VStepperItem` | text | content |  | One step of a VStepperHeader |
+| `VStepperVertical` | steps | steps | orientation: "vertical" | Vertical stepper |
+| `VStepperWindow` | vstack |  | alignment: "stretch" | Pane area of a VStepper |
+| `VStepperWindowItem` | vstack |  | alignment: "stretch" | One step's pane |
+| `VSubheader` | text | content |  | Section label (Vuetify 2 name; use VListSubheader) |
+| `VSwitch` | toggle | label |  | VSwitch("Wi-Fi", modelValue: true, color: "primary", inset: true, hideDetails: true) |
+| `VSystemBar` | toolbar |  | density: "compact" | VSystemBar { VIcon("mdi-wifi") … } — 24px status strip at the top of a mobile app |
+| `VTab` | tab | label |  | VTab("Favorites", prependIcon: "mdi-heart") { pane } |
+| `VTable` | table |  |  | VTable(density:) { thead/tbody as TableRow children } — or columns:, rows: |
+| `VTabs` | tabs | items | placement: "top" | VTabs(value: 0, color: "primary", grow: true, alignTabs: "center") { VTab("Profile", prependIcon:) … } or VTabs(items: [..]) |
+| `VTabsWindow` | vstack |  | alignment: "stretch" | Panes of a VTabs |
+| `VTabsWindowItem` | vstack |  | alignment: "stretch" | One pane of a VTabsWindow |
+| `VTextField` | textfield | label | variant: "filled" | VTextField("Email", modelValue:, variant: "outlined", density: "compact", prependInnerIcon:, hint:, errorMessages: "…", clearable: true) |
+| `VTextarea` | textfield | label | kind: "multiline", variant: "filled" | VTextarea("Notes", rows: 3, counter: 200, autoGrow: true) |
+| `VThemeProvider` | group |  |  | Applies a theme to its subtree (renders its children) |
+| `VTimePicker` | datepicker | label | kind: "time", variant: "filled" | Time picker field |
+| `VTimeline` | timeline |  |  | VTimeline(side: "end", density: "compact") { VTimelineItem("Order placed", dotColor: "primary") } |
+| `VTimelineItem` | timelineitem | title |  | VTimelineItem("Shipped", time:, description:, dotColor: "success", icon:) |
+| `VToolbar` | toolbar | title |  | VToolbar(title:, color:, density:) { VBtn … } — 64px bar (surface-light by default) |
+| `VToolbarItems` | hstack |  | spacing: 0 | Full-height buttons inside a VToolbar |
+| `VToolbarTitle` | text | content |  | Title text of a VToolbar |
+| `VTooltip` | tooltip | text |  | VTooltip("Delete", location: .bottom) { VBtn(icon: "mdi-delete") } |
+| `VTreeview` | tree |  |  | VTreeview { VTreeviewItem("src", expanded: true) { … } } — hierarchical list |
+| `VTreeviewItem` | treeitem | label |  | VTreeviewItem("main.ts", icon: "mdi-language-typescript", expanded:, selected:) |
+| `VVirtualScroll` | scroll |  |  | Virtualised scroll area of items |
+| `VWindow` | vstack |  | alignment: "stretch" | VWindow { VWindowItem { … } } — the visible pane of a VTabs/VStepper |
+| `VWindowItem` | vstack |  | alignment: "stretch" | One pane of a VWindow / VTabsWindow |
+
+<!-- end catalogue: vuetify -->
+
+## prime — PrimeVue 4 · PrimeNG (Aura)
+
+<!-- catalogue: prime — generate with `mockitdown elements prime --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Accordion` | vstack |  | alignment: "stretch", spacing: 0 | Accordion { AccordionPanel("Header I", expanded: true) { … } … } |
+| `AccordionContent` | group |  |  | Transparent wrapper |
+| `AccordionPanel` | accordion | header |  | AccordionPanel("Header I", expanded: true) { AccordionContent } |
+| `AccordionTab` | accordion | header |  | Pre-v4 name of AccordionPanel |
+| `AutoComplete` | select | placeholder |  | AutoComplete("Search", selection:, options:, open: true, dropdown: true) |
+| `Avatar` | avatar | label |  | Avatar(label: "P", image: "…", icon: "pi pi-user", shape: "circle", size: "large"/"xlarge") |
+| `AvatarGroup` | hstack |  | spacing: 0 | AvatarGroup { Avatar(shape: "circle") … } — overlapped |
+| `Badge` | badge | value |  | Badge(value: 4, severity: "danger", size: "large") · Badge() is a dot |
+| `BlockUI` | zstack |  |  | BlockUI(blocked: true) { content } — masks its content |
+| `Breadcrumb` | breadcrumb | items |  | Breadcrumb(items: ["Electronics", "Computer", "Accessories"]) · Breadcrumb { Icon("pi pi-home"); Text(…) } |
+| `Button` | button | label |  | Button("Save", icon: "pi pi-check", severity: "secondary"/"success"/"info"/"warn"/"help"/"danger"/"contrast", variant: "outlined"/"text"/"link", rounded: true, raised: true, size: "small"/"large", loading:, badge:, iconPos: "right" |
+| `ButtonGroup` | toolbar |  | variant: "group" | ButtonGroup { Button … } — joined buttons |
+| `Calendar` | calendar |  |  | Calendar(selection: "2026-11-24") — the inline DatePicker panel (pre-v4 name) |
+| `Card` | card | title |  | Card(title: "Advanced Card", subtitle: "Card subtitle", image: "…") { content } footer: { Button … } |
+| `Carousel` | hstack |  | spacing: 7 | Carousel { Button(icon: "pi pi-chevron-left", variant: "text", rounded: true); CarouselItem … } + CarouselIndicators |
+| `CarouselIndicators` | segmented | items | variant: "indicators" | CarouselIndicators(items: ["", "", ""], selection: 0) |
+| `CarouselItem` | card | title | variant: "carousel" | CarouselItem("Bamboo Watch", image: "…") { price, Tag, buttons } |
+| `CascadeSelect` | select | placeholder |  | CascadeSelect("Select a City", selection: "Sydney", options:) |
+| `Chart` | chart |  |  | Chart(type: "bar"/"line"/"pie"/"doughnut"/"polarArea"/"radar", series:, labels:, seriesNames:) — Chart.js look |
+| `Checkbox` | checkbox | label |  | Checkbox("Remember me", checked: true) · checked: "indeterminate" · invalid: |
+| `Chip` | chip | label |  | Chip("Amy Elsner", avatar: "Amy Elsner", avatarImage: "…", icon:, removable: true) |
+| `ColorPicker` | swatches | colors |  | ColorPicker(colors: ["#10b981"], selection: 0) — the swatch trigger; several colours make a palette |
+| `Column` | tablecolumn | header |  | Column(header: "Price", alignment: .trailing) |
+| `ConfirmDialog` | dialog | header | buttons: ["Cancel", "Save"], closable: true, icon: "pi-exclamation-triangle", variant: "confirm" | ConfirmDialog(header: "Confirmation", message: "Are you sure you want to proceed?", buttons: ["Cancel", "Delete"], destructive: "Delete", icon:) |
+| `ConfirmPopup` | tooltip | message | placement: "bottom" | ConfirmPopup(message: "Are you sure?") { target } actions: { Button("Cancel", …); Button("Save", size: "small") } |
+| `ContextMenu` | menu |  |  | ContextMenu { MenuItem … } — an open context menu; place it with .offset |
+| `DataTable` | table |  |  | DataTable(columns: [..] or Column children, rows: [[..]], selectionMode: "multiple", selectedRows: [1], sortField: 2, stripedRows: true, size: "small") header: { … } footer: { Paginator(…) } |
+| `DataView` | list |  | variant: "dataview" | DataView(header: "Products") { DataViewItem(…) } — list layout of items |
+| `DataViewItem` | listitem | title |  | DataViewItem("Bamboo Watch", subtitle: "Accessories", image: "…") { price/actions } |
+| `DatePicker` | datepicker | placeholder |  | DatePicker("Select date", selection: "2026-11-24", showIcon: true, label:) · DatePickerPanel for the inline calendar |
+| `DatePickerPanel` | calendar |  |  | DatePickerPanel(selection: "2026-11-24", range: [..]) — DatePicker with inline: true |
+| `Dialog` | dialog | header | closable: true | Dialog(header: "Edit Profile", message: "Update your information.") { … } footer: { Button("Cancel", severity: "secondary"); Button("Save") } |
+| `Divider` | divider |  |  | Divider() · Divider(label: "OR") · type: "dashed" · layout: "vertical" |
+| `Dock` | toolbar |  | variant: "dock" | Dock { DockItem("Finder", icon: "pi pi-folder") … } — magnifying app bar |
+| `DockItem` | avatar | label |  | DockItem("Photos", icon: "pi pi-image", image:) |
+| `Drawer` | dialog | header | closable: true, placement: "left", variant: "drawer" | Drawer(header: "Menu", position: "left"/"right"/"top"/"bottom") { … } |
+| `Dropdown` | select | placeholder |  | Pre-v4 name of Select |
+| `Editor` | textfield | placeholder | kind: "multiline", variant: "editor" | Editor(rows: 6) — Quill rich text editor with toolbar |
+| `Fieldset` | card | legend | variant: "fieldset" | Fieldset(legend: "Header") { … } — bordered group with a legend on the border |
+| `FileUpload` | dropzone | label | icon: "pi-cloud-upload", label: "Drag and drop files to here to upload." | FileUpload { … } — advanced mode content area; children (e.g. FileUploadItem) render inside |
+| `FileUploadItem` | listitem | title | icon: "pi-file" | FileUploadItem("report.pdf", subtitle: "1.2 MB", status: "pending"/"completed") { Button(icon: "pi pi-times") } |
+| `FloatLabel` | textfield | label | variant: "float" | FloatLabel("Username", value: "amy") — the label floats on the border |
+| `Fluid` | group |  |  | Fluid { … } — wrapper (children use .frame(maxWidth: .infinity)) |
+| `Galleria` | card |  | variant: "galleria" | Galleria(image: "…", mediaHeight: 280) { HStack { Image(…) … } } — main image + thumbnail strip |
+| `Icon` | icon | name |  | Icon("pi pi-check") — a PrimeIcons glyph |
+| `IconField` | textfield | placeholder | icon: "pi-search" | IconField("Search") — InputText with an InputIcon (icon:) |
+| `Image` | image | src |  | Image(src: "assets/images/photo-1.svg", alt:) |
+| `InlineMessage` | alert | text | severity: "error", variant: "inline" | InlineMessage("Username is required", severity: "error") — pre-v4 compact message |
+| `Inplace` | group |  |  | Inplace { display / content } — renders its content |
+| `InputGroup` | textfield | placeholder |  | InputGroup("Price", prefix: "$", suffix: ".00") — InputText between InputGroupAddon cells |
+| `InputMask` | textfield | placeholder |  | InputMask("99-999999", value: "48-210771", mask:) |
+| `InputNumber` | textfield | placeholder | kind: "number" | InputNumber(value: 1500, prefix: "$", suffix: " kg", trailingIcon: "pi-sort") |
+| `InputOtp` | segmented | items | variant: "otp" | InputOtp(items: ["4", "8", "", ""], selection: 2) — one box per item, the selected focused |
+| `InputSwitch` | toggle | label |  | Pre-v4 name of ToggleSwitch |
+| `InputText` | textfield | placeholder |  | InputText("Username", value:, label:, icon: "pi pi-search", invalid: true, size: "small"/"large", variant: "filled", disabled:, helper: |
+| `Kbd` | kbd | keys |  | Kbd("⌘K") |
+| `Knob` | progress | value | kind: "circular", showValue: true | Knob(value: 60, max: 100) — circular dial with the value in the centre |
+| `ListControls` | vstack |  | spacing: 7 | ListControls { Button(icon: "pi pi-angle-up", severity: "secondary") … } — the button column |
+| `Listbox` | segmented | options | variant: "listbox" | Listbox(options: ["New York", "Rome", "London"], selection: "Rome") — a bordered option list |
+| `MegaMenu` | toolbar |  | variant: "menubar" | MegaMenu { MegaMenuItem("Furniture", open: true) { Grid(columns: 3) { MenuGroup … } } } |
+| `MegaMenuItem` | menu | label | variant: "megamenu" | A MegaMenu root item whose open panel holds MenuGroup columns |
+| `Menu` | menu | label |  | Menu { MenuGroup("Documents") { MenuItem("New", icon: "pi pi-plus") } MenuSeparator() } · Menu("Options", open: true) for a popup with its button |
+| `MenuGroup` | section | label |  | MenuGroup("Profile") { MenuItem … } — submenu label + items |
+| `MenuItem` | menuitem | label |  | MenuItem("Export", icon: "pi pi-upload", shortcut: "⌘+E", badge:) · children make a submenu chevron |
+| `MenuSeparator` | divider |  |  | Separator between menu items |
+| `Menubar` | toolbar |  | variant: "menubar" | Menubar { MenubarItem("File", icon:, open: true) { MenuItem … }; MenubarItem("Help", caret: false) } start: … end: … |
+| `MenubarItem` | menu | label | variant: "menubar" | MenubarItem("Projects", icon: "pi pi-search", open: true) { MenuItem … } · caret: false for a leaf |
+| `Message` | alert | text | severity: "info", showIcon: false | Message("Saved", severity: "success"/"info"/"warn"/"error"/"secondary"/"contrast", icon:, showIcon: true, variant: "simple", size: "small", closable:) |
+| `MeterGroup` | chart |  | chartHeight: 30, grid: false, horizontal: true, kind: "bar", legend: true, stacked: true | MeterGroup(series: [[16], [8], [24]], seriesNames: ["Apps (16%)", "Messages (8%)", "Media (24%)"]) — stacked meter + labels |
+| `MultiSelect` | select | placeholder |  | MultiSelect("Select Cities", selection: ["Rome", "Paris"], options:, display: "chip", open: true) |
+| `OrderList` | hstack |  | alignment: "top", spacing: 14 | OrderList { ListControls(); Listbox(…) } — reorder buttons beside a list |
+| `OverlayBadge` | badge | value | variant: "overlay" | OverlayBadge(value: 2, severity: "danger") { Icon("pi pi-bell") } |
+| `OverlayPanel` | card | title | variant: "popover" | Pre-v4 name of Popover |
+| `Paginator` | pagination |  |  | Paginator(count: 12, page: 2, summary: "Showing 11 to 20 of 120") — first/prev/pages/next/last + current page report |
+| `Panel` | card | header | variant: "panel" | Panel(header: "Header", toggleable: true) { … } footer: { … } extra: { icons } |
+| `PanelMenu` | vstack |  | alignment: "stretch", spacing: 4 | PanelMenu { PanelMenuPanel("Files", icon: "pi pi-file", expanded: true) { MenuItem … } } |
+| `PanelMenuPanel` | accordion | label |  | PanelMenuPanel("Cloud", icon: "pi pi-cloud", expanded:) { MenuItem … } |
+| `Password` | textfield | placeholder | kind: "password" | Password("Password", value:, toggleMask: true, feedback: true) — pair with PasswordMeter for the strength panel |
+| `PasswordMeter` | progress | value | variant: "meter" | PasswordMeter(value: 66, label: "Medium", color: "medium") — the strength bar of Password's overlay |
+| `PickList` | hstack |  | alignment: "center", spacing: 14 | PickList { Listbox(…); ListControls(); Listbox(…) } — source / transfer buttons / target |
+| `Popover` | card | title | variant: "popover" | Popover { … } — floating panel with an arrow; place it with .offset |
+| `ProgressBar` | progress | value | showValue: true | ProgressBar(value: 50) · mode: indeterminate when value is omitted · showValue: false |
+| `ProgressSpinner` | progress |  | variant: "spinner" | ProgressSpinner() — the 4-colour animated ring (drawn static) |
+| `RadioButton` | radio | label |  | RadioButton("Cheese", checked: true) |
+| `RadioButtonGroup` | radiogroup | label |  | RadioButtonGroup(options: ["Card", "PayPal"], selection: "Card") |
+| `Rating` | rating | value |  | Rating(value: 4, stars: 5) |
+| `Row` | tablerow |  |  | Row { cells } — one DataTable row of views |
+| `ScrollPanel` | scroll |  |  | ScrollPanel { … } |
+| `ScrollTop` | fab | icon | icon: "pi-arrow-up" | ScrollTop() — round button pinned bottom-right |
+| `Select` | select | placeholder |  | Select("Select a City", options: ["New York", "Rome"], selection: "Rome", open: true, showClear:, invalid:, label:) |
+| `SelectButton` | segmented | options |  | SelectButton(options: ["One-Way", "Return"], selection: "Return") |
+| `Sidebar` | dialog | header | closable: true, placement: "left", variant: "drawer" | Pre-v4 name of Drawer |
+| `Skeleton` | skeleton |  | shape: "rectangle" | Skeleton().frame(width: 160, height: 14) · shape: "circle" |
+| `Slider` | slider |  |  | Slider(value: 30) · range: value: [20, 80] · min:, max: |
+| `SpeedDial` | fab | icon | icon: "pi-plus" | SpeedDial(icon: "pi pi-plus", position: "bottomTrailing", inline: true) — the round primary trigger button |
+| `SplitButton` | button | label | dropdown: true | SplitButton("Save", icon: "pi pi-check", severity:) — the default action joined to a chevron-down dropdown button |
+| `Splitter` | hstack |  | alignment: "stretch", spacing: 0 | Splitter { SplitterPanel { … } SplitterPanel { … } } — gutters drawn between panels |
+| `SplitterPanel` | vstack |  | alignment: "stretch", spacing: 0 | SplitterPanel { … } (.frame(width:) for a fixed size) |
+| `Step` | label | title |  | Step("Payment") — a child of Stepper / StepList |
+| `Stepper` | steps | items |  | Stepper(items: ["Personal", "Seat", "Payment"], current: 1) · Step children · orientation: .vertical |
+| `Steps` | steps | items | variant: "steps" | Steps(items: ["Personal", "Seat", "Payment"], activeStep: 1) — the pre-v4 numbered steps |
+| `Tab` | tab | label |  | Tab("Header I", icon: "pi pi-user") { TabPanel content } |
+| `TabMenu` | tabs | items | placement: "top", variant: "menu" | TabMenu(items: [["label": "Dashboard", "icon": "pi pi-home"], …], selection: 0) |
+| `TabPanel` | tab | header |  | TabPanel("Header I") { … } — pre-v4 TabView child |
+| `TabView` | tabs | items | placement: "top" | Pre-v4 Tabs |
+| `Tabs` | tabs | items | placement: "top" | Tabs(selection: "Header II") { Tab("Header I") { panel } Tab("Header II", icon:, badge:) … } · items: ["A", "B"] for a bar alone |
+| `Tag` | badge | value |  | Tag("Instock", severity: "success"/"info"/"warn"/"danger"/"secondary"/"contrast", icon:, rounded: true) |
+| `Terminal` | code | code | variant: "terminal" | Terminal(code: "$ date\n…") |
+| `Textarea` | textfield | placeholder | kind: "multiline" | Textarea("Description", rows: 4, autoResize:) |
+| `TieredMenu` | menu | label |  | TieredMenu { MenuItem("File") { MenuItem … } } — nested menus; open a level beside it with .offset |
+| `Timeline` | timeline |  |  | Timeline { TimelineEvent("Ordered", time: "15/10/2026 10:30", icon: "pi pi-shopping-cart") … } · layout: "horizontal" |
+| `TimelineEvent` | timelineitem | title |  | TimelineEvent("Shipped", time:, description:, icon:, color: "#10b981") |
+| `Toast` | toast | summary | closable: true, icon: "pi-info-circle", position: "top-right", severity: "info" | Toast(summary: "Success", detail: "File uploaded", severity: "success"/"info"/"warn"/"error"/"secondary"/"contrast", icon:, position: "top-right") |
+| `ToggleButton` | toggle | label | variant: "button" | ToggleButton("Locked", checked: true) · use onLabel/offLabel text as the label |
+| `ToggleSwitch` | toggle | label |  | ToggleSwitch("Notifications", checked: true) |
+| `Toolbar` | toolbar |  |  | Toolbar { start buttons; Spacer(); end buttons } — bordered bar |
+| `Tooltip` | tooltip | text | placement: "right" | Tooltip("Enter your username", placement: .top/.right/.bottom/.left) { target } — v-tooltip |
+| `Tree` | tree |  |  | Tree { TreeNode("Documents", icon: "pi pi-folder", expanded: true) { TreeNode(…) } } |
+| `TreeNode` | treeitem | label |  | TreeNode("Work", icon: "pi pi-folder", expanded: true).selected() |
+| `TreeSelect` | select | placeholder |  | TreeSelect("Select Item", selection: "Documents / Work") |
+| `TreeTable` | table |  | variant: "treetable" | TreeTable(columns:, rows:) — first cells as TreeTableToggle("Documents", level: 1, expanded: true) |
+| `TreeTableToggle` | label | title | icon: "pi-chevron-right" | TreeTableToggle("Work", level: 0…3, expanded: true, icon:) — indented first cell with the toggler |
+| `VirtualScroller` | scroll |  |  | VirtualScroller { … } — a scroll container |
+
+<!-- end catalogue: prime -->
 
 ## swiftui — SwiftUI
 

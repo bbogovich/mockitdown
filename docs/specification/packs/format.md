@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.4.1
+spec_version: 0.5.0
 status: draft
 updated: 2026-11-24
 page_id: PACK.1
@@ -184,7 +184,7 @@ Release 0.4 adds four web kits from the recommended-next list (Ant Design, Tailw
 
 | | Statement |
 |---|---|
-| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3), `shadcn` (shadcn/ui), `antd` (Ant Design 5, React), `tailwind` (Tailwind Catalyst, Tailwind Plus), `carbon` (IBM Carbon 11), `primer` (GitHub Primer), `android` (Jetpack Compose Material 3), `gtk` (GTK 4 with libadwaita), `qt` (Qt 6 Widgets, Fusion), `avalonia` (Avalonia UI 11, Fluent theme) and `kde-plasma` (KDE Plasma 6, Breeze). |
+| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3), `shadcn` (shadcn/ui), `antd` (Ant Design 5, React), `tailwind` (Tailwind Catalyst, Tailwind Plus), `carbon` (IBM Carbon 11), `primer` (GitHub Primer), `vuetify` (Vuetify 3, Vue), `prime` (PrimeVue 4 / PrimeNG with the Aura theme), `sketch` (hand-drawn wireframe), `android` (Jetpack Compose Material 3), `gtk` (GTK 4 with libadwaita), `qt` (Qt 6 Widgets, Fusion), `avalonia` (Avalonia UI 11, Fluent theme) and `kde-plasma` (KDE Plasma 6, Breeze). |
 | C7 | mockitdown MUST ship the retro packs `nls` (Engelbart's NLS, 1968), `xerox-star` (Xerox Star), `lisa` (Lisa Office System), `mac-classic` (Macintosh System 1–6), `win1` (Windows 1.0), `win2` (Windows 2.x), `gsos` (Apple IIgs GS/OS), `nextstep` (NeXTSTEP), `win31` (Windows 3.1.1), `win95` (Windows 95), `macos9` (Mac OS 9, Platinum), `cde` (Solaris CDE), `aqua` (Mac OS X Aqua), `winxp` (Windows XP, Luna) and `vista` (Windows Vista, Aero), and the hidden easter-egg packs `lcars`, `phosphor` and `hologram` (R-PACK-010, ADR-16). |
 | C2 | Every shipped pack other than `base` MUST extend `base` directly or indirectly, declare at least one import module, define light and dark tokens, and choose a default device and per-device chrome that match its platform. |
 | C3 | The `swiftui` pack MUST be selected by `import SwiftUI`. |
@@ -253,7 +253,7 @@ lives in the example site because it is generated from code and needs every pack
 | C2 | Each Reference page MUST list every element the pack offers — its own elements first, then the inherited core vocabulary — each with its role, positional arguments, defaults, variants and `doc` line, and a mockup rendering it in the pack's style with its source. |
 | C3 | The sample of an element MUST render without any diagnostic; the generator MUST simplify a sample (fewer arguments, no children) until it does, falling back to the bare call. |
 | C4 | A pack's own elements that declare variants SHOULD be shown once per variant (at most eight) in one mockup. |
-| C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Desktop, Web, Mobile and Retro — a framework pack is Web when its default device uses browser chrome, Mobile when its default device is a phone or tablet, Desktop otherwise — the retro packs in chronological order; the Demo menu of the example site MUST use the same groups. |
+| C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Wireframe (alternative looks of the core vocabulary, such as `sketch`), Desktop, Web, Mobile and Retro — a framework pack is Web when its default device uses browser chrome, Mobile when its default device is a phone or tablet, Desktop otherwise — the retro packs in chronological order; the Demo menu of the example site MUST use the same groups. |
 | C8 | Both sites MUST keep the header tabs visible at every window width and while scrolling (`navigation.tabs.sticky`, and a stylesheet overriding the theme's narrow-screen rule that moves the tabs into the drawer). |
 | C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same five top-level sections in the order Demo, Definition, Specification, Implementation, Reference; a section built by the other site is a link to its published URL. |
 | C7 | The site root MUST redirect to the Demo section. |
@@ -405,10 +405,12 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |

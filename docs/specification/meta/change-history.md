@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.5.0 | 2026-11-24 | `PACK.1` | R-PACK-008 ships vuetify, prime and sketch; R-PACK-012 Wireframe menu group; catalogue regenerated |
 | 0.4.1 | 2026-11-24 | `PACK.1` | R-PACK-012: packs grouped as desktop, web, mobile; sticky header tabs; catalogue reordered |
 | 0.4.0 | 2026-11-24 | `ADR.2`, `PACK.1` | R-PACK-008 ships antd, tailwind, carbon, primer, avalonia and the nls, win1, nextstep, win95, aqua retro packs; R-PACK-012 Reference gallery and site tabs; ADR-13 updated; catalogue regenerated |
 | 0.3.1 | 2026-11-24 |  | Pack catalogue and role catalogue updated for the platform and retro packs |

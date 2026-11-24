@@ -118,11 +118,11 @@ R-PACK-004 | requirements | active | 0.2.0 r0 | PACK.1 | Element definitions
 R-PACK-005 | requirements | active | 0.2.0 r0 | PACK.1 | Pack selection
 R-PACK-006 | requirements | active | 0.2.0 r0 | PACK.1 | Design tokens
 R-PACK-007 | requirements | active | 0.2.0 r0 | PACK.1 | Pack stylesheet rules
-R-PACK-008 | requirements | active | 0.4.0 r3 | PACK.1 | Shipped packs
+R-PACK-008 | requirements | active | 0.5.0 r4 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.2.0 r0 | PACK.1 | The core vocabulary
 R-PACK-010 | requirements | active | 0.3.0 r0 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.3.0 r0 | PACK.1 | Argument aliases
-R-PACK-012 | requirements | active | 0.4.1 r1 | PACK.1 | Pack reference gallery and site sections
+R-PACK-012 | requirements | active | 0.5.0 r2 | PACK.1 | Pack reference gallery and site sections
 R-REND-001 | requirements | active | 0.2.0 r0 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.2.0 r0 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.2.0 r0 | REND.1 | Attributes on the markup
