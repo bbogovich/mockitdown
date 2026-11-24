@@ -34,7 +34,7 @@
 }
 .mkd-frame[data-fit="true"] .mkd-screen { overflow: visible; padding: 16px; }
 .mkd-frame .mkd-screen > :where(.mkd-navstack, .mkd-tabs, .mkd-split, .mkd-scroll, .mkd-form, .mkd-list) { flex: 1 1 auto; min-height: 0; }
-.mkd-frame .mkd-screen > :where([data-fill~="y"]) { flex: 1 1 auto; }
+.mkd-frame .mkd-screen > [data-fill~="y"][data-fill] { flex: 1 1 auto; }
 
 .mkd-frame .mkd-chrome { flex: none; display: flex; align-items: center; color: var(--mkd-chrome-fg); font-size: 13px; }
 .mkd-frame .mkd-chrome .mkd-icon { width: 16px; height: 16px; }
@@ -114,8 +114,8 @@
 .mkd-frame .mkd-hstack:where([data-wrap="true"]) { flex-wrap: wrap; }
 .mkd-frame .mkd-zstack { display: grid; place-items: center; }
 .mkd-frame .mkd-zstack > * { grid-area: 1 / 1; }
-.mkd-frame .mkd-zstack > :where([data-fill~="x"]) { justify-self: stretch; }
-.mkd-frame .mkd-zstack > :where([data-fill~="y"]) { align-self: stretch; }
+.mkd-frame .mkd-zstack > [data-fill~="x"][data-fill] { justify-self: stretch; }
+.mkd-frame .mkd-zstack > [data-fill~="y"][data-fill] { align-self: stretch; }
 .mkd-frame .mkd-zstack:where([data-align="topLeading"]) { place-items: start; }
 .mkd-frame .mkd-zstack:where([data-align="bottomLeading"]) { place-items: end start; }
 .mkd-frame .mkd-zstack:where([data-align="bottom"]) { place-items: end center; }
@@ -141,10 +141,10 @@
 .mkd-frame .mkd-shape:where([data-shape="circle"]) { aspect-ratio: 1; }
 .mkd-frame .mkd-shape:where([data-shape="rounded"]) { border-radius: 10px; }
 .mkd-frame .mkd-color { align-self: stretch; flex: 1 1 auto; min-height: 8px; }
-.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-card__body, .mkd-form, .mkd-navstack__content, .mkd-screen) > :where([data-fill~="x"]) { align-self: stretch; }
-.mkd-frame :where(.mkd-hstack, .mkd-toolbar) > :where([data-fill~="x"]) { flex: 1 1 0; min-width: 0; }
-.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-split__col, .mkd-tabs__panel) > :where([data-fill~="y"]) { flex: 1 1 0; min-height: 0; }
-.mkd-frame :where(.mkd-hstack) > :where([data-fill~="y"]) { align-self: stretch; }
+.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-card__body, .mkd-form, .mkd-navstack__content, .mkd-screen) > [data-fill~="x"][data-fill] { align-self: stretch; }
+.mkd-frame :where(.mkd-hstack, .mkd-toolbar) > [data-fill~="x"][data-fill] { flex: 1 1 0; min-width: 0; }
+.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-split__col, .mkd-tabs__panel) > [data-fill~="y"][data-fill] { flex: 1 1 0; min-height: 0; }
+.mkd-frame :where(.mkd-hstack) > [data-fill~="y"][data-fill] { align-self: stretch; }
 /* A stack holding a child that fills vertically fills its own parent too (else the child has no room). */
 .mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-screen, .mkd-split__col, .mkd-tabs__panel, .mkd-presented) > .mkd-vstack:where(:has(> [data-fill~="y"])) { flex: 1 1 auto; min-height: 0; align-self: stretch; }
 .mkd-frame :where([data-frame-align="leading"]) { justify-content: flex-start; }
@@ -958,4 +958,4 @@
 .mkd-frame .mkd-chrome--window i { display: none; width: 14px; height: 14px; }
 .mkd-frame .mkd-chrome--statusbar { display: none; }
 .mkd-frame :where(.mkd-vstack) > :where(.mkd-listitem, .mkd-labeled, .mkd-accordion, .mkd-section) { align-self: stretch; }
-.mkd-frame :where(.mkd-card__body, .mkd-form, .mkd-dialog__body, .mkd-presented) > :where([data-fill~="y"]) { flex: 1 1 0; min-height: 0; }
+.mkd-frame :where(.mkd-card__body, .mkd-form, .mkd-dialog__body, .mkd-presented) > [data-fill~="y"][data-fill] { flex: 1 1 0; min-height: 0; }

@@ -538,8 +538,11 @@ class Evaluator:
             return tuple(self.value(a.value, env) for a in expr.items)
         if isinstance(expr, A.RangeExpr):
             lo, hi = self.value(expr.lo, env), self.value(expr.hi, env)
+            if isinstance(lo, (int, float)) and isinstance(hi, (int, float)) and not (
+                    isinstance(lo, int) and isinstance(hi, int)):
+                return [float(lo), float(hi)]  # a continuous range (Slider in: 0.2...0.8): its bounds
             if not isinstance(lo, int) or not isinstance(hi, int):
-                self.diags.error("a range needs integer bounds", expr.loc, "value")
+                self.diags.error("a range needs numeric bounds", expr.loc, "value")
                 return []
             return list(range(lo, hi + 1 if expr.inclusive else hi))
         if isinstance(expr, A.Unary):

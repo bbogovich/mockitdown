@@ -786,9 +786,13 @@ class Renderer:
     def r_segmented(self, v: View) -> str:
         options = self._options(v)
         sel = self._selected_index(v, options)
+        chosen = {i for i, c in enumerate(c for c in v.children if c.role in (
+            "text", "label", "button", "listitem", "menuitem", "tab", "radio")) if _bool(c.attr("selected"))}
+        if chosen and v.attr("selection", "selected", "value") is None:
+            sel = -1
         label = self.content(v.attr("label", "title"))
         items = "".join(
-            f'<span class="mkd-segmented__item" role="tab" aria-selected="{"true" if i == sel else "false"}">'
+            f'<span class="mkd-segmented__item" role="tab" aria-selected="{"true" if i == sel or i in chosen else "false"}">'
             f"{markup}</span>" for i, (_, markup) in enumerate(options))
         return self.open(v, "segmented", attrs={"role": "tablist"}) + (
             f'<span class="mkd-segmented__label">{label}</span>' if label and not v.has_mod("labelsHidden") else "") \
@@ -1597,7 +1601,7 @@ class Renderer:
         title = self.text_or_slot(v, "title")
         message = self.text_or_slot(v, "message", "description", "subtitle")
         icon = v.attr("systemImage", "icon")
-        actions = self.slot(v, "actions", "buttons", "footer")
+        actions = "".join(self.slot(v, n) for n in ("dismissButton", "actions", "buttons", "footer", "confirmButton"))
         buttons = v.attr("buttons")
         if isinstance(buttons, list) and not actions:
             primary = _fmt(v.attr("primary") or (buttons[-1] if buttons else ""))

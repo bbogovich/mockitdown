@@ -1,0 +1,114 @@
+// Reusable Jetpack Compose components for the android pack page. Each one is an ordinary struct built
+// from Material 3 elements, so it follows the pack's look and the light/dark colour scheme.
+// Import with:  import "android/components"
+import Compose
+
+/// Gmail-style conversation row: avatar, sender (bold when unread), subject + preview, time and star.
+struct MailRow: View {
+  var sender: String
+  var subject: String
+  var preview: String
+  var time: String
+  var unread: Bool = false
+  var starred: Bool = false
+  var image: String = ""
+
+  var body: some View {
+    ListItem(
+      headlineContent: unread ? "**\(sender)**" : sender,
+      supportingContent: unread ? "**\(subject)** — \(preview)" : "\(subject) — \(preview)",
+      leadingContent: { Avatar(sender, image: image) },
+      trailingContent: {
+        VStack(alignment: .trailing, spacing: 6) {
+          Text(unread ? "**\(time)**" : time)
+          IconToggleButton(starred ? "star.fill" : "star_outline", selected: starred).frame(width: 24, height: 24)
+        }
+      }
+    )
+  }
+}
+
+/// A settings row: leading icon, title, summary and an optional Switch.
+struct SettingRow: View {
+  var title: String
+  var summary: String = ""
+  var icon: String
+  var toggle: Bool = false
+  var on: Bool = false
+
+  var body: some View {
+    if toggle {
+      ListItem(headlineContent: title, supportingContent: summary, icon: icon) {
+        Switch(checked: on)
+      }
+    } else {
+      ListItem(headlineContent: title, supportingContent: summary, icon: icon)
+    }
+  }
+}
+
+/// Fitness metric tile: a tonal Stat card with an icon, a value and a daily goal ring.
+struct GoalRing: View {
+  var label: String
+  var value: String
+  var goal: Double
+  var icon: String
+
+  var body: some View {
+    Card {
+      HStack(spacing: 16) {
+        CircularProgressIndicator(progress: goal)
+        VStack(alignment: .leading, spacing: 0) {
+          Text(value).font(.titleLarge)
+          Text(label).font(.bodyMedium)
+        }
+        Spacer()
+        Icon(icon).foregroundStyle(.secondary)
+      }
+    }
+  }
+}
+
+/// The time-picker header: hour and minute boxes (the selected one tinted) and the AM/PM selector.
+struct TimeDisplay: View {
+  var hour: String
+  var minute: String
+  var pm: Bool = false
+
+  var body: some View {
+    HStack(spacing: 12) {
+      FilledTonalButton(hour).color(.primary).font(.displayLarge).frame(width: 96, height: 80).cornerRadius(8)
+      Text(":").font(.displayLarge)
+      FilledTonalButton(minute).color(.surface).font(.displayLarge).frame(width: 96, height: 80).cornerRadius(8)
+      SingleChoiceSegmentedButtonRow(["AM", "PM"], selection: pm ? 1 : 0, orientation: .vertical)
+    }
+  }
+}
+
+/// An alarm card for the Clock walkthrough: big time, label, repeat days as filter chips and a switch.
+struct AlarmCard: View {
+  var time: String
+  var label: String
+  var days: [String] = ["S", "M", "T", "W", "T", "F", "S"]
+  var active: [Bool] = [false, true, true, true, true, true, false]
+  var on: Bool = true
+
+  var body: some View {
+    ElevatedCard {
+      HStack {
+        VStack(alignment: .leading, spacing: 0) {
+          Text(label).font(.bodyMedium)
+          Text(time).font(.displayMedium)
+        }
+        Spacer()
+        Switch(checked: on)
+      }
+      HStack(spacing: 4) {
+        ForEach(0..<7) { i in
+          FilterChip(days[i], selected: active[i], checkmark: false).frame(maxWidth: .infinity)
+        }
+      }
+      .frame(maxWidth: .infinity)
+    }
+  }
+}

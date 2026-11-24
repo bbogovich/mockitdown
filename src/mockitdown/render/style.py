@@ -62,7 +62,7 @@ def css_color(v: object) -> str | None:
         name = v.name
         if name == "opacity" and v.namespace:  # .red.opacity(0.3) evaluates as namespace red, name opacity
             name, opacity = v.namespace, (v.args[0] if v.args else None)
-        base = _color_name(name)
+        base = _color_name(name) or _token_color(name)
     elif isinstance(v, CallValue) and v.name == "Color":
         if v.args and isinstance(v.args[0], str):
             base = css_color(v.args[0])
@@ -95,6 +95,14 @@ def _color_name(name: str) -> str | None:
     if name in NAMED_COLORS:
         return f"var(--mkd-color-{'gray' if name == 'grey' else name})"
     return None
+
+
+def _token_color(name: str) -> str | None:
+    """`.primaryContainer` → var(--mkd-primary-container): a colour token the pack defines."""
+    if not re.fullmatch(r"[a-z][A-Za-z0-9]{1,40}", name or ""):
+        return None
+    kebab = re.sub(r"(?<=[a-z0-9])([A-Z])", r"-\1", name).lower()
+    return f"var(--mkd-{kebab}, var(--mkd-color-{kebab}, currentColor))"
 
 
 def font_style(name: str, pack_font) -> str:
