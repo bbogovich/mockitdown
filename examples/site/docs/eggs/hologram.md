@@ -204,4 +204,5 @@ HUDFrame("POWER CELL", code: "P-1") {
 ---
 
 The other hidden consoles: [the starship console](lcars.md), [the phosphor terminal](phosphor.md)
-and this one, [the holographic HUD](hologram.md). And one from before anything floated:.
+and this one, [the holographic HUD](hologram.md). And from before anything
+floated, the [Retro](../retro/win31.md) packs.

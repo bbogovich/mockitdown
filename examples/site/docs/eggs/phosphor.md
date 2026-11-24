@@ -200,5 +200,5 @@ Console("REACTOR CONTROL", code: "SYS 04") {
 ---
 
 Two more hidden consoles share this drawer: [the starship console](lcars.md), the
-[holographic HUD](hologram.md), and this one, [the phosphor terminal](phosphor.md). There is also
-an older one, about thirty years of real time back:.
+[holographic HUD](hologram.md), and this one, [the phosphor terminal](phosphor.md). For the
+rest of computing history, see the [Retro](../retro/win31.md) packs.
