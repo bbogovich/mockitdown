@@ -66,7 +66,7 @@
   letter-spacing: inherit;
   color: inherit;
   background: none;
-  text-transform: none;
+  text-transform: inherit;
   vertical-align: baseline;
   max-width: none;
 }

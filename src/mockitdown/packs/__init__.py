@@ -149,8 +149,11 @@ class PackRegistry:
         d = self._find_dir(pack_id)
         if d is None:
             raise MockitdownError(f"unknown pack {pack_id!r}; known packs: {', '.join(self.ids())}")
-        raw = json.loads((d / "pack.json").read_text(encoding="utf-8"))
         where = str(d / "pack.json")
+        try:
+            raw = json.loads((d / "pack.json").read_text(encoding="utf-8"))
+        except ValueError as e:
+            raise MockitdownError(f"{where}: invalid JSON: {e}") from None
         parent_id = raw.get("extends", None if pack_id == "base" else "base")
         if parent_id == pack_id:
             raise MockitdownError(f"{where}: a pack cannot extend itself")
@@ -191,8 +194,8 @@ class PackRegistry:
             for pid in self.ids():
                 try:
                     pack = self.get(pid)
-                except MockitdownError:
-                    continue
+                except (MockitdownError, ValueError, OSError):
+                    continue  # a broken pack must not break blocks that use other packs
                 for m in pack.modules:
                     idx.setdefault(m.lower(), pid)
             self._module_index = idx

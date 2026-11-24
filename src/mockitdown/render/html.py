@@ -33,7 +33,7 @@ from .style import StyleBuilder, css_color, style_attr, u
 #: Element attributes copied verbatim to ``data-<name>`` when they are simple values.
 PASSTHROUGH = ("variant", "size", "color", "shape", "density", "elevation", "placement", "orientation",
                "emphasis", "design", "severity", "kind", "labelStyle", "position", "level", "side",
-               "withHandle")
+               "withHandle", "direction", "labelPlacement", "rowsPerPage")
 _SAFE_TOKEN = re.compile(r"^[A-Za-z0-9_. -]{1,40}$")
 _INLINE_MD = [
     (re.compile(r"\*\*(.+?)\*\*"), r"<strong>\1</strong>"),
@@ -444,7 +444,8 @@ class Renderer:
 
     def r_badge(self, v: View) -> str:
         text = v.attr("text", "count", "value", "label", "content")
-        data = {"dot": "true"} if text in (None, "", True) and not v.children else {}
+        is_dot = text is None or text is True or (isinstance(text, str) and text == "")
+        data = {"dot": "true"} if is_dot and not v.children else {}
         icon = v.attr("systemImage", "icon")
         body = (f'<span class="mkd-badge__icon">{self.icon(icon, v=v)}</span>' if icon else "")
         if text not in (None, True):
@@ -1251,6 +1252,8 @@ class Renderer:
     def r_steps(self, v: View) -> str:
         steps = v.attr("steps", "items")
         labels: list[tuple[str, str]] = []
+        if isinstance(steps, int) and not isinstance(steps, bool):
+            steps = [""] * steps
         if isinstance(steps, list):
             for s in steps:
                 if isinstance(s, dict):

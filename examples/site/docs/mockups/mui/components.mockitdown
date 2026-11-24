@@ -1,0 +1,123 @@
+// Reusable Material UI components for the mui pack page. Each one is a struct built from MUI
+// elements, so it renders with the pack's look and follows light/dark like any element.
+
+/// Dashboard KPI: label, big number, trend chip, optional sparkline and a tinted icon avatar.
+struct StatCard: View {
+  var title: String
+  var value: String
+  var delta: String
+  var up: Bool = true
+  var icon: String = "insights"
+  var trend: [Double] = []
+
+  var body: some View {
+    Card {
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 2) {
+          Typography(title, variant: "body2", color: "text.secondary")
+          Typography(value, variant: "h5")
+        }
+        Spacer()
+        Avatar(icon: icon, variant: "rounded", color: up ? "primary" : "warning")
+      }
+      HStack(spacing: 8) {
+        Chip(delta, size: "small", color: up ? "success" : "error", variant: "outlined", icon: up ? "trending_up" : "arrow_downward")
+        Typography("vs. last month", variant: "caption", color: "text.secondary")
+      }
+      if trend.count > 0 {
+        SparkLineChart(values: trend, height: 36)
+      }
+    }
+  }
+}
+
+/// Shop tile: CardMedia image, name, Rating, price and card actions.
+struct ProductCard: View {
+  var name: String
+  var price: String
+  var image: String
+  var rating: Double = 4
+  var reviews: Int = 0
+  var tag: String = ""
+
+  var body: some View {
+    Card(image: image, mediaHeight: 130) {
+      HStack {
+        Typography(name, variant: "subtitle1")
+        Spacer()
+        if tag != "" {
+          Chip(tag, size: "small", color: "secondary")
+        }
+      }
+      HStack(spacing: 4) {
+        Rating(value: rating, size: "small")
+        Typography("(\(reviews))", variant: "caption", color: "text.secondary")
+      }
+      Typography(price, variant: "h6")
+    } actions: {
+      Button("Add to cart", variant: "contained", size: "small", startIcon: "add_shopping_cart")
+      Spacer()
+      IconButton("favorite_border", size: "small")
+      IconButton("share", size: "small")
+    }
+  }
+}
+
+/// Settings row: leading icon, primary/secondary text and a trailing Switch.
+struct SettingRow: View {
+  var title: String
+  var detail: String
+  var icon: String
+  var on: Bool = false
+
+  var body: some View {
+    ListItem(title, secondary: detail, icon: icon) {
+      Switch(checked: on)
+    }
+  }
+}
+
+/// Conversation row: avatar, name, last message, time and an unread Badge.
+struct ContactRow: View {
+  var name: String
+  var message: String
+  var time: String
+  var photo: String = ""
+  var unread: Int = 0
+
+  var body: some View {
+    ListItemButton(name, secondary: message) {
+      VStack(alignment: .trailing, spacing: 6) {
+        Typography(time, variant: "caption", color: unread > 0 ? "primary" : "text.secondary")
+        if unread > 0 {
+          Badge("\(unread)", color: "primary")
+        }
+      }
+    } leading: {
+      Avatar(name, image: photo)
+    }
+  }
+}
+
+/// The "EnhancedTableToolbar" of the MUI table demo: a title, or the selection count with actions.
+struct TableToolbar: View {
+  var title: String
+  var selected: Int = 0
+
+  var body: some View {
+    if selected > 0 {
+      Toolbar {
+        Typography("\(selected) selected", variant: "subtitle1", color: "primary")
+        Spacer()
+        Tooltip("Delete", open: false) { IconButton("delete") }
+      }
+      .background(.accentColor.opacity(0.12))
+    } else {
+      Toolbar {
+        Typography(title, variant: "h6")
+        Spacer()
+        Tooltip("Filter list", open: false) { IconButton("filter_list") }
+      }
+    }
+  }
+}
