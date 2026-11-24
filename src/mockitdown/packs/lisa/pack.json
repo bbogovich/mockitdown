@@ -1,0 +1,615 @@
+{
+  "id": "lisa",
+  "name": "Lisa Office System",
+  "framework": "Apple Lisa Office System (Lisa 7/7), 1983 – 1985, 1-bit",
+  "version": "Office System 3.1",
+  "modules": [
+    "Lisa",
+    "LisaOffice"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "none",
+    "phone": "none",
+    "tablet": "none",
+    "wide": "none",
+    "window": "window",
+    "dialog": "none"
+  },
+  "sizes": {
+    "desktop": [
+      720,
+      364
+    ],
+    "phone": [
+      720,
+      364
+    ],
+    "tablet": [
+      720,
+      364
+    ],
+    "wide": [
+      720,
+      364
+    ],
+    "window": [
+      560,
+      300
+    ],
+    "dialog": [
+      440,
+      170
+    ]
+  },
+  "fonts": {
+    "system": "body",
+    "modern": "body",
+    "classic": "callout",
+    "small": "caption"
+  },
+  "icons": {
+    "Folder": "folder",
+    "Document": "doc",
+    "Wastebasket": "trash",
+    "Printer": "printer"
+  },
+  "modifiers": {
+    "default": {
+      "attr": "variant",
+      "value": "default"
+    }
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#ffffff",
+      "surface-3": "#ffffff",
+      "fg": "#000000",
+      "fg-2": "#000000",
+      "fg-3": "#808080",
+      "border": "#000000",
+      "divider": "#000000",
+      "accent": "#000000",
+      "on-accent": "#ffffff",
+      "accent-soft": "#ffffff",
+      "danger": "#000000",
+      "warning": "#000000",
+      "success": "#000000",
+      "info": "#000000",
+      "field-bg": "#ffffff",
+      "field-border": "#000000",
+      "scrim": "transparent",
+      "shadow-1": "1px 1px 0 var(--mkd-ink)",
+      "shadow-2": "1px 1px 0 var(--mkd-ink)",
+      "shadow-3": "2px 2px 0 var(--mkd-ink)",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "999px",
+      "font": "\"ChicagoFLF\", \"Chicago\", \"Charcoal\", \"Geneva\", \"Verdana\", \"Lucida Grande\", sans-serif",
+      "font-mono": "\"Monaco\", \"Menlo\", \"Courier New\", monospace",
+      "font-size": "12px",
+      "line-height": "1.34",
+      "icon-stroke": "1.5",
+      "icon-size": "16px",
+      "control-h": "20px",
+      "gap": "6px",
+      "pad": "8px",
+      "chrome-bg": "#ffffff",
+      "chrome-fg": "#000000",
+      "fs-display": "24px",
+      "fw-display": "700",
+      "fs-largeTitle": "20px",
+      "fw-largeTitle": "700",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "14px",
+      "fw-title2": "700",
+      "fs-title3": "12px",
+      "fw-title3": "700",
+      "fs-headline": "12px",
+      "fw-headline": "700",
+      "fs-subheadline": "12px",
+      "fw-subheadline": "400",
+      "fs-body": "12px",
+      "fw-body": "400",
+      "fs-callout": "12px",
+      "fw-callout": "400",
+      "fs-footnote": "10px",
+      "fw-footnote": "400",
+      "fs-caption": "9px",
+      "fw-caption": "400",
+      "fs-caption2": "9px",
+      "fw-caption2": "400",
+      "fs-overline": "9px",
+      "fw-overline": "700",
+      "color-red": "#000000",
+      "color-orange": "#000000",
+      "color-yellow": "#000000",
+      "color-green": "#000000",
+      "color-mint": "#000000",
+      "color-teal": "#000000",
+      "color-cyan": "#000000",
+      "color-blue": "#000000",
+      "color-indigo": "#000000",
+      "color-purple": "#000000",
+      "color-pink": "#000000",
+      "color-brown": "#000000",
+      "color-gray": "#000000",
+      "chart-1": "#000000",
+      "chart-2": "#555555",
+      "chart-3": "#aaaaaa",
+      "chart-4": "#2a2a2a",
+      "chart-5": "#808080",
+      "chart-6": "#d4d4d4",
+      "callout": "#e8590c",
+      "on-callout": "#ffffff",
+      "marquee": "#000000",
+      "note": "#ffffff",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#000000",
+      "code-str": "#000000",
+      "code-num": "#000000",
+      "code-comment": "#808080",
+      "code-fn": "#000000",
+      "code-type": "#000000",
+      "term-bg": "#000000",
+      "term-fg": "#ffffff",
+      "term-prompt": "#ffffff",
+      "grid-line": "#000000",
+      "map-land": "#ffffff",
+      "map-water": "#aaaaaa",
+      "map-park": "#d4d4d4",
+      "map-road": "#000000",
+      "ink": "#000000",
+      "paper": "#ffffff",
+      "grey": "#808080",
+      "font-app": "\"Geneva\", \"Verdana\", \"Lucida Grande\", \"DejaVu Sans\", sans-serif",
+      "font-serif": "\"New York\", \"Times\", \"Times New Roman\", serif",
+      "desktop": "linear-gradient(90deg, transparent 1px, var(--mkd-paper) 1px) 0 0 / 2px 2px, linear-gradient(transparent 1px, var(--mkd-paper) 1px) 0 0 / 2px 2px, var(--mkd-ink)"
+    },
+    "dark": {
+      "ink": "#ffffff",
+      "paper": "#000000",
+      "grey": "#808080",
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#000000",
+      "surface-3": "#000000",
+      "fg": "#ffffff",
+      "fg-2": "#ffffff",
+      "border": "#ffffff",
+      "divider": "#ffffff",
+      "accent": "#ffffff",
+      "on-accent": "#000000",
+      "accent-soft": "#000000",
+      "danger": "#ffffff",
+      "warning": "#ffffff",
+      "success": "#ffffff",
+      "info": "#ffffff",
+      "field-bg": "#000000",
+      "field-border": "#ffffff",
+      "chrome-bg": "#000000",
+      "chrome-fg": "#ffffff",
+      "chart-1": "#ffffff",
+      "chart-2": "#aaaaaa",
+      "chart-3": "#555555",
+      "chart-4": "#d4d4d4",
+      "chart-5": "#808080",
+      "chart-6": "#2a2a2a",
+      "note": "#000000",
+      "code-bg": "#000000",
+      "code-fg": "#ffffff",
+      "code-kw": "#ffffff",
+      "code-str": "#ffffff",
+      "code-num": "#ffffff",
+      "code-fn": "#ffffff",
+      "code-type": "#ffffff",
+      "term-bg": "#ffffff",
+      "term-fg": "#000000",
+      "term-prompt": "#000000",
+      "grid-line": "#ffffff",
+      "marquee": "#ffffff",
+      "map-land": "#000000",
+      "map-water": "#555555",
+      "map-park": "#2a2a2a",
+      "map-road": "#ffffff"
+    }
+  },
+  "elements": {
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "The menu bar across the top of the screen; holds Menu elements (one may be open: true)"
+    },
+    "Menu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false
+      },
+      "doc": "A menu-bar title; Menu(\"File\", open: true) { MenuItem(…) } pulls its menu down"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label",
+        "shortcut"
+      ],
+      "doc": "A menu command: MenuItem(\"Quit\", shortcut: \"⌘Q\"); .disabled() greys it"
+    },
+    "MenuSeparator": {
+      "role": "divider",
+      "doc": "The dotted line between menu groups"
+    },
+    "Desktop": {
+      "role": "zstack",
+      "defaults": {
+        "alignment": "topLeading"
+      },
+      "doc": "The desktop: the patterned area below the menu bar; place windows and icons with .offset(x:y:)"
+    },
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "variants": [
+        "document",
+        "tool",
+        "dialog",
+        "plain"
+      ],
+      "doc": "A Lisa window: .document (tall white title bar, centred title, scroll bars), .tool (no scroll bars), .dialog (thick-bordered box)"
+    },
+    "DocumentWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "doc": "A document window with scroll bars and size control"
+    },
+    "FolderWindow": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "defaults": {
+        "variant": "folder"
+      },
+      "doc": "An open folder or disk on the Office System desktop (icon view)"
+    },
+    "ToolWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "tool"
+      },
+      "doc": "A window without scroll bars"
+    },
+    "DialogBox": {
+      "role": "card",
+      "defaults": {
+        "variant": "dialog"
+      },
+      "doc": "An in-place dialog box with the thick Lisa border"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "A dialog box presented over the screen (thick border)"
+    },
+    "Alert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "note"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "An alert box: severity .note / .caution / .stop"
+    },
+    "NoteAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "note"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the note symbol"
+    },
+    "CautionAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "caution"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the caution symbol"
+    },
+    "StopAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "stop"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the stop symbol"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "standard",
+        "default"
+      ],
+      "doc": "A Lisa button: a heavy rounded box"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The button that Return activates (doubled outline)"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label",
+        "checked"
+      ],
+      "doc": "A Lisa check box: a small box filled black when chosen"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label",
+        "checked"
+      ],
+      "doc": "One choice of a group, filled when chosen"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "Choices from items: […], selection: …"
+    },
+    "TextField": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "A typing field: an underlined area"
+    },
+    "EditText": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "A typing field"
+    },
+    "StaticText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Static text"
+    },
+    "ListBox": {
+      "role": "list",
+      "defaults": {
+        "kind": "files"
+      },
+      "doc": "A list of documents in a dialog"
+    },
+    "FileItem": {
+      "role": "listitem",
+      "params": [
+        "title",
+        "kind"
+      ],
+      "doc": "A row of a ListBox: FileItem(\"Budget\", kind: .stationery)"
+    },
+    "ScrollBar": {
+      "role": "divider",
+      "params": [
+        "orientation"
+      ],
+      "defaults": {
+        "orientation": "vertical"
+      },
+      "variants": [
+        "active",
+        "inactive"
+      ],
+      "doc": "A Lisa scroll bar with its elevator box: ScrollBar(.vertical, position: .middle)"
+    },
+    "DesktopIcon": {
+      "role": "label",
+      "params": [
+        "title",
+        "kind"
+      ],
+      "defaults": {
+        "kind": "document"
+      },
+      "variants": [
+        "folder",
+        "document",
+        "application",
+        "disk",
+        "floppy",
+        "trash",
+        "system",
+        "stationery",
+        "clipboard",
+        "calculator",
+        "preferences",
+        "profile",
+        "printer",
+        "openFolder"
+      ],
+      "doc": "An Office System icon: kind .stationery / .document / .folder / .profile / .clipboard / .trash / .preferences / .calculator / .printer"
+    },
+    "StationeryPad": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "kind": "stationery"
+      },
+      "doc": "A stationery pad: tear off a new document"
+    },
+    "Folder": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "kind": "folder"
+      },
+      "doc": "A folder icon"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "value"
+      ],
+      "doc": "A plain progress bar"
+    },
+    "Worksheet": {
+      "role": "spreadsheet",
+      "doc": "A LisaCalc-style worksheet (rows: [[…]], selection: \"B3\", formula: …)"
+    },
+    "Spreadsheet": {
+      "role": "spreadsheet",
+      "doc": "Same as Worksheet"
+    },
+    "Ruler": {
+      "role": "divider",
+      "defaults": {
+        "kind": "ruler"
+      },
+      "doc": "The tab ruler at the top of a word-processing window"
+    },
+    "DrawPalette": {
+      "role": "grid",
+      "defaults": {
+        "columns": 1
+      },
+      "doc": "The vertical tool palette of a drawing program"
+    },
+    "ToolPalette": {
+      "role": "grid",
+      "defaults": {
+        "columns": 2
+      },
+      "doc": "A two-column tool palette"
+    },
+    "Tool": {
+      "role": "button",
+      "params": [
+        "kind"
+      ],
+      "defaults": {
+        "iconOnly": true
+      },
+      "variants": [
+        "select",
+        "lasso",
+        "hand",
+        "text",
+        "bucket",
+        "spray",
+        "brush",
+        "pencil",
+        "line",
+        "eraser",
+        "rect",
+        "filledRect",
+        "roundRect",
+        "filledRoundRect",
+        "oval",
+        "filledOval",
+        "arc",
+        "polygon",
+        "freehand",
+        "grid"
+      ],
+      "doc": "A palette tool drawn as a 1-bit glyph: Tool(.rect); .selected() inverts it"
+    },
+    "PatternPalette": {
+      "role": "swatches",
+      "params": [
+        "colors"
+      ],
+      "defaults": {
+        "colors": [
+          "white",
+          "black",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray"
+        ]
+      },
+      "doc": "Fill patterns; selection: index"
+    },
+    "DrawCanvas": {
+      "role": "canvas",
+      "doc": "The drawing area (LisaDraw shows a dotted grid with grid: .dots)"
+    },
+    "Separator": {
+      "role": "divider",
+      "doc": "A 1-pixel line"
+    }
+  }
+}

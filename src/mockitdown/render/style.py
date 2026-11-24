@@ -194,6 +194,10 @@ class StyleBuilder:
     def _m_position(self, m, style, data, classes, pad, view):
         """SwiftUI .position(x:y:): the view's centre at (x, y) in its container (Canvas, ZStack, screen)."""
         x, y = u(m.kwargs.get("x")), u(m.kwargs.get("y"))
+        if x is None and y is None:
+            self.diags.warning(".position needs x: and/or y: (use an element argument for a named position)",
+                               m.loc, "modifier")
+            return
         style["position"] = "absolute"
         if x is not None:
             style["left"] = x

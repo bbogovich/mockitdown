@@ -1,0 +1,38 @@
+// Reusable pieces of the Lisa Office System desktop for the lisa page.
+// Import with:  import "lisa/office"
+
+import Lisa
+
+/// The menu bar of the desktop manager: File/Print, Edit, Housekeeping (none pulled down).
+struct DeskMenus: View {
+  var body: some View {
+    MenuBar {
+      Menu("File/Print")
+      Menu("Edit")
+      Menu("Housekeeping")
+    }
+  }
+}
+
+/// The icons the Office System keeps along the right edge of the 720 × 364 screen.
+struct DeskIcons: View {
+  var profileOpen: Bool = false
+
+  var body: some View {
+    DesktopIcon("Profile", kind: .profile).state(profileOpen ? .open : .normal).offset(x: 636, y: 8)
+    DesktopIcon("Clipboard", kind: .clipboard).offset(x: 636, y: 74)
+    DesktopIcon("Preferences", kind: .preferences).offset(x: 636, y: 140)
+    DesktopIcon("Wastebasket", kind: .trash).offset(x: 636, y: 280)
+  }
+}
+
+/// A row of stationery pads, one per name: tear off a pad to start a new document.
+struct PadRow: View {
+  var names: [String]
+
+  var body: some View {
+    HStack(alignment: .top, spacing: 0) {
+      ForEach(names) { n in StationeryPad(n) }
+    }
+  }
+}

@@ -1,0 +1,697 @@
+{
+  "id": "mac-classic",
+  "name": "Macintosh (System 6)",
+  "framework": "Classic Macintosh system software, System 1 – System 6 (1984 – 1991), 1-bit",
+  "version": "System 6.0.8",
+  "modules": [
+    "MacClassic",
+    "System6",
+    "Macintosh"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "none",
+    "phone": "none",
+    "tablet": "none",
+    "wide": "none",
+    "window": "window",
+    "dialog": "none"
+  },
+  "sizes": {
+    "desktop": [
+      512,
+      342
+    ],
+    "phone": [
+      512,
+      342
+    ],
+    "tablet": [
+      640,
+      480
+    ],
+    "wide": [
+      640,
+      870
+    ],
+    "window": [
+      480,
+      300
+    ],
+    "dialog": [
+      360,
+      160
+    ]
+  },
+  "fonts": {
+    "system": "body",
+    "chicago": "headline",
+    "application": "callout",
+    "geneva": "footnote",
+    "small": "caption"
+  },
+  "icons": {
+    "Folder": "folder",
+    "Document": "doc",
+    "Trash": "trash",
+    "Printer": "printer",
+    "Disk": "archivebox"
+  },
+  "modifiers": {
+    "default": {
+      "attr": "variant",
+      "value": "default"
+    }
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#ffffff",
+      "surface-3": "#ffffff",
+      "fg": "#000000",
+      "fg-2": "#000000",
+      "fg-3": "#808080",
+      "border": "#000000",
+      "divider": "#000000",
+      "accent": "#000000",
+      "on-accent": "#ffffff",
+      "accent-soft": "#ffffff",
+      "danger": "#000000",
+      "warning": "#000000",
+      "success": "#000000",
+      "info": "#000000",
+      "field-bg": "#ffffff",
+      "field-border": "#000000",
+      "scrim": "transparent",
+      "shadow-1": "1px 1px 0 var(--mkd-ink)",
+      "shadow-2": "1px 1px 0 var(--mkd-ink)",
+      "shadow-3": "2px 2px 0 var(--mkd-ink)",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "999px",
+      "font": "\"ChicagoFLF\", \"Chicago\", \"Charcoal\", \"Geneva\", \"Verdana\", \"Lucida Grande\", sans-serif",
+      "font-mono": "\"Monaco\", \"Menlo\", \"Courier New\", monospace",
+      "font-size": "12px",
+      "line-height": "1.34",
+      "icon-stroke": "1.5",
+      "icon-size": "16px",
+      "control-h": "20px",
+      "gap": "6px",
+      "pad": "8px",
+      "chrome-bg": "#ffffff",
+      "chrome-fg": "#000000",
+      "fs-display": "24px",
+      "fw-display": "700",
+      "fs-largeTitle": "20px",
+      "fw-largeTitle": "700",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "14px",
+      "fw-title2": "700",
+      "fs-title3": "12px",
+      "fw-title3": "700",
+      "fs-headline": "12px",
+      "fw-headline": "700",
+      "fs-subheadline": "12px",
+      "fw-subheadline": "400",
+      "fs-body": "12px",
+      "fw-body": "400",
+      "fs-callout": "12px",
+      "fw-callout": "400",
+      "fs-footnote": "10px",
+      "fw-footnote": "400",
+      "fs-caption": "9px",
+      "fw-caption": "400",
+      "fs-caption2": "9px",
+      "fw-caption2": "400",
+      "fs-overline": "9px",
+      "fw-overline": "700",
+      "color-red": "#dd0806",
+      "color-orange": "#ff6403",
+      "color-yellow": "#fbf305",
+      "color-green": "#1fb714",
+      "color-mint": "#1fb714",
+      "color-teal": "#006412",
+      "color-cyan": "#02abea",
+      "color-blue": "#0000d4",
+      "color-indigo": "#4700a5",
+      "color-purple": "#4700a5",
+      "color-pink": "#f20884",
+      "color-brown": "#562c05",
+      "color-gray": "#808080",
+      "chart-1": "#000000",
+      "chart-2": "#555555",
+      "chart-3": "#aaaaaa",
+      "chart-4": "#2a2a2a",
+      "chart-5": "#808080",
+      "chart-6": "#d4d4d4",
+      "callout": "#e8590c",
+      "on-callout": "#ffffff",
+      "marquee": "#000000",
+      "note": "#ffffff",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#000000",
+      "code-str": "#000000",
+      "code-num": "#000000",
+      "code-comment": "#808080",
+      "code-fn": "#000000",
+      "code-type": "#000000",
+      "term-bg": "#000000",
+      "term-fg": "#ffffff",
+      "term-prompt": "#ffffff",
+      "grid-line": "#000000",
+      "map-land": "#ffffff",
+      "map-water": "#aaaaaa",
+      "map-park": "#d4d4d4",
+      "map-road": "#000000",
+      "ink": "#000000",
+      "paper": "#ffffff",
+      "grey": "#808080",
+      "font-app": "\"Geneva\", \"Verdana\", \"Lucida Grande\", \"DejaVu Sans\", sans-serif",
+      "font-serif": "\"New York\", \"Times\", \"Times New Roman\", serif",
+      "desktop": "repeating-conic-gradient(var(--mkd-ink) 0 25%, var(--mkd-paper) 0 50%) 0 0 / 2px 2px"
+    },
+    "dark": {
+      "ink": "#ffffff",
+      "paper": "#000000",
+      "grey": "#808080",
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#000000",
+      "surface-3": "#000000",
+      "fg": "#ffffff",
+      "fg-2": "#ffffff",
+      "border": "#ffffff",
+      "divider": "#ffffff",
+      "accent": "#ffffff",
+      "on-accent": "#000000",
+      "accent-soft": "#000000",
+      "danger": "#ffffff",
+      "warning": "#ffffff",
+      "success": "#ffffff",
+      "info": "#ffffff",
+      "field-bg": "#000000",
+      "field-border": "#ffffff",
+      "chrome-bg": "#000000",
+      "chrome-fg": "#ffffff",
+      "chart-1": "#ffffff",
+      "chart-2": "#aaaaaa",
+      "chart-3": "#555555",
+      "chart-4": "#d4d4d4",
+      "chart-5": "#808080",
+      "chart-6": "#2a2a2a",
+      "note": "#000000",
+      "code-bg": "#000000",
+      "code-fg": "#ffffff",
+      "code-kw": "#ffffff",
+      "code-str": "#ffffff",
+      "code-num": "#ffffff",
+      "code-fn": "#ffffff",
+      "code-type": "#ffffff",
+      "term-bg": "#ffffff",
+      "term-fg": "#000000",
+      "term-prompt": "#000000",
+      "grid-line": "#ffffff",
+      "marquee": "#ffffff",
+      "map-land": "#000000",
+      "map-water": "#555555",
+      "map-park": "#2a2a2a",
+      "map-road": "#ffffff"
+    }
+  },
+  "elements": {
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "The menu bar across the top of the screen; holds Menu elements (one may be open: true)"
+    },
+    "Menu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false
+      },
+      "doc": "A menu-bar title; Menu(\"File\", open: true) { MenuItem(…) } pulls its menu down"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label",
+        "shortcut"
+      ],
+      "doc": "A menu command: MenuItem(\"Quit\", shortcut: \"⌘Q\"); .disabled() greys it"
+    },
+    "MenuSeparator": {
+      "role": "divider",
+      "doc": "The dotted line between menu groups"
+    },
+    "Desktop": {
+      "role": "zstack",
+      "defaults": {
+        "alignment": "topLeading"
+      },
+      "doc": "The desktop: the patterned area below the menu bar; place windows and icons with .offset(x:y:)"
+    },
+    "AppleMenu": {
+      "role": "menu",
+      "defaults": {
+        "label": " ",
+        "caret": false,
+        "kind": "apple"
+      },
+      "doc": "The leftmost menu, titled with a neutral apple-ish glyph; holds desk accessories"
+    },
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "variants": [
+        "document",
+        "noGrow",
+        "zoom",
+        "dBox",
+        "plainDBox",
+        "altDBox",
+        "rDoc",
+        "finder"
+      ],
+      "doc": "A window: .document (title bar, scroll bars, grow box), .noGrow, .dBox, .plainDBox, .altDBox, .rDoc (rounded desk accessory), .finder"
+    },
+    "DocumentWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "doc": "documentProc window with stripes, close box, zoom box, scroll bars, grow box"
+    },
+    "NoGrowWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "noGrow"
+      },
+      "doc": "noGrowDocProc window: striped title bar, no scroll bars"
+    },
+    "FinderWindow": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "defaults": {
+        "variant": "finder"
+      },
+      "doc": "A Finder window in icon view: FinderWindow(\"Disk\", subtitle: \"5 items …\")"
+    },
+    "DeskAccessory": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "noGrow",
+        "kind": "da"
+      },
+      "doc": "A small desk-accessory window (Calculator, Note Pad, Alarm Clock …)"
+    },
+    "RoundWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "rDoc"
+      },
+      "doc": "rDocProc window: rounded corners and a black title bar (Calculator style)"
+    },
+    "DialogWindow": {
+      "role": "card",
+      "defaults": {
+        "variant": "dBox"
+      },
+      "doc": "An in-place modal dialog box (dBoxProc double border), drawn where it stands"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "A modal dialog (dBoxProc) presented over the screen; actions: { Button … }"
+    },
+    "ModalDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "Same as Dialog"
+    },
+    "Alert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "note"
+      },
+      "variants": [
+        "alert"
+      ],
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "An alert box; severity: .stop / .note / .caution draws the icon"
+    },
+    "StopAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "stop"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the stop icon (an octagon with a raised hand)"
+    },
+    "NoteAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "note"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the note icon (a talking face)"
+    },
+    "CautionAlert": {
+      "role": "dialog",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "severity": "caution"
+      },
+      "attrs": {
+        "title": "message"
+      },
+      "doc": "Alert with the caution icon (a triangle with !)"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "standard",
+        "default"
+      ],
+      "doc": "Push button: a round-cornered rectangle; .variant(.default) adds the thick outline"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "standard",
+        "default"
+      ],
+      "doc": "Push button"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The default push button (3-pixel rounded outline; Return activates it)"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label",
+        "checked"
+      ],
+      "doc": "Check box: a square crossed with an X when on"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label",
+        "checked"
+      ],
+      "doc": "Radio button: a circle with a dot when on"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio buttons from items: […], selection: …"
+    },
+    "EditText": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "Editable text item of a dialog: a framed box"
+    },
+    "TextEdit": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "TextEdit field (multi-line with kind: .multiline)"
+    },
+    "TextField": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "Editable text box"
+    },
+    "StaticText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Static text item of a dialog"
+    },
+    "PopUpMenu": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Pop-up menu: framed with a drop shadow and a down triangle"
+    },
+    "ListBox": {
+      "role": "list",
+      "defaults": {
+        "kind": "files"
+      },
+      "doc": "List Manager list (Standard File's file list) with a scroll bar"
+    },
+    "FileItem": {
+      "role": "listitem",
+      "params": [
+        "title",
+        "kind"
+      ],
+      "doc": "A row of a ListBox: FileItem(\"Letters\", kind: .folder); .selected() inverts it"
+    },
+    "ScrollBar": {
+      "role": "divider",
+      "params": [
+        "orientation"
+      ],
+      "defaults": {
+        "orientation": "vertical"
+      },
+      "variants": [
+        "active",
+        "inactive"
+      ],
+      "doc": "A scroll bar: ScrollBar(.vertical / .horizontal, position: .top/.middle/.bottom); .variant(.inactive) for an inactive window"
+    },
+    "GrowBox": {
+      "role": "color",
+      "doc": "The size box drawn where the two scroll bars meet"
+    },
+    "DesktopIcon": {
+      "role": "label",
+      "params": [
+        "title",
+        "kind"
+      ],
+      "defaults": {
+        "kind": "document"
+      },
+      "variants": [
+        "folder",
+        "document",
+        "application",
+        "disk",
+        "floppy",
+        "trash",
+        "system",
+        "stationery",
+        "clipboard",
+        "calculator",
+        "preferences",
+        "profile",
+        "printer",
+        "openFolder"
+      ],
+      "doc": "A 32×32 1-bit icon with its name below; kind: .folder/.document/.application/.disk/.floppy/.trash/.system"
+    },
+    "FinderIcon": {
+      "role": "label",
+      "params": [
+        "title",
+        "kind"
+      ],
+      "defaults": {
+        "kind": "document"
+      },
+      "variants": [
+        "folder",
+        "document",
+        "application",
+        "disk",
+        "floppy",
+        "trash",
+        "system",
+        "stationery",
+        "clipboard",
+        "calculator",
+        "preferences",
+        "profile",
+        "printer",
+        "openFolder"
+      ],
+      "doc": "An icon in a Finder window's icon view"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "value"
+      ],
+      "doc": "A plain progress bar: framed and filled black"
+    },
+    "ToolPalette": {
+      "role": "grid",
+      "defaults": {
+        "columns": 2
+      },
+      "doc": "A drawing program's tool palette (two columns of tools)"
+    },
+    "Tool": {
+      "role": "button",
+      "params": [
+        "kind"
+      ],
+      "defaults": {
+        "iconOnly": true
+      },
+      "variants": [
+        "select",
+        "lasso",
+        "hand",
+        "text",
+        "bucket",
+        "spray",
+        "brush",
+        "pencil",
+        "line",
+        "eraser",
+        "rect",
+        "filledRect",
+        "roundRect",
+        "filledRoundRect",
+        "oval",
+        "filledOval",
+        "arc",
+        "polygon",
+        "freehand",
+        "grid"
+      ],
+      "doc": "A palette tool drawn as a 1-bit glyph: Tool(.pencil); .selected() inverts it"
+    },
+    "PatternPalette": {
+      "role": "swatches",
+      "params": [
+        "colors"
+      ],
+      "defaults": {
+        "colors": [
+          "white",
+          "black",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray",
+          "gray"
+        ]
+      },
+      "doc": "The row of fill patterns under a paint program's canvas; selection: index"
+    },
+    "LineWidths": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0
+      },
+      "doc": "The line-width chooser of a paint program"
+    },
+    "PaintCanvas": {
+      "role": "canvas",
+      "doc": "The white drawing area of a paint window"
+    },
+    "CalcKey": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "key"
+      },
+      "doc": "A calculator key"
+    },
+    "Separator": {
+      "role": "divider",
+      "doc": "A 1-pixel line"
+    },
+    "Spreadsheet": {
+      "role": "spreadsheet",
+      "doc": "A worksheet grid (rows: [[…]], selection: \"B2\")"
+    }
+  }
+}

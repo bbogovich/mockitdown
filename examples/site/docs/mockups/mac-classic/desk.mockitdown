@@ -1,0 +1,106 @@
+// Reusable pieces of the black-and-white Macintosh desktop for the mac-classic page.
+// Import with:  import "mac-classic/desk"
+
+import MacClassic
+
+/// The menu bar: the Apple menu, then the application's menus (trailing closure).
+struct SystemMenuBar: View {
+  @ViewBuilder var menus: Content
+
+  var body: some View {
+    MenuBar {
+      AppleMenu()
+      menus
+    }
+  }
+}
+
+/// The Finder's own menus, none of them pulled down.
+struct FinderMenus: View {
+  var body: some View {
+    Menu("File")
+    Menu("Edit")
+    Menu("View")
+    Menu("Special")
+  }
+}
+
+/// The icons along the right edge of a 512 × 342 desktop: start-up disk, a floppy, the Trash.
+struct DesktopVolumes: View {
+  var disk: String = "Hard Disk"
+  var floppy: String = ""
+  var diskOpen: Bool = false
+
+  var body: some View {
+    DesktopIcon(disk, kind: .disk).state(diskOpen ? .open : .normal).offset(x: 436, y: 6)
+    if floppy != "" {
+      DesktopIcon(floppy, kind: .floppy).offset(x: 436, y: 58)
+    }
+    DesktopIcon("Trash", kind: .trash).offset(x: 436, y: 270)
+  }
+}
+
+/// A Finder icon-view window holding a row of icons.
+struct FinderFolder: View {
+  var title: String
+  var info: String
+  @ViewBuilder var icons: Content
+
+  var body: some View {
+    FinderWindow(title, subtitle: info) {
+      HStack(alignment: .top, spacing: 0) { icons }
+    }
+  }
+}
+
+/// The Calculator desk accessory: a display and a 4 × 5 keypad.
+struct Calculator: View {
+  var display: String = "0"
+
+  var body: some View {
+    DeskAccessory("Calculator") {
+      Text(display)
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .padding(.horizontal, 4)
+        .border(.primary)
+      Grid(columns: 4) {
+        ForEach(["C", "E", "=", "*", "7", "8", "9", "/", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "±", "%"]) { k in
+          CalcKey(k)
+        }
+      }
+    }
+    .frame(width: 118)
+  }
+}
+
+/// The Note Pad desk accessory: a ruled page with a turned-down corner and its page number.
+struct NotePad: View {
+  var page: Int = 1
+  var text: String = ""
+
+  var body: some View {
+    DeskAccessory("Note Pad") {
+      Text(text).font(.callout).frame(maxWidth: .infinity, alignment: .leading)
+      Spacer()
+      Text("\(page)").font(.caption).frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .frame(width: 196, height: 120)
+  }
+}
+
+/// The Alarm Clock desk accessory: time, then date when expanded.
+struct AlarmClock: View {
+  var time: String = "10:24:07 AM"
+  var date: String = ""
+
+  var body: some View {
+    DeskAccessory("Alarm Clock") {
+      Text(time).frame(maxWidth: .infinity)
+      if date != "" {
+        Divider()
+        Text(date).frame(maxWidth: .infinity)
+      }
+    }
+    .frame(width: 150)
+  }
+}
