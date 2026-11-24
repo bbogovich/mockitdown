@@ -1,0 +1,84 @@
+// Reusable KDE Plasma building blocks for the kde-plasma pack page.
+// Import with:  import "kde-plasma/components"
+
+import Kirigami
+
+/// A file or folder in Dolphin's icons view: a large icon over a centred, wrapping name.
+struct DolphinFile: View {
+  var name: String
+  var icon: String = "folder"
+  var tint: Color = .blue
+  var selected: Bool = false
+
+  var body: some View {
+    VStack(spacing: 4) {
+      Icon(icon, size: 40).foregroundStyle(tint)
+      Text(name).font(.footnote).lineLimit(2)
+    }
+    .selected(selected)
+  }
+}
+
+/// A Discover-style application card: icon, name, summary and a rating, with an Install action.
+struct AppCard: View {
+  var name: String
+  var summary: String
+  var icon: String = "applications-system"
+  var tint: Color = .blue
+  var rating: Double = 4.5
+  var reviews: Int = 120
+  var installed: Bool = false
+
+  var body: some View {
+    AbstractCard {
+      HStack(alignment: .top, spacing: 12) {
+        Icon(icon, size: 36).foregroundStyle(tint).frame(width: 48, height: 48)
+        VStack(alignment: .leading, spacing: 2) {
+          Heading(name, level: 3)
+          Text(summary).font(.footnote).foregroundStyle(.secondary).lineLimit(2)
+          HStack(spacing: 6) {
+            Rating(rating)
+            Text("\(reviews) ratings").font(.footnote).foregroundStyle(.secondary)
+          }
+        }
+        Spacer()
+        if installed {
+          Button("Remove", icon: "edit-delete").size(.small)
+        } else {
+          Button("Install", icon: "arrow.down.to.line").size(.small)
+        }
+      }
+    }
+  }
+}
+
+/// The Plasma Mobile top panel: clock on the left, status icons on the right.
+struct MobileStatusBar: View {
+  var time: String = "9:41"
+  var battery: String = "82%"
+
+  var body: some View {
+    HStack(spacing: 6) {
+      Text(time).font(.footnote).bold()
+      Spacer()
+      Icon("network-wireless", size: 13)
+      Icon("cellularbars", size: 13)
+      Icon("battery-full", size: 13)
+      Text(battery).font(.footnote)
+    }
+    .padding(.horizontal, 14)
+    .frame(maxWidth: .infinity, height: 28)
+  }
+}
+
+/// A System Monitor sensor tile with a sparkline history.
+struct SensorTile: View {
+  var label: String
+  var value: String
+  var change: String = ""
+  var history: [Double] = []
+
+  var body: some View {
+    SystemMonitorSensor(label, value, change: change, caption: "last 60 s", trend: history)
+  }
+}
