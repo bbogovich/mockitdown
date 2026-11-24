@@ -1,6 +1,8 @@
 # mockitdown example site — one page per design pack, built with Zensical (or MkDocs).
 # Every page is also a test fixture: tests/test_examples.py renders each block and fails on errors.
 site_name: mockitdown examples
+site_url: https://bbogovich.github.io/mockitdown/demos/
+repo_url: https://github.com/bbogovich/mockitdown
 site_description: UI mockups written in SwiftUI syntax, rendered in the style of each UI framework.
 docs_dir: docs
 
