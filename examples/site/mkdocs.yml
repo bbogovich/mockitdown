@@ -68,4 +68,15 @@ nav:
       - GTK 4 (libadwaita): packs/gtk.md
       - Qt 6 (Fusion): packs/qt.md
       - KDE Plasma (Breeze): packs/kde-plasma.md
+  - Retro:
+      - Macintosh (System 1–6): retro/mac-classic.md
+      - Lisa Office System: retro/lisa.md
+      - Mac OS 9 (Platinum): retro/macos9.md
+      - Apple IIgs GS/OS: retro/gsos.md
+      - Xerox Star: retro/xerox-star.md
+      - Windows 2.x: retro/win2.md
+      - Windows 3.1.1: retro/win31.md
+      - Windows XP (Luna): retro/winxp.md
+      - Windows Vista (Aero): retro/vista.md
+      - Solaris CDE: retro/cde.md
   - Recommended next packs: roadmap.md

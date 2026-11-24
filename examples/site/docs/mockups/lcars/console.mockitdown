@@ -1,0 +1,63 @@
+// Reusable console pieces for the starship-console easter-egg page.
+// Import with:  import "lcars/console"
+
+import LCARS
+
+/// The standard side bar of a console: four numbered blocks, one of them lit.
+struct ConsoleSidebar: View {
+  var lit: String = ""
+
+  var body: some View {
+    SidebarButton("SENSORS", code: "03-1182", selected: lit == "SENSORS")
+    SidebarButton("ENVIRON", code: "04-2210", selected: lit == "ENVIRON").color(.peach)
+    SidebarButton("POWER", code: "05-0091", selected: lit == "POWER").color(.tan)
+    SidebarButton("PERSONNEL", code: "06-7720", selected: lit == "PERSONNEL").color(.periwinkle)
+    SidebarButton("LOGS", code: "07-3302", selected: lit == "LOGS")
+  }
+}
+
+/// One subsystem line: name, a segmented meter and the numeric reading.
+struct SystemRow: View {
+  var name: String
+  var value: Double
+  var reading: String
+  var tint: String = "periwinkle"
+
+  var body: some View {
+    HStack(spacing: 12) {
+      Text(name).font(.footnote).foregroundStyle(.secondary).frame(width: 120, alignment: .leading)
+      SegmentedBar(value, color: tint).frame(maxWidth: .infinity)
+      Text(reading).font(.headline).frame(width: 56, alignment: .trailing)
+    }
+  }
+}
+
+/// A deck status panel: a bracket panel holding three SystemRows (values in percent).
+struct DeckPanel: View {
+  var deck: String
+  var code: String
+  var o2: Int
+  var temp: Int
+  var power: Int
+  var tint: String = "lavender"
+
+  var body: some View {
+    Panel(deck, code: code, color: tint) {
+      SystemRow(name: "OXYGEN", value: o2, reading: "\(o2)")
+      SystemRow(name: "THERMAL", value: temp, reading: "\(temp)", tint: "tan")
+      SystemRow(name: "POWER", value: power, reading: "\(power)", tint: "orange")
+    }
+  }
+}
+
+/// The footer strip of a console: a short bar, a code and a long bar.
+struct ConsoleFooter: View {
+  var code: String
+
+  var body: some View {
+    Bar().color(.tan).frame(width: 70)
+    Text(code)
+    Bar().color(.periwinkle)
+    Bar().color(.peach).frame(width: 40)
+  }
+}

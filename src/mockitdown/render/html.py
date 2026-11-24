@@ -289,16 +289,14 @@ class Renderer:
 
     def _wrap_overlays(self, v: View, out: str) -> str:
         deco = self._decorations(v)
-        if deco:
-            _, data, _ = self.styles.build(v)
-            fill = f' data-fill="{esc(data["fill"])}"' if "fill" in data else ""
+        if deco and out:
             self.anchor_seq += 1
             name = f"--mkd-{self.anchor_prefix}-{self.anchor_seq}"
-            # Drawn twice: inline (fallback; clipped by scrolling ancestors) and in an unclipped screen-level
-            # layer tied to the element with CSS anchor positioning (used where supported).
-            out = (f'<div class="mkd-deco"{fill} style="anchor-name:{name}">{out}'
-                   f'<div class="mkd-deco__layer">{deco}</div></div>')
+            # Marks are drawn twice: in a screen-level layer tied to the element by CSS anchor positioning
+            # (unclipped; used where supported) and inside the element itself (fallback).
             self.overlays.append(f'<div class="mkd-anchored" style="position-anchor:{name}">{deco}</div>')
+            layer = f'<div class="mkd-deco__layer">{deco}</div>'
+            out = _decorate(out, name, layer)
         for m in v.modifiers:
             if m.name == "overlay" and m.content:
                 align = m.kwargs.get("alignment", m.arg())
@@ -2214,6 +2212,26 @@ def _format_date(value: object, style: str) -> str:
 
 
 # --- helpers for the non-standard components ---------------------------------------------------------
+
+def _decorate(out: str, anchor: str, layer: str) -> str:
+    """Make the root element of ``out`` an anchor and append the fallback layer inside it.
+
+    The element stays the parent's direct child (so stack and grid rules still apply to it); only a void
+    root (an ``<img>``) is wrapped.
+    """
+    m = re.match(r"<([a-zA-Z][\w-]*)([^>]*)>", out)
+    if not m or m.group(1).lower() == "img" or not out.rstrip().endswith(f"</{m.group(1)}>"):
+        return (f'<div class="mkd-deco" data-deco="true" style="anchor-name:{anchor}">{out}{layer}</div>')
+    tag, attrs = m.group(1), m.group(2)
+    if ' style="' in attrs:
+        attrs = attrs.replace(' style="', f' style="anchor-name:{anchor};', 1)
+    else:
+        attrs += f' style="anchor-name:{anchor}"'
+    attrs += ' data-deco="true"'
+    close = f"</{tag}>"
+    body = out[m.end():out.rstrip().rfind(close)]
+    return f"<{tag}{attrs}>{body}{layer}{close}"
+
 
 def _col_name(i: int) -> str:
     name = ""

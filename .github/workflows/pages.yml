@@ -1,4 +1,4 @@
-# Publishes GitHub Pages: the documentation site (docs branch) at /, the example site at /examples/.
+# Publishes GitHub Pages: the documentation site (docs branch) at /, the demo (example) site at /demos/.
 # Runs the tests first; the example site build is itself a test (strict mockitdown errors fail it).
 name: pages
 on:
@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir -p public
           cp -R docs/site/. public/
-          mkdir -p public/examples && cp -R main/examples/site/site/. public/examples/
+          mkdir -p public/demos && cp -R main/examples/site/site/. public/demos/
       - uses: actions/upload-pages-artifact@v3
         with: { path: public }
   deploy:

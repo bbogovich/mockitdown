@@ -426,7 +426,7 @@ class Evaluator:
             if label is None:
                 view.children = views
             else:
-                view.slots[label] = views
+                view.slots[dict(el.attrs).get(label) or self.pack.attrs.get(label, label)] = views
         # A closure passed as a labelled argument (`content: { … }`) is a slot too.
         for key, val in list(attrs.items()):
             if isinstance(val, Thunk):
@@ -484,7 +484,11 @@ class Evaluator:
             return targets
         if name in vocabulary.IGNORED and spec is None:
             return targets
-        for v in targets:
+        if name in _ONCE_MODIFIERS and len(targets) > 1:
+            targets_to_mark = targets[:1]  # one callout/pointer for a multi-view component, not one per view
+        else:
+            targets_to_mark = targets
+        for v in targets_to_mark:
             if spec is not None:
                 attr = spec.get("attr", name)
                 if "value" in spec:
@@ -677,3 +681,4 @@ class Evaluator:
 
 
 _MISSING = object()
+_ONCE_MODIFIERS = frozenset({"callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"})
