@@ -9,7 +9,8 @@ from __future__ import annotations
 from .. import icons
 from .html import esc
 
-CHROME_KINDS = ("none", "ios", "ipados", "macos", "windows", "android", "browser", "gnome", "kde", "win31")
+CHROME_KINDS = ("none", "ios", "ipados", "macos", "windows", "android", "browser", "gnome", "kde", "win31",
+                "window")
 
 
 def _i(name: str) -> str:
@@ -50,6 +51,14 @@ def top(kind: str, title: str, url: str | None) -> str:
         return ('<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="win31"><span class="mkd-chrome__sysmenu">'
                 f'<i></i></span><span class="mkd-chrome__title">{esc(title)}</span>'
                 '<span class="mkd-chrome__controls"><i data-control="min"></i><i data-control="max"></i></span></div>')
+    if kind == "window":
+        # Generic title bar for packs that draw their own window style (retro systems): every control any
+        # system used is present; a pack shows and styles the ones its system had.
+        return ('<div class="mkd-chrome mkd-chrome--titlebar mkd-chrome--window" data-chrome="window">'
+                '<span class="mkd-chrome__lead"><i data-btn="close"></i><i data-btn="menu"></i></span>'
+                f'<span class="mkd-chrome__title"><span class="mkd-chrome__title-text">{esc(title)}</span></span>'
+                '<span class="mkd-chrome__trail"><i data-btn="help"></i><i data-btn="min"></i><i data-btn="max"></i>'
+                '<i data-btn="zoom"></i><i data-btn="collapse"></i><i data-btn="close"></i></span></div>')
     if kind == "browser":
         address = url or "https://app.example.com"
         return ('<div class="mkd-chrome mkd-chrome--browser" data-chrome="browser"><span class="mkd-chrome__lights">'
@@ -61,6 +70,8 @@ def top(kind: str, title: str, url: str | None) -> str:
 
 
 def bottom(kind: str) -> str:
+    if kind == "window":
+        return '<div class="mkd-chrome mkd-chrome--statusbar" data-chrome="window"><i data-btn="grow"></i></div>'
     if kind == "ios":
         return '<div class="mkd-chrome mkd-chrome--home" data-chrome="ios"><span class="mkd-chrome__indicator"></span></div>'
     if kind == "android":

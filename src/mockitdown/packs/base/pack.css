@@ -950,3 +950,10 @@
 .mkd-frame .mkd-chrome--titlebar:where([data-chrome="win31"]) .mkd-chrome__controls i { width: 20px; background: #c0c0c0; border-left: 1px solid #000; box-shadow: inset -1px -1px #808080, inset 1px 1px #fff; }
 .mkd-frame .mkd-chrome--titlebar:where([data-chrome="win31"]) .mkd-chrome__controls i::before { left: 6px; top: 7px; width: 0; height: 0; background: none; border: 4px solid transparent; border-top: 4px solid #000; border-bottom: 0; transform: none; }
 .mkd-frame .mkd-chrome--titlebar:where([data-chrome="win31"]) .mkd-chrome__controls i[data-control="max"]::before { border-top: 0; border-bottom: 4px solid #000; top: 6px; }
+
+/* generic "window" chrome: packs show the controls their system had (all hidden by default) */
+.mkd-frame .mkd-chrome--window { height: 26px; padding: 0 6px; gap: 6px; }
+.mkd-frame .mkd-chrome--window .mkd-chrome__lead, .mkd-frame .mkd-chrome--window .mkd-chrome__trail { display: flex; align-items: center; gap: 4px; }
+.mkd-frame .mkd-chrome--window .mkd-chrome__title { flex: 1 1 auto; display: flex; justify-content: center; min-width: 0; font-weight: 600; }
+.mkd-frame .mkd-chrome--window i { display: none; width: 14px; height: 14px; }
+.mkd-frame .mkd-chrome--statusbar { display: none; }
