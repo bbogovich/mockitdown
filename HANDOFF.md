@@ -69,3 +69,11 @@ the agents report are fixed by the lead, then the agents re-verify.
 - Zensical nested `convert()` calls: CSS is emitted only in the conversion containing figures —
   don't change `_StylePostprocessor` without rerunning `ZensicalBuildTests`.
 - Local dev server: `cd examples/site && rm -rf .cache && ../../.venv/bin/zensical serve`.
+
+## Releasing to PyPI
+
+`mockitdown` 0.1.0 is on PyPI (<https://pypi.org/project/mockitdown/>). To release: bump `version`
+in `pyproject.toml`, commit, push, then `git tag -a vX.Y.Z -m "mockitdown X.Y.Z" && git push origin
+vX.Y.Z`. `.github/workflows/release.yml` checks the tag matches the version, runs the tests, builds
+and publishes through PyPI Trusted Publishing (environment `pypi`; no token). A version number can
+never be reused on PyPI. The four new packs warrant 0.2.0.

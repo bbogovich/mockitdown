@@ -36,7 +36,7 @@ NavigationStack {
 
 ```bash
 pip install "mockitdown[markdown]"
-# not yet on PyPI? install from GitHub:
+# or the latest from GitHub:
 pip install "mockitdown[markdown] @ git+https://github.com/bbogovich/mockitdown@main"
 ```
 
