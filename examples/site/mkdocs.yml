@@ -11,6 +11,7 @@ theme:
   variant: classic
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
     - content.code.copy
@@ -60,9 +61,13 @@ nav:
     - Annotations and overlays: annotations.md
     - Beyond the framework kits: widgets.md
     - Charts: charts.md
-    - Packs:
-        - SwiftUI: packs/swiftui.md
+    - Desktop:
         - Fluent (WinUI 3): packs/fluent.md
+        - GTK 4 (libadwaita): packs/gtk.md
+        - Qt 6 (Fusion): packs/qt.md
+        - Avalonia UI (.NET): packs/avalonia.md
+        - KDE Plasma (Breeze): packs/kde-plasma.md
+    - Web:
         - Material UI (React): packs/mui.md
         - Angular Material: packs/angular-material.md
         - SAPUI5 (Fiori): packs/sapui5.md
@@ -72,11 +77,9 @@ nav:
         - Tailwind Catalyst: packs/tailwind.md
         - IBM Carbon: packs/carbon.md
         - GitHub Primer: packs/primer.md
+    - Mobile:
+        - SwiftUI (iOS, iPadOS, macOS): packs/swiftui.md
         - Android (Material 3): packs/android.md
-        - GTK 4 (libadwaita): packs/gtk.md
-        - Qt 6 (Fusion): packs/qt.md
-        - Avalonia UI (.NET): packs/avalonia.md
-        - KDE Plasma (Breeze): packs/kde-plasma.md
     - Retro:
         - NLS, Mother of All Demos (1968): retro/nls.md
         - Xerox Star (1981): retro/xerox-star.md
@@ -101,9 +104,13 @@ nav:
   - Reference:
       - Overview: reference/index.md
       - Core (base): reference/base.md
-      - Packs:
-          - SwiftUI: reference/swiftui.md
+      - Desktop:
           - Fluent (WinUI 3): reference/fluent.md
+          - GTK 4 · libadwaita: reference/gtk.md
+          - Qt Widgets (Fusion): reference/qt.md
+          - Avalonia UI: reference/avalonia.md
+          - KDE Plasma (Breeze): reference/kde-plasma.md
+      - Web:
           - Material UI: reference/mui.md
           - Angular Material: reference/angular-material.md
           - SAPUI5: reference/sapui5.md
@@ -113,11 +120,9 @@ nav:
           - Tailwind Catalyst: reference/tailwind.md
           - Carbon: reference/carbon.md
           - Primer: reference/primer.md
+      - Mobile:
+          - SwiftUI: reference/swiftui.md
           - Android · Jetpack Compose: reference/android.md
-          - GTK 4 · libadwaita: reference/gtk.md
-          - Qt Widgets (Fusion): reference/qt.md
-          - Avalonia UI: reference/avalonia.md
-          - KDE Plasma (Breeze): reference/kde-plasma.md
       - Retro:
           - NLS (oN-Line System): reference/nls.md
           - Xerox Star: reference/xerox-star.md

@@ -27,9 +27,11 @@ from mockitdown.packs import registry  # noqa: E402
 
 OUT = ROOT / "examples" / "site" / "docs" / "reference"
 
-# Framework packs in the order of the example site's Packs menu; packs not listed follow alphabetically.
-KITS = ["swiftui", "fluent", "mui", "angular-material", "sapui5", "bootstrap", "shadcn", "antd", "tailwind",
-        "carbon", "primer", "android", "gtk", "qt", "avalonia", "kde-plasma"]
+# Framework packs in the order of the example site's menus; packs not listed follow alphabetically.
+KITS = ["fluent", "gtk", "qt", "avalonia", "kde-plasma",
+        "mui", "angular-material", "sapui5", "bootstrap", "shadcn", "antd", "tailwind", "carbon", "primer",
+        "swiftui", "android"]
+KIND_TITLES = {"desktop": "Desktop", "web": "Web", "mobile": "Mobile"}
 # Retro packs in chronological order of the version they imitate (as in the example site's nav).
 RETRO = ["nls", "xerox-star", "lisa", "mac-classic", "win1", "win2", "gsos", "nextstep", "win31",
          "win95", "macos9", "cde", "aqua", "winxp", "vista"]
@@ -216,13 +218,22 @@ def page(pid: str) -> str:
     return "\n".join(out).rstrip() + "\n"
 
 
+def kind(p) -> str:
+    """desktop · web · mobile, from the pack's default device and its chrome."""
+    if p.chrome_for(p.device) == "browser":
+        return "web"
+    return "mobile" if p.device in ("phone", "tablet") else "desktop"
+
+
 def groups() -> list[tuple[str, list[str]]]:
     reg = registry()
     ids = [i for i in reg.ids() if not reg.get(i).hidden]
-    retro = [i for i in RETRO if i in ids] + sorted(i for i in ids if i not in RETRO and reg.get(i).chrome_for(reg.get(i).device) == "window" and i not in RETRO)
+    retro = [i for i in RETRO if i in ids]
     rest = [i for i in ids if i not in retro and i != "base"]
     kits = [i for i in KITS if i in rest] + sorted(i for i in rest if i not in KITS)
-    return [("Core", ["base"]), ("Packs", kits), ("Retro", retro)]
+    out = [("Core", ["base"])]
+    out += [(t, [i for i in kits if kind(reg.get(i)) == k]) for k, t in KIND_TITLES.items()]
+    return out + [("Retro", retro)]
 
 
 def index() -> str:

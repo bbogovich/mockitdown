@@ -10,3 +10,10 @@
 .ref-card .ref-props { color: var(--md-default-fg-color--light); }
 .ref-card figure, .ref-card .mockitdown { margin: 8px 0; overflow-x: auto; }
 .ref-card details { margin: 4px 0 8px; font-size: .7rem; }
+
+/* Header tabs (Demo, Definition, Specification, Implementation, Reference) stay visible at every
+   width: the theme hides them below 1220 px and moves them into the drawer. */
+@media screen and (max-width: 76.2344em) {
+  .md-tabs { display: block; }
+  .md-tabs__list { white-space: nowrap; overflow-x: auto; }
+}

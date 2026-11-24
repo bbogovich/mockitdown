@@ -11,12 +11,20 @@ onto, its arguments, defaults and variants. **Core** is the vocabulary every pac
 |---|---|---|---|
 | [Wireframe](base.md) | Neutral wireframe (the portable core every pack extends) 1 | `Wireframe`, `Mockitdown` | 134 |
 
-## Packs
+## Desktop
 
 | Pack | Imitates | Selected by | Elements |
 |---|---|---|---|
-| [SwiftUI](swiftui.md) | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) iOS 26 SDK | `SwiftUI` | 175 |
 | [Fluent (WinUI 3)](fluent.md) | Fluent 2 · WinUI 3 (Windows 11 desktop apps) Windows App SDK 1.8 | `WinUI`, `FluentUI`, `Fluent`, `WindowsAppSDK`, `Microsoft.UI.Xaml` | 233 |
+| [GTK 4 · libadwaita](gtk.md) | GTK 4 with libadwaita and the Adwaita stylesheet (GNOME 48/49) GTK 4.18 · libadwaita 1.7/1.8 | `Gtk`, `Adwaita`, `Libadwaita`, `GNOME` | 229 |
+| [Qt Widgets (Fusion)](qt.md) | Qt 6 Widgets · Fusion style (cross-platform default palette) Qt 6.8 | `Qt`, `QtWidgets`, `Qt6`, `PySide`, `PyQt` | 204 |
+| [Avalonia UI](avalonia.md) | Avalonia UI 11 · FluentTheme (cross-platform .NET desktop apps) Avalonia 11.3 | `Avalonia`, `AvaloniaUI`, `Avalonia.Controls`, `Avalonia.Themes.Fluent` | 214 |
+| [KDE Plasma (Breeze)](kde-plasma.md) | KDE Plasma 6 apps · Kirigami (KF6) and Qt Widgets · Breeze style, Breeze Light / Breeze Dark colours Plasma 6.2 · KDE Frameworks 6 | `KDE`, `Plasma`, `Breeze`, `Kirigami`, `KF6` | 232 |
+
+## Web
+
+| Pack | Imitates | Selected by | Elements |
+|---|---|---|---|
 | [Material UI](mui.md) | Material UI (MUI Core + MUI X) · React, default theme v9 | `MaterialUI`, `MUI` | 212 |
 | [Angular Material](angular-material.md) | Angular Material · Material 3 (azure theme) Angular Material 20 | `AngularMaterial`, `Angular` | 227 |
 | [SAPUI5](sapui5.md) | SAPUI5 / OpenUI5 · SAP Fiori Horizon theme (sap_horizon, sap_horizon_dark) 1.136 | `SAPUI5`, `OpenUI5`, `UI5`, `Fiori`, `sap.m`, `sap.f`, `sap.uxap`, `sap.tnt` | 242 |
@@ -26,11 +34,13 @@ onto, its arguments, defaults and variants. **Core** is the vocabulary every pac
 | [Tailwind Catalyst](tailwind.md) | Catalyst — the Tailwind Plus application UI kit (Headless UI + Tailwind CSS v4), zinc neutrals, plus Tailwind Plus marketing sections Catalyst 2025 · Tailwind CSS 4.1 | `Tailwind`, `TailwindPlus`, `TailwindCatalyst` | 222 |
 | [Carbon](carbon.md) | IBM Carbon Design System v11 · @carbon/react, White theme (light) and g100 (dark); g10 / g90 zones via Theme 11 | `Carbon`, `CarbonReact` | 254 |
 | [Primer](primer.md) | GitHub Primer · Primer React components and Primer CSS, primitives light/dark default themes Primer React 37 · Primer Primitives 10 | `Primer`, `PrimerReact`, `GitHub` | 256 |
+
+## Mobile
+
+| Pack | Imitates | Selected by | Elements |
+|---|---|---|---|
+| [SwiftUI](swiftui.md) | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) iOS 26 SDK | `SwiftUI` | 175 |
 | [Android · Jetpack Compose](android.md) | Jetpack Compose · Material 3 Expressive (baseline scheme) Compose Material 3 1.4 · Android 16 | `Android`, `JetpackCompose`, `Compose`, `Material3` | 237 |
-| [GTK 4 · libadwaita](gtk.md) | GTK 4 with libadwaita and the Adwaita stylesheet (GNOME 48/49) GTK 4.18 · libadwaita 1.7/1.8 | `Gtk`, `Adwaita`, `Libadwaita`, `GNOME` | 229 |
-| [Qt Widgets (Fusion)](qt.md) | Qt 6 Widgets · Fusion style (cross-platform default palette) Qt 6.8 | `Qt`, `QtWidgets`, `Qt6`, `PySide`, `PyQt` | 204 |
-| [Avalonia UI](avalonia.md) | Avalonia UI 11 · FluentTheme (cross-platform .NET desktop apps) Avalonia 11.3 | `Avalonia`, `AvaloniaUI`, `Avalonia.Controls`, `Avalonia.Themes.Fluent` | 214 |
-| [KDE Plasma (Breeze)](kde-plasma.md) | KDE Plasma 6 apps · Kirigami (KF6) and Qt Widgets · Breeze style, Breeze Light / Breeze Dark colours Plasma 6.2 · KDE Frameworks 6 | `KDE`, `Plasma`, `Breeze`, `Kirigami`, `KF6` | 232 |
 
 ## Retro
 

@@ -7,7 +7,7 @@ Definition 0.4.0, specification 0.4.0, implementation 0.3.0; PyPI `mockitdown` 0
 
 35 packs (32 listed, 3 hidden easter eggs). Added in this session:
 
-- Web/desktop kits: `antd` (Ant Design 5), `tailwind` (Tailwind Catalyst; module `Catalyst` left free
+- Kits (grouped Desktop · Web · Mobile in the Demo and Reference menus): `antd` (Ant Design 5), `tailwind` (Tailwind Catalyst; module `Catalyst` left free
   for a future Mac Catalyst pack), `carbon` (IBM Carbon 11), `primer` (GitHub Primer), `avalonia`
   (Avalonia UI 11, Fluent theme).
 - Retro: `nls` (Engelbart's 1968 NLS demo), `win1` (Windows 1.0), `nextstep` (NeXTSTEP 3),
