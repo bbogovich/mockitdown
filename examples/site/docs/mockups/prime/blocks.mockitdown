@@ -1,0 +1,156 @@
+// Reusable PrimeVue blocks for the prime pack page — the small compositions a PrimeVue / PrimeNG /
+// PrimeReact admin app (Sakai-style) repeats on every screen. Imported with `import "prime/blocks"`.
+import PrimeVue
+
+/// A neutral brand mark: a round primary tile with a glyph, and the product name.
+struct BrandMark: View {
+  var name: String
+  var icon: String = "pi pi-bolt"
+
+  var body: some View {
+    HStack(spacing: 10) {
+      Avatar(icon: icon, shape: "circle", color: "primary")
+      Text(name).font(.title3)
+    }
+  }
+}
+
+/// The application top bar: menu toggle, brand, actions on the right.
+struct AppTopbar: View {
+  var title: String
+  var user: String = "Amy Elsner"
+  var notifications: Int = 0
+
+  var body: some View {
+    HStack(spacing: 14) {
+      Button(icon: "pi pi-bars", severity: "secondary", variant: "text", rounded: true)
+      BrandMark(name: title)
+      Spacer()
+      IconField("Search").frame(width: 220)
+      Button(icon: "pi pi-calendar", severity: "secondary", variant: "text", rounded: true)
+      OverlayBadge(value: notifications, severity: "danger") {
+        Button(icon: "pi pi-bell", severity: "secondary", variant: "text", rounded: true)
+      }
+      Avatar(image: "assets/images/avatar-2.svg", shape: "circle")
+    }
+    .padding(.horizontal, 28)
+    .frame(height: 60)
+    .background(.surface)
+  }
+}
+
+/// A KPI card of the Sakai dashboard: caption, big value, a tinted icon tile and a trend line.
+struct KpiCard: View {
+  var title: String
+  var value: String
+  var icon: String
+  var tint: String = "blue"
+  var delta: String
+  var note: String
+
+  var body: some View {
+    Card {
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 10) {
+          Text(title).fontWeight(.medium).foregroundStyle(.secondary)
+          Text(value).font(.title3)
+        }
+        Spacer()
+        Avatar(icon: icon, size: "large", color: tint)
+      }
+      HStack(spacing: 6) {
+        Text(delta).fontWeight(.medium).foregroundStyle(.mint)
+        Text(note).foregroundStyle(.secondary)
+      }
+    }
+  }
+}
+
+/// The edit / delete pair of a CRUD table row (rounded outlined icon buttons).
+struct RowActions: View {
+  var body: some View {
+    HStack(spacing: 7) {
+      Button(icon: "pi pi-pencil", variant: "outlined", rounded: true)
+      Button(icon: "pi pi-trash", severity: "danger", variant: "outlined", rounded: true)
+    }
+  }
+}
+
+/// Inventory status as a Tag with the severity PrimeVue's showcase uses.
+struct StockTag: View {
+  var status: String
+
+  var body: some View {
+    if status == "INSTOCK" {
+      Tag(status, severity: "success")
+    } else if status == "LOWSTOCK" {
+      Tag(status, severity: "warn")
+    } else {
+      Tag(status, severity: "danger")
+    }
+  }
+}
+
+/// One product row of the CRUD DataTable.
+struct ProductRow: View {
+  var code: String
+  var name: String
+  var price: String
+  var category: String
+  var rating: Int
+  var status: String
+  var selected: Bool = false
+
+  var body: some View {
+    Row {
+      Text(code)
+      Text(name)
+      Text(price)
+      Text(category)
+      Rating(value: rating)
+      StockTag(status: status)
+      RowActions()
+    }
+    .selected(selected)
+  }
+}
+
+/// A settings line: title and description on the left, a ToggleSwitch on the right.
+struct SettingRow: View {
+  var title: String
+  var description: String
+  var on: Bool = false
+
+  var body: some View {
+    HStack(spacing: 14) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(title).fontWeight(.medium)
+        Text(description).font(.footnote).foregroundStyle(.secondary)
+      }
+      Spacer()
+      ToggleSwitch(checked: on)
+    }
+    .padding(.vertical, 4)
+  }
+}
+
+/// The transfer / reorder button column of PickList and OrderList.
+struct TransferControls: View {
+  var vertical: Bool = false
+
+  var body: some View {
+    ListControls {
+      if vertical {
+        Button(icon: "pi pi-angle-up", severity: "secondary")
+        Button(icon: "pi pi-angle-double-up", severity: "secondary")
+        Button(icon: "pi pi-angle-down", severity: "secondary")
+        Button(icon: "pi pi-angle-double-down", severity: "secondary")
+      } else {
+        Button(icon: "pi pi-angle-right", severity: "secondary")
+        Button(icon: "pi pi-angle-double-right", severity: "secondary")
+        Button(icon: "pi pi-angle-left", severity: "secondary")
+        Button(icon: "pi pi-angle-double-left", severity: "secondary")
+      }
+    }
+  }
+}

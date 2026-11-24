@@ -131,6 +131,11 @@ class CollectionMethodTests(unittest.TestCase):
         self.assertIn('mkd-badge__label">1<', out)
         self.assertNotIn('data-dot="true"', out)
 
+    def test_chart_top_tick_covers_the_maximum(self):
+        from mockitdown.render.charts import nice_ticks
+        self.assertGreaterEqual(nice_ticks(0, 23600)[-1], 23600)
+        self.assertEqual(nice_ticks(0, 100), [0, 25, 50, 75, 100])
+
     def test_empty_text_keeps_a_line(self):
         self.assertIn("&#160;", html('VStack { Text("a"); Text(""); Text("b") }'))
 

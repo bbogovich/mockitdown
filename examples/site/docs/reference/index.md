@@ -11,6 +11,12 @@ onto, its arguments, defaults and variants. **Core** is the vocabulary every pac
 |---|---|---|---|
 | [Wireframe](base.md) | Neutral wireframe (the portable core every pack extends) 1 | `Wireframe`, `Mockitdown` | 134 |
 
+## Wireframe
+
+| Pack | Imitates | Selected by | Elements |
+|---|---|---|---|
+| [Sketch](sketch.md) | Hand-drawn wireframe sketch of the neutral core (paper and pencil, one highlighter) 1 | `Sketch`, `HandDrawn`, `Napkin` | 142 |
+
 ## Desktop
 
 | Pack | Imitates | Selected by | Elements |
@@ -34,6 +40,8 @@ onto, its arguments, defaults and variants. **Core** is the vocabulary every pac
 | [Tailwind Catalyst](tailwind.md) | Catalyst — the Tailwind Plus application UI kit (Headless UI + Tailwind CSS v4), zinc neutrals, plus Tailwind Plus marketing sections Catalyst 2025 · Tailwind CSS 4.1 | `Tailwind`, `TailwindPlus`, `TailwindCatalyst` | 222 |
 | [Carbon](carbon.md) | IBM Carbon Design System v11 · @carbon/react, White theme (light) and g100 (dark); g10 / g90 zones via Theme 11 | `Carbon`, `CarbonReact` | 254 |
 | [Primer](primer.md) | GitHub Primer · Primer React components and Primer CSS, primitives light/dark default themes Primer React 37 · Primer Primitives 10 | `Primer`, `PrimerReact`, `GitHub` | 256 |
+| [Vuetify](vuetify.md) | Vuetify 3 · Vue 3, default theme (Material Design 2 blueprint) 3.x | `Vuetify`, `Vue` | 275 |
+| [PrimeVue · Aura](prime.md) | PrimeVue 4 / PrimeNG 18+ / PrimeReact (styled mode) · Aura theme preset PrimeVue 4 · @primeuix/themes Aura | `PrimeVue`, `PrimeNG`, `PrimeReact`, `Prime` | 221 |
 
 ## Mobile
 

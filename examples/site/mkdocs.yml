@@ -61,6 +61,8 @@ nav:
     - Annotations and overlays: annotations.md
     - Beyond the framework kits: widgets.md
     - Charts: charts.md
+    - Wireframe:
+        - Sketch: packs/sketch.md
     - Desktop:
         - Fluent (WinUI 3): packs/fluent.md
         - GTK 4 (libadwaita): packs/gtk.md
@@ -77,6 +79,8 @@ nav:
         - Tailwind Catalyst: packs/tailwind.md
         - IBM Carbon: packs/carbon.md
         - GitHub Primer: packs/primer.md
+        - Vuetify (Vue): packs/vuetify.md
+        - PrimeVue · PrimeNG: packs/prime.md
     - Mobile:
         - SwiftUI (iOS, iPadOS, macOS): packs/swiftui.md
         - Android (Material 3): packs/android.md
@@ -104,6 +108,8 @@ nav:
   - Reference:
       - Overview: reference/index.md
       - Core (base): reference/base.md
+      - Wireframe:
+          - Sketch: reference/sketch.md
       - Desktop:
           - Fluent (WinUI 3): reference/fluent.md
           - GTK 4 · libadwaita: reference/gtk.md
@@ -120,6 +126,8 @@ nav:
           - Tailwind Catalyst: reference/tailwind.md
           - Carbon: reference/carbon.md
           - Primer: reference/primer.md
+          - Vuetify: reference/vuetify.md
+          - PrimeVue · Aura: reference/prime.md
       - Mobile:
           - SwiftUI: reference/swiftui.md
           - Android · Jetpack Compose: reference/android.md

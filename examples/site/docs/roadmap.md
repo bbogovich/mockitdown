@@ -18,7 +18,6 @@ development**. These are the packs that would add the most value next, in priori
 |---|---|
 | **Fluent UI React v9 (`fluent-web`)** | Microsoft's *web* Fluent 2 differs from WinUI (density, radii, Teams/Office patterns); needed for Office add-ins and Teams apps. |
 | **Ionic (`ionic`)** | Hybrid mobile apps; its iOS and Material modes map neatly onto device forms. |
-| **Vuetify (`vuetify`)** and **PrimeVue / PrimeNG (`prime`)** | The leading component kits for Vue and a popular alternative for Angular. |
 | **Chakra UI v3 / Mantine** | Popular React kits for product teams that do not use MUI or shadcn. |
 | **Salesforce Lightning (SLDS 2), Atlassian Design System** | Platform-specific kits for teams building on those ecosystems. |
 
@@ -26,7 +25,6 @@ development**. These are the packs that would add the most value next, in priori
 
 - **Flutter** — Material 3 and Cupertino are already covered by the `android` and `swiftui` packs;
   a thin `flutter` pack would only add Flutter's own names.
-- **Wireframe sketch style** — a hand-drawn variant of `base` for early concepts.
 
 ---
 

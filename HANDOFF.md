@@ -1,11 +1,11 @@
-# Handoff — state after the 0.2.0 release session
+# Handoff — state after the 0.3.0 release
 
 State on 2026-11-24: `main` and `docs` are pushed to `github.com/bbogovich/mockitdown`; GitHub Pages
 publishes the documentation (docs branch) at <https://bbogovich.github.io/mockitdown/> and the example
 site at <https://bbogovich.github.io/mockitdown/demos/> (the root redirects to the Demo tab).
-Definition 0.4.0, specification 0.4.0, implementation 0.3.0; PyPI `mockitdown` 0.2.0.
+Definition 0.4.1, specification 0.5.0, implementation 0.3.1; PyPI `mockitdown` 0.3.0.
 
-35 packs (32 listed, 3 hidden easter eggs). Added in this session:
+38 packs (35 listed, 3 hidden easter eggs). Added since 0.1.0 — 0.3.0 adds `sketch` (hand-drawn wireframe), `vuetify` (Vuetify 3), `prime` (PrimeVue 4 / PrimeNG, Aura):
 
 - Kits (grouped Desktop · Web · Mobile in the Demo and Reference menus): `antd` (Ant Design 5), `tailwind` (Tailwind Catalyst; module `Catalyst` left free
   for a future Mac Catalyst pack), `carbon` (IBM Carbon 11), `primer` (GitHub Primer), `avalonia`
@@ -41,8 +41,19 @@ are ordered chronologically by `RETRO` in that script and in the Demo nav; kits 
   (git/Octicon glyphs are stand-ins).
 - Several toasts cannot stack in one corner; access-key underscores (`_File`) show literally.
 - Unknown labelled arguments are dropped without a warning.
+- Reported again by vuetify/sketch (priority): callouts inside a `Dialog` land at the frame's top-left,
+  and on Dialog/Toast themselves are dropped — overlay layers need their own decoration context.
+- `r_tabs` ignores button-role children with bottom placement (`VBottomNavigation { VBtn(…) }`).
+- `r_listitem` ignores `trailingIcon`/`appendIcon`; no pack-declared passthrough attribute list
+  (Vuetify booleans `rounded`, `block`, `inset` are aliased onto `design`/`emphasis`).
+- `NavigationSplitView` columns do not draw a `.navigationTitle` set on a List/Form placed directly
+  in the column (only inside a NavigationStack).
+- A fill-height stack inside an auto-height card collapses to zero height.
 
-Fixed in this session: blank `Text("")` keeps a line; arrays/strings `contains`, `hasPrefix`,
+Fixed: an HStack stretches when a child has `.frame(maxWidth: .infinity)`; `.frame(height:)`
+overrides the placeholder's minimum height.
+
+Fixed earlier: blank `Text("")` keeps a line; arrays/strings `contains`, `hasPrefix`,
 `hasSuffix`; `Table` sees rows/columns inside `Group` wrappers; `Badge(count: 1)` no longer a dot;
 `Progress(kind: "circle"|"dashboard")` is circular; inline code no longer gets the code block's box;
 a menu stays right-aligned when a callout layer follows it.

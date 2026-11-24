@@ -49,7 +49,7 @@ def nice_ticks(lo: float, hi: float, count: int = 5) -> list[float]:
     step = next(m * mag for m in (1, 2, 2.5, 5, 10) if m * mag >= raw)
     start = math.floor(lo / step) * step
     ticks, t = [], start
-    while t <= hi + step * 0.5 and len(ticks) < 12:
+    while (t <= hi + step * 0.5 or not ticks or ticks[-1] < hi) and len(ticks) < 12:  # top tick ≥ max
         ticks.append(round(t, 10))
         t += step
     return ticks

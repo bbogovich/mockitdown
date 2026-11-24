@@ -1,0 +1,108 @@
+// Reusable Vuetify 3 components for the vuetify pack page. Each one is an ordinary struct built from
+// Vuetify elements (VCard, VListItem, VNavigationDrawer …), so it follows the pack's look and the
+// light/dark theme like any element. Imported with `import "vuetify/components"`.
+
+import Vuetify
+
+/// Dashboard KPI: an elevated VCard with a label, a big number, a tonal trend chip and a VSparkline.
+struct StatCard: View {
+  var title: String
+  var value: String
+  var delta: String
+  var up: Bool = true
+  var icon: String = "mdi-chart-line"
+  var color: String = "primary"
+  var trend: [Double] = []
+
+  var body: some View {
+    VCard(variant: "elevated") {
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(title).font(.body2).foregroundStyle(.secondary)
+          Text(value).font(.h5)
+        }
+        Spacer()
+        VAvatar(icon: icon, color: color, variant: "tonal", rounded: "lg")
+      }
+      HStack(spacing: 8) {
+        VChip(delta, size: "small", color: up ? "success" : "error", prependIcon: up ? "mdi-trending-up" : "mdi-trending-down")
+        Text("vs. last month").font(.caption).foregroundStyle(.secondary)
+      }
+      if trend.count > 0 {
+        VSparkline(trend, color: color, height: 40)
+      }
+    }
+  }
+}
+
+/// The admin app's navigation drawer: a user header and a nav VList; `selected` names the active page.
+struct AdminDrawer: View {
+  var selected: String = "Dashboard"
+
+  var body: some View {
+    VNavigationDrawer {
+      VList {
+        VListItem(title: "Ana Lima", subtitle: "ana@northwind.example") prepend: {
+          VAvatar(image: "assets/images/avatar-1.svg", size: "small")
+        }
+      }
+      VDivider()
+      VList(density: "compact") {
+        VListItem(title: "Dashboard", prependIcon: "mdi-view-dashboard", active: selected == "Dashboard")
+        VListItem(title: "Orders", prependIcon: "mdi-cart", active: selected == "Orders").badge(4)
+        VListItem(title: "Customers", prependIcon: "mdi-account-group", active: selected == "Customers")
+        VListItem(title: "Products", prependIcon: "mdi-package-variant", active: selected == "Products")
+        VListItem(title: "Reports", prependIcon: "mdi-chart-bar", active: selected == "Reports")
+        VListSubheader("SETTINGS")
+        VListItem(title: "Team", prependIcon: "mdi-account-cog", active: selected == "Team")
+        VListItem(title: "Billing", prependIcon: "mdi-credit-card", active: selected == "Billing")
+      }
+    }
+  }
+}
+
+/// A settings row: icon, title, hint and a trailing VSwitch.
+struct SettingSwitch: View {
+  var title: String
+  var subtitle: String = ""
+  var icon: String = "mdi-cog"
+  var on: Bool = false
+
+  var body: some View {
+    VListItem(title: title, subtitle: subtitle, prependIcon: icon) append: {
+      VSwitch(modelValue: on, color: "primary", hideDetails: true)
+    }
+  }
+}
+
+/// A conversation row for the mobile inbox: avatar, name, last message, time and unread count.
+struct ThreadItem: View {
+  var name: String
+  var message: String
+  var time: String
+  var photo: String = ""
+  var unread: Int = 0
+
+  var body: some View {
+    VListItem(title: name, subtitle: message, detail: time) prepend: {
+      if photo != "" {
+        VAvatar(image: photo)
+      } else {
+        VAvatar(name, color: "secondary")
+      }
+    }
+    .badge(unread > 0 ? unread : nil)
+  }
+}
+
+/// An order-summary line: product thumbnail, name, quantity and price.
+struct SummaryLine: View {
+  var name: String
+  var detail: String
+  var price: String
+  var image: String = ""
+
+  var body: some View {
+    VListItem(title: name, subtitle: detail, detail: price, prependAvatar: image)
+  }
+}

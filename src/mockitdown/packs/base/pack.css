@@ -125,8 +125,8 @@
 .mkd-frame .mkd-zstack:where([data-align="bottomTrailing"]) { place-items: end; }
 .mkd-frame .mkd-group, .mkd-frame .mkd-gridrow { display: contents; }
 /* SwiftUI: a stack holding a Spacer takes all the room its parent offers along that axis. */
-.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-card__body, .mkd-form__row, .mkd-navstack__content, .mkd-dialog__body, .mkd-screen) > .mkd-hstack:where(:has(> .mkd-spacer)) { align-self: stretch; }
-.mkd-frame :where(.mkd-hstack, .mkd-toolbar) > .mkd-hstack:where(:has(> .mkd-spacer)) { flex: 1 1 auto; }
+.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-card__body, .mkd-form__row, .mkd-navstack__content, .mkd-dialog__body, .mkd-screen) > .mkd-hstack:where(:has(> .mkd-spacer, > [data-fill~="x"])) { align-self: stretch; }
+.mkd-frame :where(.mkd-hstack, .mkd-toolbar) > .mkd-hstack:where(:has(> .mkd-spacer, > [data-fill~="x"])) { flex: 1 1 auto; }
 .mkd-frame :where(.mkd-hstack) > .mkd-vstack:where(:has(> .mkd-spacer)) { align-self: stretch; }
 .mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-screen, .mkd-split__col, .mkd-tabs__panel) > .mkd-vstack:where(:has(> .mkd-spacer)) { flex: 1 1 auto; }
 .mkd-frame .mkd-grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
@@ -198,6 +198,8 @@
 .mkd-frame .mkd-leading-icon { display: inline-flex; align-items: center; justify-content: center; flex: none; color: var(--mkd-fg-2); }
 .mkd-frame .mkd-leading-icon:where([data-tinted="true"]) { width: 30px; height: 30px; border-radius: 7px; background: var(--mkd-icon-tint); color: #fff; }
 .mkd-frame .mkd-leading-icon:where([data-tinted="true"]) .mkd-icon { width: 18px; height: 18px; }
+/* An explicit .frame(height:) wins over the default placeholder height. */
+.mkd-frame .mkd-placeholder[style*="height"] { min-height: 0; }
 .mkd-frame .mkd-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 120px; align-self: stretch; border: 1px dashed var(--mkd-border); border-radius: var(--mkd-radius-m); background: repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--mkd-fg) 4%, transparent) 10px 20px); color: var(--mkd-fg-3); font-size: 13px; }
 .mkd-frame .mkd-placeholder__icon .mkd-icon { width: 28px; height: 28px; }
 

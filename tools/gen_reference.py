@@ -30,7 +30,9 @@ OUT = ROOT / "examples" / "site" / "docs" / "reference"
 # Framework packs in the order of the example site's menus; packs not listed follow alphabetically.
 KITS = ["fluent", "gtk", "qt", "avalonia", "kde-plasma",
         "mui", "angular-material", "sapui5", "bootstrap", "shadcn", "antd", "tailwind", "carbon", "primer",
+        "vuetify", "prime",
         "swiftui", "android"]
+WIREFRAME = ["sketch"]  # alternative wireframe looks of the core vocabulary, listed after Core
 KIND_TITLES = {"desktop": "Desktop", "web": "Web", "mobile": "Mobile"}
 # Retro packs in chronological order of the version they imitate (as in the example site's nav).
 RETRO = ["nls", "xerox-star", "lisa", "mac-classic", "win1", "win2", "gsos", "nextstep", "win31",
@@ -229,9 +231,10 @@ def groups() -> list[tuple[str, list[str]]]:
     reg = registry()
     ids = [i for i in reg.ids() if not reg.get(i).hidden]
     retro = [i for i in RETRO if i in ids]
-    rest = [i for i in ids if i not in retro and i != "base"]
+    wire = [i for i in WIREFRAME if i in ids]
+    rest = [i for i in ids if i not in retro and i not in wire and i != "base"]
     kits = [i for i in KITS if i in rest] + sorted(i for i in rest if i not in KITS)
-    out = [("Core", ["base"])]
+    out = [("Core", ["base"])] + ([("Wireframe", wire)] if wire else [])
     out += [(t, [i for i in kits if kind(reg.get(i)) == k]) for k, t in KIND_TITLES.items()]
     return out + [("Retro", retro)]
 

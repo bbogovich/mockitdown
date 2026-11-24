@@ -1,0 +1,293 @@
+{
+  "id": "sketch",
+  "name": "Sketch",
+  "framework": "Hand-drawn wireframe sketch of the neutral core (paper and pencil, one highlighter)",
+  "version": "1",
+  "modules": [
+    "Sketch",
+    "HandDrawn",
+    "Napkin"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "phone": "ios",
+    "phone-landscape": "ios",
+    "tablet": "ipados",
+    "tablet-portrait": "ipados",
+    "desktop": "browser",
+    "wide": "browser"
+  },
+  "fonts": {
+    "scribble": "body",
+    "margin": "callout",
+    "heading": "title",
+    "scrawl": "title3"
+  },
+  "tokens": {
+    "light": {
+      "bg": "#fbfaf5",
+      "surface": "#fffefa",
+      "surface-2": "#f2f0e8",
+      "surface-3": "#e3e0d6",
+      "fg": "#2a2a2a",
+      "fg-2": "#595959",
+      "fg-3": "#8e8e8a",
+      "border": "#2a2a2a",
+      "divider": "#a5a39c",
+      "pencil": "#2a2a2a",
+      "pencil-soft": "#bdbab2",
+      "hatch": "rgb(42 42 42 / 0.22)",
+      "accent": "#2b6cd4",
+      "on-accent": "#ffffff",
+      "accent-soft": "#d8e6fb",
+      "marker": "rgb(70 140 240 / 0.35)",
+      "danger": "#c23a2b",
+      "warning": "#6b6b6b",
+      "success": "#3d3d3d",
+      "info": "#2b6cd4",
+      "field-bg": "#fffefa",
+      "field-border": "#2a2a2a",
+      "scrim": "rgb(42 42 42 / 0.16)",
+      "shadow-1": "1px 2px 0 rgb(42 42 42 / 0.12)",
+      "shadow-2": "3px 4px 0 rgb(42 42 42 / 0.16)",
+      "shadow-3": "5px 6px 0 rgb(42 42 42 / 0.18)",
+      "radius-s": "6px",
+      "radius-m": "10px",
+      "radius-l": "14px",
+      "radius-xl": "18px",
+      "radius-pill": "999px",
+      "font": "\"Comic Neue\", \"Comic Sans MS\", \"Chalkboard SE\", \"Bradley Hand\", \"Segoe Print\", \"Marker Felt\", cursive",
+      "font-mono": "\"Comic Mono\", \"Comic Neue\", \"Comic Sans MS\", ui-monospace, Menlo, monospace",
+      "font-size": "15px",
+      "line-height": "1.4",
+      "icon-stroke": "2",
+      "icon-size": "19px",
+      "control-h": "36px",
+      "gap": "8px",
+      "pad": "12px",
+      "chrome-bg": "#f2f0e8",
+      "chrome-fg": "#2a2a2a",
+      "fs-display": "44px",
+      "fw-display": "700",
+      "fs-largeTitle": "35px",
+      "fw-largeTitle": "700",
+      "fs-title": "28px",
+      "fw-title": "700",
+      "fs-title2": "24px",
+      "fw-title2": "700",
+      "fs-title3": "20px",
+      "fw-title3": "700",
+      "fs-headline": "16px",
+      "fw-headline": "700",
+      "fs-subheadline": "15px",
+      "fw-subheadline": "400",
+      "fs-body": "15px",
+      "fw-body": "400",
+      "fs-callout": "15px",
+      "fw-callout": "400",
+      "fs-footnote": "13px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "700",
+      "color-red": "#5a5a5a",
+      "color-orange": "#7a7a7a",
+      "color-yellow": "#f3e08a",
+      "color-green": "#4a4a4a",
+      "color-mint": "#a9a9a9",
+      "color-teal": "#6a6a6a",
+      "color-cyan": "#9a9a9a",
+      "color-blue": "#2b6cd4",
+      "color-indigo": "#3f3f3f",
+      "color-purple": "#575757",
+      "color-pink": "#b5b5b5",
+      "color-brown": "#6e6a62",
+      "color-gray": "#8e8e8a",
+      "chart-1": "#3a3a3a",
+      "chart-2": "#8c8c8c",
+      "chart-3": "#c4c2bb",
+      "chart-4": "#606060",
+      "chart-5": "#a9a7a0",
+      "chart-6": "#dedbd2",
+      "callout": "#c23a2b",
+      "on-callout": "#ffffff",
+      "marquee": "#2b6cd4",
+      "note": "#f6e9a6",
+      "code-bg": "#f2f0e8",
+      "code-fg": "#2a2a2a",
+      "code-kw": "#2a2a2a",
+      "code-str": "#595959",
+      "code-num": "#595959",
+      "code-comment": "#8e8e8a",
+      "code-fn": "#2b6cd4",
+      "code-type": "#2a2a2a",
+      "term-bg": "#2a2a2a",
+      "term-fg": "#f2f0e8",
+      "term-prompt": "#d8e6fb",
+      "grid-line": "#d6d3ca",
+      "map-land": "#f2f0e8",
+      "map-water": "#d6d3ca",
+      "map-park": "#e3e0d6",
+      "map-road": "#fffefa",
+      "wob-1": "30px 6px 26px 5px / 5px 26px 6px 30px",
+      "wob-2": "6px 32px 5px 28px / 28px 5px 32px 6px",
+      "wob-3": "90px 8px 80px 10px / 8px 80px 10px 90px",
+      "wob-4": "52% 48% 55% 45% / 47% 55% 45% 53%",
+      "cross": "linear-gradient(to top right, transparent calc(50% - 1.5px), var(--mkd-pencil-soft) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1.5px)), linear-gradient(to bottom right, transparent calc(50% - 1.5px), var(--mkd-pencil-soft) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1.5px))",
+      "hatch-fill": "repeating-linear-gradient(-45deg, var(--mkd-hatch) 0 1.5px, transparent 1.5px 7px)",
+      "paper": "none"
+    },
+    "dark": {
+      "bg": "#1e2723",
+      "surface": "#222c28",
+      "surface-2": "#2a3530",
+      "surface-3": "#35413b",
+      "fg": "#eeede4",
+      "fg-2": "#c3c6bd",
+      "fg-3": "#8f978f",
+      "border": "#e8e7de",
+      "divider": "#6f7a72",
+      "pencil": "#e8e7de",
+      "pencil-soft": "#56625b",
+      "hatch": "rgb(238 237 228 / 0.2)",
+      "accent": "#8db8ff",
+      "on-accent": "#13201b",
+      "accent-soft": "#2f4459",
+      "marker": "rgb(141 184 255 / 0.3)",
+      "danger": "#ff8f80",
+      "warning": "#b9bbb3",
+      "success": "#d8d9d0",
+      "info": "#8db8ff",
+      "field-bg": "#222c28",
+      "field-border": "#e8e7de",
+      "scrim": "rgb(0 0 0 / 0.3)",
+      "shadow-1": "1px 2px 0 rgb(0 0 0 / 0.3)",
+      "shadow-2": "3px 4px 0 rgb(0 0 0 / 0.35)",
+      "shadow-3": "5px 6px 0 rgb(0 0 0 / 0.4)",
+      "chrome-bg": "#2a3530",
+      "chrome-fg": "#eeede4",
+      "color-red": "#d0d0c8",
+      "color-orange": "#b6b8b0",
+      "color-yellow": "#e9dc9a",
+      "color-green": "#c9cbc2",
+      "color-mint": "#7f8a83",
+      "color-teal": "#a3aaa2",
+      "color-cyan": "#8f978f",
+      "color-blue": "#8db8ff",
+      "color-indigo": "#dcdcd3",
+      "color-purple": "#b0b3aa",
+      "color-pink": "#6c776f",
+      "color-brown": "#a59f92",
+      "color-gray": "#8f978f",
+      "chart-1": "#eeede4",
+      "chart-2": "#a6ada4",
+      "chart-3": "#66726b",
+      "chart-4": "#cfd1c7",
+      "chart-5": "#848d85",
+      "chart-6": "#4a5650",
+      "callout": "#ff8f80",
+      "on-callout": "#1e2723",
+      "marquee": "#8db8ff",
+      "note": "#e9dc9a",
+      "code-bg": "#2a3530",
+      "code-fg": "#eeede4",
+      "code-kw": "#eeede4",
+      "code-str": "#c3c6bd",
+      "code-num": "#c3c6bd",
+      "code-comment": "#8f978f",
+      "code-fn": "#8db8ff",
+      "code-type": "#eeede4",
+      "term-bg": "#161d1a",
+      "term-fg": "#eeede4",
+      "term-prompt": "#8db8ff",
+      "grid-line": "#3d4943",
+      "map-land": "#2a3530",
+      "map-water": "#35413b",
+      "map-park": "#303c36",
+      "map-road": "#1e2723",
+      "paper": "radial-gradient(ellipse 60% 40% at 18% 12%, rgb(255 255 255 / 0.045), transparent 70%), radial-gradient(ellipse 50% 35% at 82% 88%, rgb(255 255 255 / 0.04), transparent 70%), radial-gradient(ellipse 40% 30% at 70% 30%, rgb(255 255 255 / 0.025), transparent 70%)"
+    }
+  },
+  "elements": {
+    "Scribble": {
+      "role": "skeleton",
+      "defaults": {
+        "lines": 3
+      },
+      "doc": "Squiggle lines standing in for body text: Scribble(lines: 4) · avatar:, image: add a crossed box"
+    },
+    "Squiggle": {
+      "role": "skeleton",
+      "defaults": {
+        "lines": 1
+      },
+      "doc": "One squiggle line (a heading or label still to be written)"
+    },
+    "Lorem": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+      },
+      "doc": "Filler copy in the handwriting font: Lorem() or Lorem(\"short custom filler\")"
+    },
+    "CrossedImage": {
+      "role": "placeholder",
+      "params": [
+        "label"
+      ],
+      "doc": "A box with a big pencil X for an image still to come: CrossedImage(\"hero shot\", height: 180)"
+    },
+    "Annotation": {
+      "role": "stickynote",
+      "params": [
+        "text"
+      ],
+      "variants": [
+        "left",
+        "right",
+        "up",
+        "down"
+      ],
+      "defaults": {
+        "variant": "left"
+      },
+      "doc": "Handwritten margin note in the highlighter colour with an arrow: Annotation(\"tap to edit\", variant: .up); place with .position(x:y:)"
+    },
+    "Note": {
+      "role": "stickynote",
+      "params": [
+        "text"
+      ],
+      "doc": "A taped paper note (slightly rotated): Note(\"ask legal\", title: \"TODO\", author: \"BB\", rotation: 2)"
+    },
+    "Arrow": {
+      "role": "divider",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "right",
+        "left",
+        "down",
+        "up"
+      ],
+      "defaults": {
+        "variant": "right"
+      },
+      "doc": "A pencil arrow between screens or boxes in a flow, optional label: Arrow(\"tap\"), Arrow(variant: .down)"
+    },
+    "Highlight": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Text swiped with the highlighter marker: Highlight(\"Free for 30 days\")"
+    }
+  }
+}

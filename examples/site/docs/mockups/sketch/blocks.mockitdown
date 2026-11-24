@@ -1,0 +1,82 @@
+// Sketch blocks for the example site — the pieces early-concept wireframes repeat on every page.
+// Imported with `import "sketch/blocks"`. They use only core elements plus the sketch helpers
+// (Scribble, CrossedImage, Lorem, Highlight), so they read as a hand-drawn wireframe.
+
+import Sketch
+
+/// Top bar of a marketing page: a crossed logo, a few links and one call to action.
+struct SiteNav: View {
+  var brand: String
+  var links: [String] = ["Product", "Pricing", "About"]
+  var cta: String = "Sign up"
+
+  var body: some View {
+    HStack(spacing: 20) {
+      CrossedImage().frame(width: 34, height: 34)
+      Text(brand).font(.title3)
+      Spacer()
+      ForEach(links) { link in Link(link) }
+      Button("Log in").buttonStyle(.plain)
+      Button(cta).buttonStyle(.borderedProminent)
+    }
+    .padding(.horizontal, 28)
+    .padding(.vertical, 14)
+  }
+}
+
+/// A feature teaser: crossed picture, a title and squiggles for copy not yet written.
+struct FeatureCard: View {
+  var title: String
+  var lines: Int = 3
+
+  var body: some View {
+    Card {
+      VStack(alignment: .leading, spacing: 10) {
+        CrossedImage().frame(width: 56, height: 56)
+        Text(title).font(.headline)
+        Scribble(lines: lines)
+      }
+    }
+  }
+}
+
+/// A list row with a crossed thumbnail, a title, a squiggle subtitle and a trailing price.
+struct ThingRow: View {
+  var title: String
+  var price: String
+  var photo: String = "assets/images/photo-1.svg"
+
+  var body: some View {
+    Row(title, subtitle: "Lorem ipsum dolor sit amet", detail: price, image: photo, chevron: true)
+  }
+}
+
+/// A KPI box for dashboards: label, big number, change and a tiny sparkline.
+struct KpiBox: View {
+  var label: String
+  var value: String
+  var change: String = ""
+  var trend: [Int] = [3, 4, 3, 5, 6, 5, 7]
+
+  var body: some View {
+    Stat(label, value, change: change, trend: trend)
+  }
+}
+
+/// One screen of a flow drawn as a small card: a title, crossed hero, squiggles and a button.
+struct FlowStep: View {
+  var title: String
+  var action: String = "Next"
+  var lines: Int = 2
+
+  var body: some View {
+    Card(title) {
+      VStack(alignment: .stretch, spacing: 10) {
+        CrossedImage().frame(height: 70)
+        Scribble(lines: lines)
+        Button(action).buttonStyle(.borderedProminent).frame(maxWidth: .infinity)
+      }
+    }
+    .frame(width: 190)
+  }
+}
