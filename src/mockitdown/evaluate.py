@@ -667,6 +667,12 @@ class Evaluator:
                 if isinstance(s, str):
                     return s.upper() if callee.name == "uppercased" else (
                         s.lower() if callee.name == "lowercased" else s.title())
+            if callee.name in ("contains", "hasPrefix", "hasSuffix") and len(args) == 1:
+                seq = self.value(callee.base, env)
+                if callee.name == "contains" and isinstance(seq, (list, tuple, str, dict)):
+                    return args[0] in seq if not isinstance(seq, str) else str(args[0]) in seq
+                if isinstance(seq, str):
+                    return seq.startswith(str(args[0])) if callee.name == "hasPrefix" else seq.endswith(str(args[0]))
             if callee.name == "joined":
                 seq = self.value(callee.base, env)
                 if isinstance(seq, (list, tuple)):

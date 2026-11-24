@@ -16,11 +16,7 @@ development**. These are the packs that would add the most value next, in priori
 
 | Pack | Why |
 |---|---|
-| **Ant Design (`antd`)** | The most-used enterprise React kit after MUI; dense admin tables, forms and `ProLayout` are a common mockup target. |
 | **Fluent UI React v9 (`fluent-web`)** | Microsoft's *web* Fluent 2 differs from WinUI (density, radii, Teams/Office patterns); needed for Office add-ins and Teams apps. |
-| **Tailwind Catalyst / Tailwind Plus (`tailwind`)** | The house style of many Tailwind sites; complements shadcn/ui with marketing sections and application shells. |
-| **IBM Carbon (`carbon`)** | Widely used in enterprise and government products; distinctive grid, data tables and notifications. |
-| **GitHub Primer (`primer`)** | Developer-tool UIs (issues, PRs, code views) are a frequent subject of technical documentation. |
 | **Ionic (`ionic`)** | Hybrid mobile apps; its iOS and Material modes map neatly onto device forms. |
 | **Vuetify (`vuetify`)** and **PrimeVue / PrimeNG (`prime`)** | The leading component kits for Vue and a popular alternative for Angular. |
 | **Chakra UI v3 / Mantine** | Popular React kits for product teams that do not use MUI or shadcn. |

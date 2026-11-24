@@ -1,0 +1,103 @@
+// Reusable pieces for the NLS (oN-Line System, 1968) page.
+// Import with:  import "nls/console"
+
+import NLS
+
+/// A whole NLS screen: the command feedback line on top, then the file address and view specs.
+struct NlsScreen: View {
+  var command: String = ""
+  var echo: String = ""
+  var file: String = "<ARC>NOTES, 1"
+  var viewspec: String = "abm"
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    Display(file: file, viewspec: viewspec) {
+      content
+    } header: {
+      FeedbackLine(command) {
+        if echo != "" { Echo(echo) }
+        Spacer()
+        Register("ARC 940")
+      }
+    }
+  }
+}
+
+/// The invented shopping list used across the page, so one file can be shown under several view specs.
+struct ShoppingFile: View {
+  var levels: Int = 4
+  var lines: Int = 0
+  var numbers: Bool = true
+  var bugOn: String = ""
+
+  var body: some View {
+    StatementFile(levels: levels, lines: lines, numbers: numbers) {
+      Statement("produce — pick up on the way back from the library, the stall closes early on Saturdays") {
+        Statement("apples, the tart green kind, for the pie") {
+          Statement("six if they are small")
+          Statement("four if they are large")
+        }
+        Statement("carrots")
+        Statement("lettuce") { StatementLink("3b") }
+      }
+      Statement("bakery") {
+        Statement("rye loaf, sliced")
+        Statement("rolls for Sunday", selected: bugOn == "2b")
+      }
+      Statement("market — the long list, kept short") {
+        Statement("milk, two quarts")
+        Statement("cheese for the lettuce salad")
+        Statement("coffee") { FileLink("PANTRY, 1c") }
+      }
+      Statement("drugstore") {
+        Statement("film for the camera, 12 exposures")
+      }
+    }
+  }
+}
+
+/// The five-key chord keyset drawn as keys; `down` marks which of the five keys are pressed.
+struct Keyset: View {
+  var down: [Bool] = [false, false, false, false, false]
+  var caption: String = "keyset"
+
+  var body: some View {
+    VStack(spacing: 4) {
+      HStack(alignment: .top, spacing: 3) {
+        ForEach(0..<5) { k in
+          Rectangle()
+            .frame(width: 13, height: k == 0 ? 30 : k == 4 ? 34 : 40)
+            .class("nls-key")
+            .selected(down[k])
+        }
+      }
+      .padding(6)
+      .class("nls-device")
+      Caption(caption)
+    }
+  }
+}
+
+/// The three-button mouse; `pressed` is the button held (1 … 3, 0 for none).
+struct ThreeButtonMouse: View {
+  var pressed: Int = 0
+  var caption: String = "mouse"
+
+  var body: some View {
+    VStack(spacing: 4) {
+      VStack(alignment: .center, spacing: 0) {
+        HStack(spacing: 3) {
+          ForEach([1, 2, 3]) { b in
+            Rectangle().frame(width: 11, height: 14).class("nls-key").selected(pressed == b)
+          }
+        }
+        .padding(5)
+        Spacer()
+      }
+      .frame(width: 52, height: 64)
+      .class("nls-device")
+      Caption(caption)
+    }
+  }
+}

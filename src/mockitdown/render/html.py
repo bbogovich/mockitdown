@@ -438,6 +438,8 @@ class Renderer:
         body = self.content(text) if text is not None else ""
         if v.extra_args:  # Text("a") + Text("b") is not supported; extra args are joined
             body += "".join(self.content(a) for a in v.extra_args)
+        if text is not None and not str(text).strip() and not v.extra_args and not v.children:
+            body = "&#160;"  # Text("") keeps one line's height, as a blank line in SwiftUI does
         return self.open(v, "text", "span", data=data) + body + self.views(v.children) + "</span>"
 
     def r_label(self, v: View) -> str:
@@ -500,7 +502,7 @@ class Renderer:
         data = {"dot": "true"} if is_dot and not v.children else {}
         icon = v.attr("systemImage", "icon")
         body = (f'<span class="mkd-badge__icon">{self.icon(icon, v=v)}</span>' if icon else "")
-        if text not in (None, True):
+        if not (text is None or text is True):  # `in (None, True)` would treat 1 as True
             max_v = _num(v.attr("max"))
             n = _num(text)
             shown = f"{int(max_v)}+" if (max_v is not None and n is not None and n > max_v) else _fmt(text)
@@ -538,7 +540,7 @@ class Renderer:
             total = 100.0 if value is not None and value > 1 else 1.0
         frac = None if value is None else max(0.0, min(1.0, value / total if total else 0.0))
         variant = _name(v.attr("kind", "variant", "style")) or "linear"
-        circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "radial")
+        circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "radial", "circle", "dashboard")
         label = self.text_or_slot(v, "label", "title") or self.views(v.children)
         current = self.text_or_slot(v, "currentValueLabel", "valueLabel")
         if _bool(v.attr("showValue")) and frac is not None and not current:
@@ -1500,7 +1502,11 @@ class Renderer:
                     headers.append((_fmt(cv.attr("title", "label", "content")), _name(cv.attr("alignment", ""))))
             else:
                 headers.append((_fmt(c), ""))
-        for c in v.children:
+        def flat(views):  # TableHead { … } / TableBody { … } wrappers (role group) are transparent
+            for c in views:
+                yield from (flat(c.children) if c.role == "group" else (c,))
+        kids = list(flat(v.children))
+        for c in kids:
             if c.role == "tablecolumn":
                 headers.append((_fmt(c.attr("title", "label")), _name(c.attr("alignment", ""))))
         selectable = _bool(v.attr("selectable", "checkboxSelection", "multiSelect"))
@@ -1510,7 +1516,7 @@ class Renderer:
         sort_col = v.attr("sortColumn")
         rows_html: list[str] = []
         rows = v.attr("rows", "data", "items") or []
-        row_views = [c for c in v.children if c.role == "tablerow"]
+        row_views = [c for c in kids if c.role == "tablerow"]
         for i, row in enumerate(rows if isinstance(rows, list) else []):
             cells = row if isinstance(row, (list, tuple)) else ([row.get(h[0], "") for h in headers]
                                                                 if isinstance(row, dict) else [row])

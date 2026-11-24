@@ -1,0 +1,1282 @@
+{
+  "id": "avalonia",
+  "name": "Avalonia UI",
+  "framework": "Avalonia UI 11 · FluentTheme (cross-platform .NET desktop apps)",
+  "version": "Avalonia 11.3",
+  "modules": [
+    "Avalonia",
+    "AvaloniaUI",
+    "Avalonia.Controls",
+    "Avalonia.Themes.Fluent"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "windows",
+    "wide": "windows",
+    "tablet": "windows",
+    "phone": "none"
+  },
+  "attrs": {
+    "watermark": "placeholder",
+    "placeholderText": "placeholder",
+    "minimum": "min",
+    "maximum": "max",
+    "isDropDownOpen": "open",
+    "isSubMenuOpen": "open",
+    "isOpen": "open",
+    "isExpanded": "expanded",
+    "isSelected": "selected",
+    "selectedItem": "selection",
+    "selectedIndex": "selection",
+    "selectedDate": "selection",
+    "selectedTime": "selection",
+    "onContent": "onText",
+    "offContent": "offText",
+    "classes": "variant",
+    "tabStripPlacement": "placement",
+    "inputGesture": "shortcut",
+    "hotKey": "shortcut",
+    "itemsSource": "items",
+    "displayMode": "variant",
+    "showProgressText": "showValue",
+    "isTodayHighlighted": "showToday",
+    "innerLeftContent": "systemImage"
+  },
+  "modifiers": {
+    "classes": {
+      "attr": "variant"
+    },
+    "isChecked": {
+      "attr": "checked"
+    },
+    "isExpanded": {
+      "attr": "expanded"
+    },
+    "isDropDownOpen": {
+      "attr": "open"
+    },
+    "isSubMenuOpen": {
+      "attr": "open"
+    },
+    "isSelected": {
+      "attr": "selected"
+    },
+    "watermark": {
+      "attr": "placeholder"
+    },
+    "placeholderText": {
+      "attr": "placeholder"
+    },
+    "passwordChar": {
+      "attr": "kind",
+      "value": "password"
+    },
+    "acceptsReturn": {
+      "attr": "kind",
+      "value": "multiline"
+    },
+    "displayMode": {
+      "attr": "variant"
+    },
+    "tabStripPlacement": {
+      "attr": "placement"
+    },
+    "orientation": {
+      "attr": "orientation"
+    }
+  },
+  "fonts": {
+    "h1": "largeTitle",
+    "h2": "title",
+    "h3": "title2",
+    "h4": "title3",
+    "h5": "headline",
+    "h6": "subheadline",
+    "header": "title2",
+    "subheader": "title3",
+    "caption": "caption",
+    "body": "body",
+    "small": "footnote"
+  },
+  "icons": {
+    "Home": "house",
+    "Settings": "gear",
+    "Save": "arrow.down.to.line",
+    "Open": "folder",
+    "OpenFolder": "folder",
+    "Folder": "folder",
+    "Document": "doc",
+    "New": "doc",
+    "Copy": "doc.on.doc",
+    "Cut": "doc.on.doc",
+    "Paste": "doc.on.doc",
+    "Delete": "trash",
+    "Edit": "pencil",
+    "Rename": "pencil",
+    "Add": "plus",
+    "Remove": "minus",
+    "Undo": "arrowshape.turn.up.left",
+    "Redo": "arrow.clockwise",
+    "Refresh": "arrow.clockwise",
+    "Sync": "arrow.clockwise",
+    "Search": "magnifyingglass",
+    "Find": "magnifyingglass",
+    "Filter": "line.3.horizontal.decrease",
+    "Sort": "arrow.up.arrow.down",
+    "Mail": "envelope",
+    "Inbox": "tray",
+    "Send": "paperplane",
+    "Person": "person",
+    "People": "person.2",
+    "Calendar": "calendar",
+    "Clock": "clock",
+    "Alert": "bell",
+    "Notification": "bell",
+    "Info": "info.circle",
+    "Warning": "exclamationmark.triangle",
+    "Error": "exclamationmark.circle",
+    "Checkmark": "checkmark",
+    "Dismiss": "xmark",
+    "Close": "xmark",
+    "More": "ellipsis",
+    "Navigation": "line.3.horizontal",
+    "Hamburger": "line.3.horizontal",
+    "Globe": "globe",
+    "Lock": "lock",
+    "Key": "key",
+    "Shield": "shield",
+    "Cloud": "cloud",
+    "Download": "arrow.down.to.line",
+    "Upload": "arrow.up.to.line",
+    "Share": "square.and.arrow.up",
+    "Print": "printer",
+    "Image": "photo",
+    "Chart": "chart.bar",
+    "DataBar": "chart.bar",
+    "DataLine": "chart.line",
+    "DataPie": "chart.pie",
+    "Box": "shippingbox",
+    "Cube": "cube",
+    "Terminal": "app",
+    "Play": "play",
+    "Pause": "pause",
+    "Stop": "stop",
+    "Star": "star",
+    "Heart": "heart",
+    "Tag": "tag",
+    "Flag": "flag",
+    "Attach": "paperclip",
+    "Link": "link",
+    "Bookmark": "bookmark",
+    "Lightbulb": "lightbulb",
+    "WeatherMoon": "moon",
+    "WeatherSunny": "sun",
+    "Power": "power",
+    "Wrench": "wrench",
+    "Desktop": "app",
+    "Server": "square.grid.3x3",
+    "Database": "archivebox",
+    "Archive": "archivebox",
+    "Grid": "square.grid.2x2",
+    "List": "list.bullet",
+    "Eye": "eye",
+    "SignOut": "rectangle.portrait.and.arrow.right",
+    "Question": "questionmark.circle",
+    "Help": "questionmark.circle"
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#f2f2f2",
+      "surface-3": "#e6e6e6",
+      "fg": "#000000",
+      "fg-2": "#666666",
+      "fg-3": "#999999",
+      "fg-disabled": "#999999",
+      "border": "#cccccc",
+      "divider": "#e6e6e6",
+      "accent": "#0078d7",
+      "on-accent": "#ffffff",
+      "accent-soft": "rgb(0 120 215 / 0.14)",
+      "accent-text": "#005a9e",
+      "accent-dark-1": "#005a9e",
+      "accent-light-1": "#429ce3",
+      "danger": "#c42b1c",
+      "warning": "#9d5d00",
+      "success": "#107c10",
+      "info": "#0078d7",
+      "field-bg": "#ffffff",
+      "field-border": "#999999",
+      "field-border-hover": "#666666",
+      "field-bg-focus": "#ffffff",
+      "control-fill": "#cccccc",
+      "control-fill-hover": "#cccccc",
+      "control-fill-pressed": "#999999",
+      "control-stroke-hover": "#999999",
+      "control-fg": "#000000",
+      "check-stroke": "#333333",
+      "switch-knob-off": "#333333",
+      "slider-track": "#999999",
+      "progress-track": "#cccccc",
+      "list-hover": "#e6e6e6",
+      "list-sel": "#66aee7",
+      "list-sel-fg": "#000000",
+      "chrome-low": "#f2f2f2",
+      "flyout-bg": "#f2f2f2",
+      "flyout-stroke": "#cccccc",
+      "tooltip-bg": "#f2f2f2",
+      "tooltip-stroke": "#cccccc",
+      "pane-bg": "#f2f2f2",
+      "expander-header": "#f9f9f9",
+      "expander-content": "#f2f2f2",
+      "expander-stroke": "#e0e0e0",
+      "grid-header-fg": "#666666",
+      "grid-sep": "#cccccc",
+      "notif-bg": "#ffffff",
+      "notif-info": "#007acc",
+      "notif-success": "#1f9e45",
+      "notif-warning": "#fdb328",
+      "notif-error": "#bd202c",
+      "scrim": "rgb(0 0 0 / 0.30)",
+      "shadow-1": "0 1px 3px rgb(0 0 0 / 0.10)",
+      "shadow-2": "0 8px 16px rgb(0 0 0 / 0.14)",
+      "shadow-3": "0 24px 48px rgb(0 0 0 / 0.22), 0 2px 8px rgb(0 0 0 / 0.12)",
+      "radius-s": "3px",
+      "radius-m": "3px",
+      "radius-l": "8px",
+      "radius-xl": "8px",
+      "radius-pill": "999px",
+      "font": "Inter, \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", Ubuntu, \"Noto Sans\", Arial, sans-serif",
+      "font-mono": "\"Cascadia Code\", \"Cascadia Mono\", \"JetBrains Mono\", Consolas, ui-monospace, Menlo, monospace",
+      "font-size": "14px",
+      "line-height": "1.36",
+      "icon-stroke": "1.5",
+      "icon-size": "16px",
+      "control-h": "32px",
+      "gap": "8px",
+      "pad": "12px",
+      "chrome-bg": "#ffffff",
+      "chrome-fg": "#000000",
+      "chrome-divider": "#e6e6e6",
+      "fs-display": "46px",
+      "fw-display": "300",
+      "fs-largeTitle": "32px",
+      "fw-largeTitle": "600",
+      "fs-title": "26px",
+      "fw-title": "600",
+      "fs-title2": "20px",
+      "fw-title2": "600",
+      "fs-title3": "18px",
+      "fw-title3": "400",
+      "fs-headline": "14px",
+      "fw-headline": "600",
+      "fs-subheadline": "14px",
+      "fw-subheadline": "400",
+      "fs-body": "14px",
+      "fw-body": "400",
+      "fs-callout": "14px",
+      "fw-callout": "400",
+      "fs-footnote": "12px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "600",
+      "fs-tab": "24px",
+      "fw-tab": "300",
+      "color-red": "#e81123",
+      "color-orange": "#f7630c",
+      "color-yellow": "#ffb900",
+      "color-green": "#107c10",
+      "color-mint": "#00cc6a",
+      "color-teal": "#00b7c3",
+      "color-cyan": "#0099bc",
+      "color-blue": "#0078d7",
+      "color-indigo": "#6b69d6",
+      "color-purple": "#8764b8",
+      "color-pink": "#e3008c",
+      "color-brown": "#8e562e",
+      "color-gray": "#767676",
+      "chart-1": "#0078d7",
+      "chart-2": "#00b7c3",
+      "chart-3": "#e3008c",
+      "chart-4": "#ffb900",
+      "chart-5": "#498205",
+      "chart-6": "#8764b8",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#0000ff",
+      "code-str": "#a31515",
+      "code-num": "#098658",
+      "code-comment": "#008000",
+      "code-fn": "#795e26",
+      "code-type": "#2b91af",
+      "term-bg": "#0c0c0c",
+      "term-fg": "#cccccc",
+      "term-prompt": "#13a10e",
+      "grid-line": "#e6e6e6",
+      "chrome-medium": "#e6e6e6",
+      "chrome-medium-low": "#f2f2f2",
+      "chrome-high": "#cccccc",
+      "alt-high": "#ffffff",
+      "base-low": "#cccccc",
+      "base-medium": "#666666",
+      "base-high": "#000000",
+      "system-accent": "#0078d7"
+    },
+    "dark": {
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#171717",
+      "surface-3": "#2b2b2b",
+      "fg": "#ffffff",
+      "fg-2": "#999999",
+      "fg-3": "#666666",
+      "fg-disabled": "#666666",
+      "border": "#333333",
+      "divider": "#262626",
+      "accent": "#0078d7",
+      "on-accent": "#ffffff",
+      "accent-soft": "rgb(0 120 215 / 0.28)",
+      "accent-text": "#76b9ed",
+      "accent-dark-1": "#005a9e",
+      "accent-light-1": "#429ce3",
+      "danger": "#ff99a4",
+      "warning": "#fce100",
+      "success": "#6ccb5f",
+      "info": "#429ce3",
+      "field-bg": "#000000",
+      "field-border": "#666666",
+      "field-border-hover": "#999999",
+      "field-bg-focus": "#000000",
+      "control-fill": "#333333",
+      "control-fill-hover": "#333333",
+      "control-fill-pressed": "#666666",
+      "control-stroke-hover": "#666666",
+      "control-fg": "#ffffff",
+      "check-stroke": "#cccccc",
+      "switch-knob-off": "#cccccc",
+      "slider-track": "#666666",
+      "progress-track": "#333333",
+      "list-hover": "#1a1a1a",
+      "list-sel": "#00487f",
+      "list-sel-fg": "#ffffff",
+      "chrome-low": "#171717",
+      "flyout-bg": "#2b2b2b",
+      "flyout-stroke": "#767676",
+      "tooltip-bg": "#2b2b2b",
+      "tooltip-stroke": "#767676",
+      "pane-bg": "#171717",
+      "expander-header": "#1f1f1f",
+      "expander-content": "#171717",
+      "expander-stroke": "#333333",
+      "grid-header-fg": "#999999",
+      "grid-sep": "#333333",
+      "notif-bg": "#1f1f1f",
+      "notif-info": "#007acc",
+      "notif-success": "#1f9e45",
+      "notif-warning": "#fdb328",
+      "notif-error": "#bd202c",
+      "scrim": "rgb(0 0 0 / 0.55)",
+      "shadow-1": "0 1px 3px rgb(0 0 0 / 0.6)",
+      "shadow-2": "0 8px 16px rgb(0 0 0 / 0.5)",
+      "shadow-3": "0 24px 48px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4)",
+      "chrome-bg": "#202020",
+      "chrome-fg": "#ffffff",
+      "chrome-divider": "#2b2b2b",
+      "color-red": "#ff4343",
+      "color-orange": "#ff8c00",
+      "color-yellow": "#ffd335",
+      "color-green": "#6ccb5f",
+      "color-mint": "#00cc6a",
+      "color-teal": "#30c6cc",
+      "color-cyan": "#2ec8e6",
+      "color-blue": "#429ce3",
+      "color-indigo": "#8e8cd8",
+      "color-purple": "#b4a0ff",
+      "color-pink": "#ff5ad1",
+      "color-brown": "#c08a5c",
+      "color-gray": "#a0a0a0",
+      "chart-1": "#429ce3",
+      "chart-2": "#30c6cc",
+      "chart-3": "#ff5ad1",
+      "chart-4": "#ffd335",
+      "chart-5": "#8bd100",
+      "chart-6": "#b4a0ff",
+      "code-bg": "#000000",
+      "code-fg": "#dcdcdc",
+      "code-kw": "#569cd6",
+      "code-str": "#d69d85",
+      "code-num": "#b5cea8",
+      "code-comment": "#57a64a",
+      "code-fn": "#dcdcaa",
+      "code-type": "#4ec9b0",
+      "grid-line": "#262626",
+      "map-land": "#1f2124",
+      "map-water": "#1a3550",
+      "map-park": "#233a26",
+      "map-road": "#3a3d42",
+      "chrome-medium": "#1f1f1f",
+      "chrome-medium-low": "#2b2b2b",
+      "chrome-high": "#767676",
+      "alt-high": "#000000",
+      "base-low": "#333333",
+      "base-medium": "#999999",
+      "base-high": "#ffffff",
+      "system-accent": "#0078d7"
+    }
+  },
+  "elements": {
+    "Window": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "Window { … } — the top-level window's content (title and decorations come from the fence's title/chrome)"
+    },
+    "UserControl": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "A reusable view's root"
+    },
+    "ContentControl": {
+      "role": "group",
+      "doc": "Hosts one piece of content"
+    },
+    "ContentPresenter": {
+      "role": "group"
+    },
+    "Decorator": {
+      "role": "group"
+    },
+    "TransitioningContentControl": {
+      "role": "group",
+      "doc": "Shows the current page (transitions are static)"
+    },
+    "HeaderedContentControl": {
+      "role": "section",
+      "params": [
+        "header"
+      ],
+      "attrs": {
+        "header": "title"
+      },
+      "doc": "HeaderedContentControl(\"Header\") { content }"
+    },
+    "StackPanel": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "StackPanel(spacing: 8, orientation: .horizontal) { … } — vertical by default, children stretch across"
+    },
+    "VirtualizingStackPanel": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      }
+    },
+    "ReversibleStackPanel": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      }
+    },
+    "DockPanel": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "DockPanel { top docks… ; fill } — docked children in order; put a left/right dock and the fill in an HStack"
+    },
+    "Grid": {
+      "role": "grid",
+      "doc": "Grid(columns: 3, spacing: 12) { … } — column count (ColumnDefinitions as a count), or GridRow children"
+    },
+    "UniformGrid": {
+      "role": "grid",
+      "doc": "UniformGrid(columns: n) { … }"
+    },
+    "WrapPanel": {
+      "role": "hstack",
+      "defaults": {
+        "wrap": true
+      },
+      "doc": "Children left to right, wrapping"
+    },
+    "Canvas": {
+      "role": "canvas",
+      "doc": "Absolute positioning: place children with .position(x:y:) (Canvas.Left/Top)"
+    },
+    "Panel": {
+      "role": "zstack",
+      "doc": "Children overlap (Panel stacks them on top of each other)"
+    },
+    "RelativePanel": {
+      "role": "zstack"
+    },
+    "Viewbox": {
+      "role": "zstack",
+      "doc": "Scales its child (static)"
+    },
+    "LayoutTransformControl": {
+      "role": "group"
+    },
+    "Border": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "A decorator: style with .padding / .background / .cornerRadius / .border"
+    },
+    "ScrollViewer": {
+      "role": "scroll",
+      "params": [
+        "axes"
+      ],
+      "doc": "Scrolling region (static; Fluent overlay scroll bars are hidden at rest)"
+    },
+    "ItemsControl": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "Repeats an item template: use ForEach inside"
+    },
+    "ItemsRepeater": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "Avalonia.Controls.ItemsRepeater: ForEach inside; .orientation(.horizontal) for a row"
+    },
+    "RefreshContainer": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "Pull-to-refresh host; refreshing: true shows the visualizer"
+    },
+    "RefreshVisualizer": {
+      "role": "progress",
+      "defaults": {
+        "kind": "circular"
+      },
+      "doc": "The pull-to-refresh spinner"
+    },
+    "Carousel": {
+      "role": "zstack",
+      "doc": "Carousel { current item } — one item at a time"
+    },
+    "SplitView": {
+      "role": "split",
+      "defaults": {
+        "variant": "inline"
+      },
+      "variants": [
+        "inline",
+        "compactInline",
+        "overlay",
+        "compactOverlay"
+      ],
+      "doc": "SplitView(displayMode: .inline) { pane } content: { … } — the pane sits on PaneBackground"
+    },
+    "GridSplitter": {
+      "role": "divider",
+      "doc": "A draggable divider between grid cells"
+    },
+    "Separator": {
+      "role": "divider",
+      "doc": "A horizontal rule (menus, stack panels)"
+    },
+    "TextBlock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content",
+        "classes": "font",
+        "theme": "font"
+      },
+      "doc": "TextBlock(\"Hi\", classes: \"h2\") — Text; .font(.title2), FontWeight via .bold()"
+    },
+    "SelectableTextBlock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content",
+        "classes": "font"
+      },
+      "doc": "Text the user can select and copy"
+    },
+    "Label": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content",
+        "target": "for"
+      },
+      "doc": "Label(\"Name:\") — a ContentControl caption for an input (Target:)"
+    },
+    "AccessText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content"
+      }
+    },
+    "Run": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content"
+      }
+    },
+    "PathIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "data": "name"
+      },
+      "doc": "PathIcon(\"Settings\") — a geometry icon (FluentIcons names work)"
+    },
+    "SymbolIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "symbol": "name"
+      },
+      "doc": "FluentIcons.Avalonia SymbolIcon(symbol: \"Home\")"
+    },
+    "Image": {
+      "role": "image",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "source": "name"
+      },
+      "doc": "Image(\"assets/images/photo-1.svg\") or Image(source:)"
+    },
+    "Ellipse": {
+      "role": "shape",
+      "defaults": {
+        "shape": "ellipse"
+      }
+    },
+    "Rectangle": {
+      "role": "shape",
+      "defaults": {
+        "shape": "rectangle"
+      }
+    },
+    "Path": {
+      "role": "shape",
+      "defaults": {
+        "shape": "rectangle"
+      }
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": [
+        "default",
+        "accent",
+        "transparent"
+      ],
+      "attrs": {
+        "content": "label"
+      },
+      "doc": "Button(\"Save\", icon:) · classes: \"accent\" (Classes=\"accent\") for the accent button"
+    },
+    "RepeatButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "attrs": {
+        "content": "label"
+      },
+      "doc": "Fires repeatedly while pressed"
+    },
+    "ToggleButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "attrs": {
+        "content": "label",
+        "isChecked": "selected",
+        "checked": "selected"
+      },
+      "doc": "ToggleButton(\"Bold\", isChecked: true) — checked uses the accent fill"
+    },
+    "SplitButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default",
+        "split": true
+      },
+      "attrs": {
+        "content": "label"
+      },
+      "doc": "Primary part + chevron that opens a Flyout"
+    },
+    "ToggleSplitButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default",
+        "split": true
+      },
+      "attrs": {
+        "content": "label",
+        "isChecked": "selected",
+        "checked": "selected"
+      },
+      "doc": "SplitButton whose primary part toggles (isChecked:)"
+    },
+    "DropDownButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default",
+        "dropdown": true
+      },
+      "attrs": {
+        "content": "label"
+      },
+      "doc": "Button with a chevron that opens a Flyout"
+    },
+    "HyperlinkButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "hyperlink"
+      },
+      "attrs": {
+        "content": "label",
+        "navigateUri": "destination"
+      },
+      "doc": "HyperlinkButton(\"Learn more\", navigateUri:) — link-styled button"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "content": "label",
+        "isChecked": "checked"
+      },
+      "doc": "CheckBox(\"Remember me\", isChecked: true | .indeterminate) — IsThreeState shows the dash"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "content": "label",
+        "isChecked": "checked"
+      },
+      "doc": "RadioButton(\"Small\", isChecked: true, groupName:)"
+    },
+    "ToggleSwitch": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "onText": "On",
+        "offText": "Off"
+      },
+      "attrs": {
+        "content": "label",
+        "isChecked": "isOn",
+        "checked": "isOn"
+      },
+      "doc": "ToggleSwitch(\"Wi-Fi\", isChecked: true, onContent:, offContent:) — Content is the header above the switch"
+    },
+    "Slider": {
+      "role": "slider",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "tickFrequency": "ticks"
+      },
+      "doc": "Slider(value: 40, minimum: 0, maximum: 100, ticks: 10)"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "total": 100
+      },
+      "attrs": {
+        "maximum": "total",
+        "isIndeterminate": "indeterminate"
+      },
+      "doc": "ProgressBar(value: 60) — 0…100 (Maximum:); no value = indeterminate; showProgressText: true"
+    },
+    "TextBox": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "TextBox(\"text\", watermark: \"Hint\", label:) · .passwordChar(\"•\") · .acceptsReturn() (rows:) · classes: \"clearButton\" / \"revealPasswordButton\""
+    },
+    "MaskedTextBox": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "attrs": {
+        "mask": "placeholder",
+        "header": "label"
+      },
+      "doc": "MaskedTextBox(mask: \"(000) 000-0000\") — the mask shows when empty"
+    },
+    "NumericUpDown": {
+      "role": "textfield",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "kind": "number",
+        "trailingIcon": "chevron.up.down"
+      },
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "NumericUpDown(value: 3, minimum:, maximum:, formatString:) — spinner on the right"
+    },
+    "ButtonSpinner": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "number",
+        "trailingIcon": "chevron.up.down"
+      }
+    },
+    "AutoCompleteBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "autocomplete"
+      },
+      "attrs": {
+        "text": "selection",
+        "header": "label"
+      },
+      "doc": "AutoCompleteBox(text: \"Lis\", items: [\"Lisbon\", \"Lismore\"], isDropDownOpen: true, watermark:)"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "ComboBox(items: [\"S\", \"M\"], selectedItem: \"M\", placeholderText:, isDropDownOpen: true) or ComboBoxItem children"
+    },
+    "ComboBoxItem": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "text": "content"
+      }
+    },
+    "ListBox": {
+      "role": "list",
+      "defaults": {
+        "variant": "listBox"
+      },
+      "doc": "ListBox { ListBoxItem… } — selection uses the accent list brush; .selected() on an item"
+    },
+    "ListBoxItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "content": "title"
+      },
+      "doc": "ListBoxItem(\"Title\", subtitle:, detail:, icon:) or a custom item template as children"
+    },
+    "TreeView": {
+      "role": "tree",
+      "doc": "TreeView { TreeViewItem(\"src\", isExpanded: true) { TreeViewItem(\"App.axaml\") } }"
+    },
+    "TreeViewItem": {
+      "role": "treeitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "TreeViewItem(\"Header\", icon:, isExpanded:, isSelected:) { children }"
+    },
+    "DataGrid": {
+      "role": "table",
+      "defaults": {
+        "variant": "dataGrid"
+      },
+      "attrs": {
+        "gridLinesVisibility": "density"
+      },
+      "doc": "Avalonia.Controls.DataGrid(columns: [...], rows: [[...]], selected: [1]) or DataGrid*Column children"
+    },
+    "DataGridTextColumn": {
+      "role": "tablecolumn",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "header": "title"
+      }
+    },
+    "DataGridCheckBoxColumn": {
+      "role": "tablecolumn",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "header": "title"
+      }
+    },
+    "DataGridTemplateColumn": {
+      "role": "tablecolumn",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "header": "title"
+      }
+    },
+    "TabControl": {
+      "role": "tabs",
+      "defaults": {
+        "placement": "top",
+        "variant": "tabControl"
+      },
+      "doc": "TabControl(selectedIndex: 0) { TabItem(\"General\") { … } } — 24 px SemiLight headers with the accent pipe"
+    },
+    "TabItem": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "header": "label"
+      }
+    },
+    "TabStrip": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "defaults": {
+        "placement": "top",
+        "variant": "tabStrip"
+      },
+      "doc": "TabStrip(items: [..], selectedIndex:) — headers only"
+    },
+    "TabStripItem": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "content": "label"
+      }
+    },
+    "Expander": {
+      "role": "accordion",
+      "params": [
+        "header"
+      ],
+      "doc": "Expander(\"Header\", isExpanded: true) { content }"
+    },
+    "Calendar": {
+      "role": "calendar",
+      "defaults": {
+        "showToday": true
+      },
+      "doc": "Calendar(selectedDate: \"2026-11-18\") — today (Nov 23) has the accent fill, the selection an accent ring"
+    },
+    "CalendarDatePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "format": "numeric"
+      },
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "CalendarDatePicker(selectedDate: \"2026-11-23\", watermark:) — a TextBox with a calendar button"
+    },
+    "DatePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "fields",
+        "format": "long"
+      },
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "DatePicker(selectedDate: \"2026-11-23\") — month · day · year segments"
+    },
+    "TimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "fields",
+        "kind": "time"
+      },
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "TimePicker(selectedTime: \"7:30 AM\")"
+    },
+    "Menu": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "menubar"
+      },
+      "doc": "Menu { MenuItem(\"File\") … MenuBarItem(\"Edit\", isSubMenuOpen: true) { MenuItem(\"Copy\", inputGesture: \"Ctrl+C\") } }"
+    },
+    "MenuBarItem": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false,
+        "variant": "menubar"
+      },
+      "attrs": {
+        "header": "label"
+      },
+      "doc": "A top-level MenuItem of a Menu with its submenu (XAML writes MenuItem; this name lets it open: isSubMenuOpen: true)"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "header": "label",
+        "isChecked": "checked"
+      },
+      "doc": "MenuItem(\"Copy\", icon:, inputGesture: \"Ctrl+C\", isChecked:) — children make a submenu; in a Menu bar a closed top-level item"
+    },
+    "ContextMenu": {
+      "role": "menu",
+      "doc": "ContextMenu { MenuItem… } — an open popup (place it with .padding / .position)"
+    },
+    "MenuFlyout": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "MenuFlyout { MenuItem… } — an open flyout; MenuFlyout(\"Sort\", isOpen: true) { … } draws the DropDownButton that owns it"
+    },
+    "Flyout": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "flyout"
+      },
+      "doc": "A light-dismiss popup surface; place with .overlay(alignment:) or .position"
+    },
+    "Popup": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "flyout"
+      }
+    },
+    "ToolTip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "attrs": {
+        "tip": "text",
+        "content": "text"
+      },
+      "doc": "ToolTip(\"Hint\") { target } — ToolTip.Tip"
+    },
+    "NotificationCard": {
+      "role": "toast",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "severity": "information",
+        "inline": true
+      },
+      "attrs": {
+        "title": "text",
+        "message": "description",
+        "content": "description",
+        "type": "severity",
+        "notificationType": "severity"
+      },
+      "doc": "NotificationCard(\"Saved\", message:, type: .information|.success|.warning|.error) — put inside WindowNotificationManager"
+    },
+    "WindowNotificationManager": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 8,
+        "position": "topRight"
+      },
+      "doc": "Hosts NotificationCards in a window corner (position: .topRight|.bottomRight|.topLeft|.bottomLeft)"
+    },
+    "TitleBar": {
+      "role": "appbar",
+      "params": [
+        "title"
+      ],
+      "doc": "A client-area title bar (ExtendClientAreaToDecorationsHint): TitleBar(\"App\", logo:) { trailing controls }"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "closable": true
+      },
+      "doc": "A modal child Window (ShowDialog): Dialog(\"Title\") { content } actions: { Button… }"
+    },
+    "ColorView": {
+      "role": "swatches",
+      "params": [
+        "label"
+      ],
+      "doc": "ColorView palette: colors: [..], selection:"
+    },
+    "ColorPicker": {
+      "role": "swatches",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "picker"
+      },
+      "doc": "ColorPicker(colors: [\"#0078d7\"], selection: 0) — the drop-down button with its colour preview"
+    },
+    "ColorSpectrum": {
+      "role": "placeholder",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "sun"
+      }
+    },
+    "ColorSlider": {
+      "role": "slider",
+      "params": [
+        "label"
+      ]
+    },
+    "TextEditor": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "doc": "AvaloniaEdit TextEditor(\"…\", language:, lineNumbers:, highlight: [3]) — ShowLineNumbers"
+    },
+    "CartesianChart": {
+      "role": "chart",
+      "defaults": {
+        "kind": "line"
+      },
+      "doc": "LiveCharts2 CartesianChart(kind: .line|.bar|.area, series:, labels:)"
+    },
+    "PieChart": {
+      "role": "chart",
+      "defaults": {
+        "kind": "donut"
+      },
+      "doc": "LiveCharts2 PieChart(values:, labels:)"
+    },
+    "PolarChart": {
+      "role": "chart",
+      "defaults": {
+        "kind": "radar"
+      },
+      "doc": "LiveCharts2 PolarChart(series:, labels:)"
+    }
+  }
+}

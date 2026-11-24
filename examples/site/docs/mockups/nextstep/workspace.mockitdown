@@ -1,0 +1,68 @@
+// Reusable NeXTSTEP building blocks for the nextstep pack page.
+// Import with:  import "nextstep/workspace"
+
+import NeXTSTEP
+
+/// The Dock: the Workspace tile (a neutral glyph) on top, then application tiles; `false` marks an
+/// application that is docked but not running (the ellipsis), and the Recycler sits at the bottom.
+struct StandardDock: View {
+  var body: some View {
+    Dock {
+      DockTile(icon: "Workspace")
+      ForEach([("Viewer", true), ("Mail", true), ("Edit", true), ("Terminal", true), ("Preferences", false),
+               ("Draw", false), ("Librarian", false), ("InterfaceBuilder", true), ("Calculator", false)]) { app, running in
+        DockTile(app, icon: app).variant(running ? .running : .idle)
+      }
+      Spacer()
+      DockTile("Recycler", icon: "Recycler")
+    }
+  }
+}
+
+/// One message in Mail's message list: unread mark, sender, subject, date and size.
+struct MailRow: View {
+  var from: String
+  var subject: String
+  var date: String
+  var size: String = "2K"
+  var unread: Bool = false
+  var selected: Bool = false
+
+  var body: some View {
+    TableRow {
+      Text(unread ? "•" : "")
+      Text(from)
+      Text(subject)
+      Text(date)
+      Text(size)
+    }
+    .selected(selected)
+  }
+}
+
+/// A labelled setting row in Preferences or an inspector: the title right-aligned, the control after it.
+struct SettingRow: View {
+  var label: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Text(label).frame(width: 96, alignment: .trailing)
+      content
+    }
+  }
+}
+
+/// One cell of an Interface Builder palette: a sample control above its caption.
+struct PaletteCell: View {
+  var caption: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    VStack(spacing: 3) {
+      content
+      Text(caption).font(.caption)
+    }
+    .frame(width: 92)
+  }
+}

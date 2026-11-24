@@ -1,0 +1,2718 @@
+{
+ "id": "antd",
+ "name": "Ant Design",
+ "framework": "Ant Design (antd) + ProComponents · React, default token theme",
+ "version": "v5",
+ "modules": [
+  "Antd",
+  "AntDesign",
+  "ProComponents"
+ ],
+ "device": "desktop",
+ "chrome": {
+  "phone": "browser",
+  "tablet": "browser",
+  "desktop": "browser",
+  "wide": "browser"
+ },
+ "tokens": {
+  "light": {
+   "bg": "#f5f5f5",
+   "surface": "#ffffff",
+   "surface-2": "#fafafa",
+   "surface-3": "#f0f0f0",
+   "fg": "rgba(0, 0, 0, 0.88)",
+   "fg-2": "rgba(0, 0, 0, 0.65)",
+   "fg-3": "rgba(0, 0, 0, 0.45)",
+   "fg-4": "rgba(0, 0, 0, 0.25)",
+   "border": "#d9d9d9",
+   "divider": "#f0f0f0",
+   "split": "rgba(5, 5, 5, 0.06)",
+   "accent": "#1677ff",
+   "on-accent": "#ffffff",
+   "accent-soft": "#e6f4ff",
+   "accent-soft-hover": "#bae0ff",
+   "accent-hover": "#4096ff",
+   "accent-active": "#0958d9",
+   "accent-border": "#91caff",
+   "accent-shadow": "rgba(5, 145, 255, 0.1)",
+   "danger": "#ff4d4f",
+   "danger-hover": "#ff7875",
+   "danger-bg": "#fff2f0",
+   "danger-border": "#ffccc7",
+   "danger-shadow": "rgba(255, 38, 5, 0.06)",
+   "warning": "#faad14",
+   "warning-bg": "#fffbe6",
+   "warning-border": "#ffe58f",
+   "success": "#52c41a",
+   "success-bg": "#f6ffed",
+   "success-border": "#b7eb8f",
+   "info": "#1677ff",
+   "info-bg": "#e6f4ff",
+   "info-border": "#91caff",
+   "field-bg": "#ffffff",
+   "field-border": "#d9d9d9",
+   "field-disabled": "rgba(0, 0, 0, 0.04)",
+   "fill": "rgba(0, 0, 0, 0.15)",
+   "fill-2": "rgba(0, 0, 0, 0.06)",
+   "fill-3": "rgba(0, 0, 0, 0.04)",
+   "fill-4": "rgba(0, 0, 0, 0.02)",
+   "elevated": "#ffffff",
+   "spotlight": "rgba(0, 0, 0, 0.85)",
+   "switch-off": "rgba(0, 0, 0, 0.25)",
+   "table-header": "#fafafa",
+   "table-row-hover": "#fafafa",
+   "table-sorted": "#fafafa",
+   "segmented-bg": "#f5f5f5",
+   "tag-default-bg": "#fafafa",
+   "scrim": "rgba(0, 0, 0, 0.45)",
+   "shadow-1": "0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)",
+   "shadow-2": "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
+   "shadow-3": "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
+   "shadow-card": "0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09)",
+   "shadow-btn": "0 2px 0 rgba(0, 0, 0, 0.02)",
+   "radius-s": "4px",
+   "radius-m": "6px",
+   "radius-l": "8px",
+   "radius-xl": "8px",
+   "radius-pill": "999px",
+   "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+   "font-mono": "\"SFMono-Regular\", Consolas, \"Liberation Mono\", Menlo, Courier, monospace",
+   "font-size": "14px",
+   "line-height": "1.5715",
+   "icon-stroke": "1.7",
+   "icon-size": "14px",
+   "control-h": "32px",
+   "gap": "8px",
+   "pad": "16px",
+   "chrome-bg": "#e9ecef",
+   "chrome-fg": "rgba(0, 0, 0, 0.65)",
+   "fs-display": "38px",
+   "fw-display": "600",
+   "fs-largeTitle": "30px",
+   "fw-largeTitle": "600",
+   "fs-title": "24px",
+   "fw-title": "600",
+   "fs-title2": "20px",
+   "fw-title2": "600",
+   "fs-title3": "16px",
+   "fw-title3": "600",
+   "fs-headline": "14px",
+   "fw-headline": "600",
+   "fs-subheadline": "14px",
+   "fw-subheadline": "400",
+   "fs-body": "14px",
+   "fw-body": "400",
+   "fs-callout": "14px",
+   "fw-callout": "400",
+   "fs-footnote": "12px",
+   "fw-footnote": "400",
+   "fs-caption": "12px",
+   "fw-caption": "400",
+   "fs-caption2": "12px",
+   "fw-caption2": "400",
+   "fs-overline": "12px",
+   "fw-overline": "400",
+   "color-red": "#f5222d",
+   "color-orange": "#fa8c16",
+   "color-yellow": "#fadb14",
+   "color-green": "#52c41a",
+   "color-mint": "#a0d911",
+   "color-teal": "#13c2c2",
+   "color-cyan": "#13c2c2",
+   "color-blue": "#1677ff",
+   "color-indigo": "#2f54eb",
+   "color-purple": "#722ed1",
+   "color-pink": "#eb2f96",
+   "color-brown": "#ad6800",
+   "color-gray": "#8c8c8c",
+   "chart-1": "#1783ff",
+   "chart-2": "#00c9c9",
+   "chart-3": "#f0884d",
+   "chart-4": "#d580ff",
+   "chart-5": "#7863ff",
+   "chart-6": "#60c42d",
+   "code-bg": "rgba(150, 150, 150, 0.1)",
+   "code-fg": "rgba(0, 0, 0, 0.88)",
+   "grid-line": "#f0f0f0",
+   "sider-dark": "#001529",
+   "sider-dark-sub": "#000c17",
+   "sider-dark-fg": "rgba(255, 255, 255, 0.65)",
+   "header-dark": "#001529",
+   "rate": "#fadb14",
+   "ribbon": "#1677ff",
+   "tag-magenta-solid": "#eb2f96",
+   "tag-red-solid": "#f5222d",
+   "tag-volcano-solid": "#fa541c",
+   "tag-orange-solid": "#fa8c16",
+   "tag-gold-solid": "#faad14",
+   "tag-lime-solid": "#a0d911",
+   "tag-green-solid": "#52c41a",
+   "tag-cyan-solid": "#13c2c2",
+   "tag-blue-solid": "#1677ff",
+   "tag-geekblue-solid": "#2f54eb",
+   "tag-purple-solid": "#722ed1",
+   "tag-magenta-fg": "#c41d7f",
+   "tag-magenta-bg": "#fff0f6",
+   "tag-magenta-bd": "#ffadd2",
+   "tag-red-fg": "#cf1322",
+   "tag-red-bg": "#fff1f0",
+   "tag-red-bd": "#ffa39e",
+   "tag-volcano-fg": "#d4380d",
+   "tag-volcano-bg": "#fff2e8",
+   "tag-volcano-bd": "#ffbb96",
+   "tag-orange-fg": "#d46b08",
+   "tag-orange-bg": "#fff7e6",
+   "tag-orange-bd": "#ffd591",
+   "tag-gold-fg": "#d48806",
+   "tag-gold-bg": "#fffbe6",
+   "tag-gold-bd": "#ffe58f",
+   "tag-lime-fg": "#7cb305",
+   "tag-lime-bg": "#fcffe6",
+   "tag-lime-bd": "#eaff8f",
+   "tag-green-fg": "#389e0d",
+   "tag-green-bg": "#f6ffed",
+   "tag-green-bd": "#b7eb8f",
+   "tag-cyan-fg": "#08979c",
+   "tag-cyan-bg": "#e6fffb",
+   "tag-cyan-bd": "#87e8de",
+   "tag-blue-fg": "#0958d9",
+   "tag-blue-bg": "#e6f4ff",
+   "tag-blue-bd": "#91caff",
+   "tag-geekblue-fg": "#1d39c4",
+   "tag-geekblue-bg": "#f0f5ff",
+   "tag-geekblue-bd": "#adc6ff",
+   "tag-purple-fg": "#531dab",
+   "tag-purple-bg": "#f9f0ff",
+   "tag-purple-bd": "#d3adf7"
+  },
+  "dark": {
+   "bg": "#000000",
+   "surface": "#141414",
+   "surface-2": "#1d1d1d",
+   "surface-3": "#303030",
+   "fg": "rgba(255, 255, 255, 0.85)",
+   "fg-2": "rgba(255, 255, 255, 0.65)",
+   "fg-3": "rgba(255, 255, 255, 0.45)",
+   "fg-4": "rgba(255, 255, 255, 0.25)",
+   "border": "#424242",
+   "divider": "#303030",
+   "split": "rgba(253, 253, 253, 0.12)",
+   "accent": "#1668dc",
+   "on-accent": "#ffffff",
+   "accent-soft": "#111a2c",
+   "accent-soft-hover": "#112545",
+   "accent-hover": "#3c89e8",
+   "accent-active": "#1554ad",
+   "accent-border": "#15325b",
+   "accent-shadow": "rgba(0, 60, 180, 0.15)",
+   "danger": "#dc4446",
+   "danger-hover": "#e86e6b",
+   "danger-bg": "#2c1618",
+   "danger-border": "#5b2526",
+   "danger-shadow": "rgba(238, 38, 56, 0.11)",
+   "warning": "#d89614",
+   "warning-bg": "#2b2111",
+   "warning-border": "#594214",
+   "success": "#49aa19",
+   "success-bg": "#162312",
+   "success-border": "#274916",
+   "info": "#1668dc",
+   "info-bg": "#111a2c",
+   "info-border": "#15325b",
+   "field-bg": "#141414",
+   "field-border": "#424242",
+   "field-disabled": "rgba(255, 255, 255, 0.08)",
+   "fill": "rgba(255, 255, 255, 0.18)",
+   "fill-2": "rgba(255, 255, 255, 0.12)",
+   "fill-3": "rgba(255, 255, 255, 0.08)",
+   "fill-4": "rgba(255, 255, 255, 0.04)",
+   "elevated": "#1f1f1f",
+   "spotlight": "#424242",
+   "switch-off": "rgba(255, 255, 255, 0.25)",
+   "table-header": "#1d1d1d",
+   "table-row-hover": "#262626",
+   "table-sorted": "#1d1d1d",
+   "segmented-bg": "#000000",
+   "tag-default-bg": "rgba(255, 255, 255, 0.04)",
+   "scrim": "rgba(0, 0, 0, 0.45)",
+   "shadow-1": "0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)",
+   "shadow-2": "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
+   "shadow-3": "0 6px 16px 0 rgba(0, 0, 0, 0.32), 0 3px 6px -4px rgba(0, 0, 0, 0.48), 0 9px 28px 8px rgba(0, 0, 0, 0.2)",
+   "shadow-card": "0 1px 2px -2px rgba(0, 0, 0, 0.64), 0 3px 6px 0 rgba(0, 0, 0, 0.48), 0 5px 12px 4px rgba(0, 0, 0, 0.36)",
+   "shadow-btn": "0 2px 0 rgba(0, 0, 0, 0.02)",
+   "chrome-bg": "#202124",
+   "chrome-fg": "rgba(255, 255, 255, 0.65)",
+   "color-red": "#d32029",
+   "color-orange": "#d87a16",
+   "color-yellow": "#d8bd14",
+   "color-green": "#49aa19",
+   "color-mint": "#8bbb11",
+   "color-teal": "#13a8a8",
+   "color-cyan": "#13a8a8",
+   "color-blue": "#1668dc",
+   "color-indigo": "#2b4acb",
+   "color-purple": "#642ab5",
+   "color-pink": "#cb2b83",
+   "color-brown": "#aa7714",
+   "color-gray": "#8c8c8c",
+   "code-bg": "rgba(150, 150, 150, 0.1)",
+   "code-fg": "rgba(255, 255, 255, 0.85)",
+   "grid-line": "#303030",
+   "sider-dark": "#001529",
+   "sider-dark-sub": "#000c17",
+   "sider-dark-fg": "rgba(255, 255, 255, 0.65)",
+   "header-dark": "#001529",
+   "rate": "#d8bd14",
+   "ribbon": "#1668dc",
+   "tag-magenta-solid": "#cb2b83",
+   "tag-red-solid": "#d32029",
+   "tag-volcano-solid": "#d84a1b",
+   "tag-orange-solid": "#d87a16",
+   "tag-gold-solid": "#d89614",
+   "tag-lime-solid": "#8bbb11",
+   "tag-green-solid": "#49aa19",
+   "tag-cyan-solid": "#13a8a8",
+   "tag-blue-solid": "#1668dc",
+   "tag-geekblue-solid": "#2b4acb",
+   "tag-purple-solid": "#642ab5",
+   "tag-magenta-fg": "#e0529c",
+   "tag-magenta-bg": "#291321",
+   "tag-magenta-bd": "#551c3b",
+   "tag-red-fg": "#e84749",
+   "tag-red-bg": "#2a1215",
+   "tag-red-bd": "#58181c",
+   "tag-volcano-fg": "#e87040",
+   "tag-volcano-bg": "#2b1611",
+   "tag-volcano-bd": "#592716",
+   "tag-orange-fg": "#e89a3c",
+   "tag-orange-bg": "#2b1d11",
+   "tag-orange-bd": "#593815",
+   "tag-gold-fg": "#e8b339",
+   "tag-gold-bg": "#2b2111",
+   "tag-gold-bd": "#594214",
+   "tag-lime-fg": "#a9d134",
+   "tag-lime-bg": "#1f2611",
+   "tag-lime-bd": "#3e4f13",
+   "tag-green-fg": "#6abe39",
+   "tag-green-bg": "#162312",
+   "tag-green-bd": "#274916",
+   "tag-cyan-fg": "#33bcb7",
+   "tag-cyan-bg": "#112123",
+   "tag-cyan-bd": "#144848",
+   "tag-blue-fg": "#3c89e8",
+   "tag-blue-bg": "#111a2c",
+   "tag-blue-bd": "#15325b",
+   "tag-geekblue-fg": "#5273e0",
+   "tag-geekblue-bg": "#131629",
+   "tag-geekblue-bd": "#1c2755",
+   "tag-purple-fg": "#854eca",
+   "tag-purple-bg": "#1a1325",
+   "tag-purple-bd": "#301c4d"
+  }
+ },
+ "fonts": {
+  "h1": "display",
+  "h2": "largeTitle",
+  "h3": "title",
+  "h4": "title2",
+  "h5": "title3",
+  "heading1": "display",
+  "heading2": "largeTitle",
+  "heading3": "title",
+  "heading4": "title2",
+  "heading5": "title3",
+  "base": "body",
+  "sm": "footnote",
+  "small": "footnote",
+  "lg": "title3",
+  "xl": "title2",
+  "secondary": "body",
+  "strong": "headline"
+ },
+ "icons": {
+  "UserOutlined": "person",
+  "UserFilled": "person",
+  "UserTwoTone": "person",
+  "TeamOutlined": "person.2",
+  "TeamFilled": "person.2",
+  "TeamTwoTone": "person.2",
+  "UserAddOutlined": "person",
+  "UserAddFilled": "person",
+  "UserAddTwoTone": "person",
+  "UsergroupAddOutlined": "person.2",
+  "UsergroupAddFilled": "person.2",
+  "UsergroupAddTwoTone": "person.2",
+  "UserSwitchOutlined": "person.2",
+  "UserSwitchFilled": "person.2",
+  "UserSwitchTwoTone": "person.2",
+  "SettingOutlined": "gear",
+  "SettingFilled": "gear",
+  "SettingTwoTone": "gear",
+  "FileTextOutlined": "doc.text",
+  "FileTextFilled": "doc.text",
+  "FileTextTwoTone": "doc.text",
+  "FileOutlined": "doc",
+  "FileFilled": "doc",
+  "FileTwoTone": "doc",
+  "FileSearchOutlined": "doc",
+  "FileSearchFilled": "doc",
+  "FileSearchTwoTone": "doc",
+  "FileAddOutlined": "doc",
+  "FileAddFilled": "doc",
+  "FileAddTwoTone": "doc",
+  "FileDoneOutlined": "doc",
+  "FileDoneFilled": "doc",
+  "FileDoneTwoTone": "doc",
+  "FileExcelOutlined": "doc",
+  "FileExcelFilled": "doc",
+  "FileExcelTwoTone": "doc",
+  "FilePdfOutlined": "doc",
+  "FilePdfFilled": "doc",
+  "FilePdfTwoTone": "doc",
+  "FileImageOutlined": "photo",
+  "FileImageFilled": "photo",
+  "FileImageTwoTone": "photo",
+  "FileProtectOutlined": "shield",
+  "FileProtectFilled": "shield",
+  "FileProtectTwoTone": "shield",
+  "ReloadOutlined": "arrow.clockwise",
+  "ReloadFilled": "arrow.clockwise",
+  "ReloadTwoTone": "arrow.clockwise",
+  "SyncOutlined": "arrow.clockwise",
+  "SyncFilled": "arrow.clockwise",
+  "SyncTwoTone": "arrow.clockwise",
+  "LoadingOutlined": "arrow.clockwise",
+  "LoadingFilled": "arrow.clockwise",
+  "LoadingTwoTone": "arrow.clockwise",
+  "MoreOutlined": "ellipsis.vertical",
+  "MoreFilled": "ellipsis.vertical",
+  "MoreTwoTone": "ellipsis.vertical",
+  "EllipsisOutlined": "ellipsis",
+  "EllipsisFilled": "ellipsis",
+  "EllipsisTwoTone": "ellipsis",
+  "AppstoreOutlined": "square.grid.2x2",
+  "AppstoreFilled": "square.grid.2x2",
+  "AppstoreTwoTone": "square.grid.2x2",
+  "AppstoreAddOutlined": "square.grid.2x2",
+  "AppstoreAddFilled": "square.grid.2x2",
+  "AppstoreAddTwoTone": "square.grid.2x2",
+  "DashboardOutlined": "gauge",
+  "DashboardFilled": "gauge",
+  "DashboardTwoTone": "gauge",
+  "RiseOutlined": "chart.line",
+  "RiseFilled": "chart.line",
+  "RiseTwoTone": "chart.line",
+  "FallOutlined": "arrow.down",
+  "FallFilled": "arrow.down",
+  "FallTwoTone": "arrow.down",
+  "ExclamationCircleOutlined": "exclamationmark.circle",
+  "ExclamationCircleFilled": "exclamationmark.circle",
+  "ExclamationCircleTwoTone": "exclamationmark.circle",
+  "CloseCircleOutlined": "xmark.circle",
+  "CloseCircleFilled": "xmark.circle",
+  "CloseCircleTwoTone": "xmark.circle",
+  "CheckCircleOutlined": "checkmark.circle",
+  "CheckCircleFilled": "checkmark.circle",
+  "CheckCircleTwoTone": "checkmark.circle",
+  "InfoCircleOutlined": "info.circle",
+  "InfoCircleFilled": "info.circle",
+  "InfoCircleTwoTone": "info.circle",
+  "QuestionCircleOutlined": "questionmark.circle",
+  "QuestionCircleFilled": "questionmark.circle",
+  "QuestionCircleTwoTone": "questionmark.circle",
+  "QuestionOutlined": "questionmark",
+  "QuestionFilled": "questionmark",
+  "QuestionTwoTone": "questionmark",
+  "WarningOutlined": "exclamationmark.triangle",
+  "WarningFilled": "exclamationmark.triangle",
+  "WarningTwoTone": "exclamationmark.triangle",
+  "ExclamationOutlined": "exclamationmark.circle",
+  "ExclamationFilled": "exclamationmark.circle",
+  "ExclamationTwoTone": "exclamationmark.circle",
+  "DatabaseOutlined": "archivebox",
+  "DatabaseFilled": "archivebox",
+  "DatabaseTwoTone": "archivebox",
+  "ApiOutlined": "link",
+  "ApiFilled": "link",
+  "ApiTwoTone": "link",
+  "GlobalOutlined": "globe",
+  "GlobalFilled": "globe",
+  "GlobalTwoTone": "globe",
+  "EnvironmentOutlined": "mappin",
+  "EnvironmentFilled": "mappin",
+  "EnvironmentTwoTone": "mappin",
+  "ShopOutlined": "bag",
+  "ShopFilled": "bag",
+  "ShopTwoTone": "bag",
+  "TagOutlined": "tag",
+  "TagFilled": "tag",
+  "TagTwoTone": "tag",
+  "TagsOutlined": "tag",
+  "TagsFilled": "tag",
+  "TagsTwoTone": "tag",
+  "ExportOutlined": "square.and.arrow.up",
+  "ExportFilled": "square.and.arrow.up",
+  "ExportTwoTone": "square.and.arrow.up",
+  "ImportOutlined": "arrow.down.to.line",
+  "ImportFilled": "arrow.down.to.line",
+  "ImportTwoTone": "arrow.down.to.line",
+  "SafetyOutlined": "shield",
+  "SafetyFilled": "shield",
+  "SafetyTwoTone": "shield",
+  "SafetyCertificateOutlined": "shield",
+  "SafetyCertificateFilled": "shield",
+  "SafetyCertificateTwoTone": "shield",
+  "InsuranceOutlined": "shield",
+  "InsuranceFilled": "shield",
+  "InsuranceTwoTone": "shield",
+  "DollarOutlined": "dollarsign",
+  "DollarFilled": "dollarsign",
+  "DollarTwoTone": "dollarsign",
+  "BankOutlined": "building",
+  "BankFilled": "building",
+  "BankTwoTone": "building",
+  "SolutionOutlined": "doc.text",
+  "SolutionFilled": "doc.text",
+  "SolutionTwoTone": "doc.text",
+  "ProjectOutlined": "folder",
+  "ProjectFilled": "folder",
+  "ProjectTwoTone": "folder",
+  "CodeOutlined": "doc",
+  "CodeFilled": "doc",
+  "CodeTwoTone": "doc",
+  "BugOutlined": "wrench",
+  "BugFilled": "wrench",
+  "BugTwoTone": "wrench",
+  "RocketOutlined": "paperplane",
+  "RocketFilled": "paperplane",
+  "RocketTwoTone": "paperplane",
+  "ThunderboltOutlined": "bolt",
+  "ThunderboltFilled": "bolt",
+  "ThunderboltTwoTone": "bolt",
+  "PaperClipOutlined": "paperclip",
+  "PaperClipFilled": "paperclip",
+  "PaperClipTwoTone": "paperclip",
+  "SmileOutlined": "person.circle",
+  "SmileFilled": "person.circle",
+  "SmileTwoTone": "person.circle",
+  "CarOutlined": "truck",
+  "CarFilled": "truck",
+  "CarTwoTone": "truck",
+  "UnorderedListOutlined": "list.bullet",
+  "UnorderedListFilled": "list.bullet",
+  "UnorderedListTwoTone": "list.bullet",
+  "OrderedListOutlined": "list.bullet",
+  "OrderedListFilled": "list.bullet",
+  "OrderedListTwoTone": "list.bullet",
+  "BarsOutlined": "line.3.horizontal",
+  "BarsFilled": "line.3.horizontal",
+  "BarsTwoTone": "line.3.horizontal",
+  "TableOutlined": "square.grid.3x3",
+  "TableFilled": "square.grid.3x3",
+  "TableTwoTone": "square.grid.3x3",
+  "FormOutlined": "square.and.pencil",
+  "FormFilled": "square.and.pencil",
+  "FormTwoTone": "square.and.pencil",
+  "ProfileOutlined": "doc.text",
+  "ProfileFilled": "doc.text",
+  "ProfileTwoTone": "doc.text",
+  "AuditOutlined": "doc.text",
+  "AuditFilled": "doc.text",
+  "AuditTwoTone": "doc.text",
+  "FundOutlined": "chart.line",
+  "FundFilled": "chart.line",
+  "FundTwoTone": "chart.line",
+  "AreaChartOutlined": "chart.line",
+  "AreaChartFilled": "chart.line",
+  "AreaChartTwoTone": "chart.line",
+  "LineChartOutlined": "chart.line",
+  "LineChartFilled": "chart.line",
+  "LineChartTwoTone": "chart.line",
+  "BarChartOutlined": "chart.bar",
+  "BarChartFilled": "chart.bar",
+  "BarChartTwoTone": "chart.bar",
+  "PieChartOutlined": "chart.pie",
+  "PieChartFilled": "chart.pie",
+  "PieChartTwoTone": "chart.pie",
+  "DotChartOutlined": "chart.line",
+  "DotChartFilled": "chart.line",
+  "DotChartTwoTone": "chart.line",
+  "StockOutlined": "chart.line",
+  "StockFilled": "chart.line",
+  "StockTwoTone": "chart.line",
+  "DownOutlined": "chevron.down",
+  "DownFilled": "chevron.down",
+  "DownTwoTone": "chevron.down",
+  "UpOutlined": "chevron.up",
+  "UpFilled": "chevron.up",
+  "UpTwoTone": "chevron.up",
+  "LeftOutlined": "chevron.left",
+  "LeftFilled": "chevron.left",
+  "LeftTwoTone": "chevron.left",
+  "RightOutlined": "chevron.right",
+  "RightFilled": "chevron.right",
+  "RightTwoTone": "chevron.right",
+  "CaretDownOutlined": "chevron.down",
+  "CaretDownFilled": "chevron.down",
+  "CaretDownTwoTone": "chevron.down",
+  "CaretUpOutlined": "chevron.up",
+  "CaretUpFilled": "chevron.up",
+  "CaretUpTwoTone": "chevron.up",
+  "CaretLeftOutlined": "chevron.left",
+  "CaretLeftFilled": "chevron.left",
+  "CaretLeftTwoTone": "chevron.left",
+  "CaretRightOutlined": "chevron.right",
+  "CaretRightFilled": "chevron.right",
+  "CaretRightTwoTone": "chevron.right",
+  "DoubleRightOutlined": "chevron.right",
+  "DoubleRightFilled": "chevron.right",
+  "DoubleRightTwoTone": "chevron.right",
+  "DoubleLeftOutlined": "chevron.left",
+  "DoubleLeftFilled": "chevron.left",
+  "DoubleLeftTwoTone": "chevron.left",
+  "SwapOutlined": "arrow.up.arrow.down",
+  "SwapFilled": "arrow.up.arrow.down",
+  "SwapTwoTone": "arrow.up.arrow.down",
+  "HolderOutlined": "line.3.horizontal",
+  "HolderFilled": "line.3.horizontal",
+  "HolderTwoTone": "line.3.horizontal",
+  "FullscreenOutlined": "square",
+  "FullscreenFilled": "square",
+  "FullscreenTwoTone": "square",
+  "ExpandOutlined": "square",
+  "ExpandFilled": "square",
+  "ExpandTwoTone": "square",
+  "TranslationOutlined": "globe",
+  "TranslationFilled": "globe",
+  "TranslationTwoTone": "globe",
+  "BulbOutlined": "lightbulb",
+  "BulbFilled": "lightbulb",
+  "BulbTwoTone": "lightbulb",
+  "SaveOutlined": "arrow.down.to.line",
+  "SaveFilled": "arrow.down.to.line",
+  "SaveTwoTone": "arrow.down.to.line",
+  "HistoryOutlined": "clock",
+  "HistoryFilled": "clock",
+  "HistoryTwoTone": "clock",
+  "FieldTimeOutlined": "clock",
+  "FieldTimeFilled": "clock",
+  "FieldTimeTwoTone": "clock",
+  "IdcardOutlined": "person",
+  "IdcardFilled": "person",
+  "IdcardTwoTone": "person",
+  "ContainerOutlined": "archivebox",
+  "ContainerFilled": "archivebox",
+  "ContainerTwoTone": "archivebox",
+  "CarryOutOutlined": "calendar",
+  "CarryOutFilled": "calendar",
+  "CarryOutTwoTone": "calendar",
+  "ScheduleOutlined": "calendar",
+  "ScheduleFilled": "calendar",
+  "ScheduleTwoTone": "calendar",
+  "ClusterOutlined": "square.grid.2x2",
+  "ClusterFilled": "square.grid.2x2",
+  "ClusterTwoTone": "square.grid.2x2",
+  "DesktopOutlined": "app",
+  "DesktopFilled": "app",
+  "DesktopTwoTone": "app",
+  "MobileOutlined": "phone",
+  "MobileFilled": "phone",
+  "MobileTwoTone": "phone",
+  "LaptopOutlined": "app",
+  "LaptopFilled": "app",
+  "LaptopTwoTone": "app",
+  "CrownOutlined": "star",
+  "CrownFilled": "star",
+  "CrownTwoTone": "star",
+  "TrophyOutlined": "star",
+  "TrophyFilled": "star",
+  "TrophyTwoTone": "star",
+  "GiftOutlined": "bag",
+  "GiftFilled": "bag",
+  "GiftTwoTone": "bag",
+  "FireOutlined": "bolt",
+  "FireFilled": "bolt",
+  "FireTwoTone": "bolt",
+  "EyeInvisibleOutlined": "eye.slash",
+  "EyeInvisibleFilled": "eye.slash",
+  "EyeInvisibleTwoTone": "eye.slash",
+  "EyeOutlined": "eye",
+  "EyeFilled": "eye",
+  "EyeTwoTone": "eye",
+  "UnlockOutlined": "lock.open",
+  "UnlockFilled": "lock.open",
+  "UnlockTwoTone": "lock.open",
+  "LockOutlined": "lock",
+  "LockFilled": "lock",
+  "LockTwoTone": "lock",
+  "PoweroffOutlined": "power",
+  "PoweroffFilled": "power",
+  "PoweroffTwoTone": "power",
+  "ShoppingOutlined": "bag",
+  "ShoppingFilled": "bag",
+  "ShoppingTwoTone": "bag",
+  "ShoppingCartOutlined": "cart",
+  "ShoppingCartFilled": "cart",
+  "ShoppingCartTwoTone": "cart",
+  "ReadOutlined": "book",
+  "ReadFilled": "book",
+  "ReadTwoTone": "book",
+  "BookOutlined": "book",
+  "BookFilled": "book",
+  "BookTwoTone": "book",
+  "ControlOutlined": "slider.horizontal.3",
+  "ControlFilled": "slider.horizontal.3",
+  "ControlTwoTone": "slider.horizontal.3",
+  "ToolOutlined": "wrench",
+  "ToolFilled": "wrench",
+  "ToolTwoTone": "wrench",
+  "PushpinOutlined": "mappin",
+  "PushpinFilled": "mappin",
+  "PushpinTwoTone": "mappin",
+  "AudioOutlined": "mic",
+  "AudioFilled": "mic",
+  "AudioTwoTone": "mic",
+  "UndoOutlined": "arrowshape.turn.up.left",
+  "UndoFilled": "arrowshape.turn.up.left",
+  "UndoTwoTone": "arrowshape.turn.up.left",
+  "RollbackOutlined": "arrowshape.turn.up.left",
+  "RollbackFilled": "arrowshape.turn.up.left",
+  "RollbackTwoTone": "arrowshape.turn.up.left",
+  "LoginOutlined": "arrow.right",
+  "LoginFilled": "arrow.right",
+  "LoginTwoTone": "arrow.right",
+  "LogoutOutlined": "rectangle.portrait.and.arrow.right",
+  "LogoutFilled": "rectangle.portrait.and.arrow.right",
+  "LogoutTwoTone": "rectangle.portrait.and.arrow.right",
+  "MenuFoldOutlined": "sidebar.left",
+  "MenuFoldFilled": "sidebar.left",
+  "MenuFoldTwoTone": "sidebar.left",
+  "MenuUnfoldOutlined": "sidebar.left",
+  "MenuUnfoldFilled": "sidebar.left",
+  "MenuUnfoldTwoTone": "sidebar.left",
+  "MenuOutlined": "line.3.horizontal",
+  "MenuFilled": "line.3.horizontal",
+  "MenuTwoTone": "line.3.horizontal",
+  "WalletOutlined": "creditcard",
+  "WalletFilled": "creditcard",
+  "WalletTwoTone": "creditcard",
+  "CreditCardOutlined": "creditcard",
+  "CreditCardFilled": "creditcard",
+  "CreditCardTwoTone": "creditcard",
+  "CustomerServiceOutlined": "person",
+  "CustomerServiceFilled": "person",
+  "CustomerServiceTwoTone": "person",
+  "NotificationOutlined": "bell",
+  "NotificationFilled": "bell",
+  "NotificationTwoTone": "bell",
+  "BellOutlined": "bell",
+  "BellFilled": "bell",
+  "BellTwoTone": "bell",
+  "MessageOutlined": "message",
+  "MessageFilled": "message",
+  "MessageTwoTone": "message",
+  "CommentOutlined": "message",
+  "CommentFilled": "message",
+  "CommentTwoTone": "message",
+  "MailOutlined": "envelope",
+  "MailFilled": "envelope",
+  "MailTwoTone": "envelope",
+  "InboxOutlined": "tray",
+  "InboxFilled": "tray",
+  "InboxTwoTone": "tray",
+  "CloudUploadOutlined": "arrow.up.to.line",
+  "CloudUploadFilled": "arrow.up.to.line",
+  "CloudUploadTwoTone": "arrow.up.to.line",
+  "CloudDownloadOutlined": "arrow.down.to.line",
+  "CloudDownloadFilled": "arrow.down.to.line",
+  "CloudDownloadTwoTone": "arrow.down.to.line",
+  "CloudOutlined": "cloud",
+  "CloudFilled": "cloud",
+  "CloudTwoTone": "cloud",
+  "CloudServerOutlined": "cloud",
+  "CloudServerFilled": "cloud",
+  "CloudServerTwoTone": "cloud",
+  "HomeOutlined": "house",
+  "HomeFilled": "house",
+  "HomeTwoTone": "house",
+  "SearchOutlined": "search",
+  "SearchFilled": "search",
+  "SearchTwoTone": "search",
+  "PlusOutlined": "plus",
+  "PlusFilled": "plus",
+  "PlusTwoTone": "plus",
+  "MinusOutlined": "minus",
+  "MinusFilled": "minus",
+  "MinusTwoTone": "minus",
+  "PlusCircleOutlined": "plus.circle",
+  "PlusCircleFilled": "plus.circle",
+  "PlusCircleTwoTone": "plus.circle",
+  "MinusCircleOutlined": "minus.circle",
+  "MinusCircleFilled": "minus.circle",
+  "MinusCircleTwoTone": "minus.circle",
+  "CheckOutlined": "checkmark",
+  "CheckFilled": "checkmark",
+  "CheckTwoTone": "checkmark",
+  "CloseOutlined": "xmark",
+  "CloseFilled": "xmark",
+  "CloseTwoTone": "xmark",
+  "EditOutlined": "pencil",
+  "EditFilled": "pencil",
+  "EditTwoTone": "pencil",
+  "DeleteOutlined": "trash",
+  "DeleteFilled": "trash",
+  "DeleteTwoTone": "trash",
+  "CopyOutlined": "doc.on.doc",
+  "CopyFilled": "doc.on.doc",
+  "CopyTwoTone": "doc.on.doc",
+  "DownloadOutlined": "arrow.down.to.line",
+  "DownloadFilled": "arrow.down.to.line",
+  "DownloadTwoTone": "arrow.down.to.line",
+  "UploadOutlined": "arrow.up.to.line",
+  "UploadFilled": "arrow.up.to.line",
+  "UploadTwoTone": "arrow.up.to.line",
+  "FilterOutlined": "line.3.horizontal.decrease",
+  "FilterFilled": "line.3.horizontal.decrease",
+  "FilterTwoTone": "line.3.horizontal.decrease",
+  "CalendarOutlined": "calendar",
+  "CalendarFilled": "calendar",
+  "CalendarTwoTone": "calendar",
+  "ClockCircleOutlined": "clock",
+  "ClockCircleFilled": "clock",
+  "ClockCircleTwoTone": "clock",
+  "StarOutlined": "star",
+  "StarFilled": "star.fill",
+  "StarTwoTone": "star",
+  "HeartOutlined": "heart",
+  "HeartFilled": "heart.fill",
+  "HeartTwoTone": "heart",
+  "LikeOutlined": "hand.thumbsup",
+  "LikeFilled": "hand.thumbsup",
+  "LikeTwoTone": "hand.thumbsup",
+  "PictureOutlined": "photo",
+  "PictureFilled": "photo",
+  "PictureTwoTone": "photo",
+  "CameraOutlined": "camera",
+  "CameraFilled": "camera",
+  "CameraTwoTone": "camera",
+  "VideoCameraOutlined": "video",
+  "VideoCameraFilled": "video",
+  "VideoCameraTwoTone": "video",
+  "LinkOutlined": "link",
+  "LinkFilled": "link",
+  "LinkTwoTone": "link",
+  "KeyOutlined": "key",
+  "KeyFilled": "key",
+  "KeyTwoTone": "key",
+  "FlagOutlined": "flag",
+  "FlagFilled": "flag",
+  "FlagTwoTone": "flag",
+  "PrinterOutlined": "printer",
+  "PrinterFilled": "printer",
+  "PrinterTwoTone": "printer",
+  "SendOutlined": "paperplane",
+  "SendFilled": "paperplane",
+  "SendTwoTone": "paperplane",
+  "PhoneOutlined": "phone",
+  "PhoneFilled": "phone",
+  "PhoneTwoTone": "phone",
+  "NumberOutlined": "number",
+  "NumberFilled": "number",
+  "NumberTwoTone": "number",
+  "WifiOutlined": "wifi",
+  "WifiFilled": "wifi",
+  "WifiTwoTone": "wifi",
+  "MoonOutlined": "moon",
+  "MoonFilled": "moon",
+  "MoonTwoTone": "moon",
+  "SunOutlined": "sun",
+  "SunFilled": "sun",
+  "SunTwoTone": "sun",
+  "ShareAltOutlined": "square.and.arrow.up",
+  "ShareAltFilled": "square.and.arrow.up",
+  "ShareAltTwoTone": "square.and.arrow.up",
+  "StopOutlined": "stop",
+  "StopFilled": "stop",
+  "StopTwoTone": "stop",
+  "AlertOutlined": "exclamationmark.triangle",
+  "AlertFilled": "exclamationmark.triangle",
+  "AlertTwoTone": "exclamationmark.triangle",
+  "FolderOutlined": "folder",
+  "FolderFilled": "folder",
+  "FolderTwoTone": "folder",
+  "FolderOpenOutlined": "folder",
+  "FolderOpenFilled": "folder",
+  "FolderOpenTwoTone": "folder",
+  "FolderAddOutlined": "folder",
+  "FolderAddFilled": "folder",
+  "FolderAddTwoTone": "folder",
+  "TruckOutlined": "truck",
+  "TruckFilled": "truck",
+  "TruckTwoTone": "truck",
+  "ArrowUpOutlined": "arrow.up",
+  "ArrowUpFilled": "arrow.up",
+  "ArrowUpTwoTone": "arrow.up",
+  "ArrowDownOutlined": "arrow.down",
+  "ArrowDownFilled": "arrow.down",
+  "ArrowDownTwoTone": "arrow.down",
+  "ArrowLeftOutlined": "arrow.left",
+  "ArrowLeftFilled": "arrow.left",
+  "ArrowLeftTwoTone": "arrow.left",
+  "ArrowRightOutlined": "arrow.right",
+  "ArrowRightFilled": "arrow.right",
+  "ArrowRightTwoTone": "arrow.right",
+  "BranchesOutlined": "link",
+  "BranchesFilled": "link",
+  "BranchesTwoTone": "link",
+  "ApartmentOutlined": "building",
+  "ApartmentFilled": "building",
+  "ApartmentTwoTone": "building",
+  "ExperimentOutlined": "sparkles",
+  "ExperimentFilled": "sparkles",
+  "ExperimentTwoTone": "sparkles",
+  "SoundOutlined": "speaker",
+  "SoundFilled": "speaker",
+  "SoundTwoTone": "speaker",
+  "SkinOutlined": "sparkles",
+  "SkinFilled": "sparkles",
+  "SkinTwoTone": "sparkles",
+  "DeploymentOutlined": "cube",
+  "DeploymentFilled": "cube",
+  "DeploymentTwoTone": "cube",
+  "DeploymentUnitOutlined": "cube",
+  "DeploymentUnitFilled": "cube",
+  "DeploymentUnitTwoTone": "cube",
+  "BlockOutlined": "cube",
+  "BlockFilled": "cube",
+  "BlockTwoTone": "cube",
+  "BuildOutlined": "cube",
+  "BuildFilled": "cube",
+  "BuildTwoTone": "cube",
+  "PartitionOutlined": "square.grid.2x2",
+  "PartitionFilled": "square.grid.2x2",
+  "PartitionTwoTone": "square.grid.2x2",
+  "CompassOutlined": "globe",
+  "CompassFilled": "globe",
+  "CompassTwoTone": "globe",
+  "AimOutlined": "mappin",
+  "AimFilled": "mappin",
+  "AimTwoTone": "mappin",
+  "HddOutlined": "archivebox",
+  "HddFilled": "archivebox",
+  "HddTwoTone": "archivebox",
+  "SignatureOutlined": "pencil",
+  "SignatureFilled": "pencil",
+  "SignatureTwoTone": "pencil",
+  "HighlightOutlined": "pencil",
+  "HighlightFilled": "pencil",
+  "HighlightTwoTone": "pencil",
+  "SnippetsOutlined": "doc.on.doc",
+  "SnippetsFilled": "doc.on.doc",
+  "SnippetsTwoTone": "doc.on.doc",
+  "DiffOutlined": "doc.on.doc",
+  "DiffFilled": "doc.on.doc",
+  "DiffTwoTone": "doc.on.doc",
+  "ReconciliationOutlined": "doc.text",
+  "ReconciliationFilled": "doc.text",
+  "ReconciliationTwoTone": "doc.text",
+  "AccountBookOutlined": "book",
+  "AccountBookFilled": "book",
+  "AccountBookTwoTone": "book",
+  "CalculatorOutlined": "number",
+  "CalculatorFilled": "number",
+  "CalculatorTwoTone": "number",
+  "PercentageOutlined": "number",
+  "PercentageFilled": "number",
+  "PercentageTwoTone": "number",
+  "QrcodeOutlined": "square.grid.3x3",
+  "QrcodeFilled": "square.grid.3x3",
+  "QrcodeTwoTone": "square.grid.3x3",
+  "ScanOutlined": "square",
+  "ScanFilled": "square",
+  "ScanTwoTone": "square",
+  "InteractionOutlined": "arrow.up.arrow.down",
+  "InteractionFilled": "arrow.up.arrow.down",
+  "InteractionTwoTone": "arrow.up.arrow.down",
+  "RetweetOutlined": "arrow.clockwise",
+  "RetweetFilled": "arrow.clockwise",
+  "RetweetTwoTone": "arrow.clockwise",
+  "RedoOutlined": "arrow.clockwise",
+  "RedoFilled": "arrow.clockwise",
+  "RedoTwoTone": "arrow.clockwise",
+  "MedicineOutlined": "plus.circle",
+  "MedicineFilled": "plus.circle",
+  "MedicineTwoTone": "plus.circle",
+  "MedicineBoxOutlined": "plus.circle",
+  "MedicineBoxFilled": "plus.circle",
+  "MedicineBoxTwoTone": "plus.circle",
+  "PauseOutlined": "pause",
+  "PauseFilled": "pause",
+  "PauseTwoTone": "pause",
+  "PauseCircleOutlined": "pause",
+  "PauseCircleFilled": "pause",
+  "PauseCircleTwoTone": "pause",
+  "PlayCircleOutlined": "play",
+  "PlayCircleFilled": "play",
+  "PlayCircleTwoTone": "play",
+  "CaretOutlined": "chevron.down",
+  "CaretFilled": "chevron.down",
+  "CaretTwoTone": "chevron.down",
+  "ClearOutlined": "xmark",
+  "ClearFilled": "xmark",
+  "ClearTwoTone": "xmark",
+  "DashOutlined": "minus",
+  "DashFilled": "minus",
+  "DashTwoTone": "minus",
+  "DisconnectOutlined": "link",
+  "DisconnectFilled": "link",
+  "DisconnectTwoTone": "link",
+  "ColumnHeightOutlined": "arrow.up.arrow.down",
+  "ColumnHeightFilled": "arrow.up.arrow.down",
+  "ColumnHeightTwoTone": "arrow.up.arrow.down",
+  "ColumnWidthOutlined": "arrow.up.arrow.down",
+  "ColumnWidthFilled": "arrow.up.arrow.down",
+  "ColumnWidthTwoTone": "arrow.up.arrow.down",
+  "VerticalAlignTopOutlined": "arrow.up.to.line",
+  "VerticalAlignTopFilled": "arrow.up.to.line",
+  "VerticalAlignTopTwoTone": "arrow.up.to.line",
+  "GithubOutlined": "app",
+  "GithubFilled": "app",
+  "GithubTwoTone": "app",
+  "ChromeOutlined": "globe",
+  "ChromeFilled": "globe",
+  "ChromeTwoTone": "globe",
+  "AndroidOutlined": "phone",
+  "AndroidFilled": "phone",
+  "AndroidTwoTone": "phone",
+  "AppleOutlined": "app",
+  "AppleFilled": "app",
+  "AppleTwoTone": "app",
+  "WindowsOutlined": "app",
+  "WindowsFilled": "app",
+  "WindowsTwoTone": "app"
+ },
+ "attrs": {
+  "subTitle": "subtitle",
+  "defaultValue": "value",
+  "defaultChecked": "checked",
+  "checkedChildren": "onText",
+  "unCheckedChildren": "offText",
+  "allowClear": "clearable",
+  "addonBefore": "prefix",
+  "addonAfter": "suffix",
+  "help": "helper"
+ },
+ "modifiers": {
+  "danger": {
+   "attr": "color",
+   "value": "danger"
+  },
+  "ghost": {
+   "attr": "kind",
+   "value": "ghost"
+  },
+  "block": {
+   "attr": "density",
+   "value": "block"
+  },
+  "strong": {
+   "attr": "kind",
+   "value": "strong"
+  },
+  "mark": {
+   "attr": "kind",
+   "value": "mark"
+  },
+  "code": {
+   "attr": "kind",
+   "value": "code"
+  },
+  "keyboard": {
+   "attr": "kind",
+   "value": "keyboard"
+  },
+  "delete": {
+   "attr": "kind",
+   "value": "delete"
+  },
+  "type": {
+   "attr": "variant"
+  },
+  "status": {
+   "attr": "state"
+  },
+  "theme": {
+   "attr": "variant"
+  },
+  "shape": {
+   "attr": "shape"
+  },
+  "bordered": {
+   "attr": "variant",
+   "value": "bordered"
+  },
+  "hoverable": {
+   "attr": "elevation",
+   "value": "hover"
+  },
+  "layout": {
+   "attr": "variant"
+  },
+  "direction": {
+   "attr": "orientation"
+  }
+ },
+ "elements": {
+  "Button": {
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "default"
+   },
+   "variants": [
+    "primary",
+    "default",
+    "dashed",
+    "text",
+    "link",
+    "solid",
+    "outlined",
+    "filled"
+   ],
+   "attrs": {
+    "type": "variant",
+    "htmlType": "kind"
+   },
+   "doc": "Button(\"Save\", type: \"primary\", icon: \"SaveOutlined\", size: \"small\"|\"large\", shape: \"circle\"|\"round\") · .danger() · v5.21 color:/variant: (\"solid\", \"outlined\", \"dashed\", \"filled\", \"text\", \"link\")"
+  },
+  "FloatButton": {
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "variant": "default"
+   },
+   "variants": [
+    "default",
+    "primary"
+   ],
+   "attrs": {
+    "type": "variant",
+    "description": "label"
+   },
+   "doc": "FloatButton(icon: \"QuestionCircleOutlined\", type: \"primary\", description: \"HELP\") — floats bottom-right"
+  },
+  "Icon": {
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "doc": "Ant icon by component name: Icon(\"SettingOutlined\")"
+  },
+  "Typography": {
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "doc": "Typography(\"Body text\") — plain text container"
+  },
+  "Title": {
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {
+    "level": 1
+   },
+   "doc": "Title(\"Dashboard\", level: 3) — Typography.Title h1–h5 (38/30/24/20/16 px)"
+  },
+  "Paragraph": {
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "attrs": {
+    "type": "variant"
+   },
+   "doc": "Typography.Paragraph — body text with 1em bottom margin; type: \"secondary\""
+  },
+  "Text": {
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "variants": [
+    "secondary",
+    "success",
+    "warning",
+    "danger"
+   ],
+   "attrs": {
+    "type": "variant"
+   },
+   "doc": "Typography.Text: Text(\"Note\", type: \"secondary\"|\"success\"|\"warning\"|\"danger\") · .strong() .code() .mark() .keyboard() .delete() .underline()"
+  },
+  "TypographyText": {
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "attrs": {
+    "type": "variant"
+   },
+   "doc": "Alias of Text"
+  },
+  "Divider": {
+   "role": "divider",
+   "variants": [
+    "solid",
+    "dashed",
+    "dotted"
+   ],
+   "attrs": {
+    "type": "orientation",
+    "dashed": "variant",
+    "titlePlacement": "orientation",
+    "plain": "density"
+   },
+   "doc": "Divider() · Divider(label: \"Text\", orientation: \"left\") · type: \"vertical\" · dashed: true"
+  },
+  "Flex": {
+   "role": "hstack",
+   "attrs": {
+    "vertical": "orientation",
+    "gap": "spacing",
+    "align": "alignment"
+   },
+   "doc": "Flex(gap: 16, vertical: true, justify:, align:, wrap: true) { … }"
+  },
+  "Space": {
+   "role": "hstack",
+   "attrs": {
+    "align": "alignment"
+   },
+   "doc": "Space(size: \"small\"|\"middle\"|\"large\", direction: \"vertical\") { … } — 8/16/24 px gaps"
+  },
+  "SpaceCompact": {
+   "role": "toolbar",
+   "defaults": {
+    "variant": "group"
+   },
+   "doc": "Space.Compact { Input(…); Button(…) } — joined controls"
+  },
+  "ButtonGroup": {
+   "role": "toolbar",
+   "defaults": {
+    "variant": "group"
+   },
+   "doc": "Joined buttons (Space.Compact of Buttons)"
+  },
+  "Row": {
+   "role": "grid",
+   "defaults": {
+    "columns": 24
+   },
+   "attrs": {
+    "gutter": "spacing"
+   },
+   "doc": "Row(gutter: 16) { Col(span: 8) { … } … } — the 24-column grid"
+  },
+  "Col": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "attrs": {
+    "span": "size"
+   },
+   "doc": "Col(span: 6) — spans 1…24 columns of its Row"
+  },
+  "Layout": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "attrs": {
+    "hasSider": "orientation"
+   },
+   "doc": "Layout { Header; Layout { Sider; Content }; Footer } — colorBgLayout background; hasSider: true for a row"
+  },
+  "Header": {
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "dark"
+   },
+   "variants": [
+    "dark",
+    "light"
+   ],
+   "attrs": {
+    "theme": "variant"
+   },
+   "doc": "Layout.Header — 64 px bar, #001529 (theme: \"light\" for white); children go to the right"
+  },
+  "LayoutHeader": {
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "dark"
+   },
+   "attrs": {
+    "theme": "variant"
+   },
+   "doc": "Alias of Header"
+  },
+  "Sider": {
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "dark"
+   },
+   "variants": [
+    "dark",
+    "light"
+   ],
+   "attrs": {
+    "theme": "variant",
+    "collapsed": "density"
+   },
+   "doc": "Layout.Sider(width: 200, theme: \"light\", collapsed: true) { MenuItem … }"
+  },
+  "Content": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "doc": "Layout.Content — the padded page body"
+  },
+  "Footer": {
+   "role": "hstack",
+   "doc": "Layout.Footer — centered secondary text"
+  },
+  "Menu": {
+   "role": "sidebar",
+   "defaults": {
+    "variant": "light"
+   },
+   "variants": [
+    "light",
+    "dark"
+   ],
+   "attrs": {
+    "theme": "variant",
+    "mode": "orientation",
+    "selectedKeys": "selection",
+    "inlineCollapsed": "density"
+   },
+   "doc": "Menu(mode: \"inline\"|\"vertical\"|\"horizontal\", theme: \"dark\", selection: \"Orders\") { MenuItem(…); SubMenu(…) { … } }"
+  },
+  "MenuItem": {
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "doc": "MenuItem(\"Orders\", icon: \"ShoppingCartOutlined\").selected() · danger via .badge / DropdownItem"
+  },
+  "SubMenu": {
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "doc": "SubMenu(\"Settings\", icon:, expanded: true) { MenuItem … }"
+  },
+  "MenuItemGroup": {
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "doc": "Menu.ItemGroup — grey caption above a group of items"
+  },
+  "MenuDivider": {
+   "role": "divider"
+  },
+  "Breadcrumb": {
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "doc": "Breadcrumb([\"Home\", \"Orders\", \"Detail\"]) — \"/\" separators"
+  },
+  "Dropdown": {
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "type": "variant"
+   },
+   "doc": "Dropdown(\"Actions\", open: true) { DropdownItem(\"Edit\", icon:); MenuDivider(); DropdownItem(\"Delete\", danger: true) }"
+  },
+  "DropdownButton": {
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "default"
+   },
+   "attrs": {
+    "type": "variant"
+   },
+   "doc": "Dropdown.Button — a button with a separate caret"
+  },
+  "DropdownItem": {
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "danger": "destructive",
+    "extra": "shortcut"
+   },
+   "doc": "Item of a Dropdown menu; danger: true, extra: \"⌘E\""
+  },
+  "Pagination": {
+   "role": "pagination",
+   "variants": [
+    "default",
+    "simple",
+    "mini"
+   ],
+   "attrs": {
+    "current": "page",
+    "showTotal": "summary"
+   },
+   "doc": "Pagination(total: 85, current: 2, showTotal: \"Total 85 items\", pageSize: 10, size: \"small\") — count is pages"
+  },
+  "Steps": {
+   "role": "steps",
+   "params": [
+    "items"
+   ],
+   "variants": [
+    "default",
+    "navigation",
+    "inline",
+    "dot"
+   ],
+   "attrs": {
+    "direction": "orientation",
+    "type": "variant",
+    "progressDot": "variant"
+   },
+   "doc": "Steps(items: [\"Login\", [\"title\": \"Verify\", \"description\": \"…\"], \"Done\"], current: 1, direction: \"vertical\", size: \"small\") · errors: [1]"
+  },
+  "Anchor": {
+   "role": "list",
+   "doc": "Anchor { AnchorLink(\"Basic\") … } — in-page nav with the ink rail"
+  },
+  "AnchorLink": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ]
+  },
+  "Tabs": {
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [
+    "line",
+    "card",
+    "editable-card"
+   ],
+   "attrs": {
+    "type": "variant",
+    "activeKey": "selection",
+    "defaultActiveKey": "selection",
+    "tabPosition": "placement",
+    "tabBarExtraContent": "trailing"
+   },
+   "doc": "Tabs(items: [\"Overview\", \"Logs\"], selection: 0, type: \"card\", size: \"small\") or Tabs { TabPane(\"One\") { … } }"
+  },
+  "TabPane": {
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "tab": "label"
+   },
+   "doc": "TabPane(\"Details\", icon:) { panel }"
+  },
+  "TabsItem": {
+   "role": "tab",
+   "params": [
+    "label"
+   ]
+  },
+  "Form": {
+   "role": "form",
+   "defaults": {
+    "variant": "horizontal"
+   },
+   "variants": [
+    "horizontal",
+    "vertical",
+    "inline"
+   ],
+   "attrs": {
+    "layout": "variant"
+   },
+   "doc": "Form(layout: \"horizontal\"|\"vertical\"|\"inline\") { FormItem(…) { … } · Input(label:) … } — horizontal puts right-aligned labels with a colon left"
+  },
+  "FormItem": {
+   "role": "labeled",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "required": "kind"
+   },
+   "doc": "FormItem(\"Notifications\", required: true, help: \"…\") { Switch() } — label + any control"
+  },
+  "Input": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "variants": [
+    "outlined",
+    "filled",
+    "borderless",
+    "underlined"
+   ],
+   "attrs": {
+    "status": "state"
+   },
+   "doc": "Input(\"Email\", label: \"Email\", value:, prefix:, suffix:, addonBefore: \"https://\", allowClear: true, status: \"error\", size:)"
+  },
+  "InputPassword": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password",
+    "reveal": true
+   },
+   "attrs": {
+    "status": "state"
+   },
+   "doc": "Input.Password with the eye toggle"
+  },
+  "Password": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password",
+    "reveal": true
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "InputSearch": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "attrs": {
+    "status": "state",
+    "enterButton": "density"
+   },
+   "doc": "Input.Search(\"Search orders\", enterButton: true)"
+  },
+  "Search": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "attrs": {
+    "status": "state",
+    "enterButton": "density"
+   }
+  },
+  "TextArea": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "attrs": {
+    "status": "state",
+    "showCount": "counter"
+   },
+   "doc": "Input.TextArea(rows: 4, showCount: true, maxLength: 100)"
+  },
+  "InputNumber": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "number",
+    "trailingIcon": "chevron.up.down"
+   },
+   "attrs": {
+    "status": "state"
+   },
+   "doc": "InputNumber(value: 3, min: 1, max: 10, addonAfter: \"kg\")"
+  },
+  "InputOTP": {
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "variant": "otp"
+   },
+   "doc": "Input.OTP(items: [\"4\", \"8\", \"1\", \"\", \"\", \"\"])"
+  },
+  "Mentions": {
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "doc": "Mentions — a TextArea that suggests @names"
+  },
+  "AutoComplete": {
+   "role": "select",
+   "params": [
+    "placeholder"
+   ],
+   "doc": "AutoComplete(\"Search…\", value:, options: [..], open: true)"
+  },
+  "Select": {
+   "role": "select",
+   "params": [
+    "placeholder"
+   ],
+   "variants": [
+    "outlined",
+    "filled",
+    "borderless",
+    "underlined"
+   ],
+   "attrs": {
+    "status": "state",
+    "mode": "kind"
+   },
+   "doc": "Select(\"Status\", value: \"Active\", options: [..], open: true) · mode: \"multiple\" with value: [..] renders tags"
+  },
+  "Cascader": {
+   "role": "select",
+   "params": [
+    "placeholder"
+   ],
+   "doc": "Cascader(value: \"Asia / Japan / Tokyo\", options: [\"Asia\", \"Europe\"], open: true)"
+  },
+  "TreeSelect": {
+   "role": "select",
+   "params": [
+    "placeholder"
+   ],
+   "doc": "TreeSelect(value: \"Engineering / Platform\", options: [..])"
+  },
+  "Checkbox": {
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "doc": "Checkbox(\"Remember me\", checked: true) · checked: \"indeterminate\""
+  },
+  "CheckboxGroup": {
+   "role": "hstack",
+   "defaults": {
+    "spacing": 8
+   },
+   "doc": "Checkbox.Group { Checkbox … } — a row of checkboxes (spacing 8)"
+  },
+  "Radio": {
+   "role": "radio",
+   "params": [
+    "label"
+   ]
+  },
+  "RadioGroup": {
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "orientation": "horizontal"
+   },
+   "variants": [
+    "default",
+    "button",
+    "solid"
+   ],
+   "attrs": {
+    "optionType": "variant",
+    "buttonStyle": "kind"
+   },
+   "doc": "Radio.Group(options: [\"Daily\", \"Weekly\"], value: \"Weekly\", optionType: \"button\", buttonStyle: \"solid\")"
+  },
+  "RadioButton": {
+   "role": "radio",
+   "params": [
+    "label"
+   ]
+  },
+  "Switch": {
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "doc": "Switch(checked: true, checkedChildren: \"ON\", size: \"small\", loading:)"
+  },
+  "Slider": {
+   "role": "slider",
+   "doc": "Slider(value: 30) · range: value: [20, 50] · marks via ticks: 4"
+  },
+  "Rate": {
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "doc": "Rate(value: 3.5, count: 5)"
+  },
+  "DatePicker": {
+   "role": "datepicker",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "format": "iso"
+   },
+   "attrs": {
+    "status": "state",
+    "picker": "kind"
+   },
+   "doc": "DatePicker(value: \"2026-11-24\", placeholder: \"Select date\", open: true)"
+  },
+  "RangePicker": {
+   "role": "datepicker",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "range",
+    "format": "iso"
+   },
+   "attrs": {
+    "status": "state"
+   },
+   "doc": "DatePicker.RangePicker(value: \"2026-11-01  →  2026-11-30\")"
+  },
+  "TimePicker": {
+   "role": "datepicker",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "time"
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ColorPicker": {
+   "role": "swatches",
+   "attrs": {
+    "value": "label",
+    "presets": "colors"
+   },
+   "doc": "ColorPicker(colors: [\"#1677ff\", …], selection: 0, label: \"#1677FF\")"
+  },
+  "Upload": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "leading",
+    "spacing": 8
+   },
+   "attrs": {
+    "listType": "variant"
+   },
+   "doc": "Upload { Button(\"Click to Upload\", icon: \"UploadOutlined\"); UploadFile(\"spec.pdf\") } — trigger + file list"
+  },
+  "UploadDragger": {
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "InboxOutlined"
+   },
+   "doc": "Upload.Dragger(\"Click or drag file to this area to upload\", hint: \"Support for a single or bulk upload.\")"
+  },
+  "Dragger": {
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "InboxOutlined"
+   },
+   "doc": "Alias of UploadDragger"
+  },
+  "UploadFile": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "icon": "PaperClipOutlined"
+   },
+   "doc": "UploadFile(\"report.pdf\", status: \"uploading\"|\"done\"|\"error\") — a row of the upload list"
+  },
+  "Transfer": {
+   "role": "hstack",
+   "defaults": {
+    "alignment": "center",
+    "spacing": 8
+   },
+   "doc": "Transfer { TransferList(\"Source\") { … }; TransferOperation(); TransferList(\"Target\") { … } }"
+  },
+  "TransferList": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "doc": "TransferList(\"Source\", subtitle: \"2/8 items\") { TransferItem(\"Content 1\", checked: true) }"
+  },
+  "TransferItem": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "checked": false
+   }
+  },
+  "TransferOperation": {
+   "role": "vstack",
+   "defaults": {
+    "spacing": 4
+   },
+   "doc": "The two arrow buttons between TransferLists (pass children to override)"
+  },
+  "Avatar": {
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "variants": [
+    "circle",
+    "square"
+   ],
+   "attrs": {
+    "src": "image"
+   },
+   "doc": "Avatar(\"Ana Lima\", src: \"…\", icon: \"UserOutlined\", shape: \"square\", size: \"small\"|\"large\")"
+  },
+  "AvatarGroup": {
+   "role": "hstack",
+   "defaults": {
+    "spacing": 0
+   },
+   "doc": "Avatar.Group { Avatar … } — overlapped avatars with white rings"
+  },
+  "Badge": {
+   "role": "badge",
+   "params": [
+    "count"
+   ],
+   "attrs": {
+    "status": "severity",
+    "overflowCount": "max",
+    "dot": "variant"
+   },
+   "doc": "Badge(count: 5) { Avatar(…) } · Badge(dot: true) · Badge(status: \"success\", text: \"Running\") · overflowCount: 99"
+  },
+  "BadgeRibbon": {
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "ribbon"
+   },
+   "doc": "Badge.Ribbon(text: \"Recommended\", color: \"volcano\") { Card(…) } — corner ribbon over its child"
+  },
+  "Calendar": {
+   "role": "calendar",
+   "doc": "Calendar(value: \"2026-11-24\", fullscreen: false)"
+  },
+  "Card": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "variants": [
+    "outlined",
+    "borderless"
+   ],
+   "attrs": {
+    "bordered": "density"
+   },
+   "doc": "Card(title: \"Orders\", extra: { Link(\"More\") }, size: \"small\", cover: \"…\", hoverable:) { … } actions: { Icon(…) … }"
+  },
+  "CardMeta": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "doc": "Card.Meta(title:, description:, avatar:)"
+  },
+  "CardGrid": {
+   "role": "vstack",
+   "doc": "Card.Grid — a hoverable cell of a grid card"
+  },
+  "Carousel": {
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "doc": "Carousel(image: \"…\") — one slide with dots"
+  },
+  "Collapse": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [
+    "default",
+    "borderless",
+    "ghost"
+   ],
+   "attrs": {
+    "bordered": "density",
+    "ghost": "kind"
+   },
+   "doc": "Collapse { CollapsePanel(\"Header\", expanded: true) { … } … } · bordered: false · ghost: true"
+  },
+  "CollapsePanel": {
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "header": "title",
+    "extra": "trailing"
+   },
+   "doc": "Collapse panel; extra: { … } on the right"
+  },
+  "Panel": {
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "header": "title",
+    "extra": "trailing"
+   }
+  },
+  "Descriptions": {
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "column": "level",
+    "bordered": "variant",
+    "extra": "actions",
+    "layout": "orientation"
+   },
+   "doc": "Descriptions(title: \"User Info\", column: 3, bordered: true, size: \"small\", extra: { … }) { DescriptionsItem(\"Name\", \"Ana\") … }"
+  },
+  "DescriptionsItem": {
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "attrs": {
+    "span": "size"
+   },
+   "doc": "DescriptionsItem(\"Status\") { Badge(status:, text:) } · span: 2"
+  },
+  "Empty": {
+   "role": "emptystate",
+   "params": [
+    "description"
+   ],
+   "defaults": {
+    "icon": "tray",
+    "description": "No data"
+   },
+   "variants": [
+    "default",
+    "simple"
+   ],
+   "attrs": {
+    "image": "variant"
+   },
+   "doc": "Empty(\"No orders yet\") { Button(\"Create\", type: \"primary\") } · image: \"simple\""
+  },
+  "Image": {
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "doc": "Image(src: \"…\", width: …)"
+  },
+  "List": {
+   "role": "list",
+   "variants": [
+    "default",
+    "bordered",
+    "split"
+   ],
+   "attrs": {
+    "bordered": "variant",
+    "itemLayout": "orientation",
+    "dataSource": "items"
+   },
+   "doc": "List(header: \"Activity\", bordered: true, size: \"small\") { ListItem(…) } · itemLayout: \"vertical\""
+  },
+  "ListItem": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "actions": "trailing",
+    "extra": "trailing"
+   },
+   "doc": "List.Item with Meta: ListItem(\"Title\", description: \"…\", avatar: \"Ana\") actions: { Link(\"edit\") }"
+  },
+  "ListItemMeta": {
+   "role": "listitem",
+   "params": [
+    "title"
+   ]
+  },
+  "Popover": {
+   "role": "tooltip",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "content": "message"
+   },
+   "doc": "Popover(title: \"Title\", content: \"…\") { Button(…) } — white card bubble"
+  },
+  "QRCode": {
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "square.grid.3x3"
+   },
+   "attrs": {
+    "value": "label"
+   },
+   "doc": "QRCode(value:) — a QR placeholder"
+  },
+  "Segmented": {
+   "role": "segmented",
+   "params": [
+    "options"
+   ],
+   "doc": "Segmented(options: [\"Daily\", \"Weekly\", \"Monthly\"], value: \"Weekly\", block: true, size:)"
+  },
+  "Statistic": {
+   "role": "stat",
+   "params": [
+    "title",
+    "value"
+   ],
+   "attrs": {
+    "title": "label"
+   },
+   "doc": "Statistic(title: \"Active Users\", value: \"112,893\", change: \"+11.28%\", prefix:/suffix: via value text)"
+  },
+  "StatisticCountdown": {
+   "role": "stat",
+   "params": [
+    "title",
+    "value"
+   ],
+   "attrs": {
+    "title": "label"
+   },
+   "doc": "Statistic.Countdown(title:, value: \"23:59:59\")"
+  },
+  "Table": {
+   "role": "table",
+   "variants": [
+    "default",
+    "bordered"
+   ],
+   "attrs": {
+    "dataSource": "rows",
+    "rowSelection": "selectable",
+    "selectedRowKeys": "selectedRows",
+    "bordered": "variant"
+   },
+   "doc": "Table(columns: [..], rows: [[..]], rowSelection: true, selectedRows: [1], sortColumn: 2, size: \"middle\"|\"small\", bordered: true, pagination: \"…\") — cells may be views"
+  },
+  "Column": {
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "doc": "Table column header (alignment: .trailing)"
+  },
+  "Tag": {
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "variants": [
+    "filled",
+    "outlined",
+    "solid",
+    "borderless"
+   ],
+   "attrs": {
+    "bordered": "variant"
+   },
+   "doc": "Tag(\"processing\", color: \"blue\"|\"success\"|\"processing\"|\"error\"|\"warning\"|\"magenta\"…, icon:, closable: true, bordered: false)"
+  },
+  "CheckableTag": {
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "checkable"
+   },
+   "attrs": {
+    "checked": "selected"
+   },
+   "doc": "Tag.CheckableTag(\"Movies\", checked: true)"
+  },
+  "Timeline": {
+   "role": "timeline",
+   "variants": [
+    "left",
+    "alternate",
+    "right"
+   ],
+   "attrs": {
+    "mode": "kind"
+   },
+   "doc": "Timeline { TimelineItem(\"Created\", color: \"green\", label: \"2026-11-01\") … } · pending:"
+  },
+  "TimelineItem": {
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "color": "status",
+    "label": "time",
+    "dot": "icon"
+   },
+   "doc": "TimelineItem(\"Shipped\", color: \"green\"|\"blue\"|\"red\"|\"gray\", description:, dot: \"ClockCircleOutlined\")"
+  },
+  "Tooltip": {
+   "role": "tooltip",
+   "params": [
+    "title"
+   ],
+   "doc": "Tooltip(\"prompt text\", placement: .bottom) { Button(…) }"
+  },
+  "Tour": {
+   "role": "tooltip",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "description": "message"
+   },
+   "doc": "Tour step bubble: Tour(\"Upload file\", description: \"…\") { target }"
+  },
+  "Tree": {
+   "role": "tree",
+   "variants": [
+    "default",
+    "directory"
+   ],
+   "attrs": {
+    "checkable": "kind",
+    "showLine": "density"
+   },
+   "doc": "Tree { TreeNode(\"parent\", expanded: true) { TreeNode(\"leaf\") } } · showLine · checkable"
+  },
+  "DirectoryTree": {
+   "role": "tree",
+   "defaults": {
+    "variant": "directory"
+   }
+  },
+  "TreeNode": {
+   "role": "treeitem",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "title": "label",
+    "checked": "kind"
+   },
+   "doc": "TreeNode(\"src\", folder: true, expanded: true, checked: true).selected()"
+  },
+  "Alert": {
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "showIcon": false
+   },
+   "variants": [
+    "default",
+    "banner"
+   ],
+   "attrs": {
+    "type": "severity",
+    "message": "title",
+    "description": "message",
+    "banner": "variant",
+    "action": "actions"
+   },
+   "doc": "Alert(message: \"Saved\", description: \"…\", type: \"success\"|\"info\"|\"warning\"|\"error\", showIcon: true, closable: true, action: { … })"
+  },
+  "Drawer": {
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "drawer",
+    "closable": true
+   },
+   "attrs": {
+    "extra": "actions"
+   },
+   "doc": "Drawer(title: \"Order #1024\", placement: .right, width: 420) { … } footer: { Button … }"
+  },
+  "Modal": {
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "closable": true
+   },
+   "attrs": {
+    "footer": "actions",
+    "okText": "primary"
+   },
+   "doc": "Modal(title: \"Basic Modal\", open: true) { … } footer: { Button(\"Cancel\"); Button(\"OK\", type: \"primary\") } · buttons: [\"Cancel\", \"OK\"]"
+  },
+  "ModalConfirm": {
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "confirm",
+    "icon": "ExclamationCircleFilled",
+    "buttons": [
+     "Cancel",
+     "OK"
+    ]
+   },
+   "attrs": {
+    "content": "message",
+    "type": "kind"
+   },
+   "doc": "Modal.confirm(title:, content:, buttons: [\"Cancel\", \"Delete\"], destructive: \"Delete\") — icon left, buttons bottom-right"
+  },
+  "Message": {
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "position": "top",
+    "icon": "InfoCircleFilled",
+    "variant": "info"
+   },
+   "variants": [
+    "info",
+    "success",
+    "error",
+    "warning",
+    "loading"
+   ],
+   "attrs": {
+    "content": "message",
+    "type": "variant"
+   },
+   "doc": "message.success(…): Message(\"Saved successfully\", type: \"success\") — a small card at the top centre"
+  },
+  "Notification": {
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "position": "topRight",
+    "closable": true,
+    "variant": "notification"
+   },
+   "attrs": {
+    "type": "kind",
+    "btn": "actions"
+   },
+   "doc": "notification.open: Notification(message: \"New order\", description: \"…\", type: \"success\", icon:) — top-right card"
+  },
+  "Popconfirm": {
+   "role": "tooltip",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "description": "message"
+   },
+   "doc": "Popconfirm(title: \"Delete the task\", description: \"Are you sure?\") { Button(…) } actions: { … }"
+  },
+  "Progress": {
+   "role": "progress",
+   "params": [
+    "percent"
+   ],
+   "defaults": {
+    "showValue": true
+   },
+   "variants": [
+    "line",
+    "circle",
+    "dashboard"
+   ],
+   "attrs": {
+    "type": "kind",
+    "status": "severity",
+    "showInfo": "showValue",
+    "percent": "value"
+   },
+   "doc": "Progress(percent: 30, type: \"circular\", status: \"exception\"|\"success\"|\"active\", size: \"small\", strokeColor:, showInfo: false)"
+  },
+  "Result": {
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "kind": "success",
+    "icon": "checkmark.circle"
+   },
+   "variants": [
+    "success",
+    "error",
+    "info",
+    "warning",
+    "404",
+    "403",
+    "500"
+   ],
+   "attrs": {
+    "status": "kind",
+    "subTitle": "description",
+    "extra": "actions"
+   },
+   "doc": "Result(status: \"success\", title: \"Successfully Purchased!\", subTitle: \"Order 2017…\") { Button(\"Go Console\", type: \"primary\") }"
+  },
+  "Skeleton": {
+   "role": "skeleton",
+   "attrs": {
+    "rows": "lines",
+    "active": "kind"
+   },
+   "doc": "Skeleton(avatar: true, lines: 3, active: true)"
+  },
+  "Spin": {
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "spinner"
+   },
+   "attrs": {
+    "tip": "label"
+   },
+   "doc": "Spin(tip: \"Loading…\", size: \"large\")"
+  },
+  "Watermark": {
+   "role": "group",
+   "doc": "Watermark wrapper (renders its content)"
+  },
+  "ConfigProvider": {
+   "role": "group",
+   "doc": "ConfigProvider wrapper (renders its content)"
+  },
+  "App": {
+   "role": "group",
+   "doc": "App wrapper (renders its content)"
+  },
+  "ProLayout": {
+   "role": "hstack",
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "attrs": {
+    "layout": "variant",
+    "navTheme": "kind"
+   },
+   "doc": "ProLayout(layout: \"side\"|\"mix\"|\"top\") { ProSider(…) { MenuItem … }; VStack { ProHeader(…); PageContainer(…) { … } } }"
+  },
+  "ProSider": {
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "light"
+   },
+   "attrs": {
+    "theme": "variant",
+    "collapsed": "density"
+   },
+   "doc": "ProLayout side menu with logo + title header: ProSider(title: \"Ant Design Pro\", logo: …)"
+  },
+  "ProHeader": {
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "pro"
+   },
+   "attrs": {
+    "theme": "kind"
+   },
+   "doc": "ProLayout global header (56 px): ProHeader(title:, search:, notifications: 3, avatar: \"Serati Ma\") { actions }"
+  },
+  "PageContainer": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "breadcrumb": "header",
+    "subTitle": "subtitle",
+    "content": "subtitle",
+    "tabList": "footer"
+   },
+   "doc": "PageContainer(title: \"Basic list\", subtitle:) header: { Breadcrumb([..]) } extra: { Button … } { content }"
+  },
+  "PageHeader": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "header"
+   },
+   "attrs": {
+    "breadcrumb": "header",
+    "subTitle": "subtitle"
+   },
+   "doc": "PageHeader(title:, subTitle:, onBack: true) extra: { … }"
+  },
+  "GridContent": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 24
+   }
+  },
+  "ProCard": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "variants": [
+    "default",
+    "inner"
+   ],
+   "attrs": {
+    "bordered": "density",
+    "headerBordered": "kind",
+    "split": "orientation",
+    "type": "variant"
+   },
+   "doc": "ProCard(title: \"Trend\", extra: { … }, bordered: true, headerBordered: true, split: \"vertical\") { … }"
+  },
+  "StatisticCard": {
+   "role": "stat",
+   "params": [
+    "title",
+    "value"
+   ],
+   "attrs": {
+    "title": "label",
+    "description": "caption",
+    "chart": "trend"
+   },
+   "doc": "StatisticCard(title: \"Sales\", value: \"¥ 126,560\", change: \"12%\", caption: \"week over week\", trend: [..])"
+  },
+  "ProTable": {
+   "role": "table",
+   "variants": [
+    "default",
+    "bordered"
+   ],
+   "attrs": {
+    "headerTitle": "title",
+    "toolBarRender": "toolbar",
+    "dataSource": "rows",
+    "rowSelection": "selectable",
+    "selectedRowKeys": "selectedRows",
+    "bordered": "variant"
+   },
+   "doc": "ProTable(headerTitle: \"Orders\", columns:, rows:, rowSelection: true) toolbar: { Button(…) } footer: { Pagination(…) }"
+  },
+  "ProForm": {
+   "role": "form",
+   "defaults": {
+    "variant": "vertical"
+   },
+   "variants": [
+    "horizontal",
+    "vertical",
+    "inline"
+   ],
+   "attrs": {
+    "layout": "variant",
+    "submitter": "actions"
+   },
+   "doc": "ProForm(layout: \"vertical\") { ProFormText(…) … } actions: { Button(\"Submit\", type: \"primary\") }"
+  },
+  "QueryFilter": {
+   "role": "form",
+   "defaults": {
+    "variant": "query"
+   },
+   "attrs": {
+    "submitter": "actions"
+   },
+   "doc": "QueryFilter { ProFormText(…) … } actions: { Button(\"Reset\"); Button(\"Query\", type: \"primary\") } — the 3-column search form above a ProTable"
+  },
+  "LightFilter": {
+   "role": "hstack",
+   "defaults": {
+    "spacing": 8
+   },
+   "doc": "LightFilter { Select(…, variant: \"borderless\") … } — compact inline filters"
+  },
+  "StepsForm": {
+   "role": "vstack",
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 24
+   },
+   "doc": "StepsForm { Steps(…); ProForm { … } }"
+  },
+  "ProFormText": {
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "tooltip": "helper",
+    "status": "state"
+   },
+   "doc": "ProFormText(\"Name\", placeholder:, required: true, width: \"md\")"
+  },
+  "ProFormTextArea": {
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ProFormPassword": {
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "password",
+    "reveal": true
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ProFormDigit": {
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "number",
+    "trailingIcon": "chevron.up.down"
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ProFormSelect": {
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "attrs": {
+    "status": "state"
+   },
+   "doc": "ProFormSelect(\"Status\", options: [..], value:)"
+  },
+  "ProFormDatePicker": {
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "format": "iso"
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ProFormDateRangePicker": {
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "range",
+    "format": "iso"
+   },
+   "attrs": {
+    "status": "state"
+   }
+  },
+  "ProFormSwitch": {
+   "role": "toggle",
+   "params": [
+    "label"
+   ]
+  },
+  "ProFormCheckbox": {
+   "role": "checkbox",
+   "params": [
+    "label"
+   ]
+  },
+  "ProFormRadioGroup": {
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "orientation": "horizontal"
+   },
+   "attrs": {
+    "radioType": "variant"
+   }
+  },
+  "ProFormUploadDragger": {
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "InboxOutlined"
+   }
+  },
+  "ProDescriptions": {
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "attrs": {
+    "column": "level",
+    "bordered": "variant",
+    "extra": "actions"
+   },
+   "doc": "ProDescriptions(title:, column: 2) { DescriptionsItem … }"
+  },
+  "ProList": {
+   "role": "list",
+   "attrs": {
+    "headerTitle": "header"
+   },
+   "doc": "ProList(headerTitle: \"Members\") { ListItem … }"
+  },
+  "CheckCard": {
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "check"
+   },
+   "attrs": {
+    "checked": "selected",
+    "description": "subtitle"
+   },
+   "doc": "CheckCard(title:, description:, avatar:, checked: true)"
+  },
+  "FooterToolbar": {
+   "role": "toolbar",
+   "defaults": {
+    "variant": "footer"
+   },
+   "doc": "FooterToolbar { Button … } — the fixed bottom action bar"
+  },
+  "Kbd": {
+   "role": "kbd",
+   "params": [
+    "keys"
+   ]
+  }
+ }
+}

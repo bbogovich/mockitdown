@@ -97,7 +97,8 @@
 .mkd-frame :where([data-font="caption2"]) { font-size: var(--mkd-fs-caption2); font-weight: var(--mkd-fw-caption2); }
 .mkd-frame :where([data-font="overline"]) { font-size: var(--mkd-fs-overline); font-weight: var(--mkd-fw-overline); text-transform: uppercase; letter-spacing: .06em; }
 .mkd-frame :where([data-design="rounded"]) { font-family: ui-rounded, var(--mkd-font); }
-.mkd-frame .mkd-code { font-family: var(--mkd-font-mono); font-size: .9em; padding: 1px 4px; border-radius: 4px; background: var(--mkd-surface-2); }
+/* Inline code (`…` in text) is a <code>; the Code element (block) is a <div data-kind>. */
+.mkd-frame code.mkd-code { display: inline; font-family: var(--mkd-font-mono); font-size: .9em; line-height: inherit; padding: 1px 4px; border: 0; border-radius: 4px; background: var(--mkd-surface-2); color: inherit; }
 .mkd-frame .mkd-label { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
 .mkd-frame .mkd-label__icon { display: inline-flex; color: var(--mkd-accent); }
 .mkd-frame .mkd-link { color: var(--mkd-accent); cursor: default; display: inline-flex; align-items: center; gap: 4px; }
@@ -618,7 +619,8 @@
 .mkd-frame .mkd-menu { position: relative; display: inline-flex; flex-direction: column; flex: none; }
 .mkd-frame .mkd-menu:where([data-standalone="true"]) .mkd-menu__popup { position: static; margin: 0; }
 .mkd-frame .mkd-menu__popup { min-width: 200px; }
-.mkd-frame :where(.mkd-hstack, .mkd-toolbar, .mkd-appbar__actions, .mkd-navbar__trailing) > .mkd-menu:last-child .mkd-menu__popup { left: auto; right: 0; }
+.mkd-frame :where(.mkd-hstack, .mkd-toolbar, .mkd-appbar__actions, .mkd-navbar__trailing) > .mkd-menu:last-child .mkd-menu__popup,
+.mkd-frame :where(.mkd-hstack, .mkd-toolbar, .mkd-appbar__actions, .mkd-navbar__trailing) > .mkd-menu:has(+ .mkd-deco__layer:last-child) .mkd-menu__popup { left: auto; right: 0; }
 .mkd-frame .mkd-menuitem { display: flex; align-items: center; gap: 10px; min-height: 32px; padding: 0 10px; border-radius: var(--mkd-radius-s); white-space: nowrap; color: var(--mkd-fg); }
 .mkd-frame .mkd-menuitem:where([data-selected="true"], [data-state="hover"]) { background: var(--mkd-accent-soft); }
 .mkd-frame .mkd-menuitem:where([data-role="destructive"]) { color: var(--mkd-danger); }

@@ -1,0 +1,108 @@
+// Reusable Ant Design Pro blocks for the antd pack page. Each one is a struct built from antd /
+// ProComponents elements, so it renders with the pack's tokens and follows light/dark like any element. Import them from a block that selects the pack.
+import Antd
+
+/// The KPI card of the Pro "analysis" dashboard: caption with an info icon, big total, a body
+/// (trend figures or a mini chart) and a footer figure under a divider.
+struct ChartCard: View {
+  var title: String
+  var total: String
+  var footer: String
+  var footerValue: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    ProCard {
+      VStack(alignment: .stretch, spacing: 4) {
+        HStack {
+          Text(title, type: "secondary")
+          Spacer()
+          Icon("InfoCircleOutlined").foregroundStyle(.secondary)
+        }
+        Text(total).font(.title).foregroundStyle(.primary)
+        HStack(spacing: 16) { content }.frame(height: 46)
+        Divider()
+        HStack(spacing: 8) {
+          Text(footer)
+          Text(footerValue)
+        }
+      }
+    }
+  }
+}
+
+/// "WoW 12% ▲" — a trend figure for ChartCard.
+struct Trend: View {
+  var label: String
+  var value: String
+  var up: Bool = true
+
+  var body: some View {
+    HStack(spacing: 4) {
+      Text(label)
+      Text(value)
+      Text(up ? "▲" : "▼", type: up ? "danger" : "success").font(.caption)
+    }
+  }
+}
+
+/// Order status rendered as a status Badge (dot + text), the way ProTable's valueEnum shows it.
+struct OrderStatus: View {
+  var status: String
+
+  var body: some View {
+    if status == "Paid" {
+      Badge(status: "success", text: "Paid")
+    } else if status == "Shipping" {
+      Badge(status: "processing", text: "Shipping")
+    } else if status == "Refunded" {
+      Badge(status: "default", text: "Refunded")
+    } else if status == "Overdue" {
+      Badge(status: "error", text: "Overdue")
+    } else {
+      Badge(status: "warning", text: status)
+    }
+  }
+}
+
+/// The operation column of a ProTable row: text links separated the antd way.
+struct RowActions: View {
+  var primary: String = "View"
+  var more: Bool = true
+
+  var body: some View {
+    HStack(spacing: 16) {
+      Link(primary)
+      Link("Edit")
+      if more {
+        Icon("MoreOutlined").foregroundStyle(.secondary)
+      }
+    }
+  }
+}
+
+/// A Transfer: two lists with the move buttons between them.
+struct TransferBox: View {
+  var source: [String]
+  var target: [String]
+  var picked: [String] = []
+
+  var body: some View {
+    Transfer {
+      TransferList("Source", subtitle: "\(picked.count)/\(source.count) items") {
+        ForEach(source) { item in
+          TransferItem(item, checked: picked.contains(item))
+        }
+      }
+      TransferOperation {
+        Button(icon: "RightOutlined", type: "primary", size: "small")
+        Button(icon: "LeftOutlined", size: "small").disabled()
+      }
+      TransferList("Target", subtitle: "\(target.count) items") {
+        ForEach(target) { item in
+          TransferItem(item)
+        }
+      }
+    }
+  }
+}

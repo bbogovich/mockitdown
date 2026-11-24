@@ -30,7 +30,6 @@ def table() -> str:
         mods = ", ".join(f"`import {m}`" for m in p.modules)
         rows.append(f"| `{p.id}` | {p.framework} | {p.version} | {p.device} · {p.chrome_for(p.device)} | "
                     f"`pack=\"{p.id}\"`, {mods} | {len(p.own_elements)} |")
-    rows.append("| *proposed* | Ant Design | 5.x | — | — | — |")
     return "\n".join(rows)
 
 

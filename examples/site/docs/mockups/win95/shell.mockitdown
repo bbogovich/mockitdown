@@ -1,0 +1,108 @@
+// Reusable Windows 95 shell pieces for the win95 pack page.
+// Import with:  import "win95/shell"
+
+import Windows95
+
+/// The taskbar along the bottom of the desktop: Start, one button per window, the tray with the clock.
+struct Taskbar95: View {
+  var windows: [String] = []
+  var active: String = ""
+  var startOpen: Bool = false
+  var time: String = "4:20 PM"
+  @ViewBuilder var tray: Content
+
+  var body: some View {
+    Taskbar {
+      StartButton().selected(startOpen)
+      ForEach(windows) { w in
+        TaskbarButton(w).selected(w == active)
+      }
+      Tray {
+        tray
+        Clock(time)
+      }
+    }
+  }
+}
+
+/// A classic menu bar from a list of titles; `open` highlights the one whose menu is down.
+struct Menus: View {
+  var titles: [String] = ["File", "Edit", "View", "Help"]
+  var open: String = ""
+
+  var body: some View {
+    MenuBar {
+      ForEach(titles) { t in
+        MenuBarItem(t).selected(t == open)
+      }
+    }
+  }
+}
+
+/// Explorer's menu bar and toolbar: the folder combo, Up One Level, the clipboard buttons and the views.
+struct ExplorerBars: View {
+  var folder: String
+  var view: String = "details"
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      Menus(titles: ["File", "Edit", "View", "Tools", "Help"])
+      ToolBar {
+        ComboBox(items: [folder], selection: folder).frame(width: 170)
+        ToolBarButton(systemImage: "arrow.up")
+        Divider()
+        ToolBarButton(systemImage: "globe")
+        Divider()
+        ToolBarButton(systemImage: "pencil")
+        ToolBarButton(systemImage: "doc.on.doc")
+        ToolBarButton(systemImage: "square.and.arrow.down")
+        Divider()
+        ToolBarButton(systemImage: "arrow.counterclockwise")
+        ToolBarButton(systemImage: "xmark")
+        ToolBarButton(systemImage: "slider.horizontal.3")
+        Divider()
+        ToolBarButton(systemImage: "square.grid.2x2").selected(view == "large")
+        ToolBarButton(systemImage: "square.grid.3x3").selected(view == "small")
+        ToolBarButton(systemImage: "list.bullet").selected(view == "list")
+        ToolBarButton(systemImage: "line.3.horizontal").selected(view == "details")
+      }
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
+
+/// OK / Cancel / Apply at the bottom right of a property sheet.
+struct SheetButtons: View {
+  var applyEnabled: Bool = false
+
+  var body: some View {
+    HStack(spacing: 6) {
+      Spacer()
+      DefaultButton("OK")
+      PushButton("Cancel")
+      PushButton("Apply").disabled(!applyEnabled)
+    }
+  }
+}
+
+/// An edit area with both scroll bars and the size box, as in Notepad.
+struct ScrolledEdit: View {
+  var text: String
+  var position: Double = 0.0
+
+  var body: some View {
+    VStack(spacing: 0) {
+      HStack(spacing: 0) {
+        Notepad(text: text).frame(maxWidth: .infinity, maxHeight: .infinity)
+        ScrollBar(value: position, orientation: .vertical)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      HStack(spacing: 0) {
+        ScrollBar(value: 0.0).frame(maxWidth: .infinity)
+        ScrollCorner()
+      }
+      .frame(maxWidth: .infinity)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+  }
+}

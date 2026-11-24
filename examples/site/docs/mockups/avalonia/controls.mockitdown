@@ -1,0 +1,87 @@
+// Reusable Avalonia 11 building blocks for the Avalonia pack page.
+// Import with:  import "avalonia/controls"
+
+import Avalonia
+
+/// A settings row: a title, a muted description and any control on the right.
+struct SettingRow: View {
+  var title: String
+  var description: String = ""
+  var icon: String = ""
+  @ViewBuilder var control: Content
+
+  var body: some View {
+    Border {
+      HStack(spacing: 14) {
+        if icon != "" { PathIcon(icon).frame(width: 20, height: 20) }
+        StackPanel(spacing: 2) {
+          TextBlock(title)
+          if description != "" { TextBlock(description).font(.caption).foregroundStyle(.secondary) }
+        }
+        .frame(maxWidth: .infinity)
+        control
+      }
+    }
+    .padding(.horizontal, 16)
+    .padding(.vertical, 12)
+    .background(.chromeMediumLow)
+    .cornerRadius(3)
+  }
+}
+
+/// A ListBox item template: avatar, name, a second line and a trailing caption.
+struct ContactItem: View {
+  var name: String
+  var detail: String
+  var trailing: String = ""
+  var selected: Bool = false
+
+  var body: some View {
+    ListBoxItem(selected: selected) {
+      HStack(spacing: 12) {
+        Avatar(name, size: .small)
+        StackPanel(spacing: 0) {
+          TextBlock(name)
+          TextBlock(detail).font(.caption).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        TextBlock(trailing).font(.caption).foregroundStyle(.secondary)
+      }
+    }
+  }
+}
+
+/// A dashboard tile: caption, big number and a trend line underneath.
+struct KpiTile: View {
+  var title: String
+  var value: String
+  var change: String
+  var trend: [Double] = []
+
+  var body: some View {
+    Stat(title, value, change: change, trend: trend)
+  }
+}
+
+/// A tool bar strip of icon buttons above an editor.
+struct EditorToolBar: View {
+  var body: some View {
+    StackPanel(spacing: 4, orientation: .horizontal) {
+      Button(icon: "Document").variant(.transparent)
+      Button(icon: "Open").variant(.transparent)
+      Button(icon: "Save").variant(.transparent)
+      Separator()
+      Button(icon: "Undo").variant(.transparent)
+      Button(icon: "Redo").variant(.transparent)
+      Separator()
+      ToggleButton("B", isChecked: true).bold()
+      ToggleButton("I").italic()
+      ToggleButton("U").underline()
+      Separator()
+      ComboBox(items: ["Inter", "Cascadia Code"], selectedItem: "Cascadia Code").frame(width: 150)
+      NumericUpDown(value: 13).frame(width: 84)
+    }
+    .padding(.horizontal, 8)
+    .padding(.vertical, 4)
+  }
+}

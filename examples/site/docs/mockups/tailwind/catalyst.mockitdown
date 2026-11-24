@@ -1,0 +1,130 @@
+// Tailwind Catalyst compositions for the example site — the pieces the Catalyst demo app repeats on
+// every page. Imported with `import "tailwind/catalyst"`.
+
+/// The application sidebar: team switcher, main navigation, a section of upcoming events, and the
+/// signed-in user at the bottom. `current` names the selected item.
+struct AppSidebar: View {
+  var current: String = "Home"
+  var team: String = "Northwind Labs"
+
+  var body: some View {
+    Sidebar {
+      SidebarHeader {
+        SidebarItem {
+          Avatar(team, initials: "NL", square: true, color: .indigo)
+          SidebarLabel(team)
+          Image(systemName: "chevron-down")
+        }
+        SidebarSection {
+          SidebarItem("Search", systemImage: "magnifying-glass")
+          SidebarItem("Inbox", systemImage: "inbox")
+        }
+      }
+      SidebarBody {
+        SidebarSection {
+          ForEach([("Home", "home"), ("Events", "square-2-stack"), ("Orders", "ticket"), ("Settings", "cog-6-tooth"), ("Broadcasts", "megaphone")]) { name, icon in
+            SidebarItem(name, systemImage: icon, current: name == current)
+          }
+        }
+        SidebarSection {
+          SidebarHeading("Upcoming Events")
+          SidebarItem("Harbour Lights Festival")
+          SidebarItem("Synth Night at the Depot")
+          SidebarItem("Autumn Folk Weekender")
+        }
+        SidebarSpacer()
+        SidebarSection {
+          SidebarItem("Support", systemImage: "question-mark-circle")
+          SidebarItem("Changelog", systemImage: "sparkles")
+        }
+      }
+      SidebarFooter {
+        UserChip(name: "Ines Moreau", email: "ines@northwind.example")
+      }
+    }
+  }
+}
+
+/// The signed-in user: square avatar, name, email and an up-down chevron.
+struct UserChip: View {
+  var name: String
+  var email: String
+
+  var body: some View {
+    HStack(spacing: 12) {
+      Avatar(name, image: "assets/images/avatar-2.svg", square: true).size(.large)
+      VStack(alignment: .leading, spacing: 0) {
+        Strong(name)
+        Text(email).font(.caption).foregroundStyle(.secondary)
+      }
+      Spacer()
+      Image(systemName: "chevron-up-down").foregroundStyle(.secondary)
+    }
+    .padding(8)
+  }
+}
+
+/// A dashboard stat: rule, title, big value, a lime or pink change badge, comparison text.
+struct StatBlock: View {
+  var title: String
+  var value: String
+  var change: String
+
+  var body: some View {
+    Stat(label: title, value: value, change: change, caption: "from last week")
+  }
+}
+
+/// One row of a Catalyst settings form: label and help text on the left, the control on the
+/// right, and a soft divider underneath.
+struct SettingsRow: View {
+  var title: String
+  var help: String
+  @ViewBuilder var control: Content
+
+  var body: some View {
+    VStack(alignment: .stretch, spacing: 32) {
+      HStack(alignment: .top, spacing: 32) {
+        VStack(alignment: .leading, spacing: 4) {
+          Subheading(title)
+          Text(help)
+        }
+        .frame(maxWidth: .infinity)
+        VStack(alignment: .stretch) {
+          control
+        }
+        .frame(maxWidth: .infinity)
+      }
+      Divider(soft: true)
+    }
+  }
+}
+
+/// A Tailwind Plus pricing tier: name, description, price, feature list and a call to action.
+struct Tier: View {
+  var name: String
+  var price: String
+  var blurb: String
+  var features: [String]
+  var featured: Bool = false
+
+  var body: some View {
+    PricingTier(name, description: blurb, featured: featured) {
+      HStack(alignment: .firstTextBaseline, spacing: 4) {
+        Text(price).font(.largeTitle)
+        Text("/month").fontWeight(.semibold).foregroundStyle(.secondary)
+      }
+      VStack(alignment: .leading, spacing: 12) {
+        ForEach(features) { f in Label(f, systemImage: "check") }
+      }
+    } action: {
+      if featured { Badge("Most popular") }
+    } footer: {
+      if featured {
+        Button("Buy plan", color: .indigo)
+      } else {
+        Button("Buy plan", variant: .outline, color: .indigo)
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+// Reusable Carbon building blocks for the carbon pack page. They are written with Carbon element
+// names, so they render with the pack's look and follow light/dark (and Theme zones) like any element.
+import Carbon
+
+/// The application shell: a g100 Header with product name, top navigation and global actions.
+struct AppHeader: View {
+  var product: String = "Cloud Console"
+  var current: String = "Dashboard"
+  var nav: [String] = ["Dashboard", "Resources", "Catalog", "Billing"]
+  var notifications: Bool = true
+
+  var body: some View {
+    Header(product, prefix: "Northwind", menu: true) {
+      HeaderGlobalAction("Search")
+      HeaderGlobalAction("Notification").badge(notifications ? true : nil)
+      HeaderGlobalAction("UserAvatar")
+      HeaderGlobalAction("Switcher")
+    } center: {
+      HeaderNavigation {
+        ForEach(nav) { item in
+          HeaderMenuItem(item, isCurrentPage: item == current)
+        }
+      }
+    }
+  }
+}
+
+/// A run state as a Carbon Tag: green Running, red Failed, blue Deploying, gray otherwise.
+struct StatusTag: View {
+  var status: String
+
+  var body: some View {
+    if status == "Running" {
+      Tag(status, type: "green")
+    } else if status == "Failed" {
+      Tag(status, type: "red")
+    } else if status == "Deploying" {
+      Tag(status, type: "blue")
+    } else if status == "Degraded" {
+      Tag(status, type: "magenta")
+    } else {
+      Tag(status, type: "gray")
+    }
+  }
+}
+
+/// A dashboard KPI tile: label, light 32px number, trend text and a sparkline.
+struct KpiTile: View {
+  var label: String
+  var value: String
+  var delta: String
+  var up: Bool = true
+  var trend: [Double] = []
+
+  var body: some View {
+    Tile {
+      Text(label).foregroundStyle(.secondary)
+      Text(value).font("heading-05").fontWeight(.light)
+      HStack(spacing: 8) {
+        Tag(delta, type: up ? "green" : "red", size: "sm")
+        Text("vs. last 30 days").font("label-01").foregroundStyle(.secondary)
+      }
+      if trend.count > 0 {
+        Sparkline(values: trend, height: 32)
+      }
+    }
+  }
+}
+
+/// One row of the deployments table, with the StatusTag and an overflow menu at the end.
+struct DeploymentRow: View {
+  var name: String
+  var region: String
+  var version: String
+  var status: String
+  var updated: String
+  var selected: Bool = false
+
+  var body: some View {
+    TableRow(selected: selected) {
+      Text(name)
+      Text(region)
+      Text(version)
+      StatusTag(status: status)
+      Text(updated)
+      OverflowMenu(size: "sm")
+    }
+  }
+}
+
+/// A row with an expand chevron: follow it with TableExpandedRow to show it open.
+struct ExpandRow: View {
+  var name: String
+  var region: String
+  var status: String
+  var cost: String
+
+  var body: some View {
+    TableExpandRow {
+      Text(name)
+      Text(region)
+      StatusTag(status: status)
+      Text(cost)
+    }
+  }
+}
+
+/// Page title block: breadcrumb trail, a heading and trailing actions.
+struct PageHeader: View {
+  var trail: [String]
+  var title: String
+  @ViewBuilder var actions: Content
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      Breadcrumb(trail)
+      HStack(spacing: 0) {
+        Heading(title, font: "heading-05")
+        Spacer()
+        actions
+      }
+    }
+  }
+}
+
+/// A selectable pricing plan tile for a RadioTile group.
+struct PlanTile: View {
+  var name: String
+  var price: String
+  var detail: String
+  var selected: Bool = false
+
+  var body: some View {
+    RadioTile(name, selected: selected) {
+      Text(price).font("heading-04").fontWeight(.light)
+      Text(detail).font("label-01").foregroundStyle(.secondary)
+    }
+  }
+}

@@ -1,0 +1,159 @@
+// GitHub-style compositions for the primer pack page, built only from Primer elements.
+// Imported with `import "primer/github"`. Every repository, user and organisation is invented;
+// the header mark is a neutral glyph, not a product logo.
+
+/// The global header and the repository UnderlineNav, as on every repository page.
+struct RepoHeader: View {
+  var owner: String = "acme-labs"
+  var repo: String = "rocket"
+  var tab: String = "Code"
+  var issues: Int = 24
+  var pulls: Int = 6
+
+  var body: some View {
+    VStack(alignment: .stretch, spacing: 0) {
+      Header("\(owner) / **\(repo)**", menu: true, logo: "cube", search: "Type / to search", avatar: "Mona Lin") {
+        IconButton("copilot")
+        IconButton("issue-opened")
+        IconButton("git-pull-request")
+        IconButton("inbox")
+      }
+      UnderlineNav(selection: tab) {
+        UnderlineNavItem("Code", leadingVisual: "code")
+        UnderlineNavItem("Issues", leadingVisual: "issue-opened", counter: issues)
+        UnderlineNavItem("Pull requests", leadingVisual: "git-pull-request", counter: pulls)
+        UnderlineNavItem("Discussions", leadingVisual: "comment-discussion")
+        UnderlineNavItem("Actions", leadingVisual: "play")
+        UnderlineNavItem("Projects", leadingVisual: "table")
+        UnderlineNavItem("Insights", leadingVisual: "graph")
+        UnderlineNavItem("Settings", leadingVisual: "gear")
+      }
+    }
+  }
+}
+
+/// One row of the issue / pull request list: state icon, title, labels, meta line, assignees, comments.
+struct IssueRow: View {
+  var title: String
+  var number: Int
+  var author: String
+  var when: String
+  var state: String = "open"
+  var labels: [(String, String)] = []
+  var assignees: [String] = []
+  var comments: Int = 0
+  var selected: Bool = false
+
+  var body: some View {
+    BoxRow {
+      Checkbox(checked: selected)
+      Octicon(state == "open" ? "issue-opened" : (state == "merged" ? "git-merge" : (state == "pr" ? "git-pull-request" : "issue-closed")))
+        .foregroundStyle(state == "open" || state == "pr" ? .green : .purple)
+      VStack(alignment: .leading, spacing: 2) {
+        HStack(spacing: 4, wrap: true) {
+          Link(title).foregroundStyle(.primary).fontWeight(.semibold)
+          ForEach(labels) { name, color in IssueLabel(name, color: color) }
+        }
+        Text("#\(number) · \(author) opened \(when)", size: .small).foregroundStyle(.secondary)
+      }
+      Spacer()
+      AvatarStack {
+        ForEach(assignees) { a in Avatar(a) }
+      }
+      .frame(width: 56, alignment: .trailing)
+      HStack(spacing: 4) {
+        if comments > 0 {
+          Octicon("comment")
+          Text("\(comments)", size: .small)
+        }
+      }
+      .foregroundStyle(.secondary)
+      .frame(width: 40, alignment: .trailing)
+    }
+    .selected(selected)
+  }
+}
+
+/// A file or folder row of the repository file table.
+struct FileRow: View {
+  var name: String
+  var message: String
+  var when: String
+  var folder: Bool = false
+
+  var body: some View {
+    BoxRow {
+      Octicon(folder ? "file-directory-fill" : "file").foregroundStyle(folder ? .cyan : .secondary)
+      Link(name).foregroundStyle(.primary).frame(width: 180, alignment: .leading)
+      Text(message).foregroundStyle(.secondary)
+      Spacer()
+      Text(when).foregroundStyle(.secondary)
+    }
+  }
+}
+
+/// One line of a unified diff: kind is "context", "addition" or "deletion".
+struct Line: View {
+  var kind: String = "context"
+  var old: String = ""
+  var new: String = ""
+  var code: String
+
+  var body: some View {
+    DiffLine(variant: kind) {
+      DiffNumber(old)
+      DiffNumber(new)
+      DiffCode((kind == "addition" ? "+ " : (kind == "deletion" ? "- " : "  ")) + code)
+    }
+  }
+}
+
+/// A hunk header of a unified diff.
+struct Hunk: View {
+  var text: String
+
+  var body: some View {
+    DiffHunk {
+      DiffNumber("")
+      DiffNumber("")
+      DiffCode(text)
+    }
+  }
+}
+
+/// A conversation comment: the 40px avatar outside the box, the header line, the Markdown body.
+struct CommentBlock: View {
+  var author: String
+  var when: String
+  var role: String = ""
+  var photo: String = ""
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    HStack(alignment: .top, spacing: 12) {
+      Avatar(author, image: photo, size: 40)
+      TimelineComment("**\(author)** commented \(when)") {
+        content
+      } action: {
+        if role != "" { Label(role) }
+        IconButton("kebab-horizontal", variant: .invisible, size: .small)
+      }
+    }
+  }
+}
+
+/// A settings section: a heading over a rule, then the controls.
+struct SettingsSection: View {
+  var title: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    VStack(alignment: .stretch, spacing: 16) {
+      VStack(alignment: .stretch, spacing: 8) {
+        Heading(title, variant: .medium).fontWeight(.regular)
+        Divider()
+      }
+      content
+    }
+  }
+}

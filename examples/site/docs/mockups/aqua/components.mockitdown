@@ -1,0 +1,129 @@
+// Reusable Mac OS X Aqua building blocks for the aqua pack page.
+// Import with:  import "aqua/components"
+
+import Aqua
+
+/// The menu bar: the system menu, the bold application menu, the application's menus (trailing
+/// closure), then the menu extras and the clock at the right.
+struct AquaMenuBar: View {
+  var app: String = "Finder"
+  var clock: String = "Tue 9:41 AM"
+  @ViewBuilder var menus: Content
+
+  var body: some View {
+    MenuBar {
+      SystemMenu()
+      AppMenu(app)
+      menus
+      Spacer()
+      MenuExtra(icon: "speaker")
+      MenuExtra(icon: "wifi")
+      Text(clock)
+    }
+  }
+}
+
+/// The Finder window toolbar of 10.1 / 10.2: Back, the View segments, and the standard places.
+struct FinderToolbar: View {
+  var view: Int = 2
+  var place: String = "Home"
+
+  var body: some View {
+    Toolbar {
+      ToolbarButton("Back", icon: "chevron.left")
+      VStack(spacing: 2) {
+        SegmentedControl(items: [["icon": "square.grid.2x2"], ["icon": "list.bullet"], ["icon": "sidebar.left"]], selection: view)
+        Text("View").font(.caption)
+      }
+      Spacer()
+      ToolbarButton("Computer", icon: "app").selected(place == "Computer")
+      ToolbarButton("Home", icon: "house").selected(place == "Home")
+      ToolbarButton("Favorites", icon: "heart").selected(place == "Favorites")
+      ToolbarButton("Applications", icon: "square.grid.2x2").selected(place == "Applications")
+    }
+  }
+}
+
+/// One application in the Dock; running: true draws the black triangle under it.
+struct DockApp: View {
+  var name: String
+  var icon: String
+  var color: Color = .blue
+  var running: Bool = false
+  var hover: Bool = false
+
+  var body: some View {
+    DockItem(name, icon: icon, color: color)
+      .state(hover ? .hover : (running ? .running : .idle))
+  }
+}
+
+/// The Dock as it ships, with the frontmost application running.
+struct StandardDock: View {
+  var body: some View {
+    Dock {
+      DockApp(name: "Finder", icon: "app", color: .blue, running: true)
+      DockApp(name: "Mail", icon: "envelope", color: .cyan, running: true)
+      DockApp(name: "Web Browser", icon: "globe", color: .teal)
+      DockApp(name: "Jukebox", icon: "music.note", color: .purple, running: true)
+      DockApp(name: "Photo Album", icon: "photo", color: .orange)
+      DockApp(name: "Address Book", icon: "person.2", color: .brown)
+      DockApp(name: "System Preferences", icon: "gear", color: .gray)
+      DockSeparator()
+      DockApp(name: "Documents", icon: "folder", color: .indigo)
+      DockApp(name: "Trash", icon: "trash", color: .gray)
+    }
+  }
+}
+
+/// A row of the System Preferences "Show All" view: the category name and its pane icons.
+struct PrefRow: View {
+  var category: String
+  @ViewBuilder var panes: Content
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 4) {
+      Text(category).font(.footnote).bold()
+      HStack(spacing: 6) { panes }
+    }
+    .padding(8)
+  }
+}
+
+/// A message row of the mail viewer: read dot, sender, subject and date.
+struct MessageRow: View {
+  var from: String
+  var subject: String
+  var date: String
+  var unread: Bool = false
+  var selected: Bool = false
+
+  var body: some View {
+    TableRow {
+      Text(unread ? "●" : "").foregroundStyle(.blue)
+      Text(from)
+      Text(subject)
+      Text(date)
+    }
+    .selected(selected)
+  }
+}
+
+/// A track of the brushed-metal jukebox.
+struct TrackRow: View {
+  var title: String
+  var time: String
+  var artist: String
+  var album: String
+  var playing: Bool = false
+
+  var body: some View {
+    TableRow {
+      Label(title, systemImage: playing ? "speaker" : "music.note")
+      Text(time)
+      Text(artist)
+      Text(album)
+    }
+    .selected(playing)
+  }
+}

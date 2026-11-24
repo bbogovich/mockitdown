@@ -94,6 +94,17 @@ class CssInjectionTests(unittest.TestCase):
         self.assertEqual(session.used, ["base"])
 
 
+class ReferencePagesTests(unittest.TestCase):
+    """The Reference section is generated from the packs and must be committed up to date (R-PACK-012)."""
+
+    def test_reference_pages_are_current(self):
+        import sys
+        res = subprocess.run([sys.executable, str(ROOT / "tools" / "gen_reference.py"), "--check"],
+                             capture_output=True, text=True)
+        self.assertEqual(res.returncode, 0,
+                         res.stdout + res.stderr + "\nrun: python tools/gen_reference.py")
+
+
 @unittest.skipUnless(shutil.which("zensical") or os.environ.get("ZENSICAL"), "zensical not installed")
 class ZensicalBuildTests(unittest.TestCase):
     def test_site_builds(self):

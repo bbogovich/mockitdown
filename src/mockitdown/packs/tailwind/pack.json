@@ -1,0 +1,1385 @@
+{
+  "id": "tailwind",
+  "name": "Tailwind Catalyst",
+  "framework": "Catalyst — the Tailwind Plus application UI kit (Headless UI + Tailwind CSS v4), zinc neutrals, plus Tailwind Plus marketing sections",
+  "version": "Catalyst 2025 · Tailwind CSS 4.1",
+  "modules": [
+    "Tailwind",
+    "TailwindPlus",
+    "TailwindCatalyst"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "phone": "none",
+    "tablet": "browser",
+    "desktop": "browser",
+    "wide": "browser"
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#fafafa",
+      "surface-3": "#f4f4f5",
+      "fg": "#09090b",
+      "fg-2": "#71717a",
+      "fg-3": "#a1a1aa",
+      "border": "rgb(9 9 11 / 0.1)",
+      "divider": "rgb(9 9 11 / 0.05)",
+      "accent": "#18181b",
+      "on-accent": "#ffffff",
+      "accent-soft": "rgb(9 9 11 / 0.05)",
+      "danger": "#dc2626",
+      "warning": "#d97706",
+      "success": "#16a34a",
+      "info": "#2563eb",
+      "field-bg": "#ffffff",
+      "field-border": "rgb(9 9 11 / 0.1)",
+      "scrim": "rgb(9 9 11 / 0.25)",
+      "shadow-1": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+      "shadow-2": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+      "shadow-3": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+      "shadow-xs": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+      "radius-s": "6px",
+      "radius-m": "8px",
+      "radius-l": "12px",
+      "radius-xl": "16px",
+      "radius-pill": "9999px",
+      "font": "\"Inter\", \"Inter Variable\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "font-mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace",
+      "font-size": "14px",
+      "line-height": "1.7143",
+      "icon-stroke": "1.75",
+      "icon-size": "16px",
+      "control-h": "36px",
+      "gap": "8px",
+      "pad": "16px",
+      "chrome-bg": "#f4f4f5",
+      "chrome-fg": "#09090b",
+      "fs-display": "48px",
+      "fw-display": "600",
+      "fs-largeTitle": "30px",
+      "fw-largeTitle": "600",
+      "fs-title": "24px",
+      "fw-title": "600",
+      "fs-title2": "20px",
+      "fw-title2": "600",
+      "fs-title3": "18px",
+      "fw-title3": "600",
+      "fs-headline": "16px",
+      "fw-headline": "600",
+      "fs-subheadline": "14px",
+      "fw-subheadline": "600",
+      "fs-body": "14px",
+      "fw-body": "400",
+      "fs-callout": "16px",
+      "fw-callout": "400",
+      "fs-footnote": "13px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "600",
+      "color-red": "#ef4444",
+      "color-orange": "#f97316",
+      "color-yellow": "#eab308",
+      "color-green": "#22c55e",
+      "color-mint": "#10b981",
+      "color-teal": "#14b8a6",
+      "color-cyan": "#06b6d4",
+      "color-blue": "#3b82f6",
+      "color-indigo": "#6366f1",
+      "color-purple": "#a855f7",
+      "color-pink": "#ec4899",
+      "color-brown": "#a16207",
+      "color-gray": "#71717a",
+      "chart-1": "#6366f1",
+      "chart-2": "#38bdf8",
+      "chart-3": "#10b981",
+      "chart-4": "#f59e0b",
+      "chart-5": "#f43f5e",
+      "chart-6": "#a1a1aa",
+      "grid-line": "rgb(9 9 11 / 0.05)",
+      "code-bg": "#fafafa",
+      "code-fg": "#18181b",
+      "shell-bg": "#f4f4f5",
+      "panel-bg": "#ffffff",
+      "panel-ring": "rgb(9 9 11 / 0.05)",
+      "popover-bg": "#ffffff",
+      "popover-ring": "rgb(9 9 11 / 0.1)",
+      "btn-bg": "#18181b",
+      "btn-border": "rgb(9 9 11 / 0.9)",
+      "btn-fg": "#ffffff",
+      "btn-icon": "#a1a1aa",
+      "btn-highlight": "rgb(255 255 255 / 0.15)",
+      "outline-border": "rgb(9 9 11 / 0.1)",
+      "hover": "rgb(9 9 11 / 0.025)",
+      "plain-hover": "rgb(9 9 11 / 0.05)",
+      "light-bg": "#ffffff",
+      "light-fg": "#09090b",
+      "light-border": "rgb(9 9 11 / 0.1)",
+      "dark-bg": "#18181b",
+      "dark-border": "rgb(9 9 11 / 0.9)",
+      "dw-bg": "#18181b",
+      "dw-fg": "#ffffff",
+      "dw-icon": "#a1a1aa",
+      "field-hover": "rgb(9 9 11 / 0.2)",
+      "field-shadow": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+      "focus": "#3b82f6",
+      "invalid": "#ef4444",
+      "switch-off": "#e4e4e7",
+      "switch-off-ring": "rgb(0 0 0 / 0.05)",
+      "switch-on": "#18181b",
+      "check-off": "#ffffff",
+      "check-border": "rgb(9 9 11 / 0.15)",
+      "check-on": "#18181b",
+      "line": "rgb(9 9 11 / 0.05)",
+      "line-strong": "rgb(9 9 11 / 0.1)",
+      "stripe": "rgb(9 9 11 / 0.025)",
+      "nav-icon": "#71717a",
+      "nav-icon-current": "#09090b",
+      "initials-bg": "#18181b",
+      "initials-fg": "#ffffff",
+      "avatar-outline": "rgb(0 0 0 / 0.1)",
+      "brand": "#4f46e5",
+      "brand-hover": "#6366f1",
+      "brand-text": "#4f46e5",
+      "brand-soft": "rgb(79 70 229 / 0.1)",
+      "brand-ring": "#4f46e5",
+      "on-brand": "#ffffff",
+      "marketing-muted": "#52525b",
+      "kbd-fg": "#a1a1aa",
+      "dashed": "#d4d4d8",
+      "code-inline-bg": "rgb(9 9 11 / 0.025)",
+      "code-inline-border": "rgb(9 9 11 / 0.1)",
+      "tw-red-soft": "rgb(239 68 68 / 0.15)",
+      "tw-red-text": "#b91c1c",
+      "tw-orange-soft": "rgb(249 115 22 / 0.15)",
+      "tw-orange-text": "#c2410c",
+      "tw-amber-soft": "rgb(251 191 36 / 0.2)",
+      "tw-amber-text": "#b45309",
+      "tw-yellow-soft": "rgb(250 204 21 / 0.2)",
+      "tw-yellow-text": "#a16207",
+      "tw-lime-soft": "rgb(163 230 53 / 0.2)",
+      "tw-lime-text": "#4d7c0f",
+      "tw-green-soft": "rgb(34 197 94 / 0.15)",
+      "tw-green-text": "#15803d",
+      "tw-emerald-soft": "rgb(16 185 129 / 0.15)",
+      "tw-emerald-text": "#047857",
+      "tw-teal-soft": "rgb(20 184 166 / 0.15)",
+      "tw-teal-text": "#0f766e",
+      "tw-cyan-soft": "rgb(34 211 238 / 0.2)",
+      "tw-cyan-text": "#0e7490",
+      "tw-sky-soft": "rgb(14 165 233 / 0.15)",
+      "tw-sky-text": "#0369a1",
+      "tw-blue-soft": "rgb(59 130 246 / 0.15)",
+      "tw-blue-text": "#1d4ed8",
+      "tw-indigo-soft": "rgb(99 102 241 / 0.15)",
+      "tw-indigo-text": "#4338ca",
+      "tw-violet-soft": "rgb(139 92 246 / 0.15)",
+      "tw-violet-text": "#6d28d9",
+      "tw-purple-soft": "rgb(168 85 247 / 0.15)",
+      "tw-purple-text": "#7e22ce",
+      "tw-fuchsia-soft": "rgb(217 70 239 / 0.15)",
+      "tw-fuchsia-text": "#a21caf",
+      "tw-pink-soft": "rgb(236 72 153 / 0.15)",
+      "tw-pink-text": "#be185d",
+      "tw-rose-soft": "rgb(244 63 94 / 0.15)",
+      "tw-rose-text": "#be123c",
+      "tw-zinc-soft": "rgb(82 82 91 / 0.1)",
+      "tw-zinc-text": "#3f3f46",
+      "tw-slate-soft": "rgb(71 85 105 / 0.1)",
+      "tw-slate-text": "#334155",
+      "tw-gray-soft": "rgb(75 85 99 / 0.1)",
+      "tw-gray-text": "#374151",
+      "tw-neutral-soft": "rgb(82 82 82 / 0.1)",
+      "tw-neutral-text": "#404040",
+      "tw-stone-soft": "rgb(87 83 78 / 0.1)",
+      "tw-stone-text": "#44403c",
+      "alert-info-bg": "#eff6ff",
+      "alert-info-title": "#1e40af",
+      "alert-info-text": "#1d4ed8",
+      "alert-info-ring": "transparent",
+      "alert-info-icon": "#60a5fa",
+      "alert-success-bg": "#f0fdf4",
+      "alert-success-title": "#166534",
+      "alert-success-text": "#15803d",
+      "alert-success-ring": "transparent",
+      "alert-success-icon": "#4ade80",
+      "alert-warning-bg": "#fefce8",
+      "alert-warning-title": "#854d0e",
+      "alert-warning-text": "#a16207",
+      "alert-warning-ring": "transparent",
+      "alert-warning-icon": "#facc15",
+      "alert-error-bg": "#fef2f2",
+      "alert-error-title": "#991b1b",
+      "alert-error-text": "#b91c1c",
+      "alert-error-ring": "transparent",
+      "alert-error-icon": "#f87171"
+    },
+    "dark": {
+      "bg": "#18181b",
+      "surface": "#18181b",
+      "surface-2": "#202023",
+      "surface-3": "#27272a",
+      "fg": "#ffffff",
+      "fg-2": "#a1a1aa",
+      "fg-3": "#71717a",
+      "border": "rgb(255 255 255 / 0.1)",
+      "divider": "rgb(255 255 255 / 0.05)",
+      "accent": "#ffffff",
+      "on-accent": "#09090b",
+      "accent-soft": "rgb(255 255 255 / 0.05)",
+      "danger": "#ef4444",
+      "warning": "#fbbf24",
+      "success": "#4ade80",
+      "info": "#60a5fa",
+      "field-bg": "rgb(255 255 255 / 0.05)",
+      "field-border": "rgb(255 255 255 / 0.1)",
+      "scrim": "rgb(9 9 11 / 0.5)",
+      "shadow-1": "0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3)",
+      "shadow-2": "0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4)",
+      "shadow-3": "0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5)",
+      "shadow-xs": "0 1px 2px 0 rgb(0 0 0 / 0.2)",
+      "chrome-bg": "#09090b",
+      "chrome-fg": "#ffffff",
+      "chart-1": "#818cf8",
+      "chart-2": "#38bdf8",
+      "chart-3": "#34d399",
+      "chart-4": "#fbbf24",
+      "chart-5": "#fb7185",
+      "chart-6": "#71717a",
+      "color-red": "#f87171",
+      "color-orange": "#fb923c",
+      "color-yellow": "#facc15",
+      "color-green": "#4ade80",
+      "color-mint": "#34d399",
+      "color-teal": "#2dd4bf",
+      "color-cyan": "#22d3ee",
+      "color-blue": "#60a5fa",
+      "color-indigo": "#818cf8",
+      "color-purple": "#c084fc",
+      "color-pink": "#f472b6",
+      "color-brown": "#ca8a04",
+      "color-gray": "#a1a1aa",
+      "grid-line": "rgb(255 255 255 / 0.05)",
+      "code-bg": "#09090b",
+      "code-fg": "#e4e4e7",
+      "shell-bg": "#09090b",
+      "panel-bg": "#18181b",
+      "panel-ring": "rgb(255 255 255 / 0.1)",
+      "popover-bg": "#27272a",
+      "popover-ring": "rgb(255 255 255 / 0.1)",
+      "btn-bg": "#52525b",
+      "btn-border": "rgb(255 255 255 / 0.05)",
+      "btn-fg": "#ffffff",
+      "btn-icon": "#a1a1aa",
+      "btn-highlight": "rgb(255 255 255 / 0.05)",
+      "outline-border": "rgb(255 255 255 / 0.15)",
+      "hover": "rgb(255 255 255 / 0.05)",
+      "plain-hover": "rgb(255 255 255 / 0.1)",
+      "light-bg": "#27272a",
+      "light-fg": "#ffffff",
+      "light-border": "rgb(255 255 255 / 0.05)",
+      "dark-bg": "#27272a",
+      "dark-border": "rgb(255 255 255 / 0.05)",
+      "dw-bg": "#ffffff",
+      "dw-fg": "#09090b",
+      "dw-icon": "#71717a",
+      "field-hover": "rgb(255 255 255 / 0.2)",
+      "field-shadow": "none",
+      "focus": "#3b82f6",
+      "invalid": "#dc2626",
+      "switch-off": "rgb(255 255 255 / 0.05)",
+      "switch-off-ring": "rgb(255 255 255 / 0.15)",
+      "switch-on": "rgb(255 255 255 / 0.25)",
+      "check-off": "rgb(255 255 255 / 0.05)",
+      "check-border": "rgb(255 255 255 / 0.15)",
+      "check-on": "#52525b",
+      "line": "rgb(255 255 255 / 0.05)",
+      "line-strong": "rgb(255 255 255 / 0.1)",
+      "stripe": "rgb(255 255 255 / 0.025)",
+      "nav-icon": "#a1a1aa",
+      "nav-icon-current": "#ffffff",
+      "initials-bg": "#ffffff",
+      "initials-fg": "#09090b",
+      "avatar-outline": "rgb(255 255 255 / 0.1)",
+      "brand": "#6366f1",
+      "brand-hover": "#818cf8",
+      "brand-text": "#818cf8",
+      "brand-soft": "rgb(99 102 241 / 0.15)",
+      "brand-ring": "#6366f1",
+      "on-brand": "#ffffff",
+      "marketing-muted": "#a1a1aa",
+      "kbd-fg": "#71717a",
+      "dashed": "rgb(255 255 255 / 0.15)",
+      "code-inline-bg": "rgb(255 255 255 / 0.05)",
+      "code-inline-border": "rgb(255 255 255 / 0.1)",
+      "tw-red-soft": "rgb(239 68 68 / 0.1)",
+      "tw-red-text": "#f87171",
+      "tw-orange-soft": "rgb(249 115 22 / 0.1)",
+      "tw-orange-text": "#fb923c",
+      "tw-amber-soft": "rgb(251 191 36 / 0.1)",
+      "tw-amber-text": "#fbbf24",
+      "tw-yellow-soft": "rgb(250 204 21 / 0.1)",
+      "tw-yellow-text": "#fde047",
+      "tw-lime-soft": "rgb(163 230 53 / 0.1)",
+      "tw-lime-text": "#bef264",
+      "tw-green-soft": "rgb(34 197 94 / 0.1)",
+      "tw-green-text": "#4ade80",
+      "tw-emerald-soft": "rgb(16 185 129 / 0.1)",
+      "tw-emerald-text": "#34d399",
+      "tw-teal-soft": "rgb(20 184 166 / 0.1)",
+      "tw-teal-text": "#5eead4",
+      "tw-cyan-soft": "rgb(34 211 238 / 0.1)",
+      "tw-cyan-text": "#67e8f9",
+      "tw-sky-soft": "rgb(14 165 233 / 0.1)",
+      "tw-sky-text": "#7dd3fc",
+      "tw-blue-soft": "rgb(59 130 246 / 0.1)",
+      "tw-blue-text": "#60a5fa",
+      "tw-indigo-soft": "rgb(99 102 241 / 0.1)",
+      "tw-indigo-text": "#818cf8",
+      "tw-violet-soft": "rgb(139 92 246 / 0.1)",
+      "tw-violet-text": "#a78bfa",
+      "tw-purple-soft": "rgb(168 85 247 / 0.1)",
+      "tw-purple-text": "#c084fc",
+      "tw-fuchsia-soft": "rgb(217 70 239 / 0.1)",
+      "tw-fuchsia-text": "#e879f9",
+      "tw-pink-soft": "rgb(236 72 153 / 0.1)",
+      "tw-pink-text": "#f472b6",
+      "tw-rose-soft": "rgb(244 63 94 / 0.1)",
+      "tw-rose-text": "#fb7185",
+      "tw-zinc-soft": "rgb(255 255 255 / 0.05)",
+      "tw-zinc-text": "#a1a1aa",
+      "tw-slate-soft": "rgb(255 255 255 / 0.05)",
+      "tw-slate-text": "#94a3b8",
+      "tw-gray-soft": "rgb(255 255 255 / 0.05)",
+      "tw-gray-text": "#9ca3af",
+      "tw-neutral-soft": "rgb(255 255 255 / 0.05)",
+      "tw-neutral-text": "#a3a3a3",
+      "tw-stone-soft": "rgb(255 255 255 / 0.05)",
+      "tw-stone-text": "#a8a29e",
+      "alert-info-bg": "rgb(59 130 246 / 0.1)",
+      "alert-info-ring": "rgb(59 130 246 / 0.2)",
+      "alert-info-title": "#bfdbfe",
+      "alert-info-text": "#93c5fd",
+      "alert-success-bg": "rgb(34 197 94 / 0.1)",
+      "alert-success-ring": "rgb(34 197 94 / 0.2)",
+      "alert-success-title": "#bbf7d0",
+      "alert-success-text": "#86efac",
+      "alert-warning-bg": "rgb(234 179 8 / 0.1)",
+      "alert-warning-ring": "rgb(234 179 8 / 0.2)",
+      "alert-warning-title": "#fef08a",
+      "alert-warning-text": "#fde047",
+      "alert-error-bg": "rgb(239 68 68 / 0.1)",
+      "alert-error-ring": "rgb(239 68 68 / 0.2)",
+      "alert-error-title": "#fecaca",
+      "alert-error-text": "#fca5a5"
+    }
+  },
+  "fonts": {
+    "xs": "caption",
+    "sm": "body",
+    "base": "callout",
+    "lg": "title3",
+    "xl": "title2",
+    "2xl": "title",
+    "3xl": "largeTitle",
+    "4xl": "display",
+    "5xl": "display",
+    "6xl": "display",
+    "7xl": "display"
+  },
+  "icons": {
+    "home": "house",
+    "inbox": "tray",
+    "cog-6-tooth": "gear",
+    "cog-8-tooth": "gear",
+    "cog": "gear",
+    "magnifying-glass": "search",
+    "megaphone": "bell",
+    "chevron-up-down": "chevron.up.down",
+    "chevron-up": "chevron.up",
+    "chevron-down": "chevron.down",
+    "chevron-left": "chevron.left",
+    "chevron-right": "chevron.right",
+    "user-circle": "person.circle",
+    "user": "person",
+    "users": "person.2",
+    "user-group": "person.2",
+    "user-plus": "person",
+    "arrow-right-start-on-rectangle": "rectangle.portrait.and.arrow.right",
+    "arrow-left-start-on-rectangle": "rectangle.portrait.and.arrow.right",
+    "light-bulb": "lightbulb",
+    "shield-check": "shield",
+    "question-mark-circle": "questionmark.circle",
+    "sparkles": "sparkles",
+    "ticket": "tag",
+    "square-2-stack": "doc.on.doc",
+    "squares-2x2": "square.grid.2x2",
+    "chart-bar": "chart.bar",
+    "chart-pie": "chart.pie",
+    "presentation-chart-line": "chart.line",
+    "credit-card": "creditcard",
+    "document-text": "doc",
+    "document": "doc",
+    "document-duplicate": "doc.on.doc",
+    "bell": "bell",
+    "plus": "plus",
+    "plus-circle": "plus.circle",
+    "minus": "minus",
+    "ellipsis-horizontal": "ellipsis",
+    "ellipsis-vertical": "ellipsis.vertical",
+    "arrow-up-tray": "arrow.up.to.line",
+    "arrow-down-tray": "arrow.down.to.line",
+    "check": "checkmark",
+    "check-circle": "checkmark.circle",
+    "x-mark": "xmark",
+    "x-circle": "xmark.circle",
+    "exclamation-triangle": "exclamationmark.triangle",
+    "exclamation-circle": "exclamationmark.circle",
+    "information-circle": "info.circle",
+    "bolt": "bolt",
+    "lock-closed": "lock",
+    "lock-open": "lock.open",
+    "cloud-arrow-up": "cloud",
+    "server": "cube",
+    "server-stack": "cube",
+    "finger-print": "key",
+    "arrow-path": "arrow.clockwise",
+    "globe-alt": "globe",
+    "envelope": "envelope",
+    "folder": "folder",
+    "trash": "trash",
+    "pencil": "pencil",
+    "pencil-square": "square.and.pencil",
+    "arrow-left": "arrow.left",
+    "arrow-right": "arrow.right",
+    "arrow-up": "arrow.up",
+    "arrow-down": "arrow.down",
+    "arrow-long-left": "arrow.left",
+    "arrow-long-right": "arrow.right",
+    "building-office": "building",
+    "building-office-2": "building",
+    "banknotes": "dollarsign",
+    "currency-dollar": "dollarsign",
+    "calendar": "calendar",
+    "calendar-days": "calendar",
+    "clock": "clock",
+    "map-pin": "mappin",
+    "tag": "tag",
+    "star": "star",
+    "heart": "heart",
+    "funnel": "line.3.horizontal.decrease",
+    "bars-3": "line.3.horizontal",
+    "code-bracket": "app",
+    "command-line": "app",
+    "cube": "cube",
+    "rocket-launch": "bolt",
+    "chat-bubble-left": "message",
+    "chat-bubble-left-right": "message",
+    "photo": "photo",
+    "link": "link",
+    "eye": "eye",
+    "eye-slash": "eye.slash",
+    "key": "key",
+    "shopping-bag": "bag",
+    "shopping-cart": "cart",
+    "truck": "truck",
+    "arrow-trending-up": "chart.line",
+    "arrow-trending-down": "arrow.down",
+    "adjustments-horizontal": "slider.horizontal.3",
+    "list-bullet": "list.bullet",
+    "share": "square.and.arrow.up",
+    "printer": "printer",
+    "academic-cap": "book",
+    "beaker": "wrench",
+    "wrench": "wrench",
+    "book-open": "book",
+    "moon": "moon",
+    "sun": "sun",
+    "paper-airplane": "paperplane",
+    "paper-clip": "paperclip",
+    "phone": "phone",
+    "video-camera": "video",
+    "microphone": "mic",
+    "power": "power",
+    "wifi": "wifi",
+    "flag": "flag",
+    "bookmark": "bookmark",
+    "briefcase": "briefcase",
+    "cloud": "cloud",
+    "archive-box": "archivebox",
+    "hand-thumb-up": "hand.thumbsup",
+    "map": "map",
+    "musical-note": "music.note",
+    "play": "play",
+    "pause": "pause",
+    "view-columns": "sidebar.left",
+    "inbox-stack": "tray",
+    "receipt-percent": "tag",
+    "gift": "bag"
+  },
+  "modifiers": {
+    "outline": {
+      "attr": "variant",
+      "value": "outline"
+    },
+    "plain": {
+      "attr": "variant",
+      "value": "plain"
+    },
+    "current": {
+      "attr": "selected"
+    },
+    "dense": {
+      "attr": "density",
+      "value": "compact"
+    },
+    "striped": {
+      "attr": "variant",
+      "value": "striped"
+    }
+  },
+  "elements": {
+    "SidebarLayout": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "App shell: SidebarLayout { Sidebar { … }; VStack { page } } — the page sits on a white panel with a ring, inset on zinc-100"
+    },
+    "StackedLayout": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "App shell: StackedLayout { Navbar { … }; VStack { page } } — navbar on top, page on an inset panel"
+    },
+    "AuthLayout": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0
+      },
+      "doc": "Centred sign-in page on an inset panel: AuthLayout { VStack { … } }"
+    },
+    "Navbar": {
+      "role": "toolbar",
+      "doc": "Navbar { NavbarSection { NavbarItem(\"Home\", current: true) }; NavbarSpacer(); NavbarItem(systemImage:) }"
+    },
+    "NavbarSection": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 12
+      },
+      "doc": "Group of navbar items"
+    },
+    "NavbarItem": {
+      "role": "navitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "current": "selected",
+        "href": "url"
+      },
+      "doc": "NavbarItem(\"Orders\", systemImage:, current: true) — the current item gets an underline bar"
+    },
+    "NavbarLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Text inside a navbar item"
+    },
+    "NavbarSpacer": {
+      "role": "spacer",
+      "doc": "Flexible gap"
+    },
+    "NavbarDivider": {
+      "role": "divider",
+      "doc": "Vertical rule between navbar groups"
+    },
+    "Sidebar": {
+      "role": "sidebar",
+      "doc": "Sidebar { SidebarHeader { … }; SidebarBody { SidebarSection { SidebarItem(…) } }; SidebarFooter { … } }"
+    },
+    "SidebarHeader": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "Top block with a bottom border"
+    },
+    "SidebarBody": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 32
+      },
+      "doc": "Scrolling middle block"
+    },
+    "SidebarFooter": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "Bottom block with a top border"
+    },
+    "SidebarSection": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 2
+      },
+      "doc": "A group of items (gap-0.5)"
+    },
+    "SidebarHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "SidebarHeading(\"Upcoming events\") — xs zinc-500 section title"
+    },
+    "SidebarItem": {
+      "role": "navitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "current": "selected",
+        "href": "url"
+      },
+      "doc": "SidebarItem(\"Home\", systemImage: \"home\", current: true) — current: indicator bar on the left"
+    },
+    "SidebarLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Label inside a sidebar item"
+    },
+    "SidebarDivider": {
+      "role": "divider",
+      "doc": "Rule between sidebar sections"
+    },
+    "SidebarSpacer": {
+      "role": "spacer",
+      "doc": "Pushes the following sections down"
+    },
+    "Heading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "style": "title2"
+      },
+      "doc": "Heading(\"Orders\") — text-2xl/8 sm:text-xl/8 semibold · level: 1…6"
+    },
+    "Subheading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "style": "subheadline"
+      },
+      "doc": "Subheading(\"Recent orders\") — text-base/7 sm:text-sm/6 semibold"
+    },
+    "Text": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Text(\"…\") — body copy in zinc-500 (Catalyst Text); Markdown inline **bold** `code`"
+    },
+    "Strong": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Strong(\"…\") — zinc-950 medium"
+    },
+    "Code": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Code(\"…\") — inline code with a hairline border"
+    },
+    "TextLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "href": "url"
+      },
+      "doc": "TextLink(\"docs\") — underlined link"
+    },
+    "Link": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "href": "url"
+      },
+      "doc": "Link(\"View\") — unstyled link (inherits colour)"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "solid"
+      },
+      "variants": [
+        "solid",
+        "outline",
+        "plain"
+      ],
+      "doc": "Button(\"Save\", color: .indigo) · variant: .solid|.outline|.plain (or .outline() / .plain()) · color: dark/zinc (default), light, dark, white, dark/white, zinc, indigo, red, … all Tailwind hues"
+    },
+    "TouchTarget": {
+      "role": "group",
+      "doc": "No-op wrapper kept for source compatibility"
+    },
+    "Badge": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "color": "zinc"
+      },
+      "doc": "Badge(\"Paid\", color: .lime) — rounded-md tinted pill; any Tailwind colour (zinc default)"
+    },
+    "BadgeButton": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "color": "zinc"
+      },
+      "doc": "A Badge that is a link/button"
+    },
+    "Avatar": {
+      "role": "avatar",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "square": "shape",
+        "alt": "name"
+      },
+      "doc": "Avatar(\"Erica Jones\", src: \"…\") · initials: \"EJ\" · square: true"
+    },
+    "AvatarButton": {
+      "role": "avatar",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "square": "shape",
+        "alt": "name"
+      },
+      "doc": "An Avatar that is a button (e.g. a dropdown trigger)"
+    },
+    "Divider": {
+      "role": "divider",
+      "attrs": {
+        "soft": "emphasis"
+      },
+      "doc": "Divider() · Divider(soft: true) for the lighter zinc-950/5 rule"
+    },
+    "Fieldset": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "Fieldset { Legend(…); Text(…); FieldGroup { Field { … } } }"
+    },
+    "Legend": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Fieldset legend (base/6 semibold)"
+    },
+    "FieldGroup": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 32
+      },
+      "doc": "Stack of fields (space-y-8)"
+    },
+    "Field": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 12
+      },
+      "doc": "Field { Label(\"Email\"); Input(…); Description(…) }"
+    },
+    "Label": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "Label(\"Full name\") — form label (sm/6 medium)"
+    },
+    "Description": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Field description (zinc-500)"
+    },
+    "ErrorMessage": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Field error (red-600)"
+    },
+    "Input": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "attrs": {
+        "invalid": "error",
+        "defaultValue": "text",
+        "name": "id"
+      },
+      "doc": "Input(\"you@example.com\", label:, description:, text:, type: .email|.password|.search) · invalid: true"
+    },
+    "InputGroup": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "attrs": {
+        "invalid": "error"
+      },
+      "doc": "Input with a leading icon: InputGroup(\"Search…\", systemImage: \"magnifying-glass\")"
+    },
+    "Textarea": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "attrs": {
+        "invalid": "error",
+        "defaultValue": "text"
+      },
+      "doc": "Textarea(\"…\", rows: 4)"
+    },
+    "Select": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "trailingIcon": "chevron.up.down"
+      },
+      "attrs": {
+        "invalid": "error",
+        "defaultValue": "selection"
+      },
+      "doc": "Native select: Select(\"Country\", selection: \"Canada\") { … }"
+    },
+    "Listbox": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "trailingIcon": "chevron.up.down"
+      },
+      "attrs": {
+        "invalid": "error",
+        "defaultValue": "selection"
+      },
+      "doc": "Listbox(\"Select a status\", selection: \"Active\", open: true) { ListboxOption(\"Active\") … }"
+    },
+    "ListboxOption": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "One Listbox option"
+    },
+    "ListboxLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Option label"
+    },
+    "ListboxDescription": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Option description"
+    },
+    "Combobox": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "trailingIcon": "chevron.up.down"
+      },
+      "attrs": {
+        "invalid": "error",
+        "defaultValue": "selection"
+      },
+      "doc": "Combobox(\"Search…\", selection: \"Can\", open: true) { ComboboxOption(…) } — a text input with a listbox"
+    },
+    "ComboboxOption": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "One Combobox option"
+    },
+    "ComboboxLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Option label"
+    },
+    "ComboboxDescription": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Option description"
+    },
+    "Checkbox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "Checkbox(\"Allow embedding\", checked: true, color: .indigo) · indeterminate via checked: .indeterminate"
+    },
+    "CheckboxField": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "checked": false
+      },
+      "doc": "CheckboxField(\"Allow embedding\", description: \"…\", checked: true) — checkbox, label and description"
+    },
+    "CheckboxGroup": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 12
+      },
+      "doc": "Stack of CheckboxFields (space-y-3)"
+    },
+    "Radio": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio(\"Monthly\", checked: true)"
+    },
+    "RadioField": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio with its label"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "RadioGroup(selection: \"Monthly\") { Radio(\"Monthly\"); Radio(\"Yearly\") }"
+    },
+    "Switch": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "doc": "Switch(isOn: true, color: .emerald) — h-5 w-8 track, any Tailwind colour"
+    },
+    "SwitchField": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "doc": "SwitchField(\"Allow embedding\", isOn: true, description: \"…\") — label + description left, switch right"
+    },
+    "SwitchGroup": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 12
+      },
+      "doc": "Stack of SwitchFields (space-y-3)"
+    },
+    "Table": {
+      "role": "table",
+      "variants": [
+        "striped",
+        "grid",
+        "bleed"
+      ],
+      "attrs": {
+        "dense": "density",
+        "striped": "emphasis"
+      },
+      "doc": "Table(columns: […], rows: […]) or TableHeader/TableRow children · variant: .striped|.grid · dense: true · bleed: true"
+    },
+    "TableHead": {
+      "role": "group",
+      "doc": "Kept for source compatibility; put TableHeader children directly in the Table"
+    },
+    "TableBody": {
+      "role": "group",
+      "doc": "Kept for source compatibility; put TableRow children directly in the Table"
+    },
+    "TableRow": {
+      "role": "tablerow",
+      "doc": "TableRow { TableCell(…) … } · selected:"
+    },
+    "TableHeader": {
+      "role": "tablecolumn",
+      "params": [
+        "title"
+      ],
+      "doc": "TableHeader(\"Amount\", alignment: .trailing)"
+    },
+    "TableCell": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "TableCell(\"…\") — a cell (or any view)"
+    },
+    "DescriptionList": {
+      "role": "grid",
+      "doc": "DescriptionList { DescriptionTerm(\"Customer\"); DescriptionDetails(\"Leslie Alexander\") … } — two columns on desktop"
+    },
+    "DescriptionTerm": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Term (zinc-500)"
+    },
+    "DescriptionDetails": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Details (zinc-950)"
+    },
+    "Pagination": {
+      "role": "pagination",
+      "doc": "Pagination(count: 10, page: 2) — Previous · pages · Next, spread over the width"
+    },
+    "Stat": {
+      "role": "stat",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "Stat(label:, value:, change:) — dashboard stat with a top rule (Catalyst demo)"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "size": "lg"
+      },
+      "doc": "Dialog(\"Refund payment\", description: \"…\") { DialogBody … } actions: { Button(\"Cancel\", variant: .plain); Button(\"Refund\") } · size: .sm…5xl"
+    },
+    "DialogTitle": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Dialog title"
+    },
+    "DialogDescription": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Dialog description"
+    },
+    "DialogBody": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 16
+      },
+      "doc": "Dialog body (mt-6)"
+    },
+    "DialogActions": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 12
+      },
+      "doc": "Right-aligned actions (gap-3)"
+    },
+    "Alert": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "size": "md"
+      },
+      "doc": "Catalyst Alert: a small centred confirmation modal. Alert(\"Are you sure?\", description: \"…\") actions: { … }"
+    },
+    "AlertTitle": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Alert title"
+    },
+    "AlertDescription": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Alert description"
+    },
+    "AlertBody": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "Alert body"
+    },
+    "AlertActions": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 12
+      },
+      "doc": "Alert actions"
+    },
+    "Dropdown": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "outline"
+      },
+      "doc": "Dropdown(\"Options\", open: true) { DropdownItem(\"Edit\", shortcut: \"⌘E\") … } · trigger variant: .outline (default)|.plain|.solid"
+    },
+    "DropdownButton": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "outline"
+      },
+      "doc": "Same as Dropdown (Catalyst names the trigger DropdownButton)"
+    },
+    "DropdownMenu": {
+      "role": "menu",
+      "doc": "An open dropdown panel on its own (place it with .offset)"
+    },
+    "DropdownItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "DropdownItem(\"Settings\", systemImage: \"cog-6-tooth\", shortcut: \"⌘S\") · .state(.focused) for the blue highlight"
+    },
+    "DropdownHeader": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "leading",
+        "spacing": 0
+      },
+      "doc": "Non-interactive header block (px-3.5 pt-2.5 pb-1)"
+    },
+    "DropdownSection": {
+      "role": "group",
+      "doc": "A group of items"
+    },
+    "DropdownHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Section heading (xs/5 medium zinc-500)"
+    },
+    "DropdownDivider": {
+      "role": "divider",
+      "doc": "Rule between sections"
+    },
+    "DropdownLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Item label"
+    },
+    "DropdownDescription": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Item description"
+    },
+    "DropdownShortcut": {
+      "role": "kbd",
+      "params": [
+        "keys"
+      ],
+      "doc": "DropdownShortcut(keys: [\"⌘\", \"K\"])"
+    },
+    "Kbd": {
+      "role": "kbd",
+      "params": [
+        "keys"
+      ],
+      "doc": "Keyboard keys"
+    },
+    "Notification": {
+      "role": "toast",
+      "params": [
+        "message"
+      ],
+      "defaults": {
+        "position": "top-right",
+        "closable": true
+      },
+      "doc": "Tailwind Plus notification panel (top right): Notification(\"Successfully saved!\", description: \"…\", systemImage: \"check-circle\")"
+    },
+    "InlineAlert": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "accent"
+      ],
+      "doc": "Tailwind Plus “Alerts” banner: InlineAlert(\"Attention needed\", message: \"…\", severity: .warning) · variant: .accent for a left border"
+    },
+    "Tabs": {
+      "role": "tabs",
+      "defaults": {
+        "placement": "top"
+      },
+      "variants": [
+        "underline",
+        "pills"
+      ],
+      "doc": "Tailwind Plus underline tabs: Tabs(selection: \"Billing\") { Tab(\"Account\") { … } … } · variant: .pills"
+    },
+    "EmptyState": {
+      "role": "emptystate",
+      "params": [
+        "title"
+      ],
+      "doc": "Tailwind Plus empty state: dashed box, icon, title, description and a button"
+    },
+    "Hero": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 24
+      },
+      "doc": "Marketing hero (simple centred): Hero { Eyebrow(…); Text(…).font(.display); Lead(…); HStack { Button… } }"
+    },
+    "HeroHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Hero title (text-6xl semibold tracking-tight, balanced)"
+    },
+    "Eyebrow": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "variants": [
+        "pill"
+      ],
+      "doc": "Small indigo kicker above a section title (or a pill announcement with variant: .pill)"
+    },
+    "Lead": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Large muted intro paragraph (text-lg/8)"
+    },
+    "SectionHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Marketing section title (text-4xl semibold tracking-tight)"
+    },
+    "FeatureGrid": {
+      "role": "grid",
+      "defaults": {
+        "columns": 3,
+        "spacing": 40
+      },
+      "doc": "Feature section grid: FeatureGrid(columns: 3) { Feature(…) … }"
+    },
+    "Feature": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "Feature(\"Push to deploy\", description: \"…\", systemImage: \"cloud-arrow-up\") — indigo icon tile + title + text"
+    },
+    "PricingTier": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "featured": "selected"
+      },
+      "doc": "PricingTier(\"Startup\", description: \"…\", featured: true) { price, features } actions: { Button }"
+    },
+    "PricingGrid": {
+      "role": "grid",
+      "defaults": {
+        "columns": 3,
+        "spacing": 32
+      },
+      "doc": "Row of PricingTier cards"
+    }
+  }
+}

@@ -113,5 +113,27 @@ class EvaluateRenderTests(unittest.TestCase):
         self.assertIn('[data-md-color-scheme="slate"] .mkd-pack-base .mkd-frame[data-appearance="auto"]', css)
 
 
+class CollectionMethodTests(unittest.TestCase):
+    def test_contains_and_prefix(self):
+        out = html('let xs = ["a", "b"]\nVStack { if xs.contains("b") { Text("has-b") }; '
+                   'if xs.contains("z") { Text("has-z") }; if "hello".hasPrefix("he") { Text("pre") } }')
+        self.assertIn("has-b", out)
+        self.assertNotIn("has-z", out)
+        self.assertIn("pre", out)
+
+    def test_table_sees_rows_inside_groups(self):
+        out = html('Table { Group { TableColumn("Name") }; Group { TableRow { Text("Ana") } } }')
+        self.assertIn("Name", out)
+        self.assertIn("Ana", out)
+
+    def test_badge_count_one_is_not_a_dot(self):
+        out = html("Badge(count: 1)")
+        self.assertIn('mkd-badge__label">1<', out)
+        self.assertNotIn('data-dot="true"', out)
+
+    def test_empty_text_keeps_a_line(self):
+        self.assertIn("&#160;", html('VStack { Text("a"); Text(""); Text("b") }'))
+
+
 if __name__ == "__main__":
     unittest.main()

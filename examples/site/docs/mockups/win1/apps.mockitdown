@@ -1,0 +1,87 @@
+// Reusable Windows 1.0 building blocks for the win1 pack page.
+// Import with:  import "win1/apps"
+
+import Windows1
+
+/// A tiled application window: caption, menu bar and a white client area.
+struct AppWindow: View {
+  var title: String
+  var menus: [String] = ["File", "Edit"]
+  var inactive: Bool = false
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    Window(title) {
+      MenuBar {
+        ForEach(menus) { m in MenuBarItem(m) }
+      }
+      content
+    }
+    .variant(inactive ? .inactive : .active)
+  }
+}
+
+/// One column of MS-DOS Executive file names; `selected` names the highlighted file.
+struct FileColumn: View {
+  var names: [String]
+  var selected: String = ""
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      ForEach(names) { n in FileName(n).selected(n == selected) }
+    }
+  }
+}
+
+/// The MS-DOS Executive client area: drive icons, path line and file columns.
+struct Executive: View {
+  var drive: String = "C"
+  var path: String = "C: \\"
+  var columns: [[String]]
+  var selected: String = ""
+
+  var body: some View {
+    DriveBar {
+      ForEach(["A", "B", "C"]) { d in DriveIcon(d).selected(d == drive) }
+    }
+    PathLine(path)
+    HStack(alignment: .top, spacing: 22) {
+      ForEach(columns) { c in FileColumn(names: c, selected: selected) }
+    }
+    .padding(.horizontal, 6)
+    Spacer()
+  }
+}
+
+/// A Control Panel setting: label, a scroll bar used as a slider, and the end labels.
+struct SliderRow: View {
+  var label: String
+  var value: Double = 0.5
+  var low: String = "Slow"
+  var high: String = "Fast"
+
+  var body: some View {
+    VStack(alignment: .stretch, spacing: 2) {
+      LText(label)
+      HStack(spacing: 6) {
+        LText(low).frame(width: 40)
+        ScrollBar(value: value).frame(maxWidth: .infinity)
+        LText(high).frame(width: 40)
+      }
+    }
+  }
+}
+
+/// A labelled edit control the way dialog templates lay them out.
+struct EditRow: View {
+  var label: String
+  var text: String = ""
+  var focused: Bool = false
+
+  var body: some View {
+    HStack(spacing: 8) {
+      LText(label).frame(width: 96)
+      EditText(text).state(focused ? .focused : .normal).frame(maxWidth: .infinity)
+    }
+  }
+}

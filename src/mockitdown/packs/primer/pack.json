@@ -1,0 +1,1835 @@
+{
+  "id": "primer",
+  "name": "Primer",
+  "framework": "GitHub Primer · Primer React components and Primer CSS, primitives light/dark default themes",
+  "version": "Primer React 37 · Primer Primitives 10",
+  "modules": [
+    "Primer",
+    "PrimerReact",
+    "GitHub"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "phone": "none",
+    "tablet": "browser",
+    "desktop": "browser",
+    "wide": "browser"
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#f6f8fa",
+      "surface-3": "#eff2f5",
+      "fg": "#1f2328",
+      "fg-2": "#59636e",
+      "fg-3": "#818b98",
+      "border": "#d1d9e0",
+      "divider": "#d1d9e0b3",
+      "accent": "#0969da",
+      "on-accent": "#ffffff",
+      "accent-soft": "#ddf4ff",
+      "danger": "#d1242f",
+      "warning": "#9a6700",
+      "success": "#1a7f37",
+      "info": "#0969da",
+      "field-bg": "#ffffff",
+      "field-border": "#d1d9e0",
+      "scrim": "rgb(31 35 40 / 0.5)",
+      "shadow-1": "0 1px 1px 0 rgb(31 35 40 / 0.06), 0 1px 3px 0 rgb(31 35 40 / 0.06)",
+      "shadow-2": "0 0 0 1px #d1d9e080, 0 6px 12px -3px rgb(37 41 46 / 0.04), 0 6px 18px 0 rgb(37 41 46 / 0.12)",
+      "shadow-3": "0 0 0 1px #d1d9e0, 0 40px 80px 0 rgb(37 41 46 / 0.24)",
+      "radius-s": "3px",
+      "radius-m": "6px",
+      "radius-l": "12px",
+      "radius-xl": "12px",
+      "radius-pill": "9999px",
+      "font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "font-mono": "ui-monospace, SFMono-Regular, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace",
+      "font-size": "14px",
+      "line-height": "1.5",
+      "icon-stroke": "1.75",
+      "icon-size": "16px",
+      "control-h": "32px",
+      "gap": "8px",
+      "pad": "16px",
+      "chrome-bg": "#f6f8fa",
+      "chrome-fg": "#1f2328",
+      "fs-display": "40px",
+      "fw-display": "500",
+      "fs-largeTitle": "32px",
+      "fw-largeTitle": "600",
+      "fs-title": "24px",
+      "fw-title": "600",
+      "fs-title2": "20px",
+      "fw-title2": "600",
+      "fs-title3": "16px",
+      "fw-title3": "600",
+      "fs-headline": "14px",
+      "fw-headline": "600",
+      "fs-subheadline": "20px",
+      "fw-subheadline": "400",
+      "fs-body": "14px",
+      "fw-body": "400",
+      "fs-callout": "16px",
+      "fw-callout": "400",
+      "fs-footnote": "12px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "600",
+      "color-red": "#d1242f",
+      "color-orange": "#bc4c00",
+      "color-yellow": "#bf8700",
+      "color-green": "#1a7f37",
+      "color-mint": "#1b7c83",
+      "color-teal": "#1b7c83",
+      "color-cyan": "#0a7ea4",
+      "color-blue": "#0969da",
+      "color-indigo": "#4f5bd5",
+      "color-purple": "#8250df",
+      "color-pink": "#bf3989",
+      "color-brown": "#9a6700",
+      "color-gray": "#59636e",
+      "chart-1": "#0969da",
+      "chart-2": "#1f883d",
+      "chart-3": "#eb670f",
+      "chart-4": "#8250df",
+      "chart-5": "#cf222e",
+      "chart-6": "#179b9b",
+      "callout": "#e8590c",
+      "on-callout": "#ffffff",
+      "marquee": "#0969da",
+      "note": "#fff8c5",
+      "code-bg": "#f6f8fa",
+      "code-fg": "#1f2328",
+      "code-kw": "#cf222e",
+      "code-str": "#0a3069",
+      "code-num": "#0550ae",
+      "code-comment": "#59636e",
+      "code-fn": "#8250df",
+      "code-type": "#953800",
+      "term-bg": "#0d1117",
+      "term-fg": "#f0f6fc",
+      "term-prompt": "#3fb950",
+      "grid-line": "#d1d9e0b3",
+      "map-land": "#eef0e6",
+      "map-water": "#b9d7ee",
+      "map-park": "#cfe6c5",
+      "map-road": "#ffffff",
+      "bg-muted": "#f6f8fa",
+      "bg-inset": "#f6f8fa",
+      "bg-emphasis": "#25292e",
+      "bg-overlay": "#ffffff",
+      "fg-muted": "#59636e",
+      "fg-on-emphasis": "#ffffff",
+      "border-muted": "#d1d9e0b3",
+      "border-emphasis": "#818b98",
+      "accent-fg": "#0969da",
+      "accent-emphasis": "#0969da",
+      "accent-muted": "#54aeff66",
+      "accent-subtle": "#ddf4ff",
+      "success-fg": "#1a7f37",
+      "success-emphasis": "#1f883d",
+      "success-muted": "#4ac26b66",
+      "success-subtle": "#dafbe1",
+      "attention-fg": "#9a6700",
+      "attention-emphasis": "#9a6700",
+      "attention-muted": "#d4a72c66",
+      "attention-subtle": "#fff8c5",
+      "severe-fg": "#bc4c00",
+      "severe-emphasis": "#bc4c00",
+      "severe-muted": "#fb8f4466",
+      "severe-subtle": "#fff1e5",
+      "danger-fg": "#d1242f",
+      "danger-emphasis": "#cf222e",
+      "danger-muted": "#ff818266",
+      "danger-subtle": "#ffebe9",
+      "done-fg": "#8250df",
+      "done-emphasis": "#8250df",
+      "done-muted": "#c297ff66",
+      "done-subtle": "#fbefff",
+      "sponsors-fg": "#bf3989",
+      "sponsors-muted": "#ff80c866",
+      "sponsors-subtle": "#ffeff7",
+      "upsell-fg": "#8250df",
+      "neutral-emphasis": "#59636e",
+      "neutral-muted": "#818b981f",
+      "neutral-subtle": "#818b980f",
+      "btn-bg": "#f6f8fa",
+      "btn-bg-hover": "#eff2f5",
+      "btn-border": "#d1d9e0",
+      "btn-shadow": "0 1px 0 0 #1f23280a",
+      "btn-primary-bg": "#1f883d",
+      "btn-primary-bg-hover": "#1c8139",
+      "btn-primary-border": "#1f232826",
+      "btn-primary-fg": "#ffffff",
+      "btn-primary-counter": "#002d1133",
+      "btn-danger-fg": "#d1242f",
+      "btn-danger-hover-bg": "#cf222e",
+      "btn-invisible-hover": "#818b981a",
+      "counter-bg": "#818b981f",
+      "control-track": "#eff2f5",
+      "control-knob-border": "#818b98",
+      "control-transparent-hover": "#818b981a",
+      "control-transparent-selected": "#818b9826",
+      "underline-active": "#fd8c73",
+      "header-bg": "#f6f8fa",
+      "header-fg": "#1f2328",
+      "header-border": "#d1d9e0",
+      "header-field-bg": "#ffffff",
+      "timeline-badge": "#eff2f5",
+      "tooltip-bg": "#25292e",
+      "tooltip-fg": "#ffffff",
+      "diff-add-bg": "#dafbe1",
+      "diff-add-num": "#aceebb",
+      "diff-add-word": "#aceebb",
+      "diff-del-bg": "#ffebe9",
+      "diff-del-num": "#ffcecb",
+      "diff-del-word": "#ffcecb",
+      "diff-hunk-bg": "#ddf4ff",
+      "diff-hunk-num": "#54aeff66",
+      "avatar-border": "#1f232826",
+      "avatar-stack-fade": "#d1d9e0",
+      "focus": "#0969da",
+      "row-hover": "#818b981a",
+      "selected-bg": "#818b9826",
+      "skeleton": "#818b981f",
+      "label-fg-base": "#000000",
+      "label-fg-pct": "38%",
+      "label-tint": "22%",
+      "tree-folder": "#54aeff"
+    },
+    "dark": {
+      "bg": "#0d1117",
+      "surface": "#0d1117",
+      "surface-2": "#151b23",
+      "surface-3": "#212830",
+      "fg": "#f0f6fc",
+      "fg-2": "#9198a1",
+      "fg-3": "#656c76",
+      "border": "#3d444d",
+      "divider": "#3d444db3",
+      "accent": "#4493f8",
+      "on-accent": "#ffffff",
+      "accent-soft": "#388bfd1a",
+      "danger": "#f85149",
+      "warning": "#d29922",
+      "success": "#3fb950",
+      "info": "#4493f8",
+      "field-bg": "#0d1117",
+      "field-border": "#3d444d",
+      "scrim": "rgb(1 4 9 / 0.6)",
+      "shadow-1": "0 0 0 1px #3d444d, 0 1px 3px 0 #01040966",
+      "shadow-2": "0 0 0 1px #3d444d, 0 6px 12px -3px #01040966, 0 6px 18px 0 #01040966",
+      "shadow-3": "0 0 0 1px #3d444d, 0 24px 48px 0 #010409",
+      "chrome-bg": "#151b23",
+      "chrome-fg": "#f0f6fc",
+      "color-red": "#f85149",
+      "color-orange": "#db6d28",
+      "color-yellow": "#d29922",
+      "color-green": "#3fb950",
+      "color-mint": "#39c5cf",
+      "color-teal": "#39c5cf",
+      "color-cyan": "#56d4dd",
+      "color-blue": "#4493f8",
+      "color-indigo": "#7d8cf4",
+      "color-purple": "#ab7df8",
+      "color-pink": "#db61a2",
+      "color-brown": "#c69026",
+      "color-gray": "#9198a1",
+      "chart-1": "#4493f8",
+      "chart-2": "#3fb950",
+      "chart-3": "#f0883e",
+      "chart-4": "#ab7df8",
+      "chart-5": "#f85149",
+      "chart-6": "#39c5cf",
+      "marquee": "#4493f8",
+      "note": "#bb800926",
+      "code-bg": "#151b23",
+      "code-fg": "#f0f6fc",
+      "code-kw": "#ff7b72",
+      "code-str": "#a5d6ff",
+      "code-num": "#79c0ff",
+      "code-comment": "#9198a1",
+      "code-fn": "#d2a8ff",
+      "code-type": "#ffa657",
+      "term-bg": "#010409",
+      "term-fg": "#f0f6fc",
+      "grid-line": "#3d444db3",
+      "map-land": "#2a2e33",
+      "map-water": "#1f3a52",
+      "map-park": "#2b3d2c",
+      "map-road": "#3a3f46",
+      "bg-muted": "#151b23",
+      "bg-inset": "#010409",
+      "bg-emphasis": "#3d444d",
+      "bg-overlay": "#151b23",
+      "fg-muted": "#9198a1",
+      "fg-on-emphasis": "#ffffff",
+      "border-muted": "#3d444db3",
+      "border-emphasis": "#656c76",
+      "accent-fg": "#4493f8",
+      "accent-emphasis": "#1f6feb",
+      "accent-muted": "#388bfd66",
+      "accent-subtle": "#388bfd1a",
+      "success-fg": "#3fb950",
+      "success-emphasis": "#238636",
+      "success-muted": "#2ea04366",
+      "success-subtle": "#2ea04326",
+      "attention-fg": "#d29922",
+      "attention-emphasis": "#9e6a03",
+      "attention-muted": "#bb800966",
+      "attention-subtle": "#bb800926",
+      "severe-fg": "#db6d28",
+      "severe-emphasis": "#bd561d",
+      "severe-muted": "#db6d2866",
+      "severe-subtle": "#db6d281a",
+      "danger-fg": "#f85149",
+      "danger-emphasis": "#da3633",
+      "danger-muted": "#f8514966",
+      "danger-subtle": "#f851491a",
+      "done-fg": "#ab7df8",
+      "done-emphasis": "#8957e5",
+      "done-muted": "#ab7df866",
+      "done-subtle": "#ab7df826",
+      "sponsors-fg": "#db61a2",
+      "sponsors-muted": "#db61a266",
+      "sponsors-subtle": "#db61a21a",
+      "upsell-fg": "#ab7df8",
+      "neutral-emphasis": "#656c76",
+      "neutral-muted": "#656c7633",
+      "neutral-subtle": "#656c761a",
+      "btn-bg": "#212830",
+      "btn-bg-hover": "#262c36",
+      "btn-border": "#3d444d",
+      "btn-shadow": "0 0 transparent",
+      "btn-primary-bg": "#238636",
+      "btn-primary-bg-hover": "#29903b",
+      "btn-primary-border": "#ffffff1a",
+      "btn-primary-fg": "#ffffff",
+      "btn-primary-counter": "#04260f33",
+      "btn-danger-fg": "#fa5e55",
+      "btn-danger-hover-bg": "#b62324",
+      "btn-invisible-hover": "#656c7633",
+      "counter-bg": "#2f3742",
+      "control-track": "#212830",
+      "control-knob-border": "#656c76",
+      "control-transparent-hover": "#656c7633",
+      "control-transparent-selected": "#656c7640",
+      "underline-active": "#f78166",
+      "header-bg": "#010409",
+      "header-fg": "#f0f6fc",
+      "header-border": "#3d444d",
+      "header-field-bg": "#0d1117",
+      "timeline-badge": "#212830",
+      "tooltip-bg": "#3d444d",
+      "tooltip-fg": "#ffffff",
+      "diff-add-bg": "#2ea04326",
+      "diff-add-num": "#3fb9504d",
+      "diff-add-word": "#2ea04366",
+      "diff-del-bg": "#f851491a",
+      "diff-del-num": "#f851494d",
+      "diff-del-word": "#f8514966",
+      "diff-hunk-bg": "#388bfd1a",
+      "diff-hunk-num": "#388bfd66",
+      "avatar-border": "#ffffff26",
+      "avatar-stack-fade": "#3d444d",
+      "focus": "#1f6feb",
+      "row-hover": "#656c7633",
+      "selected-bg": "#656c763d",
+      "skeleton": "#656c7633",
+      "label-fg-base": "#ffffff",
+      "label-fg-pct": "45%",
+      "label-tint": "20%",
+      "tree-folder": "#9198a1"
+    }
+  },
+  "fonts": {
+    "display": "display",
+    "titleLarge": "largeTitle",
+    "titleMedium": "title2",
+    "titleSmall": "title3",
+    "subtitle": "subheadline",
+    "bodyLarge": "callout",
+    "bodyMedium": "body",
+    "bodySmall": "footnote",
+    "caption": "caption",
+    "h1": "largeTitle",
+    "h2": "title",
+    "h3": "title2",
+    "h4": "title3",
+    "h5": "headline",
+    "h6": "footnote"
+  },
+  "icons": {
+    "alert": "exclamationmark.triangle",
+    "alert-fill": "exclamationmark.triangle",
+    "archive": "archivebox",
+    "arrow-down": "arrow.down",
+    "arrow-up": "arrow.up",
+    "arrow-left": "arrow.left",
+    "arrow-right": "arrow.right",
+    "arrow-switch": "arrow.up.arrow.down",
+    "bell": "bell",
+    "bell-fill": "bell",
+    "book": "book",
+    "bookmark": "bookmark",
+    "briefcase": "briefcase",
+    "browser": "app",
+    "bug": "exclamationmark.circle",
+    "calendar": "calendar",
+    "check": "checkmark",
+    "check-circle": "checkmark.circle",
+    "check-circle-fill": "checkmark.circle",
+    "checklist": "checkmark.circle",
+    "chevron-down": "chevron.down",
+    "chevron-up": "chevron.up",
+    "chevron-left": "chevron.left",
+    "chevron-right": "chevron.right",
+    "circle": "circle",
+    "circle-slash": "minus.circle",
+    "clock": "clock",
+    "code": "doc",
+    "code-review": "message",
+    "code-square": "square",
+    "codespaces": "cube",
+    "comment": "message",
+    "comment-discussion": "message",
+    "container": "cube",
+    "copilot": "sparkles",
+    "copy": "doc.on.doc",
+    "cpu": "cube",
+    "dash": "minus",
+    "database": "cube",
+    "desktop-download": "arrow.down.to.line",
+    "device-desktop": "app",
+    "device-mobile": "phone",
+    "discussion-closed": "message",
+    "dot": "circle",
+    "dot-fill": "circle.fill",
+    "download": "arrow.down.to.line",
+    "eye": "eye",
+    "eye-closed": "eye.slash",
+    "file": "doc",
+    "file-code": "doc",
+    "file-diff": "doc",
+    "file-directory": "folder",
+    "file-directory-fill": "folder",
+    "file-directory-open-fill": "folder",
+    "file-media": "photo",
+    "file-submodule": "folder",
+    "filter": "line.3.horizontal.decrease",
+    "flame": "bolt",
+    "fold": "chevron.up.down",
+    "gear": "gear",
+    "gift": "tag",
+    "git-branch": "arrow.up.arrow.down",
+    "git-commit": "minus.circle",
+    "git-compare": "arrow.up.arrow.down",
+    "git-merge": "arrow.down.to.line",
+    "git-merge-queue": "list.bullet",
+    "git-pull-request": "arrow.clockwise",
+    "git-pull-request-closed": "xmark.circle",
+    "git-pull-request-draft": "circle",
+    "globe": "globe",
+    "goal": "flag",
+    "graph": "chart.line",
+    "grabber": "line.3.horizontal",
+    "heart": "heart",
+    "heart-fill": "heart.fill",
+    "history": "clock",
+    "home": "house",
+    "hourglass": "clock",
+    "id-badge": "person",
+    "inbox": "tray",
+    "infinity": "arrow.clockwise",
+    "info": "info.circle",
+    "issue-closed": "checkmark.circle",
+    "issue-draft": "circle",
+    "issue-opened": "circle",
+    "issue-reopened": "arrow.clockwise",
+    "issue-tracks": "list.bullet",
+    "kebab-horizontal": "ellipsis",
+    "kebab-vertical": "ellipsis.vertical",
+    "key": "key",
+    "law": "shield",
+    "light-bulb": "lightbulb",
+    "link": "link",
+    "link-external": "square.and.arrow.up",
+    "list-ordered": "list.bullet",
+    "list-unordered": "list.bullet",
+    "location": "mappin",
+    "lock": "lock",
+    "log": "doc",
+    "mail": "envelope",
+    "megaphone": "speaker",
+    "mention": "envelope",
+    "milestone": "flag",
+    "moon": "moon",
+    "mortar-board": "book",
+    "mute": "speaker",
+    "no-entry": "minus.circle",
+    "note": "doc",
+    "organization": "building",
+    "package": "cube",
+    "paper-airplane": "paperplane",
+    "paperclip": "paperclip",
+    "pencil": "pencil",
+    "people": "person.2",
+    "person": "person",
+    "person-add": "person",
+    "pin": "mappin",
+    "play": "play",
+    "plus": "plus",
+    "plus-circle": "plus.circle",
+    "project": "square.grid.2x2",
+    "project-roadmap": "chart.bar",
+    "project-symlink": "square.grid.2x2",
+    "pulse": "chart.line",
+    "question": "questionmark.circle",
+    "quote": "message",
+    "repo": "book",
+    "repo-forked": "arrow.up.arrow.down",
+    "repo-locked": "lock",
+    "repo-push": "arrow.up.to.line",
+    "repo-template": "book",
+    "report": "flag",
+    "rocket": "bolt",
+    "rows": "list.bullet",
+    "rss": "wifi",
+    "search": "search",
+    "server": "cube",
+    "share": "square.and.arrow.up",
+    "share-android": "square.and.arrow.up",
+    "shield": "shield",
+    "shield-check": "shield",
+    "shield-lock": "shield",
+    "sidebar-collapse": "sidebar.left",
+    "sidebar-expand": "sidebar.left",
+    "sign-in": "arrow.right",
+    "sign-out": "rectangle.portrait.and.arrow.right",
+    "skip": "minus.circle",
+    "smiley": "person.circle",
+    "sort-asc": "arrow.up.arrow.down",
+    "sort-desc": "arrow.up.arrow.down",
+    "sparkle-fill": "sparkles",
+    "sponsor-tiers": "heart",
+    "square": "square",
+    "stack": "square.grid.2x2",
+    "star": "star",
+    "star-fill": "star.fill",
+    "stop": "stop",
+    "stopwatch": "clock",
+    "sun": "sun",
+    "sync": "arrow.clockwise",
+    "tab": "square",
+    "table": "square.grid.3x3",
+    "tag": "tag",
+    "tasklist": "checkmark.circle",
+    "telescope": "search",
+    "terminal": "app",
+    "thumbsup": "hand.thumbsup",
+    "three-bars": "line.3.horizontal",
+    "tools": "wrench",
+    "trash": "trash",
+    "triangle-down": "chevron.down",
+    "triangle-right": "chevron.right",
+    "triangle-up": "chevron.up",
+    "unfold": "chevron.up.down",
+    "unlock": "lock.open",
+    "unread": "envelope",
+    "upload": "arrow.up.to.line",
+    "verified": "checkmark.circle",
+    "versions": "doc.on.doc",
+    "video": "video",
+    "webhook": "link",
+    "workflow": "square.grid.2x2",
+    "x": "xmark",
+    "x-circle": "xmark.circle",
+    "x-circle-fill": "xmark.circle",
+    "zap": "bolt"
+  },
+  "attrs": {
+    "leadingVisual": "systemImage",
+    "ariaLabel": "label"
+  },
+  "modifiers": {
+    "scheme": {
+      "attr": "variant"
+    },
+    "direction": {
+      "attr": "placement"
+    },
+    "status": {
+      "attr": "variant"
+    }
+  },
+  "elements": {
+    "Box": {
+      "role": "vstack",
+      "doc": "Generic container (Box): style it with modifiers; children stack vertically"
+    },
+    "Stack": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 16,
+        "alignment": "stretch"
+      },
+      "doc": "Stack (vertical, gap normal); use StackHorizontal or HStack for a row"
+    },
+    "StackHorizontal": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Stack with direction=\"horizontal\""
+    },
+    "StackItem": {
+      "role": "vstack",
+      "doc": "Stack.Item"
+    },
+    "PageLayout": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "PageLayout { PageLayoutHeader; PageLayoutContentRow { PageLayoutPane; PageLayoutContent } }"
+    },
+    "PageLayoutHeader": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      },
+      "doc": "PageLayout.Header"
+    },
+    "PageLayoutContentRow": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "top"
+      },
+      "doc": "Row holding the pane and the content (pane on either side)"
+    },
+    "PageLayoutContent": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 16,
+        "alignment": "stretch"
+      },
+      "doc": "PageLayout.Content"
+    },
+    "PageLayoutPane": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      },
+      "doc": "PageLayout.Pane (296px side column); divider: true draws the line"
+    },
+    "PageLayoutFooter": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      },
+      "doc": "PageLayout.Footer"
+    },
+    "SplitPageLayout": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "top"
+      },
+      "doc": "SplitPageLayout { SplitPageLayoutPane; SplitPageLayoutContent } (settings pages)"
+    },
+    "SplitPageLayoutPane": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      },
+      "doc": "SplitPageLayout.Pane"
+    },
+    "SplitPageLayoutContent": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 16,
+        "alignment": "stretch"
+      },
+      "doc": "SplitPageLayout.Content"
+    },
+    "Header": {
+      "role": "appbar",
+      "params": [
+        "title"
+      ],
+      "doc": "Global header: Header(\"acme / rocket\", logo: \"cube\", search: \"Type / to search\", avatar: \"Mona\") { actions }"
+    },
+    "HeaderItem": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Header.Item"
+    },
+    "HeaderLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "Header.Link"
+    },
+    "PageHeader": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      },
+      "doc": "PageHeader { PageHeaderContextArea; PageHeaderTitleArea { PageHeaderTitle; PageHeaderActions }; PageHeaderDescription }"
+    },
+    "PageHeaderContextArea": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Parent link / breadcrumbs above the title"
+    },
+    "PageHeaderParentLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "arrow-left"
+      },
+      "doc": "Back link in the context area"
+    },
+    "PageHeaderTitleArea": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Title row: leading visual, title, trailing visual, actions"
+    },
+    "PageHeaderLeadingAction": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 4
+      }
+    },
+    "PageHeaderLeadingVisual": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 4
+      }
+    },
+    "PageHeaderTitle": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "style": "titleMedium"
+      },
+      "variants": [
+        "large",
+        "medium",
+        "subtitle"
+      ],
+      "doc": "PageHeader.Title (variant: .large | .medium | .subtitle)"
+    },
+    "PageHeaderTrailingVisual": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 4
+      }
+    },
+    "PageHeaderTrailingAction": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 4
+      }
+    },
+    "PageHeaderActions": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Right-aligned actions of the title row"
+    },
+    "PageHeaderDescription": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "Muted metadata row under the title"
+    },
+    "PageHeaderNavigation": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 0,
+        "alignment": "stretch"
+      },
+      "doc": "Holds an UnderlineNav under the header"
+    },
+    "Heading": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "style": "titleMedium"
+      },
+      "variants": [
+        "large",
+        "medium",
+        "small"
+      ],
+      "doc": "Heading(\"Title\", variant: .large | .medium | .small)"
+    },
+    "Text": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "weight": "emphasis"
+      },
+      "doc": "Text(\"…\", size: .small|.medium|.large, weight: .light|.normal|.medium|.semibold) · .foregroundStyle(.secondary)"
+    },
+    "Truncate": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Single-line text cut with an ellipsis (maxWidth via .frame)"
+    },
+    "Link": {
+      "role": "link",
+      "params": [
+        "label",
+        "destination"
+      ],
+      "variants": [
+        "default",
+        "muted"
+      ],
+      "attrs": {
+        "muted": "emphasis"
+      },
+      "doc": "Link(\"Docs\", muted: true) or variant: .muted"
+    },
+    "BranchName": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "BranchName(\"feature/login\") — monospace accent chip"
+    },
+    "RelativeTime": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "RelativeTime(\"3 days ago\") — muted, dotted hover underline"
+    },
+    "Octicon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "Octicon(\"git-branch\", size: 16) — Octicon names are aliased"
+    },
+    "Kbd": {
+      "role": "kbd",
+      "params": [
+        "keys"
+      ],
+      "doc": "Keyboard key: Kbd(\"/\")"
+    },
+    "Markdown": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 16,
+        "alignment": "leading"
+      },
+      "doc": "Rendered Markdown body (markdown-body): spacing 16, headings with rules"
+    },
+    "Blockquote": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": [
+        "default",
+        "primary",
+        "danger",
+        "invisible",
+        "link"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "trailingIcon",
+        "count": "badge",
+        "trailingAction": "trailingIcon"
+      },
+      "doc": "Button(\"Save\", variant: .primary, size: .small|.medium|.large, leadingVisual: \"plus\", count: 3, trailingAction: \"triangle-down\")"
+    },
+    "IconButton": {
+      "role": "button",
+      "params": [
+        "icon"
+      ],
+      "defaults": {
+        "variant": "default",
+        "iconOnly": true
+      },
+      "variants": [
+        "default",
+        "primary",
+        "danger",
+        "invisible",
+        "link"
+      ],
+      "doc": "IconButton(\"kebab-horizontal\", variant: .invisible, \"aria-label\" via label:)"
+    },
+    "LinkButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": [
+        "default",
+        "primary",
+        "danger",
+        "invisible",
+        "link"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "trailingIcon"
+      },
+      "doc": "A link styled as a Button"
+    },
+    "ButtonGroup": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "group"
+      },
+      "doc": "Joined buttons: ButtonGroup { Button; IconButton }"
+    },
+    "ToggleSwitch": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "onText": "On",
+        "offText": "Off"
+      },
+      "attrs": {
+        "checked": "isOn"
+      },
+      "doc": "ToggleSwitch(\"Notifications\", checked: true) — On/Off text, size: .small"
+    },
+    "Counter": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "secondary"
+      },
+      "variants": [
+        "primary",
+        "secondary"
+      ],
+      "attrs": {
+        "count": "text",
+        "scheme": "variant"
+      },
+      "doc": "Counter(12) or Counter(count: 3, scheme: .primary)"
+    },
+    "CounterLabel": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "secondary"
+      },
+      "variants": [
+        "primary",
+        "secondary"
+      ],
+      "attrs": {
+        "scheme": "variant"
+      }
+    },
+    "Label": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "variants": [
+        "default",
+        "primary",
+        "secondary",
+        "accent",
+        "success",
+        "attention",
+        "severe",
+        "danger",
+        "done",
+        "sponsors"
+      ],
+      "doc": "Label(\"Public\", variant: .success, size: .small|.large)"
+    },
+    "IssueLabel": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "issue",
+        "color": "gray"
+      },
+      "doc": "Repository label: IssueLabel(\"bug\", color: .red) — tinted pill (named colours)"
+    },
+    "IssueLabelToken": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "issue",
+        "color": "gray"
+      },
+      "attrs": {
+        "fillColor": "color"
+      }
+    },
+    "StateLabel": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "open"
+      },
+      "variants": [
+        "issueOpened",
+        "issueClosed",
+        "issueClosedNotPlanned",
+        "issueDraft",
+        "pullOpened",
+        "pullClosed",
+        "pullMerged",
+        "pullQueued",
+        "draft",
+        "open",
+        "closed",
+        "merged",
+        "unavailable"
+      ],
+      "attrs": {
+        "status": "variant"
+      },
+      "doc": "StateLabel(\"Open\", status: .issueOpened | .issueClosed | .pullOpened | .pullMerged | .pullClosed | .draft, size: .small)"
+    },
+    "Token": {
+      "role": "chip",
+      "params": [
+        "text"
+      ],
+      "attrs": {
+        "onRemove": "removable",
+        "leadingVisual": "systemImage"
+      },
+      "doc": "Token(\"design\", onRemove: true, size: .small|.medium|.large|.xlarge)"
+    },
+    "AvatarToken": {
+      "role": "chip",
+      "params": [
+        "text"
+      ],
+      "attrs": {
+        "onRemove": "removable"
+      },
+      "doc": "AvatarToken(\"mona\", avatar: \"Mona Lin\")"
+    },
+    "Avatar": {
+      "role": "avatar",
+      "params": [
+        "name"
+      ],
+      "attrs": {
+        "src": "image",
+        "alt": "name",
+        "square": "shape"
+      },
+      "doc": "Avatar(\"Mona Lin\", image:, size: 20…64, square: true for orgs/bots)"
+    },
+    "AvatarStack": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0
+      },
+      "doc": "Overlapping avatars: AvatarStack { Avatar … }"
+    },
+    "AvatarPair": {
+      "role": "zstack",
+      "doc": "Large avatar with a small one at the bottom right"
+    },
+    "CircleBadge": {
+      "role": "avatar",
+      "params": [
+        "name"
+      ],
+      "doc": "Round badge with an icon (systemImage:)"
+    },
+    "UnderlineNav": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "defaults": {
+        "placement": "top",
+        "variant": "underline"
+      },
+      "doc": "UnderlineNav { UnderlineNavItem(\"Code\", leadingVisual: \"code\", counter: 3).selected() }"
+    },
+    "UnderlineNavItem": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "counter": "badge",
+        "leadingVisual": "systemImage",
+        "icon": "systemImage",
+        "ariaCurrent": "selected"
+      },
+      "doc": "UnderlineNav.Item(label, leadingVisual:, counter:, selected:)"
+    },
+    "UnderlinePanels": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "defaults": {
+        "placement": "top",
+        "variant": "underline"
+      },
+      "doc": "Tabs with panels: UnderlinePanels { UnderlinePanelsTab(\"Code\") { panel } }"
+    },
+    "UnderlinePanelsTab": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "counter": "badge",
+        "leadingVisual": "systemImage"
+      }
+    },
+    "TabNav": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "defaults": {
+        "placement": "top",
+        "variant": "tabnav"
+      },
+      "doc": "Boxed tabs (TabNav): TabNav(items: [\"Write\", \"Preview\"], selection: \"Write\")"
+    },
+    "TabNavLink": {
+      "role": "tab",
+      "params": [
+        "label"
+      ]
+    },
+    "SubNav": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "subnav"
+      },
+      "doc": "Joined pill links: SubNav { SubNavLink(\"Labels\").selected() }"
+    },
+    "SubNavLink": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "subnav"
+      },
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "trailingIcon"
+      }
+    },
+    "SegmentedControl": {
+      "role": "segmented",
+      "params": [
+        "items"
+      ],
+      "doc": "SegmentedControl { SegmentedControlButton(\"Preview\").selected(); … } or items:, selection:"
+    },
+    "SegmentedControlButton": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "leadingIcon": "systemImage",
+        "leadingVisual": "systemImage"
+      },
+      "doc": "SegmentedControl.Button(\"Raw\", leadingIcon:, selected:)"
+    },
+    "SegmentedControlIconButton": {
+      "role": "label",
+      "params": [
+        "icon"
+      ],
+      "defaults": {
+        "labelStyle": "iconOnly"
+      },
+      "doc": "SegmentedControl.IconButton(icon: \"eye\", ariaLabel via title:)"
+    },
+    "NavList": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 2,
+        "alignment": "stretch"
+      },
+      "doc": "NavList { NavListItem(\"General\", leadingVisual: \"gear\").selected(); NavListGroup(\"Access\") { … } }"
+    },
+    "NavListItem": {
+      "role": "navitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "badge",
+        "count": "badge",
+        "ariaCurrent": "selected"
+      },
+      "doc": "NavList.Item(label, leadingVisual:, trailingVisual: count, selected:) — nested items = SubNav"
+    },
+    "NavListGroup": {
+      "role": "section",
+      "params": [
+        "title"
+      ],
+      "doc": "NavList.Group(\"Code and automation\") { items }"
+    },
+    "NavListDivider": {
+      "role": "divider"
+    },
+    "NavListGroupHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "Breadcrumbs": {
+      "role": "breadcrumb",
+      "params": [
+        "items"
+      ],
+      "doc": "Breadcrumbs(items: [\"acme\", \"rocket\", \"src\"])"
+    },
+    "BreadcrumbsItem": {
+      "role": "link",
+      "params": [
+        "label"
+      ]
+    },
+    "Pagination": {
+      "role": "pagination",
+      "attrs": {
+        "pageCount": "count",
+        "currentPage": "page"
+      },
+      "doc": "Pagination(pageCount: 12, currentPage: 3) — Previous / pages / Next"
+    },
+    "ActionList": {
+      "role": "list",
+      "variants": [
+        "inset",
+        "full"
+      ],
+      "attrs": {
+        "selectionVariant": "kind",
+        "showDividers": "density"
+      },
+      "doc": "ActionList { ActionListItem(\"Edit\", leadingVisual: \"pencil\", description:) ; ActionListDivider() }"
+    },
+    "ActionListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "default",
+        "danger"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "detail",
+        "description": "subtitle"
+      },
+      "doc": "ActionList.Item(label, leadingVisual:, trailingVisual: text, description:, selected:, variant: .danger)"
+    },
+    "ActionListLinkItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "detail",
+        "description": "subtitle"
+      }
+    },
+    "ActionListGroup": {
+      "role": "section",
+      "params": [
+        "title"
+      ],
+      "doc": "ActionList.Group(\"Assignees\") { items }"
+    },
+    "ActionListGroupHeading": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "ActionListDivider": {
+      "role": "divider"
+    },
+    "ActionMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "ActionMenu(\"Sort\", open: true) { ActionMenuItem(\"Newest\", checked: true) … } — anchor + overlay"
+    },
+    "ActionMenuButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default",
+        "trailingIcon": "triangle-down"
+      },
+      "doc": "ActionMenu.Button (closed menu trigger)"
+    },
+    "ActionMenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "shortcut",
+        "variant": "role"
+      },
+      "doc": "Item inside an open ActionMenu: leadingVisual:, trailingVisual: \"⌘C\", checked:, variant: .danger"
+    },
+    "ActionMenuDivider": {
+      "role": "divider"
+    },
+    "SelectPanel": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "Filterable selection overlay: SelectPanel(\"Labels\", open: true) { TextInput; ActionMenuItem(checked:) }"
+    },
+    "TreeView": {
+      "role": "tree",
+      "doc": "TreeView { TreeViewItem(\"src\", folder: true) { TreeViewItem(\"index.ts\", systemImage: \"file\") } }"
+    },
+    "TreeViewItem": {
+      "role": "treeitem",
+      "params": [
+        "label"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "current": "selected"
+      },
+      "doc": "TreeView.Item(label, folder:, expanded:, leadingVisual:, current: true)"
+    },
+    "TreeViewSubTree": {
+      "role": "group"
+    },
+    "Timeline": {
+      "role": "timeline",
+      "doc": "Timeline { TimelineItem(\"…\", systemImage: \"git-commit\", time:) }"
+    },
+    "TimelineItem": {
+      "role": "timelineitem",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "default",
+        "condensed"
+      ],
+      "attrs": {
+        "badge": "systemImage",
+        "leadingVisual": "systemImage"
+      },
+      "doc": "Timeline.Item(title, systemImage: octicon, time:, description:, status: .open|.closed|.merged|.done, variant: .condensed)"
+    },
+    "TimelineBreak": {
+      "role": "divider"
+    },
+    "Flash": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "variant": "severity"
+      },
+      "doc": "Flash(\"Saved\", variant: .default|.success|.warning|.danger, full: true)"
+    },
+    "Banner": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "variant": "severity"
+      },
+      "doc": "Banner(\"Title\", description:, variant: .info|.success|.warning|.critical|.upsell) { actions }"
+    },
+    "InlineMessage": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "variant": "severity"
+      },
+      "doc": "InlineMessage(\"Check your token\", variant: .critical|.warning|.success|.unavailable)"
+    },
+    "Blankslate": {
+      "role": "emptystate",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "border": "density",
+        "spacious": "emphasis"
+      },
+      "doc": "Blankslate(\"No issues\", systemImage: \"issue-opened\", description:, border: true) { primary / secondary actions }"
+    },
+    "BorderBox": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "borderbox"
+      },
+      "doc": "Box with border and rounded corners; header: title; children are rows (Box-row)"
+    },
+    "BoxRow": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 8
+      },
+      "doc": "A Box-row inside a BorderBox (bordered row)"
+    },
+    "Overlay": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "overlay"
+      },
+      "doc": "Floating overlay surface"
+    },
+    "Popover": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "popover"
+      },
+      "doc": "Popover with caret"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "closable": true
+      },
+      "doc": "Dialog(\"Title\", subtitle:) { body } footer: { Button … }"
+    },
+    "ConfirmationDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "confirmation"
+      },
+      "attrs": {
+        "confirmButtonContent": "primary"
+      },
+      "doc": "ConfirmationDialog(\"Delete branch?\", buttons: [\"Cancel\", \"Delete\"], destructive: \"Delete\") { body }"
+    },
+    "Tooltip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "placement": "top"
+      },
+      "attrs": {
+        "direction": "placement"
+      },
+      "doc": "Tooltip(\"Copy\", direction: .s) { IconButton }"
+    },
+    "Spinner": {
+      "role": "progress",
+      "defaults": {
+        "variant": "spinner"
+      },
+      "doc": "Spinner(size: .small|.medium|.large)"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "value"
+      ],
+      "attrs": {
+        "progress": "value"
+      },
+      "doc": "ProgressBar(progress: 60) of 100"
+    },
+    "SkeletonText": {
+      "role": "skeleton",
+      "defaults": {
+        "lines": 1
+      }
+    },
+    "SkeletonBox": {
+      "role": "skeleton",
+      "defaults": {
+        "shape": "rectangle"
+      }
+    },
+    "SkeletonAvatar": {
+      "role": "skeleton",
+      "defaults": {
+        "shape": "circle"
+      }
+    },
+    "Details": {
+      "role": "accordion",
+      "params": [
+        "title"
+      ],
+      "doc": "Details/summary disclosure"
+    },
+    "Disclosure": {
+      "role": "accordion",
+      "params": [
+        "title"
+      ]
+    },
+    "FormControl": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 4,
+        "alignment": "stretch"
+      },
+      "doc": "FormControl { FormControlLabel(\"Name\"); TextInput(…); FormControlCaption(\"…\") }"
+    },
+    "FormControlLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "FormControl.Label (14px semibold)"
+    },
+    "FormControlCaption": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "FormControl.Caption (12px muted)"
+    },
+    "FormControlValidation": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "attrs": {
+        "variant": "severity"
+      },
+      "doc": "FormControl.Validation(\"…\", variant: .error|.success)"
+    },
+    "TextInput": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage",
+        "trailingVisual": "trailingIcon",
+        "value": "text",
+        "validationStatus": "error",
+        "trailingAction": "trailingIcon",
+        "type": "kind"
+      },
+      "doc": "TextInput(\"Find a file…\", value:, leadingVisual: \"search\", size: .small|.medium|.large)"
+    },
+    "TextInputWithTokens": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "TextInputWithTokens(\"Add topics\", selection: [\"react\", \"css\"])"
+    },
+    "Textarea": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "attrs": {
+        "value": "text"
+      },
+      "doc": "Textarea(\"Leave a comment\", value:, rows: 5)"
+    },
+    "Select": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "Native select: Select(selection: \"main\") { SelectOption(\"main\") }"
+    },
+    "SelectOption": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "Checkbox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "Checkbox(\"Require review\", checked: true)"
+    },
+    "CheckboxGroup": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "leading"
+      }
+    },
+    "Radio": {
+      "role": "radio",
+      "params": [
+        "label"
+      ]
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ]
+    },
+    "Autocomplete": {
+      "role": "select",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "variant": "autocomplete"
+      },
+      "attrs": {
+        "text": "selection",
+        "value": "selection"
+      },
+      "doc": "Autocomplete(\"Search users\", text: \"mo\", open: true) { AutocompleteItem(\"mona\") }"
+    },
+    "AutocompleteItem": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "leadingVisual": "systemImage"
+      }
+    },
+    "DataTable": {
+      "role": "table",
+      "doc": "DataTable(columns: […], rows: [[…]]) — bordered Primer table; title: and footer:"
+    },
+    "Table": {
+      "role": "table"
+    },
+    "TableContainer": {
+      "role": "vstack",
+      "defaults": {
+        "spacing": 8,
+        "alignment": "stretch"
+      }
+    },
+    "TableTitle": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "TableSubtitle": {
+      "role": "text",
+      "params": [
+        "content"
+      ]
+    },
+    "CodeView": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "doc": "Blob view: CodeView(\"…\", language: \"ts\", highlight: [4], title: \"src/app.ts\")"
+    },
+    "BlobView": {
+      "role": "code",
+      "params": [
+        "code"
+      ]
+    },
+    "Snippet": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "defaults": {
+        "lineNumbers": false
+      },
+      "doc": "Clipboard-copy snippet (markdown code block)"
+    },
+    "DiffFile": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "diff"
+      },
+      "doc": "File in a diff: DiffFile(\"src/app.ts\", subtitle: \"+12 −3\") { DiffHunk(…); DiffLine(…) } action: { … }"
+    },
+    "DiffHunk": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0,
+        "variant": "hunk"
+      },
+      "doc": "@@ hunk header row: DiffHunk { DiffNumber(\"\"); DiffNumber(\"\"); DiffCode(\"@@ -10,6 +10,8 @@\") }"
+    },
+    "DiffLine": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 0,
+        "variant": "context"
+      },
+      "variants": [
+        "context",
+        "addition",
+        "deletion"
+      ],
+      "doc": "One diff row: DiffLine(variant: .addition) { DiffNumber(\"\"); DiffNumber(\"14\"); DiffCode(\"+ …\") }"
+    },
+    "DiffNumber": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Line-number gutter cell of a DiffLine"
+    },
+    "DiffCode": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Code cell of a DiffLine (monospace, keeps spaces)"
+    },
+    "Terminal": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "defaults": {
+        "variant": "terminal"
+      }
+    },
+    "TimelineComment": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "comment"
+      },
+      "doc": "Issue/PR comment box: TimelineComment(\"**mona** commented 2 days ago\", avatar: \"Mona\") { body } action: { … }"
+    },
+    "CommentBox": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "comment"
+      }
+    }
+  }
+}

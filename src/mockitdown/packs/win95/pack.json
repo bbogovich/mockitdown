@@ -1,0 +1,816 @@
+{
+  "id": "win95",
+  "name": "Windows 95",
+  "framework": "Windows 95 · Win32 shell and common controls (Windows Standard colour scheme)",
+  "version": "Windows 95 (1995)",
+  "modules": [
+    "Windows95",
+    "Win95",
+    "Win32"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "tablet": "window",
+    "phone": "none"
+  },
+  "sizes": {
+    "desktop": [
+      640,
+      480
+    ],
+    "wide": [
+      800,
+      600
+    ],
+    "tablet": [
+      640,
+      480
+    ]
+  },
+  "fonts": {
+    "caption": "headline",
+    "captionText": "headline",
+    "menuText": "body",
+    "messageText": "body",
+    "MSSansSerif": "body",
+    "SmallFonts": "caption",
+    "dialogTitle": "title3",
+    "wizardTitle": "headline",
+    "heading": "title2"
+  },
+  "icons": {
+    "start": "cube",
+    "my.computer": "app",
+    "computer": "app",
+    "display": "app",
+    "network": "globe",
+    "network.neighborhood": "globe",
+    "inbox": "tray",
+    "recycle.bin": "trash",
+    "briefcase": "briefcase",
+    "programs": "square.grid.2x2",
+    "documents": "doc.on.doc",
+    "settings": "gear",
+    "find": "search",
+    "help": "questionmark.circle",
+    "run": "play",
+    "shut.down": "power",
+    "suspend": "moon",
+    "notepad": "doc",
+    "wordpad": "pencil",
+    "paint": "photo",
+    "calculator": "number",
+    "msdos": "square",
+    "control.panel": "slider.horizontal.3",
+    "printers": "printer",
+    "fonts": "doc",
+    "mouse": "hand.thumbsup",
+    "keyboard": "square.grid.3x3",
+    "modems": "phone",
+    "sounds": "speaker",
+    "multimedia": "play",
+    "passwords": "key",
+    "regional": "globe",
+    "date.time": "clock",
+    "system": "app",
+    "add.remove": "archivebox",
+    "add.hardware": "wrench",
+    "accessibility": "person.circle",
+    "mail": "envelope",
+    "floppy": "square",
+    "drive": "archivebox",
+    "cdrom": "circle",
+    "accessories": "briefcase",
+    "games": "star",
+    "volume": "speaker"
+  },
+  "modifiers": {
+    "isChecked": {
+      "attr": "checked"
+    },
+    "defaultButton": {
+      "attr": "variant",
+      "value": "default"
+    }
+  },
+  "tokens": {
+    "light": {
+      "bg": "#c0c0c0",
+      "surface": "#ffffff",
+      "surface-2": "#c0c0c0",
+      "surface-3": "#dfdfdf",
+      "fg": "#000000",
+      "fg-2": "#000000",
+      "fg-3": "#808080",
+      "border": "#808080",
+      "divider": "#808080",
+      "accent": "#000080",
+      "on-accent": "#ffffff",
+      "accent-soft": "#c0c0c0",
+      "danger": "#ff0000",
+      "warning": "#808000",
+      "success": "#008000",
+      "info": "#000080",
+      "field-bg": "#ffffff",
+      "field-border": "#808080",
+      "scrim": "transparent",
+      "shadow-1": "0 0 0 0 transparent",
+      "shadow-2": "0 0 0 0 transparent",
+      "shadow-3": "0 0 0 0 transparent",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "0px",
+      "font": "\"MS Sans Serif\", \"Microsoft Sans Serif\", Tahoma, sans-serif",
+      "font-mono": "Fixedsys, \"Fixedsys Excelsior 3.01\", \"Lucida Console\", \"Courier New\", monospace",
+      "font-size": "11px",
+      "line-height": "1.3",
+      "icon-stroke": "1.6",
+      "icon-size": "16px",
+      "control-h": "23px",
+      "gap": "6px",
+      "pad": "8px",
+      "chrome-bg": "#000080",
+      "chrome-fg": "#ffffff",
+      "fs-display": "32px",
+      "fw-display": "700",
+      "fs-largeTitle": "24px",
+      "fw-largeTitle": "700",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "15px",
+      "fw-title2": "700",
+      "fs-title3": "13px",
+      "fw-title3": "700",
+      "fs-headline": "11px",
+      "fw-headline": "700",
+      "fs-subheadline": "11px",
+      "fw-subheadline": "400",
+      "fs-body": "11px",
+      "fw-body": "400",
+      "fs-callout": "11px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "10px",
+      "fw-caption": "400",
+      "fs-caption2": "9px",
+      "fw-caption2": "400",
+      "fs-overline": "10px",
+      "fw-overline": "700",
+      "color-red": "#ff0000",
+      "color-orange": "#ff8000",
+      "color-yellow": "#ffff00",
+      "color-green": "#008000",
+      "color-mint": "#00ff00",
+      "color-teal": "#008080",
+      "color-cyan": "#00ffff",
+      "color-blue": "#0000ff",
+      "color-indigo": "#000080",
+      "color-purple": "#800080",
+      "color-pink": "#ff00ff",
+      "color-brown": "#808000",
+      "color-gray": "#808080",
+      "chart-1": "#000080",
+      "chart-2": "#008080",
+      "chart-3": "#800000",
+      "chart-4": "#808000",
+      "chart-5": "#800080",
+      "chart-6": "#008000",
+      "callout": "#e8590c",
+      "on-callout": "#ffffff",
+      "marquee": "#000000",
+      "note": "#ffffe1",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#000080",
+      "code-str": "#800000",
+      "code-num": "#008080",
+      "code-comment": "#808080",
+      "code-fn": "#800080",
+      "code-type": "#808000",
+      "term-bg": "#000000",
+      "term-fg": "#c0c0c0",
+      "term-prompt": "#c0c0c0",
+      "grid-line": "#c0c0c0",
+      "map-land": "#ffffff",
+      "map-water": "#00ffff",
+      "map-park": "#00ff00",
+      "map-road": "#c0c0c0",
+      "face": "#c0c0c0",
+      "face-fg": "#000000",
+      "hi": "#ffffff",
+      "lt": "#dfdfdf",
+      "sh": "#808080",
+      "dk": "#000000",
+      "title-bg": "#000080",
+      "title-fg": "#ffffff",
+      "title-bg-inactive": "#808080",
+      "title-fg-inactive": "#c0c0c0",
+      "hilite": "#000080",
+      "on-hilite": "#ffffff",
+      "gray-text": "#808080",
+      "gray-text-shadow": "#ffffff",
+      "desktop": "#008080",
+      "desktop-fg": "#ffffff",
+      "window-bg": "#ffffff",
+      "window-fg": "#000000",
+      "menu-bg": "#c0c0c0",
+      "menu-fg": "#000000",
+      "tooltip-bg": "#ffffe1",
+      "tooltip-fg": "#000000",
+      "banner-bg": "#808080",
+      "banner-fg": "#c0c0c0",
+      "banner-fg-2": "#ffffff",
+      "dither": "repeating-conic-gradient(#ffffff 0 25%, #c0c0c0 0 50%) 0 0 / 2px 2px",
+      "progress-fill": "#000080",
+      "link": "#0000ff",
+      "icon-tint": "#000080",
+      "folder": "#ffff80",
+      "folder-line": "#808000",
+      "wizard-art": "#008080",
+      "check-fg": "#000000",
+      "bevel-raised": "inset -1px -1px #000000, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf",
+      "bevel-window": "inset -1px -1px #000000, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #ffffff",
+      "bevel-sunken": "inset -1px -1px #ffffff, inset 1px 1px #808080, inset -2px -2px #dfdfdf, inset 2px 2px #000000",
+      "bevel-pressed": "inset -1px -1px #ffffff, inset 1px 1px #000000, inset -2px -2px #dfdfdf, inset 2px 2px #808080",
+      "bevel-thin-raised": "inset -1px -1px #808080, inset 1px 1px #ffffff",
+      "bevel-thin-sunken": "inset -1px -1px #ffffff, inset 1px 1px #808080",
+      "bevel-default": "inset 0 0 0 1px #000000, inset -2px -2px #000000, inset 2px 2px #ffffff, inset -3px -3px #808080, inset 3px 3px #dfdfdf"
+    },
+    "dark": {
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#000000",
+      "surface-3": "#000000",
+      "fg": "#ffffff",
+      "fg-2": "#ffffff",
+      "fg-3": "#00ff00",
+      "border": "#ffffff",
+      "divider": "#ffffff",
+      "accent": "#800080",
+      "on-accent": "#ffffff",
+      "accent-soft": "#000000",
+      "danger": "#ff0000",
+      "warning": "#ffff00",
+      "success": "#00ff00",
+      "info": "#00ffff",
+      "field-bg": "#000000",
+      "field-border": "#ffffff",
+      "scrim": "transparent",
+      "shadow-1": "0 0 0 0 transparent",
+      "shadow-2": "0 0 0 0 transparent",
+      "shadow-3": "0 0 0 0 transparent",
+      "chrome-bg": "#800080",
+      "chrome-fg": "#ffffff",
+      "color-indigo": "#00ffff",
+      "color-gray": "#c0c0c0",
+      "color-brown": "#ffff00",
+      "color-green": "#00ff00",
+      "color-teal": "#00ffff",
+      "color-purple": "#ff00ff",
+      "color-blue": "#00ffff",
+      "chart-1": "#00ffff",
+      "chart-2": "#ffff00",
+      "chart-3": "#00ff00",
+      "chart-4": "#ff00ff",
+      "chart-5": "#ff0000",
+      "chart-6": "#ffffff",
+      "marquee": "#ffffff",
+      "note": "#000000",
+      "code-bg": "#000000",
+      "code-fg": "#ffffff",
+      "code-kw": "#00ffff",
+      "code-str": "#ffff00",
+      "code-num": "#00ff00",
+      "code-comment": "#c0c0c0",
+      "code-fn": "#ff00ff",
+      "code-type": "#ffff00",
+      "grid-line": "#808080",
+      "map-land": "#000000",
+      "map-water": "#000080",
+      "map-park": "#008000",
+      "map-road": "#808080",
+      "face": "#000000",
+      "face-fg": "#ffffff",
+      "hi": "#ffffff",
+      "lt": "#c0c0c0",
+      "sh": "#808080",
+      "dk": "#ffffff",
+      "title-bg": "#800080",
+      "title-fg": "#ffffff",
+      "title-bg-inactive": "#008000",
+      "title-fg-inactive": "#ffffff",
+      "hilite": "#800080",
+      "on-hilite": "#ffffff",
+      "gray-text": "#00ff00",
+      "gray-text-shadow": "transparent",
+      "desktop": "#000000",
+      "desktop-fg": "#ffffff",
+      "window-bg": "#000000",
+      "window-fg": "#ffffff",
+      "menu-bg": "#000000",
+      "menu-fg": "#ffffff",
+      "tooltip-bg": "#000000",
+      "tooltip-fg": "#ffffff",
+      "banner-bg": "#800080",
+      "banner-fg": "#c0c0c0",
+      "banner-fg-2": "#ffffff",
+      "dither": "repeating-conic-gradient(#808080 0 25%, #000000 0 50%) 0 0 / 2px 2px",
+      "progress-fill": "#800080",
+      "link": "#00ffff",
+      "icon-tint": "#00ffff",
+      "folder": "#808000",
+      "folder-line": "#ffff00",
+      "wizard-art": "#000080",
+      "check-fg": "#ffffff",
+      "bevel-raised": "inset -1px -1px #ffffff, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #c0c0c0",
+      "bevel-window": "inset -1px -1px #ffffff, inset 1px 1px #c0c0c0, inset -2px -2px #808080, inset 2px 2px #ffffff",
+      "bevel-sunken": "inset -1px -1px #ffffff, inset 1px 1px #808080, inset -2px -2px #c0c0c0, inset 2px 2px #ffffff",
+      "bevel-pressed": "inset -1px -1px #ffffff, inset 1px 1px #ffffff, inset -2px -2px #c0c0c0, inset 2px 2px #808080",
+      "bevel-thin-raised": "inset -1px -1px #808080, inset 1px 1px #ffffff",
+      "bevel-thin-sunken": "inset -1px -1px #ffffff, inset 1px 1px #808080",
+      "bevel-default": "inset 0 0 0 1px #ffffff, inset -2px -2px #ffffff, inset 2px 2px #ffffff, inset -3px -3px #808080, inset 3px 3px #c0c0c0"
+    }
+  },
+  "elements": {
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "active",
+        "inactive",
+        "dialog",
+        "tool"
+      ],
+      "doc": "A window drawn inside a Desktop: navy caption with the app icon, Minimize/Maximize, gap, Close. Window(\"Notepad\", systemImage: \"doc\") { … } · .variant(.inactive | .dialog | .tool)"
+    },
+    "DialogBody": {
+      "role": "vstack",
+      "variants": [
+        "help"
+      ],
+      "doc": "Root of a dialog screen: the frame's caption keeps only Close (and ? with .variant(.help)); grey dialog face"
+    },
+    "PropertySheet": {
+      "role": "vstack",
+      "defaults": {
+        "variant": "help"
+      },
+      "variants": [
+        "help",
+        "plain"
+      ],
+      "doc": "Root of a property-sheet screen (tabs + OK/Cancel/Apply): caption with ? and Close"
+    },
+    "Desktop": {
+      "role": "canvas",
+      "doc": "The teal #008080 desktop; place DesktopIcons and Windows with .position(x:y:)"
+    },
+    "DesktopIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "DesktopIcon(\"My Computer\", systemImage: \"my.computer\") — 32 px icon over a caption; .selected() draws the navy caption with the dotted focus rectangle"
+    },
+    "Taskbar": {
+      "role": "hstack",
+      "doc": "The grey taskbar along the bottom: StartButton, TaskbarButton…, Spacer, Tray"
+    },
+    "StartButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "Start",
+        "systemImage": "start"
+      },
+      "doc": "The raised bold Start button with a neutral glyph; .selected() while the menu is open"
+    },
+    "TaskbarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "app"
+      },
+      "doc": "A window's taskbar button (160 px, icon + caption); .selected() for the active window: pressed and dithered"
+    },
+    "Tray": {
+      "role": "hstack",
+      "doc": "The sunken notification area at the right of the taskbar: TrayIcon… Clock"
+    },
+    "NotificationArea": {
+      "role": "hstack",
+      "doc": "Alias of Tray"
+    },
+    "TrayIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "A 16 px tray icon"
+    },
+    "Clock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "content": "4:20 PM"
+      },
+      "doc": "Taskbar clock"
+    },
+    "StartMenu": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "title": "Workspace",
+        "subtitle": "95"
+      },
+      "doc": "The Start menu with the vertical side banner: StartMenu(\"Workspace\", subtitle: \"95\") { StartMenuItem… }"
+    },
+    "StartMenuItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "submenu": "chevron",
+        "cascade": "chevron"
+      },
+      "doc": "StartMenuItem(\"Programs\", systemImage: \"programs\", submenu: true) — 32 px icon, ▸ for a cascading menu; .selected() is the navy highlight"
+    },
+    "CascadeMenu": {
+      "role": "menu",
+      "doc": "A cascading menu beside the Start menu or a menu bar: CascadeMenu { MenuItem(\"Notepad\", systemImage: \"doc\") }"
+    },
+    "ContextMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "Pop-up (right-click) menu, grey with the navy highlight"
+    },
+    "PopupMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "A free-standing pop-up menu"
+    },
+    "DropDownMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "menubar",
+        "caret": false,
+        "open": true
+      },
+      "doc": "A menu-bar title with its menu dropped down: MenuBar { DropDownMenu(\"File\") { MenuItem… } MenuBarItem(\"Edit\") }"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "A menu bar: MenuBarItem(\"File\")…"
+    },
+    "MenuBarItem": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "plain"
+      },
+      "doc": "A menu-bar title; .selected() when its menu is open (navy highlight)"
+    },
+    "MenuSeparator": {
+      "role": "divider",
+      "doc": "Etched separator in a menu"
+    },
+    "ToolBar": {
+      "role": "toolbar",
+      "doc": "A flat toolbar (the drive combo and 16 px buttons); a grip ridge at its left"
+    },
+    "ToolBarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "toolbar",
+        "iconOnly": true
+      },
+      "doc": "A flat 23 × 22 toolbar button, raised on .state(.hover), sunken when .selected()"
+    },
+    "PaneHeader": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Explorer's raised caption over a pane: PaneHeader(\"All Folders\")"
+    },
+    "TreeView": {
+      "role": "tree",
+      "doc": "Folder tree with dotted lines and +/− boxes in a sunken white well"
+    },
+    "TreeViewItem": {
+      "role": "treeitem",
+      "params": [
+        "label"
+      ],
+      "doc": "TreeViewItem(\"Windows\", systemImage: \"folder\")"
+    },
+    "ListView": {
+      "role": "table",
+      "variants": [
+        "details",
+        "report"
+      ],
+      "doc": "Details view: raised column headers, columns:, rows:, selectedRows:"
+    },
+    "IconView": {
+      "role": "grid",
+      "doc": "Large Icons view: a grid of FileIcons in a sunken white well"
+    },
+    "FileIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "large",
+        "small"
+      ],
+      "doc": "FileIcon(\"Readme.txt\", systemImage: \"doc\") · .variant(.small) puts the name beside a 16 px icon"
+    },
+    "ListBox": {
+      "role": "list",
+      "doc": "Single-selection list box with a sunken border"
+    },
+    "StatusBar": {
+      "role": "hstack",
+      "doc": "Window status bar of sunken StatusBarPanels with the size grip"
+    },
+    "StatusBarPanel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "One sunken status-bar field"
+    },
+    "TabControl": {
+      "role": "tabs",
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "Property-sheet tabs: raised tabs with clipped corners, the selected one 2 px taller"
+    },
+    "TabPage": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "doc": "TabPage(\"General\") { … }"
+    },
+    "GroupBox": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Etched frame with the caption breaking the top line"
+    },
+    "Frame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Alias of GroupBox"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "default",
+        "standard"
+      ],
+      "doc": "75 × 23 push button with the two-pixel bevel; .variant(.default) adds the black outline, .state(.focused) the dotted focus rectangle"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default",
+        "state": "focused"
+      },
+      "doc": "The default (Enter) button: black outline and dotted focus rectangle"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "13 px sunken white box with the black check: CheckBox(\"Hide files\", checked: true)"
+    },
+    "OptionButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "Round sunken option button (also RadioButton)"
+    },
+    "RadioButtonList": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "RadioButtonList(\"View\", items: […], selection:)"
+    },
+    "StaticText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "A static text control"
+    },
+    "TextBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "Sunken white edit control"
+    },
+    "PasswordBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "password"
+      },
+      "doc": "Password edit (asterisks)"
+    },
+    "MultilineTextBox": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Multi-line edit control"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Drop-down combo with the raised arrow button: ComboBox(items:, selection:)"
+    },
+    "DropDownList": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Drop-down list (not editable)"
+    },
+    "ScrollBar": {
+      "role": "slider",
+      "defaults": {
+        "variant": "scrollbar",
+        "orientation": "horizontal"
+      },
+      "doc": "ScrollBar(value: 0.3, orientation: .vertical) — dithered track, arrow buttons and a square thumb"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "blocks",
+        "smooth"
+      ],
+      "doc": "Sunken progress bar of navy blocks: ProgressBar(value: 0.6)"
+    },
+    "TrackBar": {
+      "role": "slider",
+      "doc": "Trackbar with the pointed raised thumb: TrackBar(value: 3, in: 0...10, ticks: 10)"
+    },
+    "UpDown": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "Spin box: UpDown(\"Copies\", value: 2)"
+    },
+    "DateTimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "doc": "Date field with the drop-down arrow"
+    },
+    "MonthCalendar": {
+      "role": "calendar",
+      "doc": "Month calendar (Date/Time Properties)"
+    },
+    "MessageBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "systemImage": "info.circle",
+        "severity": "info"
+      },
+      "variants": [
+        "information",
+        "warning",
+        "error",
+        "question"
+      ],
+      "attrs": {
+        "type": "severity",
+        "style": "severity"
+      },
+      "doc": "Modal message box: MessageBox(\"Confirm File Delete\", message: \"…\", severity: .question, buttons: [\"Yes\", \"No\"], primary: \"Yes\") — the icon is drawn from severity"
+    },
+    "Wizard": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Wizard page: the picture panel at left (systemImage:), title and body at right, actions: { < Back · Next > · Cancel } under an etched line"
+    },
+    "ToolTip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "placement": "bottom"
+      },
+      "doc": "Pale yellow tooltip with a black border, below its target"
+    },
+    "PropertyRow": {
+      "role": "labeled",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "A label: value line in a property sheet"
+    },
+    "CopyAnimation": {
+      "role": "hstack",
+      "doc": "The file-copy animation: two folders with a page flying between them"
+    },
+    "Notepad": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Notepad's edit area: fills its window, white, Fixedsys, with the scroll bars"
+    },
+    "MSDOSPrompt": {
+      "role": "code",
+      "defaults": {
+        "variant": "terminal"
+      },
+      "doc": "An MS-DOS Prompt window body (black, Fixedsys)"
+    },
+    "ControlPanelItem": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "A Control Panel applet: ControlPanelItem(\"Display\", systemImage: \"display\")"
+    },
+    "ScrollCorner": {
+      "role": "spacer",
+      "doc": "The grey size box where a horizontal and a vertical ScrollBar meet"
+    },
+    "Monitor": {
+      "role": "zstack",
+      "doc": "The monitor preview in Display Properties: a grey bezel around its child (the screen)"
+    }
+  }
+}

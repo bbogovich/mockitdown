@@ -1,0 +1,1036 @@
+{
+  "id": "aqua",
+  "name": "Mac OS X Aqua (2001)",
+  "framework": "Mac OS X Aqua, early era (10.0 Cheetah – 10.2 Jaguar, Cocoa / Carbon)",
+  "version": "Mac OS X 10.2",
+  "modules": [
+    "Aqua",
+    "MacOSX",
+    "Cheetah",
+    "Jaguar"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "screen": "none",
+    "screen-large": "none",
+    "tablet": "window",
+    "phone": "none"
+  },
+  "sizes": {
+    "desktop": [
+      720,
+      500
+    ],
+    "wide": [
+      900,
+      620
+    ],
+    "screen": [
+      1024,
+      768
+    ],
+    "screen-large": [
+      1152,
+      864
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ececec",
+      "surface": "#ffffff",
+      "surface-2": "#f3f3f3",
+      "surface-3": "#dedede",
+      "fg": "#000000",
+      "fg-2": "#3a3a3a",
+      "fg-3": "#8c8c8c",
+      "border": "#9a9a9a",
+      "divider": "#c6c6c6",
+      "accent": "#3875d7",
+      "on-accent": "#ffffff",
+      "accent-soft": "#b5d5ff",
+      "danger": "#d8352a",
+      "warning": "#e8a317",
+      "success": "#3c9e2e",
+      "info": "#3875d7",
+      "field-bg": "#ffffff",
+      "field-border": "#8c8c8c",
+      "scrim": "transparent",
+      "shadow-1": "0 1px 2px rgb(0 0 0 / .25)",
+      "shadow-2": "0 4px 12px rgb(0 0 0 / .35)",
+      "shadow-3": "0 10px 28px rgb(0 0 0 / .45)",
+      "radius-s": "3px",
+      "radius-m": "5px",
+      "radius-l": "6px",
+      "radius-xl": "8px",
+      "radius-pill": "999px",
+      "font": "\"Lucida Grande\", \"Lucida Sans Unicode\", \"Helvetica Neue\", Helvetica, sans-serif",
+      "font-mono": "Monaco, \"Andale Mono\", \"Courier New\", monospace",
+      "font-size": "13px",
+      "line-height": "1.3",
+      "icon-stroke": "1.8",
+      "icon-size": "16px",
+      "control-h": "21px",
+      "gap": "8px",
+      "pad": "12px",
+      "chrome-bg": "#e2e2e2",
+      "chrome-fg": "#000000",
+      "fs-display": "26px",
+      "fw-display": "700",
+      "fs-largeTitle": "20px",
+      "fw-largeTitle": "700",
+      "fs-title": "17px",
+      "fw-title": "700",
+      "fs-title2": "15px",
+      "fw-title2": "700",
+      "fs-title3": "13px",
+      "fw-title3": "700",
+      "fs-headline": "13px",
+      "fw-headline": "700",
+      "fs-subheadline": "12px",
+      "fw-subheadline": "400",
+      "fs-body": "13px",
+      "fw-body": "400",
+      "fs-callout": "12px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "10px",
+      "fw-caption": "400",
+      "fs-caption2": "9px",
+      "fw-caption2": "400",
+      "fs-overline": "10px",
+      "fw-overline": "700",
+      "color-red": "#e0443e",
+      "color-orange": "#f08a24",
+      "color-yellow": "#f2c81c",
+      "color-green": "#4bae3b",
+      "color-mint": "#3cc8a0",
+      "color-teal": "#2aa0a8",
+      "color-cyan": "#3ab4e8",
+      "color-blue": "#2a6ed8",
+      "color-indigo": "#5050c8",
+      "color-purple": "#8a4ec8",
+      "color-pink": "#e8508c",
+      "color-brown": "#9a6e3c",
+      "color-gray": "#8c8c8c",
+      "chart-1": "#3875d7",
+      "chart-2": "#4bae3b",
+      "chart-3": "#f0a030",
+      "chart-4": "#d8443a",
+      "chart-5": "#8a5ad0",
+      "chart-6": "#3ab0c8",
+      "note": "#fef49c",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#9a1a8a",
+      "code-str": "#c41a16",
+      "code-num": "#1c00cf",
+      "code-comment": "#237a1c",
+      "code-fn": "#3f6e74",
+      "code-type": "#5c2699",
+      "term-bg": "#ffffff",
+      "term-fg": "#000000",
+      "term-prompt": "#000000",
+      "grid-line": "#d8d8d8",
+      "map-land": "#efece2",
+      "map-water": "#a8cdf0",
+      "map-park": "#c8e4b0",
+      "map-road": "#ffffff",
+      "stripe-hi": "#f2f2f2",
+      "stripe-lo": "#e6e6e6",
+      "title-top": "#ececec",
+      "title-bot": "#d2d2d2",
+      "title-line": "#8a8a8a",
+      "title-inactive": "#8a8a8a",
+      "gel-top": "#cfcfcf",
+      "gel-bot": "#ffffff",
+      "gel-rim": "#7a7a7a",
+      "gel-glow": "rgb(255 255 255 / .9)",
+      "gel-shine": "rgb(255 255 255 / .95)",
+      "blue-top": "#1f5fd0",
+      "blue-mid": "#5a9cf0",
+      "blue-bot": "#b4e2ff",
+      "blue-rim": "#234e94",
+      "on-blue": "#000000",
+      "thumb-a": "#1e56c4",
+      "thumb-b": "#6aaaf4",
+      "thumb-c": "#b8e0ff",
+      "thumb-rim": "#1c4a92",
+      "light-close": "#c8261c",
+      "light-close-glow": "#ff9c84",
+      "light-close-rim": "#8c1a14",
+      "light-min": "#d89a08",
+      "light-min-glow": "#ffe68a",
+      "light-min-rim": "#94680a",
+      "light-zoom": "#2e9a22",
+      "light-zoom-glow": "#aef09a",
+      "light-zoom-rim": "#1c6a14",
+      "light-off": "#bcbcbc",
+      "light-off-glow": "#f0f0f0",
+      "light-off-rim": "#8a8a8a",
+      "sel": "#3875d7",
+      "on-sel": "#ffffff",
+      "sel-inactive": "#d4d4d4",
+      "row-alt": "#edf3fe",
+      "menu-bg": "rgb(255 255 255 / .94)",
+      "menu-hi-top": "#6b9cf2",
+      "menu-hi-bot": "#2a62d6",
+      "on-menu-hi": "#ffffff",
+      "menubar-top": "#ffffff",
+      "menubar-bot": "#e4e4e4",
+      "box-bg": "rgb(0 0 0 / .05)",
+      "box-line": "rgb(0 0 0 / .2)",
+      "header-top": "#ffffff",
+      "header-bot": "#dcdcdc",
+      "track-a": "#d0d0d0",
+      "track-b": "#fafafa",
+      "metal-top": "#e6e6e6",
+      "metal-bot": "#a9a9a9",
+      "metal-grain": "rgb(255 255 255 / .22)",
+      "metal-grain-dk": "rgb(0 0 0 / .05)",
+      "metal-fg": "#000000",
+      "lcd-top": "#f4f6e6",
+      "lcd-bot": "#d8dfbf",
+      "lcd-fg": "#1a1a1a",
+      "lcd-rim": "#6c6c6c",
+      "desktop-a": "#5aa8f4",
+      "desktop-b": "#1c64c8",
+      "desktop-c": "#0c3a8a",
+      "desktop-fg": "#ffffff",
+      "dock-bg": "rgb(255 255 255 / .32)",
+      "dock-rim": "rgb(255 255 255 / .55)",
+      "drawer-frame-a": "#cbcbcb",
+      "drawer-frame-b": "#e9e9e9",
+      "tooltip-bg": "#ffffc6",
+      "focus": "rgb(84 148 236 / .75)",
+      "folder-a": "#a8d0fa",
+      "folder-b": "#5c9ae8",
+      "folder-rim": "#3b70b8",
+      "icon-ink": "#2c3e5c",
+      "sheet-bg": "rgb(236 236 236 / .985)",
+      "stripe-gloss": "rgb(255 255 255 / .38)"
+    },
+    "dark": {
+      "bg": "#2c2c2f",
+      "surface": "#1d1d20",
+      "surface-2": "#262629",
+      "surface-3": "#3a3a3e",
+      "fg": "#ececec",
+      "fg-2": "#c4c4c8",
+      "fg-3": "#86868c",
+      "border": "#56565c",
+      "divider": "#45454a",
+      "accent": "#7f93ab",
+      "on-accent": "#ffffff",
+      "accent-soft": "#48566a",
+      "danger": "#ff6a5c",
+      "warning": "#f2c040",
+      "success": "#6ac85a",
+      "info": "#9fb4cc",
+      "field-bg": "#161618",
+      "field-border": "#5c5c62",
+      "shadow-1": "0 1px 2px rgb(0 0 0 / .5)",
+      "shadow-2": "0 4px 12px rgb(0 0 0 / .6)",
+      "shadow-3": "0 10px 28px rgb(0 0 0 / .7)",
+      "chrome-bg": "#3a3a3e",
+      "chrome-fg": "#ececec",
+      "chart-1": "#8ea6c4",
+      "chart-2": "#7cc86a",
+      "chart-3": "#f0b050",
+      "chart-4": "#ff7a6a",
+      "chart-5": "#b08ae8",
+      "chart-6": "#6ac8dc",
+      "note": "#8a8040",
+      "code-bg": "#161618",
+      "code-fg": "#ececec",
+      "code-kw": "#e07ad8",
+      "code-str": "#ff8a7a",
+      "code-num": "#9a9aff",
+      "code-comment": "#7ac86a",
+      "code-fn": "#8ac4cc",
+      "code-type": "#c09aff",
+      "term-bg": "#161618",
+      "term-fg": "#e8e8e8",
+      "term-prompt": "#e8e8e8",
+      "grid-line": "#45454a",
+      "map-land": "#34342f",
+      "map-water": "#2a3c52",
+      "map-park": "#2e4030",
+      "map-road": "#55555a",
+      "stripe-hi": "#303033",
+      "stripe-lo": "#28282b",
+      "title-top": "#4a4a4e",
+      "title-bot": "#333336",
+      "title-line": "#111113",
+      "title-inactive": "#86868c",
+      "gel-top": "#3c3c40",
+      "gel-bot": "#6a6a70",
+      "gel-rim": "#121214",
+      "gel-glow": "rgb(255 255 255 / .18)",
+      "gel-shine": "rgb(255 255 255 / .38)",
+      "blue-top": "#4a5868",
+      "blue-mid": "#7c8c9e",
+      "blue-bot": "#c4d0dc",
+      "blue-rim": "#20262e",
+      "on-blue": "#000000",
+      "thumb-a": "#4a5664",
+      "thumb-b": "#8494a6",
+      "thumb-c": "#c8d2de",
+      "thumb-rim": "#1c2128",
+      "light-close": "#5e6670",
+      "light-close-glow": "#b8c2cc",
+      "light-close-rim": "#22262c",
+      "light-min": "#5e6670",
+      "light-min-glow": "#b8c2cc",
+      "light-min-rim": "#22262c",
+      "light-zoom": "#5e6670",
+      "light-zoom-glow": "#b8c2cc",
+      "light-zoom-rim": "#22262c",
+      "light-off": "#4a4a4e",
+      "light-off-glow": "#78787e",
+      "light-off-rim": "#18181a",
+      "sel": "#6c7f98",
+      "on-sel": "#ffffff",
+      "sel-inactive": "#45454a",
+      "row-alt": "#24272c",
+      "menu-bg": "rgb(40 40 44 / .95)",
+      "menu-hi-top": "#8a9aae",
+      "menu-hi-bot": "#566578",
+      "on-menu-hi": "#ffffff",
+      "menubar-top": "#4a4a4e",
+      "menubar-bot": "#2e2e31",
+      "box-bg": "rgb(255 255 255 / .04)",
+      "box-line": "rgb(255 255 255 / .14)",
+      "header-top": "#4a4a4e",
+      "header-bot": "#2e2e31",
+      "track-a": "#1a1a1c",
+      "track-b": "#3a3a3e",
+      "metal-top": "#5c5c60",
+      "metal-bot": "#2e2e31",
+      "metal-grain": "rgb(255 255 255 / .07)",
+      "metal-grain-dk": "rgb(0 0 0 / .14)",
+      "metal-fg": "#ececec",
+      "lcd-top": "#3c4236",
+      "lcd-bot": "#262a20",
+      "lcd-fg": "#e6ecd0",
+      "lcd-rim": "#0c0c0e",
+      "desktop-a": "#5c6a7c",
+      "desktop-b": "#2e3846",
+      "desktop-c": "#161c26",
+      "desktop-fg": "#ffffff",
+      "dock-bg": "rgb(255 255 255 / .12)",
+      "dock-rim": "rgb(255 255 255 / .25)",
+      "drawer-frame-a": "#3a3a3e",
+      "drawer-frame-b": "#4c4c50",
+      "tooltip-bg": "#4a4834",
+      "focus": "rgb(150 172 200 / .75)",
+      "folder-a": "#a8b8cc",
+      "folder-b": "#6a7c94",
+      "folder-rim": "#2e3846",
+      "icon-ink": "#d8dee8",
+      "sheet-bg": "rgb(44 44 47 / .985)",
+      "stripe-gloss": "rgb(255 255 255 / .035)"
+    }
+  },
+  "fonts": {
+    "system": "body",
+    "systemFont": "body",
+    "boldSystem": "headline",
+    "boldSystemFont": "headline",
+    "smallSystem": "footnote",
+    "smallSystemFont": "footnote",
+    "miniSystem": "caption",
+    "miniSystemFont": "caption",
+    "label": "caption",
+    "labelFont": "caption",
+    "message": "body",
+    "messageFont": "body",
+    "menu": "body",
+    "menuFont": "body",
+    "titleBar": "body",
+    "toolTips": "footnote",
+    "userFont": "body",
+    "controlContent": "body",
+    "alertHeader": "headline",
+    "emphasizedSystem": "headline"
+  },
+  "icons": {
+    "Finder": "app",
+    "Home": "house",
+    "Computer": "app",
+    "Applications": "square.grid.2x2",
+    "Favorites": "heart",
+    "iDisk": "cloud",
+    "Network": "globe",
+    "Trash": "trash",
+    "Mail": "envelope",
+    "Preferences": "gear",
+    "Sound": "speaker",
+    "Displays": "app",
+    "Energy": "lightbulb",
+    "Keyboard": "app",
+    "Mouse": "app",
+    "Sharing": "folder",
+    "Accounts": "person.2",
+    "Users": "person.2",
+    "Date": "clock",
+    "Time": "clock",
+    "Software Update": "arrow.clockwise",
+    "Startup Disk": "archivebox",
+    "Desktop": "photo",
+    "Dock": "square.grid.2x2",
+    "General": "gear",
+    "International": "globe",
+    "Security": "lock",
+    "Universal Access": "person.circle",
+    "QuickTime": "play",
+    "Speech": "mic",
+    "Classic": "clock",
+    "CDs": "circle",
+    "ColorSync": "sparkles",
+    "Internet": "globe",
+    "Screen Effects": "moon"
+  },
+  "modifiers": {
+    "inactive": {
+      "attr": "state",
+      "value": "inactive"
+    },
+    "running": {
+      "attr": "state",
+      "value": "running"
+    },
+    "highlighted": {
+      "attr": "state",
+      "value": "hover"
+    },
+    "defaultButton": {
+      "attr": "variant",
+      "value": "default"
+    },
+    "bezelStyle": {
+      "attr": "variant"
+    },
+    "windowStyle": {
+      "attr": "variant"
+    },
+    "controlSize": {
+      "attr": "size"
+    }
+  },
+  "elements": {
+    "Desktop": {
+      "role": "canvas",
+      "doc": "The Aqua desktop (blue wave). Put a MenuBar first, then windows, icons and the Dock placed with .position(x:y:)"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "The translucent menu bar: SystemMenu(), AppMenu(\"Finder\"), MenuTitle(\"File\") …, Spacer(), MenuExtra/Text(clock)"
+    },
+    "SystemMenu": {
+      "role": "menu",
+      "defaults": {
+        "icon": "circle",
+        "caret": false
+      },
+      "doc": "The system menu at the far left of the menu bar (drawn as a neutral blue gel orb); open: true shows its items"
+    },
+    "AppMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false
+      },
+      "doc": "The application menu: the frontmost application's name in bold"
+    },
+    "MenuTitle": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false
+      },
+      "doc": "A menu bar title; MenuTitle(\"File\", open: true) { MenuItem(…) } pulls its menu down"
+    },
+    "MenuExtra": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "A menu extra (status item) at the right of the menu bar: MenuExtra(icon: \"speaker\") or MenuExtra(\"Mon 9:41 AM\")"
+    },
+    "Menu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "A menu; with no label it is a standalone (open) translucent menu"
+    },
+    "ContextMenu": {
+      "role": "menu",
+      "doc": "A contextual menu drawn open in place: ContextMenu { MenuItem(…) }"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "A menu item: shortcut: \"⌘N\", checked:, icon:, .disabled(), .highlighted() for the blue gel item under the pointer"
+    },
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "variants": [
+        "document",
+        "metal",
+        "utility",
+        "plain"
+      ],
+      "doc": "An Aqua window: pinstriped body, title bar with the red/yellow/green gel buttons. .inactive() greys the buttons and title"
+    },
+    "DocumentWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "doc": "A document window (pinstriped, white content area)"
+    },
+    "MetalWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "metal"
+      },
+      "doc": "A brushed-metal (textured) window, as in the media and camera applications"
+    },
+    "Panel": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "utility"
+      },
+      "doc": "A utility panel (Fonts, Colors, Inspector): small title bar and small gel buttons"
+    },
+    "UtilityWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "utility"
+      },
+      "doc": "A utility window (NSPanel with the utility style)"
+    },
+    "Drawer": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "drawer"
+      },
+      "doc": "A drawer sliding out of a window side (side: .trailing default, .leading); put it next to the Window in an HStack(spacing: 0)"
+    },
+    "Sheet": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "sheet"
+      },
+      "doc": "A document-modal sheet sliding down from the title bar of the window drawn by the window chrome; buttons: [...], primary:"
+    },
+    "Alert": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "app"
+      },
+      "doc": "An application-modal alert: application icon at the left, bold message, small informative text, buttons at the right with the pulsing default button"
+    },
+    "AlertSheet": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "sheet",
+        "icon": "app"
+      },
+      "doc": "An alert presented as a sheet (NSBeginAlertSheet): icon, message and buttons sliding from the title bar"
+    },
+    "Toolbar": {
+      "role": "toolbar",
+      "doc": "A window toolbar (NSToolbar): ToolbarButton items with large icons and labels below; the white toolbar toggle lozenge is drawn at the top right"
+    },
+    "ToolbarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "toolbar"
+      },
+      "doc": "A toolbar item: ToolbarButton(\"Home\", icon: \"house\")"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "push"
+      },
+      "variants": [
+        "push",
+        "default",
+        "bevel",
+        "round",
+        "help",
+        "metal",
+        "toolbar",
+        "recessed"
+      ],
+      "doc": "A push button: the clear gel lozenge. .variant(.default) is the pulsing blue default button"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "push"
+      },
+      "doc": "A push button (NSRoundedBezelStyle)"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The default button: blue gel, slowly pulsing; Return activates it"
+    },
+    "BevelButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "bevel"
+      },
+      "doc": "A square bevel button (NSRegularSquareBezelStyle) for icons and image wells"
+    },
+    "RoundButton": {
+      "role": "button",
+      "params": [
+        "icon"
+      ],
+      "defaults": {
+        "variant": "round"
+      },
+      "doc": "A round gel button (NSCircularBezelStyle); on a MetalWindow the transport buttons of a media player"
+    },
+    "HelpButton": {
+      "role": "button",
+      "defaults": {
+        "variant": "help",
+        "label": "?"
+      },
+      "doc": "The round help button with the question mark"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "An Aqua check box: clear gel square, blue gel with the check mark when on; checked: true | .mixed"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "An Aqua radio button: clear gel bead, blue with a dark dot when selected"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "A radio matrix: RadioGroup(\"Show:\", items: [...], selection:)"
+    },
+    "Matrix": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "NSMatrix of radio buttons (Interface Builder name)"
+    },
+    "PopUpButton": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "A pop-up button: clear gel lozenge with the blue cap holding the double arrows; items:, selection:, open:"
+    },
+    "PullDownButton": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "pulldown"
+      },
+      "doc": "A pull-down button: a gel lozenge with a single down arrow; open: true shows its menu"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "kind": "combo"
+      },
+      "doc": "A combo box: a text field with a blue gel arrow button at the right"
+    },
+    "TextField": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "A text field with the inset frame; .state(.focused) draws the blue focus ring"
+    },
+    "SecureTextField": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "password"
+      },
+      "doc": "A secure text field (bullets)"
+    },
+    "SearchField": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "search"
+      },
+      "doc": "A search field (rounded, with the magnifying glass)"
+    },
+    "TextView": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "A multi-line text view in an inset frame"
+    },
+    "Slider": {
+      "role": "slider",
+      "params": [
+        "label"
+      ],
+      "doc": "An Aqua slider: thin gel track and the blue gel knob (pointed when ticks: is set)"
+    },
+    "Stepper": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "The little arrows (NSStepper) beside a number field"
+    },
+    "ProgressIndicator": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "doc": "The Aqua progress bar: blue gel with moving barber stripes; no value: the indeterminate blue-and-white pole"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "doc": "Alias of ProgressIndicator"
+    },
+    "Spinner": {
+      "role": "progress",
+      "defaults": {
+        "kind": "circular"
+      },
+      "doc": "The spinning (asynchronous) progress indicator with twelve grey spokes"
+    },
+    "TabView": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "An Aqua tab view: gel tab segments centred on the top edge of a sunken box; TabViewItem(\"General\") { … } children"
+    },
+    "TabViewItem": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "doc": "One tab of a TabView"
+    },
+    "SegmentedControl": {
+      "role": "segmented",
+      "params": [
+        "label"
+      ],
+      "doc": "A gel segmented control (items:, selection:)"
+    },
+    "Box": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "box"
+      },
+      "doc": "A group box: title above a sunken, slightly darker rounded box"
+    },
+    "Separator": {
+      "role": "divider",
+      "doc": "A separator line (NSBox separator)"
+    },
+    "ScrollView": {
+      "role": "scroll",
+      "defaults": {
+        "variant": "vertical"
+      },
+      "variants": [
+        "vertical",
+        "both",
+        "horizontal",
+        "none"
+      ],
+      "doc": "A scroll view with Aqua scroll bars: blue gel thumb, both arrows together at the bottom"
+    },
+    "TableView": {
+      "role": "table",
+      "variants": [
+        "plain",
+        "alternating"
+      ],
+      "doc": "A table view: gel column headers (the sorted one in blue), alternating blue-white rows when variant: .alternating; columns:, rows:, sortColumn:, selectedRows:"
+    },
+    "OutlineView": {
+      "role": "tree",
+      "doc": "An outline view with disclosure triangles"
+    },
+    "OutlineItem": {
+      "role": "treeitem",
+      "params": [
+        "title"
+      ],
+      "doc": "A row of an OutlineView"
+    },
+    "ListView": {
+      "role": "list",
+      "doc": "A white list (single-column table) with blue selection"
+    },
+    "ListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "A list row"
+    },
+    "Browser": {
+      "role": "hstack",
+      "doc": "The column browser (NSBrowser), as in the Finder's column view: BrowserColumn children"
+    },
+    "BrowserColumn": {
+      "role": "list",
+      "doc": "One column of a Browser: BrowserCell (folders, with the triangle) and FileCell rows"
+    },
+    "BrowserCell": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "folder",
+        "chevron": true
+      },
+      "doc": "A folder cell of a Browser column: icon, name and the black triangle at the right"
+    },
+    "FileCell": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "doc"
+      },
+      "doc": "A file cell of a Browser column (no triangle)"
+    },
+    "InfoBar": {
+      "role": "labeled",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "The Finder window status text under the toolbar: InfoBar(\"6 items\", \"2.4 GB available\")"
+    },
+    "FinderIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "kind": "generic"
+      },
+      "doc": "A Finder / desktop icon with its name below; icon: any icon name"
+    },
+    "FolderIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "folder",
+        "kind": "folder"
+      },
+      "doc": "A translucent blue Aqua folder"
+    },
+    "DiskIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "archivebox",
+        "kind": "disk"
+      },
+      "doc": "A hard disk icon"
+    },
+    "DocumentIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "doc",
+        "kind": "document"
+      },
+      "doc": "A document icon with the folded corner"
+    },
+    "ApplicationIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "app",
+        "kind": "application"
+      },
+      "doc": "An application icon: a glossy tile in the colour given by color:"
+    },
+    "PreferenceIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "kind": "pref"
+      },
+      "doc": "A System Preferences pane icon: glossy tile (color:) with the glyph and its name below"
+    },
+    "Dock": {
+      "role": "toolbar",
+      "doc": "The Dock: a translucent shelf of DockItem icons with a DockSeparator before the Trash"
+    },
+    "DockItem": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "dock",
+        "iconOnly": true
+      },
+      "doc": "An icon in the Dock: DockItem(\"Mail\", icon: \"envelope\", color: .blue); .running() adds the black triangle, .highlighted() shows the name above"
+    },
+    "DockSeparator": {
+      "role": "divider",
+      "doc": "The separator between applications and documents/Trash in the Dock"
+    },
+    "StatusDisplay": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "lcd"
+      },
+      "doc": "The LCD-style status display of a brushed-metal media application: title, subtitle and a progress"
+    },
+    "ToolTip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "doc": "A help tag: pale yellow tooltip"
+    },
+    "StickyNote": {
+      "role": "stickynote",
+      "params": [
+        "text"
+      ],
+      "doc": "A Stickies note"
+    },
+    "Terminal": {
+      "role": "code",
+      "defaults": {
+        "variant": "terminal"
+      },
+      "doc": "A Terminal window (black on white, Monaco)"
+    },
+    "ColorWell": {
+      "role": "swatches",
+      "doc": "A row of colour wells / the Colors panel swatches"
+    },
+    "LevelIndicator": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "doc": "A capacity indicator (as in the Finder's disk info)"
+    }
+  }
+}

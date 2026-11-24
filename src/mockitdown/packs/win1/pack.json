@@ -1,0 +1,678 @@
+{
+  "id": "win1",
+  "name": "Windows 1.0",
+  "framework": "Microsoft Windows 1.01–1.04 (1985–87), tiled windows, EGA 16 colours / CGA monochrome",
+  "version": "Windows 1.03",
+  "modules": [
+    "Windows1",
+    "Win1",
+    "Windows101",
+    "MSDOSExecutive1"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "tablet": "window",
+    "phone": "window"
+  },
+  "sizes": {
+    "desktop": [
+      640,
+      350
+    ],
+    "wide": [
+      800,
+      480
+    ],
+    "tablet": [
+      640,
+      350
+    ],
+    "phone": [
+      640,
+      200
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#ffffff",
+      "surface-3": "#aaaaaa",
+      "fg": "#000000",
+      "fg-2": "#000000",
+      "fg-3": "#555555",
+      "border": "#000000",
+      "divider": "#000000",
+      "accent": "#000000",
+      "on-accent": "#ffffff",
+      "accent-soft": "#000000",
+      "danger": "#aa0000",
+      "warning": "#aa5500",
+      "success": "#00aa00",
+      "info": "#0000aa",
+      "field-bg": "#ffffff",
+      "field-border": "#000000",
+      "scrim": "transparent",
+      "shadow-1": "none",
+      "shadow-2": "none",
+      "shadow-3": "none",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "0px",
+      "font": "Fixedsys, Terminal, \"Lucida Console\", Monaco, Menlo, Consolas, \"Courier New\", monospace",
+      "font-mono": "Fixedsys, Terminal, \"Lucida Console\", Monaco, Menlo, Consolas, \"Courier New\", monospace",
+      "font-size": "13px",
+      "line-height": "1.2",
+      "icon-stroke": "2",
+      "icon-size": "16px",
+      "control-h": "22px",
+      "gap": "6px",
+      "pad": "8px",
+      "chrome-bg": "#0000aa",
+      "chrome-fg": "#ffffff",
+      "fs-display": "24px",
+      "fw-display": "700",
+      "fs-largeTitle": "20px",
+      "fw-largeTitle": "700",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "16px",
+      "fw-title2": "700",
+      "fs-title3": "14px",
+      "fw-title3": "700",
+      "fs-headline": "13px",
+      "fw-headline": "400",
+      "fs-subheadline": "13px",
+      "fw-subheadline": "400",
+      "fs-body": "13px",
+      "fw-body": "400",
+      "fs-callout": "13px",
+      "fw-callout": "400",
+      "fs-footnote": "12px",
+      "fw-footnote": "400",
+      "fs-caption": "11px",
+      "fw-caption": "400",
+      "fs-caption2": "10px",
+      "fw-caption2": "400",
+      "fs-overline": "11px",
+      "fw-overline": "400",
+      "color-red": "#aa0000",
+      "color-orange": "#aa5500",
+      "color-yellow": "#ffff55",
+      "color-green": "#00aa00",
+      "color-mint": "#55ff55",
+      "color-teal": "#00aaaa",
+      "color-cyan": "#55ffff",
+      "color-blue": "#0000aa",
+      "color-indigo": "#5555ff",
+      "color-purple": "#aa00aa",
+      "color-pink": "#ff55ff",
+      "color-brown": "#aa5500",
+      "color-gray": "#aaaaaa",
+      "chart-1": "#0000aa",
+      "chart-2": "#aa0000",
+      "chart-3": "#00aa00",
+      "chart-4": "#aa00aa",
+      "chart-5": "#00aaaa",
+      "chart-6": "#aa5500",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#000000",
+      "code-str": "#000000",
+      "code-num": "#000000",
+      "code-comment": "#555555",
+      "code-fn": "#000000",
+      "code-type": "#000000",
+      "term-bg": "#000000",
+      "term-fg": "#aaaaaa",
+      "term-prompt": "#ffffff",
+      "grid-line": "#aaaaaa",
+      "note": "#ffff55",
+      "desktop": "#aaaaaa",
+      "frame": "#ffffff",
+      "frame-line": "#000000",
+      "caption-bg": "#0000aa",
+      "caption-fg": "#ffffff",
+      "caption-inactive-bg": "#ffffff",
+      "caption-inactive-fg": "#000000",
+      "box-bg": "#ffffff",
+      "box-fg": "#000000",
+      "menu-bg": "#ffffff",
+      "menu-fg": "#000000",
+      "hilite-bg": "#000000",
+      "hilite-fg": "#ffffff",
+      "scroll-bg": "#aaaaaa",
+      "button-bg": "#ffffff",
+      "disabled-fg": "#aaaaaa",
+      "icon-label-bg": "#ffffff",
+      "icon-area": "#aaaaaa",
+      "icon-fg": "#0000aa",
+      "card-bg": "#ffffff",
+      "card-rule": "#aa0000"
+    },
+    "dark": {
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#000000",
+      "surface-3": "#555555",
+      "fg": "#ffffff",
+      "fg-2": "#ffffff",
+      "fg-3": "#aaaaaa",
+      "border": "#ffffff",
+      "divider": "#ffffff",
+      "accent": "#ffffff",
+      "on-accent": "#000000",
+      "accent-soft": "#ffffff",
+      "danger": "#ffffff",
+      "warning": "#ffffff",
+      "success": "#ffffff",
+      "info": "#ffffff",
+      "field-bg": "#000000",
+      "field-border": "#ffffff",
+      "chrome-bg": "#ffffff",
+      "chrome-fg": "#000000",
+      "code-bg": "#000000",
+      "code-fg": "#ffffff",
+      "code-kw": "#ffffff",
+      "code-str": "#ffffff",
+      "code-num": "#ffffff",
+      "code-comment": "#aaaaaa",
+      "code-fn": "#ffffff",
+      "code-type": "#ffffff",
+      "grid-line": "#555555",
+      "chart-1": "#ffffff",
+      "chart-2": "#aaaaaa",
+      "chart-3": "#555555",
+      "chart-4": "#ffffff",
+      "chart-5": "#aaaaaa",
+      "chart-6": "#555555",
+      "desktop": "#000000",
+      "frame": "#000000",
+      "frame-line": "#ffffff",
+      "caption-bg": "#ffffff",
+      "caption-fg": "#000000",
+      "caption-inactive-bg": "#000000",
+      "caption-inactive-fg": "#ffffff",
+      "box-bg": "#000000",
+      "box-fg": "#ffffff",
+      "menu-bg": "#000000",
+      "menu-fg": "#ffffff",
+      "hilite-bg": "#ffffff",
+      "hilite-fg": "#000000",
+      "scroll-bg": "#555555",
+      "button-bg": "#000000",
+      "disabled-fg": "#555555",
+      "icon-label-bg": "#000000",
+      "icon-area": "#000000",
+      "icon-fg": "#ffffff",
+      "card-bg": "#000000",
+      "card-rule": "#ffffff",
+      "color-red": "#ffffff",
+      "color-orange": "#aaaaaa",
+      "color-yellow": "#ffffff",
+      "color-green": "#aaaaaa",
+      "color-mint": "#ffffff",
+      "color-teal": "#aaaaaa",
+      "color-cyan": "#ffffff",
+      "color-blue": "#ffffff",
+      "color-indigo": "#aaaaaa",
+      "color-purple": "#aaaaaa",
+      "color-pink": "#ffffff",
+      "color-brown": "#aaaaaa",
+      "color-gray": "#555555",
+      "term-bg": "#000000",
+      "term-fg": "#ffffff",
+      "term-prompt": "#ffffff",
+      "note": "#000000"
+    }
+  },
+  "fonts": {
+    "system": "body",
+    "systemFixed": "body",
+    "terminal": "footnote",
+    "helv": "body",
+    "tmsRmn": "title3",
+    "modern": "body",
+    "script": "title3",
+    "caption": "caption"
+  },
+  "icons": {
+    "hand": "xmark.circle",
+    "exclamation": "exclamationmark.triangle",
+    "question": "questionmark.circle",
+    "asterisk": "info.circle",
+    "application": "app",
+    "drive": "archivebox",
+    "file": "doc"
+  },
+  "modifiers": {
+    "checked": {
+      "attr": "checked"
+    },
+    "grayed": {
+      "attr": "disabled"
+    },
+    "highlighted": {
+      "attr": "selected"
+    }
+  },
+  "elements": {
+    "Desktop": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "The whole screen: a TiledArea of windows above the IconArea; dialogs and menus overlap it"
+    },
+    "TiledArea": {
+      "role": "hstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "The tiling region above the icon area: windows share it side by side, never overlapping"
+    },
+    "TileColumn": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "A column of tiled windows stacked top to bottom"
+    },
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "active",
+        "inactive"
+      ],
+      "doc": "Tiled application window: a caption bar with the centred title only (no boxes), menu bar and client area; .variant(.inactive) for a white caption"
+    },
+    "PopupWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "popup"
+      },
+      "doc": "Overlapping pop-up window (Control Panel, About): double-line frame over the tiles"
+    },
+    "DialogBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "Modal dialog box: no caption, a thick double black frame; overlaps the tiles"
+    },
+    "MessageBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert"
+      },
+      "doc": "MessageBox(\"Write\", message: \"…\", icon: \"exclamation\", buttons: [\"OK\", \"Cancel\"])"
+    },
+    "ClientArea": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "The white client area of a window"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "The menu bar under the caption; children are MenuBarItem or PopupMenu"
+    },
+    "MenuBarItem": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "menubar"
+      },
+      "doc": "A menu title in the menu bar; .selected() inverts it (Windows 1.0 shows no mnemonic underlines)"
+    },
+    "PopupMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "menubar",
+        "caret": false
+      },
+      "doc": "PopupMenu(\"File\", open: true) { MenuItem(\"New\") … }"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "Menu command; checked:, shortcut:, .disabled() (grey), .selected()"
+    },
+    "MenuSeparator": {
+      "role": "divider",
+      "doc": "Separator line in a drop-down menu"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "default"
+      ],
+      "doc": "Push button: rounded box with a 1px black border"
+    },
+    "DefPushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "DEFPUSHBUTTON: the default button, with a heavier border"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "Check box: square that shows an X when checked"
+    },
+    "AutoCheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "BS_AUTOCHECKBOX"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "RADIOBUTTON: circle, filled dot when checked"
+    },
+    "AutoRadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "BS_AUTORADIOBUTTON"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio buttons from items:/selection:"
+    },
+    "GroupBox": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "groupbox"
+      },
+      "doc": "GROUPBOX: rectangle with its title on the top line"
+    },
+    "EditText": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "EDITTEXT: single-line edit control in a black box"
+    },
+    "Edit": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "doc": "Edit control (window class \"edit\")"
+    },
+    "MultiLineEdit": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "ES_MULTILINE edit control"
+    },
+    "ListBox": {
+      "role": "list",
+      "doc": "LISTBOX: bordered list; ListBoxItem children, .selected() inverts"
+    },
+    "ListBoxItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "A list box string"
+    },
+    "LText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "LTEXT: left-aligned static text"
+    },
+    "RText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "RTEXT: right-aligned static text"
+    },
+    "CText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "CTEXT: centred static text"
+    },
+    "Static": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Static control (window class \"static\")"
+    },
+    "DialogIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "ICON in a dialog: hand, exclamation, question, asterisk"
+    },
+    "ScrollBar": {
+      "role": "slider",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "variant": "scrollbar"
+      },
+      "doc": "Horizontal scroll bar: grey shaft, white thumb, arrow boxes"
+    },
+    "VScrollBar": {
+      "role": "slider",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "variant": "scrollbar",
+        "orientation": "vertical"
+      },
+      "doc": "Vertical scroll bar at a window's right edge"
+    },
+    "IconArea": {
+      "role": "hstack",
+      "defaults": {
+        "alignment": "center",
+        "spacing": 14
+      },
+      "doc": "The strip along the bottom of the screen where iconic (inactive) applications park"
+    },
+    "IconicWindow": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "An application shrunk to an icon in the icon area, its name below"
+    },
+    "DriveBar": {
+      "role": "hstack",
+      "defaults": {
+        "spacing": 10
+      },
+      "doc": "MS-DOS Executive: the row of drive icons"
+    },
+    "DriveIcon": {
+      "role": "chip",
+      "params": [
+        "label"
+      ],
+      "doc": "MS-DOS Executive drive icon, e.g. DriveIcon(\"C\").selected()"
+    },
+    "PathLine": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "MS-DOS Executive current path, e.g. \"C: \\\\WINDOWS\""
+    },
+    "FileList": {
+      "role": "grid",
+      "defaults": {
+        "columns": 4,
+        "spacing": 0
+      },
+      "doc": "MS-DOS Executive file names in columns"
+    },
+    "FileName": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "A file name in the list; .selected() inverts it"
+    },
+    "ToolPalette": {
+      "role": "grid",
+      "defaults": {
+        "columns": 2,
+        "spacing": 0
+      },
+      "doc": "Paint tool palette"
+    },
+    "PaletteTool": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "tool"
+      },
+      "doc": "A palette tool: icon:, .selected()"
+    },
+    "PatternPalette": {
+      "role": "swatches",
+      "doc": "Paint pattern/colour palette from colors:"
+    },
+    "Ruler": {
+      "role": "slider",
+      "defaults": {
+        "variant": "ruler",
+        "ticks": 12
+      },
+      "doc": "Write ruler with tick marks"
+    },
+    "StatusLine": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "status"
+      },
+      "doc": "Status text line at the bottom of a window"
+    },
+    "PageView": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "leading",
+        "spacing": 4
+      },
+      "doc": "Document text area (Write)"
+    },
+    "SizeBox": {
+      "role": "color",
+      "defaults": {
+        "variant": "sizebox"
+      },
+      "doc": "The square where the two scroll bars meet"
+    },
+    "IndexCard": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "indexcard"
+      },
+      "doc": "Cardfile card: the index line on top, a red rule, then the card text"
+    },
+    "CardStack": {
+      "role": "zstack",
+      "defaults": {
+        "alignment": "topLeading"
+      },
+      "doc": "Cardfile's cascade of index cards"
+    },
+    "AppointmentList": {
+      "role": "list",
+      "defaults": {
+        "variant": "appointments"
+      },
+      "doc": "Calendar day view: one ListBoxItem per time slot"
+    },
+    "MonthView": {
+      "role": "calendar",
+      "doc": "Calendar month view (date:, selection:)"
+    },
+    "Clock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "variant": "clock"
+      },
+      "doc": "Digital-style clock face text shown in a Clock window"
+    },
+    "TerminalScreen": {
+      "role": "code",
+      "defaults": {
+        "kind": "terminal"
+      },
+      "doc": "Terminal / DOS-application screen (code role, terminal kind)",
+      "params": [
+        "code"
+      ]
+    }
+  }
+}
