@@ -1,0 +1,76 @@
+---
+title: Evaluation
+impl_version: 0.1.0
+status: draft
+updated: 2026-11-24
+page_id: IMPL.EVAL
+---
+
+# Evaluation
+
+Realizes **A-EVAL-1**; requirements R-EVAL-001 – R-EVAL-011, R-PACK-005, R-IMP-001 – R-IMP-006.
+
+## `Evaluator` — `evaluate.py`
+
+`Evaluator(registry, diagnostics, default_pack=, pack_override=, imports=ImportContext(...))`
+evaluates one `Module` into a `Screen` (M-VIEW-3):
+
+1. `_directives` reads `@Screen` arguments into `meta` (R-EVAL-010).
+2. `_select_pack` applies the order fence/option `pack` → first `import <Module>` known to
+   `PackRegistry.for_module` → `meta["pack"]` → `default_pack` (R-PACK-005).
+3. `_load_imports` resolves `import "path"` (`_resolve_import`: absolute, then the base directory,
+   then `search_paths`; each as written and with `.mockitdown`), recursing into the imported file's
+   imports with a `seen` set; files are parsed through the module-level `ImportCache` keyed by path
+   and mtime (R-IMP).
+4. The block's own structs are registered last, replacing imported ones (R-IMP-004).
+5. `block(statements, Env())` evaluates statements to views.
+
+**Scopes** are `Env` objects chained by `parent`. `block` creates a child scope per block;
+`_instantiate` creates a fresh `Env()` for a struct body (caller variables invisible, R-EVAL-005.C6).
+
+## Views versus values
+
+Two mutually recursive entry points:
+
+- `views(expr, env)` — where a view is expected: calls go to `_call_view` (ForEach → struct →
+  variable → pack element → unknown) or `_apply_modifier` for member calls; literals become `Text`.
+- `value(expr, env)` — where a value is expected: literals, collections, enum values, members
+  (`_member_value`), calls (`_call_value`: `.constant(x)`, view calls → `ViewList`, unknown callees
+  → `CallValue`), operators (`_binary`), ranges and subscripts.
+
+Closures are captured as `Thunk(closure, env)` and run only where views are expected
+(`run_thunk`, which also binds closure parameters and destructures tuples for `ForEach`).
+
+## Elements, structs, modifiers
+
+- `_element_view` builds a `View` (M-VIEW-1) from the element's `default_attrs`, labelled
+  arguments, positional `params`, trailing closures (children and slots) and closure/view-valued
+  arguments (slots); action closures are dropped (R-EVAL-004).
+- `_instantiate` binds struct arguments as in R-EVAL-005, guards depth with `MAX_DEPTH = 48`, and
+  tags root views with `component`.
+- `_for_each` normalises the data (count, list, dict items, string), truncates at
+  `MAX_ITERATIONS = 500`.
+- `_apply_modifier` resolves the modifier against the pack's `modifiers` map, then
+  `vocabulary.RENDERED`, then `vocabulary.IGNORED` (R-EVAL-009). Mapped modifiers write
+  `view.attrs[attr]`; rendered ones append a `Modifier` (M-VIEW-2).
+
+## Vocabulary — `vocabulary.py`
+
+`RENDERED` (modifiers the renderer interprets), `IGNORED` (behaviour-only SwiftUI modifiers) and
+`NEUTRAL_MODULES` (imports that select no pack). Adding a rendered modifier requires a style
+builder or renderer handler and a specification change (R-EVAL-009.C4).
+
+## Known debt
+
+None open; the deviations #1 and #2 recorded on the [overview](index.md#known-debt-and-deviations)
+were fixed in 0.1.1.
+
+Tests: `tests/test_render.py` (`EvaluateRenderTests`).
+
+
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.1.0 | 2026-11-24 | Page written |
+| 0.1.1 | 2026-11-24 | Debt #1, #2 fixed |

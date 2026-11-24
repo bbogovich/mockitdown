@@ -1,0 +1,269 @@
+---
+title: "Language: semantics"
+spec_version: 0.2.1
+status: draft
+updated: 2026-11-24
+page_id: LANG.2
+---
+
+# Language: semantics
+
+What a parsed block means: how names resolve, how arguments bind to elements and structs, how `ForEach`, conditions, values and modifiers are evaluated, and how pasted SwiftUI is tolerated. Pack selection is specified in R-PACK-005 and file imports on [Component imports](../imports.md).
+
+### R-EVAL-001 — Evaluation always completes
+
+Evaluation is forgiving by design: the author sees the whole mockup with the problems marked,
+instead of the first problem only. Only syntax errors stop processing (R-LANG-009).
+
+**Realizes.** F-2, F-12
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST turn a parsed module into a screen — the list of top-level views, the selected pack, the directive metadata and the names of the components used — and MUST NOT raise for any semantic problem. |
+| C2 | If the evaluator cannot resolve something, then it MUST report a diagnostic and continue, substituting an `unknown` view where a view was expected and `nil` where a value was expected. |
+| C3 | The evaluator MUST evaluate statements in source order, and each block (struct body, closure, branch) MUST have its own scope nested in the scope it is evaluated in. |
+| V1 | A block with an unknown element and an unknown modifier still yields a screen containing every other view, with one error and one warning. |
+
+---
+
+### R-EVAL-002 — What a block renders
+
+A block that only declares a view renders it, as Xcode's preview canvas would; this lets authors
+paste a view struct without writing an extra call.
+
+**Realizes.** F-1, F-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST render the module's top-level statements, including those from `#Preview` blocks, as the screen's views. |
+| C2 | When a module has no top-level statements but declares structs, the evaluator MUST render an instance of the last struct declared in the block, called without arguments. |
+| C3 | If the screen has no views, then the evaluator MUST report the warning "the mockup has no views" with code `empty`. |
+| V1 | A block containing only `struct Login: View { var body: some View { … } }` renders the Login view; an empty block produces the `empty` warning. |
+
+---
+
+### R-EVAL-003 — Name resolution for views
+
+Structs shadow pack elements, so a site can override a pack's element with its own component of
+the same name. Literals render as text so that `"Hello"` on its own line is a valid view, as in
+a SwiftUI `ViewBuilder`.
+
+**R-EVAL-003.TC-1 — Unknown element renders a placeholder**
+
+**Given** `VStack { Foo { Text("in") } }` in the base pack, **when** it is rendered, **then** the
+result has one error with code `unknown`, and the HTML contains `<div class="mkd-unknown" data-el="Foo">`
+holding the name `Foo` and the `Text` child.
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_unknown_element_is_an_error_but_renders`.
+
+**Realizes.** F-2, F-3, F-4
+
+| | Statement |
+|---|---|
+| C1 | When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a struct declared in the block or imported; a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack. |
+| C2 | If none matches, then the evaluator MUST report the error "'Name' is not an element of pack '<id>' and no struct of that name is declared or imported" with code `unknown`, and MUST produce an `unknown` view named `Name` whose children are the views of its unlabelled trailing closure. |
+| C3 | When a bare identifier appears where views are expected, the evaluator MUST use the variable of that name if one is in scope, else call the struct or element of that name with no arguments; if neither exists, then it MUST report "unknown view or variable" with code `unknown` and produce an `unknown` view. |
+| C4 | When a string or number literal, or an interpolated string, appears where views are expected, the evaluator MUST produce a `Text` element with that content. |
+| C5 | When a variable holding a string or number is used where views are expected, the evaluator MUST produce a `Text` element with its value; a variable holding `nil` MUST produce no view. |
+| C6 | When `Color.<name>` appears where views are expected, the evaluator MUST produce a `Color` element with that colour. |
+| C7 | When a member access without parentheses (`view.modifier`) appears where views are expected, the evaluator MUST treat it as a modifier call with no arguments. |
+| C8 | If an expression that cannot produce views appears where views are expected, then the evaluator MUST report "this expression does not produce a view" with code `view`. |
+| V1 | With a struct `Card` declared in the block, `Card("x")` instantiates the struct even when the pack also has a `Card` element; `Foo()` with no such struct or element is an `unknown` error and an `unknown` view. |
+
+---
+
+### R-EVAL-004 — Binding element arguments
+
+Arguments are data: the evaluator does not know what `systemImage` means — the render role does.
+That is what lets a pack add framework-native argument names without code: the pack declares the
+element's positional `params` and defaults, and the role reads whichever attribute names it
+understands (see the role catalogue).
+
+**Realizes.** F-2, F-3
+
+| | Statement |
+|---|---|
+| C1 | When an element is called, the evaluator MUST start the view's attributes from the element definition's defaults, then set one attribute per labelled argument, named by its label. |
+| C2 | The evaluator MUST assign positional arguments to the element definition's `params` in order; positional arguments beyond them MUST be kept as extra arguments. |
+| C3 | The evaluator MUST evaluate an element's unlabelled trailing closure as its children and each labelled trailing closure as a named slot. |
+| C4 | When a labelled argument's value is a closure, the evaluator MUST evaluate it as views: the argument `content` becomes the children when there are none yet, any other label becomes a slot of that name. |
+| C5 | The evaluator MUST discard closure-valued arguments labelled `action`, `onCommit`, `onEditingChanged` or `perform` without evaluating them. |
+| C6 | When a labelled argument's value is a list of views (a view call used as an argument, such as `label: Label(…)`), the evaluator MUST also make it the slot of that label unless a slot of that name already exists. |
+| V1 | `Button("Save", systemImage: "tray") { … }` with params `["label"]` yields attributes `label="Save"`, `systemImage="tray"`; `Section("A") { X() } footer: { Y() }` yields children `[X]` and slot `footer: [Y]`; `Button("Go", action: { doIt() })` evaluates nothing for `action`. |
+
+---
+
+### R-EVAL-005 — Instantiating struct components
+
+Components behave like SwiftUI views: memberwise arguments, defaults, a trailing closure for
+content. Struct bodies are isolated from the caller's scope, as Swift's are, so a component behaves
+the same wherever it is used. The recursion limit protects the build from a component that
+contains itself.
+
+**R-EVAL-005.TC-1 — Component with slot and defaults**
+
+**Given** a struct with a `@ViewBuilder var content: Content` property and a defaulted property,
+**when** it is called with a labelled argument and a trailing closure, **then** the closure's views
+appear where the body names `content`, the default applies, and the root view carries
+`data-component="<struct name>"`.
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_with_slot_and_defaults`.
+
+**Realizes.** F-4 · **Decisions.** ADR-10
+
+| | Statement |
+|---|---|
+| C1 | When a struct is instantiated, the evaluator MUST bind labelled arguments to properties of the same name; if a label names no property, then it MUST warn "struct S has no property 'x'" with code `argument`. |
+| C2 | The evaluator MUST bind the unlabelled trailing closure to the first view-typed, non-computed property that no labelled argument bound, and each labelled trailing closure to the property of its label; if there is no such property, then it MUST warn with code `argument`. |
+| C3 | The evaluator MUST bind positional arguments, in order, to the stored properties not already bound, in declaration order. |
+| C4 | The evaluator MUST give each remaining property its default value, evaluated in the struct's own scope after the properties declared before it; a property with neither argument nor default MUST be `nil`, and if its type does not end in `?`, then the evaluator MUST report "missing argument 'x' for struct S" with code `argument`. |
+| C5 | If positional arguments remain after binding, then the evaluator MUST warn "too many arguments for struct S" with code `argument`. |
+| C6 | The evaluator MUST evaluate the struct body in a new scope holding only the struct's properties, so the caller's variables are not visible inside the body; closures passed in MUST keep the caller's scope. |
+| C7 | The evaluator MUST make each computed property a deferred view value evaluated in the struct's scope when used. |
+| C8 | If the struct has no body, then the evaluator MUST report "struct S has no `var body: some View { … }`" with code `struct` and produce no views. |
+| C9 | The evaluator MUST mark every top-level view of the body with the struct's name as its component, unless it already carries an inner component's name, and MUST record the struct in the screen's list of used components. |
+| C10 | If struct instantiation nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply (recursive?)" with code `recursion` and produce no views. |
+| V1 | `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a struct that instantiates itself stops at depth 48 with a `recursion` error. |
+
+---
+
+### R-EVAL-006 — ForEach
+
+`ForEach` is the only loop. Destructuring tuples into closure parameters is a small extension of
+Swift (which would need `item.0`) that makes row data easy to write.
+
+**R-EVAL-006.TC-1 — ForEach with tuples and interpolation**
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_foreach_tuples_and_interpolation`.
+
+**Realizes.** F-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST take `ForEach`'s data from its first argument when unlabelled or labelled `data`, and its content from an unlabelled or `content:` trailing closure or a `content:` closure argument; other arguments (such as `id:`) MUST be ignored. |
+| C2 | The evaluator MUST iterate an integer `n` as `0 … n-1`, an array or tuple as its items, a dictionary as `(key, value)` pairs, and a string as one item. |
+| C3 | The evaluator MUST evaluate the content closure once per item, binding a single parameter to the item; with two or more parameters and a tuple or array item, it MUST bind the parameters to the item's elements in order; `_` MUST bind nothing and missing elements MUST be `nil`. |
+| C4 | If the content closure is missing, then the evaluator MUST report "ForEach needs a content closure"; if the data is of another kind, then it MUST report "ForEach needs an array, a range or a count"; both with code `foreach`. |
+| C5 | If the data has more than 500 items, then the evaluator MUST render only the first 500 and warn "ForEach truncated to 500 items" with code `foreach`. |
+| C6 | A modifier applied to a `ForEach` MUST apply to every view it produced. |
+| V1 | `ForEach(team) { name, dept, online in … }` over three 3-tuples renders three rows with the tuple values; `ForEach(0..<3) { i in Text("\(i)") }` renders `0`, `1`, `2`. |
+
+---
+
+### R-EVAL-007 — Conditionals and local bindings
+
+Conditions make one mockup describe a state precisely — `if showBanner { Banner(…) }` — with the
+state set by a `let` at the top of the block.
+
+**R-EVAL-007.TC-1 — if and ternary**
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_if_and_ternary`.
+
+**Realizes.** F-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST evaluate `if` by the truthiness of its condition and render only the chosen branch's views; `else if` chains MUST be evaluated in order. |
+| C2 | Truthiness MUST be: `nil`, `false`, `0` and `0.0` are false; strings, arrays, dictionaries and tuples are true when non-empty; every other value is true. |
+| C3 | The evaluator MUST evaluate a ternary in view position by rendering the chosen operand's views, and in value position by returning the chosen operand's value. |
+| C4 | A `let` or `var` statement MUST bind its name in the current block's scope for the statements after it and for closures and nested blocks evaluated from them. |
+| V1 | `if items.isEmpty { Text("None") } else { List { … } }` renders the list for a non-empty array; `let n = 3` followed by `Text("\(n)")` renders `3`. |
+
+---
+
+### R-EVAL-008 — Values and operators
+
+Values are deliberately small: enough to compute labels, counts and choices. Enum values
+(`.title`, `.borderedProminent`, `Color.red`) are kept symbolic — the renderer and the packs decide
+what they mean — so the notation needs no knowledge of SwiftUI's type system.
+
+**Realizes.** F-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST evaluate literals to strings, integers, floating-point numbers, booleans and `nil`; arrays to lists; dictionaries to mappings; unlabelled tuples to tuples and labelled tuples to mappings keyed by label (or position for unlabelled members). |
+| C2 | The evaluator MUST format interpolated values as: `nil`; `true`/`false`; integral floats without a fraction (`3.0` → `3`); other floats in shortest form; enum values by name; arrays as `[a, b]`; view values as empty text. |
+| C3 | The evaluator MUST evaluate `.name` to an enum value, `.name(args)` to an enum value carrying its arguments, `Type.name` and `Type.name(args)` to an enum value in namespace `Type` when `Type` is not a variable, struct or element, and `.constant(x)` to `x`. |
+| C4 | The evaluator MUST support these members: a mapping's keys; `count` and `isEmpty` on strings, arrays, tuples and mappings; `first` and `last` on arrays and tuples (`nil` when empty); `.0`, `.1`, … on tuples; and a member of an enum value as an enum value in that namespace (`.red.opacity(0.3)`). |
+| C5 | The evaluator MUST support the methods `uppercased()`, `lowercased()` and `capitalized()` on strings and `joined(separator:)` on arrays. |
+| C6 | The evaluator MUST evaluate `+` as string concatenation when either operand is a string and as addition otherwise; `-`, `*`, comparison and equality as usual; `/` as integer division when both operands are integers; `!` and `&&` and the or-operator (two vertical bars) by truthiness with short-circuit; unary `-` on numbers only. |
+| C7 | The evaluator MUST evaluate `a...b` to the integers a through b and `a..<b` to a through b-1; if either bound is not an integer, then it MUST report "a range needs integer bounds" with code `value`. |
+| C8 | The evaluator MUST evaluate subscripts on arrays, tuples, strings and mappings; if the index is absent or invalid, then it MUST report "subscript out of range" with code `value` and yield `nil`. |
+| C9 | The evaluator MUST evaluate a call to a name that is not a view, struct, element or view-valued variable as a call value carrying its name and arguments (for example `GridItem(.flexible())`), and a key path to `nil`. |
+| C10 | If an operator cannot be applied to its operands, a member does not exist, or a name is unknown, then the evaluator MUST report the problem with code `value` (or `unknown` for names) and yield `nil`. |
+| V1 | `"\(3.0) \(2.5) \(nil) \([1, 2])"` evaluates to `3 2.5 nil [1, 2]`; `7 / 2` is `3`; `"a" + 1` is `a1`; `[1][3]` reports `subscript out of range`. |
+
+---
+
+### R-EVAL-009 — Modifiers
+
+Modifiers come in three kinds. Pack-mapped modifiers set attributes the pack's CSS keys on — the
+same `.buttonStyle(.bordered)` becomes `data-variant="bordered"` in every pack. Rendered modifiers
+are interpreted by the renderer (layout, typography, colour, navigation, presentation). Behaviour
+modifiers have no visual effect and are accepted so that real SwiftUI code can be pasted.
+
+**R-EVAL-009.TC-1 — Modifiers become style and data attributes; unknown ones warn**
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_modifiers_become_style_and_data` and
+`test_unknown_modifier_is_a_warning`.
+
+**Realizes.** F-2, F-3 · **Decisions.** ADR-4
+
+| | Statement |
+|---|---|
+| C1 | When a modifier call `.name(…)` is applied to views, the evaluator MUST evaluate the base expression first and apply the modifier to every view the base produced. |
+| C2 | When the selected pack's modifier map has an entry for the modifier, the evaluator MUST set the view attribute the entry names (`attr`, default the modifier's name) to the entry's fixed `value` if it has one, else to the first positional argument, else to the first labelled argument's value, else to `true`; an enum value MUST be stored as its name. |
+| C3 | When the modifier is not in the pack's map but is a rendered modifier, the evaluator MUST record it on the view with its positional arguments, labelled arguments, unlabelled trailing-closure content and labelled closure slots. |
+| C4 | The rendered modifiers MUST be: `padding` `frame` `offset` `zIndex` `font` `fontWeight` `bold` `italic` `underline` `strikethrough` `monospaced` `fontDesign` `foregroundStyle` `foregroundColor` `background` `tint` `accentColor` `opacity` `cornerRadius` `clipShape` `shadow` `border` `fill` `stroke` `multilineTextAlignment` `textCase` `imageScale` `resizable` `aspectRatio` `scaledToFit` `scaledToFill` `hidden` `lineLimit` `id` `ref` `class` `badge` `help` `overlay` `navigationTitle` `navigationSubtitle` `navigationBarTitleDisplayMode` `toolbar` `tabItem` `searchable` `alert` `sheet` `confirmationDialog` `popover` `fullScreenCover` `inspector` `labelsHidden`. |
+| C5 | When the modifier is neither in the pack's map nor rendered but is one of the behaviour-only modifiers listed in the language reference, the evaluator MUST ignore it silently. |
+| C6 | If the modifier is unknown, then the evaluator MUST warn "unknown modifier .name() is ignored" with code `modifier` and leave the views unchanged. |
+| C7 | For a recorded modifier, a closure-valued labelled argument MUST become a slot of that label (except `action` and `perform`, which are discarded), and when there is no trailing closure, the first view-list positional argument or a view-list `content:` argument MUST become its content. |
+| V1 | In a pack whose map has `buttonStyle → {attr: variant}`, `.buttonStyle(.borderedProminent)` sets `variant="borderedProminent"`; `.onTapGesture { }` is silent; `.wobble()` warns; `.padding(8)` is recorded and rendered as padding. |
+
+---
+
+### R-EVAL-010 — The @Screen directive
+
+`@Screen` replaces the prototype's `screen <ID> "title" kit: … form: …` header (SRC-3) with
+Swift attribute syntax, so the metadata travels with the code when a block is copied; the fence
+can still override it for one rendering.
+
+**R-EVAL-010.TC-1 — Options and the screen directive**
+
+Automated by `tests/test_render.py::EvaluateRenderTests::test_options_and_screen_directive`.
+
+**Realizes.** F-1, F-6 · **Decisions.** ADR-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST read `@Screen(…)` arguments into the screen's metadata: a labelled argument under its label, the first unlabelled argument as `title`, later unlabelled arguments under `_<position>`; enum values MUST be stored by name. |
+| C2 | The metadata keys `title`, `id`, `device`, `appearance`, `chrome`, `url` and `pack` MUST take effect as specified for each (R-PACK-005, R-DEV-002, R-APP-001, R-DEV-006, R-REND-001); other keys MUST be ignored. |
+| C3 | If a top-level directive other than `@Screen` is present, then the evaluator MUST warn "unknown directive @Name" with code `directive` and ignore it. |
+| C4 | Values given by fence attributes or render options MUST override the corresponding `@Screen` metadata. |
+| V1 | `@Screen("Checkout", id: "SCR-2", device: .phone)` with fence `device="tablet"` renders a tablet frame captioned `SCR-2 · Checkout`. |
+
+---
+
+### R-EVAL-011 — Tolerance for pasted SwiftUI
+
+Pasting real code is a primary use case (F-2.UC-1). Everything that only matters at run time is
+accepted and dropped; `@State` values become the state the mockup shows.
+
+**Realizes.** F-2 · **Decisions.** ADR-2
+
+| | Statement |
+|---|---|
+| C1 | The evaluator MUST ignore property attributes (`@State`, `@Binding`, `@Environment(…)`, `@ObservedObject`, …) other than `@ViewBuilder`, which marks a view property. |
+| C2 | The evaluator MUST ignore access and `static` modifiers, conformance lists, `return`, `some`, type annotations, key paths and force unwraps. |
+| C3 | When `import` names one of the modules `Foundation`, `Combine`, `Observation`, `UIKit`, `AppKit`, `SwiftData`, `Charts`, `MapKit`, `PhotosUI` or `WebKit`, the evaluator MUST accept it without selecting a pack and without a warning. |
+| C4 | The evaluator MUST evaluate `$binding` as the bound value and `.constant(x)` as `x`, so `Toggle("Wi-Fi", isOn: $wifi)` reads `wifi`. |
+| C5 | The evaluator MUST NOT evaluate closures passed as action arguments (R-EVAL-004.C5) nor the trailing closures of behaviour-only modifiers (`.onTapGesture { … }`, `.onAppear { … }`), so their contents produce no views and no diagnostics. |
+| V1 | A pasted view with `@State private var wifi = true`, `import Combine`, `Toggle("Wi-Fi", isOn: $wifi)` and `.onTapGesture { wifi.toggle() }` renders an on toggle with no diagnostics. |
+
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
+| 0.2.0 | 2026-11-24 | Page created |
+| 0.2.0 | 2026-11-24 | Page created |

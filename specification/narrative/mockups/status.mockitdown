@@ -1,0 +1,29 @@
+// A small component library used by the language reference to demonstrate `import "status"`.
+// It declares structs only; top-level views in an imported file are ignored (R-IMP-005).
+
+struct StatusPill: View {
+  var text: String
+  var color: Color = .green
+  var body: some View {
+    HStack(spacing: 6) {
+      Circle().fill(color).frame(width: 8, height: 8)
+      Text(text).font(.footnote)
+    }
+    .padding(.horizontal, 10).padding(.vertical, 4)
+    .border(.separator).cornerRadius(12)
+  }
+}
+
+struct Panel: View {
+  var title: String
+  @ViewBuilder var content: Content
+  var body: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      Text(title).font(.headline)
+      content
+    }
+    .padding()
+    .border(.separator)
+    .cornerRadius(8)
+  }
+}

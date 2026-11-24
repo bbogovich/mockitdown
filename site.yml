@@ -1,9 +1,12 @@
 site_name: mockitdown
-site_description: The mockitdown definition.
+site_description: UI mockups written in SwiftUI syntax inside Markdown, rendered as HTML styled after real UI frameworks — definition, specification and implementation.
 docs_dir: docs
 
+# Built with Zensical (ADR-14): `zensical build` reads the generated copy of this file, mkdocs.yml.
+# The classic variant keeps the Material look (coloured header); Zensical defaults to "modern".
 theme:
   name: material
+  variant: classic
   features:
     - navigation.sections
     - navigation.top
@@ -12,31 +15,96 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
+      primary: indigo
       toggle: { icon: material/weather-night, name: Dark mode }
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: indigo
       toggle: { icon: material/weather-sunny, name: Light mode }
+
+# Zensical does not inject the Mermaid runtime; this loader renders the mermaid fences.
+extra_javascript:
+  - specification/javascripts/mermaid-init.js
 
 markdown_extensions:
   - admonition
   - attr_list
+  - md_in_html
   - tables
   - toc:
       permalink: true
   - pymdownx.highlight
+  - pymdownx.details
+  # mockitdown renders the live mockups on the specification pages. It is installed from the
+  # main repository (pip install -e ../mockitdown). Paths are relative to this directory.
+  - mockitdown:
+      default_pack: base
+      default_appearance: auto
+      import_paths: [docs/specification/mockups]
+      asset_paths: [docs/specification]
+      strict: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: mockitdown
+          class: mockitdown
+          format: !!python/name:mockitdown.fence.format
+          validator: !!python/name:mockitdown.fence.validate
 
 nav:
   - Definition:
-      - Home: definition/index.md
+      - Overview: definition/index.md
+      - Problem, users and scope: definition/overview.md
+      - "Features: authoring": definition/features/authoring.md
+      - "Features: rendering and integration": definition/features/rendering.md
+      - Sources: definition/sources.md
+      - Glossary: definition/glossary.md
       - Change history: definition/meta/change-history.md
   - Specification:
-      - Home: specification/index.md
+      - Overview: specification/index.md
+      - System overview: specification/overview.md
+      - Language:
+          - Syntax: specification/language/syntax.md
+          - Semantics: specification/language/semantics.md
+          - Language reference: specification/language/reference.md
+      - Packs:
+          - Pack format: specification/packs/format.md
+          - Pack catalogue: specification/packs/catalogue.md
+      - Rendering:
+          - Markup: specification/rendering/markup.md
+          - Role catalogue: specification/rendering/roles.md
+          - Markup and CSS contract: specification/rendering/css-contract.md
+          - Appearance and devices: specification/rendering/appearance-devices.md
+      - Assets and icons: specification/assets.md
+      - Component imports: specification/imports.md
+      - Integration:
+          - Markdown extension and fence: specification/integration/markdown.md
+          - Site integration guide: specification/integration/site-guide.md
+          - Command line: specification/integration/cli.md
+          - Library API: specification/integration/api.md
+      - Diagnostics: specification/diagnostics.md
+      - Architecture:
+          - Core modules: specification/architecture/core.md
+          - Output and integration modules: specification/architecture/output.md
+          - Model: specification/model.md
+      - Decisions:
+          - Notation and rendering: specification/decisions/notation-rendering.md
+          - Integration and delivery: specification/decisions/integration-delivery.md
+      - Traceability to the prototype: specification/traceability.md
       - Change history: specification/meta/change-history.md
   - Implementation:
-      - Home: implementation/index.md
-      - Architecture: implementation/architecture/index.md
+      - Overview: implementation/index.md
+      - Architecture:
+          - Overview and data flow: implementation/architecture/index.md
+          - Syntax: implementation/architecture/syntax.md
+          - Evaluation: implementation/architecture/evaluate.md
+          - Packs: implementation/architecture/packs.md
+          - Rendering: implementation/architecture/render.md
+          - Styles and assets: implementation/architecture/styles-assets.md
+          - Markdown integration: implementation/architecture/markdown.md
+          - Command line: implementation/architecture/cli.md
+      - Testing: implementation/testing.md
+      - Pack authoring guide: implementation/pack-authoring.md
+      - Build and publish: implementation/build-publish.md

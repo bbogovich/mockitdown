@@ -79,7 +79,11 @@
         "requirements": {
           "dir": "requirements",
           "file": "requirement.md",
-          "heading": "### {id} \u2014 {title}"
+          "heading": "### {id} \u2014 {title}",
+          "render": "clauses",
+          "render_files": [
+            "TC-*.md"
+          ]
         },
         "architecture": {
           "dir": "architecture",

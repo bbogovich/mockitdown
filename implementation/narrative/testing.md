@@ -1,0 +1,55 @@
+---
+title: Testing
+impl_version: 0.1.0
+status: draft
+updated: 2026-11-24
+page_id: IMPL.TEST
+---
+
+# Testing
+
+Tests use the standard library's `unittest` (no test dependency). Run them from the repository
+root:
+
+```sh
+.venv/bin/python -m unittest discover -s tests -t .
+```
+
+`tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
+errors) and `diags(src, **options)`.
+
+## Test catalogue
+
+| ID | Module | Covers | Requirements (test cases) |
+|---|---|---|---|
+| IT-1 | `tests/test_syntax.py` | lexing and parsing: top-level forms, modifier chains across lines, trailing and labelled closures, closure parameters and interpolation, if/else and ranges, `#Preview`, comments and `;`, located errors | R-LANG-001.TC-1, R-LANG-002.TC-1, R-LANG-003.TC-1, R-LANG-005.TC-1, R-LANG-007.TC-1, R-LANG-009.TC-1 |
+| IT-2 | `tests/test_render.py` | evaluation and rendering: struct components with slots and defaults, `ForEach` with tuples, if/ternary, modifiers to style and data, navigation and toolbar, `TabView`, alerts, unknown elements and modifiers, syntax error block, options and `@Screen`, Elements table, imports and assets, escaping, stylesheet scaling and scoping | R-LANG-004.TC-1, R-EVAL-003.TC-1, R-EVAL-005.TC-1, R-EVAL-006.TC-1, R-EVAL-007.TC-1, R-EVAL-009.TC-1, R-EVAL-010.TC-1, R-REND-004.TC-1, R-REND-005.TC-1, R-REND-009.TC-1, R-REND-010.TC-1, R-DEV-004.TC-1, R-ASSET-003.TC-1, R-IMP-005.TC-1, R-DIAG-005.TC-1 |
+| IT-3 | `tests/test_packs.py` | the pack contract for every pack (built-in and future): roles, scoped CSS, no appearance branching, light/dark tokens, unique modules, every element renders, full stylesheet | R-PACK-004.TC-1, R-PACK-005.TC-1, R-PACK-006.TC-1, R-PACK-007.TC-1 |
+| IT-4 | `tests/test_examples.py` `ExampleSiteTests` | end to end through Python-Markdown: every page of `examples/site/docs` converts with **no** mockitdown error or warning, renders one figure per fence, and carries the `<style data-mockitdown>` element | F-14, R-MDX-001, R-MDX-004 |
+| IT-5 | `tests/test_examples.py` `ZensicalBuildTests` | builds the example site with `zensical build --clean` (skipped when Zensical is not installed; set `ZENSICAL` to its path) | F-14.AC2, R-MDX-001.C3 |
+
+## The example site as fixture
+
+`examples/site/` is both the demo and the end-to-end test (F-14): one page per pack, a language
+tour, a custom-components page with an imported library (`docs/mockups/shared/kpi.mockitdown`) and
+images under `docs/assets/images/`. Its `mkdocs.yml` sets `strict: true`, so a broken example also
+fails the site build. When adding a pack or a feature, add an example to the relevant page: the
+test suite then covers it without new test code.
+
+## Gaps
+
+- No visual regression: the fidelity of pack CSS is reviewed by eye on the example site.
+- Several requirements are verified only through the example site (determinism R-REND-007, safety
+  R-REND-006, icon resolution R-ASSET-005, CLI behaviour R-CLI); dedicated unit tests would make
+  their test cases explicit.
+- `ZensicalBuildTests` builds the example site with a cleared `.cache` and asserts that the built
+  tour page has a clean title, exactly one mockitdown `<style>` and frame-unit rules;
+  `CssInjectionTests` reproduces Zensical's extra `convert()` calls without a build.
+
+
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.1.0 | 2026-11-24 | Page written |
+| 0.1.1 | 2026-11-24 | ZensicalBuildTests and CssInjectionTests now cover CSS delivery |
