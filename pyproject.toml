@@ -12,13 +12,31 @@ license = "MIT"
 authors = [{ name = "Brian Bogovich" }]
 keywords = ["mockup", "wireframe", "markdown", "mkdocs", "zensical", "swiftui", "fluent", "material", "sapui5"]
 classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Framework :: MkDocs",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Documentation",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Software Development :: User Interfaces",
   "Topic :: Text Processing :: Markup :: Markdown",
 ]
 # The core (parser, renderer, CLI) has no runtime dependencies. The Markdown extension needs
 # Python-Markdown, and the fence needs pymdown-extensions' superfences: the `markdown` extra.
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/bbogovich/mockitdown"
+Documentation = "https://bbogovich.github.io/mockitdown/"
+Demos = "https://bbogovich.github.io/mockitdown/demos/"
+Source = "https://github.com/bbogovich/mockitdown"
+Issues = "https://github.com/bbogovich/mockitdown/issues"
 
 [project.optional-dependencies]
 markdown = ["Markdown>=3.6,<4", "pymdown-extensions>=10,<14"]

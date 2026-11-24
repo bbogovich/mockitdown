@@ -1,8 +1,15 @@
 # mockitdown
 
 UI mockups written in **SwiftUI syntax** inside Markdown, rendered at build time as HTML and CSS that
-look like a real UI framework: **SwiftUI**, **Fluent (WinUI 3)**, **Material UI**, **Angular
-Material**, **SAPUI5 (Fiori Horizon)**, **Bootstrap** and **shadcn/ui**, in light and dark.
+look like a real UI framework, in light and dark: **SwiftUI** (iOS, iPadOS, macOS), **Fluent (WinUI 3)**,
+**Material UI**, **Angular Material**, **SAPUI5 (Fiori Horizon)**, **Bootstrap**, **shadcn/ui**,
+**Android (Material 3)**, **GTK 4 / libadwaita**, **Qt 6** and **KDE Plasma** — plus retro systems
+from the Xerox Star to Windows Vista. Charts, spreadsheets, boards, numbered callouts, pointers and
+drag-select overlays are built in.
+
+**[Demos](https://bbogovich.github.io/mockitdown/demos/)** ·
+**[Documentation](https://bbogovich.github.io/mockitdown/)** ·
+**[Source](https://github.com/bbogovich/mockitdown)**
 
 ````markdown
 ```mockitdown device="phone" appearance="both"
@@ -28,10 +35,15 @@ NavigationStack {
 ## Install and configure
 
 ```bash
-pip install "mockitdown[markdown]"        # or: pip install -e ".[markdown]" from a checkout
+pip install "mockitdown[markdown]"
+# not yet on PyPI? install from GitHub:
+pip install "mockitdown[markdown] @ git+https://github.com/bbogovich/mockitdown@main"
 ```
 
-`mkdocs.yml` (read by both Zensical and MkDocs):
+Python 3.11 or later. The core has no dependencies; the `markdown` extra adds Python-Markdown and
+pymdown-extensions for the MkDocs / Zensical integration.
+
+`mkdocs.yml` (read by both MkDocs and Zensical; any theme, Material recommended):
 
 ```yaml
 markdown_extensions:

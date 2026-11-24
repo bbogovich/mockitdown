@@ -45,3 +45,5 @@ examples/site/site/
 
 # Zensical render cache
 .cache/
+/build/
+/dist/
