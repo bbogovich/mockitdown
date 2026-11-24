@@ -20,7 +20,7 @@ DEVICES: dict[str, tuple[int, int]] = {
 #: Fence attributes accepted on a ```mockitdown fence, with their types.
 FENCE_OPTIONS: dict[str, type] = {
     "pack": str, "device": str, "appearance": str, "width": int, "height": int, "chrome": str,
-    "title": str, "id": str, "caption": bool, "elements": bool, "url": str, "source": bool,
+    "title": str, "id": str, "caption": bool, "elements": bool, "url": str, "source": bool, "window": str,
 }
 
 
@@ -46,6 +46,8 @@ class RenderOptions:
     elements: bool = False
     #: Append the block's source in a collapsible <details> under the figure.
     source: bool = False
+    #: Window kind for packs that draw window frames (e.g. "dialog", "inactive"); emitted as data-window.
+    window: str | None = None
     #: Address shown by browser chrome.
     url: str | None = None
     import_paths: tuple[Path, ...] = ()

@@ -1,0 +1,886 @@
+{
+  "id": "winxp",
+  "name": "Windows XP (Luna)",
+  "framework": "Windows XP · Luna Blue visual style (Win32 common controls v6, shell)",
+  "version": "Windows XP (2001)",
+  "modules": [
+    "WindowsXP",
+    "WinXP",
+    "Luna"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "tablet": "window",
+    "phone": "none"
+  },
+  "sizes": {
+    "desktop": [
+      800,
+      600
+    ],
+    "wide": [
+      1024,
+      768
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ece9d8",
+      "surface": "#ffffff",
+      "surface-2": "#f4f3ee",
+      "surface-3": "#e3e1d3",
+      "fg": "#000000",
+      "fg-2": "#444444",
+      "fg-3": "#808080",
+      "border": "#aca899",
+      "divider": "#d0d0bf",
+      "accent": "#316ac5",
+      "on-accent": "#ffffff",
+      "accent-soft": "#c1d2ee",
+      "danger": "#d7362b",
+      "warning": "#e68b2c",
+      "success": "#2e8b2e",
+      "info": "#316ac5",
+      "field-bg": "#ffffff",
+      "field-border": "#7f9db9",
+      "scrim": "rgb(0 0 0 / 0.06)",
+      "shadow-1": "1px 1px 2px rgb(0 0 0 / 0.25)",
+      "shadow-2": "2px 2px 4px rgb(0 0 0 / 0.35)",
+      "shadow-3": "3px 4px 10px rgb(0 0 0 / 0.45)",
+      "radius-s": "3px",
+      "radius-m": "3px",
+      "radius-l": "4px",
+      "radius-xl": "8px",
+      "radius-pill": "999px",
+      "font": "Tahoma, Verdana, \"Segoe UI\", sans-serif",
+      "font-title": "\"Trebuchet MS\", Tahoma, Verdana, sans-serif",
+      "font-mono": "\"Lucida Console\", \"Courier New\", Consolas, monospace",
+      "font-size": "11px",
+      "line-height": "1.3",
+      "icon-stroke": "1.6",
+      "icon-size": "16px",
+      "control-h": "23px",
+      "gap": "6px",
+      "pad": "8px",
+      "chrome-bg": "#0058ee",
+      "chrome-fg": "#ffffff",
+      "link": "#0000ee",
+      "fg-disabled": "#aca899",
+      "btn-disabled-bg": "#f5f4ea",
+      "btn-disabled-border": "#c9c7ba",
+      "group-title": "#0046d5",
+      "task-link": "#215dc6",
+      "task-link-special": "#215dc6",
+      "title-bg": "linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0066ff 88%, #0066ff 93%, #005bff 95%, #003dd7 96%, #003dd7 100%)",
+      "title-bg-inactive": "linear-gradient(180deg, #a9c4f5 0%, #7e9ee3 8%, #7b97e0 40%, #8aa8ee 88%, #8aa8ee 93%, #7f9fe8 95%, #6e8fd8 96%, #6e8fd8 100%)",
+      "title-fg": "#ffffff",
+      "title-fg-inactive": "#d8e4f8",
+      "title-shadow": "#0f1089",
+      "frame-1": "#0831d9",
+      "frame-2": "#166aee",
+      "frame-3": "#001ea0",
+      "frame-4": "#0855dd",
+      "frame-inactive": "#7a96df",
+      "cap-blue": "radial-gradient(circle at 90% 90%, #0054e9 0%, #2263d5 55%, #4479e4 70%, #a3bbec 90%, #ffffff 100%)",
+      "cap-red": "radial-gradient(circle at 90% 90%, #cc4600 0%, #dc6527 55%, #cd7546 70%, #ffccb2 90%, #ffffff 100%)",
+      "cap-border": "#ffffff",
+      "btn-bg": "linear-gradient(180deg, #ffffff 0%, #ecebe5 86%, #d8d0c4 100%)",
+      "btn-bg-pressed": "linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%)",
+      "btn-border": "#003c74",
+      "btn-fg": "#000000",
+      "btn-hover": "inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a",
+      "btn-default": "inset -1px 1px #cee7ff, inset 1px 2px #98b8ea, inset -2px 2px #bcd4f6, inset 1px -1px #89ade4, inset 2px -2px #89ade4",
+      "check-border": "#1c5180",
+      "check-bg": "linear-gradient(135deg, #dcdcd7 0%, #ffffff 100%)",
+      "check-mark": "#21a121",
+      "radio-dot": "radial-gradient(circle at 35% 35%, #a7ec9c 0%, #45c83b 45%, #21a121 70%, #157a15 100%)",
+      "tab-border": "#919b9c",
+      "tab-bg": "linear-gradient(180deg, #ffffff 0%, #ecebe6 100%)",
+      "tab-panel": "linear-gradient(180deg, #fcfcfe 0%, #f4f3ee 100%)",
+      "tab-hot": "#ffc83c",
+      "tab-hot-2": "#e68b2c",
+      "header-bg": "linear-gradient(180deg, #ffffff 0%, #f6f5f0 75%, #e2decd 88%, #d6d2c2 100%)",
+      "header-sep": "#c7c5b2",
+      "sorted-col": "#f7f7f7",
+      "combo-btn": "linear-gradient(180deg, #c6d6fb 0%, #b2c8f6 50%, #a7bff4 51%, #bcd0f9 100%)",
+      "combo-btn-border": "#bad1fc",
+      "combo-arrow": "#4d6185",
+      "progress-chunks": "repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 2px, transparent 2px, transparent 10px), linear-gradient(180deg, #acedad 0%, #7be47d 14%, #4cda50 28%, #2ed330 42%, #42d845 57%, #76e275 71%, #8fe791 85%, #ffffff 100%)",
+      "progress-border": "#686868",
+      "menu-bg": "#ffffff",
+      "menu-border": "#aca899",
+      "menu-hot": "#316ac5",
+      "menu-hot-fg": "#ffffff",
+      "rebar-bg": "linear-gradient(180deg, #f9f8f3 0%, #ece9d8 100%)",
+      "rebar-line": "#d5d2c1",
+      "tooltip-bg": "#ffffe1",
+      "tooltip-fg": "#000000",
+      "tooltip-border": "#000000",
+      "taskbar-bg": "linear-gradient(180deg, #1f2f86 0%, #3165c4 3%, #3682e5 6%, #4490e6 10%, #3883e5 12%, #2b71e0 15%, #2663da 18%, #235bd6 20%, #2258d5 23%, #2157d6 38%, #245ddb 54%, #2562df 86%, #245fdc 89%, #2158d4 92%, #1d4ec0 95%, #1941a5 98%)",
+      "tray-bg": "linear-gradient(180deg, #0c59b9 1%, #139ee9 6%, #18b5f2 10%, #139beb 14%, #1290e8 19%, #0d8dea 63%, #0d9ff1 81%, #0f9eed 88%, #119be9 91%, #1392e2 94%, #137ed7 97%, #095bc9 100%)",
+      "tray-line": "#1042af",
+      "start-bg": "radial-gradient(ellipse at 30% 0%, #7ed07a 0%, transparent 45%), linear-gradient(180deg, #3e9c3e 0%, #3a943a 40%, #318c31 75%, #237a23 100%)",
+      "taskbtn-bg": "linear-gradient(180deg, #5c9bf6 0%, #3c81f3 12%, #3a7ff1 80%, #2f6ee3 100%)",
+      "taskbtn-active": "linear-gradient(180deg, #1c48aa 0%, #1e52b7 20%, #1e52b7 100%)",
+      "startmenu-head": "linear-gradient(180deg, #1868ce 0%, #0e60cb 12%, #1164cf 32%, #1b6cd3 47%, #2476dc 60%, #3482e3 77%, #428ee9 90%, #4791eb 100%)",
+      "startmenu-foot": "linear-gradient(180deg, #4282d6 0%, #3b85e0 4%, #418ae3 6%, #418ae3 18%, #3c87e2 20%, #3786e4 39%, #3482e3 41%, #2e7ee1 49%, #2374df 63%, #2072db 81%, #196edb 90%, #1d6ddc 92%, #3a84e4 100%)",
+      "startmenu-right": "#d3e5fa",
+      "startmenu-right-line": "#95bdee",
+      "startmenu-orange": "#da884a",
+      "taskpane-bg": "linear-gradient(180deg, #7ba2e7 0%, #6375d6 100%)",
+      "taskpane-head": "linear-gradient(90deg, #ffffff 0%, #c6d3f7 100%)",
+      "taskpane-head-special": "linear-gradient(90deg, #0c32a5 0%, #2e5ccf 60%, #2c5bc5 100%)",
+      "taskpane-body": "#d6dff7",
+      "taskpane-body-special": "#eff3ff",
+      "taskpane-title": "#215dc6",
+      "desktop-bg": "radial-gradient(ellipse 120% 55% at 30% 105%, #63a83a 0%, #4f9a2c 45%, #3a7f1f 62%, transparent 63%), radial-gradient(ellipse 90% 40% at 95% 100%, #4d9327 0%, #3f8a22 60%, transparent 61%), radial-gradient(ellipse 30% 12% at 22% 28%, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0) 100%), radial-gradient(ellipse 22% 9% at 70% 18%, rgb(255 255 255 / 0.7) 0%, rgb(255 255 255 / 0) 100%), linear-gradient(180deg, #2a62c9 0%, #4a8be0 35%, #8dbcf0 70%, #b9d6f5 100%)",
+      "welcome-top": "#00309c",
+      "welcome-mid": "#5a7edc",
+      "welcome-bottom": "#00309c",
+      "welcome-line": "linear-gradient(90deg, rgb(255 255 255 / 0) 0%, #f99736 40%, #ffffff 60%, rgb(255 255 255 / 0) 100%)",
+      "fs-display": "32px",
+      "fw-display": "400",
+      "fs-largeTitle": "24px",
+      "fw-largeTitle": "400",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "15px",
+      "fw-title2": "700",
+      "fs-title3": "13px",
+      "fw-title3": "700",
+      "fs-headline": "11px",
+      "fw-headline": "700",
+      "fs-subheadline": "11px",
+      "fw-subheadline": "400",
+      "fs-body": "11px",
+      "fw-body": "400",
+      "fs-callout": "11px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "10px",
+      "fw-caption": "400",
+      "fs-caption2": "9px",
+      "fw-caption2": "400",
+      "fs-overline": "10px",
+      "fw-overline": "700",
+      "color-red": "#d7362b",
+      "color-orange": "#e68b2c",
+      "color-yellow": "#f5c518",
+      "color-green": "#2e8b2e",
+      "color-mint": "#3fbf8f",
+      "color-teal": "#2ba3a3",
+      "color-cyan": "#18b5f2",
+      "color-blue": "#316ac5",
+      "color-indigo": "#3a4ec0",
+      "color-purple": "#8c5ac8",
+      "color-pink": "#d85fa8",
+      "color-brown": "#9c6b3c",
+      "color-gray": "#808080",
+      "chart-1": "#316ac5",
+      "chart-2": "#3ea23e",
+      "chart-3": "#e68b2c",
+      "chart-4": "#8c5ac8",
+      "chart-5": "#d7362b",
+      "chart-6": "#2ba3a3",
+      "callout": "#e68b2c",
+      "on-callout": "#ffffff",
+      "marquee": "#316ac5",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#0000ff",
+      "code-str": "#a31515",
+      "code-num": "#098658",
+      "code-comment": "#008000",
+      "code-fn": "#795e26",
+      "code-type": "#2b91af",
+      "term-bg": "#000000",
+      "term-fg": "#c0c0c0",
+      "term-prompt": "#c0c0c0",
+      "grid-line": "#d0d0bf",
+      "taskpane-chevron": "radial-gradient(circle at 40% 30%, #ffffff 30%, #dce5fb 100%)",
+      "taskpane-chevron-border": "#b7c6ee"
+    },
+    "dark": {
+      "bg": "#2b2b2b",
+      "surface": "#1c1c1c",
+      "surface-2": "#262626",
+      "surface-3": "#3a3a3a",
+      "fg": "#eeeeee",
+      "fg-2": "#bdbdbd",
+      "fg-3": "#8a8a8a",
+      "border": "#5a5a5a",
+      "divider": "#444444",
+      "accent": "#e07b1f",
+      "on-accent": "#ffffff",
+      "accent-soft": "#4a3520",
+      "danger": "#ff6b5e",
+      "warning": "#f5a623",
+      "success": "#59c459",
+      "info": "#5c9bf6",
+      "field-bg": "#161616",
+      "field-border": "#6b6b6b",
+      "scrim": "rgb(0 0 0 / 0.4)",
+      "shadow-1": "1px 1px 2px rgb(0 0 0 / 0.6)",
+      "shadow-2": "2px 2px 4px rgb(0 0 0 / 0.7)",
+      "shadow-3": "3px 4px 10px rgb(0 0 0 / 0.8)",
+      "chrome-bg": "#111111",
+      "chrome-fg": "#ffffff",
+      "link": "#8ab4ff",
+      "fg-disabled": "#6a6a6a",
+      "btn-disabled-bg": "#333333",
+      "btn-disabled-border": "#4a4a4a",
+      "group-title": "#ffb060",
+      "task-link": "#ffd28a",
+      "task-link-special": "#ffd28a",
+      "title-bg": "linear-gradient(180deg, #6a6a6a 0%, #2a2a2a 8%, #1a1a1a 40%, #0a0a0a 88%, #000000 93%, #1a1a1a 95%, #000000 96%, #000000 100%)",
+      "title-bg-inactive": "linear-gradient(180deg, #8a8a8a 0%, #555555 8%, #4a4a4a 40%, #404040 88%, #3a3a3a 100%)",
+      "title-fg": "#ffffff",
+      "title-fg-inactive": "#bbbbbb",
+      "title-shadow": "#000000",
+      "frame-1": "#4a4a4a",
+      "frame-2": "#2a2a2a",
+      "frame-3": "#000000",
+      "frame-4": "#1c1c1c",
+      "frame-inactive": "#555555",
+      "cap-blue": "radial-gradient(circle at 90% 90%, #000000 0%, #1f1f1f 55%, #3a3a3a 70%, #8a8a8a 90%, #dddddd 100%)",
+      "cap-red": "radial-gradient(circle at 90% 90%, #a83400 0%, #c9541a 55%, #d0703a 70%, #ffb38a 90%, #ffffff 100%)",
+      "cap-border": "#bbbbbb",
+      "btn-bg": "linear-gradient(180deg, #5a5a5a 0%, #3c3c3c 86%, #2c2c2c 100%)",
+      "btn-bg-pressed": "linear-gradient(180deg, #1c1c1c 0%, #2a2a2a 10%, #303030 100%)",
+      "btn-border": "#0a0a0a",
+      "btn-fg": "#f2f2f2",
+      "btn-hover": "inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a",
+      "btn-default": "inset -1px 1px #ffd9a8, inset 1px 2px #e8a65a, inset -2px 2px #f0b56e, inset 1px -1px #d98c34, inset 2px -2px #d98c34",
+      "check-border": "#9a9a9a",
+      "check-bg": "linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%)",
+      "check-mark": "#59c459",
+      "tab-border": "#5a5a5a",
+      "tab-bg": "linear-gradient(180deg, #4a4a4a 0%, #333333 100%)",
+      "tab-panel": "linear-gradient(180deg, #303030 0%, #262626 100%)",
+      "header-bg": "linear-gradient(180deg, #4a4a4a 0%, #383838 75%, #2a2a2a 100%)",
+      "header-sep": "#555555",
+      "sorted-col": "#222222",
+      "combo-btn": "linear-gradient(180deg, #6a6a6a 0%, #4a4a4a 50%, #3c3c3c 51%, #505050 100%)",
+      "combo-btn-border": "#777777",
+      "combo-arrow": "#eeeeee",
+      "progress-chunks": "repeating-linear-gradient(90deg, #1c1c1c 0px, #1c1c1c 2px, transparent 2px, transparent 10px), linear-gradient(180deg, #acedad 0%, #7be47d 14%, #4cda50 28%, #2ed330 42%, #42d845 57%, #76e275 71%, #8fe791 85%, #d0f5d0 100%)",
+      "progress-border": "#7a7a7a",
+      "menu-bg": "#262626",
+      "menu-border": "#5a5a5a",
+      "menu-hot": "#e07b1f",
+      "menu-hot-fg": "#ffffff",
+      "rebar-bg": "linear-gradient(180deg, #3a3a3a 0%, #2b2b2b 100%)",
+      "rebar-line": "#1a1a1a",
+      "tooltip-bg": "#3a3a2a",
+      "tooltip-fg": "#f2f2d8",
+      "tooltip-border": "#9a9a80",
+      "taskbar-bg": "linear-gradient(180deg, #5a5a5a 0%, #2a2a2a 6%, #1a1a1a 20%, #101010 60%, #000000 100%)",
+      "tray-bg": "linear-gradient(180deg, #4a4a4a 0%, #2c2c2c 10%, #222222 60%, #111111 100%)",
+      "tray-line": "#000000",
+      "taskbtn-bg": "linear-gradient(180deg, #5a5a5a 0%, #3a3a3a 12%, #333333 80%, #2a2a2a 100%)",
+      "taskbtn-active": "linear-gradient(180deg, #0a0a0a 0%, #141414 20%, #141414 100%)",
+      "startmenu-head": "linear-gradient(180deg, #555555 0%, #2a2a2a 30%, #111111 100%)",
+      "startmenu-foot": "linear-gradient(180deg, #444444 0%, #222222 40%, #0a0a0a 100%)",
+      "startmenu-right": "#333333",
+      "startmenu-right-line": "#555555",
+      "startmenu-orange": "#e07b1f",
+      "taskpane-bg": "linear-gradient(180deg, #3a3a3a 0%, #1e1e1e 100%)",
+      "taskpane-head": "linear-gradient(90deg, #4a4a4a 0%, #2f2f2f 100%)",
+      "taskpane-head-special": "linear-gradient(90deg, #000000 0%, #2a2a2a 100%)",
+      "taskpane-body": "#2a2a2a",
+      "taskpane-body-special": "#222222",
+      "taskpane-title": "#ffd28a",
+      "desktop-bg": "radial-gradient(ellipse 120% 55% at 30% 105%, #1f3a18 0%, #1a3214 45%, #132810 62%, transparent 63%), radial-gradient(ellipse 90% 40% at 95% 100%, #18300f 0%, #14290d 60%, transparent 61%), linear-gradient(180deg, #05070f 0%, #0b1530 50%, #1a2a4a 100%)",
+      "welcome-top": "#111111",
+      "welcome-mid": "#2e2e2e",
+      "welcome-bottom": "#111111",
+      "welcome-line": "linear-gradient(90deg, rgb(255 255 255 / 0) 0%, #e07b1f 40%, #aaaaaa 60%, rgb(255 255 255 / 0) 100%)",
+      "callout": "#e68b2c",
+      "code-bg": "#1c1c1c",
+      "code-fg": "#eeeeee",
+      "code-kw": "#7ab0ff",
+      "code-str": "#e8a87c",
+      "code-num": "#b5cea8",
+      "code-comment": "#6a9955",
+      "code-fn": "#dcdcaa",
+      "code-type": "#4ec9b0",
+      "grid-line": "#444444",
+      "chart-1": "#5c9bf6",
+      "chart-2": "#59c459",
+      "chart-3": "#f5a623",
+      "chart-4": "#b48ae6",
+      "chart-5": "#ff6b5e",
+      "chart-6": "#40c4c4",
+      "taskpane-chevron": "radial-gradient(circle at 40% 30%, #5a5a5a 30%, #333333 100%)",
+      "taskpane-chevron-border": "#6a6a6a"
+    }
+  },
+  "fonts": {
+    "caption": "caption",
+    "captionText": "body",
+    "menuText": "body",
+    "messageText": "body",
+    "dialogTitle": "title3",
+    "wizardTitle": "headline",
+    "welcome": "largeTitle",
+    "heading": "title2"
+  },
+  "icons": {
+    "my.computer": "app",
+    "computer": "app",
+    "my.documents": "folder",
+    "my.pictures": "photo",
+    "my.music": "music.note",
+    "control.panel": "gear",
+    "network": "globe",
+    "internet": "globe",
+    "email": "envelope",
+    "recycle.bin": "trash",
+    "help": "questionmark.circle",
+    "run": "play",
+    "log.off": "key",
+    "turn.off": "power",
+    "back": "arrow.left",
+    "forward": "arrow.right",
+    "up": "arrow.up",
+    "folders": "folder",
+    "views": "square.grid.2x2",
+    "go": "arrow.right",
+    "printer": "printer",
+    "user.accounts": "person.2",
+    "security": "shield",
+    "notepad": "doc",
+    "paint": "pencil",
+    "media.player": "play",
+    "messenger": "person.2",
+    "command.prompt": "square"
+  },
+  "elements": {
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "active",
+        "inactive",
+        "dialog",
+        "tool"
+      ],
+      "doc": "A Luna window drawn inside a Desktop: blue title bar with min/max/close. Window(\"My Computer\", systemImage: \"computer\") { … } · .variant(.inactive | .dialog | .tool)"
+    },
+    "DialogBody": {
+      "role": "vstack",
+      "variants": [
+        "help"
+      ],
+      "doc": "Root of a dialog screen: the frame's title bar keeps only Close (and ? with .variant(.help))."
+    },
+    "Desktop": {
+      "role": "canvas",
+      "doc": "The desktop with a sky-and-hill wallpaper; place windows and icons with .position(x:y:)"
+    },
+    "DesktopIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "DesktopIcon(\"My Computer\", systemImage: \"computer\") — 32 px icon over a white shadowed label; .selected()"
+    },
+    "Taskbar": {
+      "role": "hstack",
+      "doc": "The blue taskbar: StartButton, QuickLaunch, TaskbarButton…, Spacer, NotificationArea"
+    },
+    "StartButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "start",
+        "systemImage": "flag"
+      },
+      "doc": "The green Start button (.selected() while the menu is open)"
+    },
+    "QuickLaunch": {
+      "role": "hstack",
+      "doc": "Quick Launch toolbar: small IconButtons beside Start"
+    },
+    "TaskbarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "doc": "A window's taskbar button; .selected() for the active window"
+    },
+    "NotificationArea": {
+      "role": "hstack",
+      "doc": "The light-blue tray at the right of the taskbar: TrayIcon… Clock"
+    },
+    "SystemTray": {
+      "role": "hstack",
+      "doc": "Alias of NotificationArea"
+    },
+    "TrayIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "A 16 px notification icon"
+    },
+    "Clock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "content": "10:42 AM"
+      },
+      "doc": "Taskbar clock"
+    },
+    "Balloon": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "Notification balloon pointing at its child: Balloon(\"Updates are ready\", message: \"…\") { TrayIcon(\"shield\") }"
+    },
+    "StartMenu": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Two-column Start menu: StartMenu(\"Alex\", avatar: \"Alex\") { StartMenuPrograms{…} StartMenuPlaces{…} } actions: { LogOffButton() TurnOffButton() }"
+    },
+    "StartMenuPrograms": {
+      "role": "vstack",
+      "doc": "The white left column of the Start menu (pinned and frequent programs)"
+    },
+    "StartMenuPlaces": {
+      "role": "vstack",
+      "doc": "The light-blue right column (My Documents, Control Panel, Help, Search, Run…)"
+    },
+    "StartMenuItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "StartMenuItem(\"Internet\", subtitle: \"Web browser\", systemImage: \"globe\")"
+    },
+    "AllProgramsButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "All Programs"
+      },
+      "doc": "All Programs ▸ with the green arrow"
+    },
+    "LogOffButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "Log Off",
+        "systemImage": "key"
+      },
+      "doc": "Start menu footer: Log Off"
+    },
+    "TurnOffButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "Turn Off Computer",
+        "systemImage": "power"
+      },
+      "doc": "Start menu / Welcome screen: the red power button"
+    },
+    "WelcomeScreen": {
+      "role": "vstack",
+      "doc": "The blue Welcome (log-on) screen: header band, centre, footer band"
+    },
+    "WelcomeBand": {
+      "role": "hstack",
+      "doc": "Dark blue band at the top or bottom of the Welcome screen"
+    },
+    "UserTile": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "A user picture and name on the Welcome screen: UserTile(\"Alex\", subtitle: \"Type your password\", image: …)"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "A classic menu bar: MenuBarItem(\"File\")…"
+    },
+    "MenuBarItem": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "plain"
+      },
+      "doc": "A menu bar title; .selected() when its menu is open"
+    },
+    "ToolBar": {
+      "role": "toolbar",
+      "doc": "Explorer's Standard Buttons toolbar (flat buttons, raised on hover)"
+    },
+    "ToolBarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "toolbar"
+      },
+      "doc": "ToolBarButton(\"Search\", systemImage: \"search\")"
+    },
+    "BackButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "Back",
+        "systemImage": "arrow.left",
+        "variant": "toolbar"
+      },
+      "doc": "Green round Back arrow"
+    },
+    "ForwardButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "arrow.right",
+        "variant": "toolbar"
+      },
+      "doc": "Green round Forward arrow"
+    },
+    "UpButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "arrow.up",
+        "variant": "toolbar"
+      },
+      "doc": "Up one level"
+    },
+    "AddressBar": {
+      "role": "select",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "label": "Address",
+        "systemImage": "folder"
+      },
+      "doc": "Address combo with its label: AddressBar(\"C:\\\\Documents and Settings\")"
+    },
+    "GoButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "Go",
+        "systemImage": "arrow.right",
+        "variant": "toolbar"
+      },
+      "doc": "The green Go arrow beside the address bar"
+    },
+    "TaskPane": {
+      "role": "vstack",
+      "doc": "Explorer's blue common-tasks pane holding TaskPaneSections"
+    },
+    "TaskPaneSection": {
+      "role": "accordion",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "expanded": true
+      },
+      "variants": [
+        "standard",
+        "special"
+      ],
+      "doc": "Collapsible task box: TaskPaneSection(\"File and Folder Tasks\") { TaskLink(…) } · .variant(.special) for the dark-blue header"
+    },
+    "TaskLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "TaskLink(\"Rename this file\", systemImage: \"pencil\")"
+    },
+    "ListView": {
+      "role": "table",
+      "variants": [
+        "details",
+        "report"
+      ],
+      "doc": "Details view: columns:, rows:, sortColumn:, selectedRows:"
+    },
+    "IconView": {
+      "role": "grid",
+      "doc": "Icons / Tiles view: a grid of FileIcon"
+    },
+    "FileIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "icons",
+        "tiles"
+      ],
+      "doc": "FileIcon(\"Budget.xls\", systemImage: \"doc\") · .variant(.tiles) puts the name beside a 32 px icon"
+    },
+    "ListBox": {
+      "role": "list",
+      "doc": "Single-selection list box with a sunken border"
+    },
+    "TreeView": {
+      "role": "tree",
+      "doc": "Folders tree with dotted lines and +/− boxes"
+    },
+    "TreeViewItem": {
+      "role": "treeitem",
+      "params": [
+        "label"
+      ],
+      "doc": "TreeViewItem(\"My Documents\", systemImage: \"folder\")"
+    },
+    "StatusBar": {
+      "role": "hstack",
+      "doc": "Window status bar of sunken StatusBarPanels"
+    },
+    "StatusBarPanel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "One status bar field"
+    },
+    "TabControl": {
+      "role": "tabs",
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "Property-sheet tabs with the orange hot-track line on the selected tab"
+    },
+    "TabPage": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "doc": "TabPage(\"General\") { … }"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "default",
+        "standard"
+      ],
+      "doc": "75×23 rounded button; .variant(.default) draws the blue default-button glow, .state(.hover) the orange one"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The dialog's default (Enter) button"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "13 px box with the green check: CheckBox(\"Show hidden files\", checked: true)"
+    },
+    "OptionButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio button with the green dot (also RadioButton)"
+    },
+    "RadioButtonList": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "RadioButtonList(\"View\", items: […], selection:)"
+    },
+    "Frame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Group box: thin rounded frame with a blue caption (also GroupBox)"
+    },
+    "TextBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "Edit control with the #7f9db9 border"
+    },
+    "PasswordBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "password"
+      },
+      "doc": "Password edit (black dots)"
+    },
+    "MultilineTextBox": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Multi-line edit control"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Drop-down combo with the blue arrow button: ComboBox(\"Size\", items:, selection:)"
+    },
+    "DropDownList": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Drop-down list (not editable)"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "blocks",
+        "marquee"
+      ],
+      "doc": "Green block progress: ProgressBar(value: 0.6)"
+    },
+    "TrackBar": {
+      "role": "slider",
+      "doc": "Slider with the pointed thumb: TrackBar(value: 30, in: 0...100, ticks: 10)"
+    },
+    "UpDown": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "Spin box: UpDown(\"Copies\", value: 2)"
+    },
+    "DateTimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "doc": "Date picker field with the drop-down arrow"
+    },
+    "MonthCalendar": {
+      "role": "calendar",
+      "doc": "Month calendar with the blue title band"
+    },
+    "SysLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "Hyperlink text control"
+    },
+    "MessageBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "information",
+        "warning",
+        "error",
+        "question"
+      ],
+      "doc": "Modal message box: MessageBox(\"Disk Cleanup\", message: \"…\", systemImage: \"exclamationmark.triangle\", severity: .warning, buttons: [\"OK\"])"
+    },
+    "Wizard": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Wizard page: white header band (title, subtitle:, systemImage:), body, and actions: { < Back · Next > · Cancel }"
+    },
+    "ContextMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "Pop-up menu (white with the #316ac5 highlight)"
+    },
+    "ToolTip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "doc": "Pale yellow tooltip"
+    },
+    "PropertyRow": {
+      "role": "labeled",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "A label: value line in a property sheet"
+    },
+    "BrandGlyph": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "defaults": {
+        "name": "flag"
+      },
+      "doc": "A neutral waving-flag glyph standing in for the system logo (Welcome screen, About boxes)"
+    },
+    "CategoryLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "Control Panel category: CategoryLink(\"Appearance and Themes\", systemImage: \"photo\") — 32 px icon and blue text"
+    }
+  }
+}

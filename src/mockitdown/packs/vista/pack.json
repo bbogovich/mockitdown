@@ -1,0 +1,938 @@
+{
+  "id": "vista",
+  "name": "Windows Vista / 7 (Aero)",
+  "framework": "Windows Vista / Windows 7 · Aero Glass (common controls v6, Explorer, Task Dialog, UAC)",
+  "version": "Windows Vista (2007) – Windows 7 (2009)",
+  "modules": [
+    "WindowsVista",
+    "Vista",
+    "Aero",
+    "Windows7"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "tablet": "window",
+    "phone": "none"
+  },
+  "sizes": {
+    "desktop": [
+      800,
+      600
+    ],
+    "wide": [
+      1024,
+      768
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#f0f0f0",
+      "surface": "#ffffff",
+      "surface-2": "#f7f7f7",
+      "surface-3": "#e5e5e5",
+      "fg": "#000000",
+      "fg-2": "#5a5a5a",
+      "fg-3": "#8c8c8c",
+      "fg-disabled": "#838383",
+      "border": "#a0a0a0",
+      "divider": "#d5dfe5",
+      "accent": "#3399ff",
+      "on-accent": "#ffffff",
+      "accent-soft": "#cce8ff",
+      "danger": "#c4291c",
+      "warning": "#e8a317",
+      "success": "#2f9e2f",
+      "info": "#1f6fc5",
+      "field-bg": "#ffffff",
+      "field-border": "#abadb3",
+      "field-focus": "#3d7bad",
+      "scrim": "rgb(0 0 0 / 0.06)",
+      "shadow-1": "0 1px 3px rgb(0 0 0 / 0.25)",
+      "shadow-2": "0 3px 8px rgb(0 0 0 / 0.3)",
+      "shadow-3": "0 6px 24px rgb(0 0 0 / 0.5)",
+      "radius-s": "3px",
+      "radius-m": "3px",
+      "radius-l": "5px",
+      "radius-xl": "8px",
+      "radius-pill": "999px",
+      "font": "\"Segoe UI\", Tahoma, \"Helvetica Neue\", Arial, sans-serif",
+      "font-mono": "Consolas, \"Lucida Console\", \"Courier New\", monospace",
+      "font-size": "12px",
+      "line-height": "1.35",
+      "icon-stroke": "1.5",
+      "icon-size": "16px",
+      "control-h": "23px",
+      "gap": "6px",
+      "pad": "10px",
+      "chrome-bg": "#87acd0",
+      "chrome-fg": "#000000",
+      "link": "#0066cc",
+      "main-instruction": "#003399",
+      "group-title": "#000000",
+      "glass": "radial-gradient(ellipse 55% 140% at 12% -30%, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 65%), repeating-linear-gradient(118deg, rgb(255 255 255 / 0) 0px, rgb(255 255 255 / 0) 70px, rgb(255 255 255 / 0.16) 70px, rgb(255 255 255 / 0.16) 120px, rgb(255 255 255 / 0) 120px, rgb(255 255 255 / 0) 210px), linear-gradient(180deg, #b3cde4 0%, #8db1d4 45%, #7ea5cb 100%)",
+      "glass-inactive": "radial-gradient(ellipse 55% 140% at 12% -30%, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0) 65%), repeating-linear-gradient(118deg, rgb(255 255 255 / 0) 0px, rgb(255 255 255 / 0) 70px, rgb(255 255 255 / 0.12) 70px, rgb(255 255 255 / 0.12) 120px, rgb(255 255 255 / 0) 120px, rgb(255 255 255 / 0) 210px), linear-gradient(180deg, #dbe3eb 0%, #c8d3de 100%)",
+      "glass-edge": "rgb(0 0 0 / 0.62)",
+      "glass-inner": "rgb(255 255 255 / 0.6)",
+      "title-fg": "#000000",
+      "title-glow": "0 0 10px #ffffff, 0 0 5px #ffffff, 0 0 2px #ffffff",
+      "cap-glass": "linear-gradient(180deg, rgb(255 255 255 / 0.75) 0%, rgb(255 255 255 / 0.4) 45%, rgb(255 255 255 / 0.12) 50%, rgb(255 255 255 / 0.35) 100%)",
+      "cap-border": "rgb(0 0 0 / 0.55)",
+      "cap-red": "linear-gradient(180deg, #eab2a4 0%, #d9826f 45%, #c4402a 50%, #cf5a39 80%, #eb9a72 100%)",
+      "btn-bg": "linear-gradient(180deg, #f2f2f2 0%, #ebebeb 50%, #dddddd 50%, #cfcfcf 100%)",
+      "btn-border": "#707070",
+      "btn-fg": "#000000",
+      "btn-hover-bg": "linear-gradient(180deg, #eaf6fd 0%, #d9f0fc 50%, #bee6fd 50%, #a7d9f5 100%)",
+      "btn-hover-border": "#3c7fb1",
+      "btn-pressed-bg": "linear-gradient(180deg, #e5f4fc 0%, #c4e5f6 50%, #98d1ef 50%, #68b3db 100%)",
+      "btn-pressed-border": "#2c628b",
+      "btn-default-bg": "linear-gradient(180deg, #f3f9fd 0%, #e3f1fb 50%, #cfe7f8 50%, #c0e0f6 100%)",
+      "btn-default-border": "#3c7fb1",
+      "btn-disabled-bg": "#f4f4f4",
+      "btn-disabled-border": "#adb2b5",
+      "check-border": "#8f8f8f",
+      "check-bg": "linear-gradient(135deg, #f4f4f4 0%, #ffffff 100%)",
+      "check-inner": "linear-gradient(135deg, #cbcfd5 0%, #f6f6f6 100%)",
+      "check-mark": "#1e395b",
+      "radio-dot": "radial-gradient(circle at 35% 30%, #b8ecff 0%, #46b0ea 45%, #126ab3 100%)",
+      "tab-border": "#898c95",
+      "tab-bg": "linear-gradient(180deg, #f2f2f2 0%, #ebebeb 50%, #dddddd 50%, #cfcfcf 100%)",
+      "tab-panel": "#ffffff",
+      "header-bg": "linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #f7f8fa 50%, #f1f2f4 100%)",
+      "header-sep": "#d5d5d5",
+      "header-fg": "#4c607a",
+      "sel-bg": "linear-gradient(180deg, #e8f2fd 0%, #c6dffc 100%)",
+      "sel-border": "#7da2ce",
+      "hot-bg": "linear-gradient(180deg, #fafbfd 0%, #ebf3fd 100%)",
+      "hot-border": "#b8d6fb",
+      "menu-bg": "#f0f0f0",
+      "menu-border": "#979797",
+      "menu-gutter": "#e2e3e3",
+      "tooltip-bg": "linear-gradient(180deg, #ffffff 0%, #e4e5f0 100%)",
+      "tooltip-border": "#767676",
+      "tooltip-fg": "#575757",
+      "progress-track": "linear-gradient(180deg, #f3f3f3 0%, #e4e4e4 50%, #d8d8d8 51%, #e8e8e8 100%)",
+      "progress-border": "#b2b2b2",
+      "progress-bar": "linear-gradient(180deg, #d4f7d4 0%, #8fe68f 40%, #22c022 50%, #1aac1a 75%, #5ad45a 100%)",
+      "taskbar-bg": "linear-gradient(180deg, rgb(255 255 255 / 0.3) 0%, rgb(255 255 255 / 0.08) 48%, rgb(255 255 255 / 0) 50%), linear-gradient(180deg, #1f262e 0%, #080b0f 100%)",
+      "taskbtn-bg": "linear-gradient(180deg, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0.07) 50%, rgb(255 255 255 / 0) 51%, rgb(255 255 255 / 0.07) 100%)",
+      "taskbtn-active": "linear-gradient(180deg, rgb(170 215 255 / 0.55) 0%, rgb(110 170 235 / 0.3) 50%, rgb(60 120 200 / 0.3) 51%, rgb(120 195 255 / 0.5) 100%)",
+      "orb": "radial-gradient(circle at 50% 100%, #8fe0ff 0%, #2f86dc 28%, rgb(20 70 140 / 0) 58%), radial-gradient(circle at 50% 40%, #24548c 0%, #0b2140 58%, #02060d 100%)",
+      "startmenu-bg": "linear-gradient(180deg, rgb(255 255 255 / 0.2) 0%, rgb(255 255 255 / 0.05) 35%, rgb(255 255 255 / 0) 100%), linear-gradient(180deg, #31404f 0%, #151d26 100%)",
+      "commandbar-bg": "linear-gradient(180deg, #6688a6 0%, #456a8c 48%, #2d5274 50%, #3a6185 100%)",
+      "commandbar-fg": "#ffffff",
+      "navpane-bg": "linear-gradient(90deg, #fbfcfe 0%, #edf2f9 100%)",
+      "navpane-head": "#1e395b",
+      "details-bg": "linear-gradient(180deg, #ffffff 0%, #eef3fa 45%, #d8e3f0 100%)",
+      "details-line": "#a0afc3",
+      "desktop-bg": "radial-gradient(ellipse 75% 22% at 35% 52%, rgb(150 240 180 / 0.55) 0%, rgb(150 240 180 / 0) 70%), radial-gradient(ellipse 55% 18% at 72% 38%, rgb(110 215 235 / 0.55) 0%, rgb(110 215 235 / 0) 70%), radial-gradient(ellipse 60% 30% at 20% 75%, rgb(60 170 140 / 0.5) 0%, rgb(60 170 140 / 0) 70%), linear-gradient(165deg, #0b3446 0%, #17606a 38%, #2c8a6c 55%, #145262 72%, #0a2638 100%)",
+      "uac-warning": "linear-gradient(180deg, #fbe7a1 0%, #f3bd45 100%)",
+      "uac-info": "linear-gradient(180deg, #b9e1ef 0%, #5aa9cb 100%)",
+      "uac-error": "linear-gradient(180deg, #f6b2a6 0%, #d9493c 100%)",
+      "uac-fg": "#000000",
+      "footer-bg": "#f0f0f0",
+      "footer-line": "#dfdfdf",
+      "gadget-bg": "linear-gradient(180deg, #8cc7f0 0%, #3b86cf 50%, #2565ae 51%, #2f78c4 100%)",
+      "gadget-face": "radial-gradient(circle at 50% 35%, #ffffff 0%, #eef1f5 60%, #c7ced8 100%)",
+      "sidebar-bg": "linear-gradient(90deg, rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0.3) 25%, rgb(0 0 0 / 0.35) 100%)",
+      "fs-display": "36px",
+      "fw-display": "300",
+      "fs-largeTitle": "26px",
+      "fw-largeTitle": "300",
+      "fs-title": "20px",
+      "fw-title": "400",
+      "fs-title2": "16px",
+      "fw-title2": "400",
+      "fs-title3": "14px",
+      "fw-title3": "400",
+      "fs-headline": "12px",
+      "fw-headline": "700",
+      "fs-subheadline": "12px",
+      "fw-subheadline": "400",
+      "fs-body": "12px",
+      "fw-body": "400",
+      "fs-callout": "12px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "11px",
+      "fw-caption": "400",
+      "fs-caption2": "10px",
+      "fw-caption2": "400",
+      "fs-overline": "11px",
+      "fw-overline": "700",
+      "color-red": "#c0504d",
+      "color-orange": "#f79646",
+      "color-yellow": "#f2c314",
+      "color-green": "#9bbb59",
+      "color-mint": "#4bc6a0",
+      "color-teal": "#4bacc6",
+      "color-cyan": "#3cbce6",
+      "color-blue": "#4f81bd",
+      "color-indigo": "#1f497d",
+      "color-purple": "#8064a2",
+      "color-pink": "#d45f9e",
+      "color-brown": "#9c6b3c",
+      "color-gray": "#7f7f7f",
+      "chart-1": "#4f81bd",
+      "chart-2": "#c0504d",
+      "chart-3": "#9bbb59",
+      "chart-4": "#8064a2",
+      "chart-5": "#4bacc6",
+      "chart-6": "#f79646",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#0000ff",
+      "code-str": "#a31515",
+      "code-num": "#098658",
+      "code-comment": "#008000",
+      "code-fn": "#795e26",
+      "code-type": "#2b91af",
+      "term-bg": "#000000",
+      "term-fg": "#c0c0c0",
+      "term-prompt": "#c0c0c0",
+      "grid-line": "#e3e8ee",
+      "infobar-bg": "#ffffe1",
+      "infobar-fg": "#000000",
+      "tooltip-tail": "#e4e5f0",
+      "category-link": "#1e7c1e",
+      "header-sorted": "linear-gradient(180deg, #f2f9fc 0%, #e1f1f9 50%, #d8ecf6 50%, #cfe6f3 100%)",
+      "cap-glyph": "#1e3653"
+    },
+    "dark": {
+      "bg": "#1e2126",
+      "surface": "#16181c",
+      "surface-2": "#22262c",
+      "surface-3": "#2e333a",
+      "fg": "#f0f0f0",
+      "fg-2": "#b8c0cc",
+      "fg-3": "#7d8694",
+      "fg-disabled": "#646b75",
+      "border": "#4a5059",
+      "divider": "#353a42",
+      "accent": "#3d8fd6",
+      "on-accent": "#ffffff",
+      "accent-soft": "#1d3550",
+      "danger": "#ff6b5e",
+      "warning": "#f5b93a",
+      "success": "#5ccf5c",
+      "info": "#6cb2ff",
+      "field-bg": "#121417",
+      "field-border": "#555c66",
+      "field-focus": "#4d9ad6",
+      "scrim": "rgb(0 0 0 / 0.25)",
+      "shadow-1": "0 1px 3px rgb(0 0 0 / 0.6)",
+      "shadow-2": "0 3px 8px rgb(0 0 0 / 0.65)",
+      "shadow-3": "0 6px 24px rgb(0 0 0 / 0.8)",
+      "chrome-bg": "#2a2f36",
+      "chrome-fg": "#ffffff",
+      "link": "#6cb2ff",
+      "main-instruction": "#8cc4ff",
+      "group-title": "#f0f0f0",
+      "glass": "radial-gradient(ellipse 55% 140% at 12% -30%, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0) 65%), repeating-linear-gradient(118deg, rgb(255 255 255 / 0) 0px, rgb(255 255 255 / 0) 70px, rgb(255 255 255 / 0.06) 70px, rgb(255 255 255 / 0.06) 120px, rgb(255 255 255 / 0) 120px, rgb(255 255 255 / 0) 210px), linear-gradient(180deg, #474e58 0%, #2b3038 45%, #22262c 100%)",
+      "glass-inactive": "radial-gradient(ellipse 55% 140% at 12% -30%, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0) 65%), linear-gradient(180deg, #3a3e44 0%, #2c2f34 100%)",
+      "glass-edge": "rgb(0 0 0 / 0.85)",
+      "glass-inner": "rgb(255 255 255 / 0.18)",
+      "title-fg": "#ffffff",
+      "title-glow": "0 0 8px #000000, 0 0 4px #000000, 0 0 2px #000000",
+      "cap-glass": "linear-gradient(180deg, rgb(255 255 255 / 0.32) 0%, rgb(255 255 255 / 0.14) 45%, rgb(255 255 255 / 0.03) 50%, rgb(255 255 255 / 0.12) 100%)",
+      "cap-border": "rgb(0 0 0 / 0.8)",
+      "btn-bg": "linear-gradient(180deg, #4a4f57 0%, #40454c 50%, #33373d 50%, #2b2f35 100%)",
+      "btn-border": "#0e1013",
+      "btn-fg": "#f0f0f0",
+      "btn-hover-bg": "linear-gradient(180deg, #47708f 0%, #3a6383 50%, #2c5476 50%, #264c6c 100%)",
+      "btn-hover-border": "#5aa6e0",
+      "btn-pressed-bg": "linear-gradient(180deg, #1f3c55 0%, #23455f 50%, #1c3a52 50%, #183247 100%)",
+      "btn-pressed-border": "#4d9ad6",
+      "btn-default-bg": "linear-gradient(180deg, #3f5568 0%, #364b5e 50%, #2b3e50 50%, #263849 100%)",
+      "btn-default-border": "#4d9ad6",
+      "btn-disabled-bg": "#2a2d32",
+      "btn-disabled-border": "#3a3e44",
+      "check-border": "#7a8290",
+      "check-bg": "linear-gradient(135deg, #1a1d21 0%, #2b2f35 100%)",
+      "check-inner": "linear-gradient(135deg, #2b2f35 0%, #3a3f46 100%)",
+      "check-mark": "#8cc4ff",
+      "tab-border": "#555c66",
+      "tab-bg": "linear-gradient(180deg, #4a4f57 0%, #40454c 50%, #33373d 50%, #2b2f35 100%)",
+      "tab-panel": "#16181c",
+      "header-bg": "linear-gradient(180deg, #2e333a 0%, #2e333a 50%, #262a30 50%, #23272c 100%)",
+      "header-sep": "#3e444d",
+      "header-fg": "#b8c0cc",
+      "sel-bg": "linear-gradient(180deg, #2c4a68 0%, #1f3a56 100%)",
+      "sel-border": "#4d7fb3",
+      "hot-bg": "linear-gradient(180deg, #23303d 0%, #1d2935 100%)",
+      "hot-border": "#36526e",
+      "menu-bg": "#24282e",
+      "menu-border": "#5a616b",
+      "menu-gutter": "#30353c",
+      "tooltip-bg": "linear-gradient(180deg, #33383f 0%, #23272c 100%)",
+      "tooltip-border": "#7a8290",
+      "tooltip-fg": "#d8dde4",
+      "progress-track": "linear-gradient(180deg, #2b2f35 0%, #23272c 100%)",
+      "progress-border": "#555c66",
+      "taskbar-bg": "linear-gradient(180deg, rgb(255 255 255 / 0.18) 0%, rgb(255 255 255 / 0.04) 48%, rgb(255 255 255 / 0) 50%), linear-gradient(180deg, #121519 0%, #000000 100%)",
+      "startmenu-bg": "linear-gradient(180deg, rgb(255 255 255 / 0.12) 0%, rgb(255 255 255 / 0.03) 35%, rgb(255 255 255 / 0) 100%), linear-gradient(180deg, #23272d 0%, #0c0e11 100%)",
+      "commandbar-bg": "linear-gradient(180deg, #3e4650 0%, #2c333b 48%, #1d232a 50%, #262d35 100%)",
+      "navpane-bg": "linear-gradient(90deg, #1b1e23 0%, #20252b 100%)",
+      "navpane-head": "#8cc4ff",
+      "details-bg": "linear-gradient(180deg, #23272d 0%, #1d2127 45%, #171a1f 100%)",
+      "details-line": "#3e444d",
+      "desktop-bg": "radial-gradient(ellipse 75% 22% at 35% 52%, rgb(70 160 110 / 0.4) 0%, rgb(70 160 110 / 0) 70%), radial-gradient(ellipse 55% 18% at 72% 38%, rgb(50 140 170 / 0.4) 0%, rgb(50 140 170 / 0) 70%), linear-gradient(165deg, #03121a 0%, #0a2c33 40%, #0f3a33 55%, #08232d 75%, #020a10 100%)",
+      "uac-warning": "linear-gradient(180deg, #8a6a1c 0%, #6b4d0d 100%)",
+      "uac-info": "linear-gradient(180deg, #2b5f75 0%, #1b4558 100%)",
+      "uac-error": "linear-gradient(180deg, #7a2a22 0%, #5a1a14 100%)",
+      "uac-fg": "#ffffff",
+      "footer-bg": "#1e2126",
+      "footer-line": "#353a42",
+      "gadget-bg": "linear-gradient(180deg, #3e5f80 0%, #22405e 50%, #18324c 51%, #20405f 100%)",
+      "gadget-face": "radial-gradient(circle at 50% 35%, #3a4048 0%, #2a2f36 60%, #15181c 100%)",
+      "code-bg": "#16181c",
+      "code-fg": "#f0f0f0",
+      "code-kw": "#569cd6",
+      "code-str": "#ce9178",
+      "code-num": "#b5cea8",
+      "code-comment": "#6a9955",
+      "code-fn": "#dcdcaa",
+      "code-type": "#4ec9b0",
+      "grid-line": "#353a42",
+      "chart-1": "#6f9fd8",
+      "chart-2": "#e07a77",
+      "chart-3": "#b5d27a",
+      "chart-4": "#a68ac8",
+      "chart-5": "#6cc6de",
+      "chart-6": "#f9ae6e",
+      "infobar-bg": "#3a3624",
+      "infobar-fg": "#f2eed8",
+      "tooltip-tail": "#23272c",
+      "category-link": "#7fd47f",
+      "header-sorted": "linear-gradient(180deg, #2f4255 0%, #2a3c4e 50%, #233445 50%, #1f2f3f 100%)",
+      "cap-glyph": "#ffffff"
+    }
+  },
+  "fonts": {
+    "mainInstruction": "title3",
+    "caption": "caption",
+    "captionText": "body",
+    "messageText": "body",
+    "heading": "title2",
+    "welcome": "largeTitle"
+  },
+  "icons": {
+    "computer": "app",
+    "documents": "folder",
+    "pictures": "photo",
+    "music": "music.note",
+    "control.panel": "gear",
+    "network": "globe",
+    "internet": "globe",
+    "email": "envelope",
+    "recycle.bin": "trash",
+    "help": "questionmark.circle",
+    "run": "play",
+    "lock": "lock",
+    "back": "arrow.left",
+    "forward": "arrow.right",
+    "views": "square.grid.2x2",
+    "organize": "folder",
+    "user.accounts": "person.2",
+    "security": "shield",
+    "notepad": "doc",
+    "media.player": "play",
+    "uac": "shield",
+    "recent": "clock",
+    "connect": "wifi",
+    "default.programs": "app",
+    "calculator": "number",
+    "games": "star"
+  },
+  "elements": {
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "active",
+        "inactive",
+        "dialog",
+        "tool"
+      ],
+      "doc": "An Aero glass window drawn inside a Desktop: Window(\"Pictures\", systemImage: \"photo\") { … } · .variant(.inactive | .dialog | .tool)"
+    },
+    "DialogBody": {
+      "role": "vstack",
+      "variants": [
+        "help"
+      ],
+      "doc": "Root of a dialog screen: the frame keeps only Close (and ? with .variant(.help))"
+    },
+    "Desktop": {
+      "role": "canvas",
+      "doc": "The desktop with an aurora-like wallpaper; place windows, icons and gadgets with .position(x:y:)"
+    },
+    "DesktopIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "DesktopIcon(\"Computer\", systemImage: \"computer\") — 48 px icon, white label; .selected()"
+    },
+    "Taskbar": {
+      "role": "hstack",
+      "doc": "The black glass taskbar: StartOrb, QuickLaunch, TaskbarButton…, NotificationArea"
+    },
+    "StartOrb": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "flag"
+      },
+      "doc": "The round glossy Start orb with a neutral glyph; .selected() while the menu is open"
+    },
+    "StartButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "flag"
+      },
+      "doc": "Alias of StartOrb"
+    },
+    "QuickLaunch": {
+      "role": "hstack",
+      "doc": "Quick Launch toolbar"
+    },
+    "TaskbarButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "doc": "A window's glass taskbar button; .selected() for the active window"
+    },
+    "NotificationArea": {
+      "role": "hstack",
+      "doc": "Tray at the right of the taskbar: TrayIcon… Clock"
+    },
+    "TrayIcon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "A 16 px notification icon"
+    },
+    "Clock": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "content": "10:42 AM"
+      },
+      "doc": "Taskbar clock"
+    },
+    "Balloon": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "Notification balloon pointing at its child: Balloon(\"Title\", message: \"…\") { TrayIcon(\"shield\") }"
+    },
+    "StartMenu": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Glass Start menu: StartMenu(\"Alex\", avatar:, avatarImage:) { StartMenuPrograms{…} StartMenuPlaces{…} }"
+    },
+    "StartMenuPrograms": {
+      "role": "vstack",
+      "doc": "The white left pane (programs, All Programs, Start Search)"
+    },
+    "StartMenuPlaces": {
+      "role": "vstack",
+      "doc": "The glass right pane (user folders, Control Panel, power buttons)"
+    },
+    "StartMenuItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "StartMenuItem(\"Internet\", subtitle: \"Web browser\", systemImage: \"globe\")"
+    },
+    "AllProgramsButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "label": "All Programs"
+      },
+      "doc": "All Programs with the arrow"
+    },
+    "StartSearch": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "search",
+        "placeholder": "Start Search"
+      },
+      "doc": "The search box at the foot of the Start menu"
+    },
+    "PowerButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "power",
+        "iconOnly": true
+      },
+      "doc": "Red power (sleep) button"
+    },
+    "LockButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "lock",
+        "iconOnly": true
+      },
+      "doc": "Amber lock button"
+    },
+    "PowerMenuButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "chevron.right",
+        "iconOnly": true
+      },
+      "doc": "The arrow opening the shut-down menu"
+    },
+    "GadgetSidebar": {
+      "role": "vstack",
+      "doc": "The translucent Sidebar strip holding gadgets"
+    },
+    "ClockGadget": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Analog clock gadget (hands at 10:10); the text is the caption under the face"
+    },
+    "WeatherGadget": {
+      "role": "stat",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "Weather gadget: WeatherGadget(\"Harbor City\", \"21°\", change: \"H 24° L 15°\", systemImage: \"sun\")"
+    },
+    "NotesGadget": {
+      "role": "stickynote",
+      "params": [
+        "text"
+      ],
+      "doc": "Notes gadget"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "A classic menu bar"
+    },
+    "MenuBarItem": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "plain"
+      },
+      "doc": "A menu bar title; .selected() when open"
+    },
+    "CommandBar": {
+      "role": "toolbar",
+      "doc": "Explorer's dark blue command bar: CommandButton(\"Organize\", dropdown: true)…"
+    },
+    "CommandButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "command"
+      },
+      "doc": "A command bar button (white text, glass on hover)"
+    },
+    "NavigationBar": {
+      "role": "hstack",
+      "doc": "The glass strip with Back/Forward, the breadcrumb and the search box"
+    },
+    "BackButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "arrow.left",
+        "iconOnly": true
+      },
+      "doc": "Round glossy blue Back button"
+    },
+    "ForwardButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "systemImage": "arrow.right",
+        "iconOnly": true
+      },
+      "doc": "Round glossy blue Forward button"
+    },
+    "BreadcrumbBar": {
+      "role": "breadcrumb",
+      "params": [
+        "items"
+      ],
+      "doc": "Address bar as breadcrumbs: BreadcrumbBar([\"Alex\", \"Documents\", \"Projects\"])"
+    },
+    "SearchBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "search",
+        "placeholder": "Search"
+      },
+      "doc": "Explorer search box (italic prompt, magnifier at the right)"
+    },
+    "NavigationPane": {
+      "role": "sidebar",
+      "params": [
+        "title"
+      ],
+      "doc": "Explorer's left pane: NavigationPane(\"Favorite Links\") { FavoriteLink(…) }"
+    },
+    "FavoriteLink": {
+      "role": "navitem",
+      "params": [
+        "label"
+      ],
+      "doc": "FavoriteLink(\"Documents\", systemImage: \"folder\")"
+    },
+    "ListView": {
+      "role": "table",
+      "variants": [
+        "details"
+      ],
+      "doc": "Details view: columns:, TableRow children or rows:, sortColumn:, selectedRows:"
+    },
+    "IconView": {
+      "role": "grid",
+      "doc": "Icons view: a grid of FileIcon"
+    },
+    "FileIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "icons",
+        "tiles"
+      ],
+      "doc": "FileIcon(\"Report.docx\", systemImage: \"doc\") · .variant(.tiles)"
+    },
+    "DetailsPane": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "The gradient Details pane at the foot of Explorer: DetailsPane(\"Report.docx\", subtitle:, systemImage:) { PropertyRow(…) }"
+    },
+    "PropertyRow": {
+      "role": "labeled",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "A label: value property line"
+    },
+    "ListBox": {
+      "role": "list",
+      "doc": "List box"
+    },
+    "TreeView": {
+      "role": "tree",
+      "doc": "Tree with the Vista hollow/filled triangles"
+    },
+    "TreeViewItem": {
+      "role": "treeitem",
+      "params": [
+        "label"
+      ],
+      "doc": "TreeViewItem(\"Documents\", systemImage: \"folder\")"
+    },
+    "StatusBar": {
+      "role": "hstack",
+      "doc": "Status bar"
+    },
+    "StatusBarPanel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "One status bar field"
+    },
+    "TabControl": {
+      "role": "tabs",
+      "defaults": {
+        "placement": "top"
+      },
+      "doc": "Property-sheet tabs"
+    },
+    "TabPage": {
+      "role": "tab",
+      "params": [
+        "label"
+      ],
+      "doc": "TabPage(\"General\") { … }"
+    },
+    "PushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "default",
+        "standard"
+      ],
+      "doc": "Glossy push button; .state(.hover) light-blue, .variant(.default) blue border"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The default (Enter) button"
+    },
+    "CommandLink": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "systemImage": "arrow.right"
+      },
+      "doc": "Task dialog command link: green arrow, title and subtitle:"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "Check box"
+    },
+    "OptionButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio button (also RadioButton)"
+    },
+    "RadioButtonList": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "RadioButtonList(\"View\", items: […], selection:)"
+    },
+    "Frame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Group box (also GroupBox)"
+    },
+    "TextBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "Edit control"
+    },
+    "PasswordBox": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "password"
+      },
+      "doc": "Password edit"
+    },
+    "MultilineTextBox": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Multi-line edit"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Combo box"
+    },
+    "DropDownList": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "dropdown"
+      },
+      "doc": "Drop-down list drawn as a glossy button"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "normal",
+        "paused",
+        "error"
+      ],
+      "doc": "Green glossy progress bar; .variant(.paused) yellow, .variant(.error) red"
+    },
+    "TrackBar": {
+      "role": "slider",
+      "doc": "Slider: TrackBar(value: 30, in: 0...100, ticks: 10)"
+    },
+    "UpDown": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "Spin box"
+    },
+    "DateTimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "doc": "Date picker field"
+    },
+    "MonthCalendar": {
+      "role": "calendar",
+      "doc": "Month calendar"
+    },
+    "SysLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "Hyperlink text"
+    },
+    "TaskDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "Task dialog: white content (MainInstruction, text, CommandLinks) over a grey footer of buttons: TaskDialog(\"Caption\", systemImage:) { … } actions: { … }"
+    },
+    "MainInstruction": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "The big blue (#003399) main instruction of a task dialog or Aero wizard"
+    },
+    "ConsentBanner": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "doc": "UAC banner: coloured band with a shield: ConsentBanner(\"A program needs your permission\", severity: .warning)"
+    },
+    "Wizard": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "doc": "Aero wizard page: main instruction header, white body, grey footer actions: { Next · Cancel }"
+    },
+    "ContextMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "Pop-up menu with the icon gutter"
+    },
+    "ToolTip": {
+      "role": "tooltip",
+      "params": [
+        "text"
+      ],
+      "doc": "Gradient tooltip"
+    },
+    "InfoBar": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "doc": "The yellow information bar"
+    },
+    "CategoryLink": {
+      "role": "link",
+      "params": [
+        "label"
+      ],
+      "doc": "Control Panel category with a 32 px icon"
+    },
+    "BrandGlyph": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "defaults": {
+        "name": "flag"
+      },
+      "doc": "Neutral glyph standing in for the system logo"
+    },
+    "DialogFooter": {
+      "role": "hstack",
+      "doc": "The grey footer band of a dialog (buttons, a 'Details' expander) — last child of DialogBody"
+    },
+    "ExpandoButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "expando",
+        "systemImage": "chevron.down"
+      },
+      "doc": "Task dialog's 'See details' expander: round arrow button and its label"
+    }
+  }
+}

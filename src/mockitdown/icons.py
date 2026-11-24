@@ -352,7 +352,7 @@ def svg(name: str, cls: str = "mkd-icon") -> tuple[str, bool]:
     glyph = resolve(name)
     body = ICONS[glyph] if glyph else ICONS["questionmark"]
     return (
-        f'<svg class="{cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" '
+        f'<svg class="{cls}" data-icon="{glyph or "unknown"}" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" '
         f'stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">{body}</svg>',
         glyph is not None,
     )

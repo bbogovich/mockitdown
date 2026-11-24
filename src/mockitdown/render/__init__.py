@@ -61,6 +61,8 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     title = opts.title or str(screen.meta.get("title") or "")
     sid = opts.id or str(screen.meta.get("id") or "")
     url = opts.url or (str(screen.meta["url"]) if screen.meta.get("url") else None)
+    window = opts.window or (str(screen.meta["window"]) if screen.meta.get("window") else None)
+    window_attr = f' data-window="{esc(window)}"' if window else ""
 
     import hashlib
     renderer.anchor_prefix = hashlib.sha1(repr(screen.views).encode()).hexdigest()[:6]
@@ -78,7 +80,7 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     for mode in modes:
         label = f'<div class="mkd-cell__label">{mode.title()}</div>' if appearance == "both" else ""
         cells.append(f'<div class="mkd-cell"><div class="mkd-frame" data-appearance="{mode}" '
-                     f'data-device="{esc(device)}" data-chrome="{esc(chrome)}"{dims}>{frame_inner}</div>{label}</div>')
+                     f'data-device="{esc(device)}" data-chrome="{esc(chrome)}"{window_attr}{dims}>{frame_inner}</div>{label}</div>')
     caption = ""
     if opts.caption and (title or sid):
         caption = f'<div class="mkd-caption">{esc(" · ".join(x for x in (sid, title) if x))}</div>'

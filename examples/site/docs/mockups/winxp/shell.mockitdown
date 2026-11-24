@@ -1,0 +1,75 @@
+// Reusable Windows XP shell pieces for the winxp pack page.
+// Import with:  import "winxp/shell"
+
+import WindowsXP
+
+/// Explorer's menu bar, Standard Buttons toolbar and address bar above any folder view.
+struct ExplorerBars: View {
+  var path: String
+  var folders: Bool = false
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      MenuBar {
+        MenuBarItem("File")
+        MenuBarItem("Edit")
+        MenuBarItem("View")
+        MenuBarItem("Favorites")
+        MenuBarItem("Tools")
+        MenuBarItem("Help")
+      }
+      ToolBar {
+        BackButton()
+        ForwardButton().disabled()
+        UpButton()
+        Divider()
+        ToolBarButton("Search", systemImage: "search")
+        ToolBarButton("Folders", systemImage: "folder").selected(folders)
+        Divider()
+        ToolBarButton(systemImage: "views", dropdown: true)
+      }
+      ToolBar {
+        AddressBar(path)
+        GoButton()
+      }
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
+
+/// A pinned or frequent program in the Start menu's white column.
+struct StartProgram: View {
+  var name: String
+  var detail: String = ""
+  var icon: String
+
+  var body: some View {
+    StartMenuItem(name, subtitle: detail, systemImage: icon)
+  }
+}
+
+/// The taskbar along the bottom of the desktop: Start, Quick Launch, one button per window, the tray.
+struct XPTaskbar: View {
+  var windows: [String] = []
+  var active: String = ""
+  var startOpen: Bool = false
+  @ViewBuilder var tray: Content
+
+  var body: some View {
+    Taskbar {
+      StartButton().selected(startOpen)
+      QuickLaunch {
+        IconButton("globe")
+        IconButton("envelope")
+        IconButton("square.grid.2x2")
+      }
+      ForEach(windows) { w in
+        TaskbarButton(w, systemImage: "folder").selected(w == active)
+      }
+      NotificationArea {
+        tray
+        Clock("10:42 AM")
+      }
+    }
+  }
+}

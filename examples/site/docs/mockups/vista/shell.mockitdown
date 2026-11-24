@@ -1,0 +1,62 @@
+// Reusable Windows Vista shell pieces for the vista pack page.
+// Import with:  import "vista/shell"
+
+import WindowsVista
+
+/// Explorer's glass navigation bar (Back/Forward, breadcrumb, search) and the command bar below it.
+struct ExplorerBars: View {
+  var path: [String]
+  var search: String = "Search"
+  @ViewBuilder var commands: Content
+
+  var body: some View {
+    VStack(spacing: 0) {
+      NavigationBar {
+        BackButton()
+        ForwardButton().disabled()
+        BreadcrumbBar(path)
+        SearchBox(search).frame(width: 180)
+      }
+      CommandBar {
+        commands
+      }
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
+
+/// A program in the white left pane of the Start menu.
+struct StartProgram: View {
+  var name: String
+  var detail: String = ""
+  var icon: String
+
+  var body: some View {
+    StartMenuItem(name, subtitle: detail, systemImage: icon)
+  }
+}
+
+/// The black glass taskbar: the orb, Quick Launch, one button per window and the notification area.
+struct VistaTaskbar: View {
+  var windows: [String] = []
+  var active: String = ""
+  var startOpen: Bool = false
+  @ViewBuilder var tray: Content
+
+  var body: some View {
+    Taskbar {
+      StartOrb().selected(startOpen)
+      QuickLaunch {
+        IconButton("square.grid.2x2")
+        IconButton("globe")
+      }
+      ForEach(windows) { w in
+        TaskbarButton(w, systemImage: "folder").selected(w == active)
+      }
+      NotificationArea {
+        tray
+        Clock("10:42 AM")
+      }
+    }
+  }
+}

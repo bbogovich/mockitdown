@@ -113,7 +113,7 @@
 .mkd-frame .mkd-hstack:where([data-align="firstTextBaseline"], [data-align="lastTextBaseline"]) { align-items: baseline; }
 .mkd-frame .mkd-hstack:where([data-wrap="true"]) { flex-wrap: wrap; }
 .mkd-frame .mkd-zstack { display: grid; place-items: center; }
-.mkd-frame .mkd-zstack > * { grid-area: 1 / 1; }
+.mkd-frame .mkd-zstack > * { grid-area: 1 / 1; position: relative; }
 .mkd-frame .mkd-zstack > [data-fill~="x"][data-fill] { justify-self: stretch; }
 .mkd-frame .mkd-zstack > [data-fill~="y"][data-fill] { align-self: stretch; }
 .mkd-frame .mkd-zstack:where([data-align="topLeading"]) { place-items: start; }
