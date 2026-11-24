@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "vibeitout@specitout-plugins": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
+      "Bash(python3:*)",
+      "Bash(sio-cost:*)",
+      "Bash(sio-docs:*)",
+      "Bash(sio-policy:*)",
+      "Bash(sio-vault:*)",
+      "Bash(sio:*)"
+    ]
+  }
+}

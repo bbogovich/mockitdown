@@ -1,0 +1,73 @@
+{
+  "project": "mockitdown",
+  "kind": "prototype",
+  "forge": "none",
+  "docs": {
+    "branch": "docs",
+    "worktree": "../mockitdown.docs",
+    "tiers": [
+      "definition",
+      "specification",
+      "implementation"
+    ]
+  },
+  "tiers": {
+    "definition": {
+      "repository": "../mockitdown.docs",
+      "source": "definition/",
+      "version": "definition/VERSION",
+      "docs": "docs/",
+      "docsPrefix": "definition/"
+    },
+    "specification": {
+      "repository": "../mockitdown.docs",
+      "source": "specification/",
+      "version": "specification/VERSION",
+      "docs": "docs/",
+      "docsPrefix": "specification/"
+    },
+    "implementation": {
+      "repository": "."
+    }
+  },
+  "spec": "../mockitdown.docs/docs/specification",
+  "review": {
+    "preset": "prototype"
+  },
+  "health": {
+    "audit_every": 10,
+    "thresholds": "defaults"
+  },
+  "labels": [
+    {
+      "name": "refactor",
+      "description": "Behaviour-preserving change, usually filed by an auditor"
+    }
+  ],
+  "implementation": {
+    "kind": "library",
+    "language": "python",
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "framework": null,
+    "targets": [
+      "cli"
+    ],
+    "dependencies": [],
+    "template": "python-cli",
+    "profiles": [
+      "impl-common",
+      "impl-headless",
+      "impl-library"
+    ],
+    "build": "python3 -m pip install -e .",
+    "test": "python3 -m unittest discover -s tests",
+    "site": {
+      "branch": "docs",
+      "worktree": "../mockitdown.docs"
+    }
+  }
+}

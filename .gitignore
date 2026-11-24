@@ -1,0 +1,40 @@
+# written by sio init — defaults for every SpecItOut implementation project
+
+# Claude Code: commit only shareable settings and project agents, commands and skills
+.claude/*
+!.claude/settings.json
+!.claude/agents/
+!.claude/commands/
+!.claude/skills/
+.claude/settings.local.json
+.claude/*.local.*
+
+# SpecItOut machine state
+.specitout/run.json
+.specitout/*.local.json
+
+# MkDocs build output (the implementation site lives on the docs branch)
+site/
+
+# Secrets: never commit an environment file; .env.example documents the variables
+.env
+.env.*
+!.env.example
+
+# Operating systems and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*~
+
+# Logs
+*.log
+
+# python-cli: build outputs and tool state
+__pycache__/
+*.egg-info/
+.venv/
+dist/
