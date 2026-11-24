@@ -9,7 +9,7 @@ from __future__ import annotations
 from .. import icons
 from .html import esc
 
-CHROME_KINDS = ("none", "ios", "ipados", "macos", "windows", "android", "browser")
+CHROME_KINDS = ("none", "ios", "ipados", "macos", "windows", "android", "browser", "gnome", "kde", "win31")
 
 
 def _i(name: str) -> str:
@@ -38,6 +38,18 @@ def top(kind: str, title: str, url: str | None) -> str:
                 f'{_i("app")}</span><span class="mkd-chrome__title">{esc(title)}</span>'
                 '<span class="mkd-chrome__controls"><i data-control="min"></i><i data-control="max"></i>'
                 '<i data-control="close"></i></span></div>')
+    if kind == "gnome":
+        # libadwaita apps draw their own header bar (HeaderBar element); the window is just rounded.
+        return ""
+    if kind == "kde":
+        return ('<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="kde"><span class="mkd-chrome__app">'
+                f'{_i("app")}</span><span class="mkd-chrome__title">{esc(title)}</span>'
+                '<span class="mkd-chrome__controls"><i data-control="min"></i><i data-control="max"></i>'
+                '<i data-control="close"></i></span></div>')
+    if kind == "win31":
+        return ('<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="win31"><span class="mkd-chrome__sysmenu">'
+                f'<i></i></span><span class="mkd-chrome__title">{esc(title)}</span>'
+                '<span class="mkd-chrome__controls"><i data-control="min"></i><i data-control="max"></i></span></div>')
     if kind == "browser":
         address = url or "https://app.example.com"
         return ('<div class="mkd-chrome mkd-chrome--browser" data-chrome="browser"><span class="mkd-chrome__lights">'

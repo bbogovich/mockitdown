@@ -26,7 +26,9 @@ from pathlib import Path
 
 from markdown import Markdown
 from markdown.extensions import Extension
+from markdown.inlinepatterns import InlineProcessor
 from markdown.postprocessors import Postprocessor
+import xml.etree.ElementTree as etree
 
 from .options import APPEARANCES, RenderOptions
 from .styles import stylesheet
@@ -65,6 +67,21 @@ class _StylePostprocessor(Postprocessor):
         return f'<style data-mockitdown="{" ".join(used)}">{css}</style>\n{text}'
 
 
+CALLOUT_COLORS = ("red", "orange", "yellow", "green", "teal", "blue", "indigo", "purple", "pink", "gray")
+
+
+class _CalloutRefProcessor(InlineProcessor):
+    """``(#3)`` or ``(#3 blue)`` in prose → a numbered circle matching a mockup's ``.callout(3)``."""
+
+    def handleMatch(self, m, data):  # noqa: N802
+        el = etree.Element("span")
+        el.set("class", "mkd-ref")
+        if m.group(2):
+            el.set("data-color", m.group(2))
+        el.text = m.group(1)
+        return el, m.start(0), m.end(0)
+
+
 class MockitdownExtension(Extension):
     def __init__(self, **kwargs: object) -> None:
         self.config = {
@@ -81,6 +98,7 @@ class MockitdownExtension(Extension):
             "caption": [True, "Show the id · title caption"],
             "elements": [False, "Append the Elements table to every mockup"],
             "show_warnings": [False, "Show warnings in the page, not only in the build log"],
+            "callout_refs": [True, "Turn (#1) in prose into a numbered callout circle"],
         }
         super().__init__(**kwargs)
 
@@ -108,6 +126,10 @@ class MockitdownExtension(Extension):
         md.mockitdown = session  # type: ignore[attr-defined]
         md.registerExtension(self)
         md.postprocessors.register(_StylePostprocessor(md, session), "mockitdown_css", 5)
+        if c["callout_refs"]:
+            colors = "|".join(CALLOUT_COLORS)
+            md.inlinePatterns.register(
+                _CalloutRefProcessor(rf"(?<!\])\(#(\d{{1,2}}|[A-Z])(?:\s+({colors}))?\)", md), "mockitdown_callout_ref", 175)
         self._session = session
 
     def reset(self) -> None:

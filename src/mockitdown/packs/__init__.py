@@ -13,6 +13,7 @@ element names, maps them onto roles with default attributes, and restyles the ro
     modules             names accepted by `import <Module>` to select the pack
     device              default device form: phone | tablet | desktop
     chrome              device form → chrome kind (ios, ipados, macos, windows, android, browser, none)
+    hidden              true for packs left out of listings (they still work when named)
     tokens              {"light": {name: value}, "dark": {name: value}} → --mkd-<name> CSS properties
     elements            Name → {role, params, defaults, variants, doc, attrs}
     modifiers           modifier name → {"attr": attribute it sets, "value": optional fixed value}
@@ -76,6 +77,8 @@ class Pack:
     #: Argument label → canonical attribute name, applied to every element's labelled arguments.
     attrs: dict[str, str] = field(default_factory=dict)
     directory: Path | None = None
+    #: Hidden packs (easter eggs) work everywhere but are left out of listings.
+    hidden: bool = False
     #: Element names defined by this pack itself (not inherited), for documentation.
     own_elements: tuple[str, ...] = ()
 
@@ -185,6 +188,7 @@ class PackRegistry:
             icons={**(parent.icons if parent else {}), **raw.get("icons", {})},
             attrs={**(parent.attrs if parent else {}), **raw.get("attrs", {})},
             directory=d,
+            hidden=bool(raw.get("hidden", False)),
             own_elements=tuple(own),
         )
         self._cache[pack_id] = pack

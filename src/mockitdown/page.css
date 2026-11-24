@@ -114,3 +114,22 @@ table.mkd-elements td {
 .mkd-source > summary { cursor: pointer; opacity: .75; }
 .mkd-source pre { margin: .5em 0 0; padding: .8em 1em; overflow-x: auto; border-radius: 6px;
   background: color-mix(in srgb, currentColor 6%, transparent); line-height: 1.45; }
+
+/* (#n) callout references in prose; colours match the callout palette inside mockups. */
+.mkd-ref {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.45em; height: 1.45em; padding: 0 .3em; margin: 0 .1em;
+  border-radius: .75em; vertical-align: .08em;
+  background: var(--mkd-ref, #e8590c); color: #fff;
+  font-size: .8em; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.mkd-ref[data-color="red"] { --mkd-ref: #e03131; }
+.mkd-ref[data-color="orange"] { --mkd-ref: #e8590c; }
+.mkd-ref[data-color="yellow"] { --mkd-ref: #e6a700; }
+.mkd-ref[data-color="green"] { --mkd-ref: #2f9e44; }
+.mkd-ref[data-color="teal"] { --mkd-ref: #0c8599; }
+.mkd-ref[data-color="blue"] { --mkd-ref: #1c7ed6; }
+.mkd-ref[data-color="indigo"] { --mkd-ref: #4263eb; }
+.mkd-ref[data-color="purple"] { --mkd-ref: #7048e8; }
+.mkd-ref[data-color="pink"] { --mkd-ref: #d6336c; }
+.mkd-ref[data-color="gray"] { --mkd-ref: #868e96; }

@@ -53,6 +53,9 @@ nav:
   - Home: index.md
   - Language tour: tour.md
   - Custom components: components.md
+  - Annotations and overlays: annotations.md
+  - Beyond the framework kits: widgets.md
+  - Charts: charts.md
   - Packs:
       - SwiftUI: packs/swiftui.md
       - Fluent (WinUI 3): packs/fluent.md
@@ -61,3 +64,8 @@ nav:
       - SAPUI5 (Fiori): packs/sapui5.md
       - Bootstrap: packs/bootstrap.md
       - shadcn/ui: packs/shadcn.md
+      - Android (Material 3): packs/android.md
+      - GTK 4 (libadwaita): packs/gtk.md
+      - Qt 6 (Fusion): packs/qt.md
+      - KDE Plasma (Breeze): packs/kde-plasma.md
+  - Recommended next packs: roadmap.md

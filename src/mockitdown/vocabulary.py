@@ -24,6 +24,9 @@ RENDERED = frozenset({
     "navigationTitle", "navigationSubtitle", "navigationBarTitleDisplayMode", "toolbar", "tabItem",
     "searchable", "alert", "sheet", "confirmationDialog", "popover", "fullScreenCover", "inspector",
     "labelsHidden",
+    # annotation overlays attached to a view, and free placement
+    "callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap", "position",
+    "rotationEffect",
 })
 
 IGNORED = frozenset({
@@ -42,7 +45,7 @@ IGNORED = frozenset({
     "sensoryFeedback", "hoverEffect", "focusable", "keyboardShortcut", "dynamicTypeSize",
     "privacySensitive", "redacted", "containerRelativeFrame", "scrollTargetBehavior",
     "scrollTargetLayout", "matchedGeometryEffect", "glassEffect", "backgroundStyle", "compositingGroup",
-    "drawingGroup", "blur", "saturation", "brightness", "rotationEffect", "scaleEffect", "mask",
+    "drawingGroup", "blur", "saturation", "brightness", "scaleEffect", "mask",
 })
 
 #: Import names that select no pack but are legal in pasted Swift code.

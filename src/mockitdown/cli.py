@@ -119,6 +119,8 @@ def cmd_packs(a: argparse.Namespace) -> int:
     rows = []
     for pid in reg.ids():
         p = reg.get(pid)
+        if p.hidden and not a.all:
+            continue
         rows.append({"id": p.id, "name": p.name, "framework": p.framework, "version": p.version,
                      "modules": list(p.modules), "device": p.device, "elements": len(p.elements),
                      "own_elements": list(p.own_elements)})
@@ -171,6 +173,7 @@ def main(argv: list[str] | None = None) -> int:
     p.set_defaults(func=cmd_css)
     p = sub.add_parser("packs", help="list packs")
     p.add_argument("-P", "--pack-path", action="append", default=[])
+    p.add_argument("--all", action="store_true", help=argparse.SUPPRESS)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_packs)
     p = sub.add_parser("elements", help="list a pack's elements")

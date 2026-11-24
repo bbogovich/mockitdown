@@ -25,6 +25,8 @@ def table() -> str:
             "|---|---|---|---|---|---|"]
     for pid in reg.ids():
         p = reg.get(pid)
+        if p.hidden:
+            continue
         mods = ", ".join(f"`import {m}`" for m in p.modules)
         rows.append(f"| `{p.id}` | {p.framework} | {p.version} | {p.device} · {p.chrome_for(p.device)} | "
                     f"`pack=\"{p.id}\"`, {mods} | {len(p.own_elements)} |")
@@ -45,7 +47,7 @@ def main() -> int:
     text = re.sub(r"(<!-- packs-table -->\n).*?(\n<!-- end packs-table -->)",
                   lambda m: m.group(1) + table() + m.group(2), text, flags=re.S)
     for pid in registry().ids():
-        if pid == "base":
+        if pid == "base" or registry().get(pid).hidden:
             continue
         start = re.search(rf"<!-- catalogue: {re.escape(pid)}\b[^>]*-->\n", text)
         if not start:

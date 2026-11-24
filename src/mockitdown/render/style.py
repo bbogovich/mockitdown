@@ -183,6 +183,25 @@ class StyleBuilder:
         x, y = u(m.kwargs.get("x", 0)) or "0", u(m.kwargs.get("y", 0)) or "0"
         style["transform"] = f"translate({x}, {y})"
 
+    def _m_position(self, m, style, data, classes, pad, view):
+        """SwiftUI .position(x:y:): the view's centre at (x, y) in its container (Canvas, ZStack, screen)."""
+        x, y = u(m.kwargs.get("x")), u(m.kwargs.get("y"))
+        style["position"] = "absolute"
+        if x is not None:
+            style["left"] = x
+        if y is not None:
+            style["top"] = y
+        style["translate"] = "-50% -50%"
+        data["positioned"] = "true"
+
+    def _m_rotationEffect(self, m, style, data, classes, pad, view):
+        a = m.arg()
+        deg = a.kw("degrees") if isinstance(a, EnumValue) else a
+        if isinstance(a, EnumValue) and a.name == "degrees" and a.args:
+            deg = a.args[0]
+        if isinstance(deg, (int, float)) and not isinstance(deg, bool):
+            style["rotate"] = f"{deg:g}deg"
+
     def _m_zIndex(self, m, style, data, classes, pad, view):
         if isinstance(m.arg(), (int, float)):
             style["position"] = "relative"

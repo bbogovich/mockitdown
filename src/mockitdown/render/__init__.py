@@ -62,6 +62,8 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     sid = opts.id or str(screen.meta.get("id") or "")
     url = opts.url or (str(screen.meta["url"]) if screen.meta.get("url") else None)
 
+    import hashlib
+    renderer.anchor_prefix = hashlib.sha1(repr(screen.views).encode()).hexdigest()[:6]
     body = renderer.views(screen.views)
     overlays = "".join(renderer.overlays)
     screen_html = f'<div class="mkd-screen">{body}{overlays}</div>'
