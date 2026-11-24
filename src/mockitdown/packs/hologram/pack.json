@@ -1,0 +1,436 @@
+{
+  "id": "hologram",
+  "name": "Holographic HUD",
+  "framework": "An original homage to the translucent cyan heads-up displays of modern science-fiction films",
+  "version": "Projection build 1",
+  "hidden": true,
+  "modules": [
+    "Hologram",
+    "HUD",
+    "HoloHUD"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "phone": "none",
+    "phone-landscape": "none",
+    "tablet": "none",
+    "tablet-portrait": "none",
+    "desktop": "none",
+    "wide": "none"
+  },
+  "fonts": {
+    "readout": "largeTitle",
+    "header": "title2",
+    "label": "caption",
+    "micro": "caption2"
+  },
+  "tokens": {
+    "light": {
+      "ho-line": "#007d8c",
+      "ho-line-hi": "#00434d",
+      "ho-line-dim": "rgb(0 125 140 / 0.45)",
+      "ho-line-faint": "rgb(0 125 140 / 0.16)",
+      "ho-fill": "rgb(0 140 160 / 0.05)",
+      "ho-fill-2": "rgb(0 140 160 / 0.10)",
+      "ho-fill-3": "rgb(0 140 160 / 0.2)",
+      "ho-glow": "0 0 4px rgb(0 160 180 / 0.25)",
+      "ho-text-glow": "none",
+      "ho-svg-glow": "drop-shadow(0 0 1px rgb(0 160 180 / 0.4))",
+      "ho-amber": "#b86200",
+      "ho-red": "#c8102e",
+      "ho-ground": "#eaf5f7",
+      "ho-ground-2": "#d6ecf0",
+      "ho-ink": "#ffffff",
+      "bg": "#eaf5f7",
+      "surface": "#f3fafb",
+      "surface-2": "#e0f0f3",
+      "surface-3": "#c6e2e8",
+      "fg": "#06343d",
+      "fg-2": "#1f6470",
+      "fg-3": "#5a8a94",
+      "border": "rgb(0 125 140 / 0.45)",
+      "divider": "rgb(0 125 140 / 0.2)",
+      "accent": "#007d8c",
+      "on-accent": "#ffffff",
+      "accent-soft": "rgb(0 125 140 / 0.12)",
+      "danger": "#c8102e",
+      "warning": "#b86200",
+      "success": "#00875a",
+      "info": "#007d8c",
+      "field-bg": "rgb(0 140 160 / 0.05)",
+      "field-border": "rgb(0 125 140 / 0.45)",
+      "scrim": "rgb(200 230 236 / 0.6)",
+      "shadow-1": "none",
+      "shadow-2": "none",
+      "shadow-3": "none",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "999px",
+      "font": "\"Rajdhani\", \"Orbitron\", \"Eurostile\", \"Bahnschrift\", \"DIN Alternate\", \"DIN Condensed\", sans-serif",
+      "font-mono": "\"DIN Alternate\", \"Bahnschrift\", ui-monospace, \"SF Mono\", Menlo, monospace",
+      "font-size": "14px",
+      "line-height": "1.35",
+      "icon-stroke": "1.25",
+      "icon-size": "16px",
+      "control-h": "30px",
+      "gap": "8px",
+      "pad": "12px",
+      "chrome-bg": "#eaf5f7",
+      "chrome-fg": "#06343d",
+      "fs-display": "44px",
+      "fw-display": "300",
+      "fs-largeTitle": "32px",
+      "fw-largeTitle": "300",
+      "fs-title": "24px",
+      "fw-title": "400",
+      "fs-title2": "19px",
+      "fw-title2": "500",
+      "fs-title3": "16px",
+      "fw-title3": "600",
+      "fs-headline": "14px",
+      "fw-headline": "600",
+      "fs-subheadline": "13px",
+      "fw-subheadline": "400",
+      "fs-body": "14px",
+      "fw-body": "400",
+      "fs-callout": "14px",
+      "fw-callout": "400",
+      "fs-footnote": "12px",
+      "fw-footnote": "400",
+      "fs-caption": "11px",
+      "fw-caption": "500",
+      "fs-caption2": "10px",
+      "fw-caption2": "500",
+      "fs-overline": "10px",
+      "fw-overline": "600",
+      "color-red": "#c8102e",
+      "color-orange": "#b86200",
+      "color-yellow": "#9a7a00",
+      "color-green": "#00875a",
+      "color-mint": "#00806a",
+      "color-teal": "#00808a",
+      "color-cyan": "#007d8c",
+      "color-blue": "#1f5fbf",
+      "color-indigo": "#4646c8",
+      "color-purple": "#7a3fc0",
+      "color-pink": "#b8327a",
+      "color-brown": "#8a5a2a",
+      "color-gray": "#5a7480",
+      "chart-1": "#007d8c",
+      "chart-2": "#00a39a",
+      "chart-3": "#b86200",
+      "chart-4": "#1f5fbf",
+      "chart-5": "#c8102e",
+      "chart-6": "#4aa8b8",
+      "note": "rgb(0 140 160 / 0.12)",
+      "code-bg": "rgb(0 140 160 / 0.05)",
+      "code-fg": "#06343d",
+      "code-kw": "#007d8c",
+      "code-str": "#00806a",
+      "code-num": "#b86200",
+      "code-comment": "#5a8a94",
+      "code-fn": "#1f6470",
+      "code-type": "#1f5fbf",
+      "term-bg": "rgb(0 140 160 / 0.05)",
+      "term-fg": "#1f6470",
+      "term-prompt": "#007d8c",
+      "grid-line": "rgb(0 125 140 / 0.16)",
+      "map-land": "transparent",
+      "map-water": "transparent",
+      "map-park": "transparent",
+      "map-road": "rgb(0 125 140 / 0.45)"
+    },
+    "dark": {
+      "ho-line": "#4ff0ff",
+      "ho-line-hi": "#c8fbff",
+      "ho-line-dim": "rgb(79 240 255 / 0.38)",
+      "ho-line-faint": "rgb(79 240 255 / 0.14)",
+      "ho-fill": "rgb(79 240 255 / 0.05)",
+      "ho-fill-2": "rgb(79 240 255 / 0.12)",
+      "ho-fill-3": "rgb(79 240 255 / 0.22)",
+      "ho-glow": "0 0 6px rgb(79 240 255 / 0.55)",
+      "ho-text-glow": "0 0 6px rgb(79 240 255 / 0.45)",
+      "ho-svg-glow": "drop-shadow(0 0 2px rgb(79 240 255 / 0.8))",
+      "ho-amber": "#ffb347",
+      "ho-red": "#ff4d5e",
+      "ho-ground": "#04101c",
+      "ho-ground-2": "#0a2236",
+      "ho-ink": "#021018",
+      "bg": "#030b14",
+      "surface": "#06141f",
+      "surface-2": "#0a1c2b",
+      "surface-3": "#12304a",
+      "fg": "#c8fbff",
+      "fg-2": "#7fdbe8",
+      "fg-3": "#4a95a3",
+      "border": "rgb(79 240 255 / 0.38)",
+      "divider": "rgb(79 240 255 / 0.18)",
+      "accent": "#4ff0ff",
+      "on-accent": "#021018",
+      "accent-soft": "rgb(79 240 255 / 0.14)",
+      "danger": "#ff4d5e",
+      "warning": "#ffb347",
+      "success": "#5cffb0",
+      "info": "#4ff0ff",
+      "field-bg": "rgb(79 240 255 / 0.05)",
+      "field-border": "rgb(79 240 255 / 0.38)",
+      "scrim": "rgb(2 8 14 / 0.7)",
+      "chrome-bg": "#030b14",
+      "chrome-fg": "#c8fbff",
+      "color-red": "#ff4d5e",
+      "color-orange": "#ffb347",
+      "color-yellow": "#ffe066",
+      "color-green": "#5cffb0",
+      "color-mint": "#7dffd8",
+      "color-teal": "#2bdcd0",
+      "color-cyan": "#4ff0ff",
+      "color-blue": "#6fa8ff",
+      "color-indigo": "#8a8cff",
+      "color-purple": "#c28aff",
+      "color-pink": "#ff7ab8",
+      "color-brown": "#c49a6c",
+      "color-gray": "#6d8a96",
+      "chart-1": "#4ff0ff",
+      "chart-2": "#a8fff0",
+      "chart-3": "#ffb347",
+      "chart-4": "#6fa8ff",
+      "chart-5": "#ff4d5e",
+      "chart-6": "#2bbfcf",
+      "note": "rgb(79 240 255 / 0.12)",
+      "code-bg": "rgb(79 240 255 / 0.05)",
+      "code-fg": "#c8fbff",
+      "code-kw": "#4ff0ff",
+      "code-str": "#a8fff0",
+      "code-num": "#ffb347",
+      "code-comment": "#4a95a3",
+      "code-fn": "#7fdbe8",
+      "code-type": "#6fa8ff",
+      "term-bg": "rgb(79 240 255 / 0.04)",
+      "term-fg": "#7fdbe8",
+      "term-prompt": "#4ff0ff",
+      "grid-line": "rgb(79 240 255 / 0.14)",
+      "map-land": "transparent",
+      "map-water": "transparent",
+      "map-park": "transparent",
+      "map-road": "rgb(79 240 255 / 0.38)"
+    }
+  },
+  "elements": {
+    "HUDFrame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "code": "status"
+      },
+      "variants": [
+        "standard",
+        "plain",
+        "alert"
+      ],
+      "doc": "Chamfered panel with corner brackets: HUDFrame(\"FLIGHT\", subtitle: \"SYS 3\", code: \"A-04\") { … } footer: { … } · .variant(.alert) turns it amber"
+    },
+    "Panel": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "code": "status"
+      },
+      "variants": [
+        "standard",
+        "plain",
+        "alert"
+      ],
+      "doc": "Alias of HUDFrame"
+    },
+    "DataPanel": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "data"
+      },
+      "attrs": {
+        "code": "status"
+      },
+      "variants": [
+        "data"
+      ],
+      "doc": "A small panel with a tab-like title strip: DataPanel(\"ATMOS\", code: \"03\") { LabeledContent… }"
+    },
+    "Reticle": {
+      "role": "shape",
+      "defaults": {
+        "shape": "reticle"
+      },
+      "variants": [
+        "standard",
+        "lock"
+      ],
+      "doc": "Targeting circle with crosshair ticks; size it with .frame(width:height:) · .variant(.lock) adds the lock brackets"
+    },
+    "TargetLock": {
+      "role": "shape",
+      "defaults": {
+        "shape": "reticle",
+        "variant": "lock"
+      },
+      "doc": "Reticle with lock brackets, drawn amber"
+    },
+    "RadialGauge": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "radial",
+        "showValue": true
+      },
+      "doc": "Arc gauge with a tick ring and the value in its centre: RadialGauge(\"THRUST\", value: 0.72)"
+    },
+    "Ring": {
+      "role": "progress",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "variant": "ring"
+      },
+      "doc": "Segmented ring: Ring(0.4, label: \"SHIELD\", showValue: true)"
+    },
+    "SegmentBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "segmented",
+        "showValue": true
+      },
+      "doc": "Segmented linear meter: SegmentBar(\"FUEL\", value: 0.6)"
+    },
+    "Scanner": {
+      "role": "map",
+      "variants": [
+        "sweep",
+        "grid"
+      ],
+      "doc": "Radar sweep: range rings, bearing lines and a sweep beam; pins: [(x, y, \"CONTACT\")] · .variant(.grid) without the beam"
+    },
+    "Alert": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "severity": "warning"
+      },
+      "variants": [
+        "standard",
+        "banner"
+      ],
+      "doc": "Chamfered warning strip, amber by default: Alert(\"PROXIMITY\", message: \"…\") · severity: .error is critical red, .info cyan"
+    },
+    "Critical": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "severity": "error",
+        "variant": "banner"
+      },
+      "doc": "Full-width critical banner in red"
+    },
+    "Readout": {
+      "role": "stat",
+      "params": [
+        "label",
+        "value"
+      ],
+      "attrs": {
+        "unit": "caption"
+      },
+      "doc": "Bracketed numeric readout: Readout(\"ALT\", value: \"12 480\", change: \"+120\", unit: \"M\")"
+    },
+    "HexBadge": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "variant": "hex"
+      },
+      "doc": "Hexagonal tag: HexBadge(\"A3\") · .color(.orange)"
+    },
+    "Telemetry": {
+      "role": "chart",
+      "defaults": {
+        "kind": "line"
+      },
+      "doc": "Thin glowing line chart: Telemetry(series: [[…]], labels: […])"
+    },
+    "Waveform": {
+      "role": "chart",
+      "defaults": {
+        "kind": "area"
+      },
+      "doc": "Filled trace: Waveform(values: […])"
+    },
+    "DataTable": {
+      "role": "table",
+      "defaults": {
+        "variant": "bracket"
+      },
+      "doc": "Table of bracketed rows"
+    },
+    "HUDButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "outline"
+      },
+      "variants": [
+        "outline",
+        "solid",
+        "ghost"
+      ],
+      "doc": "Chamfered outline button: HUDButton(\"ENGAGE\", variant: .solid)"
+    },
+    "Header": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "font": "title2"
+      },
+      "doc": "Panel heading in spaced capitals"
+    },
+    "Caption": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "font": "caption"
+      },
+      "doc": "Tiny spaced-capital label"
+    },
+    "Rule": {
+      "role": "divider",
+      "params": [
+        "label"
+      ],
+      "doc": "A thin rule with tick marks; Rule(\"SECTOR 2\") sets a label into it"
+    }
+  }
+}

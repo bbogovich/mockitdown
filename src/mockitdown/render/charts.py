@@ -200,7 +200,7 @@ def _bars(spec: ChartSpec) -> str:
                     x0, x1 = plot.x(0), plot.x(v)
                     y = yb + band * 0.15 + si * h
                 out.append(f'<rect class="mkd-chart__bar" x="{min(x0, x1):.1f}" y="{y:.1f}" width="{abs(x1 - x0):.1f}" '
-                           f'height="{h:.1f}" rx="2" style="fill:{color(si)}"/>')
+                           f'height="{h:.1f}" rx="2" style="fill:{color(si)};--mkd-series:{color(si)}"/>')
                 if spec.show_values and not spec.stacked:
                     out.append(_text(max(x0, x1) + 4, y + h / 2 + 3.5, _fmt(v), "start"))
         return _svg(spec, "".join(out)) + _legend(spec, spec.names if len(series) > 1 else [])
@@ -228,15 +228,15 @@ def _bars(spec: ChartSpec) -> str:
                 x = xb + band * 0.16 + si * w
                 ww = w
             out.append(f'<rect class="mkd-chart__bar" x="{x:.1f}" y="{min(ya, yb):.1f}" width="{max(ww - 1, 1):.1f}" '
-                       f'height="{abs(yb - ya):.1f}" rx="2" style="fill:{color(si)}"/>')
+                       f'height="{abs(yb - ya):.1f}" rx="2" style="fill:{color(si)};--mkd-series:{color(si)}"/>')
             if spec.show_values and not spec.stacked:
                 out.append(_text(x + ww / 2, min(ya, yb) - 3, _fmt(v), size=9))
     if 0 <= spec.line_series < len(series):
         s = series[spec.line_series]
         pts = " ".join(f"{x0 + (i + .5) * band:.1f},{plot.y(v):.1f}" for i, v in enumerate(s))
-        out.append(f'<polyline class="mkd-chart__line" points="{pts}" style="stroke:{color(spec.line_series)}"/>')
+        out.append(f'<polyline class="mkd-chart__line" points="{pts}" style="stroke:{color(spec.line_series)};--mkd-series:{color(spec.line_series)}"/>')
         out += [f'<circle cx="{x0 + (i + .5) * band:.1f}" cy="{plot.y(v):.1f}" r="2.6" '
-                f'style="fill:{color(spec.line_series)}"/>' for i, v in enumerate(s)]
+                f'style="fill:{color(spec.line_series)};--mkd-series:{color(spec.line_series)}"/>' for i, v in enumerate(s)]
     return _svg(spec, "".join(out)) + _legend(spec, spec.names if len(series) > 1 else [])
 
 
@@ -266,10 +266,10 @@ def _lines(spec: ChartSpec) -> str:
         if spec.kind == "area":
             bottom = [(x0 + i * step, plot.y(base[i] if spec.stacked else max(lo, 0))) for i in range(len(s))]
             poly = line + " " + " ".join(f"{x:.1f},{y:.1f}" for x, y in reversed(bottom))
-            layers.append(f'<polygon class="mkd-chart__area" points="{poly}" style="fill:{color(si)}"/>')
-        layers.append(f'<polyline class="mkd-chart__line" points="{line}" style="stroke:{color(si)}"/>')
+            layers.append(f'<polygon class="mkd-chart__area" points="{poly}" style="fill:{color(si)};--mkd-series:{color(si)}"/>')
+        layers.append(f'<polyline class="mkd-chart__line" points="{line}" style="stroke:{color(si)};--mkd-series:{color(si)}"/>')
         if spec.kind == "line" and n <= 16:
-            layers += [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" style="fill:{color(si)}"/>' for x, y in pts]
+            layers += [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.4" style="fill:{color(si)};--mkd-series:{color(si)}"/>' for x, y in pts]
         if spec.stacked:
             base = tops + base[len(tops):]
     out += layers
@@ -288,8 +288,8 @@ def _spark(spec: ChartSpec) -> str:
     pts = " ".join(f"{i / max(len(s) - 1, 1) * (w - 4) + 2:.1f},{h - 3 - (v - lo) / span * (h - 6):.1f}"
                    for i, v in enumerate(s))
     return _svg(spec, f'<polygon class="mkd-chart__area" points="2,{h - 1} {pts} {w - 2},{h - 1}" '
-                      f'style="fill:{color(0)}"/><polyline class="mkd-chart__line" points="{pts}" '
-                      f'style="stroke:{color(0)}"/>')
+                      f'style="fill:{color(0)};--mkd-series:{color(0)}"/><polyline class="mkd-chart__line" points="{pts}" '
+                      f'style="stroke:{color(0)};--mkd-series:{color(0)}"/>')
 
 
 def _pie(spec: ChartSpec) -> str:
@@ -315,7 +315,7 @@ def _pie(spec: ChartSpec) -> str:
                  f"A{inner:.1f},{inner:.1f} 0 {large},0 {xd:.1f},{yd:.1f}Z")
         else:
             d = f"M{cx:.1f},{cy:.1f}L{xa:.1f},{ya:.1f}A{r:.1f},{r:.1f} 0 {large},1 {xb:.1f},{yb:.1f}Z"
-        out.append(f'<path class="mkd-chart__slice" d="{d}" style="fill:{color(i)}"/>')
+        out.append(f'<path class="mkd-chart__slice" d="{d}" style="fill:{color(i)};--mkd-series:{color(i)}"/>')
         if spec.show_values and da > 0.35:
             mx, my = p(a + da / 2, (r + inner) / 2 if inner else r * 0.62)
             out.append(_text(mx, my + 3.5, f"{round(v / total * 100)}%", cls="mkd-chart__label mkd-chart__label--on"))
@@ -329,7 +329,7 @@ def _pie(spec: ChartSpec) -> str:
         if y > spec.height - 6:
             break
         pct = f" · {round(vals[i] / total * 100)}%" if i < len(vals) else ""
-        out.append(f'<rect x="{lx:.1f}" y="{y - 8:.1f}" width="10" height="10" rx="2" style="fill:{color(i)}"/>')
+        out.append(f'<rect x="{lx:.1f}" y="{y - 8:.1f}" width="10" height="10" rx="2" style="fill:{color(i)};--mkd-series:{color(i)}"/>')
         out.append(_text(lx + 16, y + 1, lab + pct, "start"))
     return _svg(spec, "".join(out))
 
@@ -351,7 +351,7 @@ def _scatter(spec: ChartSpec) -> str:
         r = 3.2 if spec.kind == "scatter" or len(p) < 3 else 3 + 14 * math.sqrt(p[2] / smax)
         group = int(p[3]) if len(p) > 3 else 0
         out.append(f'<circle class="mkd-chart__dot" cx="{sx(p[0]):.1f}" cy="{plot.y(p[1]):.1f}" r="{r:.1f}" '
-                   f'style="fill:{color(group)}"/>')
+                   f'style="fill:{color(group)};--mkd-series:{color(group)}"/>')
     return _svg(spec, "".join(out)) + _legend(spec, spec.names)
 
 
@@ -378,8 +378,8 @@ def _radar(spec: ChartSpec) -> str:
     for si, s in enumerate(spec.series):
         pts = " ".join(f"{cx + r * (v / hi) * math.cos(ang(i)):.1f},{cy + r * (v / hi) * math.sin(ang(i)):.1f}"
                        for i, v in enumerate(s[:n]))
-        out.append(f'<polygon class="mkd-chart__area" points="{pts}" style="fill:{color(si)}"/>'
-                   f'<polygon class="mkd-chart__line" points="{pts}" style="stroke:{color(si)}"/>')
+        out.append(f'<polygon class="mkd-chart__area" points="{pts}" style="fill:{color(si)};--mkd-series:{color(si)}"/>'
+                   f'<polygon class="mkd-chart__line" points="{pts}" style="stroke:{color(si)};--mkd-series:{color(si)}"/>')
     return _svg(spec, "".join(out)) + _legend(spec, spec.names)
 
 
@@ -425,7 +425,7 @@ def _funnel(spec: ChartSpec) -> str:
         nxt = maxw * (vals[i + 1] / top if i + 1 < len(vals) else v / top * 0.8)
         y = 2 + i * h
         out.append(f'<polygon points="{cx - w / 2:.1f},{y:.1f} {cx + w / 2:.1f},{y:.1f} {cx + nxt / 2:.1f},'
-                   f'{y + h - 2:.1f} {cx - nxt / 2:.1f},{y + h - 2:.1f}" style="fill:{color(i)}"/>')
+                   f'{y + h - 2:.1f} {cx - nxt / 2:.1f},{y + h - 2:.1f}" style="fill:{color(i)};--mkd-series:{color(i)}"/>')
         lab = spec.labels[i] if i < len(spec.labels) else ""
         out.append(_text(cx + maxw / 2 + 8, y + h / 2 + 3.5, f"{lab}  {_fmt(v)}", "start"))
     return _svg(spec, "".join(out))
@@ -443,7 +443,7 @@ def _treemap(spec: ChartSpec) -> str:
         if len(items) == 1:
             v, lab, i = items[0]
             out.append(f'<rect x="{x + 1:.1f}" y="{y + 1:.1f}" width="{max(w - 2, 0):.1f}" height="{max(h - 2, 0):.1f}" '
-                       f'rx="3" style="fill:{color(i)}"/>')
+                       f'rx="3" style="fill:{color(i)};--mkd-series:{color(i)}"/>')
             if w > 30 and h > 16:
                 out.append(_text(x + 6, y + 14, lab, "start", cls="mkd-chart__label mkd-chart__label--on"))
                 out.append(_text(x + 6, y + 26, _fmt(v), "start", size=9, cls="mkd-chart__label mkd-chart__label--on"))

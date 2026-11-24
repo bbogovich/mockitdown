@@ -1,0 +1,47 @@
+// Reusable pieces for the holographic-HUD easter-egg page.
+// Import with:  import "hologram/hud"
+
+import Hologram
+
+/// The footer strip of a HUD frame: a mode tag, coordinates and the clock.
+struct HUDFooter: View {
+  var mode: String = "NOMINAL"
+  var clock: String = "21:47:06"
+
+  var body: some View {
+    HexBadge(mode)
+    Text("LAT 41.207 · LON 12.884")
+    Spacer()
+    Text("LINK 98%")
+    Text(clock)
+  }
+}
+
+/// One system line inside a DataPanel: label, segmented meter and its reading.
+struct SystemMeter: View {
+  var name: String
+  var value: Double
+  var tint: String = "cyan"
+
+  var body: some View {
+    SegmentBar(name, value: value, color: tint)
+  }
+}
+
+/// A small data panel with three segmented meters (fractions 0…1).
+struct SystemPanel: View {
+  var title: String
+  var code: String
+  var a: Double
+  var b: Double
+  var c: Double
+  var tint: String = "cyan"
+
+  var body: some View {
+    DataPanel(title, code: code) {
+      SystemMeter(name: "OUTPUT", value: a, tint: tint)
+      SystemMeter(name: "THERMAL", value: b, tint: tint)
+      SystemMeter(name: "RESERVE", value: c, tint: tint)
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "id": "phosphor",
+  "name": "Phosphor Terminal",
+  "framework": "An original homage to the green-screen ship and mainframe computers of 1970s–80s science fiction",
+  "version": "Cold-boot edition 1",
+  "hidden": true,
+  "modules": [
+    "Phosphor",
+    "Mainframe",
+    "CRT"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "phone": "none",
+    "phone-landscape": "none",
+    "tablet": "none",
+    "tablet-portrait": "none",
+    "desktop": "none",
+    "wide": "none"
+  },
+  "fonts": {
+    "header": "title2",
+    "banner": "title",
+    "label": "footnote",
+    "readout": "largeTitle",
+    "fine": "caption"
+  },
+  "tokens": {
+    "light": {
+      "ph": "#ffb000",
+      "ph-hi": "#ffd27a",
+      "ph-mid": "#d48f00",
+      "ph-lo": "#8a5a00",
+      "ph-faint": "#3d2800",
+      "ph-ink": "#140c00",
+      "ph-glow": "0 0 1px rgb(255 176 0 / 0.9), 0 0 6px rgb(255 160 0 / 0.55), 0 0 14px rgb(255 140 0 / 0.25)",
+      "ph-glow-box": "0 0 6px rgb(255 160 0 / 0.45), inset 0 0 6px rgb(255 160 0 / 0.25)",
+      "ph-scan": "rgb(0 0 0 / 0.32)",
+      "ph-vignette": "rgb(0 0 0 / 0.55)",
+      "bg": "#120b02",
+      "surface": "#120b02",
+      "surface-2": "#1c1203",
+      "surface-3": "#3d2800",
+      "fg": "#ffb000",
+      "fg-2": "#d48f00",
+      "fg-3": "#9a6600",
+      "border": "#d48f00",
+      "divider": "#5c3c00",
+      "accent": "#ffb000",
+      "on-accent": "#140c00",
+      "accent-soft": "#3d2800",
+      "danger": "#ffe2a8",
+      "warning": "#ffd27a",
+      "success": "#ffb000",
+      "info": "#d48f00",
+      "field-bg": "#120b02",
+      "field-border": "#d48f00",
+      "scrim": "rgb(10 6 0 / 0.72)",
+      "shadow-1": "none",
+      "shadow-2": "none",
+      "shadow-3": "none",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "0px",
+      "font": "\"VT323\", \"IBM Plex Mono\", \"Courier New\", ui-monospace, monospace",
+      "font-mono": "\"VT323\", \"IBM Plex Mono\", \"Courier New\", ui-monospace, monospace",
+      "font-size": "15px",
+      "line-height": "1.35",
+      "icon-stroke": "2",
+      "icon-size": "16px",
+      "control-h": "30px",
+      "gap": "8px",
+      "pad": "12px",
+      "chrome-bg": "#120b02",
+      "chrome-fg": "#ffb000",
+      "fs-display": "44px",
+      "fw-display": "700",
+      "fs-largeTitle": "34px",
+      "fw-largeTitle": "700",
+      "fs-title": "26px",
+      "fw-title": "700",
+      "fs-title2": "21px",
+      "fw-title2": "700",
+      "fs-title3": "18px",
+      "fw-title3": "700",
+      "fs-headline": "16px",
+      "fw-headline": "700",
+      "fs-subheadline": "15px",
+      "fw-subheadline": "400",
+      "fs-body": "15px",
+      "fw-body": "400",
+      "fs-callout": "15px",
+      "fw-callout": "400",
+      "fs-footnote": "13px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "700",
+      "color-red": "#ffe2a8",
+      "color-orange": "#ffb000",
+      "color-yellow": "#ffd27a",
+      "color-green": "#ffb000",
+      "color-mint": "#ffc84a",
+      "color-teal": "#e0a000",
+      "color-cyan": "#ffc84a",
+      "color-blue": "#d48f00",
+      "color-indigo": "#b87a00",
+      "color-purple": "#b87a00",
+      "color-pink": "#ffd27a",
+      "color-brown": "#8a5a00",
+      "color-gray": "#8a5a00",
+      "chart-1": "#ffb000",
+      "chart-2": "#ffd27a",
+      "chart-3": "#c98500",
+      "chart-4": "#ffe2a8",
+      "chart-5": "#8a5a00",
+      "chart-6": "#e09a00",
+      "note": "#3d2800",
+      "code-bg": "#120b02",
+      "code-fg": "#ffb000",
+      "code-kw": "#ffd27a",
+      "code-str": "#e09a00",
+      "code-num": "#ffe2a8",
+      "code-comment": "#8a5a00",
+      "code-fn": "#ffc84a",
+      "code-type": "#ffd27a",
+      "term-bg": "#120b02",
+      "term-fg": "#ffb000",
+      "term-prompt": "#ffd27a",
+      "grid-line": "#3d2800",
+      "map-land": "#120b02",
+      "map-water": "#120b02",
+      "map-park": "#120b02",
+      "map-road": "#8a5a00"
+    },
+    "dark": {
+      "ph": "#33ff66",
+      "ph-hi": "#b6ffc8",
+      "ph-mid": "#22c94e",
+      "ph-lo": "#147a30",
+      "ph-faint": "#0a2e15",
+      "ph-ink": "#021006",
+      "ph-glow": "0 0 1px rgb(51 255 102 / 0.9), 0 0 6px rgb(51 255 102 / 0.55), 0 0 14px rgb(51 255 102 / 0.25)",
+      "ph-glow-box": "0 0 6px rgb(51 255 102 / 0.45), inset 0 0 6px rgb(51 255 102 / 0.25)",
+      "ph-scan": "rgb(0 0 0 / 0.34)",
+      "ph-vignette": "rgb(0 0 0 / 0.6)",
+      "bg": "#030c05",
+      "surface": "#030c05",
+      "surface-2": "#061a0c",
+      "surface-3": "#0a2e15",
+      "fg": "#33ff66",
+      "fg-2": "#22c94e",
+      "fg-3": "#18913a",
+      "border": "#22c94e",
+      "divider": "#0f4a20",
+      "accent": "#33ff66",
+      "on-accent": "#021006",
+      "accent-soft": "#0a2e15",
+      "danger": "#d8ffe0",
+      "warning": "#b6ffc8",
+      "success": "#33ff66",
+      "info": "#22c94e",
+      "field-bg": "#030c05",
+      "field-border": "#22c94e",
+      "scrim": "rgb(0 6 2 / 0.72)",
+      "chrome-bg": "#030c05",
+      "chrome-fg": "#33ff66",
+      "color-red": "#d8ffe0",
+      "color-orange": "#b6ffc8",
+      "color-yellow": "#b6ffc8",
+      "color-green": "#33ff66",
+      "color-mint": "#66ff8c",
+      "color-teal": "#2ee070",
+      "color-cyan": "#66ff8c",
+      "color-blue": "#22c94e",
+      "color-indigo": "#1aa840",
+      "color-purple": "#1aa840",
+      "color-pink": "#b6ffc8",
+      "color-brown": "#147a30",
+      "color-gray": "#147a30",
+      "chart-1": "#33ff66",
+      "chart-2": "#b6ffc8",
+      "chart-3": "#1fb84a",
+      "chart-4": "#d8ffe0",
+      "chart-5": "#147a30",
+      "chart-6": "#66ff8c",
+      "note": "#0a2e15",
+      "code-bg": "#030c05",
+      "code-fg": "#33ff66",
+      "code-kw": "#b6ffc8",
+      "code-str": "#66ff8c",
+      "code-num": "#d8ffe0",
+      "code-comment": "#147a30",
+      "code-fn": "#66ff8c",
+      "code-type": "#b6ffc8",
+      "term-bg": "#030c05",
+      "term-fg": "#33ff66",
+      "term-prompt": "#b6ffc8",
+      "grid-line": "#0a2e15",
+      "map-land": "#030c05",
+      "map-water": "#030c05",
+      "map-park": "#030c05",
+      "map-road": "#147a30"
+    }
+  },
+  "elements": {
+    "Console": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "code": "status",
+        "header": "subtitle"
+      },
+      "variants": [
+        "double",
+        "single",
+        "bare"
+      ],
+      "doc": "The full-screen terminal frame: Console(\"MAIN DIRECTORY\", code: \"SYS 04\") { … } footer: { StatusLine(…) } · variant .double (default look), .single, .bare"
+    },
+    "Screen": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "code": "status",
+        "header": "subtitle"
+      },
+      "variants": [
+        "double",
+        "single",
+        "bare"
+      ],
+      "doc": "Alias of Console"
+    },
+    "Panel": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "single"
+      },
+      "attrs": {
+        "code": "status"
+      },
+      "variants": [
+        "single",
+        "double",
+        "bare"
+      ],
+      "doc": "A boxed ASCII frame with its title set into the top rule: Panel(\"REACTOR\", code: \"R-2\") { … }"
+    },
+    "Box": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "single"
+      },
+      "attrs": {
+        "code": "status"
+      },
+      "variants": [
+        "single",
+        "double",
+        "bare"
+      ],
+      "doc": "Alias of Panel"
+    },
+    "Prompt": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "prefix": ">"
+      },
+      "attrs": {
+        "symbol": "prefix"
+      },
+      "doc": "Command line with a block cursor: Prompt(\"RUN DIAGNOSTIC 7\") · symbol: \"$\" changes the prompt character"
+    },
+    "CommandLine": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "prefix": ">"
+      },
+      "attrs": {
+        "symbol": "prefix"
+      },
+      "doc": "Alias of Prompt"
+    },
+    "Cursor": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "variant": "cursor"
+      },
+      "doc": "Text ending in a steady block cursor: Cursor(\"READY\")"
+    },
+    "MenuList": {
+      "role": "list",
+      "defaults": {
+        "variant": "menu"
+      },
+      "doc": "A numbered menu: MenuList { MenuOption(\"NAVIGATION\") … } — options are numbered 1, 2, 3 … automatically"
+    },
+    "MenuOption": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "attrs": {
+        "key": "badge",
+        "value": "detail"
+      },
+      "doc": "One numbered menu line with a dotted leader to its value: MenuOption(\"LIFE SUPPORT\", value: \"NOMINAL\") · key: \"A\" overrides the number · .selected() shows it in inverse video"
+    },
+    "StatusLine": {
+      "role": "toolbar",
+      "params": [
+        "title"
+      ],
+      "doc": "The inverse-video status line at the foot of a screen: StatusLine(\"ONLINE\") { Text(\"T+04:12:09\") }"
+    },
+    "Readout": {
+      "role": "stat",
+      "params": [
+        "label",
+        "value"
+      ],
+      "attrs": {
+        "unit": "caption"
+      },
+      "doc": "A labelled big number: Readout(\"HULL TEMP\", value: \"0412\", change: \"+3\", unit: \"K\")"
+    },
+    "Banner": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "severity": "warning",
+        "variant": "priority",
+        "showIcon": false
+      },
+      "variants": [
+        "priority",
+        "notice",
+        "inverse"
+      ],
+      "doc": "Steady (never blinking) priority banner: Banner(\"PRIORITY ONE\", message: \"…\") · .variant(.notice) is the outlined form"
+    },
+    "Priority": {
+      "role": "alert",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "severity": "error",
+        "variant": "inverse",
+        "showIcon": false
+      },
+      "variants": [
+        "priority",
+        "notice",
+        "inverse"
+      ],
+      "doc": "The full-width inverse-video alarm banner: Priority(\"PRIORITY ALPHA\", message: \"…\")"
+    },
+    "Wireframe": {
+      "role": "map",
+      "variants": [
+        "terrain",
+        "grid",
+        "plot"
+      ],
+      "doc": "Vector map: glowing outlines on a coordinate grid; pins: [(x, y, \"SITE 4\")], route: true · .variant(.grid) is the bare grid"
+    },
+    "VectorPlot": {
+      "role": "chart",
+      "defaults": {
+        "kind": "line"
+      },
+      "doc": "A vector line plot: VectorPlot(series: [[…]], labels: […])"
+    },
+    "Plot": {
+      "role": "chart",
+      "defaults": {
+        "kind": "line"
+      },
+      "doc": "Alias of VectorPlot"
+    },
+    "LoadBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "showValue": true
+      },
+      "doc": "A block-character bar: LoadBar(\"CORE LOAD\", value: 0.64)"
+    },
+    "Log": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "defaults": {
+        "variant": "terminal"
+      },
+      "doc": "A scrolling terminal log: lines starting with \"$ \" or \"> \" are commands"
+    },
+    "DataTable": {
+      "role": "table",
+      "defaults": {
+        "variant": "leaders"
+      },
+      "doc": "Fixed-width table with dotted leaders: DataTable(columns: […], rows: […])"
+    },
+    "Ledger": {
+      "role": "spreadsheet",
+      "doc": "Fixed-width spreadsheet grid (same as Spreadsheet)"
+    },
+    "Header": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "font": "title2"
+      },
+      "doc": "Screen heading, uppercase and glowing"
+    },
+    "Caption": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "font": "caption"
+      },
+      "doc": "Dim fine print"
+    },
+    "Rule": {
+      "role": "divider",
+      "params": [
+        "label"
+      ],
+      "doc": "A dashed rule; Rule(\"SECTION 2\") sets a label into it"
+    }
+  }
+}

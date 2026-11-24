@@ -1,0 +1,494 @@
+/* mockitdown pack: hologram — an original homage to the translucent cyan heads-up displays of modern
+ * science-fiction films. Thin 1px line-work on a deep navy ground (dark) or dark cyan line-work on a pale
+ * "daylight AR" ground (light), chamfered panels cut with clip-path, corner brackets and chamfer edges
+ * drawn with background gradients, radial gauges, segmented rings, hexagon accents, spaced small
+ * capitals, glow from box-shadow / text-shadow / drop-shadow. Amber warns, red is critical.
+ * Every colour comes from the --mkd-ho-* tokens, so both appearances switch by tokens alone.
+ */
+
+/* ---------- ground ---------- */
+.mkd-pack-hologram .mkd-frame {
+  border: 1px solid var(--mkd-ho-line-dim);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / .2), 0 14px 36px rgb(0 20 40 / .3);
+  text-shadow: var(--mkd-ho-text-glow);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .03em;
+}
+.mkd-pack-hologram .mkd-frame .mkd-screen {
+  background:
+    linear-gradient(var(--mkd-ho-line-faint) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--mkd-ho-line-faint) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(ellipse at 50% 40%, var(--mkd-ho-ground-2) 0%, var(--mkd-ho-ground) 75%);
+}
+.mkd-pack-hologram .mkd-frame[data-fit="true"] .mkd-screen { padding: 14px; }
+.mkd-pack-hologram .mkd-frame .mkd-screen > .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) { flex: 1 1 auto; margin: 14px; }
+.mkd-pack-hologram .mkd-frame[data-fit="true"] .mkd-screen > .mkd-card { margin: 0; }
+.mkd-pack-hologram .mkd-icon { stroke-width: var(--mkd-icon-stroke); }
+
+/* ---------- type ---------- */
+.mkd-pack-hologram .mkd-text:where([data-font="display"], [data-font="largeTitle"], [data-font="title"]) { color: var(--mkd-ho-line-hi); letter-spacing: .06em; line-height: 1.05; }
+.mkd-pack-hologram .mkd-text:where([data-font="title2"], [data-font="title3"], [data-font="headline"]) { color: var(--mkd-ho-line); text-transform: uppercase; letter-spacing: .18em; }
+.mkd-pack-hologram .mkd-text:where([data-font="caption"], [data-font="caption2"], [data-font="footnote"], [data-font="overline"]) { color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .2em; }
+.mkd-pack-hologram .mkd-text strong { color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-link { color: var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-labeled { font-size: 13px; }
+.mkd-pack-hologram .mkd-labeled__label { color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .16em; font-size: 11px; }
+.mkd-pack-hologram .mkd-labeled__value { color: var(--mkd-ho-line-hi); }
+
+/* ---------- HUDFrame / Panel / DataPanel (card): chamfered, edges drawn, corner brackets ---------- */
+.mkd-pack-hologram .mkd-card {
+  --ho-c: 16px;
+  --ho-edge: var(--mkd-ho-line-dim);
+  --ho-br: var(--mkd-ho-line);
+  overflow: visible;
+  border: 1px solid var(--ho-edge);
+  border-radius: 0;
+  clip-path: polygon(var(--ho-c) 0, 100% 0, 100% calc(100% - var(--ho-c)), calc(100% - var(--ho-c)) 100%, 0 100%, 0 var(--ho-c));
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--ho-edge) calc(50% - 1px) calc(50% + .5px), transparent calc(50% + .5px)) 0 0 / var(--ho-c) var(--ho-c) no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - .5px), var(--ho-edge) calc(50% - .5px) calc(50% + 1px), transparent calc(50% + 1px)) 100% 100% / var(--ho-c) var(--ho-c) no-repeat,
+    linear-gradient(var(--ho-br), var(--ho-br)) 100% 0 / 22px 2px no-repeat,
+    linear-gradient(var(--ho-br), var(--ho-br)) 100% 0 / 2px 22px no-repeat,
+    linear-gradient(var(--ho-br), var(--ho-br)) 0 100% / 22px 2px no-repeat,
+    linear-gradient(var(--ho-br), var(--ho-br)) 0 100% / 2px 22px no-repeat,
+    var(--mkd-ho-fill);
+  background-origin: border-box;
+  box-shadow: inset 0 0 28px var(--mkd-ho-fill-2);
+}
+.mkd-pack-hologram .mkd-card__header { padding: 12px 18px 0; gap: 12px; align-items: center; }
+.mkd-pack-hologram .mkd-card__titles { flex-direction: row; align-items: baseline; gap: 14px; }
+.mkd-pack-hologram .mkd-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .26em;
+  color: var(--mkd-ho-line);
+}
+.mkd-pack-hologram .mkd-card__title::before {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 10px;
+  background: var(--mkd-ho-line);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  filter: drop-shadow(0 0 3px var(--mkd-ho-line));
+}
+.mkd-pack-hologram .mkd-card__subtitle { font-size: 11px; color: var(--mkd-fg-3); text-transform: uppercase; letter-spacing: .2em; }
+.mkd-pack-hologram .mkd-card__status {
+  margin-left: auto;
+  padding: 1px 8px;
+  border: 1px solid var(--mkd-ho-line-dim);
+  font-size: 11px;
+  color: var(--mkd-ho-line);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+}
+.mkd-pack-hologram .mkd-card__body { padding: 12px 18px; gap: 12px; }
+.mkd-pack-hologram .mkd-card__body:last-child { padding-bottom: 18px; }
+.mkd-pack-hologram .mkd-card__actions {
+  padding: 8px 18px 14px;
+  justify-content: flex-start;
+  gap: 18px;
+  font-size: 11px;
+  color: var(--mkd-fg-3);
+  text-transform: uppercase;
+  letter-spacing: .18em;
+}
+/* the outer frame: a tick strip under the header */
+.mkd-pack-hologram .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) > .mkd-card__header { padding: 14px 22px 10px; margin: 0 10px; background: repeating-linear-gradient(90deg, var(--mkd-ho-line-dim) 0 1px, transparent 1px 8px) 0 100% / 100% 4px no-repeat; }
+.mkd-pack-hologram .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) > .mkd-card__header .mkd-card__title { font-size: 15px; color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) > .mkd-card__body { flex: 1 1 auto; padding: 16px 22px; gap: 16px; }
+.mkd-pack-hologram .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) > .mkd-card__actions { margin: 0 10px; padding: 8px 12px 14px; border-top: 1px solid var(--mkd-ho-line-faint); }
+.mkd-pack-hologram .mkd-card[data-variant="plain"] { --ho-br: transparent; }
+.mkd-pack-hologram .mkd-card[data-variant="alert"] { --ho-edge: var(--mkd-ho-amber); --ho-br: var(--mkd-ho-amber); box-shadow: inset 0 0 34px color-mix(in srgb, var(--mkd-ho-amber) 22%, transparent); }
+.mkd-pack-hologram .mkd-card[data-variant="alert"] .mkd-card__title { color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-card[data-variant="alert"] .mkd-card__title::before { background: var(--mkd-ho-amber); }
+/* DataPanel: smaller cut, a filled title strip */
+.mkd-pack-hologram .mkd-card[data-variant="data"] { --ho-c: 10px; --ho-br: transparent; box-shadow: inset 0 0 18px var(--mkd-ho-fill); }
+.mkd-pack-hologram .mkd-card[data-variant="data"] > .mkd-card__header { padding: 6px 12px 6px 18px; background: linear-gradient(90deg, var(--mkd-ho-fill-3), transparent 85%); }
+.mkd-pack-hologram .mkd-card[data-variant="data"] .mkd-card__title { font-size: 11px; letter-spacing: .24em; }
+.mkd-pack-hologram .mkd-card[data-variant="data"] .mkd-card__title::before { width: 8px; height: 7px; }
+.mkd-pack-hologram .mkd-card[data-variant="data"] .mkd-card__status { border: 0; padding: 0; color: var(--mkd-fg-3); }
+.mkd-pack-hologram .mkd-card[data-variant="data"] > .mkd-card__body { padding: 10px 14px 14px; gap: 8px; }
+
+/* ---------- Readout (stat): a bracketed number ---------- */
+.mkd-pack-hologram .mkd-hstack > .mkd-stat { align-self: stretch; }
+.mkd-pack-hologram .mkd-stat {
+  gap: 2px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 0 / 8px 1px no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 100% / 8px 1px no-repeat,
+    linear-gradient(90deg, var(--mkd-ho-fill-2), transparent 80%);
+}
+.mkd-pack-hologram .mkd-stat__label { font-size: 10px; font-weight: 600; color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .24em; }
+.mkd-pack-hologram .mkd-stat__icon { color: var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-stat__value { font-size: 30px; font-weight: 300; line-height: 1.05; color: var(--mkd-ho-line-hi); letter-spacing: .04em; }
+.mkd-pack-hologram .mkd-stat__foot { gap: 8px; font-size: 10px; text-transform: uppercase; letter-spacing: .16em; }
+.mkd-pack-hologram .mkd-stat__change, .mkd-pack-hologram .mkd-stat__change[data-positive] { padding: 0; background: none; color: var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-stat__change[data-positive="false"] { color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-stat__caption { color: var(--mkd-fg-3); }
+.mkd-pack-hologram .mkd-stat[data-color="orange"], .mkd-pack-hologram .mkd-stat[data-color="warning"] { --mkd-ho-line: var(--mkd-ho-amber); --mkd-ho-line-hi: var(--mkd-ho-amber); --mkd-ho-fill-2: color-mix(in srgb, var(--mkd-ho-amber) 14%, transparent); }
+.mkd-pack-hologram .mkd-stat[data-color="red"], .mkd-pack-hologram .mkd-stat[data-color="danger"] { --mkd-ho-line: var(--mkd-ho-red); --mkd-ho-line-hi: var(--mkd-ho-red); --mkd-ho-fill-2: color-mix(in srgb, var(--mkd-ho-red) 14%, transparent); }
+
+/* ---------- Alert / Critical: chamfered strips, amber and red ---------- */
+.mkd-pack-hologram .mkd-alert {
+  --mkd-sev: var(--mkd-ho-line);
+  --ho-c: 10px;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: 1px solid var(--mkd-sev);
+  border-left-width: 3px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--ho-c)) 0, 100% var(--ho-c), 100% 100%, 0 100%);
+  background:
+    linear-gradient(to bottom left, transparent calc(50% - 1px), var(--mkd-sev) calc(50% - 1px) calc(50% + .5px), transparent calc(50% + .5px)) 100% 0 / var(--ho-c) var(--ho-c) no-repeat,
+    linear-gradient(90deg, color-mix(in srgb, var(--mkd-sev) 18%, transparent), color-mix(in srgb, var(--mkd-sev) 4%, transparent));
+  background-origin: border-box;
+  color: var(--mkd-fg);
+  text-shadow: none;
+}
+.mkd-pack-hologram .mkd-alert:where([data-severity="warning"]) { --mkd-sev: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-alert:where([data-severity="error"]) { --mkd-sev: var(--mkd-ho-red); }
+.mkd-pack-hologram .mkd-alert:where([data-severity="success"]) { --mkd-sev: var(--mkd-success); }
+.mkd-pack-hologram .mkd-alert__icon { color: var(--mkd-sev); padding: 0; filter: drop-shadow(0 0 3px var(--mkd-sev)); }
+.mkd-pack-hologram .mkd-alert__content { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; }
+.mkd-pack-hologram .mkd-alert__title { font-size: 12px; font-weight: 700; color: var(--mkd-sev); text-transform: uppercase; letter-spacing: .24em; text-shadow: 0 0 6px color-mix(in srgb, var(--mkd-sev) 60%, transparent); }
+.mkd-pack-hologram .mkd-alert__message { font-size: 12px; color: var(--mkd-fg); text-transform: uppercase; letter-spacing: .1em; }
+.mkd-pack-hologram .mkd-alert[data-variant="banner"] {
+  justify-content: center;
+  padding: 12px 20px;
+  border-width: 1px;
+  background:
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--mkd-sev) 24%, transparent) 0 6px, transparent 6px 14px) 0 0 / 60px 100% no-repeat,
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--mkd-sev) 24%, transparent) 0 6px, transparent 6px 14px) 100% 0 / 60px 100% no-repeat,
+    color-mix(in srgb, var(--mkd-sev) 14%, transparent);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+  box-shadow: inset 0 0 22px color-mix(in srgb, var(--mkd-sev) 35%, transparent);
+}
+.mkd-pack-hologram .mkd-alert[data-variant="banner"] .mkd-alert__content { flex: 0 1 auto; justify-content: center; }
+.mkd-pack-hologram .mkd-alert[data-variant="banner"] .mkd-alert__title { font-size: 18px; letter-spacing: .4em; }
+
+/* ---------- buttons: chamfered outlines ---------- */
+.mkd-pack-hologram .mkd-button {
+  --ho-c: 8px;
+  --ho-edge: var(--mkd-ho-line);
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid var(--ho-edge);
+  border-radius: 0;
+  clip-path: polygon(var(--ho-c) 0, 100% 0, 100% calc(100% - var(--ho-c)), calc(100% - var(--ho-c)) 100%, 0 100%, 0 var(--ho-c));
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--ho-edge) calc(50% - 1px) calc(50% + .5px), transparent calc(50% + .5px)) 0 0 / var(--ho-c) var(--ho-c) no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - .5px), var(--ho-edge) calc(50% - .5px) calc(50% + 1px), transparent calc(50% + 1px)) 100% 100% / var(--ho-c) var(--ho-c) no-repeat,
+    var(--mkd-ho-fill);
+  background-origin: border-box;
+  color: var(--mkd-ho-line);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  box-shadow: none;
+}
+.mkd-pack-hologram .mkd-button:is([data-variant="primary"], [data-variant="solid"], [data-variant="filled"], [data-variant="borderedProminent"], [data-selected="true"], [data-pressed="true"]) {
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--ho-edge) calc(50% - 1px) calc(50% + .5px), transparent calc(50% + .5px)) 0 0 / var(--ho-c) var(--ho-c) no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - .5px), var(--ho-edge) calc(50% - .5px) calc(50% + 1px), transparent calc(50% + 1px)) 100% 100% / var(--ho-c) var(--ho-c) no-repeat,
+    var(--mkd-ho-fill-3);
+  background-origin: border-box;
+  color: var(--mkd-ho-line-hi);
+  box-shadow: inset 0 0 12px var(--mkd-ho-fill-3);
+}
+.mkd-pack-hologram .mkd-button:is([data-variant="ghost"], [data-variant="plain"], [data-variant="borderless"]) { border-color: transparent; background: none; clip-path: none; }
+.mkd-pack-hologram .mkd-button:is([data-role="destructive"], [data-color="red"], [data-color="danger"]) { --ho-edge: var(--mkd-ho-red); color: var(--mkd-ho-red); }
+.mkd-pack-hologram .mkd-button:is([data-color="orange"], [data-color="warning"]) { --ho-edge: var(--mkd-ho-amber); color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-button[data-state="disabled"] { opacity: .4; }
+
+/* ---------- toggles, sliders, fields, badges ---------- */
+.mkd-pack-hologram .mkd-toggle { font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--mkd-fg-2); }
+.mkd-pack-hologram .mkd-toggle__track { width: 40px; height: 16px; border: 1px solid var(--mkd-ho-line-dim); border-radius: 0; background: var(--mkd-ho-fill); clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
+.mkd-pack-hologram .mkd-toggle__thumb { top: 2px; left: 3px; width: 14px; height: 10px; border-radius: 0; background: var(--mkd-ho-line-dim); box-shadow: none; }
+.mkd-pack-hologram .mkd-toggle[data-on="true"] .mkd-toggle__track { border-color: var(--mkd-ho-line); background: var(--mkd-ho-fill-3); }
+.mkd-pack-hologram .mkd-toggle[data-on="true"] .mkd-toggle__thumb { right: 3px; background: var(--mkd-ho-line); box-shadow: var(--mkd-ho-glow); }
+.mkd-pack-hologram .mkd-toggle[data-on="true"] .mkd-toggle__label { color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-slider__label { font-size: 11px; color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .2em; }
+.mkd-pack-hologram .mkd-slider__track {
+  height: 10px;
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(90deg, var(--mkd-ho-line-dim) 0 1px, transparent 1px 10%) 0 0 / 100% 100% no-repeat,
+    linear-gradient(var(--mkd-ho-line-dim), var(--mkd-ho-line-dim)) 0 50% / 100% 1px no-repeat;
+}
+.mkd-pack-hologram .mkd-slider__fill { top: 4px; bottom: 4px; border-radius: 0; background: var(--mkd-ho-line); box-shadow: var(--mkd-ho-glow); }
+.mkd-pack-hologram .mkd-slider__thumb { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 0; border: 1px solid var(--mkd-ho-line-hi); background: var(--mkd-ho-ground); rotate: 45deg; box-shadow: var(--mkd-ho-glow); }
+.mkd-pack-hologram .mkd-slider__value, .mkd-pack-hologram .mkd-slider__min, .mkd-pack-hologram .mkd-slider__max { color: var(--mkd-ho-line); font-size: 12px; }
+.mkd-pack-hologram .mkd-checkbox__box, .mkd-pack-hologram .mkd-radio__dot { border: 1px solid var(--mkd-ho-line-dim); border-radius: 0; background: var(--mkd-ho-fill); color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-checkbox[data-checked="true"] .mkd-checkbox__box { border-color: var(--mkd-ho-line); background: var(--mkd-ho-fill-3); }
+.mkd-pack-hologram .mkd-field__label { font-size: 10px; font-weight: 600; color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .22em; }
+.mkd-pack-hologram .mkd-field__control { border: 0; border-bottom: 1px solid var(--mkd-ho-line-dim); border-radius: 0; background: linear-gradient(to top, var(--mkd-ho-fill-2), transparent); }
+.mkd-pack-hologram .mkd-field:where([data-state="focused"]) .mkd-field__control { border-color: var(--mkd-ho-line); box-shadow: 0 1px 0 var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-badge { --mkd-badge-c: var(--mkd-ho-line); --mkd-badge-on: var(--mkd-ho-ink); border-radius: 0; height: 18px; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-shadow: none; }
+.mkd-pack-hologram .mkd-badge[data-variant="hex"] {
+  min-width: 34px;
+  height: 22px;
+  padding: 0 10px;
+  background: var(--mkd-ho-fill-3);
+  color: var(--mkd-ho-line-hi);
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%);
+}
+.mkd-pack-hologram .mkd-badge[data-variant="hex"]:is([data-color="orange"], [data-color="warning"]) { background: color-mix(in srgb, var(--mkd-ho-amber) 25%, transparent); color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-badge[data-variant="hex"]:is([data-color="red"], [data-color="danger"]) { background: color-mix(in srgb, var(--mkd-ho-red) 25%, transparent); color: var(--mkd-ho-red); }
+.mkd-pack-hologram .mkd-chip { border-radius: 0; border: 1px solid var(--mkd-ho-line-dim); background: var(--mkd-ho-fill); color: var(--mkd-ho-line); text-transform: uppercase; letter-spacing: .14em; font-size: 11px; }
+.mkd-pack-hologram .mkd-kbd, .mkd-pack-hologram .mkd-kbd__key { border-radius: 0; border-color: var(--mkd-ho-line-dim); background: var(--mkd-ho-fill); box-shadow: none; color: var(--mkd-ho-line); }
+
+/* ---------- Rule (divider) ---------- */
+.mkd-pack-hologram .mkd-divider { height: 5px; background: repeating-linear-gradient(90deg, var(--mkd-ho-line-dim) 0 1px, transparent 1px 10px) 0 100% / 100% 4px no-repeat, linear-gradient(var(--mkd-ho-line-dim), var(--mkd-ho-line-dim)) 0 0 / 100% 1px no-repeat; }
+.mkd-pack-hologram .mkd-hstack > .mkd-divider { width: 1px; height: auto; background: var(--mkd-ho-line-dim); }
+.mkd-pack-hologram .mkd-divider__label { padding: 0 10px; background: var(--mkd-bg); color: var(--mkd-ho-line); font-size: 10px; text-transform: uppercase; letter-spacing: .28em; }
+
+/* ---------- progress: segmented bars, RadialGauge, Ring ---------- */
+.mkd-pack-hologram .mkd-progress__label { font-size: 11px; color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .2em; }
+.mkd-pack-hologram .mkd-progress__value { font-size: 12px; color: var(--mkd-ho-line-hi); letter-spacing: .08em; }
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-areas: "l v" "t t";
+  gap: 4px 10px;
+}
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) > .mkd-progress__label { grid-area: l; }
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) > .mkd-progress__value { grid-area: v; }
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) > .mkd-progress__track { grid-area: t; }
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) .mkd-progress__track { height: 6px; border-radius: 0; overflow: visible; background: var(--mkd-ho-line-faint); }
+.mkd-pack-hologram .mkd-progress:where([data-kind="linear"]) .mkd-progress__bar { border-radius: 0; background: var(--mkd-ho-line); box-shadow: var(--mkd-ho-glow); }
+.mkd-pack-hologram .mkd-progress[data-variant="segmented"] .mkd-progress__track { height: 10px; background: repeating-linear-gradient(90deg, var(--mkd-ho-line-faint) 0 6px, transparent 6px 8px); }
+.mkd-pack-hologram .mkd-progress[data-variant="segmented"] .mkd-progress__bar { background: repeating-linear-gradient(90deg, var(--mkd-ho-line) 0 6px, transparent 6px 8px); box-shadow: none; filter: drop-shadow(0 0 3px var(--mkd-ho-line)); }
+.mkd-pack-hologram .mkd-progress:is([data-color="orange"], [data-color="warning"]) { --mkd-ho-line: var(--mkd-ho-amber); --mkd-ho-line-hi: var(--mkd-ho-amber); --mkd-ho-line-faint: color-mix(in srgb, var(--mkd-ho-amber) 18%, transparent); }
+.mkd-pack-hologram .mkd-progress:is([data-color="red"], [data-color="danger"]) { --mkd-ho-line: var(--mkd-ho-red); --mkd-ho-line-hi: var(--mkd-ho-red); --mkd-ho-line-faint: color-mix(in srgb, var(--mkd-ho-red) 18%, transparent); }
+.mkd-pack-hologram .mkd-progress__ring .mkd-progress__track { stroke: var(--mkd-ho-line-faint); }
+.mkd-pack-hologram .mkd-progress__ring .mkd-progress__bar { stroke: var(--mkd-ho-line); stroke-linecap: butt; filter: var(--mkd-ho-svg-glow); }
+
+.mkd-pack-hologram .mkd-progress:is([data-variant="radial"], [data-variant="ring"]) {
+  display: inline-grid;
+  grid-template-areas: "ring" "label";
+  justify-items: center;
+  align-items: center;
+  gap: 6px;
+  flex-direction: column;
+}
+.mkd-pack-hologram .mkd-progress:is([data-variant="radial"], [data-variant="ring"]) > .mkd-progress__ring { grid-area: ring; }
+.mkd-pack-hologram .mkd-progress:is([data-variant="radial"], [data-variant="ring"]) > .mkd-progress__value { grid-area: ring; z-index: 1; }
+.mkd-pack-hologram .mkd-progress:is([data-variant="radial"], [data-variant="ring"]) > .mkd-progress__label { grid-area: label; text-align: center; }
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__ring {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle closest-side, transparent calc(100% - 1px), var(--mkd-ho-line-dim) calc(100% - 1px) 100%, transparent 100%),
+    radial-gradient(circle closest-side, transparent 0 calc(100% - 26px), var(--mkd-ho-line-faint) calc(100% - 26px) calc(100% - 25px), transparent calc(100% - 25px)),
+    radial-gradient(circle closest-side, var(--mkd-ho-fill-2), transparent 70%);
+}
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__ring::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(var(--mkd-ho-line-dim) 0 1.2deg, transparent 1.2deg 9deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 5px), #000 calc(100% - 5px));
+}
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__ring svg { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__track { stroke-width: 1.6; }
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__bar { stroke-width: 1.6; }
+.mkd-pack-hologram .mkd-progress[data-variant="radial"] .mkd-progress__value { font-size: 24px; font-weight: 300; color: var(--mkd-ho-line-hi); letter-spacing: .02em; }
+.mkd-pack-hologram .mkd-progress[data-variant="ring"] .mkd-progress__ring {
+  width: 72px;
+  height: 72px;
+  -webkit-mask: repeating-conic-gradient(#000 0 13deg, transparent 13deg 15deg);
+  mask: repeating-conic-gradient(#000 0 13deg, transparent 13deg 15deg);
+}
+.mkd-pack-hologram .mkd-progress[data-variant="ring"] .mkd-progress__track { stroke-width: 3.2; }
+.mkd-pack-hologram .mkd-progress[data-variant="ring"] .mkd-progress__bar { stroke-width: 3.2; }
+.mkd-pack-hologram .mkd-progress[data-variant="ring"] .mkd-progress__value { font-size: 15px; font-weight: 500; }
+
+/* ---------- Reticle (shape) ---------- */
+.mkd-pack-hologram .mkd-shape[data-shape="reticle"] {
+  --ho-r: var(--mkd-ho-line);
+  position: relative;
+  flex: none;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px dashed var(--mkd-ho-line-dim);
+  background:
+    linear-gradient(var(--ho-r), var(--ho-r)) 50% 0 / 1px 18px no-repeat,
+    linear-gradient(var(--ho-r), var(--ho-r)) 50% 100% / 1px 18px no-repeat,
+    linear-gradient(var(--ho-r), var(--ho-r)) 0 50% / 18px 1px no-repeat,
+    linear-gradient(var(--ho-r), var(--ho-r)) 100% 50% / 18px 1px no-repeat,
+    radial-gradient(circle closest-side, var(--ho-r) 0 2px, transparent 2.5px),
+    radial-gradient(circle closest-side, transparent calc(62% - 1px), var(--ho-r) calc(62% - 1px) 62%, transparent 62%);
+  filter: drop-shadow(0 0 3px var(--ho-r));
+}
+.mkd-pack-hologram .mkd-shape[data-shape="reticle"]::before {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background: conic-gradient(var(--ho-r) 0 30deg, transparent 30deg 90deg, var(--ho-r) 90deg 120deg, transparent 120deg 180deg, var(--ho-r) 180deg 210deg, transparent 210deg 270deg, var(--ho-r) 270deg 300deg, transparent 300deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(circle closest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  rotate: -15deg;
+}
+.mkd-pack-hologram .mkd-shape[data-shape="reticle"][data-variant="lock"] { --ho-r: var(--mkd-ho-amber); border-color: color-mix(in srgb, var(--mkd-ho-amber) 50%, transparent); }
+.mkd-pack-hologram .mkd-shape[data-shape="reticle"][data-variant="lock"]::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  --b: var(--ho-r);
+  background:
+    linear-gradient(var(--b), var(--b)) 0 0 / 16px 2px no-repeat, linear-gradient(var(--b), var(--b)) 0 0 / 2px 16px no-repeat,
+    linear-gradient(var(--b), var(--b)) 100% 0 / 16px 2px no-repeat, linear-gradient(var(--b), var(--b)) 100% 0 / 2px 16px no-repeat,
+    linear-gradient(var(--b), var(--b)) 0 100% / 16px 2px no-repeat, linear-gradient(var(--b), var(--b)) 0 100% / 2px 16px no-repeat,
+    linear-gradient(var(--b), var(--b)) 100% 100% / 16px 2px no-repeat, linear-gradient(var(--b), var(--b)) 100% 100% / 2px 16px no-repeat;
+}
+
+/* ---------- Scanner (map): range rings, bearing lines, sweep ---------- */
+.mkd-pack-hologram .mkd-map {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(var(--mkd-ho-line-faint), var(--mkd-ho-line-faint)) 50% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-ho-line-faint), var(--mkd-ho-line-faint)) 0 50% / 100% 1px no-repeat,
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 calc(12.5% - 1px), var(--mkd-ho-line-dim) calc(12.5% - 1px) 12.5%),
+    radial-gradient(circle at 50% 50%, var(--mkd-ho-fill-2), transparent 70%);
+  -webkit-mask: radial-gradient(circle closest-side at 50% 50%, #000 calc(100% - 1px), transparent 100%);
+  mask: radial-gradient(circle closest-side at 50% 50%, #000 calc(100% - 1px), transparent 100%);
+  box-shadow: none;
+}
+.mkd-pack-hologram .mkd-map__art { display: none; }
+.mkd-pack-hologram .mkd-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg at 50% 50%, transparent 0deg 250deg, color-mix(in srgb, var(--mkd-ho-line) 6%, transparent) 280deg, color-mix(in srgb, var(--mkd-ho-line) 40%, transparent) 359deg, var(--mkd-ho-line) 359deg 360deg);
+  rotate: 40deg;
+  pointer-events: none;
+}
+.mkd-pack-hologram .mkd-map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, var(--mkd-ho-line-dim) 0 .4deg, transparent .4deg 30deg);
+  -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent calc(100% - 12px), #000 calc(100% - 12px));
+  mask: radial-gradient(circle closest-side at 50% 50%, transparent calc(100% - 12px), #000 calc(100% - 12px));
+  pointer-events: none;
+}
+.mkd-pack-hologram .mkd-map[data-variant="grid"]::before { display: none; }
+.mkd-pack-hologram .mkd-map__route polyline { fill: none; stroke: var(--mkd-ho-line); stroke-width: 1.2px; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.mkd-pack-hologram .mkd-map__pin { z-index: 1; translate: -50% -50%; color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-map__pin .mkd-icon { display: none; }
+.mkd-pack-hologram .mkd-map__pin::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid currentColor;
+  rotate: 45deg;
+  background: radial-gradient(circle, currentColor 0 2px, transparent 2.5px);
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.mkd-pack-hologram .mkd-map__pin:first-of-type { color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-map__label {
+  top: 50%;
+  left: calc(100% + 8px);
+  translate: 0 -50%;
+  padding: 0 0 0 6px;
+  border-radius: 0;
+  border-left: 1px solid currentColor;
+  background: none;
+  box-shadow: none;
+  color: currentColor;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mkd-pack-hologram .mkd-map__me { z-index: 1; width: 10px; height: 10px; border-radius: 0; background: var(--mkd-ho-line); clip-path: polygon(50% 0, 100% 100%, 50% 75%, 0 100%); box-shadow: none; }
+
+/* ---------- charts: thin glowing lines ---------- */
+.mkd-pack-hologram .mkd-chart__title { font-size: 11px; font-weight: 600; color: var(--mkd-ho-line); text-transform: uppercase; letter-spacing: .24em; }
+.mkd-pack-hologram .mkd-chart__subtitle { font-size: 10px; color: var(--mkd-fg-3); text-transform: uppercase; letter-spacing: .18em; }
+.mkd-pack-hologram .mkd-chart__label { fill: var(--mkd-fg-3); letter-spacing: .08em; }
+.mkd-pack-hologram .mkd-chart__label--on { fill: var(--mkd-fg); }
+.mkd-pack-hologram .mkd-chart__center { fill: var(--mkd-ho-line-hi); font-weight: 300; }
+.mkd-pack-hologram .mkd-chart__grid { stroke: var(--mkd-ho-line-faint); stroke-dasharray: 1 3; }
+.mkd-pack-hologram .mkd-chart__axis { stroke: var(--mkd-ho-line-dim); }
+.mkd-pack-hologram .mkd-chart__line { stroke-width: 1.2; filter: var(--mkd-ho-svg-glow); }
+.mkd-pack-hologram .mkd-chart__area { opacity: .16; }
+.mkd-pack-hologram .mkd-chart[data-kind="area"] .mkd-chart__area { opacity: .22; }
+.mkd-pack-hologram .mkd-chart__bar { fill-opacity: .2; stroke: var(--mkd-ho-line); stroke-width: 1; }
+.mkd-pack-hologram .mkd-chart__slice { fill-opacity: .3; stroke: var(--mkd-ho-ground); stroke-width: 2; }
+.mkd-pack-hologram .mkd-chart__dot { opacity: 1; fill-opacity: .25; stroke: var(--mkd-ho-line); stroke-width: 1; }
+.mkd-pack-hologram .mkd-chart__track { stroke: var(--mkd-ho-line-faint); stroke-linecap: butt; }
+.mkd-pack-hologram .mkd-chart__legend { font-size: 10px; color: var(--mkd-fg-2); text-transform: uppercase; letter-spacing: .18em; }
+.mkd-pack-hologram .mkd-chart__swatch { width: 14px; height: 2px; border-radius: 0; }
+
+/* ---------- tables: bracketed rows ---------- */
+.mkd-pack-hologram .mkd-table-wrap { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.mkd-pack-hologram .mkd-table__toolbar { min-height: 26px; padding: 0 2px 4px; border-bottom: 1px solid var(--mkd-ho-line-dim); }
+.mkd-pack-hologram .mkd-table__title { font-size: 11px; font-weight: 600; color: var(--mkd-ho-line); text-transform: uppercase; letter-spacing: .24em; }
+.mkd-pack-hologram .mkd-table { border-collapse: separate; border-spacing: 0 3px; font-size: 13px; }
+.mkd-pack-hologram .mkd-table th, .mkd-pack-hologram .mkd-table td { padding: 5px 12px; border-bottom: 0; }
+.mkd-pack-hologram .mkd-table th { background: none; color: var(--mkd-fg-3); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .2em; }
+.mkd-pack-hologram .mkd-table tr td { background: var(--mkd-ho-fill); color: var(--mkd-fg); }
+.mkd-pack-hologram .mkd-table tr td:first-child {
+  background:
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 0 / 6px 1px no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 0 100% / 6px 1px no-repeat,
+    var(--mkd-ho-fill);
+  color: var(--mkd-ho-line-hi);
+}
+.mkd-pack-hologram .mkd-table tr td:last-child {
+  background:
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 100% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 100% 0 / 6px 1px no-repeat,
+    linear-gradient(var(--mkd-ho-line), var(--mkd-ho-line)) 100% 100% / 6px 1px no-repeat,
+    var(--mkd-ho-fill);
+}
+.mkd-pack-hologram .mkd-table tr[aria-selected="true"] td { --mkd-ho-fill: var(--mkd-ho-fill-3); color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-table tr[data-status="warning"] td { --mkd-ho-line: var(--mkd-ho-amber); color: var(--mkd-ho-amber); }
+.mkd-pack-hologram .mkd-table tr[data-status="error"] td { --mkd-ho-line: var(--mkd-ho-red); color: var(--mkd-ho-red); }
+.mkd-pack-hologram .mkd-table__footer { border-top: 1px solid var(--mkd-ho-line-faint); color: var(--mkd-fg-3); }
+
+/* ---------- other components ---------- */
+.mkd-pack-hologram .mkd-code[data-kind] { border: 1px solid var(--mkd-ho-line-dim); border-radius: 0; background: var(--mkd-ho-fill); font-size: 12px; }
+.mkd-pack-hologram .mkd-code[data-kind="terminal"] .mkd-code__bar { justify-content: flex-start; height: 24px; background: var(--mkd-ho-fill-2); border-color: var(--mkd-ho-line-dim); color: var(--mkd-ho-line); text-transform: uppercase; letter-spacing: .22em; font-size: 10px; }
+.mkd-pack-hologram .mkd-code[data-kind="terminal"] .mkd-chrome__lights { display: none; }
+.mkd-pack-hologram .mkd-code__cmd { color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-timeline { gap: 6px; }
+.mkd-pack-hologram .mkd-tabs__bar { border-bottom: 1px solid var(--mkd-ho-line-dim); }
+.mkd-pack-hologram .mkd-tab { text-transform: uppercase; letter-spacing: .18em; font-size: 11px; }
+.mkd-pack-hologram .mkd-tab[aria-selected="true"] { color: var(--mkd-ho-line-hi); box-shadow: inset 0 -2px 0 var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-segmented__items { border-radius: 0; border: 1px solid var(--mkd-ho-line-dim); background: var(--mkd-ho-fill); }
+.mkd-pack-hologram .mkd-segmented__item { border-radius: 0; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; color: var(--mkd-fg-2); }
+.mkd-pack-hologram .mkd-segmented__item[aria-selected="true"], .mkd-pack-hologram .mkd-segmented__item[data-selected="true"] { background: var(--mkd-ho-fill-3); color: var(--mkd-ho-line-hi); box-shadow: inset 0 -2px 0 var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-dialog { border: 1px solid var(--mkd-ho-line); border-radius: 0; background: var(--mkd-ho-ground); box-shadow: inset 0 0 30px var(--mkd-ho-fill-2), var(--mkd-ho-glow); }
+.mkd-pack-hologram .mkd-toast { border: 1px solid var(--mkd-ho-line-dim); border-radius: 0; background: var(--mkd-ho-ground); color: var(--mkd-fg); }
+.mkd-pack-hologram .mkd-tooltip__bubble { border-radius: 0; border: 1px solid var(--mkd-ho-line); background: var(--mkd-ho-ground); color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-avatar { border-radius: 0; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: var(--mkd-ho-fill-3); color: var(--mkd-ho-line-hi); }
+.mkd-pack-hologram .mkd-listitem { border-bottom: 1px solid var(--mkd-ho-line-faint); }
+.mkd-pack-hologram .mkd-list { background: transparent; }
+.mkd-pack-hologram .mkd-listitem[data-selected="true"] { background: var(--mkd-ho-fill-2); box-shadow: inset 2px 0 0 var(--mkd-ho-line); }
+.mkd-pack-hologram .mkd-card[data-variant="alert"] > .mkd-card__header .mkd-card__status { color: var(--mkd-ho-amber); border-color: var(--mkd-ho-amber); }

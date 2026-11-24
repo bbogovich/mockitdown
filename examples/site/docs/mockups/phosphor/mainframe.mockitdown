@@ -1,0 +1,53 @@
+// Reusable screen pieces for the phosphor-terminal easter-egg page.
+// Import with:  import "phosphor/mainframe"
+
+import Phosphor
+
+/// The inverse-video status line every screen ends with.
+struct ShipStatus: View {
+  var mode: String = "ONLINE"
+  var clock: String = "T+04:12:09"
+
+  var body: some View {
+    StatusLine(mode) {
+      Text("UNIT 7 · CORE 2")
+      Spacer()
+      Text("CYCLE 2207.114")
+      Text(clock)
+    }
+  }
+}
+
+/// The main directory: a numbered menu with one option lit.
+struct DirectoryMenu: View {
+  var lit: Int = 0
+
+  var body: some View {
+    MenuList {
+      MenuOption("NAVIGATION", value: "STANDBY", selected: lit == 1)
+      MenuOption("LIFE SUPPORT", value: "NOMINAL", selected: lit == 2)
+      MenuOption("REACTOR CONTROL", value: "NOMINAL", selected: lit == 3)
+      MenuOption("CARGO MANIFEST", value: "214 ITEMS", selected: lit == 4)
+      MenuOption("CREW REGISTRY", value: "7 ABOARD", selected: lit == 5)
+      MenuOption("COMMUNICATIONS", value: "NO SIGNAL", selected: lit == 6)
+      MenuOption("SPECIAL ORDERS", value: "RESTRICTED", selected: lit == 7)
+    }
+  }
+}
+
+/// A boxed subsystem panel: three block bars (fractions 0…1).
+struct SubsystemPanel: View {
+  var name: String
+  var code: String
+  var load: Double
+  var heat: Double
+  var flow: Double
+
+  var body: some View {
+    Panel(name, code: code) {
+      LoadBar("LOAD", value: load)
+      LoadBar("HEAT", value: heat)
+      LoadBar("FLOW", value: flow)
+    }
+  }
+}
