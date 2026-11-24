@@ -14,7 +14,7 @@
 .specitout/*.local.json
 
 # MkDocs build output (the implementation site lives on the docs branch)
-site/
+/site/
 
 # Secrets: never commit an environment file; .env.example documents the variables
 .env
@@ -38,3 +38,7 @@ __pycache__/
 *.egg-info/
 .venv/
 dist/
+
+# example site build output
+examples/site/site/
+*.png.html

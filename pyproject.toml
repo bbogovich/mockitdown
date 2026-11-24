@@ -1,12 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "mockitdown"
 version = "0.1.0"
-requires-python = ">=3.9"
+description = "UI mockups written in SwiftUI syntax inside Markdown, rendered as HTML styled after real UI frameworks."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Brian Bogovich" }]
+keywords = ["mockup", "wireframe", "markdown", "mkdocs", "zensical", "swiftui", "fluent", "material", "sapui5"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Documentation",
+  "Topic :: Text Processing :: Markup :: Markdown",
+]
+# The core (parser, renderer, CLI) has no runtime dependencies. The Markdown extension needs
+# Python-Markdown, and the fence needs pymdown-extensions' superfences: the `markdown` extra.
 dependencies = []
+
+[project.optional-dependencies]
+markdown = ["Markdown>=3.6,<4", "pymdown-extensions>=10,<14"]
 
 [project.scripts]
 mockitdown = "mockitdown.cli:main"
 
-[build-system]
-requires = ["setuptools>=64"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mockitdown = ["page.css", "packs/*/pack.json", "packs/*/pack.css"]

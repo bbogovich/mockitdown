@@ -1,0 +1,6 @@
+# Python dependencies of this site — kept beside mkdocs.yml.
+# Install: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# mockitdown itself: `pip install -e ../..` from this directory (or the published package).
+zensical>=0.1.3,<0.2
+pymdown-extensions>=10,<14
+Markdown>=3.6,<4

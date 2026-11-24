@@ -1,0 +1,116 @@
+/* mockitdown page.css — the figure around a mockup, the frame unit, and isolation from the host
+   page. Not scaled: lengths here are page lengths. Frame-internal styling lives in the packs. */
+
+.mkd-figure {
+  display: block;
+  width: 100%;
+  margin: 1.6em 0;
+  container-type: inline-size;
+  text-align: initial;
+}
+.mkd-stage {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+}
+.mkd-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.mkd-stage[data-count="1"] .mkd-cell { max-width: 100%; }
+.mkd-cell__label {
+  font: 600 12px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+/* The frame unit: one logical point, shrunk so the device fits its cell, never enlarged. */
+.mkd-frame {
+  --u: min(1px, calc(100cqw / var(--mkd-w, 1280)));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: calc(var(--mkd-w, 1280) * var(--u));
+  height: calc(var(--mkd-h, 800) * var(--u));
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+.mkd-frame[data-fit="true"] {
+  --u: 1px;
+  width: max-content;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Isolation: undo host typography (MkDocs Material / Zensical .md-typeset and similar). */
+.mkd-frame,
+.mkd-frame *,
+.mkd-frame *::before,
+.mkd-frame *::after { box-sizing: border-box; }
+.mkd-frame :where(div, span, nav, label, img, svg, table, thead, tbody, tr, th, td, strong, em, s, code, i) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: none;
+  text-transform: none;
+  vertical-align: baseline;
+  max-width: none;
+}
+.mkd-frame :where(strong) { font-weight: 700; }
+.mkd-frame :where(em) { font-style: italic; }
+.mkd-frame :where(s) { text-decoration: line-through; }
+.mkd-frame table { border-collapse: collapse; border-spacing: 0; width: 100%; display: table; }
+.mkd-frame img { display: block; height: auto; }
+
+.mkd-caption {
+  margin-top: .8em;
+  text-align: center;
+  font-size: .85em;
+  opacity: .7;
+}
+
+.mkd-error {
+  margin: 1.2em 0;
+  padding: .8em 1em;
+  border: 1px solid #d33;
+  border-left-width: 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, #d33 8%, transparent);
+  font-size: .85em;
+}
+.mkd-error__title { font-weight: 700; color: #c22; }
+.mkd-error ul { margin: .4em 0 0 1.2em; padding: 0; }
+.mkd-error pre { margin: .5em 0 0; white-space: pre-wrap; }
+.mkd-warnings { margin: .4em 0 0; font-size: .8em; opacity: .8; }
+
+table.mkd-elements {
+  display: table;
+  margin: 1em auto 0;
+  border-collapse: collapse;
+  font-size: .8em;
+}
+table.mkd-elements th,
+table.mkd-elements td {
+  padding: .3em .8em;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  text-align: left;
+}
+
+.mkd-source { margin: -.6em 0 1.6em; font-size: .85em; }
+.mkd-source > summary { cursor: pointer; opacity: .75; }
+.mkd-source pre { margin: .5em 0 0; padding: .8em 1em; overflow-x: auto; border-radius: 6px;
+  background: color-mix(in srgb, currentColor 6%, transparent); line-height: 1.45; }

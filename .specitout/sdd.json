@@ -56,15 +56,18 @@
     "targets": [
       "cli"
     ],
-    "dependencies": [],
+    "dependencies": [
+      "Markdown (optional extra)",
+      "pymdown-extensions (optional extra)"
+    ],
     "template": "python-cli",
     "profiles": [
       "impl-common",
       "impl-headless",
       "impl-library"
     ],
-    "build": "python3 -m pip install -e .",
-    "test": "python3 -m unittest discover -s tests",
+    "build": ".venv/bin/python -m pip install -e '.[markdown]'",
+    "test": ".venv/bin/python -m unittest discover -s tests -t .",
     "site": {
       "branch": "docs",
       "worktree": "../mockitdown.docs"

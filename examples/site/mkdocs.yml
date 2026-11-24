@@ -1,0 +1,63 @@
+# mockitdown example site — one page per design pack, built with Zensical (or MkDocs).
+# Every page is also a test fixture: tests/test_examples.py renders each block and fails on errors.
+site_name: mockitdown examples
+site_description: UI mockups written in SwiftUI syntax, rendered in the style of each UI framework.
+docs_dir: docs
+
+theme:
+  name: material
+  variant: classic
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle: { icon: material/weather-night, name: Dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle: { icon: material/weather-sunny, name: Light mode }
+
+extra_css:
+  - assets/site.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - mockitdown:
+      default_pack: base
+      default_appearance: auto
+      import_paths: [docs/mockups]
+      asset_paths: [docs]
+      strict: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mockitdown
+          class: mockitdown
+          format: !!python/name:mockitdown.fence.format
+          validator: !!python/name:mockitdown.fence.validate
+
+nav:
+  - Home: index.md
+  - Language tour: tour.md
+  - Custom components: components.md
+  - Packs:
+      - SwiftUI: packs/swiftui.md
+      - Fluent (WinUI 3): packs/fluent.md
+      - Material UI (React): packs/mui.md
+      - Angular Material: packs/angular-material.md
+      - SAPUI5 (Fiori): packs/sapui5.md
+      - Bootstrap: packs/bootstrap.md
+      - shadcn/ui: packs/shadcn.md
