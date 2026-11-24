@@ -1,0 +1,567 @@
+{
+  "id": "gsos",
+  "name": "GS/OS (Apple IIgs)",
+  "framework": "Apple IIgs GS/OS System 6 Finder (super hi-res 640 mode, 1988–1993)",
+  "version": "System 6.0.1",
+  "modules": [
+    "GSOS",
+    "AppleIIgs",
+    "IIgs"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "screen": "none",
+    "tablet": "window",
+    "phone": "none"
+  },
+  "sizes": {
+    "desktop": [
+      640,
+      400
+    ],
+    "wide": [
+      640,
+      400
+    ],
+    "screen": [
+      640,
+      400
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#ffffff",
+      "surface": "#ffffff",
+      "surface-2": "#ffffff",
+      "surface-3": "#dddddd",
+      "fg": "#000000",
+      "fg-2": "#000000",
+      "fg-3": "#777777",
+      "border": "#000000",
+      "divider": "#000000",
+      "accent": "#0000dd",
+      "on-accent": "#ffffff",
+      "accent-soft": "#000000",
+      "danger": "#dd0000",
+      "warning": "#dddd00",
+      "success": "#00aa00",
+      "info": "#0000dd",
+      "field-bg": "#ffffff",
+      "field-border": "#000000",
+      "scrim": "transparent",
+      "shadow-1": "none",
+      "shadow-2": "1px 2px 0 #000000",
+      "shadow-3": "1px 2px 0 #000000",
+      "radius-s": "0",
+      "radius-m": "0",
+      "radius-l": "0",
+      "radius-xl": "0",
+      "radius-pill": "999px",
+      "font": "Shaston, \"Shaston 640\", Chicago, Geneva, \"Lucida Grande\", monospace",
+      "font-mono": "Shaston, Monaco, \"Courier New\", monospace",
+      "font-size": "13px",
+      "line-height": "1.3",
+      "icon-stroke": "2",
+      "icon-size": "16px",
+      "control-h": "22px",
+      "gap": "8px",
+      "pad": "10px",
+      "chrome-bg": "#ffffff",
+      "chrome-fg": "#000000",
+      "fs-display": "26px",
+      "fw-display": "700",
+      "fs-largeTitle": "22px",
+      "fw-largeTitle": "700",
+      "fs-title": "18px",
+      "fw-title": "700",
+      "fs-title2": "16px",
+      "fw-title2": "700",
+      "fs-title3": "14px",
+      "fw-title3": "700",
+      "fs-headline": "13px",
+      "fw-headline": "700",
+      "fs-subheadline": "13px",
+      "fw-subheadline": "400",
+      "fs-body": "13px",
+      "fw-body": "400",
+      "fs-callout": "13px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "11px",
+      "fw-caption": "400",
+      "fs-caption2": "10px",
+      "fw-caption2": "400",
+      "fs-overline": "10px",
+      "fw-overline": "700",
+      "color-red": "#dd0000",
+      "color-orange": "#ff7700",
+      "color-yellow": "#ffff00",
+      "color-green": "#00aa00",
+      "color-mint": "#55dd99",
+      "color-teal": "#008888",
+      "color-cyan": "#44aaff",
+      "color-blue": "#0000dd",
+      "color-indigo": "#3300aa",
+      "color-purple": "#aa00aa",
+      "color-pink": "#ff66bb",
+      "color-brown": "#885500",
+      "color-gray": "#888888",
+      "chart-1": "#0000dd",
+      "chart-2": "#00aa00",
+      "chart-3": "#dd0000",
+      "chart-4": "#ffbb00",
+      "chart-5": "#aa00aa",
+      "chart-6": "#44aaff",
+      "note": "#ffff77",
+      "code-bg": "#ffffff",
+      "code-fg": "#000000",
+      "code-kw": "#0000dd",
+      "code-str": "#00aa00",
+      "code-num": "#dd0000",
+      "code-comment": "#777777",
+      "code-fn": "#000000",
+      "code-type": "#0000dd",
+      "term-bg": "#000000",
+      "term-fg": "#ffffff",
+      "term-prompt": "#ffffff",
+      "grid-line": "#bbbbbb",
+      "map-land": "#ffffff",
+      "map-water": "#4466ee",
+      "map-park": "#00aa00",
+      "map-road": "#000000",
+      "ink": "#000000",
+      "paper": "#ffffff",
+      "sel": "#000000",
+      "on-sel": "#ffffff",
+      "desktop": "#2a3ad8",
+      "desktop-2": "#5f73ee",
+      "dither-a": "#000000",
+      "dither-b": "#ffffff",
+      "thermo": "#0000dd",
+      "folder": "#ffffff",
+      "icon-fill": "#ffffff",
+      "disk-fill": "#4466ee"
+    },
+    "dark": {
+      "bg": "#000000",
+      "surface": "#000000",
+      "surface-2": "#000000",
+      "surface-3": "#333333",
+      "fg": "#ffffff",
+      "fg-2": "#ffffff",
+      "fg-3": "#888888",
+      "border": "#ffffff",
+      "divider": "#ffffff",
+      "accent": "#6688ff",
+      "on-accent": "#000000",
+      "accent-soft": "#ffffff",
+      "danger": "#ff4444",
+      "warning": "#ffff44",
+      "success": "#44dd44",
+      "info": "#6688ff",
+      "field-bg": "#000000",
+      "field-border": "#ffffff",
+      "shadow-2": "1px 2px 0 #ffffff",
+      "shadow-3": "1px 2px 0 #ffffff",
+      "chrome-bg": "#000000",
+      "chrome-fg": "#ffffff",
+      "code-bg": "#000000",
+      "code-fg": "#ffffff",
+      "code-kw": "#6688ff",
+      "code-str": "#44dd44",
+      "code-num": "#ff6666",
+      "code-comment": "#888888",
+      "code-fn": "#ffffff",
+      "code-type": "#6688ff",
+      "grid-line": "#444444",
+      "map-land": "#000000",
+      "map-water": "#1a2a88",
+      "map-park": "#116611",
+      "map-road": "#ffffff",
+      "note": "#777722",
+      "chart-1": "#6688ff",
+      "ink": "#ffffff",
+      "paper": "#000000",
+      "sel": "#ffffff",
+      "on-sel": "#000000",
+      "desktop": "#000000",
+      "desktop-2": "#101a60",
+      "dither-a": "#ffffff",
+      "dither-b": "#000000",
+      "thermo": "#6688ff",
+      "folder": "#000000",
+      "icon-fill": "#000000",
+      "disk-fill": "#2a3ad8"
+    }
+  },
+  "fonts": {
+    "system": "headline",
+    "shaston": "body",
+    "small": "footnote"
+  },
+  "icons": {
+    "Finder": "app",
+    "Control Panel": "slider.horizontal.3",
+    "Sound": "speaker",
+    "Time": "clock",
+    "Mouse": "app",
+    "Keyboard": "app",
+    "Printer": "printer",
+    "Modem": "phone",
+    "RAM": "cube",
+    "Slots": "square.grid.2x2",
+    "Calculator": "number",
+    "Note Pad": "doc",
+    "General": "gear"
+  },
+  "modifiers": {
+    "inactive": {
+      "attr": "state",
+      "value": "inactive"
+    },
+    "highlighted": {
+      "attr": "state",
+      "value": "hover"
+    },
+    "defaultButton": {
+      "attr": "variant",
+      "value": "default"
+    }
+  },
+  "elements": {
+    "Desktop": {
+      "role": "canvas",
+      "doc": "The Finder desktop (dithered pattern). Put a MenuBar first, then place windows and icons with .position(x:y:)"
+    },
+    "MenuBar": {
+      "role": "toolbar",
+      "doc": "The menu bar: AppleMenu(), MenuTitle(\"File\") …, Spacer(), Text(…)"
+    },
+    "AppleMenu": {
+      "role": "menu",
+      "defaults": {
+        "icon": "circle",
+        "caret": false
+      },
+      "doc": "The Apple menu at the left (a neutral colour glyph, not the logo); open: true shows the desk accessories"
+    },
+    "MenuTitle": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "caret": false
+      },
+      "doc": "A menu bar title; MenuTitle(\"File\", open: true) { MenuItem(…) }"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "A menu item; shortcut: \"⌘O\" (the open-apple key), checked:, .disabled(), .highlighted()"
+    },
+    "Window": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "variants": [
+        "document",
+        "nda",
+        "dialog",
+        "alert",
+        "plain"
+      ],
+      "doc": "A GS/OS window: lined title bar, close box at the left, zoom box at the right"
+    },
+    "FinderWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "document"
+      },
+      "doc": "A Finder window; an InfoBar then icons or a list inside a ScrollArea"
+    },
+    "NDAWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "nda"
+      },
+      "doc": "A New Desk Accessory window (Control Panel, Calculator …)"
+    },
+    "ModalDialog": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "dialog"
+      },
+      "doc": "A modal dialog drawn in place (double frame, no title bar)"
+    },
+    "ControlPanel": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "nda",
+        "title": "Control Panel"
+      },
+      "doc": "The Control Panel NDA window: a CDev list at the left, the selected CDev at the right"
+    },
+    "InfoBar": {
+      "role": "labeled",
+      "params": [
+        "label",
+        "value"
+      ],
+      "doc": "The Finder window info bar: InfoBar(\"9 items\", \"312K available\")"
+    },
+    "FinderIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "A Finder icon with its name below; icon: any icon name; .selected() inverts it"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "push",
+        "default"
+      ],
+      "doc": "A rounded push button; .variant(.default) (or DefaultButton) draws the bold outline"
+    },
+    "DefaultButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "default"
+      },
+      "doc": "The default button (Return activates it)"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "A check box (checked shows an X)"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "A radio button"
+    },
+    "RadioGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "RadioGroup(\"Speed:\", items: […], selection:)"
+    },
+    "PopupMenu": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "A pop-up menu with its title at the left and a drop shadow"
+    },
+    "LineEdit": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "A LineEdit text field"
+    },
+    "TextField": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "A LineEdit text field"
+    },
+    "TextEdit": {
+      "role": "textfield",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "A multi-line TextEdit box"
+    },
+    "ListControl": {
+      "role": "list",
+      "doc": "A List Manager list: framed, the selected rows inverted"
+    },
+    "ListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "A list row"
+    },
+    "ScrollArea": {
+      "role": "scroll",
+      "defaults": {
+        "variant": "both"
+      },
+      "variants": [
+        "both",
+        "vertical",
+        "horizontal",
+        "none"
+      ],
+      "doc": "A content area with GS/OS scroll bars (dithered track, arrows at each end) and the grow box"
+    },
+    "ProgressBar": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "doc": "A thermometer progress bar; value: 0…1"
+    },
+    "Alert": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "exclamationmark.triangle",
+        "severity": "caution"
+      },
+      "doc": "A modal alert: double frame, Stop / Note / Caution icon (severity: .stop | .note | .caution), buttons:, primary:"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "modal"
+      },
+      "doc": "A centred modal dialog with the double frame"
+    },
+    "Frame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "group"
+      },
+      "doc": "A plain rectangle grouping controls (static text title on top)"
+    },
+    "Separator": {
+      "role": "divider",
+      "doc": "A dividing line"
+    },
+    "Slider": {
+      "role": "slider",
+      "params": [
+        "label"
+      ],
+      "doc": "A scroll-bar style value control"
+    },
+    "StickyNote": {
+      "role": "stickynote",
+      "params": [
+        "text"
+      ],
+      "doc": "A Note Pad note"
+    },
+    "Folder": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "folder",
+        "kind": "folder"
+      },
+      "doc": "A folder icon"
+    },
+    "Disk": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "archivebox",
+        "kind": "floppy"
+      },
+      "doc": "A 3.5-inch disk icon"
+    },
+    "HardDisk": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "archivebox",
+        "kind": "harddisk"
+      },
+      "doc": "A hard disk (SCSI or /RAM5) icon"
+    },
+    "DocumentIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "doc",
+        "kind": "document"
+      },
+      "doc": "A document icon"
+    },
+    "ApplicationIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "app",
+        "kind": "application"
+      },
+      "doc": "An application (S16) icon"
+    },
+    "TrashIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "trash",
+        "kind": "trash",
+        "title": "Trash"
+      },
+      "doc": "The Trash"
+    },
+    "FinderList": {
+      "role": "table",
+      "doc": "Finder list view: columns:, TableRow children, sortColumn: (underlined), selectedRows:"
+    }
+  }
+}

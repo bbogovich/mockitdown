@@ -1,0 +1,738 @@
+/* mockitdown pack: macos9 — Mac OS 8 / 9 with the Platinum appearance.
+ *
+ * Platinum is built from three greys (--mkd-plat-hi / --mkd-plat / --mkd-plat-lo) and a black
+ * outline: raised controls have a white top-left and a grey bottom-right inner edge, insets the
+ * reverse. Title bars carry 1px pinstripes; the highlight colour is lavender. No sheets, no
+ * dimming scrims, no blurred shadows. Triangles (scroll arrows, popups, disclosure) are drawn with
+ * conic gradients; the Finder icons are drawn in CSS from their `kind`.
+ *
+ * `calc(1px * N)` is used where a length must stay unscaled (pinstripes, hairline patterns).
+ */
+
+/* ---------- frame and typography ---------- */
+.mkd-pack-macos9 .mkd-frame { border-radius: 0; font-size: 12px; }
+.mkd-pack-macos9 .mkd-frame .mkd-screen { background: var(--mkd-bg); }
+.mkd-pack-macos9 .mkd-frame[data-chrome="none"] { border: 1px solid #000; box-shadow: 0 2px 10px rgb(0 0 0 / .25); }
+.mkd-pack-macos9 .mkd-frame[data-chrome="window"] {
+  padding: 0 5px 5px;
+  border: 1px solid var(--mkd-outline);
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), 0 2px 10px rgb(0 0 0 / .22);
+}
+.mkd-pack-macos9 .mkd-frame[data-chrome="window"] .mkd-screen { border: 1px solid var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-text strong { font-weight: 700; }
+.mkd-pack-macos9 .mkd-code { border-radius: 0; background: transparent; font-family: var(--mkd-font-mono); }
+
+/* ---------- title bar (window chrome and Window elements share the look) ---------- */
+.mkd-pack-macos9 .mkd-chrome--window,
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"]) > .mkd-card__header,
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] > .mkd-dialog__header {
+  position: relative;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background:
+    repeating-linear-gradient(180deg, var(--mkd-stripe-hi) 0 1px, var(--mkd-stripe-lo) 1px calc(1px * 2)) center / calc(100% - 14px) 12px no-repeat,
+    var(--mkd-plat);
+  color: var(--mkd-fg);
+}
+.mkd-pack-macos9 .mkd-chrome--window { margin: 0 -5px; gap: 0; }
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__title { justify-content: center; }
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__title-text,
+.mkd-pack-macos9 .mkd-card > .mkd-card__header .mkd-card__title,
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] .mkd-dialog__title {
+  padding: 0 7px;
+  background: var(--mkd-plat);
+  font: var(--mkd-fw-system) 12px/22px var(--mkd-font);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* close box, zoom box, collapse (WindowShade) box */
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__lead,
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__trail { position: absolute; top: 0; bottom: 0; gap: 6px; padding: 0 4px; background: var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__lead { left: 5px; }
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__trail { right: 5px; }
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__lead i[data-btn="close"],
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__trail i[data-btn="zoom"],
+.mkd-pack-macos9 .mkd-chrome--window .mkd-chrome__trail i[data-btn="collapse"],
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"]) > .mkd-card__header::before,
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="panel"]) > .mkd-card__header::after,
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"]) > .mkd-card__header > .mkd-card__titles::after {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--mkd-outline);
+  background-color: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-lo), inset -1px -1px 0 var(--mkd-plat-hi);
+}
+.mkd-pack-macos9 .mkd-chrome--window i[data-btn="zoom"],
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"]) > .mkd-card__header > .mkd-card__titles::after {
+  background-image:
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)), linear-gradient(var(--mkd-outline), var(--mkd-outline)),
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)), linear-gradient(var(--mkd-outline), var(--mkd-outline));
+  background-size: 6px 1px, 1px 6px, 6px 1px, 1px 6px;
+  background-position: 1px 1px, 1px 1px, 1px 6px, 6px 1px;
+  background-repeat: no-repeat;
+}
+.mkd-pack-macos9 .mkd-chrome--window i[data-btn="collapse"],
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="panel"]) > .mkd-card__header::after {
+  background-image: linear-gradient(var(--mkd-outline), var(--mkd-outline)), linear-gradient(var(--mkd-outline), var(--mkd-outline));
+  background-size: 100% 1px, 100% 1px;
+  background-position: 0 3px, 0 6px;
+  background-repeat: no-repeat;
+}
+.mkd-pack-macos9 .mkd-card:where([data-variant="movableModal"]) > .mkd-card__header::after { display: none; }
+.mkd-pack-macos9 .mkd-card > .mkd-card__header::before,
+.mkd-pack-macos9 .mkd-card > .mkd-card__header::after,
+.mkd-pack-macos9 .mkd-card > .mkd-card__header > .mkd-card__titles::after { content: ""; position: absolute; top: 4px; box-sizing: border-box; outline: 3px solid var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-card > .mkd-card__header::before { left: 9px; }
+.mkd-pack-macos9 .mkd-card > .mkd-card__header::after { right: 9px; }
+.mkd-pack-macos9 .mkd-card > .mkd-card__header > .mkd-card__titles::after { right: 28px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="panel"]) > .mkd-card__header > .mkd-card__titles::after { display: none; }
+.mkd-pack-macos9 .mkd-chrome--window i[data-btn] { box-sizing: border-box; }
+/* the generic chrome's grow box is drawn by ScrollArea instead (Platinum draws it between the scroll bars) */
+.mkd-pack-macos9 .mkd-chrome--statusbar { display: none; }
+
+/* inactive windows: no stripes, no boxes, grey title */
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] > .mkd-card__header { background: var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] > .mkd-card__header::before,
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] > .mkd-card__header::after,
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] > .mkd-card__header > .mkd-card__titles::after { visibility: hidden; }
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] > .mkd-card__header .mkd-card__title { color: var(--mkd-title-inactive); }
+.mkd-pack-macos9 .mkd-card[data-state="inactive"] { border-color: var(--mkd-plat-dk); }
+/* collapsed with the WindowShade box: only the title bar is left */
+.mkd-pack-macos9 .mkd-card[data-state="collapsed"] { padding-bottom: 0; }
+.mkd-pack-macos9 .mkd-card[data-state="collapsed"] > :not(.mkd-card__header) { display: none; }
+
+/* ---------- windows (Window, Finder, ControlPanel …) ---------- */
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) {
+  padding: 0 5px 5px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 0;
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+  overflow: hidden;
+}
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__header { flex: none; margin: 0 -5px; gap: 0; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__header > .mkd-card__titles { flex: 1 1 auto; align-items: center; min-width: 0; padding: 0 44px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__header .mkd-card__subtitle { display: none; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__header:last-child { padding-bottom: 0; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--mkd-outline);
+  background: var(--mkd-surface);
+}
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__body:last-child { padding-bottom: 0; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="document"], [data-variant="movableModal"], [data-variant="utility"], [data-variant="floating"], [data-variant="panel"], [data-variant="dialog"], [data-variant="alert"], [data-variant="plain"]) > .mkd-card__actions { padding: 8px 6px 4px; }
+/* platinum-bodied windows */
+.mkd-pack-macos9 .mkd-card:where([data-variant="panel"], [data-variant="movableModal"], [data-variant="dialog"], [data-variant="alert"], [data-variant="utility"], [data-variant="floating"]) > .mkd-card__body { gap: 10px; padding: 12px; border: 0; background: var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-card:where([data-variant="panel"]) > .mkd-card__body:last-child,
+.mkd-pack-macos9 .mkd-card:where([data-variant="movableModal"], [data-variant="dialog"], [data-variant="alert"]) > .mkd-card__body:last-child { padding-bottom: 10px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="plain"]) > .mkd-card__body { border: 0; }
+/* modal dialog frame: no title bar, thick bevelled border */
+.mkd-pack-macos9 .mkd-card:where([data-variant="dialog"], [data-variant="alert"]) {
+  padding: 5px;
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), inset 0 0 0 3px var(--mkd-plat), inset 0 0 0 4px var(--mkd-plat-lo);
+}
+.mkd-pack-macos9 .mkd-card:where([data-variant="dialog"], [data-variant="alert"]) > .mkd-card__header { display: none; }
+/* utility windows / floating palettes: thin title bar */
+.mkd-pack-macos9 .mkd-card:where([data-variant="utility"], [data-variant="floating"]) { padding: 0 3px 3px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="utility"], [data-variant="floating"]) > .mkd-card__header { height: 13px; margin: 0 -3px; background-size: calc(100% - 6px) 7px, auto; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="utility"], [data-variant="floating"]) > .mkd-card__header .mkd-card__title { font: 400 9px/13px var(--mkd-font-small); padding: 0 4px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="utility"], [data-variant="floating"]) > .mkd-card__header::before { top: 2px; left: 5px; width: 9px; height: 9px; outline-width: 2px; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="utility"], [data-variant="floating"]) > .mkd-card__body { padding: 6px; gap: 6px; }
+
+/* ---------- desktop, menu bar, menus ---------- */
+.mkd-pack-macos9 .mkd-canvas[data-el="Desktop"] {
+  min-height: 0;
+  background: repeating-conic-gradient(var(--mkd-desktop) 0 25%, var(--mkd-desktop-2) 0 50%) 0 0 / calc(1px * 4) calc(1px * 4);
+  color: var(--mkd-fg);
+}
+.mkd-pack-macos9 .mkd-canvas[data-el="Desktop"] > .mkd-toolbar[data-el="MenuBar"] { position: relative; z-index: 40; }
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] {
+  height: 20px;
+  min-height: 0;
+  padding: 0 10px;
+  gap: 0;
+  border-bottom: 1px solid var(--mkd-outline);
+  background: var(--mkd-plat);
+  box-shadow: inset 0 1px 0 var(--mkd-plat-hi), inset 0 -1px 0 var(--mkd-plat-lo);
+  align-self: stretch;
+}
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] > .mkd-text { padding: 0 10px; font-weight: var(--mkd-fw-system); white-space: nowrap; }
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] .mkd-menu__trigger {
+  height: 19px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-weight: var(--mkd-fw-system);
+  min-width: 0;
+  margin: 0;
+}
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] .mkd-menu[data-open="true"] > .mkd-menu__trigger { background: var(--mkd-menu-sel); color: var(--mkd-on-menu-sel); }
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] .mkd-button__caret { display: none; }
+.mkd-pack-macos9 .mkd-toolbar[data-el="MenuBar"] .mkd-menu__popup { margin-top: 1px; }
+/* the Apple menu: a neutral six-colour glyph (not the Apple logo) */
+.mkd-pack-macos9 .mkd-menu[data-el="AppleMenu"] .mkd-menu__trigger { padding: 0 10px; }
+.mkd-pack-macos9 .mkd-menu[data-el="AppleMenu"] .mkd-button__icon .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-menu[data-el="AppleMenu"] .mkd-button__icon::before {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 14px;
+  border-radius: 45% 45% 50% 50% / 42% 42% 58% 58%;
+  background: linear-gradient(#5ebd3e 0 18%, #ffb900 18% 34%, #f78200 34% 50%, #e23838 50% 66%, #973999 66% 82%, #009cdf 82%);
+}
+.mkd-pack-macos9 .mkd-menu[data-el="ApplicationMenu"] { border-left: 1px solid var(--mkd-plat-lo); box-shadow: inset 1px 0 0 var(--mkd-plat-hi); }
+.mkd-pack-macos9 .mkd-menu[data-el="ApplicationMenu"] .mkd-button__icon .mkd-icon { width: 16px; height: 16px; color: var(--mkd-fg); fill: var(--mkd-folder); stroke-width: 1.6; }
+/* menus */
+.mkd-pack-macos9 .mkd-menu__popup,
+.mkd-pack-macos9 .mkd-select__popup {
+  min-width: 150px;
+  margin-top: 0;
+  padding: 2px 0;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 0;
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), 2px 2px 0 rgb(0 0 0 / .3);
+}
+.mkd-pack-macos9 .mkd-menuitem {
+  position: relative;
+  min-height: 18px;
+  padding: 0 14px 0 18px;
+  gap: 14px;
+  border-radius: 0;
+  font-weight: var(--mkd-fw-system);
+  color: var(--mkd-fg);
+}
+.mkd-pack-macos9 .mkd-menuitem:where([data-selected="true"], [data-state="hover"]) { background: var(--mkd-menu-sel); color: var(--mkd-on-menu-sel); }
+.mkd-pack-macos9 .mkd-menuitem:where([data-state="disabled"]) { opacity: 1; color: var(--mkd-fg-3); }
+.mkd-pack-macos9 .mkd-menuitem__check { position: absolute; left: 4px; width: 12px; }
+.mkd-pack-macos9 .mkd-menuitem__check .mkd-icon { width: 11px; height: 11px; stroke-width: 3; }
+.mkd-pack-macos9 .mkd-menuitem__icon { color: inherit; }
+.mkd-pack-macos9 .mkd-menuitem__icon .mkd-icon { width: 14px; height: 14px; }
+.mkd-pack-macos9 .mkd-menuitem__shortcut { margin-left: auto; color: inherit; font-size: 12px; }
+.mkd-pack-macos9 .mkd-menuitem__chevron .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-menuitem__chevron { width: 6px; height: 9px; background: conic-gradient(from 231deg at 100% 50%, currentColor 0 78deg, transparent 0); }
+.mkd-pack-macos9 .mkd-menu__popup > .mkd-divider { margin: 3px 1px; }
+
+/* ---------- etched separators ---------- */
+.mkd-pack-macos9 .mkd-divider { height: 2px; background: none; border-top: 1px solid var(--mkd-plat-lo); border-bottom: 1px solid var(--mkd-plat-hi); }
+.mkd-pack-macos9 .mkd-hstack > .mkd-divider, .mkd-pack-macos9 .mkd-toolbar > .mkd-divider { width: 2px; height: auto; border: 0; border-left: 1px solid var(--mkd-plat-lo); border-right: 1px solid var(--mkd-plat-hi); }
+.mkd-pack-macos9 .mkd-divider__label { background: var(--mkd-plat); color: var(--mkd-fg); }
+
+/* ---------- push buttons ---------- */
+.mkd-pack-macos9 .mkd-button {
+  height: 20px;
+  min-width: 60px;
+  padding: 0 12px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 4px;
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+  color: var(--mkd-fg);
+  font: var(--mkd-fw-system) 12px/1 var(--mkd-font);
+}
+.mkd-pack-macos9 .mkd-button:where([data-variant="default"], [data-variant="primary"], [data-variant="borderedProminent"]) {
+  margin: 0 4px;
+  background: var(--mkd-plat);
+  color: var(--mkd-fg);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), 0 0 0 1px var(--mkd-plat-hi), 0 0 0 3px var(--mkd-plat-lo), 0 0 0 4px var(--mkd-outline);
+}
+.mkd-pack-macos9 .mkd-button:where([data-variant="secondary"], [data-variant="bordered"], [data-variant="plain"], [data-variant="outlined"], [data-variant="text"]) { background: var(--mkd-plat); color: var(--mkd-fg); border-color: var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-button:where([data-role="destructive"]) { color: var(--mkd-fg); background: var(--mkd-plat); border-color: var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-button:where([data-selected="true"], [data-pressed="true"], [data-state="pressed"], [data-state="active"]) { background: var(--mkd-plat-pressed); color: var(--mkd-fg); box-shadow: inset 1px 1px 0 var(--mkd-plat-dk), inset -1px -1px 0 var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-button:where([data-state="disabled"]) { opacity: 1; color: var(--mkd-fg-3); border-color: var(--mkd-fg-3); }
+.mkd-pack-macos9 .mkd-button:where([data-icon-only="true"]) { width: auto; min-width: 0; padding: 0 4px; }
+.mkd-pack-macos9 .mkd-button .mkd-icon { width: 14px; height: 14px; }
+.mkd-pack-macos9 .mkd-button__caret .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-button__caret { width: 7px; height: 4px; background: conic-gradient(from -41deg at 50% 100%, currentColor 0 82deg, transparent 0); }
+/* bevel buttons (toolbars) */
+.mkd-pack-macos9 .mkd-button:where([data-variant="bevel"]) {
+  height: 24px;
+  min-width: 24px;
+  padding: 0 6px;
+  border-color: var(--mkd-plat-dk);
+  border-radius: 0;
+  font-weight: 400;
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+}
+.mkd-pack-macos9 .mkd-button:where([data-variant="bevel"]):where([data-selected="true"], [data-pressed="true"]) { box-shadow: inset 1px 1px 0 var(--mkd-plat-dk), inset -1px -1px 0 var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-button:where([data-variant="bevel"]) .mkd-icon { width: 16px; height: 16px; }
+.mkd-pack-macos9 .mkd-toolbar[data-el="Toolbar"] { min-height: 32px; padding: 4px 6px; gap: 4px; border-bottom: 1px solid var(--mkd-plat-lo); background: var(--mkd-plat); align-self: stretch; }
+
+/* ---------- check boxes and radio buttons ---------- */
+.mkd-pack-macos9 .mkd-checkbox, .mkd-pack-macos9 .mkd-radio { gap: 6px; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-checkbox__box {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 0;
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+  color: var(--mkd-fg);
+  overflow: visible;
+}
+.mkd-pack-macos9 .mkd-checkbox:where([data-checked="true"], [data-checked="mixed"]) .mkd-checkbox__box { background: var(--mkd-plat); border-color: var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-checkbox__box .mkd-icon { width: 13px; height: 13px; stroke-width: 3.4; margin: -2px -2px 0 0; }
+.mkd-pack-macos9 .mkd-checkbox[data-checked="mixed"] .mkd-checkbox__box .mkd-icon { margin: 0; width: 8px; }
+.mkd-pack-macos9 .mkd-radio__dot {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--mkd-outline);
+  background: radial-gradient(circle at 35% 35%, var(--mkd-plat-hi), var(--mkd-plat) 55%, var(--mkd-plat-lo));
+}
+.mkd-pack-macos9 .mkd-radio:where([data-checked="true"]) .mkd-radio__dot { border-color: var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-radio:where([data-checked="true"]) .mkd-radio__dot::after { inset: 2px; background: var(--mkd-fg); }
+.mkd-pack-macos9 :where(.mkd-checkbox, .mkd-radio):where([data-state="disabled"]) { opacity: 1; color: var(--mkd-fg-3); }
+.mkd-pack-macos9 .mkd-radiogroup, .mkd-pack-macos9 .mkd-radiogroup__items { gap: 5px; }
+.mkd-pack-macos9 .mkd-radiogroup__label { font-size: 12px; font-weight: var(--mkd-fw-system); }
+
+/* ---------- edit text, popup menus ---------- */
+.mkd-pack-macos9 .mkd-field { min-width: 80px; gap: 3px; }
+.mkd-pack-macos9 .mkd-field[data-labeled="true"] { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 3px 8px; }
+.mkd-pack-macos9 .mkd-field[data-labeled="true"] > .mkd-field__control { flex: 1 1 auto; }
+.mkd-pack-macos9 .mkd-field[data-labeled="true"] > :where(.mkd-field__helper) { flex-basis: 100%; }
+.mkd-pack-macos9 .mkd-field[data-kind="multiline"][data-labeled="true"] { flex-direction: column; align-items: stretch; }
+.mkd-pack-macos9 .mkd-field__label { font-size: 12px; font-weight: var(--mkd-fw-system); white-space: nowrap; }
+.mkd-pack-macos9 .mkd-field__helper { font: 10px var(--mkd-font-small); color: var(--mkd-fg-2); }
+.mkd-pack-macos9 .mkd-textfield .mkd-field__control,
+.mkd-pack-macos9 .mkd-datepicker .mkd-field__control {
+  min-height: 22px;
+  padding: 0 4px;
+  gap: 4px;
+  border: 1px solid;
+  border-color: var(--mkd-plat-lo) var(--mkd-plat-hi) var(--mkd-plat-hi) var(--mkd-plat-lo);
+  border-radius: 0;
+  background: var(--mkd-field-bg);
+  box-shadow: inset 1px 1px 0 var(--mkd-outline), inset -1px -1px 0 var(--mkd-plat);
+  font: 12px/16px var(--mkd-font-small);
+}
+.mkd-pack-macos9 .mkd-field[data-state="focused"] .mkd-field__control { border-color: var(--mkd-accent); box-shadow: inset 1px 1px 0 var(--mkd-outline), 0 0 0 2px var(--mkd-accent); }
+.mkd-pack-macos9 .mkd-field[data-state="focused"] .mkd-field__input::after { content: ""; display: inline-block; width: 1px; height: 12px; margin-left: 1px; vertical-align: middle; background: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-field:where([data-kind="search"]) .mkd-field__control { border-radius: 0; }
+.mkd-pack-macos9 .mkd-field__icon { color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-field__icon .mkd-icon { width: 13px; height: 13px; }
+.mkd-pack-macos9 .mkd-field__input[data-placeholder="true"] { color: var(--mkd-fg-3); }
+.mkd-pack-macos9 .mkd-field[data-kind="multiline"] .mkd-field__control { padding-top: 4px; padding-bottom: 4px; line-height: 1.35; }
+.mkd-pack-macos9 .mkd-select .mkd-field__control {
+  min-height: 20px;
+  padding: 0 0 0 8px;
+  gap: 8px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 4px;
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+  font-weight: var(--mkd-fw-system);
+}
+.mkd-pack-macos9 .mkd-select { flex-direction: row; align-items: center; gap: 8px; min-width: 0; align-self: auto; }
+.mkd-pack-macos9 .mkd-select > .mkd-field__control { min-width: 60px; }
+.mkd-pack-macos9 .mkd-select .mkd-field__icon--end {
+  align-self: stretch;
+  width: 18px;
+  border-left: 1px solid var(--mkd-plat-lo);
+  box-shadow: inset 1px 0 0 var(--mkd-plat-hi);
+  background:
+    conic-gradient(from 139deg at 50% 0, var(--mkd-fg) 0 82deg, transparent 0) 50% 4px / 7px 4px no-repeat,
+    conic-gradient(from -41deg at 50% 100%, var(--mkd-fg) 0 82deg, transparent 0) 50% 10px / 7px 4px no-repeat;
+}
+.mkd-pack-macos9 .mkd-select .mkd-field__icon--end .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-select__popup { top: -3px; left: auto; right: 0; min-width: 110px; }
+.mkd-pack-macos9 .mkd-select__option { position: relative; min-height: 18px; padding: 0 16px 0 18px; border-radius: 0; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-select__option[aria-selected="true"] { background: none; color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-select__option[aria-selected="true"]::before { content: "\2713"; position: absolute; left: 5px; }
+.mkd-pack-macos9 .mkd-select__option[data-state="hover"] { background: var(--mkd-menu-sel); color: var(--mkd-on-menu-sel); }
+
+/* ---------- little arrows (stepper) ---------- */
+.mkd-pack-macos9 .mkd-stepper { gap: 4px; align-self: auto; }
+.mkd-pack-macos9 .mkd-stepper__label { flex: none; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-stepper__value { min-width: 36px; padding: 2px 4px; border: 1px solid; border-color: var(--mkd-plat-lo) var(--mkd-plat-hi) var(--mkd-plat-hi) var(--mkd-plat-lo); box-shadow: inset 1px 1px 0 var(--mkd-outline); background: var(--mkd-field-bg); color: var(--mkd-fg); font: 12px var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-stepper__buttons { flex-direction: column; border: 1px solid var(--mkd-outline); border-radius: 3px; background: var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-stepper__button { width: 13px; height: 10px; box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo); }
+.mkd-pack-macos9 .mkd-stepper__button .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-stepper__button[data-step="up"] { order: -1; background: conic-gradient(from 139deg at 50% 0, var(--mkd-fg) 0 82deg, transparent 0) center / 7px 4px no-repeat; }
+.mkd-pack-macos9 .mkd-stepper__button[data-step="down"] { background: conic-gradient(from -41deg at 50% 100%, var(--mkd-fg) 0 82deg, transparent 0) center / 7px 4px no-repeat; }
+.mkd-pack-macos9 .mkd-stepper__divider { width: 100%; height: 1px; background: var(--mkd-outline); }
+
+/* ---------- slider ---------- */
+.mkd-pack-macos9 .mkd-slider { min-width: 100px; gap: 4px; }
+.mkd-pack-macos9 .mkd-slider__label { font-weight: var(--mkd-fw-system); font-size: 12px; }
+.mkd-pack-macos9 .mkd-slider__control { height: 24px; gap: 8px; }
+.mkd-pack-macos9 .mkd-slider__track {
+  height: 6px;
+  margin-top: -6px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 3px;
+  background: var(--mkd-plat-lo);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-dk);
+}
+.mkd-pack-macos9 .mkd-slider__fill { display: none; }
+.mkd-pack-macos9 .mkd-slider__thumb { width: 11px; height: 16px; margin: -9px 0 0 -6px; border-radius: 0; background: none; box-shadow: none; }
+.mkd-pack-macos9 .mkd-slider__thumb::before,
+.mkd-pack-macos9 .mkd-slider__thumb::after { content: ""; position: absolute; clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%); }
+.mkd-pack-macos9 .mkd-slider__thumb::before { inset: 0; background: var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-slider__thumb::after { inset: 1px 1px 2px; background: linear-gradient(135deg, var(--mkd-plat-hi), var(--mkd-plat) 45%, var(--mkd-plat-lo)); }
+.mkd-pack-macos9 .mkd-slider__ticks { inset: auto 0 -12px; height: 5px; align-items: stretch; }
+.mkd-pack-macos9 .mkd-slider__ticks i { width: 1px; height: 5px; background: var(--mkd-fg); opacity: 1; }
+.mkd-pack-macos9 .mkd-slider__min, .mkd-pack-macos9 .mkd-slider__max, .mkd-pack-macos9 .mkd-slider__value { margin-top: -6px; color: var(--mkd-fg); font: 10px var(--mkd-font-small); }
+
+/* ---------- progress: determinate bar and the barber pole ---------- */
+.mkd-pack-macos9 .mkd-progress { gap: 4px; }
+.mkd-pack-macos9 .mkd-progress__label { font-size: 12px; }
+.mkd-pack-macos9 .mkd-progress__value { font: 10px var(--mkd-font-small); color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-progress__track {
+  height: 12px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 0;
+  background: var(--mkd-track);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-lo);
+}
+.mkd-pack-macos9 .mkd-progress__bar { border-radius: 0; background: linear-gradient(var(--mkd-progress-hi), var(--mkd-progress) 45%, var(--mkd-progress-lo)); box-shadow: 1px 0 0 var(--mkd-progress-lo); }
+.mkd-pack-macos9 .mkd-progress[data-indeterminate="true"] .mkd-progress__bar {
+  width: 100% !important;
+  margin: 0;
+  background:
+    linear-gradient(rgb(255 255 255 / .35), transparent 50%, rgb(0 0 0 / .2)),
+    repeating-linear-gradient(-45deg, var(--mkd-progress) 0 6px, var(--mkd-progress-hi) 6px 12px);
+}
+.mkd-pack-macos9 .mkd-progress__ring .mkd-progress__track { stroke: transparent; }
+.mkd-pack-macos9 .mkd-progress__ring .mkd-progress__bar { stroke: var(--mkd-fg); stroke-width: 3; stroke-linecap: butt; }
+.mkd-pack-macos9 .mkd-progress__ring { width: 16px; height: 16px; }
+
+/* ---------- tabs (Appearance control panel) ---------- */
+.mkd-pack-macos9 .mkd-tabs__bar { gap: 2px; padding: 0 8px; border-bottom: 0; position: relative; z-index: 1; }
+.mkd-pack-macos9 .mkd-tabs__tab {
+  height: 22px;
+  margin-top: 2px;
+  padding: 0 12px;
+  border: 1px solid var(--mkd-outline);
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: var(--mkd-plat-lo);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat);
+  color: var(--mkd-fg);
+  font-weight: var(--mkd-fw-system);
+}
+.mkd-pack-macos9 .mkd-tabs__tab[aria-selected="true"] { height: 25px; margin-top: 0; margin-bottom: -1px; background: var(--mkd-plat); color: var(--mkd-fg); box-shadow: inset 1px 1px 0 var(--mkd-plat-hi); }
+.mkd-pack-macos9 .mkd-tabs__panel {
+  padding: 12px;
+  gap: 10px;
+  border: 1px solid var(--mkd-outline);
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo);
+}
+
+/* ---------- disclosure triangle ---------- */
+.mkd-pack-macos9 .mkd-accordion { border-bottom: 0; }
+.mkd-pack-macos9 .mkd-accordion__header { min-height: 18px; padding: 1px 0; gap: 6px; }
+.mkd-pack-macos9 .mkd-accordion__title { font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-accordion__chevron { order: -1; width: 11px; height: 11px; }
+.mkd-pack-macos9 .mkd-accordion__chevron .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-accordion[data-expanded="false"] .mkd-accordion__chevron {
+  background:
+    conic-gradient(from 232deg at 100% 50%, var(--mkd-plat-lo) 0 76deg, transparent 0) 2px 3px / 4px 5px no-repeat,
+    conic-gradient(from 232deg at 100% 50%, var(--mkd-outline) 0 76deg, transparent 0) 1px 0 / 8px 11px no-repeat;
+}
+.mkd-pack-macos9 .mkd-accordion[data-expanded="true"] .mkd-accordion__chevron {
+  background:
+    conic-gradient(from -38deg at 50% 100%, var(--mkd-plat-lo) 0 76deg, transparent 0) 3px 2px / 5px 4px no-repeat,
+    conic-gradient(from -38deg at 50% 100%, var(--mkd-outline) 0 76deg, transparent 0) 0 1px / 11px 8px no-repeat;
+}
+.mkd-pack-macos9 .mkd-accordion__body { padding: 4px 0 6px 17px; gap: 6px; }
+
+/* ---------- group boxes ---------- */
+.mkd-pack-macos9 .mkd-card:where([data-variant="group"], [data-variant="secondary"]) {
+  position: relative;
+  margin-top: 7px;
+  overflow: visible;
+  border: 1px solid var(--mkd-plat-lo);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), 1px 1px 0 var(--mkd-plat-hi);
+}
+.mkd-pack-macos9 .mkd-card:where([data-variant="secondary"]) { border-color: var(--mkd-plat-lo); box-shadow: none; }
+.mkd-pack-macos9 .mkd-card:where([data-variant="group"], [data-variant="secondary"]) > .mkd-card__header { position: absolute; top: -8px; left: 8px; padding: 0 4px; background: var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-card:where([data-variant="group"], [data-variant="secondary"]) .mkd-card__title { font-size: 12px; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-card:where([data-variant="group"], [data-variant="secondary"]) > .mkd-card__body { padding: 14px 12px 10px; gap: 6px; }
+.mkd-pack-macos9 .mkd-card:not([data-variant]) { border-radius: 0; border-color: var(--mkd-plat-lo); background: var(--mkd-plat); }
+
+/* ---------- Finder: info bar, icons, list view ---------- */
+.mkd-pack-macos9 .mkd-labeled[data-el="InfoBar"] {
+  flex: none;
+  justify-content: center;
+  gap: 0;
+  height: 18px;
+  border-bottom: 1px solid var(--mkd-outline);
+  background: var(--mkd-plat);
+  box-shadow: inset 0 1px 0 var(--mkd-plat-hi), inset 0 -1px 0 var(--mkd-plat-lo);
+  font: 10px var(--mkd-font-small);
+}
+.mkd-pack-macos9 .mkd-labeled[data-el="InfoBar"] .mkd-labeled__label:not(:empty)::after { content: ","; margin-right: 4px; }
+.mkd-pack-macos9 .mkd-labeled[data-el="InfoBar"] .mkd-labeled__value { color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-label:where([data-el="FinderIcon"], [data-el="Folder"], [data-el="Disk"], [data-el="DocumentIcon"], [data-el="ApplicationIcon"], [data-el="TrashIcon"]) {
+  flex-direction: column;
+  gap: 2px;
+  width: 76px;
+  text-align: center;
+  font: 10px/1.2 var(--mkd-font-small);
+  color: var(--mkd-fg);
+}
+.mkd-pack-macos9 .mkd-label:where([data-el="FinderIcon"], [data-el="Folder"], [data-el="Disk"], [data-el="DocumentIcon"], [data-el="ApplicationIcon"], [data-el="TrashIcon"]) .mkd-label__title { max-width: 76px; padding: 0 2px; background: var(--mkd-surface); color: var(--mkd-fg); overflow-wrap: anywhere; }
+.mkd-pack-macos9 .mkd-label:where([data-selected="true"]) .mkd-label__title { background: var(--mkd-label-sel); color: var(--mkd-on-label-sel); }
+.mkd-pack-macos9 .mkd-label:where([data-el="FinderIcon"], [data-el="Folder"], [data-el="Disk"], [data-el="DocumentIcon"], [data-el="ApplicationIcon"], [data-el="TrashIcon"]) .mkd-label__icon { position: relative; width: 32px; height: 32px; justify-content: center; align-items: center; color: var(--mkd-icon-line); }
+.mkd-pack-macos9 .mkd-label[data-el="FinderIcon"] .mkd-label__icon .mkd-icon { width: 30px; height: 30px; stroke-width: 1.4; fill: var(--mkd-doc-bg); }
+.mkd-pack-macos9 .mkd-label[data-kind] .mkd-label__icon .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-label[data-kind] .mkd-label__icon::before,
+.mkd-pack-macos9 .mkd-label[data-kind] .mkd-label__icon::after { content: ""; position: absolute; box-sizing: border-box; }
+.mkd-pack-macos9 .mkd-label[data-selected="true"] .mkd-label__icon { filter: brightness(.55); }
+/* folder */
+.mkd-pack-macos9 .mkd-label[data-kind="folder"] .mkd-label__icon::before { left: 1px; top: 9px; width: 30px; height: 20px; border: 1px solid var(--mkd-icon-line); border-radius: 1px; background: linear-gradient(var(--mkd-folder), var(--mkd-folder) 70%, var(--mkd-folder-lo)); box-shadow: inset 1px 1px 0 rgb(255 255 255 / .55); }
+.mkd-pack-macos9 .mkd-label[data-kind="folder"] .mkd-label__icon::after { left: 2px; top: 5px; width: 12px; height: 5px; border: 1px solid var(--mkd-icon-line); border-bottom: 0; border-radius: 2px 2px 0 0; background: var(--mkd-folder); }
+/* hard disk */
+.mkd-pack-macos9 .mkd-label[data-kind="disk"] .mkd-label__icon::before { left: 0; top: 10px; width: 32px; height: 15px; border: 1px solid var(--mkd-icon-line); background: linear-gradient(var(--mkd-plat-hi), var(--mkd-plat) 40%, var(--mkd-plat-lo)); }
+.mkd-pack-macos9 .mkd-label[data-kind="disk"] .mkd-label__icon::after { left: 4px; top: 19px; width: 4px; height: 2px; background: #2dbb2d; box-shadow: 8px 0 0 var(--mkd-plat-dk), 12px 0 0 var(--mkd-plat-dk), 16px 0 0 var(--mkd-plat-dk); }
+/* document */
+.mkd-pack-macos9 .mkd-label[data-kind="document"] .mkd-label__icon::before {
+  left: 6px; top: 1px; width: 21px; height: 29px;
+  background:
+    repeating-linear-gradient(180deg, var(--mkd-plat-lo) 0 1px, transparent 1px calc(1px * 3)) 4px 10px / 12px 13px no-repeat,
+    linear-gradient(225deg, transparent 5px, var(--mkd-doc-bg) 5px);
+  filter: drop-shadow(1px 0 0 var(--mkd-icon-line)) drop-shadow(-1px 0 0 var(--mkd-icon-line)) drop-shadow(0 1px 0 var(--mkd-icon-line)) drop-shadow(0 -1px 0 var(--mkd-icon-line));
+}
+.mkd-pack-macos9 .mkd-label[data-kind="document"] .mkd-label__icon::after { left: 21px; top: 1px; width: 7px; height: 7px; background: linear-gradient(225deg, transparent 50%, var(--mkd-icon-line) 50% calc(50% + 1px), var(--mkd-plat-lo) 0); }
+/* application: the generic diamond */
+.mkd-pack-macos9 .mkd-label[data-kind="application"] .mkd-label__icon::before { left: 6px; top: 6px; width: 20px; height: 20px; transform: rotate(45deg); border: 1px solid var(--mkd-icon-line); background: linear-gradient(135deg, var(--mkd-folder), var(--mkd-folder-lo)); box-shadow: inset 2px 2px 0 rgb(255 255 255 / .4); }
+.mkd-pack-macos9 .mkd-label[data-kind="application"] .mkd-label__icon::after { left: 12px; top: 12px; width: 8px; height: 8px; transform: rotate(45deg); border: 1px solid var(--mkd-icon-line); background: var(--mkd-doc-bg); }
+/* trash */
+.mkd-pack-macos9 .mkd-label[data-kind="trash"] .mkd-label__icon::before { left: 8px; top: 9px; width: 17px; height: 22px; border: 1px solid var(--mkd-icon-line); border-radius: 0 0 2px 2px; background: repeating-linear-gradient(90deg, var(--mkd-plat-hi) 0 calc(1px * 2), var(--mkd-plat-lo) calc(1px * 2) calc(1px * 4)); }
+.mkd-pack-macos9 .mkd-label[data-kind="trash"] .mkd-label__icon::after { left: 6px; top: 5px; width: 21px; height: 5px; border: 1px solid var(--mkd-icon-line); border-radius: 2px 2px 0 0; background: var(--mkd-plat); }
+
+/* Finder list view */
+.mkd-pack-macos9 .mkd-table-wrap { border: 0; border-radius: 0; background: var(--mkd-surface); }
+.mkd-pack-macos9 .mkd-table { font: 10px var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-table th {
+  height: 18px;
+  padding: 0 6px;
+  border-bottom: 1px solid var(--mkd-outline);
+  border-right: 1px solid var(--mkd-plat-lo);
+  background: var(--mkd-plat);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi);
+  color: var(--mkd-fg);
+  font-weight: 400;
+}
+.mkd-pack-macos9 .mkd-table th:has(.mkd-table__sort) { background: var(--mkd-plat-lo); box-shadow: inset 1px 1px 0 var(--mkd-plat); }
+.mkd-pack-macos9 .mkd-table__sort { display: none; }
+.mkd-pack-macos9 .mkd-table td { height: 18px; padding: 0 6px; border-bottom: 0; color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-table tr[aria-selected="true"] td { background: var(--mkd-highlight); color: var(--mkd-on-highlight); }
+.mkd-pack-macos9 .mkd-table:has(th:nth-child(1) .mkd-table__sort) tr:not([aria-selected="true"]) td:nth-child(1),
+.mkd-pack-macos9 .mkd-table:has(th:nth-child(2) .mkd-table__sort) tr:not([aria-selected="true"]) td:nth-child(2),
+.mkd-pack-macos9 .mkd-table:has(th:nth-child(3) .mkd-table__sort) tr:not([aria-selected="true"]) td:nth-child(3),
+.mkd-pack-macos9 .mkd-table:has(th:nth-child(4) .mkd-table__sort) tr:not([aria-selected="true"]) td:nth-child(4) { background: var(--mkd-sort-col); }
+.mkd-pack-macos9 .mkd-table td .mkd-label { gap: 4px; font: inherit; }
+.mkd-pack-macos9 .mkd-table td .mkd-label__icon .mkd-icon { width: 14px; height: 14px; color: var(--mkd-icon-line); fill: var(--mkd-folder); stroke-width: 1.6; }
+.mkd-pack-macos9 .mkd-table__toolbar { min-height: 0; padding: 0; border: 0; }
+.mkd-pack-macos9 .mkd-table__footer { min-height: 18px; border-top: 1px solid var(--mkd-plat-lo); font: 10px var(--mkd-font-small); color: var(--mkd-fg); }
+
+/* list box */
+.mkd-pack-macos9 .mkd-list {
+  border: 1px solid;
+  border-color: var(--mkd-plat-lo) var(--mkd-plat-hi) var(--mkd-plat-hi) var(--mkd-plat-lo);
+  box-shadow: inset 1px 1px 0 var(--mkd-outline), inset -1px -1px 0 var(--mkd-plat);
+  background: var(--mkd-surface);
+  padding: 2px;
+}
+.mkd-pack-macos9 .mkd-listitem { min-height: 18px; padding: 1px 6px; gap: 6px; border-bottom: 0; font: 12px var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-listitem:where([data-selected="true"]) { background: var(--mkd-highlight); color: var(--mkd-on-highlight); }
+.mkd-pack-macos9 .mkd-listitem__subtitle, .mkd-pack-macos9 .mkd-listitem__trailing { font-size: 10px; color: var(--mkd-fg-2); }
+.mkd-pack-macos9 .mkd-listitem__leading .mkd-icon { width: 16px; height: 16px; fill: var(--mkd-folder); color: var(--mkd-icon-line); stroke-width: 1.6; }
+.mkd-pack-macos9 .mkd-list__header, .mkd-pack-macos9 .mkd-section__header { padding: 4px 6px 2px; color: var(--mkd-fg); font-weight: var(--mkd-fw-system); font-size: 12px; }
+.mkd-pack-macos9 .mkd-leading-icon { color: var(--mkd-icon-line); }
+
+/* tree (Finder list view with disclosure triangles) */
+.mkd-pack-macos9 .mkd-tree { font: 10px var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-treeitem__row { min-height: 18px; border-radius: 0; gap: 4px; }
+.mkd-pack-macos9 .mkd-treeitem:where([data-selected="true"]) > .mkd-treeitem__row { background: var(--mkd-highlight); color: var(--mkd-on-highlight); }
+.mkd-pack-macos9 .mkd-treeitem__chevron { width: 11px; height: 11px; }
+.mkd-pack-macos9 .mkd-treeitem__chevron .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-treeitem[data-expanded="false"] > .mkd-treeitem__row > .mkd-treeitem__chevron { background: conic-gradient(from 232deg at 100% 50%, var(--mkd-outline) 0 76deg, transparent 0) 2px 1px / 6px 9px no-repeat; }
+.mkd-pack-macos9 .mkd-treeitem[data-expanded="true"] > .mkd-treeitem__row > .mkd-treeitem__chevron { background: conic-gradient(from -38deg at 50% 100%, var(--mkd-outline) 0 76deg, transparent 0) 1px 3px / 9px 6px no-repeat; }
+.mkd-pack-macos9 .mkd-treeitem__icon { color: var(--mkd-icon-line); }
+.mkd-pack-macos9 .mkd-treeitem__icon .mkd-icon { width: 14px; height: 14px; fill: var(--mkd-folder); stroke-width: 1.6; }
+.mkd-pack-macos9 .mkd-treeitem__detail { color: var(--mkd-fg); font-size: 10px; }
+
+/* ---------- scroll bars ---------- */
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"] {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 6px 22px 22px 6px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 calc(1px * 2), var(--mkd-plat-lo) calc(1px * 2) calc(1px * 3), var(--mkd-plat-hi) calc(1px * 3) calc(1px * 4)) right 3px bottom 3px / 9px 9px no-repeat,
+    linear-gradient(var(--mkd-plat), var(--mkd-plat)) right bottom / 15px 15px no-repeat,
+    var(--mkd-surface);
+}
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"]::before,
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"]::after { content: ""; position: absolute; z-index: 2; }
+/* vertical bar: track, lavender thumb with grip, both arrows together at the bottom */
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"]::before {
+  top: 0; right: 0; bottom: 15px; width: 16px;
+  border-left: 1px solid var(--mkd-outline);
+  border-bottom: 1px solid var(--mkd-outline);
+  background:
+    conic-gradient(from 139deg at 50% 0, var(--mkd-fg) 0 82deg, transparent 0) 50% calc(100% - 21px) / 7px 4px no-repeat,
+    conic-gradient(from -41deg at 50% 100%, var(--mkd-fg) 0 82deg, transparent 0) 50% calc(100% - 5px) / 7px 4px no-repeat,
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)) 0 calc(100% - 15px) / 100% 1px no-repeat,
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)) 0 calc(100% - 31px) / 100% 1px no-repeat,
+    linear-gradient(90deg, var(--mkd-plat-hi), var(--mkd-plat) 40%, var(--mkd-plat-lo)) 0 100% / 100% 31px no-repeat,
+    repeating-linear-gradient(180deg, var(--mkd-thumb-lo) 0 1px, var(--mkd-thumb-hi) 1px calc(1px * 2), transparent calc(1px * 2) calc(1px * 3)) 50% 32px / 7px 8px no-repeat,
+    linear-gradient(90deg, var(--mkd-thumb-hi), var(--mkd-thumb) 35%, var(--mkd-thumb-lo)) 1px 21px / 13px 30px no-repeat,
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)) 0 20px / 100% 32px no-repeat,
+    linear-gradient(90deg, var(--mkd-plat-lo), var(--mkd-track) 4px, var(--mkd-track));
+}
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"]::after {
+  left: 0; right: 15px; bottom: 0; height: 16px;
+  border-top: 1px solid var(--mkd-outline);
+  border-right: 1px solid var(--mkd-outline);
+  background:
+    conic-gradient(from 229deg at 100% 50%, var(--mkd-fg) 0 82deg, transparent 0) calc(100% - 21px) 50% / 4px 7px no-repeat,
+    conic-gradient(from 49deg at 0 50%, var(--mkd-fg) 0 82deg, transparent 0) calc(100% - 5px) 50% / 4px 7px no-repeat,
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)) calc(100% - 15px) 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-outline), var(--mkd-outline)) calc(100% - 31px) 0 / 1px 100% no-repeat,
+    linear-gradient(var(--mkd-plat-hi), var(--mkd-plat) 40%, var(--mkd-plat-lo)) 100% 0 / 31px 100% no-repeat,
+    linear-gradient(var(--mkd-plat-lo), var(--mkd-track) 4px, var(--mkd-track));
+}
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="vertical"] { padding-bottom: 6px; }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="vertical"]::after { display: none; }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="horizontal"] { padding-right: 6px; }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="horizontal"]::before { display: none; }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="none"] { padding: 6px; background: var(--mkd-surface); }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="none"]::before,
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"][data-variant="none"]::after { display: none; }
+.mkd-pack-macos9 .mkd-scroll[data-el="ScrollArea"] > .mkd-table-wrap:first-child { margin: -6px 0 0 -6px; }
+
+/* ---------- dialogs and alerts (no scrim: Mac OS 9 modals do not dim the screen) ---------- */
+.mkd-pack-macos9 .mkd-dialog {
+  gap: 10px;
+  width: min(400px, 100%);
+  padding: 16px 18px 14px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 0;
+  background: var(--mkd-plat);
+  color: var(--mkd-fg);
+  box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), inset 0 0 0 3px var(--mkd-plat), inset 0 0 0 4px var(--mkd-plat-lo), 0 2px 10px rgb(0 0 0 / .25);
+}
+.mkd-pack-macos9 .mkd-dialog__title { font-size: 12px; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-dialog__message { color: var(--mkd-fg); font: 10px/1.35 var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-dialog__actions { gap: 12px; padding-top: 6px; align-items: center; }
+.mkd-pack-macos9 .mkd-dialog__actions > .mkd-button { min-width: 68px; }
+.mkd-pack-macos9 .mkd-dialog__body { gap: 8px; overflow: visible; }
+/* movable modal dialog: striped title bar */
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] { padding: 0 6px 12px; box-shadow: inset 1px 1px 0 var(--mkd-plat-hi), inset -1px -1px 0 var(--mkd-plat-lo), 0 2px 10px rgb(0 0 0 / .25); }
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] > .mkd-dialog__header { justify-content: center; margin: 0 -6px; }
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] > :not(.mkd-dialog__header) { margin: 0 8px; }
+.mkd-pack-macos9 .mkd-dialog[data-variant="dialog"] > .mkd-dialog__header + * { margin-top: 4px; }
+/* alert: icon at the left, bold message, small explanation */
+.mkd-pack-macos9 .mkd-dialog[data-variant="alert"] { display: grid; grid-template-columns: 32px 1fr; column-gap: 16px; row-gap: 6px; align-items: start; }
+.mkd-pack-macos9 .mkd-dialog[data-variant="alert"] > * { grid-column: 2; }
+.mkd-pack-macos9 .mkd-dialog[data-variant="alert"] > .mkd-dialog__icon { grid-column: 1; grid-row: 1 / span 3; position: relative; width: 32px; height: 32px; }
+.mkd-pack-macos9 .mkd-dialog[data-variant="alert"] > .mkd-dialog__actions { grid-column: 1 / -1; padding-top: 10px; }
+.mkd-pack-macos9 .mkd-dialog__icon .mkd-icon { display: none; }
+.mkd-pack-macos9 .mkd-dialog__icon::before,
+.mkd-pack-macos9 .mkd-dialog__icon::after { content: ""; position: absolute; box-sizing: border-box; }
+/* caution: yellow triangle with "!" */
+.mkd-pack-macos9 .mkd-dialog__icon::before { inset: 1px 0 1px; background: #000; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.mkd-pack-macos9 .mkd-dialog__icon::after {
+  inset: 3px 2px 2px; padding-top: 9px;
+  background: #fce94f; clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  content: "!"; color: #000; font: 700 17px/1 Charcoal, Chicago, Geneva, sans-serif; text-align: center;
+}
+/* stop: red octagon */
+.mkd-pack-macos9 .mkd-dialog[data-severity="stop"] .mkd-dialog__icon::before,
+.mkd-pack-macos9 .mkd-dialog[data-severity="error"] .mkd-dialog__icon::before { inset: 0; clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); }
+.mkd-pack-macos9 .mkd-dialog[data-severity="stop"] .mkd-dialog__icon::after,
+.mkd-pack-macos9 .mkd-dialog[data-severity="error"] .mkd-dialog__icon::after { inset: 2px; padding-top: 4px; background: #dd0806; color: #fff; font-size: 20px; clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); }
+/* note: a speech balloon */
+.mkd-pack-macos9 .mkd-dialog[data-severity="note"] .mkd-dialog__icon::before,
+.mkd-pack-macos9 .mkd-dialog[data-severity="info"] .mkd-dialog__icon::before { inset: 0 0 6px; clip-path: none; border-radius: 50%; background: #000; }
+.mkd-pack-macos9 .mkd-dialog[data-severity="note"] .mkd-dialog__icon::after,
+.mkd-pack-macos9 .mkd-dialog[data-severity="info"] .mkd-dialog__icon::after {
+  inset: 1px 1px 7px; padding-top: 3px; clip-path: none; border-radius: 50%; background: #fff;
+  content: "i"; color: #000; font: italic 700 17px/1 Georgia, serif;
+}
+.mkd-pack-macos9 .mkd-dialog[data-severity="note"] .mkd-dialog__icon,
+.mkd-pack-macos9 .mkd-dialog[data-severity="info"] .mkd-dialog__icon { background: conic-gradient(from 200deg at 30% 100%, #000 0 30deg, transparent 0) 0 0 / 100% 100% no-repeat; }
+
+/* ---------- Balloon help ---------- */
+.mkd-pack-macos9 .mkd-tooltip__bubble {
+  left: 0;
+  transform: none;
+  margin-bottom: 14px;
+  max-width: 220px;
+  padding: 6px 9px;
+  border: 1px solid var(--mkd-outline);
+  border-radius: 9px;
+  background: var(--mkd-balloon);
+  color: var(--mkd-on-balloon);
+  box-shadow: 2px 2px 0 rgb(0 0 0 / .3);
+  font: 10px/1.3 var(--mkd-font-small);
+  overflow: visible;
+}
+.mkd-pack-macos9 .mkd-tooltip__title { font-weight: 400; }
+.mkd-pack-macos9 .mkd-tooltip__bubble::before,
+.mkd-pack-macos9 .mkd-tooltip__bubble::after { content: ""; position: absolute; left: 14px; top: 100%; width: 12px; height: 14px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.mkd-pack-macos9 .mkd-tooltip__bubble::before { background: var(--mkd-outline); margin-top: 0; }
+.mkd-pack-macos9 .mkd-tooltip__bubble::after { left: 15px; width: 10px; height: 11px; margin-top: -1px; background: var(--mkd-balloon); }
+.mkd-pack-macos9 .mkd-tooltip__bubble[data-placement="bottom"] { margin: 14px 0 0; }
+.mkd-pack-macos9 .mkd-tooltip__bubble[data-placement="bottom"]::before,
+.mkd-pack-macos9 .mkd-tooltip__bubble[data-placement="bottom"]::after { top: auto; bottom: 100%; clip-path: polygon(0 0, 0 100%, 100% 100%); }
+.mkd-pack-macos9 .mkd-tooltip__bubble[data-placement="bottom"]::after { margin: 0 0 -1px; }
+
+/* ---------- Control Strip ---------- */
+.mkd-pack-macos9 .mkd-toolbar[data-el="ControlStrip"] {
+  min-height: 0;
+  height: 26px;
+  padding: 1px 14px 1px 2px;
+  gap: 0;
+  border: 1px solid var(--mkd-outline);
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  background:
+    repeating-linear-gradient(90deg, var(--mkd-plat-lo) 0 1px, var(--mkd-plat-hi) 1px calc(1px * 2), transparent calc(1px * 2) calc(1px * 3)) right 3px center / 6px 14px no-repeat,
+    var(--mkd-plat);
+  box-shadow: inset 0 1px 0 var(--mkd-plat-hi), inset 0 -1px 0 var(--mkd-plat-lo);
+}
+.mkd-pack-macos9 .mkd-toolbar[data-el="ControlStrip"] > .mkd-button {
+  height: 22px;
+  min-width: 0;
+  padding: 0 2px 0 3px;
+  gap: 2px;
+  border: 0;
+  border-right: 1px solid var(--mkd-plat-lo);
+  border-radius: 0;
+  background: none;
+  box-shadow: 1px 0 0 var(--mkd-plat-hi);
+}
+.mkd-pack-macos9 .mkd-toolbar[data-el="ControlStrip"] > .mkd-button .mkd-icon { width: 16px; height: 16px; stroke-width: 1.8; }
+.mkd-pack-macos9 .mkd-toolbar[data-el="ControlStrip"] > .mkd-button .mkd-button__caret { width: 5px; height: 3px; }
+
+/* ---------- Stickies, charts, code ---------- */
+.mkd-pack-macos9 .mkd-stickynote { border-radius: 0; border: 1px solid var(--mkd-outline); box-shadow: none; font: 10px/1.35 var(--mkd-font-small); color: #000; }
+.mkd-pack-macos9 .mkd-chart__title { font-size: 12px; font-weight: var(--mkd-fw-system); }
+.mkd-pack-macos9 .mkd-chart__legend, .mkd-pack-macos9 .mkd-chart__subtitle { font: 10px var(--mkd-font-small); color: var(--mkd-fg); }
+.mkd-pack-macos9 .mkd-chart__slice { stroke: var(--mkd-outline); stroke-width: 1; }
+.mkd-pack-macos9 .mkd-chart__swatch { border-radius: 0; outline: 1px solid var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-code:where([data-el]) { border-radius: 0; border-color: var(--mkd-outline); font-size: 11px; line-height: 1.45; }
+.mkd-pack-macos9 .mkd-badge { border-radius: 8px; background: var(--mkd-danger); color: #fff; font: 700 10px/14px var(--mkd-font-small); }
+.mkd-pack-macos9 .mkd-link { color: #0000d4; text-decoration: underline; }
+.mkd-pack-macos9 .mkd-swatches__items { gap: 2px; }
+.mkd-pack-macos9 .mkd-swatches__swatch { width: 16px; height: 16px; border-radius: 0; box-shadow: inset 0 0 0 1px var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-swatches__swatch[aria-selected="true"] { box-shadow: inset 0 0 0 1px var(--mkd-outline), 0 0 0 1px var(--mkd-plat-hi), 0 0 0 2px var(--mkd-outline); }
+.mkd-pack-macos9 .mkd-dialog__actions > :first-child:nth-last-child(3) { margin-right: auto; }
+.mkd-pack-macos9 .mkd-card__body > .mkd-tabs { flex: 1 1 auto; }
+.mkd-pack-macos9 .mkd-toolbar > .mkd-select { flex: none; }
+.mkd-pack-macos9 .mkd-hstack > .mkd-select { flex: none; }

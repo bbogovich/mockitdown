@@ -1,0 +1,43 @@
+// Reusable GS/OS (Apple IIgs System 6) building blocks for the gsos pack page.
+// Import with:  import "gsos/components"
+
+import GSOS
+
+/// The Finder menu bar: the colour Apple glyph, the application's menus (trailing closure).
+struct FinderMenuBar: View {
+  @ViewBuilder var menus: Content
+
+  var body: some View {
+    MenuBar {
+      AppleMenu()
+      menus
+      Spacer()
+    }
+  }
+}
+
+/// One CDev in the Control Panel list: icon and name, inverted when selected.
+struct CDevRow: View {
+  var name: String
+  var icon: String = "gear"
+  var selected: Bool = false
+
+  var body: some View {
+    ListItem(name, systemImage: icon).selected(selected)
+  }
+}
+
+/// A labelled setting row of a CDev: the name at the left, a pop-up menu at the right.
+struct CDevChoice: View {
+  var label: String
+  var items: [String] = []
+  var selection: String = ""
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Text(label)
+      Spacer()
+      PopupMenu(items: items, selection: selection)
+    }
+  }
+}

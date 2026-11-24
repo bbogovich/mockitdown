@@ -1,0 +1,84 @@
+// Reusable Mac OS 9 (Platinum) building blocks for the macos9 pack page.
+// Import with:  import "macos9/components"
+
+import MacOS9
+
+/// The menu bar: the Apple menu, the application's menus (trailing closure), the clock and the
+/// Application menu at the right.
+struct MacMenuBar: View {
+  var app: String = "Finder"
+  var clock: String = "10:42 AM"
+  @ViewBuilder var menus: Content
+
+  var body: some View {
+    MenuBar {
+      AppleMenu()
+      menus
+      Spacer()
+      Text(clock)
+      ApplicationMenu(app)
+    }
+  }
+}
+
+/// One row of a Finder list view: small icon and name, date, size and kind.
+struct FinderRow: View {
+  var name: String
+  var date: String = "Today, 9:12 AM"
+  var size: String = "—"
+  var kind: String = "folder"
+  var icon: String = "folder"
+  var selected: Bool = false
+
+  var body: some View {
+    TableRow {
+      Label(name, systemImage: icon)
+      Text(date)
+      Text(size)
+      Text(kind)
+    }
+    .selected(selected)
+  }
+}
+
+/// A Memory-style setting: a group box with On/Off radio buttons and a value with little arrows.
+struct MemorySetting: View {
+  var title: String
+  var on: Bool = true
+  var label: String = "Size:"
+  var value: String = "256"
+  var unit: String = "K"
+  var note: String = ""
+
+  var body: some View {
+    GroupBox(title) {
+      HStack(alignment: .top, spacing: 24) {
+        VStack(alignment: .leading, spacing: 4) {
+          RadioButton("On", checked: on)
+          RadioButton("Off", checked: !on)
+        }
+        VStack(alignment: .leading, spacing: 4) {
+          HStack(spacing: 6) {
+            LittleArrows(label, value: value)
+            Text(unit)
+          }
+          if note != "" { Text(note).font(.footnote) }
+        }
+        Spacer()
+      }
+    }
+  }
+}
+
+/// The Control Strip with the usual modules, collapsed against the left edge of the screen.
+struct StandardControlStrip: View {
+  var body: some View {
+    ControlStrip {
+      ControlStripModule("speaker")
+      ControlStripModule("app")
+      ControlStripModule("link")
+      ControlStripModule("printer")
+      ControlStripModule("battery")
+    }
+  }
+}
