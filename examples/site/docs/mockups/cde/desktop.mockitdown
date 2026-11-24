@@ -1,0 +1,65 @@
+// Reusable CDE building blocks for the cde pack page.
+// Import with:  import "cde/desktop"
+
+import CDE
+
+/// The Front Panel: application controls on both sides of the workspace switch.
+struct StandardFrontPanel: View {
+  var workspace: String = "One"
+
+  var body: some View {
+    FrontPanel {
+      FrontPanelIcon("Mon 14:05", icon: "Dtclock")
+      FrontPanelControl("Nov 24", icon: "Dtcm")
+      FrontPanelControl("Home", icon: "Dtfile")
+      FrontPanelControl("Editor", icon: "Dtpad")
+      FrontPanelControl("Mail", icon: "Dtmail")
+      HStack(spacing: 4) {
+        VStack(spacing: 4) {
+          SwitchControl(icon: "Dtlock")
+          SwitchControl(icon: "Dtbusy")
+        }
+        WorkspaceSwitch {
+          ForEach(["One", "Two", "Three", "Four"]) { w in WorkspaceButton(w).selected(w == workspace) }
+        }
+        SwitchControl(icon: "Dtexit")
+      }
+      .padding(.horizontal, 4)
+      FrontPanelControl("Printer", icon: "Dtprint")
+      FrontPanelControl("Style", icon: "Dtstyle")
+      FrontPanelControl("Apps", icon: "Dtappmgr")
+      FrontPanelControl("Help", icon: "Dthelp")
+      FrontPanelControl("Trash", icon: "Dttrash")
+    }
+  }
+}
+
+/// A main window: menu bar, a work area and an optional status line.
+struct MainWindow: View {
+  var menus: [String] = ["File", "Edit", "View", "Help"]
+  var status: String = ""
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    XmMainWindow {
+      XmMenuBar {
+        ForEach(menus) { m in XmCascadeButton(m) }
+      }
+      content
+      if status != "" { StatusLine { XmLabel(status) } }
+    }
+  }
+}
+
+/// A labelled row in a settings dialog: label on the left, control on the right.
+struct SettingRow: View {
+  var label: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    HStack(spacing: 10) {
+      XmLabel(label).frame(width: 120, alignment: .trailing)
+      content
+    }
+  }
+}

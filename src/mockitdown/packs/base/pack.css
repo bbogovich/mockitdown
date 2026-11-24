@@ -959,3 +959,4 @@
 .mkd-frame .mkd-chrome--statusbar { display: none; }
 .mkd-frame :where(.mkd-vstack) > :where(.mkd-listitem, .mkd-labeled, .mkd-accordion, .mkd-section) { align-self: stretch; }
 .mkd-frame :where(.mkd-card__body, .mkd-form, .mkd-dialog__body, .mkd-presented) > [data-fill~="y"][data-fill] { flex: 1 1 0; min-height: 0; }
+.mkd-frame .mkd-field:where([data-fill~="y"]) > .mkd-field__control { flex: 1 1 auto; }

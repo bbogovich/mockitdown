@@ -1,0 +1,137 @@
+/* xerox-star — the Xerox 8010 Information System "Star" (1981).
+ * A 1-bit bitmapped screen: a stippled grey desktop, white pictogram icons with names, windows whose
+ * black header strip carries the name and command buttons, property sheets with boxed fields and
+ * choice boxes where the chosen value is shown in reverse video, and no application menus — the
+ * universal commands live on the keyboard. Every colour comes from --mkd-ink / --mkd-paper.
+ */
+
+/* ---------- frame and window chrome ---------- */
+.mkd-pack-xerox-star .mkd-frame { border: 2px solid var(--mkd-ink); border-radius: 0; box-shadow: none; background: var(--mkd-paper); font-variant-ligatures: none; }
+.mkd-pack-xerox-star .mkd-frame[data-chrome="none"] { border: 1px solid var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-frame[data-chrome="none"] .mkd-screen { background: var(--mkd-desktop); }
+.mkd-pack-xerox-star .mkd-chrome--window { height: 22px; padding: 0 4px 0 8px; gap: 6px; background: var(--mkd-ink); color: var(--mkd-paper); font-size: 13px; }
+.mkd-pack-xerox-star .mkd-chrome--window .mkd-chrome__title { justify-content: flex-start; font-weight: 700; }
+.mkd-pack-xerox-star .mkd-chrome--window .mkd-chrome__lead { display: none; }
+.mkd-pack-xerox-star .mkd-chrome--window .mkd-chrome__trail i[data-btn="close"] { display: inline-flex; align-items: center; width: auto; height: 16px; padding: 0 8px; border-radius: 8px; background: var(--mkd-paper); color: var(--mkd-ink); font: 700 11px/1 var(--mkd-font); font-style: normal; }
+.mkd-pack-xerox-star .mkd-chrome--window .mkd-chrome__trail i[data-btn="close"]::before { content: "Close"; }
+
+/* ---------- desktop and icons ---------- */
+.mkd-pack-xerox-star .mkd-zstack[data-el="Desktop"] { flex: 1 1 auto; align-self: stretch; min-height: 0; background: var(--mkd-desktop); overflow: hidden; }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"] { flex-direction: column; gap: 0; width: 76px; }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"] .mkd-label__icon { position: relative; display: flex; align-items: center; justify-content: center; width: 56px; height: 52px; border: 1px solid var(--mkd-ink); border-bottom: 0; background: var(--mkd-paper); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"] .mkd-label__icon .mkd-icon { width: 32px; height: 32px; stroke-width: 1.3; }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"] .mkd-label__title { width: 76px; padding: 2px 2px; border: 1px solid var(--mkd-ink); background: var(--mkd-paper); color: var(--mkd-ink); font-size: 11px; line-height: 1.15; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"][data-selected="true"] :is(.mkd-label__icon, .mkd-label__title) { background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-label[data-el="DesktopIcon"][data-state="disabled"] .mkd-label__icon { background: var(--mkd-desktop); }
+
+/* ---------- windows, property sheets ---------- */
+.mkd-pack-xerox-star .mkd-card { border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-card:where([data-el="StarWindow"], [data-el="Window"], [data-variant="sheet"]) { border-width: 2px; }
+.mkd-pack-xerox-star .mkd-card:where([data-el="StarWindow"], [data-el="Window"], [data-variant="sheet"]) > .mkd-card__header { flex: none; min-height: 22px; padding: 0 4px 0 8px; gap: 6px; background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-card:where([data-el="StarWindow"], [data-el="Window"], [data-variant="sheet"]) > .mkd-card__header:last-child { padding-bottom: 0; }
+.mkd-pack-xerox-star .mkd-card__title { font-size: 13px; font-weight: 700; white-space: nowrap; }
+.mkd-pack-xerox-star .mkd-card__subtitle { color: inherit; font-size: 11px; }
+.mkd-pack-xerox-star .mkd-card__header-actions { gap: 4px; }
+.mkd-pack-xerox-star .mkd-card:where([data-el="StarWindow"], [data-el="Window"]) > .mkd-card__body { flex: 1 1 auto; min-height: 0; padding: 0; gap: 0; overflow: hidden; }
+.mkd-pack-xerox-star .mkd-card[data-variant="sheet"] > .mkd-card__body { padding: 12px 14px; gap: 10px; }
+.mkd-pack-xerox-star .mkd-card[data-variant="sheet"] .mkd-card__title { text-transform: uppercase; letter-spacing: .04em; }
+.mkd-pack-xerox-star .mkd-card[data-variant="frame"] { border-style: dashed; }
+.mkd-pack-xerox-star .mkd-card[data-variant="frame"] > .mkd-card__header { padding: 4px 8px 0; }
+.mkd-pack-xerox-star .mkd-card[data-variant="frame"] .mkd-card__title { font-size: 11px; }
+.mkd-pack-xerox-star .mkd-button[data-variant="command"] { height: 16px; padding: 0 8px; border: 0; border-radius: 8px; background: var(--mkd-paper); color: var(--mkd-ink); font-size: 11px; font-weight: 700; }
+.mkd-pack-xerox-star .mkd-button[data-variant="command"]:where([data-selected="true"], [data-pressed="true"]) { outline: 1px solid var(--mkd-paper); outline-offset: 1px; background: var(--mkd-ink); color: var(--mkd-paper); }
+
+/* ---------- property fields, choices, check boxes ---------- */
+.mkd-pack-xerox-star .mkd-labeled { justify-content: flex-start; gap: 12px; align-items: center; }
+.mkd-pack-xerox-star .mkd-labeled__label { flex: none; width: 118px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+.mkd-pack-xerox-star .mkd-labeled__value { flex: 1 1 auto; justify-content: flex-start; text-align: left; color: var(--mkd-ink); flex-wrap: wrap; gap: 6px; }
+.mkd-pack-xerox-star .mkd-labeled__value > .mkd-field { flex: 1 1 auto; }
+.mkd-pack-xerox-star .mkd-segmented { gap: 4px; }
+.mkd-pack-xerox-star .mkd-segmented__label { font-weight: 700; font-size: 12px; text-transform: uppercase; }
+.mkd-pack-xerox-star .mkd-segmented__items { display: inline-flex; gap: 6px; padding: 0; border-radius: 0; background: transparent; }
+.mkd-pack-xerox-star .mkd-segmented__item { flex: none; padding: 2px 8px; border: 1px solid var(--mkd-ink); border-radius: 0; font-size: 12px; font-weight: 400; }
+.mkd-pack-xerox-star .mkd-segmented__item[aria-selected="true"] { background: var(--mkd-ink); color: var(--mkd-paper); box-shadow: none; font-weight: 700; }
+.mkd-pack-xerox-star :where(.mkd-vstack, .mkd-navstack__content, .mkd-card__body, .mkd-form__row) > .mkd-segmented .mkd-segmented__items { display: inline-flex; }
+.mkd-pack-xerox-star .mkd-button { height: var(--mkd-control-h); padding: 0 12px; border: 1px solid var(--mkd-ink); border-radius: 11px; background: var(--mkd-paper); color: var(--mkd-ink); font-weight: 700; font-size: 12px; }
+.mkd-pack-xerox-star .mkd-button:where([data-variant="primary"], [data-variant="default"], [data-variant="borderedProminent"]) { border-width: 2px; background: var(--mkd-paper); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-button:where([data-variant="plain"], [data-variant="secondary"], [data-role="destructive"]) { background: var(--mkd-paper); color: var(--mkd-ink); border-color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-button[data-variant="choice"] { height: 20px; padding: 0 8px; border-radius: 0; font-weight: 400; }
+.mkd-pack-xerox-star .mkd-button:where([data-selected="true"], [data-pressed="true"]) { background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-button:where([data-state="disabled"]) { opacity: 1; border-style: dotted; font-weight: 400; }
+.mkd-pack-xerox-star .mkd-checkbox__box { width: 13px; height: 13px; border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-checkbox:where([data-checked="true"], [data-checked="mixed"]) .mkd-checkbox__box { background: var(--mkd-paper); border-color: var(--mkd-ink); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-checkbox__box .mkd-icon { width: 12px; height: 12px; stroke-width: 3; }
+.mkd-pack-xerox-star .mkd-radio__dot { width: 13px; height: 13px; border: 1px solid var(--mkd-ink); background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-radio:where([data-checked="true"]) .mkd-radio__dot { border-color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-radio:where([data-checked="true"]) .mkd-radio__dot::after { inset: 2px; background: var(--mkd-ink); }
+
+/* ---------- fields ---------- */
+.mkd-pack-xerox-star .mkd-field { gap: 2px; min-width: 60px; }
+.mkd-pack-xerox-star .mkd-field__label { font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.mkd-pack-xerox-star .mkd-field__control { min-height: 20px; padding: 0 4px; border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-field:where([data-state="focused"]) .mkd-field__control { border-color: var(--mkd-ink); box-shadow: none; }
+.mkd-pack-xerox-star .mkd-field:where([data-state="focused"]) .mkd-field__input::after { content: ""; display: inline-block; width: 2px; height: 13px; margin-left: 1px; vertical-align: -2px; background: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-field__input[data-placeholder="true"] { color: var(--mkd-ink); font-style: italic; }
+.mkd-pack-xerox-star .mkd-field__helper { color: var(--mkd-ink); font-size: 11px; }
+
+/* ---------- universal command keys, message line ---------- */
+.mkd-pack-xerox-star .mkd-kbd { gap: 4px; flex-wrap: wrap; }
+.mkd-pack-xerox-star .mkd-kbd__key { min-width: 54px; height: 28px; padding: 0 6px; border: 1px solid var(--mkd-ink); border-bottom-width: 3px; border-radius: 3px; background: var(--mkd-paper); color: var(--mkd-ink); font: 700 10px/1 var(--mkd-font); letter-spacing: .06em; box-shadow: none; }
+.mkd-pack-xerox-star .mkd-toolbar[data-variant="message"] { min-height: 22px; padding: 0 10px; border-bottom: 1px solid var(--mkd-ink); background: var(--mkd-paper); color: var(--mkd-ink); font-size: 12px; }
+
+/* ---------- documents ---------- */
+.mkd-pack-xerox-star .mkd-vstack[data-el="DocumentPage"] { align-items: stretch; padding: 28px 44px; background: var(--mkd-paper); font-family: var(--mkd-document-font); font-size: 14px; line-height: 1.4; }
+.mkd-pack-xerox-star .mkd-text[data-el="Paragraph"] { text-align: justify; }
+
+/* ---------- folder contents, scroll bar ---------- */
+.mkd-pack-xerox-star .mkd-list { background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-list__header { padding: 4px 8px; color: var(--mkd-ink); font-size: 11px; text-transform: uppercase; border-bottom: 1px solid var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-listitem { min-height: 24px; padding: 2px 8px; gap: 8px; border-bottom: 1px dotted var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-listitem:where([data-selected="true"]) { background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-listitem__subtitle, .mkd-pack-xerox-star .mkd-listitem__trailing, .mkd-pack-xerox-star .mkd-leading-icon { color: inherit; font-size: 12px; }
+.mkd-pack-xerox-star .mkd-slider { gap: 0; min-width: 0; }
+.mkd-pack-xerox-star .mkd-slider__track { height: 14px; border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-desktop); }
+.mkd-pack-xerox-star .mkd-slider__fill { display: none; }
+.mkd-pack-xerox-star .mkd-slider__thumb { width: 14px; height: 14px; margin: -7px 0 0 -7px; border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); box-shadow: none; }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] { flex: none; width: 18px; align-self: stretch; border-left: 1px solid var(--mkd-ink); background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__control { flex: 1 1 auto; flex-direction: column; gap: 0; }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__control::before, .mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__control::after { flex: none; display: flex; align-items: center; justify-content: center; width: 17px; height: 34px; background: linear-gradient(var(--mkd-ink), var(--mkd-ink)) 0 17px / 100% 1px no-repeat; font: 700 10px/17px var(--mkd-font); white-space: pre; text-align: center; color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__control::before { content: "\25B2\A+"; border-bottom: 1px solid var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__control::after { content: "\2013\A\25BC"; border-top: 1px solid var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__track { width: 17px; height: auto; flex: 1 1 auto; border: 0; }
+.mkd-pack-xerox-star .mkd-slider[data-orientation="vertical"] .mkd-slider__thumb { left: 1px !important; top: 6px; width: 15px; height: 24px; margin: 0; border-left: 0; border-right: 0; }
+
+/* ---------- menus, dialogs, misc ---------- */
+.mkd-pack-xerox-star .mkd-menu__popup { padding: 0; border: 2px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); box-shadow: 3px 3px 0 var(--mkd-ink); min-width: 150px; }
+.mkd-pack-xerox-star .mkd-menuitem { min-height: 22px; padding: 0 10px; border-radius: 0; border-bottom: 1px solid var(--mkd-ink); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-menuitem:last-child { border-bottom: 0; }
+.mkd-pack-xerox-star .mkd-menuitem:where([data-selected="true"], [data-state="hover"]) { background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-menuitem:where([data-state="disabled"]) { opacity: 1; color: var(--mkd-ink); font-style: italic; }
+.mkd-pack-xerox-star .mkd-scrim { background: transparent; }
+.mkd-pack-xerox-star .mkd-dialog { gap: 10px; padding: 0 0 12px; border: 2px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); color: var(--mkd-ink); box-shadow: 4px 4px 0 var(--mkd-ink); width: min(420px, 100%); }
+.mkd-pack-xerox-star .mkd-dialog__header { min-height: 22px; padding: 0 8px; background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-dialog__title { font-size: 13px; font-weight: 700; }
+.mkd-pack-xerox-star .mkd-dialog__icon { justify-content: flex-start; padding: 0 14px; color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-dialog__message, .mkd-pack-xerox-star .mkd-dialog__body { padding: 0 14px; color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-dialog__actions { padding: 2px 14px 0; justify-content: flex-end; gap: 8px; }
+.mkd-pack-xerox-star .mkd-divider { background: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-section__header { color: var(--mkd-ink); font-size: 12px; text-transform: uppercase; }
+.mkd-pack-xerox-star .mkd-table-wrap { border: 1px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-table th, .mkd-pack-xerox-star .mkd-table td { padding: 3px 10px; border: 1px solid var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-table th { color: var(--mkd-ink); background: var(--mkd-paper); font-weight: 700; }
+.mkd-pack-xerox-star .mkd-table tr[aria-selected="true"] td { background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-chart__slice, .mkd-pack-xerox-star .mkd-chart rect { stroke: var(--mkd-ink); stroke-width: 1; }
+.mkd-pack-xerox-star .mkd-chart__axis { stroke: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-chart__grid { stroke-dasharray: 1 3; }
+.mkd-pack-xerox-star .mkd-chart__label, .mkd-pack-xerox-star .mkd-chart__legend { fill: var(--mkd-ink); color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-chart__swatch { border: 1px solid var(--mkd-ink); border-radius: 0; }
+.mkd-pack-xerox-star .mkd-badge { border-radius: 0; background: var(--mkd-ink); color: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-alert { border: 2px solid var(--mkd-ink); border-radius: 0; background: var(--mkd-paper); }
+.mkd-pack-xerox-star .mkd-alert__icon { color: var(--mkd-ink); }
+.mkd-pack-xerox-star .mkd-card__body > [data-fill~="y"] { flex: 1 1 0; min-height: 0; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] > .mkd-dialog__header { grid-column: 1 / -1; grid-row: 1; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] > .mkd-dialog__icon { grid-column: 1; grid-row: 2; padding-right: 0; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] > .mkd-dialog__icon .mkd-icon { width: 28px; height: 28px; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] > .mkd-dialog__message { grid-column: 2; grid-row: 2; }
+.mkd-pack-xerox-star .mkd-dialog[data-variant="alert"] > :is(.mkd-dialog__body, .mkd-dialog__actions) { grid-column: 1 / -1; }

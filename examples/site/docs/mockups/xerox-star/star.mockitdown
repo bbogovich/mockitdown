@@ -1,0 +1,46 @@
+// Reusable Xerox Star building blocks for the xerox-star pack page.
+// Import with:  import "xerox-star/star"
+
+import XeroxStar
+
+/// A window with its name and a row of header commands (Star windows have no menu bar).
+struct CommandWindow: View {
+  var title: String
+  var commands: [String] = ["Close"]
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    StarWindow(title) {
+      content
+    } headerAction: {
+      ForEach(commands) { c in WindowCommand(c) }
+    }
+  }
+}
+
+/// A property with a set of choices; the chosen value is shown in reverse video.
+struct ChoiceProperty: View {
+  var label: String
+  var items: [String]
+  var selection: String
+
+  var body: some View {
+    PropertyField(label) {
+      ChoiceButtons(items: items, selection: selection)
+    }
+  }
+}
+
+/// A property whose value is typed into a box, with an optional unit after it.
+struct TextProperty: View {
+  var label: String
+  var value: String
+  var unit: String = ""
+
+  var body: some View {
+    PropertyField(label) {
+      FieldBox(value).frame(width: 90)
+      if unit != "" { Text(unit) }
+    }
+  }
+}

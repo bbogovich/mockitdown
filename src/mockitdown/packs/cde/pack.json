@@ -1,0 +1,716 @@
+{
+  "id": "cde",
+  "name": "CDE (Solaris)",
+  "framework": "Common Desktop Environment 1.x on Solaris 2.6–9 · Motif 1.2/2.1 · dtwm",
+  "version": "CDE 1.3–1.5 (Solaris default palette)",
+  "modules": [
+    "CDE",
+    "Motif",
+    "Solaris"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "window",
+    "wide": "window",
+    "tablet": "window",
+    "phone": "window"
+  },
+  "sizes": {
+    "desktop": [
+      1152,
+      864
+    ],
+    "wide": [
+      1280,
+      1024
+    ],
+    "tablet": [
+      800,
+      600
+    ],
+    "phone": [
+      640,
+      480
+    ]
+  },
+  "tokens": {
+    "light": {
+      "bg": "#aeb2c3",
+      "surface": "#aeb2c3",
+      "surface-2": "#aeb2c3",
+      "surface-3": "#9397a5",
+      "fg": "#000000",
+      "fg-2": "#1e2030",
+      "fg-3": "#4a4d5c",
+      "border": "#626578",
+      "divider": "#626578",
+      "accent": "#b24d7a",
+      "on-accent": "#ffffff",
+      "accent-soft": "#9397a5",
+      "danger": "#b0182a",
+      "warning": "#a86a00",
+      "success": "#2f7a3a",
+      "info": "#2b4f86",
+      "field-bg": "#c6cad6",
+      "field-border": "#626578",
+      "scrim": "transparent",
+      "shadow-1": "none",
+      "shadow-2": "none",
+      "shadow-3": "none",
+      "radius-s": "0px",
+      "radius-m": "0px",
+      "radius-l": "0px",
+      "radius-xl": "0px",
+      "radius-pill": "0px",
+      "font": "Helvetica, \"Lucida Sans\", Arial, sans-serif",
+      "font-mono": "\"Lucida Sans Typewriter\", \"Courier New\", Courier, monospace",
+      "font-size": "13px",
+      "line-height": "1.3",
+      "icon-stroke": "1.6",
+      "icon-size": "16px",
+      "control-h": "28px",
+      "gap": "8px",
+      "pad": "10px",
+      "chrome-bg": "#b24d7a",
+      "chrome-fg": "#ffffff",
+      "fs-display": "30px",
+      "fw-display": "700",
+      "fs-largeTitle": "24px",
+      "fw-largeTitle": "700",
+      "fs-title": "20px",
+      "fw-title": "700",
+      "fs-title2": "17px",
+      "fw-title2": "700",
+      "fs-title3": "15px",
+      "fw-title3": "700",
+      "fs-headline": "13px",
+      "fw-headline": "700",
+      "fs-subheadline": "12px",
+      "fw-subheadline": "400",
+      "fs-body": "13px",
+      "fw-body": "400",
+      "fs-callout": "13px",
+      "fw-callout": "400",
+      "fs-footnote": "11px",
+      "fw-footnote": "400",
+      "fs-caption": "11px",
+      "fw-caption": "400",
+      "fs-caption2": "10px",
+      "fw-caption2": "400",
+      "fs-overline": "10px",
+      "fw-overline": "700",
+      "color-red": "#b0182a",
+      "color-orange": "#c66a1c",
+      "color-yellow": "#d8c040",
+      "color-green": "#2f7a3a",
+      "color-mint": "#6fae8f",
+      "color-teal": "#4992a7",
+      "color-cyan": "#5aa9c0",
+      "color-blue": "#2b4f86",
+      "color-indigo": "#4a4f9a",
+      "color-purple": "#7a4d8a",
+      "color-pink": "#b24d7a",
+      "color-brown": "#8a6040",
+      "color-gray": "#808494",
+      "chart-1": "#2b4f86",
+      "chart-2": "#b24d7a",
+      "chart-3": "#4992a7",
+      "chart-4": "#c6a05a",
+      "chart-5": "#5d7a3e",
+      "chart-6": "#7a4d8a",
+      "code-bg": "#c6cad6",
+      "code-fg": "#000000",
+      "code-kw": "#000000",
+      "code-str": "#2b4f86",
+      "code-num": "#000000",
+      "code-comment": "#4a4d5c",
+      "code-fn": "#000000",
+      "code-type": "#000000",
+      "term-bg": "#c6cad6",
+      "term-fg": "#000000",
+      "term-prompt": "#000000",
+      "grid-line": "#9397a5",
+      "ts": "#e2e4ec",
+      "bs": "#626578",
+      "sel": "#9397a5",
+      "trough": "#9397a5",
+      "act": "#b24d7a",
+      "act-ts": "#dc94b4",
+      "act-bs": "#6a2c48",
+      "act-fg": "#ffffff",
+      "inact": "#aeb2c3",
+      "inact-fg": "#000000",
+      "backdrop": "#4992a7",
+      "backdrop-2": "#3f8296",
+      "ws-1": "#7e95b8",
+      "ws-2": "#4992a7",
+      "ws-3": "#c6b2a8",
+      "ws-4": "#b7878d",
+      "raised": "inset 1px 1px 0 #e2e4ec, inset -1px -1px 0 #626578, inset 2px 2px 0 #e2e4ec, inset -2px -2px 0 #626578",
+      "sunken": "inset 1px 1px 0 #626578, inset -1px -1px 0 #e2e4ec, inset 2px 2px 0 #626578, inset -2px -2px 0 #e2e4ec",
+      "raised-1": "inset 1px 1px 0 #e2e4ec, inset -1px -1px 0 #626578",
+      "sunken-1": "inset 1px 1px 0 #626578, inset -1px -1px 0 #e2e4ec",
+      "etched": "inset 1px 1px 0 #626578, inset -1px -1px 0 #e2e4ec, 1px 1px 0 #e2e4ec",
+      "act-raised": "inset 1px 1px 0 #dc94b4, inset -1px -1px 0 #6a2c48, inset 2px 2px 0 #dc94b4, inset -2px -2px 0 #6a2c48",
+      "inact-raised": "inset 1px 1px 0 #e2e4ec, inset -1px -1px 0 #626578, inset 2px 2px 0 #e2e4ec, inset -2px -2px 0 #626578",
+      "toggle-on": "#6c7085"
+    },
+    "dark": {
+      "bg": "#5a5e62",
+      "surface": "#5a5e62",
+      "surface-2": "#5a5e62",
+      "surface-3": "#46494d",
+      "fg": "#f2f2f2",
+      "fg-2": "#dcdcdc",
+      "fg-3": "#b4b6b8",
+      "border": "#2c2e31",
+      "divider": "#2c2e31",
+      "accent": "#87b4b0",
+      "on-accent": "#000000",
+      "accent-soft": "#3a3d40",
+      "danger": "#ff8a8a",
+      "warning": "#f0c060",
+      "success": "#8fd08f",
+      "info": "#9cc4ff",
+      "field-bg": "#6b6f73",
+      "field-border": "#2c2e31",
+      "chrome-bg": "#87b4b0",
+      "chrome-fg": "#000000",
+      "color-red": "#ff8a8a",
+      "color-orange": "#f0a060",
+      "color-yellow": "#f0d870",
+      "color-green": "#8fd08f",
+      "color-teal": "#87b4b0",
+      "color-blue": "#9cc4ff",
+      "color-pink": "#e8a0c0",
+      "color-gray": "#919191",
+      "chart-1": "#87b4b0",
+      "chart-2": "#af9696",
+      "chart-3": "#d8c890",
+      "chart-4": "#9cc4ff",
+      "chart-5": "#b9b9b9",
+      "chart-6": "#896d6d",
+      "code-bg": "#6b6f73",
+      "code-fg": "#f2f2f2",
+      "code-kw": "#f2f2f2",
+      "code-str": "#9cc4ff",
+      "code-num": "#f2f2f2",
+      "code-comment": "#b4b6b8",
+      "code-fn": "#f2f2f2",
+      "code-type": "#f2f2f2",
+      "term-bg": "#1e2022",
+      "term-fg": "#e6e6e6",
+      "term-prompt": "#e6e6e6",
+      "grid-line": "#46494d",
+      "ts": "#8c9195",
+      "bs": "#2c2e31",
+      "sel": "#3a3d40",
+      "trough": "#46494d",
+      "act": "#87b4b0",
+      "act-ts": "#c5dddb",
+      "act-bs": "#4a6a67",
+      "act-fg": "#000000",
+      "inact": "#767279",
+      "inact-fg": "#f2f2f2",
+      "backdrop": "#2f3437",
+      "backdrop-2": "#282c2f",
+      "ws-1": "#87b4b0",
+      "ws-2": "#896d6d",
+      "ws-3": "#af9696",
+      "ws-4": "#919191",
+      "raised": "inset 1px 1px 0 #8c9195, inset -1px -1px 0 #2c2e31, inset 2px 2px 0 #8c9195, inset -2px -2px 0 #2c2e31",
+      "sunken": "inset 1px 1px 0 #2c2e31, inset -1px -1px 0 #8c9195, inset 2px 2px 0 #2c2e31, inset -2px -2px 0 #8c9195",
+      "raised-1": "inset 1px 1px 0 #8c9195, inset -1px -1px 0 #2c2e31",
+      "sunken-1": "inset 1px 1px 0 #2c2e31, inset -1px -1px 0 #8c9195",
+      "etched": "inset 1px 1px 0 #2c2e31, inset -1px -1px 0 #8c9195, 1px 1px 0 #8c9195",
+      "act-raised": "inset 1px 1px 0 #c5dddb, inset -1px -1px 0 #4a6a67, inset 2px 2px 0 #c5dddb, inset -2px -2px 0 #4a6a67",
+      "inact-raised": "inset 1px 1px 0 #a09ca3, inset -1px -1px 0 #3c3a3e, inset 2px 2px 0 #a09ca3, inset -2px -2px 0 #3c3a3e",
+      "toggle-on": "#87b4b0"
+    }
+  },
+  "fonts": {
+    "user": "body",
+    "system": "body",
+    "systemBold": "headline",
+    "large": "title3",
+    "title": "title2",
+    "caption": "caption"
+  },
+  "icons": {
+    "Dtfile": "folder",
+    "Dtpad": "square.and.pencil",
+    "Dtterm": "app",
+    "Dtmail": "envelope",
+    "Dtcm": "calendar",
+    "Dtclock": "clock",
+    "Dtprint": "printer",
+    "Dtstyle": "slider.horizontal.3",
+    "Dthelp": "questionmark.circle",
+    "Dtappmgr": "square.grid.2x2",
+    "Dttrash": "trash",
+    "Dtlock": "lock",
+    "Dtexit": "power",
+    "Dtbusy": "circle.fill",
+    "folder": "folder",
+    "file": "doc",
+    "error": "xmark.circle",
+    "warning": "exclamationmark.triangle",
+    "information": "info.circle",
+    "question": "questionmark.circle",
+    "working": "clock",
+    "Dtcolor": "palette",
+    "Dtfont": "doc.text",
+    "Dtbackdrop": "photo",
+    "Dtkeyboard": "keyboard",
+    "Dtmouse": "location",
+    "Dtbeep": "speaker",
+    "Dtscreen": "app",
+    "Dtwindow": "square.stack",
+    "Dtstartup": "power"
+  },
+  "attrs": {
+    "labelString": "label"
+  },
+  "modifiers": {
+    "showAsDefault": {
+      "attr": "variant",
+      "value": "default"
+    },
+    "sensitive": {
+      "attr": "sensitive"
+    },
+    "set": {
+      "attr": "checked"
+    }
+  },
+  "elements": {
+    "Workspace": {
+      "role": "zstack",
+      "defaults": {
+        "alignment": "topLeading"
+      },
+      "doc": "The workspace backdrop; place windows with .padding and the FrontPanel with .frame(maxHeight: .infinity, alignment: .bottom)"
+    },
+    "DtWindow": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "variants": [
+        "active",
+        "inactive"
+      ],
+      "doc": "A dtwm-framed window inside a Workspace (resize border, window-menu button, minimise/maximise); .variant(.inactive)"
+    },
+    "XmMainWindow": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "Main window: menu bar, work area, message line"
+    },
+    "XmForm": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 8
+      },
+      "doc": "Form container"
+    },
+    "XmRowColumn": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "leading",
+        "spacing": 6
+      },
+      "doc": "Row/column container (use HStack for XmHORIZONTAL)"
+    },
+    "XmPanedWindow": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "Panes separated by sashes"
+    },
+    "XmScrolledWindow": {
+      "role": "scroll",
+      "doc": "Scrolling region"
+    },
+    "XmDrawingArea": {
+      "role": "canvas",
+      "doc": "Free-form drawing area"
+    },
+    "XmFrame": {
+      "role": "card",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "frame"
+      },
+      "doc": "Etched-in frame with a title on its top edge"
+    },
+    "XmMenuBar": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "menubar"
+      },
+      "doc": "Raised menu bar holding XmCascadeButtons / XmPulldownMenus"
+    },
+    "XmCascadeButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "cascade"
+      },
+      "doc": "A menu-bar title; the first letter is the mnemonic; .selected() arms it"
+    },
+    "XmPulldownMenu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "cascade",
+        "caret": false
+      },
+      "doc": "XmPulldownMenu(\"File\", open: true) { MenuItem(\"Open...\") … }"
+    },
+    "XmPopupMenu": {
+      "role": "menu",
+      "doc": "A pop-up menu (no trigger)"
+    },
+    "XmMenuItem": {
+      "role": "menuitem",
+      "params": [
+        "label"
+      ],
+      "doc": "A push-button gadget in a menu: shortcut:, checked:, .selected() (armed)"
+    },
+    "XmPushButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "default"
+      ],
+      "doc": "Push button with a 2px bevel; .showAsDefault() adds the default ring"
+    },
+    "XmArrowButton": {
+      "role": "button",
+      "params": [
+        "direction"
+      ],
+      "defaults": {
+        "variant": "arrow"
+      },
+      "doc": "Arrow button"
+    },
+    "XmToggleButton": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "N-of-many toggle: square indicator, filled with the select colour when set"
+    },
+    "XmRadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "One-of-many toggle: diamond indicator"
+    },
+    "XmRadioBox": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "Radio box from items:/selection: (diamond indicators)"
+    },
+    "XmLabel": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "Label"
+    },
+    "XmSeparator": {
+      "role": "divider",
+      "doc": "Etched separator"
+    },
+    "XmTextField": {
+      "role": "textfield",
+      "params": [
+        "label"
+      ],
+      "doc": "Single-line text field (sunken, light text background)"
+    },
+    "XmText": {
+      "role": "textfield",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Multi-line text"
+    },
+    "XmScrolledText": {
+      "role": "textfield",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "Multi-line text in a scrolled window"
+    },
+    "XmScale": {
+      "role": "slider",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "showValue": true
+      },
+      "doc": "Scale: sunken trough, raised slider with a centre groove, value shown"
+    },
+    "XmScrollBar": {
+      "role": "slider",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "variant": "scrollbar"
+      },
+      "doc": "Scroll bar with arrow buttons"
+    },
+    "XmList": {
+      "role": "list",
+      "doc": "List; ListItem children, .selected() uses the select colour"
+    },
+    "XmScrolledList": {
+      "role": "list",
+      "defaults": {
+        "variant": "scrolled"
+      },
+      "doc": "List with a vertical scroll bar"
+    },
+    "XmListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "An item of an XmList"
+    },
+    "XmOptionMenu": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "Option menu: raised button with the small raised-bar indicator"
+    },
+    "XmComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "combo"
+      },
+      "doc": "Combo box: sunken text with an arrow button"
+    },
+    "DtComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "combo"
+      },
+      "doc": "CDE combo box"
+    },
+    "DtSpinBox": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "Spin box with up/down arrows"
+    },
+    "XmSpinBox": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "Motif 2.1 spin box"
+    },
+    "XmNotebook": {
+      "role": "tabs",
+      "doc": "Motif 2.1 notebook (tabs)"
+    },
+    "XmMessageBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert"
+      },
+      "doc": "Message dialog: symbol on the left, message, separator, buttons"
+    },
+    "XmErrorDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "error"
+      },
+      "doc": "Error dialog"
+    },
+    "XmWarningDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "warning"
+      },
+      "doc": "Warning dialog"
+    },
+    "XmInformationDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "information"
+      },
+      "doc": "Information dialog"
+    },
+    "XmQuestionDialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "alert",
+        "icon": "question"
+      },
+      "doc": "Question dialog"
+    },
+    "XmDialogShell": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "A dialog window"
+    },
+    "FrontPanel": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "frontpanel"
+      },
+      "doc": "The CDE Front Panel along the bottom of the screen"
+    },
+    "FrontPanelControl": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "fpcontrol"
+      },
+      "doc": "A Front Panel control (icon:) with the subpanel arrow above it"
+    },
+    "FrontPanelIcon": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "fpplain"
+      },
+      "doc": "A Front Panel control without a subpanel (e.g. the clock)"
+    },
+    "WorkspaceSwitch": {
+      "role": "grid",
+      "defaults": {
+        "columns": 2,
+        "spacing": 3
+      },
+      "doc": "The workspace switch in the middle of the Front Panel"
+    },
+    "WorkspaceButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "workspace"
+      },
+      "doc": "A workspace button; .selected() for the current workspace; .color(.ws2) etc."
+    },
+    "SwitchControl": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "switchctl"
+      },
+      "doc": "Lock / Exit / busy-light controls beside the workspace buttons"
+    },
+    "DtIcon": {
+      "role": "label",
+      "params": [
+        "title"
+      ],
+      "doc": "A File Manager / Application Manager icon: picture with its name below; .selected()"
+    },
+    "DtIconGrid": {
+      "role": "hstack",
+      "defaults": {
+        "wrap": true,
+        "spacing": 14,
+        "alignment": "top"
+      },
+      "doc": "Icon view of a folder"
+    },
+    "DtIconButton": {
+      "role": "button",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "icontop"
+      },
+      "doc": "A button with its icon above the label (Style Manager)"
+    },
+    "DtTerm": {
+      "role": "code",
+      "params": [
+        "code"
+      ],
+      "defaults": {
+        "variant": "terminal"
+      },
+      "doc": "dtterm terminal emulator; lines starting with \"$ \" are commands"
+    },
+    "StatusLine": {
+      "role": "toolbar",
+      "defaults": {
+        "variant": "status"
+      },
+      "doc": "Sunken message/status line at the bottom of a main window"
+    }
+  }
+}

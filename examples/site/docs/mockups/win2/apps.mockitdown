@@ -1,0 +1,48 @@
+// Reusable Windows 2.x building blocks for the win2 pack page.
+// Import with:  import "win2/apps"
+
+import Windows2
+
+/// An overlapped application window: caption, menu bar and a white client area.
+struct AppWindow: View {
+  var title: String
+  var menus: [String] = ["File", "Edit"]
+  var inactive: Bool = false
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    Window(title) {
+      MenuBar {
+        ForEach(menus) { m in MenuBarItem(m) }
+      }
+      content
+    }
+    .variant(inactive ? .inactive : .active)
+  }
+}
+
+/// One column of MS-DOS Executive file names; `selected` names the highlighted file.
+struct FileColumn: View {
+  var names: [String]
+  var selected: String = ""
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      ForEach(names) { n in FileName(n).selected(n == selected) }
+    }
+  }
+}
+
+/// A labelled edit control the way dialog templates lay them out: LTEXT on the left, EDITTEXT on the right.
+struct EditRow: View {
+  var label: String
+  var text: String = ""
+  var focused: Bool = false
+
+  var body: some View {
+    HStack(spacing: 8) {
+      LText(label).frame(width: 96)
+      EditText(text).state(focused ? .focused : .normal).frame(maxWidth: .infinity)
+    }
+  }
+}
