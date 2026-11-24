@@ -413,7 +413,8 @@ class Evaluator:
             if arg.label is None:
                 positional.append(val)
             else:
-                attrs[self.pack.attrs.get(arg.label, arg.label)] = val
+                label = dict(el.attrs).get(arg.label) or self.pack.attrs.get(arg.label, arg.label)
+                attrs[label] = val
         for i, val in enumerate(positional):
             if i < len(el.params):
                 attrs[el.params[i]] = val

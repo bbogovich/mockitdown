@@ -485,7 +485,7 @@ class Renderer:
         if total is None:
             total = 100.0 if value is not None and value > 1 else 1.0
         frac = None if value is None else max(0.0, min(1.0, value / total if total else 0.0))
-        variant = _name(v.attr("variant", "kind", "style")) or "linear"
+        variant = _name(v.attr("kind", "variant", "style")) or "linear"
         circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "radial")
         label = self.text_or_slot(v, "label", "title")
         current = self.text_or_slot(v, "currentValueLabel", "valueLabel")
@@ -1175,7 +1175,7 @@ class Renderer:
         body_views = v.children
         if sel is not None:
             for c in body_views:
-                if c.role in ("navitem", "listitem") and _fmt(c.attr("label", "title")) == _fmt(sel):
+                if c.role in ("navitem", "listitem") and _fmt(c.attr("label", "title", "text")) == _fmt(sel):
                     c.attrs["selected"] = True
         style = {}
         if (length := u(_num(v.attr("width")))) is not None:
@@ -1302,11 +1302,16 @@ class Renderer:
         head_actions = self.slot(v, "headerAction", "action", "menu", "extra")
         status = self.text_or_slot(v, "status", "value")
         if header or title or subtitle or visual or head_actions:
-            parts.append('<div class="mkd-card__header">' + visual + (header or (
+            if header:
+                parts.append(f'<div class="mkd-card__band">{header}</div>')
+            if visual or title or subtitle or status or head_actions:
+                parts.append('<div class="mkd-card__header">' + visual + (
                 f'<div class="mkd-card__titles"><span class="mkd-card__title">{title}</span>'
-                + (f'<span class="mkd-card__subtitle">{subtitle}</span>' if subtitle else "") + "</div>"))
+                + (f'<span class="mkd-card__subtitle">{subtitle}</span>' if subtitle else "") + "</div>"
+                if title or subtitle else "")
                 + (f'<span class="mkd-card__status">{status}</span>' if status else "")
-                + (f'<div class="mkd-card__header-actions">{head_actions}</div>' if head_actions else "") + "</div>")
+                    + (f'<div class="mkd-card__header-actions">{head_actions}</div>' if head_actions else "")
+                    + "</div>")
         if v.children:
             parts.append(f'<div class="mkd-card__body">{self.views(v.children)}</div>')
         actions = self.slot(v, "actions", "footer")
@@ -1443,7 +1448,10 @@ class Renderer:
             tds = "".join(self._cell(cell, headers[j][1] if j < len(headers) else "") for j, cell in enumerate(cells))
             rows_html.append(self._tr(tds, i in selected_set, selectable))
         for i, rv in enumerate(row_views, start=len(rows_html)):
-            tds = "".join(f'<td class="mkd-table__cell">{self.view(c)}</td>' for c in rv.children)
+            tds = "".join(
+                f'<td class="mkd-table__cell"'
+                + (f' data-align="{esc(headers[j][1])}"' if j < len(headers) and headers[j][1] else "")
+                + f">{self.view(c)}</td>" for j, c in enumerate(rv.children))
             rows_html.append(self._tr(tds, i in selected_set or _bool(rv.attr("selected")), selectable,
                                       rv.attr("status")))
         ths = []
@@ -1565,8 +1573,10 @@ class Renderer:
         trigger = ""
         if label or icon:
             variant = _name(v.attr("variant")) or ""
+            size = _name(v.attr("size")) or ""
             trigger = (f'<span class="mkd-button mkd-menu__trigger" data-el="MenuButton"'
                        + (f' data-variant="{esc(variant)}"' if variant else "")
+                       + (f' data-size="{esc(size)}"' if size else "")
                        + (' data-icon-only="true"' if icon and not label else "") + ' role="button">'
                        + (f'<span class="mkd-button__icon">{self.icon(icon, v=v)}</span>' if icon else "")
                        + (f'<span class="mkd-button__label">{label}</span>' if label else "")
@@ -1641,7 +1651,7 @@ class Renderer:
         return ""
 
     def r_alert(self, v: View) -> str:
-        sev = _name(v.attr("severity", "type", "status", "intent")) or "info"
+        sev = (_name(v.attr("severity", "type", "status", "intent")) or "info").lower()
         sev = {"information": "info", "danger": "error", "negative": "error", "critical": "error", "positive":
                "success", "critical-warning": "warning", "caution": "warning"}.get(sev, sev)
         icon = v.attr("systemImage", "icon") or {"info": "info.circle", "success": "checkmark.circle",

@@ -1,0 +1,1431 @@
+/* mockitdown pack: SwiftUI — iOS 26 / iPadOS 26 / macOS 26 (Liquid Glass generation).
+ *
+ * Every selector is scoped to .mkd-pack-swiftui. Colours come from tokens (pack.json) so light and
+ * dark switch by tokens alone. Platform differences branch on the frame's device form:
+ *   phone            iOS  (default)
+ *   tablet*          iPadOS (floating sidebar, top tab bar)
+ *   desktop / wide   macOS (13 pt type, small controls, glass sidebar, toolbar in the title bar)
+ * Metrics that differ by platform are --sw-* custom properties set on the frame.
+ */
+
+/* ---------- platform metrics ---------- */
+.mkd-pack-swiftui .mkd-frame {
+  --sw-row-h: 44px;
+  --sw-row-py: 11px;
+  --sw-row-px: 16px;
+  --sw-inset: 16px;
+  --sw-section-r: 24px;
+  --sw-section-gap: 20px;
+  --sw-nav-h: 52px;
+  --sw-glass-btn: 44px;
+  --sw-chevron: 14px;
+  --sw-lead: 30px;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern";
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) {
+  --sw-row-h: 28px;
+  --sw-row-py: 4px;
+  --sw-row-px: 10px;
+  --sw-inset: 20px;
+  --sw-section-r: 10px;
+  --sw-section-gap: 16px;
+  --sw-nav-h: 52px;
+  --sw-glass-btn: 32px;
+  --sw-chevron: 11px;
+  --sw-lead: 20px;
+}
+/* macOS type scale (13 pt body). Set on the frame's children so the token rules on the frame
+   (which re-declare every token per appearance) do not override it. */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) > :is(.mkd-screen),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) > :is(.mkd-chrome),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) > :is(.mkd-screen),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) > :is(.mkd-chrome) {
+  --mkd-bg: var(--mkd-mac-window);
+  --mkd-font-size: 13px;
+  --mkd-line-height: 1.25;
+  --mkd-icon-size: 16px;
+  --mkd-control-h: 24px;
+  --mkd-fs-display: 30px;
+  --mkd-fs-largeTitle: 26px;
+  --mkd-fs-title: 22px;
+  --mkd-fs-title2: 17px;
+  --mkd-fs-title3: 15px;
+  --mkd-fs-headline: 13px; --mkd-fw-headline: 700;
+  --mkd-fs-body: 13px;
+  --mkd-fs-callout: 12px;
+  --mkd-fs-subheadline: 11px;
+  --mkd-fs-footnote: 10px;
+  --mkd-fs-caption: 10px;
+  --mkd-fs-caption2: 10px;
+  --mkd-fs-overline: 10px;
+  font-size: var(--mkd-font-size);
+  line-height: var(--mkd-line-height);
+}
+
+/* ---------- frame and device chrome ---------- */
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] { border-radius: 16px; border-color: var(--mkd-mac-control-line); }
+.mkd-pack-swiftui .mkd-chrome--status { font-size: 17px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-chrome--status[data-chrome="ipados"] { font-size: 13px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-chrome__indicator { background: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-chrome--titlebar[data-chrome="macos"] {
+  height: 38px;
+  padding: 0 14px;
+  background: var(--mkd-mac-toolbar);
+  border-bottom: 0;
+}
+.mkd-pack-swiftui .mkd-chrome--titlebar[data-chrome="macos"] .mkd-chrome__title { font-size: 13px; font-weight: 600; color: var(--mkd-fg); }
+
+/* Grouped screens (inset-grouped List, Form, GroupBox dashboards) paint the whole frame —
+   status bar and navigation bar included — in systemGroupedBackground. */
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > :is(.mkd-list:is([data-variant="insetGrouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > :is(.mkd-list:is([data-variant="grouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > :is(.mkd-list:is([data-variant="automatic"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > :is(.mkd-form:not([data-variant="columns"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="insetGrouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="grouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="automatic"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > :is(.mkd-form:not([data-variant="columns"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > :is(.mkd-list:is([data-variant="insetGrouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > :is(.mkd-list:is([data-variant="grouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > :is(.mkd-list:is([data-variant="automatic"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > :is(.mkd-form:not([data-variant="columns"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="insetGrouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="grouped"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > :is(.mkd-list:is([data-variant="automatic"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > :is(.mkd-form:not([data-variant="columns"]))),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > .mkd-scroll > :is(.mkd-vstack) > .mkd-card[data-el="GroupBox"]),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-navstack > .mkd-navstack__content > .mkd-scroll > :is(.mkd-grid) > .mkd-card[data-el="GroupBox"]),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > .mkd-scroll > :is(.mkd-vstack) > .mkd-card[data-el="GroupBox"]),
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-tabs > .mkd-tabs__panel > .mkd-navstack > .mkd-navstack__content > .mkd-scroll > :is(.mkd-grid) > .mkd-card[data-el="GroupBox"]) {
+  --mkd-bg: var(--mkd-grouped-bg);
+}
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > :is(.mkd-list:is([data-variant="insetGrouped"]))),
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > :is(.mkd-list:is([data-variant="grouped"]))),
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > :is(.mkd-list:is([data-variant="automatic"]))),
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > :is(.mkd-form:not([data-variant="columns"]))),
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > .mkd-scroll > :is(.mkd-vstack) > .mkd-card[data-el="GroupBox"]),
+.mkd-pack-swiftui .mkd-navstack:has(> .mkd-navstack__content > .mkd-scroll > :is(.mkd-grid) > .mkd-card[data-el="GroupBox"]) {
+  --mkd-bg: var(--mkd-grouped-bg);
+}
+.mkd-pack-swiftui .mkd-scroll:has(> :is(.mkd-vstack) > .mkd-card[data-el="GroupBox"]),
+.mkd-pack-swiftui .mkd-scroll:has(> :is(.mkd-grid) > .mkd-card[data-el="GroupBox"]) {
+  background: var(--mkd-grouped-bg);
+  --sw-card-bg: var(--mkd-cell-bg);
+}
+
+/* ---------- text, icons, symbols ---------- */
+.mkd-pack-swiftui .mkd-text { letter-spacing: -0.005em; }
+.mkd-pack-swiftui :where([data-font="largeTitle"]),
+.mkd-pack-swiftui :where([data-font="title"]),
+.mkd-pack-swiftui :where([data-font="title2"]) { letter-spacing: 0.01em; }
+.mkd-pack-swiftui :where([data-design="rounded"]) { font-family: var(--mkd-font-rounded); }
+.mkd-pack-swiftui .mkd-code { background: var(--mkd-fill-3); border-radius: 5px; }
+.mkd-pack-swiftui .mkd-label { gap: 10px; }
+.mkd-pack-swiftui .mkd-label__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-link { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-divider { background: var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-divider__label { color: var(--mkd-fg-2); font-size: 13px; }
+.mkd-pack-swiftui .mkd-image--placeholder { background: var(--mkd-fill-3); color: var(--mkd-fg-3); border-radius: 12px; }
+.mkd-pack-swiftui .mkd-thumb { border-radius: 8px; }
+.mkd-pack-swiftui .mkd-shape:where([data-shape="rounded"]) { border-radius: 16px; }
+
+/* Contacts-style avatars: grey gradient monogram */
+.mkd-pack-swiftui .mkd-avatar { width: 40px; height: 40px; background: linear-gradient(180deg, var(--mkd-avatar-top), var(--mkd-avatar-bottom)); color: #fff; font-size: 16px; font-weight: 600; font-family: var(--mkd-font-rounded); }
+.mkd-pack-swiftui .mkd-avatar[data-size="small"] { width: 28px; height: 28px; font-size: 12px; }
+.mkd-pack-swiftui .mkd-avatar[data-size="large"] { width: 60px; height: 60px; font-size: 24px; }
+.mkd-pack-swiftui .mkd-avatar[data-size="xlarge"] { width: 90px; height: 90px; font-size: 36px; }
+.mkd-pack-swiftui .mkd-avatar__status { border-color: var(--mkd-cell-bg); }
+
+/* ---------- badges, chips, rating ---------- */
+.mkd-pack-swiftui .mkd-badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--mkd-danger); color: #fff; font-size: 13px; font-weight: 500; }
+.mkd-pack-swiftui .mkd-badge[data-dot="true"] { min-width: 10px; width: 10px; height: 10px; padding: 0; }
+.mkd-pack-swiftui .mkd-chip { height: 30px; padding: 0 12px; border: 0; border-radius: 15px; background: var(--mkd-fill-3); font-size: 15px; }
+.mkd-pack-swiftui .mkd-chip[data-selected="true"] { background: var(--mkd-accent); color: var(--mkd-on-accent); }
+.mkd-pack-swiftui .mkd-rating { color: var(--mkd-color-orange); }
+
+/* ---------- buttons ---------- */
+/* .automatic / .borderless: accent-coloured text, no container */
+.mkd-pack-swiftui .mkd-button {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mkd-accent);
+  font-size: var(--mkd-fs-body);
+  font-weight: 400;
+}
+.mkd-pack-swiftui .mkd-button .mkd-icon { width: 1.15em; height: 1.15em; }
+.mkd-pack-swiftui .mkd-button[data-variant="plain"] { color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-button:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="secondary"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="primary"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="filled"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="signInWithApple"]) {
+  height: var(--mkd-control-h);
+  padding: 0 14px;
+}
+.mkd-pack-swiftui .mkd-button:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="secondary"]) {
+  background: color-mix(in srgb, var(--mkd-accent) 15%, transparent);
+  color: var(--mkd-accent);
+}
+.mkd-pack-swiftui .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="primary"]),
+.mkd-pack-swiftui .mkd-button:is([data-variant="filled"]) {
+  background: var(--mkd-accent);
+  color: var(--mkd-on-accent);
+  font-weight: 600;
+}
+.mkd-pack-swiftui .mkd-button[data-variant="glass"] {
+  background: var(--mkd-glass-bg);
+  color: var(--mkd-fg);
+  box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+  backdrop-filter: blur(14px) saturate(1.8);
+}
+.mkd-pack-swiftui .mkd-button[data-variant="glassProminent"] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mkd-accent) 82%, #fff), var(--mkd-accent));
+  color: var(--mkd-on-accent);
+  font-weight: 600;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--mkd-accent) 35%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35);
+}
+.mkd-pack-swiftui .mkd-button[data-variant="signInWithApple"] { height: 50px; padding: 0 20px; background: var(--mkd-fg); color: var(--mkd-bg); font-weight: 600; }
+.mkd-pack-swiftui .mkd-button[data-variant="help"] { width: 22px; height: 22px; border-radius: 50%; background: var(--mkd-mac-control); color: var(--mkd-fg); box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 1px rgb(0 0 0 / 0.08); }
+.mkd-pack-swiftui .mkd-button[data-variant="help"] .mkd-icon { width: 13px; height: 13px; }
+.mkd-pack-swiftui .mkd-button[data-variant="link"] { color: var(--mkd-accent); }
+/* control sizes */
+.mkd-pack-swiftui .mkd-button:is([data-size="large"]):is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="large"]):is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="large"]):is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="large"]):is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="extraLarge"]):is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="extraLarge"]):is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="extraLarge"]):is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="extraLarge"]):is([data-variant="glassProminent"]) { height: 50px; padding: 0 20px; font-size: var(--mkd-fs-body); font-weight: 600; }
+.mkd-pack-swiftui .mkd-button[data-size="extraLarge"]:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button[data-size="extraLarge"]:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button[data-size="extraLarge"]:is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button[data-size="extraLarge"]:is([data-variant="glassProminent"]) { height: 56px; }
+.mkd-pack-swiftui .mkd-button:is([data-size="small"]):is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="small"]):is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="small"]):is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="small"]):is([data-variant="glassProminent"]) { height: 28px; padding: 0 10px; font-size: 15px; }
+.mkd-pack-swiftui .mkd-button:is([data-size="mini"]):is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="mini"]):is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="mini"]):is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button:is([data-size="mini"]):is([data-variant="glassProminent"]) { height: 22px; padding: 0 8px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-button[data-icon-only="true"]:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button[data-icon-only="true"]:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button[data-icon-only="true"]:is([data-variant="glass"]),
+.mkd-pack-swiftui .mkd-button[data-icon-only="true"]:is([data-variant="glassProminent"]) { width: var(--mkd-control-h); padding: 0; }
+.mkd-pack-swiftui .mkd-button[data-icon-only="true"] { width: auto; }
+/* roles */
+.mkd-pack-swiftui .mkd-button[data-role="destructive"] { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-button[data-role="destructive"]:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-button[data-role="destructive"]:is([data-variant="secondary"]) { background: color-mix(in srgb, var(--mkd-danger) 15%, transparent); }
+.mkd-pack-swiftui .mkd-button[data-role="destructive"]:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-button[data-role="destructive"]:is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-button[data-role="destructive"]:is([data-variant="primary"]) { background: var(--mkd-danger); color: #fff; }
+.mkd-pack-swiftui .mkd-button[data-state="disabled"] { opacity: 0.35; }
+.mkd-pack-swiftui .mkd-button__badge { top: -4px; right: -6px; }
+.mkd-pack-swiftui :where(.mkd-vstack) > .mkd-button[data-fill~="x"],
+.mkd-pack-swiftui :where(.mkd-form) > .mkd-button[data-fill~="x"],
+.mkd-pack-swiftui :where(.mkd-card__body) > .mkd-button[data-fill~="x"],
+.mkd-pack-swiftui :where(.mkd-dialog__body) > .mkd-button[data-fill~="x"] { width: 100%; }
+
+/* ---------- toggle: 51×31, green when on ---------- */
+.mkd-pack-swiftui .mkd-toggle { gap: 12px; font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-toggle__track { width: 51px; height: 31px; border-radius: 16px; background: var(--mkd-switch-off); }
+.mkd-pack-swiftui .mkd-toggle__thumb { top: 2px; left: 2px; width: 27px; height: 27px; background: #fff; box-shadow: 0 3px 8px rgb(0 0 0 / 0.15), 0 3px 1px rgb(0 0 0 / 0.06), 0 0 0 0.5px rgb(0 0 0 / 0.04); }
+.mkd-pack-swiftui .mkd-toggle[data-on="true"] .mkd-toggle__track { background: var(--mkd-switch-on); }
+.mkd-pack-swiftui .mkd-toggle[data-on="true"] .mkd-toggle__thumb { left: auto; right: 2px; }
+.mkd-pack-swiftui .mkd-toggle__description { font-size: 13px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-button[data-el="Toggle"][data-pressed="true"] { background: var(--mkd-accent); color: var(--mkd-on-accent); height: var(--mkd-control-h); padding: 0 14px; }
+.mkd-pack-swiftui .mkd-button[data-el="Toggle"][data-pressed="false"] { background: var(--mkd-fill-3); color: var(--mkd-accent); height: var(--mkd-control-h); padding: 0 14px; }
+
+/* checkbox (macOS .toggleStyle(.checkbox)) and radio (.pickerStyle(.radioGroup)) */
+.mkd-pack-swiftui .mkd-checkbox__box { width: 16px; height: 16px; border-radius: 4px; border: 0; background: var(--mkd-mac-control); box-shadow: inset 0 0 0 1px var(--mkd-field-border), 0 1px 1px rgb(0 0 0 / 0.06); }
+.mkd-pack-swiftui .mkd-checkbox[data-checked="true"] .mkd-checkbox__box,
+.mkd-pack-swiftui .mkd-checkbox[data-checked="mixed"] .mkd-checkbox__box { background: var(--mkd-accent); box-shadow: none; color: #fff; }
+.mkd-pack-swiftui .mkd-checkbox__box .mkd-icon { width: 12px; height: 12px; stroke-width: 3; }
+.mkd-pack-swiftui .mkd-radio__dot { width: 16px; height: 16px; border: 0; background: var(--mkd-mac-control); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui .mkd-radio[data-checked="true"] .mkd-radio__dot { background: var(--mkd-accent); box-shadow: none; }
+.mkd-pack-swiftui .mkd-radio[data-checked="true"] .mkd-radio__dot::after { inset: 5px; background: #fff; }
+/* iOS inline picker (.pickerStyle(.inline)) inside a list shows checkmarks instead of radios */
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radio__dot,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radio__dot { display: none; }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radiogroup__items,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radiogroup__items { gap: 0; margin: 0 calc(-1 * var(--sw-row-px)); }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radio,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radio { justify-content: space-between; min-height: var(--sw-row-h); padding: 0 var(--sw-row-px); box-shadow: inset 0 -1px 0 var(--mkd-separator); }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radio:last-child,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radio:last-child { box-shadow: none; }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radio[data-checked="true"]::after,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radio[data-checked="true"]::after { content: ""; width: 14px; height: 10px; border: solid var(--mkd-accent); border-width: 0 0 2.5px 2.5px; transform: translateY(-2px) rotate(-45deg); }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-radiogroup .mkd-radiogroup__label,
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-radiogroup .mkd-radiogroup__label { font-weight: 400; font-size: var(--mkd-fs-body); padding-bottom: 6px; }
+
+/* ---------- segmented control (capsule, iOS 26) ---------- */
+.mkd-pack-swiftui .mkd-segmented__items { height: 32px; padding: 2px; border-radius: 999px; background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-segmented__item { padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-segmented__item[aria-selected="true"] { background: var(--mkd-segment-sel); font-weight: 600; box-shadow: 0 3px 8px rgb(0 0 0 / 0.12), 0 3px 1px rgb(0 0 0 / 0.04), 0 0 0 0.5px rgb(0 0 0 / 0.04); }
+.mkd-pack-swiftui .mkd-segmented__label { font-size: 13px; color: var(--mkd-fg-2); }
+
+/* ---------- slider: capsule thumb (iOS 26) ---------- */
+.mkd-pack-swiftui .mkd-slider__track { height: 6px; border-radius: 3px; background: var(--mkd-fill); }
+.mkd-pack-swiftui .mkd-slider__fill { background: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-slider__thumb { width: 38px; height: 24px; margin: -12px 0 0 -19px; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgb(0 0 0 / 0.14), 0 0 0 0.5px rgb(0 0 0 / 0.06); }
+.mkd-pack-swiftui .mkd-slider__label { font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-slider__control { gap: 12px; }
+.mkd-pack-swiftui :is(.mkd-slider__min),
+.mkd-pack-swiftui :is(.mkd-slider__max),
+.mkd-pack-swiftui :is(.mkd-slider__value) { color: var(--mkd-fg-2); font-size: 15px; }
+
+/* ---------- stepper ---------- */
+.mkd-pack-swiftui .mkd-stepper { font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-stepper__buttons { height: 32px; border-radius: 999px; background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-stepper__button { width: 47px; height: 32px; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-stepper__button .mkd-icon { width: 18px; height: 18px; stroke-width: 2.2; }
+.mkd-pack-swiftui .mkd-stepper__divider { height: 18px; background: var(--mkd-separator); }
+
+/* ---------- progress, gauge, spinner ---------- */
+.mkd-pack-swiftui .mkd-progress__label { font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-progress__value { font-size: 13px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-progress__track { height: 4px; border-radius: 2px; background: var(--mkd-fill); }
+.mkd-pack-swiftui .mkd-progress__ring .mkd-progress__track { stroke: var(--mkd-fill); stroke-width: 3; }
+.mkd-pack-swiftui .mkd-progress__ring .mkd-progress__bar { stroke-width: 3; }
+/* indeterminate ProgressView(): the eight-spoke activity indicator */
+.mkd-pack-swiftui .mkd-progress[data-indeterminate="true"]:not([data-el="Gauge"]) { align-self: center; align-items: center; min-width: 0; gap: 8px; }
+.mkd-pack-swiftui .mkd-progress[data-indeterminate="true"]:not([data-el="Gauge"]) .mkd-progress__label { order: 2; font-size: 15px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-progress[data-indeterminate="true"]:not([data-el="Gauge"]) .mkd-progress__track {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: conic-gradient(from 22deg, color-mix(in srgb, var(--mkd-fg-2) 20%, transparent), var(--mkd-fg-2));
+  -webkit-mask: radial-gradient(circle, transparent 0 42%, #000 43%), repeating-conic-gradient(from -9deg, #000 0 18deg, transparent 18deg 45deg);
+  -webkit-mask-composite: source-in;
+  mask: radial-gradient(circle, transparent 0 42%, #000 43%) intersect, repeating-conic-gradient(from -9deg, #000 0 18deg, transparent 18deg 45deg);
+}
+.mkd-pack-swiftui .mkd-progress[data-indeterminate="true"]:not([data-el="Gauge"]) .mkd-progress__bar { display: none; }
+.mkd-pack-swiftui .mkd-progress[data-indeterminate="true"][data-kind="circular"]:not([data-el="Gauge"]) .mkd-progress__ring { display: none; }
+/* Gauge, .accessoryCircular: value in the ring, label underneath */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] { display: inline-grid; grid-template-areas: "ring" "label"; justify-items: center; align-items: center; gap: 6px; flex: none; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] .mkd-progress__ring { grid-area: ring; width: 60px; height: 60px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] .mkd-progress__ring .mkd-progress__track,
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] .mkd-progress__ring .mkd-progress__bar { stroke-width: 3.4; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] .mkd-progress__value { grid-area: ring; font-size: 14px; font-weight: 600; color: var(--mkd-fg); font-family: var(--mkd-font-rounded); }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] .mkd-progress__label { grid-area: label; font-size: 12px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] .mkd-progress__track { height: 8px; border-radius: 4px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] .mkd-progress__label { font-size: 15px; }
+
+/* ---------- Swift Charts ---------- */
+.mkd-pack-swiftui .mkd-chart { gap: 6px; min-height: 150px; --mkd-chart-1: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-chart__title { font-size: 15px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-chart__plot--bars { gap: 6px; background: repeating-linear-gradient(180deg, var(--mkd-separator) 0 1px, transparent 1px 25%); background-size: 100% calc(100% - 18px); background-repeat: no-repeat; }
+.mkd-pack-swiftui .mkd-chart__bars { gap: 2px; border-bottom: 1px solid var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-chart__bar { border-radius: 4px 4px 0 0; }
+.mkd-pack-swiftui .mkd-chart__tick { font-size: 11px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-chart__line { stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mkd-pack-swiftui .mkd-chart__area { opacity: 0.22; }
+.mkd-pack-swiftui .mkd-chart__plot:not(.mkd-chart__plot--bars) { background: repeating-linear-gradient(180deg, var(--mkd-separator) 0 1px, transparent 1px 25%); }
+.mkd-pack-swiftui .mkd-chart__axis { font-size: 11px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-chart__legend { font-size: 12px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-chart__swatch { border-radius: 50%; }
+.mkd-pack-swiftui .mkd-chart__pie[data-donut="true"] { -webkit-mask: radial-gradient(circle, transparent 60%, #000 61%); mask: radial-gradient(circle, transparent 60%, #000 61%); }
+
+/* ---------- fields ---------- */
+.mkd-pack-swiftui .mkd-field { gap: 6px; min-width: 120px; }
+.mkd-pack-swiftui .mkd-field__label { font-size: 13px; font-weight: 400; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-field__control { min-height: 22px; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-field__input[data-placeholder="true"] { color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-field__icon { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-field__icon .mkd-icon { width: 18px; height: 18px; }
+.mkd-pack-swiftui .mkd-field__helper { font-size: 13px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-field[data-state="error"] .mkd-field__helper { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-field[data-state="error"] .mkd-field__control { border-color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-field[data-state="focused"] .mkd-field__control { box-shadow: none; }
+.mkd-pack-swiftui .mkd-field[data-state="focused"] .mkd-field__input::after { content: ""; display: inline-block; width: 2px; height: 1.1em; margin-left: 1px; vertical-align: text-bottom; background: var(--mkd-accent); border-radius: 1px; }
+.mkd-pack-swiftui .mkd-field[data-kind="multiline"] .mkd-field__control { padding-top: 0; padding-bottom: 0; }
+/* .textFieldStyle(.roundedBorder) */
+.mkd-pack-swiftui .mkd-field[data-variant="roundedBorder"] .mkd-field__control { min-height: 34px; padding: 0 8px; border: 1px solid var(--mkd-field-border); border-radius: 6px; background: var(--mkd-field-bg); }
+.mkd-pack-swiftui .mkd-field[data-variant="roundedBorder"][data-state="focused"] .mkd-field__control { border-color: var(--mkd-accent); box-shadow: 0 0 0 3px var(--mkd-accent-soft); }
+/* search field: grey pill */
+.mkd-pack-swiftui .mkd-field[data-kind="search"] .mkd-field__control { min-height: 38px; padding: 0 10px; gap: 6px; border: 0; border-radius: 999px; background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-field[data-kind="search"] .mkd-field__input[data-placeholder="true"] { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-field[data-kind="search"] .mkd-field__icon .mkd-icon { width: 17px; height: 17px; stroke-width: 2.2; }
+/* menu Picker outside a row: accent value with up/down chevrons */
+.mkd-pack-swiftui .mkd-select > .mkd-field__label { display: none; }
+.mkd-pack-swiftui .mkd-select { min-width: 0; align-self: flex-start; }
+.mkd-pack-swiftui .mkd-select .mkd-field__control { gap: 4px; color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-select .mkd-field__icon--end { color: inherit; }
+.mkd-pack-swiftui .mkd-select .mkd-field__icon--end .mkd-icon { width: 14px; height: 14px; stroke-width: 2.4; }
+.mkd-pack-swiftui .mkd-select[data-variant="navigationLink"] .mkd-field__icon--end .mkd-icon { transform: rotate(-90deg); color: var(--mkd-chevron); }
+.mkd-pack-swiftui .mkd-select__popup,
+.mkd-pack-swiftui .mkd-menu__popup { border: 0; }
+/* DatePicker (.compact): label, then the date in a grey capsule */
+.mkd-pack-swiftui .mkd-datepicker { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+.mkd-pack-swiftui .mkd-datepicker > .mkd-field__label { flex: 1 1 auto; font-size: var(--mkd-fs-body); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-datepicker .mkd-field__control { flex: none; min-height: 34px; padding: 0 11px; border-radius: 8px; background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-datepicker .mkd-field__icon--end { display: none; }
+
+/* rows holding a labelled control: label on the leading edge, value trailing */
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-select,
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-select { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; align-self: stretch; }
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-select > .mkd-field__label,
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-select > .mkd-field__label { display: block; flex: 1 1 auto; font-size: var(--mkd-fs-body); color: var(--mkd-fg); }
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-select .mkd-field__control,
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-select .mkd-field__control { flex: none; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui :is(.mkd-form__row) > .mkd-select .mkd-field__icon--end .mkd-icon,
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > .mkd-select .mkd-field__icon--end .mkd-icon { width: 13px; height: 13px; }
+
+/* ColorPicker: the rainbow colour well */
+.mkd-pack-swiftui .mkd-labeled[data-el="ColorPicker"] .mkd-labeled__value::after {
+  content: "";
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mkd-accent) 0 38%, var(--mkd-cell-bg) 39% 55%, transparent 56%), conic-gradient(#ff3b30, #ffcc00, #34c759, #32ade6, #007aff, #af52de, #ff2d55, #ff3b30);
+}
+
+/* ---------- graphical DatePicker / MultiDatePicker ---------- */
+.mkd-pack-swiftui .mkd-calendar { padding: 4px 0; gap: 10px; }
+.mkd-pack-swiftui .mkd-calendar__title { font-size: 17px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-calendar__title-chevron .mkd-icon { width: 15px; height: 15px; stroke-width: 2.6; }
+.mkd-pack-swiftui .mkd-calendar__nav { gap: 28px; }
+.mkd-pack-swiftui .mkd-calendar__nav .mkd-icon { width: 20px; height: 20px; stroke-width: 2.4; }
+.mkd-pack-swiftui .mkd-calendar__weekday { font-size: 13px; font-weight: 600; color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-calendar__day { font-size: 20px; max-height: 44px; }
+.mkd-pack-swiftui .mkd-calendar__day[aria-selected="true"] { background: var(--mkd-accent-soft); color: var(--mkd-accent); font-weight: 600; }
+.mkd-pack-swiftui .mkd-calendar__day[data-today="true"] { color: var(--mkd-accent); font-weight: 600; }
+.mkd-pack-swiftui .mkd-calendar__day[data-today="true"][aria-selected="true"] { background: var(--mkd-accent); color: #fff; }
+.mkd-pack-swiftui .mkd-calendar__day[data-marked="true"] { background: var(--mkd-accent-soft); color: var(--mkd-accent); font-weight: 600; }
+.mkd-pack-swiftui .mkd-calendar__day[data-marked="true"]::after { display: none; }
+.mkd-pack-swiftui .mkd-calendar__day[data-in-range="true"] { background: var(--mkd-fill-4); }
+.mkd-pack-swiftui .mkd-calendar__label { font-size: var(--mkd-fs-body); }
+
+/* ---------- navigation bar (Liquid Glass buttons, large title) ---------- */
+.mkd-pack-swiftui .mkd-navstack { background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-navbar { padding: 0 16px; background: transparent; position: relative; z-index: 3; }
+.mkd-pack-swiftui .mkd-navbar__bar { min-height: var(--sw-nav-h); gap: 10px; }
+.mkd-pack-swiftui .mkd-navbar__leading,
+.mkd-pack-swiftui .mkd-navbar__trailing { gap: 8px; }
+.mkd-pack-swiftui .mkd-navbar__title { font-size: 17px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-navbar__subtitle { font-size: 12px; font-weight: 400; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-navbar__large { padding: 0 0 8px; font-size: 34px; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em; }
+.mkd-pack-swiftui .mkd-navbar__large .mkd-navbar__subtitle { font-size: 15px; letter-spacing: 0; }
+/* bar items sit in glass capsules */
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__leading) > .mkd-button,
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-button,
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__leading) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__leading) > .mkd-group > .mkd-button,
+.mkd-pack-swiftui .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-group > .mkd-button,
+.mkd-pack-swiftui .mkd-navbar__back {
+  height: var(--sw-glass-btn);
+  min-width: var(--sw-glass-btn);
+  padding: 0 15px;
+  border-radius: 999px;
+  justify-content: center;
+  background: var(--mkd-glass-bg);
+  color: var(--mkd-accent);
+  font-size: 17px;
+  font-weight: 400;
+  box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+  backdrop-filter: blur(14px) saturate(1.8);
+}
+.mkd-pack-swiftui .mkd-navbar .mkd-button[data-icon-only="true"],
+.mkd-pack-swiftui .mkd-navbar .mkd-menu__trigger[data-icon-only="true"] { width: var(--sw-glass-btn); padding: 0; }
+.mkd-pack-swiftui .mkd-navbar .mkd-button .mkd-icon { width: 21px; height: 21px; stroke-width: 2; }
+.mkd-pack-swiftui .mkd-navbar .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-navbar .mkd-button:is([data-variant="glassProminent"]) { background: var(--mkd-accent); color: var(--mkd-on-accent); font-weight: 600; box-shadow: 0 6px 16px color-mix(in srgb, var(--mkd-accent) 30%, transparent); }
+.mkd-pack-swiftui .mkd-navbar .mkd-button[data-role="destructive"] { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-navbar__back { width: var(--sw-glass-btn); padding: 0; gap: 0; }
+.mkd-pack-swiftui .mkd-navbar__back .mkd-icon { width: 22px; height: 22px; stroke-width: 2.4; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-navbar__back-label { display: none; }
+.mkd-pack-swiftui .mkd-navbar .mkd-menu__trigger .mkd-button__caret { display: none; }
+.mkd-pack-swiftui .mkd-navbar__search { padding: 2px 0 10px; }
+/* bottom bar (.bottomBar items): floating glass */
+.mkd-pack-swiftui .mkd-bottombar { min-height: 64px; padding: 6px 20px 8px; border-top: 0; background: transparent; }
+.mkd-pack-swiftui .mkd-bottombar > :is(.mkd-button),
+.mkd-pack-swiftui .mkd-bottombar > :is(.mkd-menu),
+.mkd-pack-swiftui .mkd-bottombar > .mkd-group > .mkd-button {
+  height: 48px; min-width: 48px; padding: 0 16px; border-radius: 999px; justify-content: center;
+  background: var(--mkd-glass-bg); color: var(--mkd-accent);
+  box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+  backdrop-filter: blur(14px) saturate(1.8);
+}
+.mkd-pack-swiftui .mkd-bottombar .mkd-button[data-icon-only="true"] { width: 48px; padding: 0; }
+.mkd-pack-swiftui .mkd-bottombar .mkd-button .mkd-icon { width: 22px; height: 22px; }
+.mkd-pack-swiftui .mkd-bottombar > .mkd-text { font-size: 12px; color: var(--mkd-fg-2); }
+
+/* ---------- lists ---------- */
+.mkd-pack-swiftui .mkd-list { background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-list__header { padding: 8px var(--sw-row-px) 6px; font-size: 13px; font-weight: 400; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-listitem {
+  position: relative;
+  gap: 14px;
+  min-height: var(--sw-row-h);
+  padding: var(--sw-row-py) var(--sw-row-px);
+  border-bottom: 0;
+  font-size: var(--mkd-fs-body);
+}
+.mkd-pack-swiftui .mkd-listitem::after,
+.mkd-pack-swiftui .mkd-form__row::after,
+.mkd-pack-swiftui :is(.mkd-section__body) > .mkd-labeled::after,
+.mkd-pack-swiftui :is(.mkd-list) > .mkd-labeled::after,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-labeled::after {
+  content: "";
+  position: absolute;
+  left: var(--sw-sep-left, var(--sw-row-px));
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--mkd-separator);
+  pointer-events: none;
+}
+.mkd-pack-swiftui .mkd-listitem:has(> .mkd-listitem__leading .mkd-leading-icon) { --sw-sep-left: calc(var(--sw-row-px) + var(--sw-lead) + 14px); }
+.mkd-pack-swiftui .mkd-listitem:has(> .mkd-listitem__leading .mkd-avatar) { --sw-sep-left: calc(var(--sw-row-px) + 54px); }
+.mkd-pack-swiftui .mkd-listitem:has(> .mkd-listitem__leading .mkd-thumb) { --sw-sep-left: calc(var(--sw-row-px) + 54px); }
+.mkd-pack-swiftui .mkd-listitem--wrap:has(> .mkd-label > .mkd-label__icon) { --sw-sep-left: calc(var(--sw-row-px) + 36px); }
+.mkd-pack-swiftui :is(.mkd-section__body) > :last-child::after,
+.mkd-pack-swiftui :is(.mkd-list) > :last-child::after,
+.mkd-pack-swiftui :is(.mkd-form) > :last-child::after,
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-listitem):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after,
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-form__row):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after,
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-labeled):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))::after { display: none; }
+.mkd-pack-swiftui .mkd-listitem[data-selected="true"],
+.mkd-pack-swiftui .mkd-listitem--wrap:has(> [data-selected="true"]) { background: var(--mkd-cell-pressed); }
+.mkd-pack-swiftui .mkd-listitem__text { gap: 2px; }
+.mkd-pack-swiftui .mkd-listitem__title { color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-listitem__subtitle { font-size: 15px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-listitem__overline { font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-listitem__trailing { gap: 6px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-listitem__detail { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-listitem__chevron .mkd-icon { width: var(--sw-chevron); height: var(--sw-chevron); color: var(--mkd-chevron); stroke-width: 3; }
+.mkd-pack-swiftui .mkd-listitem__badge { min-width: 0; height: auto; padding: 0; background: none; color: var(--mkd-fg-2); font-size: var(--mkd-fs-body); font-weight: 400; }
+.mkd-pack-swiftui .mkd-leading-icon { color: var(--mkd-accent); min-width: var(--sw-lead); }
+.mkd-pack-swiftui .mkd-leading-icon .mkd-icon { width: 22px; height: 22px; }
+.mkd-pack-swiftui .mkd-leading-icon[data-tinted="true"] { width: var(--sw-lead); height: var(--sw-lead); border-radius: 8px; background: var(--mkd-icon-tint); color: #fff; }
+.mkd-pack-swiftui .mkd-leading-icon[data-tinted="true"] .mkd-icon { width: 19px; height: 19px; stroke-width: 2.1; }
+.mkd-pack-swiftui .mkd-listitem .mkd-avatar { width: 40px; height: 40px; }
+.mkd-pack-swiftui .mkd-listitem .mkd-thumb { width: 40px; height: 40px; }
+.mkd-pack-swiftui .mkd-listitem--wrap > .mkd-button:not([data-variant]) { justify-content: flex-start; }
+.mkd-pack-swiftui .mkd-listitem--wrap > .mkd-text,
+.mkd-pack-swiftui .mkd-form__row > .mkd-text { font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-labeled__value { color: var(--mkd-fg-2); }
+
+/* .insetGrouped (default), .grouped, Form: rounded cell sections on the grouped background */
+.mkd-pack-swiftui .mkd-list:is([data-variant="insetGrouped"]),
+.mkd-pack-swiftui .mkd-list:is([data-variant="grouped"]),
+.mkd-pack-swiftui .mkd-list:is([data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-list:is([data-variant="inset"]),
+.mkd-pack-swiftui .mkd-form {
+  gap: 0;
+  padding: 0 var(--sw-inset) 28px;
+  background: var(--mkd-grouped-bg);
+}
+.mkd-pack-swiftui .mkd-list[data-variant="grouped"] { padding-left: 0; padding-right: 0; }
+.mkd-pack-swiftui .mkd-list[data-variant="inset"] { background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-form > .mkd-form__title { padding: 12px 0 0; font-size: 22px; font-weight: 700; }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > .mkd-section,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > .mkd-section,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > .mkd-section,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > .mkd-section,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section { margin-top: var(--sw-section-gap); }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :first-child,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > :first-child,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :first-child,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :first-child,
+.mkd-pack-swiftui :is(.mkd-form) > :first-child { margin-top: 12px; }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section > .mkd-section__header {
+  padding: 0 var(--sw-row-px) 7px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--mkd-fg-2);
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section > .mkd-section__body {
+  gap: 0;
+  overflow: hidden;
+  border-radius: var(--sw-section-r);
+  background: var(--mkd-cell-bg);
+}
+.mkd-pack-swiftui .mkd-list[data-variant="grouped"] > .mkd-section > .mkd-section__body { border-radius: 0; }
+.mkd-pack-swiftui .mkd-list[data-variant="grouped"] > .mkd-section > .mkd-section__header { padding-left: 32px; }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > .mkd-section > .mkd-section__footer,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > .mkd-section > .mkd-section__footer,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > .mkd-section > .mkd-section__footer,
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > .mkd-section > .mkd-section__footer,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section > .mkd-section__footer {
+  padding: 7px var(--sw-row-px) 0;
+  font-size: 13px;
+  color: var(--mkd-fg-2);
+}
+/* bare rows (no Section) form one implicit section */
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-labeled),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="grouped"])) > :is(.mkd-labeled),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-labeled),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-labeled),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled) { background: var(--mkd-cell-bg); }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-listitem):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-listitem):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-form__row):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-form__row):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-labeled):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-labeled):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-listitem):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-listitem):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-form__row):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-form__row):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-labeled):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-labeled):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-listitem):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-listitem):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-form__row):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-form__row):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-labeled):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-labeled):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):is(:first-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):is(:not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *) { border-top-left-radius: var(--sw-section-r); border-top-right-radius: var(--sw-section-r); }
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-listitem):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-listitem):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-form__row):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-form__row):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-labeled):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="insetGrouped"])) > :is(.mkd-labeled):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-listitem):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-listitem):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-form__row):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-form__row):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-labeled):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="automatic"])) > :is(.mkd-labeled):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-listitem):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-listitem):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-form__row):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-form__row):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-labeled):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-list:is([data-variant="inset"])) > :is(.mkd-labeled):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):is(:last-child),
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):is(:has(+ :not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled))) { border-bottom-left-radius: var(--sw-section-r); border-bottom-right-radius: var(--sw-section-r); }
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-listitem):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *,
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-form__row):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *,
+.mkd-pack-swiftui :is(.mkd-list) > :is(.mkd-labeled):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-listitem):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-form__row):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + *,
+.mkd-pack-swiftui :is(.mkd-form) > :is(.mkd-labeled):not(.mkd-listitem):not(.mkd-form__row):not(.mkd-labeled) + * { margin-top: var(--sw-section-gap); }
+.mkd-pack-swiftui :is(.mkd-list) > .mkd-section + :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-list) > .mkd-section + :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-list) > .mkd-section + :is(.mkd-labeled),
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section + :is(.mkd-listitem),
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section + :is(.mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-section + :is(.mkd-labeled) { margin-top: var(--sw-section-gap); }
+
+/* rows inside Forms */
+.mkd-pack-swiftui .mkd-form__row {
+  position: relative;
+  justify-content: center;
+  min-height: var(--sw-row-h);
+  padding: var(--sw-row-py) var(--sw-row-px);
+  font-size: var(--mkd-fs-body);
+}
+.mkd-pack-swiftui .mkd-form .mkd-section__body { gap: 0; }
+.mkd-pack-swiftui :is(.mkd-section__body) > .mkd-labeled,
+.mkd-pack-swiftui :is(.mkd-list) > .mkd-labeled,
+.mkd-pack-swiftui :is(.mkd-form) > .mkd-labeled { position: relative; min-height: var(--sw-row-h); padding: var(--sw-row-py) var(--sw-row-px); border-bottom: 0; font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-form__row > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-form__row > .mkd-button[data-variant="automatic"] { justify-content: flex-start; align-self: stretch; }
+.mkd-pack-swiftui .mkd-form__row > .mkd-field { min-width: 0; }
+.mkd-pack-swiftui .mkd-form__actions { justify-content: center; padding-top: 16px; }
+
+/* .plain list */
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] > .mkd-section > .mkd-section__header { padding: 6px var(--sw-row-px); background: var(--mkd-bg); font-size: 15px; font-weight: 600; color: var(--mkd-fg); text-transform: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] > .mkd-section > .mkd-section__body { gap: 0; }
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] > :last-child::after { display: block; }
+
+/* .sidebar list on iPhone: like inset grouped, bold collapsible headers */
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] { padding: 0 var(--sw-inset) 24px; background: var(--mkd-grouped-bg); gap: 0; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section { margin-top: 14px; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section > .mkd-section__header { padding: 4px var(--sw-row-px) 6px 4px; font-size: 20px; font-weight: 700; color: var(--mkd-fg); text-transform: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section > .mkd-section__body { gap: 0; border-radius: var(--sw-section-r); background: var(--mkd-cell-bg); overflow: hidden; }
+
+/* ---------- NavigationSplitView: floating glass sidebar (iPadOS / macOS) ---------- */
+.mkd-pack-swiftui .mkd-split__col + .mkd-split__col { border-left: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] {
+  flex: 0 0 300px;
+  margin: 8px;
+  border-radius: 26px;
+  background: var(--mkd-sidebar-bg);
+  box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+  backdrop-filter: blur(24px) saturate(1.6);
+}
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] + .mkd-split__col { border-left: 0; }
+.mkd-pack-swiftui .mkd-split[data-columns="3"] > .mkd-split__col[data-col="content"] { flex: 0 0 340px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] :is(.mkd-navstack),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] :is(.mkd-navbar) { background: transparent; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-navbar__large { font-size: 28px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-list { background: transparent; padding: 4px 10px 16px; gap: 2px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section { margin-top: 10px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section > .mkd-section__header { padding: 6px 12px 4px; font-size: 15px; font-weight: 600; color: var(--mkd-fg-2); text-transform: none; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section > .mkd-section__body { gap: 2px; background: transparent; border-radius: 0; overflow: visible; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem { min-height: 44px; padding: 0 12px; border-radius: 14px; background: transparent; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem::after { display: none; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem__chevron { display: none; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"],
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) { background: var(--mkd-accent); color: #fff; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__detail),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__badge),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-leading-icon),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) :is(.mkd-label__icon),
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) :is(.mkd-badge) { color: #fff; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap > .mkd-label[data-selected="true"] { background: none; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-label { gap: 12px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-label__icon .mkd-icon { width: 22px; height: 22px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-label .mkd-badge,
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap > .mkd-badge { background: none; color: var(--mkd-fg-2); font-weight: 400; font-size: 15px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="content"] .mkd-list,
+.mkd-pack-swiftui .mkd-split__col[data-col="content"] .mkd-navstack { background: var(--mkd-bg); }
+
+/* core Sidebar / NavItem (non-SwiftUI) follow the same look */
+.mkd-pack-swiftui .mkd-sidebar { padding: 10px; margin: 8px; border: 0; border-radius: 26px; background: var(--mkd-sidebar-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); }
+.mkd-pack-swiftui .mkd-navitem__row { min-height: 44px; padding: 0 12px; border-radius: 14px; font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-navitem__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-navitem[data-selected="true"] > .mkd-navitem__row { background: var(--mkd-accent); color: #fff; font-weight: 400; }
+.mkd-pack-swiftui .mkd-navitem[data-selected="true"] > .mkd-navitem__row .mkd-navitem__icon { color: #fff; }
+.mkd-pack-swiftui .mkd-navitem__badge { background: none; color: var(--mkd-fg-2); font-size: 15px; font-weight: 400; }
+
+/* ---------- TabView: floating Liquid Glass tab bar ---------- */
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] { position: relative; }
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] > .mkd-tabs__bar {
+  position: absolute;
+  z-index: 6;
+  left: 21px;
+  right: 21px;
+  bottom: 2px;
+  height: 62px;
+  padding: 4px;
+  gap: 0;
+  border: 0;
+  border-radius: 31px;
+  justify-content: space-between;
+  background: var(--mkd-glass-bg);
+  box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+  backdrop-filter: blur(16px) saturate(1.8);
+}
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab {
+  flex: 1 1 0;
+  height: 54px;
+  padding: 0;
+  gap: 1px;
+  border-radius: 27px;
+  color: var(--mkd-fg);
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow: none;
+}
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab[aria-selected="true"] { color: var(--mkd-accent); background: var(--mkd-tab-sel); }
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab .mkd-icon { width: 25px; height: 25px; stroke-width: 1.9; }
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] .mkd-tabs__badge { top: 3px; left: 54%; }
+.mkd-pack-swiftui .mkd-tabs[data-placement="bottom"] > .mkd-tabs__panel { padding-bottom: 0; }
+/* iPadOS / macOS: the tab bar floats at the top centre, text only */
+.mkd-pack-swiftui .mkd-frame:is([data-device^="tablet"]) .mkd-tabs[data-placement="bottom"] > .mkd-tabs__bar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-tabs[data-placement="bottom"] > .mkd-tabs__bar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-tabs[data-placement="bottom"] > .mkd-tabs__bar {
+  top: 6px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%);
+  height: 46px; padding: 4px; gap: 2px; border-radius: 23px;
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device^="tablet"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__tab { flex: none; flex-direction: row; height: 38px; padding: 0 18px; border-radius: 19px; font-size: 15px; font-weight: 500; }
+.mkd-pack-swiftui .mkd-frame:is([data-device^="tablet"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__icon { display: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device^="tablet"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__badge,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__badge,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-tabs[data-placement="bottom"] .mkd-tabs__badge { position: static; margin-left: 4px; }
+/* .tabViewStyle(.page): page dots */
+.mkd-pack-swiftui .mkd-tabs[data-variant="page"] > .mkd-tabs__bar { left: 50%; right: auto; bottom: 10px; transform: translateX(-50%); height: 26px; padding: 0 10px; gap: 8px; align-items: center; background: var(--mkd-fill-4); box-shadow: none; }
+.mkd-pack-swiftui .mkd-tabs[data-variant="page"] .mkd-tabs__tab { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--mkd-fg-3); font-size: 0; }
+.mkd-pack-swiftui .mkd-tabs[data-variant="page"] .mkd-tabs__tab[aria-selected="true"] { background: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-tabs[data-variant="page"] .mkd-tabs__tab > * { display: none; }
+/* non-SwiftUI top Tabs */
+.mkd-pack-swiftui .mkd-tabs[data-placement="top"] > .mkd-tabs__bar { border-bottom-color: var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-tabs[data-placement="top"] .mkd-tabs__tab { font-size: 15px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-tabs[data-placement="top"] .mkd-tabs__tab[aria-selected="true"] { color: var(--mkd-accent); }
+
+/* ---------- containers ---------- */
+.mkd-pack-swiftui .mkd-card { border: 0; border-radius: 22px; background: var(--sw-card-bg, var(--mkd-surface-2)); }
+.mkd-pack-swiftui .mkd-card__header { padding: 16px 16px 0; }
+.mkd-pack-swiftui .mkd-card__title { font-size: var(--mkd-fs-headline); font-weight: 600; }
+.mkd-pack-swiftui .mkd-card__subtitle,
+.mkd-pack-swiftui .mkd-card__status { font-size: 15px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-card__body { padding: 12px 16px 16px; gap: 10px; }
+.mkd-pack-swiftui .mkd-card__header + .mkd-card__body { padding-top: 10px; }
+.mkd-pack-swiftui .mkd-card__body:only-child { padding-top: 16px; }
+.mkd-pack-swiftui .mkd-card__media { height: 160px; }
+.mkd-pack-swiftui .mkd-card__actions { justify-content: flex-start; padding: 0 16px 16px; }
+
+/* ControlGroup: one capsule of joined buttons */
+.mkd-pack-swiftui .mkd-toolbar[data-variant="group"],
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"] { display: inline-flex; gap: 0; padding: 0; min-height: 0; height: 40px; border-radius: 999px; background: var(--mkd-glass-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); overflow: hidden; align-self: flex-start; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"] > .mkd-button { height: 100%; min-width: 48px; padding: 0 14px; border-radius: 0; background: transparent; color: var(--mkd-fg); margin: 0; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"] > .mkd-button + .mkd-button { box-shadow: inset 1px 0 0 var(--mkd-separator); margin-left: 0; }
+.mkd-pack-swiftui .mkd-toolbar { gap: 10px; }
+
+/* DisclosureGroup / OutlineGroup: accent chevron on the trailing edge */
+.mkd-pack-swiftui .mkd-accordion { border-bottom: 0; }
+.mkd-pack-swiftui .mkd-accordion__header { min-height: 22px; padding: 0; gap: 10px; }
+.mkd-pack-swiftui .mkd-accordion__title { font-weight: 400; font-size: var(--mkd-fs-body); }
+.mkd-pack-swiftui .mkd-accordion__chevron .mkd-icon { width: 14px; height: 14px; color: var(--mkd-accent); stroke-width: 2.8; }
+.mkd-pack-swiftui .mkd-accordion__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-accordion__body { padding: 12px 0 0; gap: 12px; }
+.mkd-pack-swiftui .mkd-accordion[data-el="OutlineGroup"] .mkd-accordion__chevron { order: -1; }
+.mkd-pack-swiftui .mkd-accordion[data-el="OutlineGroup"] .mkd-accordion__chevron .mkd-icon { color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-accordion[data-el="OutlineGroup"] .mkd-accordion__body { padding-left: 24px; }
+
+/* Table */
+.mkd-pack-swiftui .mkd-table-wrap { border: 0; border-radius: 0; background: transparent; }
+.mkd-pack-swiftui .mkd-table { font-size: var(--mkd-fs-body); border-collapse: collapse; }
+.mkd-pack-swiftui .mkd-table th { padding: 6px 12px; background: transparent; color: var(--mkd-fg-2); font-weight: 400; font-size: 13px; border-bottom: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-table td { padding: 10px 12px; border-bottom: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-table tr[aria-selected="true"] td { background: var(--mkd-accent); color: #fff; }
+.mkd-pack-swiftui .mkd-table__toolbar { border-bottom: 0; padding: 8px 12px; }
+.mkd-pack-swiftui .mkd-table__footer { border-top: 0; color: var(--mkd-fg-2); }
+
+/* ---------- presentations ---------- */
+.mkd-pack-swiftui .mkd-scrim { background: var(--mkd-scrim); }
+/* .alert: centred, 270 wide, hairline-separated buttons */
+.mkd-pack-swiftui .mkd-dialog:is([data-variant="alert"]) {
+  width: 270px;
+  padding: 19px 0 0;
+  gap: 0;
+  border-radius: 14px;
+  background: var(--mkd-alert-bg);
+  box-shadow: none;
+  backdrop-filter: blur(30px) saturate(1.8);
+  text-align: center;
+  overflow: hidden;
+}
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__header { justify-content: center; padding: 0 16px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__title { padding: 0 16px; font-size: 17px; font-weight: 600; line-height: 22px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__header .mkd-dialog__title { padding: 0; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] :is(.mkd-dialog__body) { padding: 2px 16px 0; gap: 2px; color: var(--mkd-fg); font-size: 13px; line-height: 18px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__body .mkd-text { font-size: 13px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__body .mkd-field { margin-top: 12px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__body .mkd-field__control { min-height: 26px; padding: 0 6px; border: 1px solid var(--mkd-alert-line); border-radius: 7px; background: var(--mkd-field-bg); font-size: 13px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions { margin-top: 19px; padding: 0; gap: 0; border-top: 1px solid var(--mkd-alert-line); justify-content: stretch; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > :is(.mkd-button),
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > :is(.mkd-text) {
+  flex: 1 1 0;
+  height: 44px;
+  padding: 0 8px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--mkd-accent);
+  font-size: 17px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > * + * { border-left: 1px solid var(--mkd-alert-line); }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > :is([data-role="cancel"]),
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > :is([data-variant="primary"]),
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > :is([data-variant="borderedProminent"]) { font-weight: 600; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions > [data-role="destructive"] { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions:has(> :nth-child(3)) { flex-direction: column; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__actions:has(> :nth-child(3)) > * + * { border-left: 0; border-top: 1px solid var(--mkd-alert-line); }
+.mkd-pack-swiftui .mkd-dialog[data-variant="alert"] .mkd-dialog__icon { margin-bottom: 8px; }
+
+/* .confirmationDialog: action sheet from the bottom */
+.mkd-pack-swiftui .mkd-layer[data-kind="action-sheet"] { padding: 0 8px 8px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] { width: 100%; padding: 0; gap: 0; border-radius: 0; background: transparent; box-shadow: none; text-align: center; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] :is(.mkd-dialog__title),
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] :is(.mkd-dialog__header),
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] :is(.mkd-dialog__body) { background: var(--mkd-alert-bg); backdrop-filter: blur(30px) saturate(1.8); color: var(--mkd-fg-2); font-size: 13px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] > :is(.mkd-dialog__title),
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] > :is(.mkd-dialog__header) { padding: 14px 16px 2px; font-weight: 600; justify-content: center; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__header .mkd-dialog__title { font-size: 13px; font-weight: 600; background: none; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] > :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] > :is(.mkd-dialog__body) { padding: 2px 16px 14px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__body .mkd-text { font-size: 13px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] > :first-child { border-top-left-radius: 14px; border-top-right-radius: 14px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions { flex-direction: column; gap: 0; padding: 0; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions > .mkd-button {
+  height: 57px; border-radius: 0; background: var(--mkd-alert-bg); backdrop-filter: blur(30px) saturate(1.8);
+  box-shadow: inset 0 1px 0 var(--mkd-alert-line); color: var(--mkd-accent); font-size: 20px; font-weight: 400; justify-content: center;
+}
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions:first-child > .mkd-button:first-child { border-top-left-radius: 14px; border-top-right-radius: 14px; box-shadow: none; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions > .mkd-button:nth-last-child(1 of :not([data-role="cancel"])) { border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions > .mkd-button[data-role="destructive"] { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-dialog[data-variant="action-sheet"] .mkd-dialog__actions > .mkd-button[data-role="cancel"] { order: 99; margin-top: 8px; border-radius: 14px; box-shadow: none; background: var(--mkd-cell-bg); font-weight: 600; }
+
+/* sheets: rounded top, grabber, elevated surface */
+.mkd-pack-swiftui .mkd-presented {
+  --mkd-bg: var(--mkd-surface);
+  --mkd-grouped-bg: var(--mkd-sheet-grouped-bg);
+  --mkd-cell-bg: var(--mkd-sheet-cell-bg);
+  background: var(--mkd-bg);
+}
+.mkd-pack-swiftui .mkd-presented[data-kind="sheet"] { height: 93%; border-radius: 38px 38px 0 0; box-shadow: 0 -2px 30px rgb(0 0 0 / 0.16); }
+.mkd-pack-swiftui .mkd-presented:has(> :is(.mkd-form)),
+.mkd-pack-swiftui .mkd-presented:has(> :is(.mkd-list[data-variant="insetGrouped"])),
+.mkd-pack-swiftui .mkd-presented:has(> .mkd-navstack > .mkd-navstack__content > :is(.mkd-form)),
+.mkd-pack-swiftui .mkd-presented:has(> .mkd-navstack > .mkd-navstack__content > :is(.mkd-list[data-variant="insetGrouped"])) { --mkd-bg: var(--mkd-grouped-bg); }
+.mkd-pack-swiftui .mkd-presented__grabber { position: absolute; left: 50%; top: 5px; margin: 0 0 0 -18px; width: 36px; height: 5px; background: var(--mkd-fg-3); opacity: 1; z-index: 4; }
+.mkd-pack-swiftui .mkd-presented[data-kind="sheet"] > .mkd-navstack > .mkd-navbar { padding-top: 8px; }
+.mkd-pack-swiftui .mkd-presented[data-kind="popover"] { min-width: 260px; padding: 14px; border-radius: 26px; background: var(--mkd-menu-bg); backdrop-filter: blur(30px) saturate(1.8); box-shadow: var(--mkd-shadow-3), inset 0 0 0 1px var(--mkd-glass-edge); }
+.mkd-pack-swiftui .mkd-presented[data-kind="inspector"] { width: 320px; border-left: 1px solid var(--mkd-separator); box-shadow: none; }
+.mkd-pack-swiftui .mkd-presented[data-kind="cover"] { border-radius: 0; }
+.mkd-pack-swiftui .mkd-layer[data-kind="sheet"] > .mkd-dialog { padding: 28px 20px 24px; border-radius: 38px 38px 0 0; background: var(--mkd-surface); }
+.mkd-pack-swiftui .mkd-layer[data-kind="sheet"] > .mkd-dialog::before { content: ""; position: absolute; left: 50%; top: 5px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-layer[data-kind="popover"] > .mkd-dialog { width: 300px; border-radius: 26px; background: var(--mkd-menu-bg); backdrop-filter: blur(30px); }
+.mkd-pack-swiftui .mkd-dialog { border-radius: 30px; background: var(--mkd-surface); }
+.mkd-pack-swiftui .mkd-dialog__title { font-size: 20px; font-weight: 600; }
+.mkd-pack-swiftui .mkd-dialog__message { color: var(--mkd-fg-2); font-size: 15px; }
+
+/* ContentUnavailableView: centred empty state */
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] {
+  width: 100%;
+  max-width: 340px;
+  margin: auto;
+  padding: 24px 16px;
+  gap: 6px;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] .mkd-dialog__icon { color: var(--mkd-fg-2); margin-bottom: 8px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] .mkd-dialog__icon .mkd-icon { width: 54px; height: 54px; stroke-width: 1.5; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] .mkd-dialog__header { justify-content: center; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] .mkd-dialog__title { font-size: 22px; font-weight: 700; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message .mkd-text) { color: var(--mkd-fg-2); font-size: 15px; }
+.mkd-pack-swiftui .mkd-dialog[data-variant="unavailable"] .mkd-dialog__actions { justify-content: center; padding-top: 12px; }
+.mkd-pack-swiftui :is(.mkd-navstack__content) > .mkd-dialog[data-variant="unavailable"],
+.mkd-pack-swiftui :is(.mkd-tabs__panel) > .mkd-dialog[data-variant="unavailable"],
+.mkd-pack-swiftui :is(.mkd-split__col) > .mkd-dialog[data-variant="unavailable"],
+.mkd-pack-swiftui :is(.mkd-screen) > .mkd-dialog[data-variant="unavailable"] { flex: 0 0 auto; }
+
+/* Menu: glass context menu */
+.mkd-pack-swiftui .mkd-menu__trigger .mkd-button__caret { display: none; }
+.mkd-pack-swiftui .mkd-menu__popup {
+  min-width: 250px;
+  margin-top: 8px;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 22px;
+  background: var(--mkd-menu-bg);
+  backdrop-filter: blur(30px) saturate(1.8);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.18), inset 0 0 0 1px var(--mkd-glass-edge);
+}
+.mkd-pack-swiftui .mkd-menuitem { min-height: 44px; gap: 12px; padding: 0 18px; border-radius: 0; font-size: 17px; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-menuitem__icon { color: var(--mkd-fg); width: 22px; justify-content: center; }
+.mkd-pack-swiftui .mkd-menuitem__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-menuitem__check .mkd-icon { width: 19px; height: 19px; }
+.mkd-pack-swiftui .mkd-menuitem__check { width: 19px; }
+.mkd-pack-swiftui .mkd-menuitem[data-role="destructive"],
+.mkd-pack-swiftui .mkd-menuitem[data-role="destructive"] .mkd-menuitem__icon { color: var(--mkd-danger); }
+.mkd-pack-swiftui .mkd-menuitem:is([data-selected="true"]),
+.mkd-pack-swiftui .mkd-menuitem:is([data-state="hover"]) { background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-menuitem__shortcut { color: var(--mkd-fg-2); font-size: 15px; }
+.mkd-pack-swiftui .mkd-menu__popup > .mkd-divider { height: 1px; margin: 6px 18px; background: var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-menu__popup > .mkd-section > .mkd-section__header { padding: 6px 18px 2px; font-size: 13px; font-weight: 400; color: var(--mkd-fg-2); text-transform: none; }
+.mkd-pack-swiftui .mkd-menu__popup > .mkd-section + .mkd-section { border-top: 1px solid var(--mkd-separator); margin-top: 6px; padding-top: 6px; }
+
+/* tooltip (.help) and toast */
+.mkd-pack-swiftui .mkd-tooltip__bubble { border-radius: 8px; background: var(--mkd-glass-strong); color: var(--mkd-fg); box-shadow: var(--mkd-shadow-2), inset 0 0 0 1px var(--mkd-glass-line); font-size: 12px; }
+.mkd-pack-swiftui .mkd-toast { min-width: 0; padding: 12px 20px; border-radius: 999px; background: var(--mkd-glass-strong); color: var(--mkd-fg); backdrop-filter: blur(20px) saturate(1.8); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); font-size: 15px; font-weight: 500; }
+.mkd-pack-swiftui .mkd-toast__action { color: var(--mkd-accent); text-transform: none; font-size: 15px; }
+.mkd-pack-swiftui .mkd-layer[data-kind="toast"] { padding-bottom: 90px; }
+
+/* Banner / TipView */
+.mkd-pack-swiftui .mkd-alert { padding: 14px 16px; border: 0; border-radius: 20px; background: color-mix(in srgb, var(--mkd-sev) 12%, var(--mkd-cell-bg)); gap: 12px; }
+.mkd-pack-swiftui .mkd-alert__title { font-size: var(--mkd-fs-headline); font-weight: 600; }
+.mkd-pack-swiftui .mkd-alert__message { font-size: 15px; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-alert[data-el="TipView"] { background: var(--sw-card-bg, var(--mkd-surface-2)); }
+.mkd-pack-swiftui .mkd-alert[data-el="TipView"] .mkd-alert__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-alert[data-el="TipView"] .mkd-alert__icon .mkd-icon { width: 34px; height: 34px; }
+.mkd-pack-swiftui .mkd-alert__close { color: var(--mkd-fg-3); }
+
+/* ---------- media placeholders ---------- */
+.mkd-pack-swiftui .mkd-placeholder { border: 0; border-radius: 16px; background: var(--mkd-fill-4); color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-placeholder[data-el="Map"] {
+  position: relative;
+  min-height: 180px;
+  color: var(--mkd-fg);
+  background:
+    linear-gradient(0deg, transparent 0 46%, var(--mkd-map-road) 46% 49%, transparent 49% 100%),
+    linear-gradient(90deg, transparent 0 30%, var(--mkd-map-road) 30% 32%, transparent 32% 100%),
+    linear-gradient(115deg, transparent 0 62%, var(--mkd-map-road) 62% 64%, transparent 64% 100%),
+    linear-gradient(90deg, transparent 0 78%, var(--mkd-map-road) 78% 79.5%, transparent 79.5% 100%),
+    radial-gradient(ellipse 22% 18% at 70% 22%, var(--mkd-map-park) 0 98%, transparent 100%),
+    radial-gradient(ellipse 16% 24% at 14% 78%, var(--mkd-map-park) 0 98%, transparent 100%),
+    linear-gradient(160deg, transparent 0 74%, var(--mkd-map-water) 74% 100%),
+    var(--mkd-map-land);
+}
+.mkd-pack-swiftui .mkd-placeholder[data-el="Map"] .mkd-placeholder__icon { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--mkd-color-red); color: #fff; box-shadow: 0 0 0 3px #fff, 0 4px 10px rgb(0 0 0 / 0.3); }
+.mkd-pack-swiftui .mkd-placeholder[data-el="Map"] .mkd-placeholder__icon .mkd-icon { width: 18px; height: 18px; stroke-width: 2.2; }
+.mkd-pack-swiftui .mkd-placeholder[data-el="Map"] .mkd-placeholder__label { font-size: 12px; font-weight: 600; text-shadow: 0 0 3px var(--mkd-map-land), 0 0 3px var(--mkd-map-land); }
+.mkd-pack-swiftui .mkd-placeholder[data-el="VideoPlayer"] { aspect-ratio: 16 / 9; min-height: 0; background: var(--mkd-video-bg); color: #fff; border-radius: 12px; }
+.mkd-pack-swiftui .mkd-placeholder[data-el="VideoPlayer"] .mkd-placeholder__icon { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background: rgb(255 255 255 / 0.22); backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); }
+.mkd-pack-swiftui .mkd-placeholder[data-el="VideoPlayer"] .mkd-placeholder__label { color: rgb(255 255 255 / 0.8); }
+
+/* =====================================================================================
+ * macOS (desktop / wide frames)
+ * ===================================================================================== */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) {
+  --sw-mac: 1;
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar { padding: 0 14px; background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__bar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__bar { grid-template-columns: auto 1fr auto; min-height: 52px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__title,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__title { align-items: flex-start; font-size: 15px; font-weight: 700; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__subtitle,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__subtitle { font-size: 11px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar[data-title-mode="large"] .mkd-navbar__title-text,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar[data-title-mode="large"] .mkd-navbar__title-text { visibility: visible; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__large,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__large { display: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__search,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__search { position: absolute; right: 14px; top: 10px; width: 200px; padding: 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar:has(.mkd-navbar__search) .mkd-navbar__trailing,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar:has(.mkd-navbar__search) .mkd-navbar__trailing { margin-right: 214px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-menu > .mkd-menu__trigger,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-group > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-group > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__leading) > .mkd-group > .mkd-button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar :is(.mkd-navbar__trailing) > .mkd-group > .mkd-button {
+  padding: 0 12px; font-size: 13px; color: var(--mkd-fg);
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar .mkd-button .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar .mkd-button .mkd-icon { width: 16px; height: 16px; stroke-width: 1.8; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar .mkd-button:is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar .mkd-button:is([data-variant="glassProminent"]) { color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar .mkd-menu__trigger .mkd-button__caret,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar .mkd-menu__trigger .mkd-button__caret { display: inline-flex; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-field[data-kind="search"] .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-field[data-kind="search"] .mkd-field__control { min-height: 30px; padding: 0 8px; background: var(--mkd-fill-4); box-shadow: inset 0 0 0 1px var(--mkd-mac-control-line); font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-field[data-kind="search"] .mkd-field__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-field[data-kind="search"] .mkd-field__icon .mkd-icon { width: 13px; height: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-field__icon[data-mic],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-field__icon[data-mic] { display: none; }
+
+/* macOS sidebar: inset glass panel, 28 pt rows, grey selection */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] { flex-basis: 220px; margin: 8px; border-radius: 18px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-navbar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-navbar { display: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-list,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-list { padding: 8px 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section { margin-top: 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section > .mkd-section__header { padding: 2px 8px 4px; font-size: 11px; font-weight: 700; color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem { min-height: 28px; padding: 0 8px; border-radius: 8px; gap: 7px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-label,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-label { gap: 7px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-label__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-label__icon .mkd-icon { width: 16px; height: 16px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-label .mkd-badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem--wrap > .mkd-badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem__badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-label .mkd-badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem--wrap > .mkd-badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem__badge) { font-size: 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) { background: var(--mkd-sidebar-sel); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__detail),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__detail),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__badge),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-badge,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-badge { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-leading-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-leading-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-label__icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-label__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-sidebar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-sidebar { margin: 8px; border-radius: 18px; padding: 8px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navitem__row,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navitem__row { min-height: 28px; padding: 0 8px; border-radius: 8px; gap: 7px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navitem[data-selected="true"] > .mkd-navitem__row,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navitem[data-selected="true"] > .mkd-navitem__row { background: var(--mkd-sidebar-sel); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navitem[data-selected="true"] > .mkd-navitem__row .mkd-navitem__icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navitem[data-selected="true"] > .mkd-navitem__row .mkd-navitem__icon { color: var(--mkd-accent); }
+
+/* macOS lists: compact rows, rounded selection, no inset sections */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="insetGrouped"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="inset"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="plain"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="insetGrouped"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="inset"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="plain"]) { padding: 6px 10px; background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="insetGrouped"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="insetGrouped"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="automatic"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="automatic"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="inset"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="inset"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="plain"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="plain"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="insetGrouped"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="insetGrouped"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="automatic"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="automatic"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="inset"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="inset"]) > :is(.mkd-labeled),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="plain"]) > :is(.mkd-listitem),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="plain"]) > :is(.mkd-labeled) { background: transparent; border-radius: 8px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="insetGrouped"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="automatic"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="inset"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="insetGrouped"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="automatic"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="inset"]) > .mkd-section > .mkd-section__body { background: transparent; border-radius: 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="insetGrouped"]) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="automatic"]) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-list:is([data-variant="inset"]) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="insetGrouped"]) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="automatic"]) > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-list:is([data-variant="inset"]) > .mkd-section > .mkd-section__header { padding: 4px 10px; font-size: 11px; font-weight: 700; text-transform: none; color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-listitem,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-listitem { gap: 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-listitem__subtitle,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-listitem__subtitle { font-size: 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-listitem__badge,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-listitem__badge { font-size: 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-listitem .mkd-avatar,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-listitem .mkd-avatar { width: 32px; height: 32px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-leading-icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-leading-icon .mkd-icon { width: 16px; height: 16px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-leading-icon[data-tinted="true"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-leading-icon[data-tinted="true"] { border-radius: 5px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-leading-icon[data-tinted="true"] .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-leading-icon[data-tinted="true"] .mkd-icon { width: 13px; height: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] { background: var(--mkd-accent); color: #fff; border-radius: 8px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__subtitle),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__detail),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-text),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__subtitle),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__detail),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"] :is(.mkd-text) { color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"]::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem[data-selected="true"]::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem:has(+ [data-selected="true"])::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem:has(+ [data-selected="true"])::after { display: none; }
+
+/* macOS Form (.formStyle(.grouped)): System Settings boxes */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form { padding: 0 20px 20px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form > .mkd-section > .mkd-section__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form > .mkd-section > .mkd-section__header { padding: 0 2px 6px; font-size: 13px; font-weight: 700; color: var(--mkd-fg); text-transform: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form > .mkd-section > .mkd-section__body { box-shadow: inset 0 0 0 1px var(--mkd-mac-control-line); background: var(--mkd-fill-4); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form__row,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form__row,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-section__body) > .mkd-labeled,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-form) > .mkd-labeled,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-section__body) > .mkd-labeled,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-form) > .mkd-labeled { min-height: 38px; padding: 8px 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form__row::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form__row::after { left: 10px; right: 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form > .mkd-section > .mkd-section__footer,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form > .mkd-section > .mkd-section__footer { padding: 6px 2px 0; font-size: 11px; }
+
+/* macOS controls: 13 pt, push buttons, small switches */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="secondary"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="secondary"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-vstack) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-hstack) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-dialog__actions) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-card__body) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) :is(.mkd-form__row) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-vstack) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-hstack) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-dialog__actions) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-card__body) > .mkd-button:not([data-variant]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) :is(.mkd-form__row) > .mkd-button:not([data-variant]) {
+  height: 24px;
+  padding: 0 12px;
+  background: var(--mkd-mac-control);
+  color: var(--mkd-fg);
+  font-size: 13px;
+  box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 2px rgb(0 0 0 / 0.1);
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button:is([data-variant="primary"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="glassProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button:is([data-variant="primary"]) { height: 24px; padding: 0 12px; font-size: 13px; font-weight: 400; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button[data-variant="glass"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button[data-variant="glass"] { height: 28px; padding: 0 12px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button[data-size="large"]:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button[data-size="large"]:is([data-variant="borderedProminent"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button[data-size="large"]:is([data-variant="bordered"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button[data-size="large"]:is([data-variant="borderedProminent"]) { height: 30px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-button[data-variant="borderless"],
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-button[data-variant="borderless"] { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-toggle__track,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-toggle__track { width: 38px; height: 22px; border-radius: 11px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-toggle__thumb,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-toggle__thumb { width: 20px; height: 20px; top: 1px; left: 1px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-toggle[data-on="true"] .mkd-toggle__thumb,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-toggle[data-on="true"] .mkd-toggle__thumb { right: 1px; left: auto; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-toggle[data-on="true"] .mkd-toggle__track,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-toggle[data-on="true"] .mkd-toggle__track { background: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-segmented__items,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-segmented__items { height: 24px; padding: 1px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-segmented__item,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-segmented__item { padding: 0 10px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-slider__thumb,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-slider__thumb { width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-slider__track,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-slider__track { height: 4px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-stepper__buttons,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-stepper__buttons { height: 22px; border-radius: 6px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-stepper__button,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-stepper__button { width: 16px; height: 22px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-stepper__button .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-stepper__button .mkd-icon { width: 10px; height: 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-select .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-select .mkd-field__control { min-height: 24px; padding: 0 6px 0 10px; border-radius: 999px; background: var(--mkd-mac-control); color: var(--mkd-fg); box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 2px rgb(0 0 0 / 0.1); font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-select .mkd-field__icon--end,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-select .mkd-field__icon--end { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-field[data-variant="roundedBorder"] .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-field[data-variant="roundedBorder"] .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-form__row > .mkd-textfield .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-form__row > .mkd-textfield .mkd-field__control { min-height: 22px; padding: 0 6px; border: 0; border-radius: 6px; background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-datepicker .mkd-field__control,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-datepicker .mkd-field__control { min-height: 22px; padding: 0 8px; border-radius: 6px; font-size: 13px; }
+
+/* macOS Table: alternating rows, small header */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table { font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table th,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table th { padding: 4px 10px; font-size: 12px; font-weight: 500; border-bottom: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table th + th,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table th + th { box-shadow: inset 1px 0 0 var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table td,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table td { padding: 5px 10px; border-bottom: 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table tbody tr:nth-child(even) td,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table tbody tr:nth-child(even) td { background: var(--mkd-mac-row-alt); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table tr[aria-selected="true"] td,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table tr[aria-selected="true"] td { background: var(--mkd-accent); color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table tr[aria-selected="true"] td:first-child,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table tr[aria-selected="true"] td:first-child { border-radius: 6px 0 0 6px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-table tr[aria-selected="true"] td:last-child,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-table tr[aria-selected="true"] td:last-child { border-radius: 0 6px 6px 0; }
+
+/* macOS menus: compact, accent highlight */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menu__popup,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menu__popup { min-width: 200px; padding: 5px; border-radius: 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem { min-height: 24px; padding: 0 10px; gap: 7px; border-radius: 7px; font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem__icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem__icon { width: 16px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem__check .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem__check .mkd-icon { width: 14px; height: 14px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-selected="true"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-state="hover"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-selected="true"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-state="hover"]) { background: var(--mkd-accent); color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-selected="true"]) :is(.mkd-menuitem__icon),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-selected="true"]) :is(.mkd-menuitem__shortcut),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-state="hover"]) :is(.mkd-menuitem__icon),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem:is([data-state="hover"]) :is(.mkd-menuitem__shortcut),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-selected="true"]) :is(.mkd-menuitem__icon),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-selected="true"]) :is(.mkd-menuitem__shortcut),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-state="hover"]) :is(.mkd-menuitem__icon),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem:is([data-state="hover"]) :is(.mkd-menuitem__shortcut) { color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menuitem__shortcut,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menuitem__shortcut { font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menu__popup > .mkd-divider,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menu__popup > .mkd-divider { margin: 5px 10px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-menu__trigger .mkd-button__caret,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-menu__trigger .mkd-button__caret { display: inline-flex; }
+
+/* macOS cards / GroupBox */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-card,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-card { border-radius: 12px; background: var(--sw-card-bg, var(--mkd-fill-4)); box-shadow: inset 0 0 0 1px var(--mkd-mac-control-line); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-card__header,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-card__header { padding: 10px 12px 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-card__body,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-card__body { padding: 8px 12px 12px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-dialog[data-variant="unavailable"] .mkd-dialog__title,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-dialog[data-variant="unavailable"] .mkd-dialog__title { font-size: 17px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message .mkd-text),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-dialog[data-variant="unavailable"] :is(.mkd-dialog__message .mkd-text) { font-size: 13px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-dialog[data-variant="unavailable"] .mkd-dialog__icon .mkd-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-dialog[data-variant="unavailable"] .mkd-dialog__icon .mkd-icon { width: 40px; height: 40px; }
+
+/* ---------- SwiftUI layout: greedy views widen their stacks ---------- */
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-textfield)),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-slider)),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-progress[data-kind="linear"])),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-segmented)),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-chart)),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-placeholder)),
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-vstack:has(> :is(.mkd-button[data-fill~="x"])),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-textfield)),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-slider)),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-progress[data-kind="linear"])),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-segmented)),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-chart)),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-placeholder)),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-vstack:has(> :is(.mkd-button[data-fill~="x"])),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-textfield)),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-slider)),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-progress[data-kind="linear"])),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-segmented)),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-chart)),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-placeholder)),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-vstack:has(> :is(.mkd-button[data-fill~="x"])) { align-self: stretch; }
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-hstack:has(> .mkd-spacer),
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-hstack:has(> .mkd-spacer),
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-hstack:has(> .mkd-spacer) { align-self: stretch; }
+.mkd-pack-swiftui .mkd-toggle[data-labels-hidden="true"] .mkd-toggle__text { display: none; }
+.mkd-pack-swiftui :is(.mkd-select)[data-labels-hidden="true"] > .mkd-field__label,
+.mkd-pack-swiftui :is(.mkd-datepicker)[data-labels-hidden="true"] > .mkd-field__label,
+.mkd-pack-swiftui :is(.mkd-textfield)[data-labels-hidden="true"] > .mkd-field__label { display: none; }
+.mkd-pack-swiftui .mkd-section__header:has(> .mkd-section__title > :is(.mkd-vstack)),
+.mkd-pack-swiftui .mkd-section__header:has(> .mkd-section__title > :is(.mkd-hstack)),
+.mkd-pack-swiftui .mkd-section__header:has(> .mkd-section__title > :is(.mkd-symbol)),
+.mkd-pack-swiftui .mkd-section__header:has(> .mkd-section__title > :is(.mkd-image)) { text-transform: none; color: var(--mkd-fg); font-size: var(--mkd-fs-body); }
+
+.mkd-pack-swiftui .mkd-section__title { text-transform: inherit; }
+.mkd-pack-swiftui .mkd-navbar__trailing .mkd-menu__popup { left: auto; right: 0; }
+.mkd-pack-swiftui .mkd-navbar__leading .mkd-menu__popup { left: 0; right: auto; }
+.mkd-pack-swiftui .mkd-navbar .mkd-menu__popup { margin-top: 10px; z-index: 30; }
+
+/* a Map / VideoPlayer / Image alone in a row fills it edge to edge */
+.mkd-pack-swiftui .mkd-listitem--wrap:is([data-child="placeholder"]),
+.mkd-pack-swiftui .mkd-listitem--wrap:is([data-child="image"]),
+.mkd-pack-swiftui .mkd-form__row:is([data-child="placeholder"]),
+.mkd-pack-swiftui .mkd-form__row:is([data-child="image"]) { padding: 0; }
+.mkd-pack-swiftui .mkd-listitem--wrap:is([data-child="placeholder"]) > *,
+.mkd-pack-swiftui .mkd-listitem--wrap:is([data-child="image"]) > *,
+.mkd-pack-swiftui .mkd-form__row:is([data-child="placeholder"]) > *,
+.mkd-pack-swiftui .mkd-form__row:is([data-child="image"]) > * { border-radius: 0; }
+.mkd-pack-swiftui .mkd-frame:not([data-device="desktop"]):not([data-device="wide"]) .mkd-segmented__label { display: none; }
+/* Rows used outside a List behave like plain stacked content */
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-listitem,
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-listitem,
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-listitem { align-self: stretch; padding-left: 0; padding-right: 0; }
+.mkd-pack-swiftui :is(.mkd-vstack) > .mkd-listitem::after,
+.mkd-pack-swiftui :is(.mkd-scroll) > .mkd-listitem::after,
+.mkd-pack-swiftui :is(.mkd-card__body) > .mkd-listitem::after,
+.mkd-pack-swiftui :is(.mkd-hstack) > .mkd-listitem::after { display: none; }
+/* ContentUnavailableView is greedy: its stack fills the remaining height and centres it */
+.mkd-pack-swiftui :is(.mkd-navstack__content) > .mkd-vstack:has(> .mkd-dialog[data-variant="unavailable"]),
+.mkd-pack-swiftui :is(.mkd-tabs__panel) > .mkd-vstack:has(> .mkd-dialog[data-variant="unavailable"]),
+.mkd-pack-swiftui :is(.mkd-split__col) > .mkd-vstack:has(> .mkd-dialog[data-variant="unavailable"]),
+.mkd-pack-swiftui :is(.mkd-screen) > .mkd-vstack:has(> .mkd-dialog[data-variant="unavailable"]) { flex: 1 1 auto; align-self: stretch; }
+
+/* macOS: the navigation title (and subtitle) sit at the leading edge of the toolbar */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar[data-title-mode="large"]:has(> .mkd-navbar__bar > .mkd-navbar__leading:empty) .mkd-navbar__title-text,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar[data-title-mode="large"]:has(> .mkd-navbar__bar > .mkd-navbar__leading:empty) .mkd-navbar__title-text { visibility: hidden; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar[data-title-mode="large"]:has(> .mkd-navbar__bar > .mkd-navbar__leading:empty) > .mkd-navbar__large,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar[data-title-mode="large"]:has(> .mkd-navbar__bar > .mkd-navbar__leading:empty) > .mkd-navbar__large {
+  display: flex; position: absolute; left: 14px; top: 0; height: 52px; padding: 0; justify-content: center; gap: 0;
+  font-size: 15px; font-weight: 700; line-height: 1.2; letter-spacing: 0;
+}
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-navbar__large .mkd-navbar__subtitle,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-navbar__large .mkd-navbar__subtitle { font-size: 11px; font-weight: 400; }
+/* selected custom rows */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]) { background: var(--mkd-accent); color: #fff; border-radius: 8px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-text,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-text { color: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-shape,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-shape { --mkd-shape-fill: #fff; background: #fff; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"])::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(> [data-selected="true"])::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(+ .mkd-listitem--wrap > [data-selected="true"])::after,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col:not([data-col="sidebar"]) .mkd-listitem--wrap:has(+ .mkd-listitem--wrap > [data-selected="true"])::after { display: none; }
+.mkd-pack-swiftui .mkd-listitem--wrap > [data-selected="true"] { background: none; }
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > :is(.mkd-placeholder),
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > :is(.mkd-chart),
+.mkd-pack-swiftui :is(.mkd-listitem--wrap) > :is(.mkd-image[data-resizable="true"]),
+.mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-placeholder),
+.mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-chart),
+.mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-image[data-resizable="true"]) { width: 100%; }

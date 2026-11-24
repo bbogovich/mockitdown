@@ -1,0 +1,100 @@
+// Reusable Bootstrap components for the Bootstrap pack page. Import with
+//   import "bootstrap/components"
+// Each struct is built from the pack's own elements (Card, Badge, ListGroupItem, ButtonGroup …).
+
+/// A marketing feature: a primary-tinted icon square, a heading, a paragraph and a link.
+struct FeatureCard: View {
+  var icon: String
+  var title: String
+  var text: String
+  var link: String = "Learn more"
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 12) {
+      Image(systemName: icon)
+        .font(.title3)
+        .foregroundStyle(.white)
+        .frame(width: 48, height: 48)
+        .background(.blue)
+        .cornerRadius(8)
+      Text(title).font(.h4)
+      Text(text).class("text-body-secondary")
+      Link("\(link) →", destination: "#")
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
+
+/// A dashboard statistic: muted label, big value, an up/down badge and an icon.
+struct StatCard: View {
+  var label: String
+  var value: String
+  var delta: String
+  var icon: String
+  var up: Bool = true
+
+  var body: some View {
+    Card {
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 4) {
+          Text(label).class("text-body-secondary small text-uppercase fw-semibold")
+          Text(value).font(.h3)
+        }
+        Spacer()
+        Image(systemName: icon).font(.title3).foregroundStyle(.secondary)
+      }
+      HStack(spacing: 6) {
+        Badge(delta).bg(up ? .success : .danger).variant(.subtle)
+        Text("vs. last month").class("text-body-secondary small text-nowrap")
+      }
+    }
+    .class("h-100")
+  }
+}
+
+/// A checkout summary line: product name, muted description, price on the right.
+struct CartLine: View {
+  var name: String
+  var note: String
+  var price: String
+
+  var body: some View {
+    ListGroupItem(name, subtitle: note, detail: price)
+  }
+}
+
+/// A data-table toolbar: search, two filter dropdowns and the primary action.
+struct TableToolbar: View {
+  var search: String = ""
+  var status: String = "All statuses"
+
+  var body: some View {
+    HStack(spacing: 8) {
+      InputGroup {
+        InputGroupText { Image(systemName: "search") }
+        FormControl("Search orders…", text: search)
+      }
+      .frame(width: 300)
+      DropdownButton(status, variant: "outline-secondary")
+      DropdownButton("Last 30 days", variant: "outline-secondary")
+      Spacer()
+      ButtonGroup {
+        Button("Export", variant: "outline-secondary", systemImage: "download")
+        Button("Print", variant: "outline-secondary", systemImage: "printer")
+      }
+      Button("New order", systemImage: "plus-lg")
+    }
+  }
+}
+
+/// A status badge for an order row.
+struct OrderStatus: View {
+  var status: String = "Paid"
+
+  var body: some View {
+    if status == "Paid" { Badge("Paid").bg(.success).pill() }
+    if status == "Pending" { Badge("Pending").bg(.warning).pill() }
+    if status == "Refunded" { Badge("Refunded").bg(.secondary).pill() }
+    if status == "Failed" { Badge("Failed").bg(.danger).pill() }
+  }
+}

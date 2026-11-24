@@ -1,0 +1,86 @@
+// Reusable Fiori building blocks for the SAPUI5 pack page. They are written with SAPUI5 element
+// names, so import them from a block that selects the pack (`import SAPUI5`).
+import SAPUI5
+
+/// A KPI tile of the launchpad: GenericTile + TileContent + NumericContent.
+struct KpiTile: View {
+  var header: String
+  var subheader: String = ""
+  var value: String
+  var scale: String = ""
+  var footer: String = ""
+  var color: String = "Neutral"
+  var trend: String = ""
+
+  var body: some View {
+    GenericTile(header, subheader) {
+      TileContent(footer: footer) {
+        NumericContent(value, scale, color: color).indicator(trend)
+      }
+    }
+  }
+}
+
+/// An app launch tile: title, subtitle, icon and an optional info text.
+struct LaunchTile: View {
+  var header: String
+  var subheader: String = ""
+  var icon: String
+  var info: String = ""
+
+  var body: some View {
+    GenericTile(header, subheader, icon: icon, status: info)
+  }
+}
+
+/// One product row of a sap.m.Table: identifier, supplier, price and availability.
+struct ProductRow: View {
+  var name: String
+  var id: String
+  var supplier: String
+  var price: String
+  var stock: String
+  var state: String = "Success"
+  var selected: Bool = false
+
+  var body: some View {
+    ColumnListItem(selected: selected) {
+      ObjectIdentifier(name, id)
+      Text(supplier)
+      ObjectNumber(price, "EUR")
+      ObjectStatus(stock, state: state)
+    }
+  }
+}
+
+/// A labelled key fact in an object page or dynamic page header.
+struct HeaderFact: View {
+  var label: String
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    VBox(spacing: 6) {
+      Label(label)
+      content
+    }
+  }
+}
+
+/// A master-list entry: ObjectListItem with two attributes and a status.
+struct OrderItem: View {
+  var title: String
+  var amount: String
+  var supplier: String
+  var date: String
+  var status: String
+  var state: String = "None"
+  var selected: Bool = false
+
+  var body: some View {
+    ObjectListItem(title, amount, selected: selected) {
+      ObjectAttribute("Supplier", supplier)
+      ObjectStatus(status, state: state)
+      ObjectAttribute("Ordered", date)
+    }
+  }
+}

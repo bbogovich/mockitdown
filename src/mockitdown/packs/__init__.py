@@ -14,7 +14,7 @@ element names, maps them onto roles with default attributes, and restyles the ro
     device              default device form: phone | tablet | desktop
     chrome              device form → chrome kind (ios, ipados, macos, windows, android, browser, none)
     tokens              {"light": {name: value}, "dark": {name: value}} → --mkd-<name> CSS properties
-    elements            Name → {role, params, defaults, variants, doc}
+    elements            Name → {role, params, defaults, variants, doc, attrs}
     modifiers           modifier name → {"attr": attribute it sets, "value": optional fixed value}
     fonts               font style aliases → canonical font style (e.g. "h4": "title2")
     sizes               device form → [width, height] in CSS points
@@ -47,6 +47,8 @@ class ElementDef:
     #: Documented values of the ``variant`` attribute (empty: not validated).
     variants: tuple[str, ...] = ()
     doc: str = ""
+    #: Argument label → attribute name for this element only (e.g. SAP `type:` → `variant`).
+    attrs: tuple[tuple[str, str], ...] = ()
 
     @property
     def default_attrs(self) -> dict[str, object]:
@@ -116,6 +118,7 @@ def _element(name: str, raw: dict, where: str) -> ElementDef:
         defaults=tuple(sorted(raw.get("defaults", {}).items())),
         variants=tuple(raw.get("variants", ())),
         doc=raw.get("doc", ""),
+        attrs=tuple(sorted(raw.get("attrs", {}).items())),
     )
 
 

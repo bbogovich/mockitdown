@@ -1,0 +1,1395 @@
+{
+  "id": "sapui5",
+  "name": "SAPUI5",
+  "framework": "SAPUI5 / OpenUI5 · SAP Fiori Horizon theme (sap_horizon, sap_horizon_dark)",
+  "version": "1.136",
+  "modules": [
+    "SAPUI5",
+    "OpenUI5",
+    "UI5",
+    "Fiori",
+    "sap.m",
+    "sap.f",
+    "sap.uxap",
+    "sap.tnt"
+  ],
+  "device": "desktop",
+  "chrome": {
+    "desktop": "browser",
+    "wide": "browser",
+    "tablet": "browser",
+    "tablet-portrait": "browser",
+    "phone": "none",
+    "phone-landscape": "none"
+  },
+  "tokens": {
+    "light": {
+      "bg": "#f5f6f7",
+      "surface": "#ffffff",
+      "surface-2": "#f5f6f7",
+      "surface-3": "#eaecee",
+      "fg": "#1d2d3e",
+      "fg-2": "#556b82",
+      "fg-3": "#758ca4",
+      "border": "#d9d9d9",
+      "divider": "#e5e5e5",
+      "accent": "#0064d9",
+      "on-accent": "#ffffff",
+      "accent-soft": "#ebf8ff",
+      "danger": "#d20a0a",
+      "warning": "#e76500",
+      "success": "#30914c",
+      "info": "#0070f2",
+      "field-bg": "#ffffff",
+      "field-border": "rgb(85 107 130 / 0.25)",
+      "scrim": "rgb(0 0 0 / 0.3)",
+      "shadow-1": "0 0 2px 0 rgb(34 53 72 / 0.2), 0 2px 4px 0 rgb(34 53 72 / 0.2)",
+      "shadow-2": "0 0 0 1px rgb(34 53 72 / 0.48), 0 10px 30px 0 rgb(34 53 72 / 0.25)",
+      "shadow-3": "0 0 0 1px rgb(34 53 72 / 0.48), 0 20px 80px 0 rgb(34 53 72 / 0.25)",
+      "radius-s": "4px",
+      "radius-m": "8px",
+      "radius-l": "12px",
+      "radius-xl": "12px",
+      "radius-pill": "999px",
+      "font": "\"72\", \"72full\", Arial, Helvetica, sans-serif",
+      "font-mono": "\"72Mono\", \"72Monofull\", lucida console, ui-monospace, monospace",
+      "font-size": "14px",
+      "line-height": "1.4",
+      "icon-stroke": "1.7",
+      "icon-size": "16px",
+      "control-h": "36px",
+      "gap": "8px",
+      "pad": "16px",
+      "chrome-bg": "#e8ebee",
+      "chrome-fg": "#1d2d3e",
+      "fs-display": "48px",
+      "fw-display": "700",
+      "fs-largeTitle": "32px",
+      "fw-largeTitle": "700",
+      "fs-title": "24px",
+      "fw-title": "700",
+      "fs-title2": "20px",
+      "fw-title2": "700",
+      "fs-title3": "16px",
+      "fw-title3": "700",
+      "fs-headline": "14px",
+      "fw-headline": "700",
+      "fs-subheadline": "14px",
+      "fw-subheadline": "400",
+      "fs-body": "14px",
+      "fw-body": "400",
+      "fs-callout": "16px",
+      "fw-callout": "400",
+      "fs-footnote": "12px",
+      "fw-footnote": "400",
+      "fs-caption": "12px",
+      "fw-caption": "400",
+      "fs-caption2": "11px",
+      "fw-caption2": "400",
+      "fs-overline": "12px",
+      "fw-overline": "700",
+      "color-red": "#f53232",
+      "color-orange": "#e76500",
+      "color-yellow": "#e8a600",
+      "color-green": "#30914c",
+      "color-mint": "#1dd3a7",
+      "color-teal": "#049f9a",
+      "color-cyan": "#0bb5d6",
+      "color-blue": "#0070f2",
+      "color-indigo": "#5d36ff",
+      "color-purple": "#8b47d7",
+      "color-pink": "#df1278",
+      "color-brown": "#a45d00",
+      "color-gray": "#758ca4",
+      "chart-1": "#168eff",
+      "chart-2": "#c87b00",
+      "chart-3": "#75980b",
+      "chart-4": "#df1278",
+      "chart-5": "#8b47d7",
+      "chart-6": "#049f9a",
+      "brand": "#0070f2",
+      "on-brand": "#ffffff",
+      "link": "#0064d9",
+      "focus": "#0032a5",
+      "shell-bg": "#ffffff",
+      "shell-fg": "#1d2d3e",
+      "shell-border": "#d9d9d9",
+      "header-bg": "#ffffff",
+      "page-bg": "#f5f6f7",
+      "tile-bg": "#ffffff",
+      "hover": "#eaecee",
+      "active": "#dee2e5",
+      "selected": "#ebf8ff",
+      "selected-border": "#0064d9",
+      "list-bg": "#ffffff",
+      "list-border": "#e5e5e5",
+      "list-header": "#ffffff",
+      "label": "#556b82",
+      "placeholder": "#556b82",
+      "icon": "#0064d9",
+      "icon-muted": "#758ca4",
+      "field-bottom": "#556b82",
+      "field-hover": "#0064d9",
+      "field-readonly": "#eaecee",
+      "btn-bg": "#ffffff",
+      "btn-border": "#bcc3ca",
+      "btn-fg": "#0064d9",
+      "btn-hover": "#eaecee",
+      "track": "#788fa6",
+      "track-light": "#d5dadd",
+      "token-bg": "#f5f6f7",
+      "token-border": "#bcc3ca",
+      "toast-bg": "rgb(29 45 62 / 0.9)",
+      "toast-fg": "#ffffff",
+      "badge-bg": "#d04343",
+      "rating": "#e76500",
+      "rating-off": "#758ca4",
+      "neg-text": "#aa0808",
+      "neg-el": "#f53232",
+      "neg-bg": "#ffeaf4",
+      "neg-border": "#e90b0b",
+      "crit-text": "#b44f00",
+      "crit-el": "#e76500",
+      "crit-bg": "#fff8d6",
+      "crit-border": "#dd6100",
+      "pos-text": "#256f3a",
+      "pos-el": "#30914c",
+      "pos-bg": "#f5fae5",
+      "pos-border": "#30914c",
+      "info-text": "#0040b0",
+      "info-el": "#0070f2",
+      "info-bg": "#e1f4ff",
+      "info-border": "#0070f2",
+      "neu-text": "#556b82",
+      "neu-el": "#788fa6",
+      "neu-bg": "#eff1f2",
+      "neu-border": "#788fa6",
+      "av1-bg": "#fff3b8",
+      "av1-fg": "#a45d00",
+      "av2-bg": "#ffd0e7",
+      "av2-fg": "#aa0808",
+      "av3-bg": "#ffdbe7",
+      "av3-fg": "#ba066c",
+      "av4-bg": "#ffdcf3",
+      "av4-fg": "#a100c2",
+      "av5-bg": "#ded3ff",
+      "av5-fg": "#552cff",
+      "av6-bg": "#d1efff",
+      "av6-fg": "#0057d2",
+      "av7-bg": "#c2fcee",
+      "av7-fg": "#046c7a",
+      "av8-bg": "#ebf5cb",
+      "av8-fg": "#256f3a",
+      "av9-bg": "#ddccf0",
+      "av9-fg": "#6c32a9",
+      "av10-bg": "#eaecee",
+      "av10-fg": "#556b82",
+      "progress": "#617b94",
+      "inverted-fg": "#ffffff",
+      "header-shadow": "0 2px 2px 0 rgb(34 53 72 / 0.15), inset 0 -1px 0 0 #d9d9d9",
+      "shell-shadow": "0 2px 2px 0 rgb(34 54 73 / 0.15), inset 0 -1px 0 0 rgb(34 54 73 / 0.2)"
+    },
+    "dark": {
+      "bg": "#12171c",
+      "surface": "#1d232a",
+      "surface-2": "#161c22",
+      "surface-3": "#29313a",
+      "fg": "#f5f6f7",
+      "fg-2": "#a9b4be",
+      "fg-3": "#8396a8",
+      "border": "#384656",
+      "divider": "#2c3640",
+      "accent": "#4db1ff",
+      "on-accent": "#12171c",
+      "accent-soft": "#1c3654",
+      "danger": "#ff5c77",
+      "warning": "#ff8c1a",
+      "success": "#58ba7b",
+      "info": "#4db1ff",
+      "field-bg": "#1d232a",
+      "field-border": "rgb(169 180 190 / 0.3)",
+      "scrim": "rgb(0 0 0 / 0.5)",
+      "shadow-1": "0 0 2px 0 rgb(0 0 0 / 0.5), 0 2px 4px 0 rgb(0 0 0 / 0.5)",
+      "shadow-2": "0 0 0 1px rgb(168 179 189 / 0.3), 0 10px 30px 0 rgb(0 0 0 / 0.55)",
+      "shadow-3": "0 0 0 1px rgb(168 179 189 / 0.3), 0 20px 80px 0 rgb(0 0 0 / 0.6)",
+      "chrome-bg": "#0b0f13",
+      "chrome-fg": "#e3e7ea",
+      "brand": "#0070f2",
+      "on-brand": "#ffffff",
+      "link": "#4db1ff",
+      "focus": "#e3e7ea",
+      "shell-bg": "#1d232a",
+      "shell-fg": "#f5f6f7",
+      "shell-border": "#2c3640",
+      "header-bg": "#1d232a",
+      "page-bg": "#12171c",
+      "tile-bg": "#1d232a",
+      "hover": "#26303a",
+      "active": "#2f3a45",
+      "selected": "#1c3654",
+      "selected-border": "#4db1ff",
+      "list-bg": "#1d232a",
+      "list-border": "#2c3640",
+      "list-header": "#1d232a",
+      "label": "#a9b4be",
+      "placeholder": "#a9b4be",
+      "icon": "#4db1ff",
+      "icon-muted": "#8396a8",
+      "field-bottom": "#8396a8",
+      "field-hover": "#4db1ff",
+      "field-readonly": "#242c35",
+      "btn-bg": "#1d232a",
+      "btn-border": "#687d94",
+      "btn-fg": "#4db1ff",
+      "btn-hover": "#29313a",
+      "track": "#8396a8",
+      "track-light": "#3a4552",
+      "token-bg": "#29313a",
+      "token-border": "#687d94",
+      "toast-bg": "rgb(227 231 234 / 0.92)",
+      "toast-fg": "#1d2d3e",
+      "badge-bg": "#ff5c77",
+      "rating": "#ff8c1a",
+      "rating-off": "#8396a8",
+      "neg-text": "#ff8888",
+      "neg-el": "#ff5c77",
+      "neg-bg": "#3a1d24",
+      "neg-border": "#ff8888",
+      "crit-text": "#ffab1d",
+      "crit-el": "#ff8c1a",
+      "crit-bg": "#3a2b14",
+      "crit-border": "#ffab1d",
+      "pos-text": "#6ad48f",
+      "pos-el": "#58ba7b",
+      "pos-bg": "#16301f",
+      "pos-border": "#58ba7b",
+      "info-text": "#8cc8ff",
+      "info-el": "#4db1ff",
+      "info-bg": "#132b45",
+      "info-border": "#4db1ff",
+      "neu-text": "#a9b4be",
+      "neu-el": "#8396a8",
+      "neu-bg": "#242c35",
+      "neu-border": "#8396a8",
+      "av1-bg": "#5c4200",
+      "av1-fg": "#ffe28a",
+      "av2-bg": "#5c1010",
+      "av2-fg": "#ffc2c2",
+      "av3-bg": "#5a0e36",
+      "av3-fg": "#ffc7df",
+      "av4-bg": "#510f5f",
+      "av4-fg": "#f8c4ff",
+      "av5-bg": "#2f1e7a",
+      "av5-fg": "#d8ceff",
+      "av6-bg": "#00336e",
+      "av6-fg": "#bde6ff",
+      "av7-bg": "#03434c",
+      "av7-fg": "#b0f5e6",
+      "av8-bg": "#1f4527",
+      "av8-fg": "#d4ecb0",
+      "av9-bg": "#3e2163",
+      "av9-fg": "#e4d4f5",
+      "av10-bg": "#33404d",
+      "av10-fg": "#d5dadd",
+      "progress": "#8396a8",
+      "inverted-fg": "#12171c",
+      "header-shadow": "0 2px 2px 0 rgb(0 0 0 / 0.35), inset 0 -1px 0 0 #2c3640",
+      "shell-shadow": "0 2px 2px 0 rgb(0 0 0 / 0.35), inset 0 -1px 0 0 #2c3640"
+    }
+  },
+  "fonts": {
+    "H1": "display",
+    "H2": "largeTitle",
+    "H3": "title",
+    "H4": "title2",
+    "H5": "title3",
+    "H6": "headline",
+    "Auto": "title3",
+    "Small": "footnote",
+    "Large": "callout",
+    "Medium": "body"
+  },
+  "icons": {
+    "sap-icon://product-switch": "square.grid.3x3",
+    "product-switch": "square.grid.3x3",
+    "sap-icon://value-help": "square.and.pencil",
+    "value-help": "square.and.pencil",
+    "sap-icon://overflow": "ellipsis",
+    "sap-icon://slim-arrow-down": "chevron.down",
+    "sap-icon://slim-arrow-right": "chevron.right",
+    "sap-icon://navigation-right-arrow": "chevron.right",
+    "sap-icon://nav-back": "arrow.left",
+    "sap-icon://sys-help": "questionmark.circle",
+    "sap-icon://appointment-2": "calendar",
+    "sap-icon://customer": "person",
+    "sap-icon://group": "person.2",
+    "sap-icon://add-product": "cube",
+    "sap-icon://sales-order": "doc",
+    "sap-icon://sales-order-item": "doc",
+    "sap-icon://shipping-status": "truck",
+    "sap-icon://money-bills": "dollarsign",
+    "sap-icon://business-objects-experience": "square.grid.2x2",
+    "sap-icon://kpi-corporate-performance": "gauge",
+    "sap-icon://manager-insight": "chart.bar",
+    "sap-icon://simple-payment": "creditcard",
+    "sap-icon://supplier": "building",
+    "sap-icon://inventory": "archivebox",
+    "sap-icon://retail-store": "bag",
+    "sap-icon://activity-2": "list.bullet",
+    "sap-icon://task": "checkmark.circle",
+    "sap-icon://approvals": "checkmark.circle",
+    "sap-icon://excel-attachment": "doc",
+    "sap-icon://action-settings": "gear",
+    "sap-icon://employee": "person",
+    "sap-icon://message-popup": "message",
+    "sap-icon://warning2": "exclamationmark.triangle",
+    "sap-icon://status-positive": "checkmark.circle",
+    "sap-icon://status-negative": "exclamationmark.circle",
+    "sap-icon://status-critical": "exclamationmark.triangle",
+    "sap-icon://status-inactive": "minus.circle",
+    "sap-icon://trend-up": "arrow.up",
+    "sap-icon://trend-down": "arrow.down",
+    "sap-icon://horizontal-grip": "line.3.horizontal",
+    "sap-icon://full-screen": "square",
+    "sap-icon://exit-full-screen": "square",
+    "sap-icon://decline": "xmark",
+    "sap-icon://slim-arrow-left": "chevron.left",
+    "sap-icon://slim-arrow-up": "chevron.up",
+    "sap-icon://hello-world": "globe",
+    "sap-icon://travel-expense": "airplane",
+    "sap-icon://flight": "airplane",
+    "sap-icon://building": "building",
+    "sap-icon://factory": "building",
+    "sap-icon://wrench": "wrench",
+    "sap-icon://heart": "heart",
+    "sap-icon://world": "globe",
+    "sap-icon://chart-table-view": "chart.bar",
+    "sap-icon://bar-chart": "chart.bar",
+    "sap-icon://line-chart": "chart.line",
+    "sap-icon://pie-chart": "chart.pie",
+    "sap-icon://ai": "sparkles",
+    "sap-icon://bell": "bell",
+    "sap-icon://course-book": "book",
+    "sap-icon://headset": "speaker"
+  },
+  "modifiers": {
+    "type": {
+      "attr": "variant"
+    },
+    "buttonType": {
+      "attr": "variant"
+    },
+    "design": {
+      "attr": "variant"
+    },
+    "layout": {
+      "attr": "variant"
+    },
+    "inverted": {
+      "attr": "variant",
+      "value": "inverted"
+    },
+    "valueState": {
+      "attr": "state"
+    },
+    "highlight": {
+      "attr": "status"
+    },
+    "valueColor": {
+      "attr": "color"
+    },
+    "colorScheme": {
+      "attr": "color"
+    },
+    "backgroundColor": {
+      "attr": "color"
+    },
+    "indicator": {
+      "attr": "kind"
+    },
+    "frameType": {
+      "attr": "size"
+    },
+    "displaySize": {
+      "attr": "size"
+    },
+    "displayShape": {
+      "attr": "shape"
+    },
+    "titleStyle": {
+      "attr": "level"
+    },
+    "level": {
+      "attr": "level"
+    },
+    "hAlign": {
+      "attr": "alignment"
+    },
+    "count": {
+      "attr": "badge"
+    },
+    "counter": {
+      "attr": "badge"
+    },
+    "pressed": {
+      "attr": "isOn"
+    },
+    "emphasized": {
+      "attr": "emphasis"
+    },
+    "contentDensity": {
+      "attr": "density"
+    }
+  },
+  "elements": {
+    "App": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "sap.m.App: the root container"
+    },
+    "Shell": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "sap.m.Shell: letterboxed app root"
+    },
+    "Page": {
+      "role": "navstack",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "titleDisplayMode": "inline"
+      },
+      "doc": "sap.m.Page: header Bar with title (start-aligned in Horizon), content; back: true shows the nav button"
+    },
+    "ScrollContainer": {
+      "role": "scroll",
+      "params": [
+        "axes"
+      ],
+      "doc": "sap.m.ScrollContainer"
+    },
+    "VBox": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "leading"
+      },
+      "doc": "sap.m.VBox (FlexBox, column)"
+    },
+    "HBox": {
+      "role": "hstack",
+      "doc": "sap.m.HBox (FlexBox, row)"
+    },
+    "FlexBox": {
+      "role": "hstack",
+      "doc": "sap.m.FlexBox; wrap: true wraps"
+    },
+    "Bar": {
+      "role": "toolbar",
+      "doc": "sap.m.Bar: left/middle/right content; use ToolbarSpacer between"
+    },
+    "Toolbar": {
+      "role": "toolbar",
+      "doc": "sap.m.Toolbar"
+    },
+    "OverflowToolbar": {
+      "role": "toolbar",
+      "doc": "sap.m.OverflowToolbar: header toolbar of tables and lists"
+    },
+    "ToolbarSpacer": {
+      "role": "spacer",
+      "doc": "sap.m.ToolbarSpacer: pushes the following content to the end"
+    },
+    "ToolbarSeparator": {
+      "role": "divider",
+      "doc": "sap.m.ToolbarSeparator"
+    },
+    "Title": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "defaults": {
+        "style": "H5"
+      },
+      "doc": "sap.m.Title; level: .H1 … .H6 (or .titleStyle(.H3)) sets the size"
+    },
+    "Label": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "sap.m.Label: field caption in sapContent_LabelColor"
+    },
+    "Text": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "sap.m.Text"
+    },
+    "FormattedText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "sap.m.FormattedText (inline **bold**, *italic*, `code`, [link](…))"
+    },
+    "ExpandableText": {
+      "role": "text",
+      "params": [
+        "content"
+      ],
+      "doc": "sap.m.ExpandableText"
+    },
+    "Link": {
+      "role": "link",
+      "params": [
+        "text",
+        "href"
+      ],
+      "doc": "sap.m.Link"
+    },
+    "Image": {
+      "role": "image",
+      "params": [
+        "src"
+      ],
+      "doc": "sap.m.Image(src)"
+    },
+    "Icon": {
+      "role": "icon",
+      "params": [
+        "name"
+      ],
+      "doc": "sap.ui.core.Icon(\"sap-icon://home\")"
+    },
+    "Item": {
+      "role": "text",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.ui.core.Item: an option of Select / ComboBox / SegmentedButton"
+    },
+    "Button": {
+      "role": "button",
+      "params": [
+        "text"
+      ],
+      "variants": [
+        "Default",
+        "Emphasized",
+        "Transparent",
+        "Ghost",
+        "Accept",
+        "Reject",
+        "Attention",
+        "Negative",
+        "Critical",
+        "Success",
+        "Neutral",
+        "Back",
+        "Up",
+        "Unstyled"
+      ],
+      "doc": "sap.m.Button; .type(.Emphasized) etc.; icon: \"sap-icon://add\""
+    },
+    "OverflowToolbarButton": {
+      "role": "button",
+      "params": [
+        "icon"
+      ],
+      "defaults": {
+        "iconOnly": true,
+        "variant": "Transparent"
+      },
+      "doc": "sap.m.OverflowToolbarButton: icon-only transparent button"
+    },
+    "ToggleButton": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "button"
+      },
+      "doc": "sap.m.ToggleButton; .pressed() shows the pressed state"
+    },
+    "MenuButton": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "variants": [
+        "Default",
+        "Emphasized",
+        "Transparent",
+        "Ghost"
+      ],
+      "doc": "sap.m.MenuButton { MenuItem(…) }; open: true shows the menu"
+    },
+    "Menu": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.Menu (standalone without a label)"
+    },
+    "MenuItem": {
+      "role": "menuitem",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.MenuItem(text, icon:)"
+    },
+    "ActionSheet": {
+      "role": "menu",
+      "doc": "sap.m.ActionSheet: a menu of buttons"
+    },
+    "SegmentedButton": {
+      "role": "segmented",
+      "params": [
+        "items"
+      ],
+      "doc": "sap.m.SegmentedButton(items: [...], selection:) or SegmentedButtonItem children"
+    },
+    "SegmentedButtonItem": {
+      "role": "button",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.SegmentedButtonItem"
+    },
+    "Input": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "sap.m.Input(placeholder, value:, label:); .valueState(.Error), error: \"text\" for the value state message"
+    },
+    "MaskInput": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "doc": "sap.m.MaskInput"
+    },
+    "SearchField": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "kind": "search"
+      },
+      "doc": "sap.m.SearchField (magnifier at the end)"
+    },
+    "TextArea": {
+      "role": "textfield",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "kind": "multiline"
+      },
+      "doc": "sap.m.TextArea(value, rows:)"
+    },
+    "Select": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.Select(selection:) { Item(\"…\") }"
+    },
+    "ComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.ComboBox: typeable select"
+    },
+    "MultiComboBox": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.MultiComboBox(selection: [\"A\", \"B\"]): tokens in the field"
+    },
+    "MultiInput": {
+      "role": "select",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "trailingIcon": "sap-icon://value-help"
+      },
+      "doc": "sap.m.MultiInput(selection: [tokens]) with value help"
+    },
+    "DatePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.DatePicker(value: \"2026-11-24\")"
+    },
+    "DateRangeSelection": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.DateRangeSelection(value: \"Nov 1 – Nov 30, 2026\")"
+    },
+    "DateTimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "kind": "datetime"
+      },
+      "doc": "sap.m.DateTimePicker"
+    },
+    "TimePicker": {
+      "role": "datepicker",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "kind": "time"
+      },
+      "doc": "sap.m.TimePicker"
+    },
+    "Calendar": {
+      "role": "calendar",
+      "doc": "sap.ui.unified.Calendar(selection: \"2026-11-24\")"
+    },
+    "StepInput": {
+      "role": "stepper",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.StepInput(value: 3): − value + in one field"
+    },
+    "CheckBox": {
+      "role": "checkbox",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.CheckBox(\"text\", selected: true)"
+    },
+    "RadioButton": {
+      "role": "radio",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.RadioButton(\"text\", selected: true)"
+    },
+    "RadioButtonGroup": {
+      "role": "radiogroup",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.RadioButtonGroup(options: [...], selection: 0)"
+    },
+    "Switch": {
+      "role": "toggle",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.Switch(isOn: true)"
+    },
+    "Slider": {
+      "role": "slider",
+      "doc": "sap.m.Slider(value: 30, in: 0...100)"
+    },
+    "RangeSlider": {
+      "role": "slider",
+      "doc": "sap.m.RangeSlider(value: [20, 60], in: 0...100)"
+    },
+    "RatingIndicator": {
+      "role": "rating",
+      "params": [
+        "value"
+      ],
+      "doc": "sap.m.RatingIndicator(value: 4, max: 5)"
+    },
+    "ProgressIndicator": {
+      "role": "progress",
+      "params": [
+        "value"
+      ],
+      "defaults": {
+        "showValue": true
+      },
+      "doc": "sap.m.ProgressIndicator(value: 60, state: .Success)"
+    },
+    "BusyIndicator": {
+      "role": "progress",
+      "params": [
+        "label"
+      ],
+      "defaults": {
+        "variant": "circular"
+      },
+      "doc": "sap.m.BusyIndicator: three pulsing dots"
+    },
+    "FileUploader": {
+      "role": "textfield",
+      "params": [
+        "placeholder"
+      ],
+      "defaults": {
+        "trailingIcon": "sap-icon://upload"
+      },
+      "doc": "sap.ui.unified.FileUploader"
+    },
+    "UploadSet": {
+      "role": "dropzone",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.upload.UploadSet drop area"
+    },
+    "ObjectStatus": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.ObjectStatus(text, state: .Success|.Warning|.Error|.Information|.Indication05, icon:); .inverted()"
+    },
+    "ObjectNumber": {
+      "role": "labeled",
+      "params": [
+        "value",
+        "label"
+      ],
+      "doc": "sap.m.ObjectNumber(\"1,250.00\", \"EUR\", state:)"
+    },
+    "ObjectIdentifier": {
+      "role": "labeled",
+      "params": [
+        "title",
+        "text"
+      ],
+      "doc": "sap.m.ObjectIdentifier(title, text): bold title over a grey text"
+    },
+    "ObjectAttribute": {
+      "role": "labeled",
+      "params": [
+        "title",
+        "text"
+      ],
+      "doc": "sap.m.ObjectAttribute(title, text) → “Title: text”"
+    },
+    "ObjectMarker": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "icon": "sap-icon://favorite"
+      },
+      "doc": "sap.m.ObjectMarker (Favorite, Flagged, Draft …)"
+    },
+    "ObjectHeader": {
+      "role": "card",
+      "params": [
+        "title",
+        "status"
+      ],
+      "doc": "sap.m.ObjectHeader(title, number) { ObjectAttribute; ObjectStatus }"
+    },
+    "InfoLabel": {
+      "role": "badge",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.tnt.InfoLabel; .colorScheme(.c7) or color: 1…10"
+    },
+    "GenericTag": {
+      "role": "chip",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.GenericTag"
+    },
+    "Token": {
+      "role": "chip",
+      "params": [
+        "text"
+      ],
+      "defaults": {
+        "removable": true
+      },
+      "doc": "sap.m.Token"
+    },
+    "Tokenizer": {
+      "role": "hstack",
+      "defaults": {
+        "wrap": true,
+        "spacing": 4
+      },
+      "doc": "sap.m.Tokenizer { Token(…) }"
+    },
+    "Avatar": {
+      "role": "avatar",
+      "params": [
+        "initials"
+      ],
+      "variants": [
+        "Circle",
+        "Square"
+      ],
+      "doc": "sap.m.Avatar(initials, src:); .displayShape(.Square), .displaySize(.L), .backgroundColor(.Accent6)"
+    },
+    "AvatarGroup": {
+      "role": "hstack",
+      "doc": "sap.f.AvatarGroup"
+    },
+    "ShellBar": {
+      "role": "appbar",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.f.ShellBar(title, secondaryTitle:, logo:, search:, notifications: 3, avatar: \"JD\") { extra buttons, e.g. product switch }"
+    },
+    "ToolHeader": {
+      "role": "appbar",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.tnt.ToolHeader"
+    },
+    "ToolPage": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "sap.tnt.ToolPage { ToolHeader; HStack { SideNavigation; content } }"
+    },
+    "SideNavigation": {
+      "role": "sidebar",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.tnt.SideNavigation(selection:) { NavigationListItem … } footer: { fixed items }"
+    },
+    "NavigationList": {
+      "role": "group",
+      "doc": "sap.tnt.NavigationList"
+    },
+    "NavigationListItem": {
+      "role": "navitem",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.tnt.NavigationListItem(text, icon:) with nested items"
+    },
+    "FlexibleColumnLayout": {
+      "role": "split",
+      "defaults": {
+        "variant": "TwoColumnsMidExpanded"
+      },
+      "variants": [
+        "OneColumn",
+        "TwoColumnsBeginExpanded",
+        "TwoColumnsMidExpanded",
+        "ThreeColumnsMidExpanded",
+        "ThreeColumnsEndExpanded"
+      ],
+      "doc": "sap.f.FlexibleColumnLayout { begin } { mid } { end } as children; .layout(.TwoColumnsBeginExpanded)"
+    },
+    "SplitApp": {
+      "role": "split",
+      "doc": "sap.m.SplitApp: master + detail"
+    },
+    "SplitContainer": {
+      "role": "split",
+      "doc": "sap.m.SplitContainer"
+    },
+    "DynamicPage": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "sap.f.DynamicPage { DynamicPageTitle; DynamicPageHeader; content }"
+    },
+    "DynamicPageTitle": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "doc": "sap.f.DynamicPageTitle(heading, subtitle) { key info } actions: { buttons }"
+    },
+    "DynamicPageHeader": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch"
+      },
+      "doc": "sap.f.DynamicPageHeader: collapsible header content (filter bar, key facts)"
+    },
+    "FilterBar": {
+      "role": "toolbar",
+      "doc": "sap.ui.comp FilterBar: labelled filter fields + Go"
+    },
+    "VariantManagement": {
+      "role": "menu",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.ui.fl VariantManagement (“Standard ▾” title)"
+    },
+    "ObjectPageLayout": {
+      "role": "vstack",
+      "defaults": {
+        "alignment": "stretch",
+        "spacing": 0
+      },
+      "doc": "sap.uxap.ObjectPageLayout { ObjectPageHeader; AnchorBar; ObjectPageSection … }"
+    },
+    "ObjectPageHeader": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "doc": "sap.uxap.ObjectPageDynamicHeaderTitle(title, subtitle, avatar:) { header facts } actions: { … }"
+    },
+    "ObjectPageDynamicHeaderTitle": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "doc": "alias of ObjectPageHeader"
+    },
+    "AnchorBar": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "doc": "sap.uxap.AnchorBar(items: [section titles], selection:)"
+    },
+    "ObjectPageSection": {
+      "role": "section",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.uxap.ObjectPageSection(title) { content }"
+    },
+    "ObjectPageSubSection": {
+      "role": "section",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.uxap.ObjectPageSubSection"
+    },
+    "IconTabBar": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "doc": "sap.m.IconTabBar(selection:) { IconTabFilter(…) }"
+    },
+    "IconTabFilter": {
+      "role": "tab",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.IconTabFilter(text, icon:) { content }; .count(12)"
+    },
+    "TabContainer": {
+      "role": "tabs",
+      "params": [
+        "items"
+      ],
+      "doc": "sap.m.TabContainer"
+    },
+    "TabContainerItem": {
+      "role": "tab",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.TabContainerItem"
+    },
+    "Breadcrumbs": {
+      "role": "breadcrumb",
+      "params": [
+        "items"
+      ],
+      "doc": "sap.m.Breadcrumbs(items: [..., current])"
+    },
+    "Wizard": {
+      "role": "tabs",
+      "doc": "sap.m.Wizard(selection: 1) { WizardStep(title) { content } … }: numbered progress navigator"
+    },
+    "WizardStep": {
+      "role": "tab",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.WizardStep(title) { content }"
+    },
+    "Carousel": {
+      "role": "scroll",
+      "defaults": {
+        "axes": "horizontal"
+      },
+      "doc": "sap.m.Carousel { Image(…) … }: first page + page indicator"
+    },
+    "ProductSwitch": {
+      "role": "grid",
+      "defaults": {
+        "columns": 4
+      },
+      "doc": "sap.f.ProductSwitch { ProductSwitchItem(title, icon:) }"
+    },
+    "ProductSwitchItem": {
+      "role": "button",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.f.ProductSwitchItem"
+    },
+    "List": {
+      "role": "list",
+      "doc": "sap.m.List(header:) { StandardListItem … }"
+    },
+    "StandardListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.StandardListItem(title, description:, icon:, info:, status:, count:); .type(.Navigation)"
+    },
+    "ObjectListItem": {
+      "role": "listitem",
+      "params": [
+        "title",
+        "detail"
+      ],
+      "doc": "sap.m.ObjectListItem(title, number) { ObjectAttribute; ObjectStatus }"
+    },
+    "CustomListItem": {
+      "role": "listitem",
+      "doc": "sap.m.CustomListItem { any content }"
+    },
+    "InputListItem": {
+      "role": "listitem",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.m.InputListItem(label) { control }"
+    },
+    "ActionListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.ActionListItem: centered action text"
+    },
+    "DisplayListItem": {
+      "role": "listitem",
+      "params": [
+        "label",
+        "detail"
+      ],
+      "doc": "sap.m.DisplayListItem(label, value)"
+    },
+    "GroupHeaderListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.GroupHeaderListItem"
+    },
+    "NotificationListItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.NotificationListItem(title, description:, avatar:, detail: time, status: .Error)"
+    },
+    "FeedListItem": {
+      "role": "listitem",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "doc": "sap.m.FeedListItem(sender, text, avatar:, detail: timestamp)"
+    },
+    "MessageItem": {
+      "role": "listitem",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.MessageItem(title, subtitle:, icon:, status:)"
+    },
+    "Table": {
+      "role": "table",
+      "doc": "sap.m.Table(selectable:) { Column(…) … ColumnListItem { cells } } header: { OverflowToolbar }"
+    },
+    "Column": {
+      "role": "tablecolumn",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.Column(header text, alignment: .End)"
+    },
+    "ColumnListItem": {
+      "role": "tablerow",
+      "doc": "sap.m.ColumnListItem { cells }"
+    },
+    "Panel": {
+      "role": "accordion",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "expanded": true
+      },
+      "doc": "sap.m.Panel(headerText, expanded:)"
+    },
+    "Card": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "doc": "sap.f.Card(title, subtitle, icon:, status:) { content }"
+    },
+    "GenericTile": {
+      "role": "card",
+      "params": [
+        "title",
+        "subtitle"
+      ],
+      "variants": [
+        "TileContent",
+        "ActionMode",
+        "ArticleMode"
+      ],
+      "doc": "sap.m.GenericTile(header, subheader, icon:) { TileContent(footer:) { NumericContent } }; .frameType(.TwoByOne)"
+    },
+    "TileContent": {
+      "role": "section",
+      "params": [
+        "footer"
+      ],
+      "doc": "sap.m.TileContent(footer, unit:) { NumericContent }"
+    },
+    "NumericContent": {
+      "role": "labeled",
+      "params": [
+        "value",
+        "label"
+      ],
+      "doc": "sap.m.NumericContent(value, scale, color: .Good|.Critical|.Error); .indicator(.Up)"
+    },
+    "SimpleForm": {
+      "role": "form",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.ui.layout.form.SimpleForm(title) { Title; Label; Input … }: labels at the start on desktop"
+    },
+    "Form": {
+      "role": "form",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.ui.layout.form.Form { FormContainer { FormElement } }"
+    },
+    "FormContainer": {
+      "role": "section",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.ui.layout.form.FormContainer"
+    },
+    "FormElement": {
+      "role": "labeled",
+      "params": [
+        "label"
+      ],
+      "doc": "sap.ui.layout.form.FormElement(label) { fields }"
+    },
+    "Dialog": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.Dialog(title, state:, buttons: [...]) { content } actions: { buttons }"
+    },
+    "MessageBox": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "doc": "sap.m.MessageBox(title, message:, state: .Error|.Warning|.Success|.Information, icon:, buttons:)"
+    },
+    "Popover": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "popover"
+      },
+      "doc": "sap.m.Popover"
+    },
+    "ResponsivePopover": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "popover"
+      },
+      "doc": "sap.m.ResponsivePopover"
+    },
+    "MessagePopover": {
+      "role": "dialog",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "variant": "popover"
+      },
+      "doc": "sap.m.MessagePopover { MessageItem … }"
+    },
+    "MessageToast": {
+      "role": "toast",
+      "params": [
+        "message"
+      ],
+      "doc": "sap.m.MessageToast(\"Saved\")"
+    },
+    "MessageStrip": {
+      "role": "alert",
+      "params": [
+        "text"
+      ],
+      "doc": "sap.m.MessageStrip(text, type: .Information|.Success|.Warning|.Error, showCloseButton:)"
+    },
+    "IllustratedMessage": {
+      "role": "dropzone",
+      "params": [
+        "title"
+      ],
+      "defaults": {
+        "icon": "sap-icon://search"
+      },
+      "doc": "sap.m.IllustratedMessage(title, description:, icon:) { additional buttons }"
+    }
+  }
+}
