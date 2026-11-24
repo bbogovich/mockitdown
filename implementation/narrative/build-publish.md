@@ -72,9 +72,9 @@ deploys them with `actions/deploy-pages`.
 ---
 
 <small style="opacity:.55">You have read the documentation to its last page. Thank you — here is
-something not in any menu: [a starship console](../../demos/eggs/lcars/),
-[a green-screen ship computer](../../demos/eggs/phosphor/) and
-[a holographic heads-up display](../../demos/eggs/hologram/).</small>
+something not in any menu: [a starship console](../demos/eggs/lcars/),
+[a green-screen ship computer](../demos/eggs/phosphor/) and
+[a holographic heads-up display](../demos/eggs/hologram/).</small>
 
 ## Revision history
 
