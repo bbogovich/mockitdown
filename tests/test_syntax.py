@@ -30,6 +30,10 @@ class SyntaxTests(unittest.TestCase):
         call = m.statements[0].expr
         self.assertEqual([lab for lab, _ in call.trailing], [None, "label"])
 
+    def test_labeled_closure_without_unlabeled_first(self):
+        call = parse('Banner("x") actions: { Button("Undo") }').statements[0].expr
+        self.assertEqual([lab for lab, _ in call.trailing], ["actions"])
+
     def test_closure_params_and_interpolation(self):
         m = parse('ForEach(["a"]) { name in Text("Hi \\(name)!") }')
         closure = m.statements[0].expr.trailing[0][1]

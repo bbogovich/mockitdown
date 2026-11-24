@@ -1,0 +1,107 @@
+// Reusable GTK 4 / libadwaita building blocks for the gtk pack page.
+// Import with:  import "gtk/widgets"
+
+import Adwaita
+
+/// A GNOME Settings sidebar entry: symbolic icon + label, optionally selected.
+struct PanelItem: View {
+  var label: String
+  var icon: String
+  var selected: Bool = false
+
+  var body: some View {
+    SidebarItem(label, icon: icon, selected: selected)
+  }
+}
+
+/// An ActionRow that opens a sub-page: title, optional subtitle and value, and a go-next arrow.
+struct NavRow: View {
+  var title: String
+  var subtitle: String = ""
+  var value: String = ""
+  var icon: String = ""
+
+  var body: some View {
+    ActionRow(title, subtitle: subtitle, icon: icon, detail: value, chevron: true)
+  }
+}
+
+/// A Nautilus icon-view item: a large folder or file glyph above a two-line name.
+struct FileItem: View {
+  var name: String
+  var folder: Bool = true
+  var icon: String = "doc"
+  var selected: Bool = false
+
+  var body: some View {
+    VStack(spacing: 6) {
+      Image(systemName: folder ? "folder" : icon)
+        .font(.system(size: 64))
+        .class(folder ? "folder-icon" : "file-icon")
+      Label(name).multilineTextAlignment(.center).lineLimit(2)
+        .padding(.horizontal, 6)
+        .background(selected ? .accent : .clear)
+        .foregroundStyle(selected ? .white : .primary)
+        .cornerRadius(6)
+    }
+    .padding(8)
+    .frame(width: 112)
+  }
+}
+
+/// A System Monitor sidebar row: resource name, a level bar and the current reading.
+struct ResourceRow: View {
+  var name: String
+  var reading: String
+  var level: Double
+  var color: Color = .blue
+  var selected: Bool = false
+
+  var body: some View {
+    ListBoxRow(selected: selected) {
+      VStack(alignment: .leading, spacing: 6) {
+        HStack {
+          Label(name, style: .heading)
+          Spacer()
+          Label(reading, style: .caption).class("dim-label numeric")
+        }
+        Sparkline(values: [0.3, 0.5, 0.4, 0.7, 0.6, level, level * 0.9, level], height: 28).tint(color)
+      }
+      .frame(maxWidth: .infinity)
+    }
+  }
+}
+
+/// A Clocks alarm: large time, a caption with the repeat days, and a switch.
+struct AlarmRow: View {
+  var time: String
+  var days: String
+  var active: Bool = true
+
+  var body: some View {
+    ListBoxRow {
+      HStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 0) {
+          Label(time, style: .title1).class("numeric")
+          Label(days, style: .caption).class("dim-label")
+        }
+        Spacer()
+        Switch(active: active)
+      }
+      .frame(maxWidth: .infinity)
+    }
+  }
+}
+
+/// A GNOME Software update row: app icon, name, version change and download size.
+struct UpdateRow: View {
+  var app: String
+  var version: String
+  var size: String
+  var icon: String = "app"
+  var tint: Color = .blue
+
+  var body: some View {
+    ActionRow(app, subtitle: version, icon: icon, iconColor: tint, detail: size)
+  }
+}

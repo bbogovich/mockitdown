@@ -376,6 +376,11 @@ class Parser:
             return call
         if self.at("LBRACE"):
             call.trailing.append((None, self.parse_closure()))
+        elif (self.peek().kind in ("IDENT", "KEYWORD") and self.at("COLON", k=1) and self.at("LBRACE", k=2)):
+            # Only labelled closures, on the same line: `Banner("x") actions: { … }`
+            label = self.next().value
+            self.next()
+            call.trailing.append((label, self.parse_closure()))
         # Labeled trailing closures: `} label: { ... }`, possibly on following lines.
         while call.trailing:
             k = 0

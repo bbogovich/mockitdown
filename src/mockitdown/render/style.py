@@ -315,6 +315,7 @@ class StyleBuilder:
         if c:
             style["--mkd-accent"] = c
             style["--mkd-accent-soft"] = f"color-mix(in srgb, {c} 16%, transparent)"
+            style["--mkd-chart-1"] = c  # a tinted chart draws its first series in the tint
 
     _m_accentColor = _m_tint
 
