@@ -1,0 +1,53 @@
+// Shared, pack-neutral components for the example site. They use only core vocabulary
+// (stacks, Text, Image, Badge, ProgressView), so every pack can import them.
+
+/// A key-figure tile: label, value, change badge and an optional sparkline.
+struct KPI: View {
+  var label: String
+  var value: String
+  var change: String = ""
+  var positive: Bool = true
+  var trend: [Double] = []
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 6) {
+      Text(label).font(.footnote).foregroundStyle(.secondary)
+      HStack(alignment: .firstTextBaseline) {
+        Text(value).font(.title2)
+        Spacer()
+        if change != "" {
+          Badge(change).color(positive ? .success : .error).variant(.soft)
+        }
+      }
+      if trend.count > 0 {
+        Chart(kind: .sparkline, values: trend, height: 32)
+      }
+    }
+    .padding(14)
+    .frame(maxWidth: .infinity)
+    .background(.surface)
+    .border(.separator)
+    .cornerRadius(10)
+  }
+}
+
+/// A person row with avatar, name, role and trailing content (e.g. a button or badge).
+struct PersonRow: View {
+  var name: String
+  var role: String
+  var photo: String = ""
+  @ViewBuilder var trailing: Content
+
+  var body: some View {
+    HStack(spacing: 12) {
+      Avatar(name, image: photo)
+      VStack(alignment: .leading, spacing: 2) {
+        Text(name).font(.headline)
+        Text(role).font(.footnote).foregroundStyle(.secondary)
+      }
+      Spacer()
+      trailing
+    }
+    .padding(.vertical, 6)
+  }
+}

@@ -540,6 +540,7 @@ class Renderer:
         style = {}
         if (length := u(_num(v.attr("height")))) is not None:
             style["height"] = length
+            style["min-height"] = "0"
         all_series = [list(values)] if values else []
         if isinstance(series, list) and series and isinstance(series[0], list):
             all_series = [[_num(x, 0) for x in s] for s in series]
@@ -563,9 +564,12 @@ class Renderer:
                     for i, lab in enumerate(labels)) + "</div>"
         elif kind in ("line", "area", "sparkline"):
             polys = []
+            lo = 0.0 if _bool(v.attr("fromZero")) else min(nums)
+            span = (top - lo) or 1.0
             for si, s in enumerate(all_series):
                 n = max(len(s) - 1, 1)
-                pts = " ".join(f"{i / n * 100:.2f},{40 - (_num(x, 0) or 0) / top * 36:.2f}" for i, x in enumerate(s))
+                pts = " ".join(f"{i / n * 100:.2f},{38 - ((_num(x, 0) or 0) - lo) / span * 34:.2f}"
+                               for i, x in enumerate(s))
                 if kind == "area":
                     polys.append(f'<polygon class="mkd-chart__area" points="0,40 {pts} 100,40" '
                                  f'style="fill:var(--mkd-chart-{si % 6 + 1})"/>')

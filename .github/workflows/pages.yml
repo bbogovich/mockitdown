@@ -1,0 +1,49 @@
+# Publishes GitHub Pages: the documentation site (docs branch) at /, the example site at /examples/.
+# Runs the tests first; the example site build is itself a test (strict mockitdown errors fail it).
+name: pages
+on:
+  push:
+    branches: [main, docs]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency: { group: pages, cancel-in-progress: true }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main, path: main }
+      - uses: actions/checkout@v4
+        with: { ref: docs, path: docs }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install
+        run: |
+          python -m pip install -e "main[markdown]"
+          python -m pip install -r main/examples/site/requirements.txt -r docs/requirements.txt
+      - name: Test
+        working-directory: main
+        run: python -m unittest discover -s tests -t .
+      - name: Build documentation (docs branch)
+        working-directory: docs
+        run: zensical build --clean
+      - name: Build example site
+        working-directory: main/examples/site
+        run: zensical build --clean
+      - name: Assemble
+        run: |
+          mkdir -p public
+          cp -R docs/site/. public/
+          mkdir -p public/examples && cp -R main/examples/site/site/. public/examples/
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: public }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: "${{ steps.deployment.outputs.page_url }}" }
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
