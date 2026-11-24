@@ -446,6 +446,8 @@ class Evaluator:
     def _apply_modifier(self, member: A.Member, call: A.Call, env: Env) -> list[View]:
         targets = self.views(member.base, env)
         name = member.name
+        if name in vocabulary.IGNORED and name not in self.pack.modifiers:
+            return targets  # behaviour only (.onTapGesture { … }): its closures are never evaluated
         args: list[object] = []
         kwargs: dict[str, object] = {}
         for arg in call.args:

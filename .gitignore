@@ -42,3 +42,6 @@ dist/
 # example site build output
 examples/site/site/
 *.png.html
+
+# Zensical render cache
+.cache/

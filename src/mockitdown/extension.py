@@ -94,7 +94,7 @@ class MockitdownExtension(Extension):
         opts = RenderOptions(
             default_pack=str(c["default_pack"]),
             default_appearance=appearance,
-            device=str(c["default_device"]) or None,
+            default_device=str(c["default_device"]) or None,
             import_paths=tuple(Path(p) for p in _as_list(c["import_paths"])),
             asset_paths=tuple(Path(p) for p in _as_list(c["asset_paths"])),
             pack_paths=tuple(Path(p) for p in _as_list(c["pack_paths"])),

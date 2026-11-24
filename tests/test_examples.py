@@ -98,9 +98,13 @@ class CssInjectionTests(unittest.TestCase):
 class ZensicalBuildTests(unittest.TestCase):
     def test_site_builds(self):
         exe = os.environ.get("ZENSICAL") or shutil.which("zensical")
+        shutil.rmtree(SITE / ".cache", ignore_errors=True)
         proc = subprocess.run([exe, "build", "--clean"], cwd=SITE, capture_output=True, text=True, timeout=600)
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-        self.assertTrue((SITE / "site" / "index.html").exists())
+        tour = (SITE / "site" / "tour" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("<title>Language tour", tour)  # no CSS leaked into titles / heading ids
+        self.assertEqual(tour.count("<style data-mockitdown"), 1)
+        self.assertIn("calc(16 * var(--u))", tour)
 
 
 if __name__ == "__main__":

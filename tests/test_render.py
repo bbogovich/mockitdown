@@ -75,6 +75,12 @@ class EvaluateRenderTests(unittest.TestCase):
         self.assertIn('data-device="desktop"', out)
         self.assertIn('data-appearance="dark"', out)
 
+    def test_spec_deviations_fixed(self):
+        out = html('let p = ("a", "b")\nText(p.1).onTapGesture { undefinedThing.toggle() }')
+        self.assertIn(">b<", out)
+        out = html('@Screen(device: .phone)\nText("x")', default_device="desktop")
+        self.assertIn('data-device="phone"', out)
+
     def test_elements_table(self):
         out = html('Button("Go").id("go").ref("UC-1")', elements=True)
         self.assertIn('<table class="mkd-elements">', out)

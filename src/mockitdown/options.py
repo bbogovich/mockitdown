@@ -31,6 +31,8 @@ class RenderOptions:
     #: Pack used when neither the options nor the source name one.
     default_pack: str = "base"
     device: str | None = None
+    #: Device used when neither the options nor @Screen(device:) name one (before the pack's default).
+    default_device: str | None = None
     #: light | dark | auto (follow the page) | both (side by side). None: the source's or the default.
     appearance: str | None = None
     default_appearance: str = "light"

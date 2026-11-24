@@ -327,6 +327,11 @@ class Parser:
     def parse_postfix(self, expr: A.Node, no_trailing: bool) -> A.Node:
         while True:
             t = self.peek()
+            if t.kind == "DOT" and self.peek(1).kind == "NUMBER" and isinstance(self.peek(1).value, int):
+                self.next()  # tuple element: pair.0
+                num = self.next()
+                expr = A.Member(expr, str(num.value), num.location)
+                continue
             if t.kind == "DOT" and self.peek(1).kind in ("IDENT", "KEYWORD"):
                 self.next()
                 name = self.next()

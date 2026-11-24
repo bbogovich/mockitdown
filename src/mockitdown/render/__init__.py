@@ -27,7 +27,8 @@ __all__ = ["render_screen", "Renderer"]
 
 
 def _resolve_device(screen: Screen, opts: RenderOptions, diags: Diagnostics) -> tuple[str, tuple[int, int] | None]:
-    device = opts.device or (str(screen.meta["device"]) if screen.meta.get("device") else None) or screen.pack.device
+    device = (opts.device or (str(screen.meta["device"]) if screen.meta.get("device") else None)
+              or opts.default_device or screen.pack.device)
     if device == "fit":
         return "fit", None
     if opts.width and opts.height:
