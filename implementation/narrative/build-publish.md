@@ -57,7 +57,7 @@ it when a rebuild seems not to pick up a mockitdown upgrade.
 ## Example site
 
 ```sh
-cd mockitdown/demos/site
+cd mockitdown/examples/site
 ../../.venv/bin/zensical build --clean
 ```
 

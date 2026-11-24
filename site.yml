@@ -56,7 +56,7 @@ markdown_extensions:
           validator: !!python/name:mockitdown.fence.validate
 
 nav:
-  - Demos: definition/demos.md
+  - Demos: https://bbogovich.github.io/mockitdown/demos/
   - Definition:
       - Overview: definition/index.md
       - Problem, users and scope: definition/overview.md
