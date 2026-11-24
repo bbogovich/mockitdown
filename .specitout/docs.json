@@ -1,0 +1,175 @@
+{
+  "docs": "docs",
+  "site": "site.yml",
+  "tiers": {
+    "definition": {
+      "title": "mockitdown Definition",
+      "source": "definition",
+      "docs_prefix": "definition/",
+      "page_version_key": "def_version",
+      "joiner": "\n\n",
+      "external_prefixes": [
+        "A-",
+        "ADR-",
+        "M-",
+        "R-",
+        "SRC-",
+        "TC-"
+      ],
+      "collections": {
+        "requirements": {
+          "dir": "features",
+          "file": "requirement.md",
+          "heading": "### {id} \u00b7 {alias} \u2014 {title}",
+          "render_files": [
+            "usecases/*.md"
+          ],
+          "template": {
+            "clauses": [
+              [
+                "G1",
+                "TODO \u2014 the problem or goal, one sentence"
+              ],
+              [
+                "C1",
+                "TODO \u2014 one capability per clause"
+              ],
+              [
+                "AC1",
+                "TODO \u2014 an acceptance criterion: what is observably true when done"
+              ]
+            ],
+            "prose": "**Problem.** TODO\n\n**Change.** TODO\n"
+          }
+        },
+        "design": {
+          "dir": "design",
+          "file": "design.md",
+          "heading": "#### {id} \u2014 {title}",
+          "render": "clauses",
+          "render_files": [
+            "layout.md"
+          ],
+          "template": {
+            "clauses": [
+              [
+                "E1",
+                "name: kind \u2014 TODO element"
+              ],
+              [
+                "S1",
+                "state TODO: condition \u2192 what is shown"
+              ],
+              [
+                "I1",
+                "TODO: event \u2192 effect"
+              ]
+            ],
+            "prose": "TODO \u2014 what this design object is for.\n"
+          }
+        }
+      }
+    },
+    "specification": {
+      "title": "mockitdown Specification",
+      "source": "specification",
+      "docs_prefix": "specification/",
+      "page_version_key": "spec_version",
+      "collections": {
+        "requirements": {
+          "dir": "requirements",
+          "file": "requirement.md",
+          "heading": "### {id} \u2014 {title}"
+        },
+        "architecture": {
+          "dir": "architecture",
+          "file": "element.md",
+          "heading": "#### {id} \u2014 {title}",
+          "template": {
+            "clauses": [
+              [
+                "P1",
+                "provides: TODO \u2014 an interface this element offers"
+              ],
+              [
+                "U1",
+                "uses A-XXX-n \u2014 TODO"
+              ],
+              [
+                "K1",
+                "TODO \u2014 a constraint, RFC 2119 keyword"
+              ]
+            ],
+            "prose": "TODO \u2014 what this element is for and how it fits.\n"
+          },
+          "render": "clauses"
+        },
+        "model": {
+          "dir": "model",
+          "file": "entity.md",
+          "heading": "#### {id} \u2014 {title}",
+          "template": {
+            "clauses": [
+              [
+                "F1",
+                "name: type \u00b7 key \u2014 TODO"
+              ],
+              [
+                "R1",
+                "rel: \u2192 M-XXX-n (0..*) \u2014 TODO"
+              ],
+              [
+                "I1",
+                "TODO \u2014 an invariant, RFC 2119 keyword"
+              ]
+            ],
+            "prose": "TODO \u2014 what this entity represents.\n"
+          },
+          "render": "clauses"
+        },
+        "decisions": {
+          "dir": "decisions",
+          "file": "decision.md",
+          "heading": "#### {id} \u2014 {title}",
+          "template": {
+            "clauses": [
+              [
+                "D1",
+                "TODO \u2014 the decision, one sentence"
+              ],
+              [
+                "O1",
+                "rejected: TODO \u2014 an alternative and why not"
+              ]
+            ],
+            "prose": "**Context.** TODO\n\n**Decision.** TODO\n\n**Consequences.** TODO\n"
+          },
+          "render": "clauses"
+        }
+      },
+      "external_prefixes": [
+        "F-",
+        "SRC-",
+        "UC-",
+        "UX-"
+      ]
+    },
+    "implementation": {
+      "title": "mockitdown Implementation",
+      "source": "implementation",
+      "docs_prefix": "implementation/",
+      "page_version_key": "impl_version",
+      "collections": {}
+    }
+  },
+  "ledger": {
+    "dir": "implementation/ledger",
+    "spec": ".",
+    "spec_tier": "specification",
+    "collections": [
+      "requirements"
+    ],
+    "site": "implementation/narrative",
+    "costs": "implementation/costs/costs.jsonl"
+  }
+}
