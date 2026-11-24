@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.2.0
+spec_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: ADR.2
@@ -174,8 +174,29 @@ replaced by site assets or by design (ADR-3).
 | C2 | The sites keep `mkdocs.yml` (Zensical reads it) and a `requirements.txt` naming Zensical. |
 | C3 | Zensical is pre-1.0; the build is re-verified when it is upgraded. |
 
+---
+
+#### ADR-16 — Retro and easter-egg packs are original homages
+
+**Context.** SRC-5 asks for retro packs and sci-fi easter eggs.
+
+**Decision.** Homage, not reproduction.
+
+**Consequences.** Approximate fonts; invented content.
+
+**Constrains.** R-PACK-008, R-PACK-010
+
+| | Statement |
+|---|---|
+| D1 | Retro packs (Macintosh System 1–6, Lisa, Mac OS 9, Apple IIgs GS/OS, Xerox Star, Windows 2.x, Windows 3.1.1, Windows XP, Windows Vista, Solaris CDE) imitate the look of historical systems with system fonts and CSS only, invented application content and neutral glyphs in place of trademarked logos. |
+| D2 | Science-fiction packs (lcars, phosphor, hologram) are hidden easter eggs and original homages to screen-design genres: no franchise names, logos, ship or character names or copied screens. |
+| O1 | rejected: bundling period fonts or bitmaps — licensing and offline-build constraints (ADR-5). |
+| C1 | Fidelity is limited by the fonts installed on the reader's machine. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

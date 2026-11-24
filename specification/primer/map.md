@@ -25,6 +25,8 @@ ADR-11 | decisions | active | 0.2.0 r0 | ADR.2 | An original icon set with frame
 ADR-12 | decisions | active | 0.2.0 r0 | ADR.2 | Zero runtime dependencies in the core; Python 3.11 or later
 ADR-13 | decisions | active | 0.2.0 r0 | ADR.2 | The shipped packs
 ADR-14 | decisions | active | 0.2.0 r0 | ADR.2 | Documentation sites build with Zensical
+ADR-15 | decisions | active | 0.3.0 r0 | ADR.1 | Annotation marks use CSS anchor positioning with an inline fallback
+ADR-16 | decisions | active | 0.3.0 r0 | ADR.2 | Retro and easter-egg packs are original homages
 ADR-2 | decisions | active | 0.2.0 r0 | ADR.1 | The notation is a declarative subset of Swift and SwiftUI
 ADR-3 | decisions | active | 0.2.0 r0 | ADR.1 | Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
 ADR-4 | decisions | active | 0.2.0 r0 | ADR.1 | Packs are data mapped onto a fixed set of render roles
@@ -43,6 +45,10 @@ M-VIEW-1 | model | active | 0.2.0 r0 | MODEL.1 | View
 M-VIEW-2 | model | active | 0.2.0 r0 | MODEL.1 | Modifier
 M-VIEW-3 | model | active | 0.2.0 r0 | MODEL.1 | Screen
 M-VIEW-4 | model | active | 0.2.0 r0 | MODEL.1 | Value
+R-ANN-001 | requirements | active | 0.3.0 r0 | ANN.1 | Numbered callouts
+R-ANN-002 | requirements | active | 0.3.0 r0 | ANN.1 | Pointers, selections, highlights and taps
+R-ANN-003 | requirements | active | 0.3.0 r0 | ANN.1 | Overlay placement and free positioning
+R-ANN-004 | requirements | active | 0.3.0 r0 | ANN.1 | Callout references in prose
 R-API-001 | requirements | active | 0.2.0 r0 | API.1 | render
 R-API-002 | requirements | active | 0.2.0 r0 | API.1 | check, evaluate and stylesheet
 R-API-003 | requirements | active | 0.2.0 r0 | API.1 | Render options
@@ -67,6 +73,7 @@ R-DEV-003 | requirements | active | 0.2.0 r0 | REND.2 | Frame unit scaling
 R-DEV-004 | requirements | active | 0.2.0 r0 | REND.2 | Length rewriting
 R-DEV-005 | requirements | active | 0.2.0 r0 | REND.2 | Device chrome
 R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host page
+R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
 R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
 R-DIAG-003 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic codes
@@ -111,8 +118,10 @@ R-PACK-004 | requirements | active | 0.2.0 r0 | PACK.1 | Element definitions
 R-PACK-005 | requirements | active | 0.2.0 r0 | PACK.1 | Pack selection
 R-PACK-006 | requirements | active | 0.2.0 r0 | PACK.1 | Design tokens
 R-PACK-007 | requirements | active | 0.2.0 r0 | PACK.1 | Pack stylesheet rules
-R-PACK-008 | requirements | active | 0.2.0 r0 | PACK.1 | Shipped packs
+R-PACK-008 | requirements | active | 0.3.0 r1 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.2.0 r0 | PACK.1 | The core vocabulary
+R-PACK-010 | requirements | active | 0.3.0 r0 | PACK.1 | Hidden packs
+R-PACK-011 | requirements | active | 0.3.0 r0 | PACK.1 | Argument aliases
 R-REND-001 | requirements | active | 0.2.0 r0 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.2.0 r0 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.2.0 r0 | REND.1 | Attributes on the markup
@@ -123,3 +132,5 @@ R-REND-007 | requirements | active | 0.2.0 r0 | REND.1 | Static, deterministic o
 R-REND-008 | requirements | active | 0.2.0 r0 | REND.1 | Unknown elements and roles
 R-REND-009 | requirements | active | 0.2.0 r0 | REND.1 | Presentations and navigation composition
 R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and source disclosure
+R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
+R-REND-012 | requirements | active | 0.3.0 r0 | REND.2 | Charts

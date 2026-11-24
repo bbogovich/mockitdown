@@ -1,6 +1,6 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.2.0
+def_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: FEAT.2
@@ -131,8 +131,14 @@ language tour and a custom-components page, all checked by the test suite.
 **Outcome:** the developer sees simple controls, forms, lists, navigation and complete screens in
 that framework's style, each with its source.
 
+### F-15 — Annotations and overlays
+
+Manuals and design specifications explain screens by numbering their parts. mockitdown draws those numbers, pointers and selections as part of the mockup so they move with the layout.
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

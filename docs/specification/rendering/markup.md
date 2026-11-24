@@ -1,6 +1,6 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.2.0
+spec_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: REND.1
@@ -211,6 +211,20 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_elements_table`.
 | C3 | When the `source` option is on, the library API MUST append `details.mkd-source` with the summary `Source` and the block's source, trimmed and escaped, in `pre > code.language-swift`. |
 | V1 | A block with `.id("total")` and `.id("place-order").ref("UC-CHK-3")` and `elements="true"` renders a two-row table; the second row's Refs cell is `UC-CHK-3`. |
 
+---
+
+### R-DEV-007 — Additional chrome kinds
+
+Retro systems each drew their own window frame; a generic frame whose parts a pack switches on avoids a chrome kind per system.
+
+**Realizes.** F-10
+
+| | Statement |
+|---|---|
+| C1 | The chrome kinds MUST include, besides those of R-DEV-004, `gnome` (no title bar: a GNOME app draws its own header bar), `kde` (Breeze title bar), `win31` (Windows 3.1 caption with control-menu box and arrow buttons) and `window`. |
+| C2 | The `window` chrome MUST render a generic title bar with a leading group (close, menu buttons), the title, a trailing group (help, minimise, maximise, zoom, collapse, close buttons) and a bottom status strip (grow box), all controls hidden by default, so a pack can show and draw the controls its system had. |
+| V1 | A pack whose desktop chrome is `window` renders `.mkd-chrome--window` with its title. |
+
 ## Annotated example
 
 The block
@@ -252,4 +266,6 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

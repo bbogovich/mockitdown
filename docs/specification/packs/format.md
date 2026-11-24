@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.2.0
+spec_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: PACK.1
@@ -176,17 +176,20 @@ Bootstrap and shadcn/ui are the proposed additions, covering the most common non
 styles. Ant Design is proposed next (ADR-13). The element catalogue of each pack is on the
 [Pack catalogue](catalogue.md) page.
 
+The platform packs added in 0.3 widen coverage to Android and the Linux desktops (SRC-4); the retro packs serve enthusiasts and historical documentation (SRC-5); the easter eggs reward readers who reach the end of the documentation.
+
 **Realizes.** F-3 · **Decisions.** ADR-13
 
 | | Statement |
 |---|---|
-| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3) and `shadcn` (shadcn/ui). |
+| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3), `shadcn` (shadcn/ui), `android` (Jetpack Compose Material 3), `gtk` (GTK 4 with libadwaita), `qt` (Qt 6 Widgets, Fusion) and `kde-plasma` (KDE Plasma 6, Breeze). |
+| C7 | mockitdown MUST ship the retro packs `mac-classic` (Macintosh System 1–6), `lisa` (Lisa Office System), `macos9` (Mac OS 9, Platinum), `gsos` (Apple IIgs GS/OS), `xerox-star` (Xerox Star), `win2` (Windows 2.x), `win31` (Windows 3.1.1), `winxp` (Windows XP, Luna), `vista` (Windows Vista, Aero) and `cde` (Solaris CDE), and the hidden easter-egg packs `lcars`, `phosphor` and `hologram` (R-PACK-010, ADR-16). |
 | C2 | Every shipped pack other than `base` MUST extend `base` directly or indirectly, declare at least one import module, define light and dark tokens, and choose a default device and per-device chrome that match its platform. |
 | C3 | The `swiftui` pack MUST be selected by `import SwiftUI`. |
 | C4 | Each framework pack SHOULD define elements for as many of its framework's components as practical, under the framework's own names, with `doc` lines and documented `variants`. |
 | C5 | Each framework pack MUST map the framework's style modifiers or properties onto attributes its CSS styles (for example a button style onto `variant`), so that the same core elements take on the framework's variants. |
 | C6 | The pack's `framework` and `version` keys MUST name the imitated framework and the version whose design it follows. |
-| V1 | `mockitdown packs` lists the eight identifiers; the example site has one page per framework pack (F-14). |
+| V1 | `mockitdown packs` lists the framework and retro identifiers but not the hidden ones; the example site has one page per framework and retro pack and one hidden page per easter egg (F-14). |
 
 ---
 
@@ -204,6 +207,29 @@ which is what makes imported component libraries portable (F-4.C6).
 | C2 | The `base` pack MUST map the SwiftUI style modifiers `buttonStyle`, `listStyle`, `pickerStyle`, `toggleStyle`, `textFieldStyle`, `datePickerStyle`, `tabViewStyle`, `progressViewStyle`, `gaugeStyle`, `menuStyle`, `formStyle`, `groupBoxStyle` and `navigationSplitViewStyle` to the `variant` attribute, `controlSize` to `size`, `buttonBorderShape` to `shape`, `labelStyle` to `labelStyle`, and the generic modifiers `variant`, `size`, `severity`, `state`, `selected`, `disabled`, `badge`, `elevation`, `density`, `expanded`, `open` and `color` to the attribute of the same name. |
 | C3 | The `base` pack MUST declare the modules `Wireframe` and `Mockitdown`, default to the `desktop` device and draw no chrome. |
 | V1 | `mockitdown elements base` lists exactly the 90 core elements. |
+
+---
+
+### R-PACK-010 — Hidden packs
+
+Easter-egg packs reward readers of the documentation without cluttering the lists of real frameworks.
+
+| | Statement |
+|---|---|
+| C1 | A pack MAY declare `"hidden": true`; a hidden pack MUST work wherever it is named (fence `pack=`, `import`) and MUST be left out of `mockitdown packs` (unless `--all`) and of the generated catalogue. |
+| V1 | `mockitdown packs` does not list `lcars`; `pack="lcars"` renders. |
+
+---
+
+### R-PACK-011 — Argument aliases
+
+Frameworks spell the same idea differently (`PlaceholderText`, `placeholder`, `hint`); aliases let each pack accept its own framework's names.
+
+| | Statement |
+|---|---|
+| C1 | A pack MAY map argument labels onto attribute names with `attrs` (pack-wide) and an element MAY do so with its own `attrs`; the evaluator MUST apply the element map, then the pack map, to labelled arguments and to labelled trailing closures. |
+| C2 | A colour value naming no known colour MUST resolve to the pack token of the same name in kebab case (`.primaryContainer` → `var(--mkd-primary-container)`). |
+| V1 | In a pack mapping `placeholderText` to `placeholder`, `TextBox(placeholderText: "x")` shows the placeholder x. |
 
 ## Reference: `pack.json`
 
@@ -351,4 +377,6 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

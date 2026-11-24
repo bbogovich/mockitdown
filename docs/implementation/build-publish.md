@@ -57,7 +57,7 @@ it when a rebuild seems not to pick up a mockitdown upgrade.
 ## Example site
 
 ```sh
-cd mockitdown/examples/site
+cd mockitdown/demos/site
 ../../.venv/bin/zensical build --clean
 ```
 
@@ -65,13 +65,21 @@ cd mockitdown/examples/site
 
 `.github/workflows/pages.yml` runs on pushes to `main` and `docs`: it checks out both branches,
 installs mockitdown with the `markdown` extra and both sites' requirements, runs the tests, builds
-the documentation site (published at `/`) and the example site (published at `/examples/`), and
+the documentation site (published at `/`) and the example site (published at `/demos/`), and
 deploys them with `actions/deploy-pages`.
 
+
+---
+
+<small style="opacity:.55">You have read the documentation to its last page. Thank you — here is
+something not in any menu: [a starship console](../../demos/eggs/lcars/),
+[a green-screen ship computer](../../demos/eggs/phosphor/) and
+[a holographic heads-up display](../../demos/eggs/hologram/).</small>
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
+| 0.2.0 | 2026-11-24 | Demos published at /demos/; a reward for readers at the end |
 | 0.1.1 | 2026-11-24 | Docs site back on inline CSS |

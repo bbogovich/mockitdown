@@ -1,0 +1,1 @@
+Real applications are full of components no UI kit ships — spreadsheets, boards, editors, chat threads, schedules. They are part of the core vocabulary so a mockup of any app can show them, styled by whichever pack is in use. The example site's *Beyond the framework kits* page exercises every one.

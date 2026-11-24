@@ -55,6 +55,7 @@ markdown_extensions:
           validator: !!python/name:mockitdown.fence.validate
 
 nav:
+  - Demos: definition/demos.md
   - Definition:
       - Overview: definition/index.md
       - Problem, users and scope: definition/overview.md
@@ -78,6 +79,7 @@ nav:
           - Role catalogue: specification/rendering/roles.md
           - Markup and CSS contract: specification/rendering/css-contract.md
           - Appearance and devices: specification/rendering/appearance-devices.md
+          - Annotations and overlays: specification/rendering/annotations.md
       - Assets and icons: specification/assets.md
       - Component imports: specification/imports.md
       - Integration:

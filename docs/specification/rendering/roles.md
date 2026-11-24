@@ -8,7 +8,7 @@ page_id: REF.2
 
 # Role catalogue
 
-Every element renders through one of these **66 render roles** (R-REND-002). The role fixes the
+Every element renders through one of these **90 render roles** (R-REND-002). The role fixes the
 markup; packs map their element names onto roles (R-PACK-004) and restyle them with CSS. This
 catalogue is normative for the set of roles, their part classes and the attributes and slots each
 reads (R-REND-002.C5): adding a role, a part or an attribute is a specification change.
@@ -130,8 +130,16 @@ Not roles, but part of the contract:
 | `div.mkd-unknown`, `span.mkd-unknown__name` | unknown elements (R-REND-008) |
 | `svg.mkd-icon` | icons (R-ASSET-005) |
 
+## Roles added in 0.3
+
+spreadsheet, stickynote, board, boardcolumn, kanbancard, code, message, tree, treeitem, timeline,
+timelineitem, gantt, schedule, kbd, skeleton, swatches, canvas, media, emptystate, stat, map
+(R-REND-011); callout, pointer, marquee (R-ANN-001, R-ANN-002). The chart role gained fifteen kinds
+(R-REND-012).
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.3.0 | 2026-11-24 | Roles for non-standard components and annotations |

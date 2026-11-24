@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.2.1
+spec_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: REND.2
@@ -162,10 +162,49 @@ a list inside a mockup would gain the theme's bullets and margins.
 | C3 | All mockitdown CSS MUST be scoped to mockitdown classes, so it never restyles the host page. |
 | V1 | A mockup inside a Zensical page and the same mockup in `mockitdown render --standalone` output look the same. |
 
+---
+
+### R-REND-011 — Non-standard component roles
+
+Real applications are full of components no UI kit ships — spreadsheets, boards, editors, chat threads, schedules. They are part of the core vocabulary so a mockup of any app can show them, styled by whichever pack is in use. The example site's *Beyond the framework kits* page exercises every one.
+
+**Realizes.** F-8
+
+| | Statement |
+|---|---|
+| C1 | The renderer MUST provide the roles spreadsheet, stickynote, board, boardcolumn, kanbancard, code, message, tree, treeitem, timeline, timelineitem, gantt, schedule, kbd, skeleton, swatches, canvas, media, emptystate, stat and map, and the base pack MUST name them Spreadsheet, StickyNote, Board, BoardColumn, KanbanCard, CodeEditor, CodeBlock, Terminal, MessageBubble, Comment, Tree, TreeItem, Timeline, TimelineItem, Gantt, Schedule, Kbd, Skeleton, ColorSwatches, Canvas, Whiteboard, VideoPlayer, EmptyState, Stat and Map, so every pack inherits them. |
+| C2 | The spreadsheet role MUST draw column letters and row numbers, cell values from `rows:` (numbers right-aligned), the range named by `selection:` (A1 notation) with a border and tint and its row and column headers marked, the cell named by `active:`, a formula bar when `formula:` is given, cell fills from `highlight:` and sheet tabs from `sheets:`. |
+| C3 | The code role MUST draw one line per source line with optional line numbers, the lines listed in `highlight:` marked, and keyword, string, number, comment, function and type spans for the languages swift, js/ts, python, go, rust, json, sql, shell and html; with `variant: terminal` it MUST draw a terminal window in which lines starting with a prompt are shown as commands. |
+| C4 | The gantt role MUST place each task `(name, start, length[, progress])` on a scale of `scale:` columns, draw a zero-length task as a milestone and draw `today:` as a vertical line; the schedule role MUST place each event `(title, day, start hour, end hour[, colour])` in its day column between `startHour` and `endHour` and draw `now:` as a horizontal line. |
+| C5 | The canvas role MUST be a positioned container in which children placed with `.position(x:y:)` (R-ANN-003) are laid out absolutely. |
+| C6 | Component roles MUST take their colours, radii and type from pack tokens so that every pack restyles them without new markup. |
+| V1 | `Spreadsheet(rows: [[1, 2]], selection: "A1:B1")` renders column headers A and B, row header 1, and both cells inside the selection. |
+| V2 | `Gantt(scale: ["W1","W2"], tasks: [("A", 0, 1), ("M", 1, 0)])` renders one bar and one milestone. |
+
+---
+
+### R-REND-012 — Charts
+
+Dashboards are among the most common mockup subjects. The chart engine draws the common chart types directly, so a mockup needs neither a chart library nor JavaScript, and charts follow the pack's palette in light and dark.
+
+**Realizes.** F-8
+
+| | Statement |
+|---|---|
+| C1 | The chart role MUST render inline SVG for the kinds bar (vertical, `horizontal`, grouped for several series, `stacked`), histogram, line, area (`stacked`), combo (bars with the last series as a line), sparkline, pie, donut, scatter, bubble, radar, heatmap, funnel, treemap, gauge and candlestick, selected by `kind:` or by the base elements BarChart, LineChart, AreaChart, PieChart, DonutChart, ScatterChart, BubbleChart, RadarChart, Heatmap, FunnelChart, Treemap, GaugeChart, CandlestickChart, Histogram, ComboChart and Sparkline. |
+| C2 | Data MUST be accepted as `values:` (one series), `series:` (several; with `seriesNames:` for the legend), `labels:` (categories), `points:` (scatter/bubble `[x, y, size]`, candlestick `[open, high, low, close]`) and `matrix:` (heatmap rows, with `yLabels:`); SwiftUI `Chart { BarMark(x: .value(…), y: .value(…)) … }` MUST be read as the equivalent bar, line, area, pie or scatter data. |
+| C3 | Cartesian charts MUST draw value-axis ticks at rounded intervals, grid lines (unless `grid: false`), category labels and optional axis titles (`xLabel:`, `yLabel:`); a legend MUST be drawn when there are several named series. |
+| C4 | Each series MUST be coloured with the pack token `--mkd-chart-<n>` (n = 1…6, cycling), and every mark MUST expose its colour as `--mkd-series` so packs can restyle strokes per series; `.tint()` on a chart MUST recolour its first series. |
+| C5 | The chart MUST be drawn in a fixed logical canvas (`chartWidth`, `chartHeight`; default 360 × 200) that scales uniformly with its container. |
+| V1 | `BarChart(values: [1, 2], labels: ["a", "b"])` renders an SVG with two bars and the labels a and b. |
+| V2 | `PieChart(values: [3, 1])` renders two slices whose angles are 270° and 90°. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles; New R-REND-012: Charts |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

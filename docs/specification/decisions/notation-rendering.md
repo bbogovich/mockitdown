@@ -1,6 +1,6 @@
 ---
 title: "Decisions: notation and rendering"
-spec_version: 0.2.0
+spec_version: 0.3.0
 status: draft
 updated: 2026-11-24
 page_id: ADR.1
@@ -189,8 +189,31 @@ enlarge beyond their logical size.
 | C1 | A mockup scales as one picture and stays crisp; hairlines stay one pixel. |
 | C2 | Pack authors write plain px; anything not written in px (em, %) does not scale with the frame. |
 
+---
+
+#### ADR-15 — Annotation marks use CSS anchor positioning with an inline fallback
+
+**Context.** Callouts sit on element corners, half outside; lists and cards clip overflow.
+
+**Decision.** Anchor positioning (Chromium 125+, Safari 26) with an inline fallback.
+
+**Consequences.** One extra layer per decorated element; unique anchor names per figure.
+
+**Constrains.** R-ANN-003
+
+| | Statement |
+|---|---|
+| D1 | Annotation marks are drawn in a screen-level layer tied to the decorated element by CSS anchor positioning, with an inline copy inside the element as a fallback. |
+| D2 | The decorated element is the anchor itself; no wrapper is inserted. |
+| O1 | rejected: a wrapper element around the view — breaks the parent's flex and grid rules for the view. |
+| O2 | rejected: marks only inside the element — clipped by scrolling or rounded ancestors. |
+| O3 | rejected: JavaScript measuring element positions — mockitdown output is static. |
+| C1 | Browsers without anchor positioning show the inline copy, which may be clipped at container edges. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.3.0 | 2026-11-24 | New ADR-15: Annotation marks use CSS anchor positioning with an inline fallback |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |
