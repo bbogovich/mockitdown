@@ -6,7 +6,7 @@ import unittest
 from tests.helpers import render  # noqa: F401  (puts src on sys.path)
 from mockitdown.packs import BUILTIN_DIR, PackRegistry
 from mockitdown.render.html import Renderer
-from mockitdown.styles import stylesheet
+from mockitdown import stylesheet
 
 ROLES = {name[2:].replace("_", "-") for name in dir(Renderer) if name.startswith("r_")}
 
