@@ -1104,6 +1104,8 @@
 .mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__trailing),
 .mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-badge,
 .mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-badge { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-listitem__title,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-listitem__title { color: var(--mkd-fg); }
 .mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-leading-icon,
 .mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] .mkd-leading-icon,
 .mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) .mkd-label__icon,
@@ -1429,3 +1431,11 @@
 .mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-placeholder),
 .mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-chart),
 .mkd-pack-swiftui :is(.mkd-form__row) > :is(.mkd-image[data-resizable="true"]) { width: 100%; }
+.mkd-pack-swiftui .mkd-hstack > .mkd-vstack:has(> .mkd-hstack > .mkd-spacer) { flex: 1 1 0; }
+.mkd-pack-swiftui .mkd-listitem--wrap > .mkd-hstack { flex: 1 1 auto; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-listitem { gap: 12px; }
+.mkd-pack-swiftui .mkd-split__col[data-col="sidebar"] .mkd-leading-icon { min-width: 22px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem { gap: 7px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-leading-icon,
+.mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-leading-icon { min-width: 16px; }

@@ -1,0 +1,92 @@
+// Reusable SwiftUI components for the SwiftUI pack page.
+// Import with:  import "swiftui/components"
+
+/// An iPhone Settings row: tinted icon square, title, optional value, chevron.
+struct SettingsRow: View {
+  var title: String
+  var icon: String
+  var color: Color = .gray
+  var value: String = ""
+
+  var body: some View {
+    NavigationLink(title, systemImage: icon, iconColor: color, detail: value)
+  }
+}
+
+/// A Settings row whose accessory is a switch.
+struct SettingsToggle: View {
+  var title: String
+  var icon: String
+  var color: Color = .gray
+  var isOn: Bool = false
+
+  var body: some View {
+    Row(title, systemImage: icon, iconColor: color) {
+      Toggle(title, isOn: isOn).labelsHidden()
+    }
+  }
+}
+
+/// A trip in a list: cover photo, dates and length.
+struct TripRow: View {
+  var name: String
+  var dates: String
+  var photo: String
+  var nights: Int
+
+  var body: some View {
+    NavigationLink(name, subtitle: dates, image: photo, detail: "\(nights) nights")
+  }
+}
+
+/// A Health-style summary tile: coloured label, big value, unit and a chart or gauge underneath.
+struct MetricCard: View {
+  var title: String
+  var icon: String
+  var color: Color
+  var value: String
+  var unit: String = ""
+  var caption: String = ""
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    GroupBox {
+      VStack(alignment: .leading, spacing: 8) {
+        HStack {
+          Label(title, systemImage: icon).font(.headline).foregroundStyle(color).tint(color)
+          Spacer()
+          Text(caption).font(.footnote).foregroundStyle(.secondary)
+        }
+        HStack(alignment: .firstTextBaseline, spacing: 3) {
+          Text(value).font(.title).bold()
+          Text(unit).font(.subheadline).foregroundStyle(.secondary)
+        }
+        content
+      }
+    }
+  }
+}
+
+/// A Mail message row: unread dot, sender, time, subject and a two-line preview.
+struct MailRow: View {
+  var sender: String
+  var subject: String
+  var preview: String
+  var time: String
+  var unread: Bool = false
+
+  var body: some View {
+    HStack(alignment: .top, spacing: 8) {
+      Circle().fill(unread ? .blue : .clear).frame(width: 10, height: 10).padding(.top, 5)
+      VStack(alignment: .leading, spacing: 2) {
+        HStack {
+          Text(sender).font(.headline).lineLimit(1)
+          Spacer()
+          Text(time).font(.subheadline).foregroundStyle(.secondary)
+        }
+        Text(subject).font(.subheadline).lineLimit(1)
+        Text(preview).font(.subheadline).foregroundStyle(.secondary).lineLimit(2)
+      }
+    }
+  }
+}

@@ -334,7 +334,7 @@ class StyleBuilder:
             style["border-radius"] = length
 
     def _m_clipShape(self, m, style, data, classes, pad, view):
-        v = m.arg()
+        v = m.arg() if m.args else (ViewList(m.content) if m.content else None)
         if isinstance(v, ViewList) and v.views:
             self._shape_radius(v.views[0], style)
         elif isinstance(v, EnumValue):

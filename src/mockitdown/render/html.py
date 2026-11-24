@@ -401,6 +401,7 @@ class Renderer:
             parts.append(f'<span class="mkd-label__icon">{icon}</span>')
         if title and style != "iconOnly":
             parts.append(f'<span class="mkd-label__title">{title}</span>')
+        parts.append(self.badge_html(v.attr("badge"), "mkd-badge mkd-label__badge"))
         return self.open(v, "label", "span") + "".join(parts) + "</span>"
 
     def r_image(self, v: View) -> str:
@@ -487,7 +488,7 @@ class Renderer:
         frac = None if value is None else max(0.0, min(1.0, value / total if total else 0.0))
         variant = _name(v.attr("kind", "variant", "style")) or "linear"
         circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "radial")
-        label = self.text_or_slot(v, "label", "title")
+        label = self.text_or_slot(v, "label", "title") or self.views(v.children)
         current = self.text_or_slot(v, "currentValueLabel", "valueLabel")
         if _bool(v.attr("showValue")) and frac is not None and not current:
             current = f"{round(frac * 100)}%"
@@ -538,6 +539,14 @@ class Renderer:
         values = [x for x in (v.attr("values", "data") or []) if _num(x) is not None]
         series = v.attr("series")
         labels = [_fmt(x) for x in (v.attr("labels", "categories") or [])]
+        marks = [c for c in v.children if c.name.endswith("Mark")]
+        if marks and not values:  # Swift Charts: Chart { BarMark(x: .value("Day", "Mon"), y: .value("Steps", 7)) }
+            def _mark_val(x):
+                return x.args[-1] if isinstance(x, EnumValue) and x.name == "value" and x.args else x
+            values = [_mark_val(c.attr("y", "angle", "value")) for c in marks]
+            labels = [_fmt(_mark_val(c.attr("x", "label"))) for c in marks]
+            if kind == "bar":
+                kind = {"LineMark": "line", "AreaMark": "area", "SectorMark": "pie"}.get(marks[0].name, "bar")
         title = self.content(v.attr("title"))
         style = {}
         if (length := u(_num(v.attr("height")))) is not None:
@@ -854,7 +863,7 @@ class Renderer:
             a, b = lo, _num(val, lo) or lo
         span = (hi - lo) or 1
         fa, fb = (a - lo) / span * 100, (b - lo) / span * 100
-        label = self.text_or_slot(v, "label", "title")
+        label = self.text_or_slot(v, "label", "title") or self.views(v.children)
         parts = [f'<div class="mkd-slider__label">{label}</div>'] if label else []
         track = (f'<span class="mkd-slider__track"><span class="mkd-slider__fill" style="left:{fa:.1f}%;'
                  f'width:{fb - fa:.1f}%"></span>')
@@ -1291,7 +1300,7 @@ class Renderer:
             parts.append(f'<img class="mkd-card__media" src="{esc(src)}" alt="" style="height:{h}">' if src else
                          f'<div class="mkd-card__media mkd-card__media--missing" style="height:{h}">'
                          f'{self.icon("photo")}</div>')
-        title = self.text_or_slot(v, "title")
+        title = self.text_or_slot(v, "title", "label")
         subtitle = self.text_or_slot(v, "subtitle", "subheader", "description")
         header = self.slot(v, "header")
         visual = ""
