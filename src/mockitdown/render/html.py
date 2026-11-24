@@ -32,7 +32,8 @@ from .style import StyleBuilder, css_color, style_attr, u
 
 #: Element attributes copied verbatim to ``data-<name>`` when they are simple values.
 PASSTHROUGH = ("variant", "size", "color", "shape", "density", "elevation", "placement", "orientation",
-               "emphasis", "design", "severity", "kind", "labelStyle", "position", "level")
+               "emphasis", "design", "severity", "kind", "labelStyle", "position", "level", "side",
+               "withHandle")
 _SAFE_TOKEN = re.compile(r"^[A-Za-z0-9_. -]{1,40}$")
 _INLINE_MD = [
     (re.compile(r"\*\*(.+?)\*\*"), r"<strong>\1</strong>"),
@@ -1450,7 +1451,8 @@ class Renderer:
                        f'{self.icon("checkmark" if all_on else "minus") if selected_set else ""}</span></span></th>')
         for j, (h, align) in enumerate(headers):
             sort = ""
-            if isinstance(sort_col, (int, float)) and int(sort_col) == j or _fmt(sort_col) == h:
+            if sort_col is not None and (isinstance(sort_col, (int, float)) and int(sort_col) == j
+                                         or _fmt(sort_col) == h):
                 sort = f'<span class="mkd-table__sort">{self.icon("arrow.up")}</span>'
             al = f' data-align="{esc(align)}"' if align else ""
             ths.append(f'<th class="mkd-table__head"{al}>{text_html(h)}{sort}</th>')
@@ -1617,11 +1619,14 @@ class Renderer:
 
     def r_toast(self, v: View) -> str:
         msg = self.text_or_slot(v, "message", "text", "title")
+        desc = self.text_or_slot(v, "description", "subtitle")
         action = v.attr("action", "actionLabel")
         icon = v.attr("systemImage", "icon")
         markup = (self.open(v, "toast", attrs={"role": "status"})
                   + (f'<span class="mkd-toast__icon">{self.icon(icon, v=v)}</span>' if icon else "")
-                  + f'<span class="mkd-toast__message">{msg}</span>'
+                  + f'<span class="mkd-toast__text"><span class="mkd-toast__message">{msg}</span>'
+                  + (f'<span class="mkd-toast__description">{desc}</span>' if desc else "")
+                  + self.views(v.children) + "</span>"
                   + (f'<span class="mkd-toast__action">{esc(_fmt(action))}</span>' if isinstance(action, str) else "")
                   + self.slot(v, "actions")
                   + (f'<span class="mkd-toast__close">{self.icon("xmark")}</span>' if _bool(v.attr("closable")) else "")

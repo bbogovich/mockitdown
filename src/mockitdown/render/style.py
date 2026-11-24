@@ -172,6 +172,7 @@ class StyleBuilder:
                     style["flex"] = "0 0 auto"
                 elif prop == "height":
                     style["flex-shrink"] = "0"
+                    style["flex-grow"] = "0"
         if fill:
             data["fill"] = " ".join(sorted(set(fill)))
         align = kw.get("alignment")

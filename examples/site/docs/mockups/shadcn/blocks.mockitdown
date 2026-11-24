@@ -1,0 +1,157 @@
+// shadcn/ui blocks for the example site — the small compositions the shadcn "blocks" and
+// examples repeat on every page. Imported with `import "shadcn/blocks"`.
+
+/// Sidebar header: the team switcher (logo tile, name, plan, chevrons-up-down).
+struct TeamSwitcher: View {
+  var name: String
+  var plan: String
+  var icon: String = "gallery-vertical-end"
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Avatar(name, systemImage: icon, shape: .rounded)
+      VStack(alignment: .leading, spacing: 0) {
+        Text(name).fontWeight(.semibold)
+        Text(plan).font(.caption)
+      }
+      Spacer()
+      Image(systemName: "chevrons-up-down")
+    }
+    .padding(8)
+  }
+}
+
+/// Sidebar footer: the signed-in user with an overflow menu affordance.
+struct NavUser: View {
+  var name: String
+  var email: String
+  var photo: String = ""
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Avatar(name, image: photo, shape: .rounded)
+      VStack(alignment: .leading, spacing: 0) {
+        Text(name).fontWeight(.medium)
+        Text(email).font(.caption).foregroundStyle(.secondary)
+      }
+      Spacer()
+      Image(systemName: "ellipsis-vertical")
+    }
+    .padding(8)
+  }
+}
+
+/// The dashboard-01 site header: sidebar trigger, separator, page title, trailing actions.
+struct SiteHeader: View {
+  var title: String
+  @ViewBuilder var actions: Content
+
+  var body: some View {
+    AppBar(title) {
+      actions
+    } leading: {
+      SidebarTrigger()
+      Separator()
+    }
+  }
+}
+
+/// A KPI card from the dashboard-01 "section cards": label, big value, trend badge, footer note.
+struct SectionCard: View {
+  var label: String
+  var value: String
+  var trend: String
+  var up: Bool = true
+  var note: String
+  var detail: String
+
+  var body: some View {
+    Card {
+    } header: {
+      VStack(alignment: .leading, spacing: 6) {
+        CardDescription(label)
+        CardTitle(value).font(.title)
+      }
+    } action: {
+      Badge(trend, systemImage: up ? "trending-up" : "trending-down", variant: .outline)
+    } footer: {
+      VStack(alignment: .leading, spacing: 6) {
+        Label(note, systemImage: up ? "trending-up" : "trending-down").fontWeight(.medium)
+        Text(detail).foregroundStyle(.secondary)
+      }
+    }
+  }
+}
+
+/// A settings row: label + description on the left, a Switch on the right, in a bordered box.
+struct SwitchRow: View {
+  var title: String
+  var description: String
+  var on: Bool = false
+
+  var body: some View {
+    Switch(title, isOn: on, description: description)
+      .padding(16)
+      .border(.separator)
+      .cornerRadius(10)
+  }
+}
+
+/// One message in the mail list: sender, unread dot, date, subject, preview and labels.
+struct MailItem: View {
+  var from: String
+  var subject: String
+  var preview: String
+  var date: String
+  var labels: [String] = []
+  var unread: Bool = false
+  var current: Bool = false
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      HStack(spacing: 8) {
+        Text(from).fontWeight(.semibold)
+        if unread { Badge().color(.blue) }
+        Spacer()
+        Text(date).font(.caption).foregroundStyle(current ? .primary : .secondary)
+      }
+      Text(subject).font(.caption).fontWeight(.medium)
+      Text(preview).font(.caption).foregroundStyle(.secondary).lineLimit(2)
+      HStack(spacing: 8) {
+        ForEach(labels) { l in Badge(l, variant: l == "work" ? .default : .secondary) }
+      }
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity)
+    .border(.separator)
+    .cornerRadius(10)
+    .selected(current)
+  }
+}
+
+/// A pricing tier card.
+struct PlanCard: View {
+  var plan: String
+  var price: String
+  var blurb: String
+  var features: [String]
+  var popular: Bool = false
+
+  var body: some View {
+    Card(plan, description: blurb) {
+      HStack(alignment: .firstTextBaseline, spacing: 4) {
+        Text(price).font(.largeTitle)
+        Text("/month").foregroundStyle(.secondary)
+      }
+      Separator()
+      VStack(alignment: .leading, spacing: 10) {
+        ForEach(features) { f in Label(f, systemImage: "check") }
+      }
+    } action: {
+      if popular { Badge("Most popular") }
+    } footer: {
+      Button(popular ? "Get started" : "Choose \(plan)", variant: popular ? .default : .outline)
+        .frame(maxWidth: .infinity)
+    }
+  }
+}

@@ -63,8 +63,10 @@ def main() -> int:
     items = blocks(text) if path.suffix == ".md" else [({}, text)]
     if path.suffix == ".md" and not a.all:
         items = [items[a.block or 0]]
-    base = RenderOptions(source_path=path, import_paths=tuple(Path(p) for p in a.import_path) or (path.parent,),
-                         asset_paths=(path.parent,))
+    docs_root = next((p for p in path.parents if p.name == "docs"), path.parent)
+    imports = tuple(Path(p) for p in a.import_path) or ((docs_root / "mockups", path.parent)
+                                                        if (docs_root / "mockups").is_dir() else (path.parent,))
+    base = RenderOptions(source_path=path, import_paths=imports, asset_paths=(docs_root,))
     html_parts, packs = [], []
     for attrs, body in items:
         typed, problems = coerce_fence_options(attrs)
