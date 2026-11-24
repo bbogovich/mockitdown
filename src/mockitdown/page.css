@@ -24,6 +24,9 @@
   gap: 8px;
 }
 .mkd-stage[data-count="1"] .mkd-cell { max-width: 100%; }
+/* Fit-sized frames have no device width to scale against: size cells by content and wrap. */
+.mkd-stage:has(.mkd-frame[data-fit="true"]) { flex-wrap: wrap; }
+.mkd-cell:has(> .mkd-frame[data-fit="true"]) { container-type: normal; flex: 0 1 auto; max-width: 100%; overflow-x: auto; }
 .mkd-cell__label {
   font: 600 12px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
   letter-spacing: .04em;

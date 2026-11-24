@@ -1,0 +1,54 @@
+// Reusable Windows 3.1 pieces for the easter-egg page.
+// Import with:  import "win31/apps"
+
+import Windows31
+
+/// The standard Program Manager menu bar.
+struct ProgmanMenuBar: View {
+  var body: some View {
+    MenuBar {
+      Menu("File")
+      Menu("Options")
+      Menu("Window")
+      Menu("Help")
+    }
+  }
+}
+
+/// A program group window: a captioned MDI child holding program items.
+struct GroupWindow: View {
+  var title: String
+  var inactive: Bool = false
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    ProgramGroup(title) { content }
+      .state(inactive ? .inactive : .active)
+  }
+}
+
+/// A Notepad / Write style menu bar (all menus closed).
+struct EditorMenuBar: View {
+  var body: some View {
+    MenuBar {
+      Menu("File")
+      Menu("Edit")
+      Menu("Search")
+      Menu("Help")
+    }
+  }
+}
+
+/// The OK / Cancel / Help column of a dialog box.
+struct DialogButtons: View {
+  var extra: String = ""
+
+  var body: some View {
+    VStack(spacing: 6) {
+      Button("OK").variant(.default)
+      Button("Cancel")
+      if extra != "" { Button(extra) }
+      Button("Help")
+    }
+  }
+}

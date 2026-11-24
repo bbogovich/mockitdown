@@ -54,10 +54,10 @@ def esc(s: object) -> str:
 
 def text_html(s: object) -> str:
     """Escape text and apply the inline Markdown that SwiftUI ``Text`` supports."""
-    out = esc(s)
+    out = esc(s).replace("\\*", "\x00").replace("\\_", "\x01").replace("\\`", "\x02")
     for pat, rep in _INLINE_MD:
         out = pat.sub(rep, out)
-    return out.replace("\n", "<br>")
+    return out.replace("\x00", "*").replace("\x01", "_").replace("\x02", "`").replace("\n", "<br>")
 
 
 def _fmt(v: object) -> str:
