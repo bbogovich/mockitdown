@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.4.0
+spec_version: 0.4.1
 status: draft
 updated: 2026-11-24
 page_id: PACK.1
@@ -253,7 +253,8 @@ lives in the example site because it is generated from code and needs every pack
 | C2 | Each Reference page MUST list every element the pack offers — its own elements first, then the inherited core vocabulary — each with its role, positional arguments, defaults, variants and `doc` line, and a mockup rendering it in the pack's style with its source. |
 | C3 | The sample of an element MUST render without any diagnostic; the generator MUST simplify a sample (fewer arguments, no children) until it does, falling back to the bare call. |
 | C4 | A pack's own elements that declare variants SHOULD be shown once per variant (at most eight) in one mockup. |
-| C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Packs and Retro, the retro packs in chronological order. |
+| C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Desktop, Web, Mobile and Retro — a framework pack is Web when its default device uses browser chrome, Mobile when its default device is a phone or tablet, Desktop otherwise — the retro packs in chronological order; the Demo menu of the example site MUST use the same groups. |
+| C8 | Both sites MUST keep the header tabs visible at every window width and while scrolling (`navigation.tabs.sticky`, and a stylesheet overriding the theme's narrow-screen rule that moves the tabs into the drawer). |
 | C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same five top-level sections in the order Demo, Definition, Specification, Implementation, Reference; a section built by the other site is a link to its published URL. |
 | C7 | The site root MUST redirect to the Demo section. |
 | V1 | `python tools/gen_reference.py --check` fails, and with it the test suite, when a Reference page or the nav block differs from what the pack definitions generate. |
@@ -404,8 +405,10 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
-| 0.4.0 | 2026-11-24 | New R-PACK-012: Pack reference gallery and site sections; Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
+| 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
+| 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |

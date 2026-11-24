@@ -11,6 +11,7 @@ theme:
   variant: classic
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
     - content.code.copy
@@ -26,6 +27,9 @@ theme:
       toggle: { icon: material/weather-sunny, name: Light mode }
 
 # Zensical does not inject the Mermaid runtime; this loader renders the mermaid fences.
+extra_css:
+  - specification/stylesheets/tabs.css
+
 extra_javascript:
   - specification/javascripts/mermaid-init.js
 

@@ -10,7 +10,8 @@ page_id: PACK.2
 
 The packs mockitdown ships (R-PACK-008, ADR-13) and, for each, its element catalogue. The core
 vocabulary (R-PACK-009) is available in every pack; framework packs add their native components
-and restyle everything. Retro packs are listed in chronological order. The rendered
+and restyle everything. Framework packs are listed by kind — desktop, web, mobile — and retro
+packs in chronological order. The rendered
 gallery of every element is in the [Reference](https://bbogovich.github.io/mockitdown/demos/reference/)
 section of the published site (R-PACK-012).
 
@@ -160,101 +161,6 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: base -->
 
-## swiftui — SwiftUI
-
-<!-- catalogue: swiftui — generate with `mockitdown elements swiftui --markdown` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `ActionSheet` | dialog | title | variant: "action-sheet" | Deprecated action sheet |
-| `Alert` | dialog | title | variant: "alert" | Alert("Delete?", message: "…") { Button("Cancel", role: .cancel) … } — prefer .alert(…) |
-| `AnyView` | group |  |  | Type-erased wrapper |
-| `AreaMark` | chart |  | kind: "area" | An area chart: AreaMark(values: [..], labels: [..]) |
-| `AsyncImage` | image | url |  | AsyncImage(url: "photo.jpg") |
-| `BarMark` | chart |  | kind: "bar" | A bar chart: BarMark(values: [..], labels: [..]) |
-| `Button` | button | label |  | Button("Save", systemImage:, role: .destructive/.cancel) · .buttonStyle(.bordered/.borderedProminent/.glass/.glassProminent) · .controlSize(.small/.large) |
-| `Canvas` | placeholder | label |  | Canvas drawing placeholder |
-| `Card` | card | title |  | Not SwiftUI: a rounded content tile like GroupBox |
-| `Chart` | chart |  |  | Swift Charts: Chart(kind: .bar/.line/.area/.pie/.donut, values: [..], labels: [..]) or series: [[..], [..]] |
-| `ColorPicker` | labeled | label |  | ColorPicker("Tint", selection: .blue) — label with the rainbow colour well |
-| `ConcentricRectangle` | shape |  | shape: "rounded" | iOS 26 concentric shape |
-| `ConfirmationDialog` | dialog | title | variant: "action-sheet" | Action sheet; prefer .confirmationDialog(…) |
-| `ContainerRelativeShape` | shape |  | shape: "rounded" |  |
-| `ContentUnavailableView` | dialog | title | inline: true, variant: "unavailable" | ContentUnavailableView("No Mail", systemImage: "tray", description: Text("…")) { actions }  |
-| `ControlGroup` | toolbar |  | variant: "group" | ControlGroup { Button … } — joined capsule of buttons |
-| `DatePicker` | datepicker | label |  | DatePicker("Starts", selection: "2026-11-23") — compact grey capsule; .datePickerStyle(.graphical) for the calendar |
-| `DisclosureGroup` | accordion | title |  | DisclosureGroup("Advanced", isExpanded: true) { … } |
-| `EditButton` | button | label | label: "Edit" | Toggles a list's edit mode — plain accent text |
-| `EmptyView` | group |  |  | Renders nothing |
-| `Form` | form |  | variant: "grouped" | Form { Section { TextField … Toggle … } } — inset-grouped rows |
-| `Gauge` | progress | value | variant: "accessoryCircular" | Gauge(value: 0.7, label: { Text("BPM") }, currentValueLabel: { Text("72") }) · .gaugeStyle(…) |
-| `GeometryReader` | vstack |  |  | Transparent container (stacked) |
-| `GlassEffectContainer` | hstack |  |  | iOS 26: groups glass shapes; renders as an HStack |
-| `GroupBox` | card | title |  | GroupBox("Activity") { … } — rounded secondary-background box |
-| `HSplitView` | hstack |  |  | macOS horizontal split |
-| `HelpLink` | button |  | iconOnly: true, systemImage: "questionmark", variant: "help" | macOS round help (?) button |
-| `Image` | image | name |  | Image("asset.png") or Image(systemName: "star.fill") |
-| `Inspector` | card | title |  | Inline inspector panel content (prefer the .inspector modifier) |
-| `Label` | label | title |  | Label("Inbox", systemImage: "tray"); .labelStyle(.iconOnly/.titleOnly/.titleAndIcon) |
-| `LabeledContent` | labeled | label, value |  | LabeledContent("Version", value: "26.1") — label + secondary value |
-| `LineMark` | chart |  | kind: "line" | A line chart: LineMark(values: [..], labels: [..]) |
-| `Link` | link | label, destination |  | Link("Privacy Policy", destination: url) — accent text |
-| `List` | list |  | variant: "insetGrouped" | List { Section("…") { … } } — inset-grouped by default; .listStyle(.plain/.sidebar/.grouped) |
-| `Map` | placeholder | label | systemImage: "mappin" | MapKit map placeholder (streets, park, water, pin) |
-| `Menu` | menu | label |  | Menu("Sort", systemImage:) { Button … } · open: true shows the glass menu |
-| `MultiDatePicker` | calendar | label |  | MultiDatePicker("Dates", selection:) — calendar with several marked days (events:) |
-| `NavigationLink` | listitem | title | chevron: true | NavigationLink("General", systemImage: "gear", iconColor: .gray) — row with chevron |
-| `NavigationSplitView` | split |  |  | NavigationSplitView { sidebar } content: { … } detail: { … } |
-| `NavigationStack` | navstack |  |  | NavigationStack { … .navigationTitle("Title") .toolbar { … } } · back: "Settings" shows the glass back button |
-| `NavigationView` | navstack |  |  | Deprecated alias of NavigationStack |
-| `OutlineGroup` | accordion | title |  | Hierarchical rows; written here as a DisclosureGroup-like node: OutlineGroup("Folder", isExpanded: true) { … } |
-| `PasteButton` | button | label | label: "Paste", systemImage: "doc.on.clipboard", variant: "bordered" | System paste button (bordered capsule) |
-| `PhotosPicker` | button | label | label: "Select Photos", systemImage: "photo" | PhotosPicker("Select Photos", selection:) — opens the photo picker |
-| `Picker` | select | label | variant: "menu" | Picker("Sort", selection: "Date") { Text("Date") … } · .pickerStyle(.segmented/.inline/.navigationLink) |
-| `PointMark` | chart |  | kind: "line" | A point/line chart: PointMark(values: [..]) |
-| `Popover` | dialog | title | variant: "popover" | Popover bubble; prefer .popover(isPresented:) |
-| `ProgressView` | progress | label |  | ProgressView() spinner, or ProgressView("Uploading", value: 0.4) |
-| `RealityView` | placeholder | label | systemImage: "cube" | RealityKit view placeholder |
-| `RenameButton` | button | label | label: "Rename", systemImage: "pencil" | Triggers a rename action |
-| `Row` | listitem | title |  | Generic row: title, subtitle:, detail:, systemImage:, iconColor:, chevron: |
-| `SceneView` | placeholder | label | systemImage: "cube" | SceneKit / RealityKit view placeholder |
-| `ScrollView` | scroll | axes |  | ScrollView { … } or ScrollView(.horizontal) { … } |
-| `ScrollViewReader` | group |  |  | Transparent container |
-| `Section` | section | title |  | Section("Header") { … } footer: { Text("…") } |
-| `SectorMark` | chart |  | kind: "donut" | A donut chart: SectorMark(values: [..], labels: [..]) |
-| `SecureField` | textfield | placeholder | kind: "password" | SecureField("Password", text: $password) |
-| `SettingsLink` | button | label | label: "Settings\u2026" | macOS button that opens the Settings window |
-| `ShareLink` | button | label | label: "Share", systemImage: "square.and.arrow.up" | ShareLink(item: url) — share-sheet button |
-| `Sheet` | dialog | title | variant: "sheet" | Bottom sheet; prefer .sheet(isPresented:) { … } |
-| `SignInWithAppleButton` | button | label | label: "Sign in with Apple", variant: "signInWithApple" | AuthenticationServices button — black capsule (white in dark) |
-| `Slider` | slider |  |  | Slider(value: 0.4) { Text("Volume") } minimumValueLabel: { Image(systemName: "speaker") } … |
-| `SpriteView` | placeholder | label | systemImage: "sparkles" | SpriteKit scene placeholder |
-| `Stepper` | stepper | label |  | Stepper("Guests", value: 2) — −/+ capsule |
-| `Tab` | tab | label |  | Tab("Search", systemImage: "magnifyingglass") { … } · .badge(3) |
-| `TabSection` | section | title |  | A group of Tabs (sidebar-adaptable TabView) |
-| `TabView` | tabs |  | placement: "bottom" | TabView { Tab("Home", systemImage: "house") { … } } — floating Liquid Glass tab bar |
-| `Table` | table |  |  | Table(columns: ["Name", "Size"], rows: [[…]]) or TableColumn / TableRow children — macOS/iPadOS table |
-| `TableColumn` | tablecolumn | title |  | TableColumn("Name") |
-| `TableRow` | tablerow |  |  | TableRow { Text(…) … } |
-| `Text` | text | content |  | Text("Hello") with **bold**, *italic*, `code`; .font(.headline) etc. |
-| `TextEditor` | textfield | text | kind: "multiline" | TextEditor(text: $notes) — multi-line editor |
-| `TextField` | textfield | placeholder |  | TextField("Email", text: $email); plain in a Form, .textFieldStyle(.roundedBorder) elsewhere; axis: .vertical |
-| `TimelineView` | group |  |  | Transparent container |
-| `TipView` | alert | title | closable: true, systemImage: "lightbulb" | TipKit tip: TipView("Favorites", message: "Tap the star…") |
-| `Toggle` | toggle | label |  | Toggle("Wi-Fi", isOn: true) — 51×31 green switch; .toggleStyle(.button/.checkbox) |
-| `Toolbar` | toolbar |  |  | Not SwiftUI: an inline bar of controls |
-| `ToolbarItem` | toolbaritem |  |  | ToolbarItem(placement: .topBarTrailing/.topBarLeading/.principal/.bottomBar) { … } |
-| `ToolbarItemGroup` | toolbaritem |  |  | ToolbarItemGroup(placement: .bottomBar) { … } |
-| `ToolbarSpacer` | spacer |  |  | iOS 26: separates toolbar glass groups (.fixed / .flexible) |
-| `UnevenRoundedRectangle` | shape |  | shape: "rounded" |  |
-| `VSplitView` | vstack |  |  | macOS vertical split |
-| `VideoPlayer` | placeholder | label | systemImage: "play" | AVKit video placeholder with play button |
-| `ViewThatFits` | group |  |  | Renders all candidates; keep one child |
-| `WebView` | placeholder | label | systemImage: "globe" | iOS 26 SwiftUI WebView placeholder |
-| `WindowGroup` | group |  |  | Scene wrapper, accepted so App code pastes |
-
-<!-- end catalogue: swiftui -->
-
 ## fluent — Fluent 2 · WinUI 3
 
 <!-- catalogue: fluent — generate with `mockitdown elements fluent --markdown` -->
@@ -371,6 +277,434 @@ the [Role catalogue](../rendering/roles.md).
 | `WrapPanel` | hstack |  | wrap: true | Community Toolkit WrapPanel |
 
 <!-- end catalogue: fluent -->
+
+## gtk — GTK 4 (libadwaita)
+
+<!-- catalogue: gtk — generate with `mockitdown elements gtk --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `AboutDialog` | dialog | title | variant: "about" | AboutDialog(applicationName:, developerName:, applicationIcon:) { rows } |
+| `ActionBar` | toolbar |  | variant: "actionbar" | ActionBar { start … Spacer() … end } — bottom bar |
+| `ActionRow` | listitem | title |  | ActionRow("Title", subtitle:, icon:, chevron: true) { suffix widgets } |
+| `AlertDialog` | dialog | title | variant: "alert" | AlertDialog("Delete Notes?", body:, responses: ["Cancel", "Delete"], defaultResponse: "Delete", destructive: "Delete") |
+| `ApplicationWindow` | vstack |  | alignment: "stretch", spacing: 0 | Adw.ApplicationWindow — the window content; put a ToolbarView or a split view inside |
+| `Avatar` | avatar | name |  | Avatar("Ana Lima", size: .large, image:) — Adwaita gradient colours |
+| `Banner` | alert | title | showIcon: false | Banner("Title", actions: { Button("Restart") }) — the strip under a HeaderBar |
+| `Bin` | group |  |  | A single-child container |
+| `BottomSheet` | dialog | title | variant: "sheet" | Adw.BottomSheet (1.6) |
+| `Box` | vstack |  | alignment: "stretch" | Box(orientation: .horizontal, spacing: 6) { … } · .variant(.linked) joins buttons |
+| `BoxedList` | list |  | variant: "boxedList" | ListBox styled .boxed-list — rows in a rounded card |
+| `BreakpointBin` | group |  |  |  |
+| `Button` | button | label |  | Button("Save", icon:) · .variant(.suggested / .destructive / .flat / .pill / .circular / .osd) |
+| `ButtonRow` | listitem | title |  | ButtonRow("Add Account", icon:) · .variant(.suggested / .destructive) — 1.6 |
+| `Calendar` | calendar |  |  | Calendar(selection: "2026-11-24", marked: […]) |
+| `Carousel` | scroll |  | axes: "horizontal" | Carousel { pages } — horizontal pages |
+| `CarouselIndicatorDots` | pagination |  | variant: "dots" | CarouselIndicatorDots(pages: 4, position: 2) |
+| `CarouselIndicatorLines` | pagination |  | variant: "lines" |  |
+| `CenterBox` | hstack |  |  | start / center / end widgets in a row |
+| `CheckButton` | checkbox | label |  | CheckButton("Label", active: true) |
+| `Clamp` | vstack |  | alignment: "stretch" | Clamp { … } — limits its child to 600 px (maximumSize:) and centres it |
+| `ClampScrollable` | vstack |  | alignment: "stretch" |  |
+| `ColorDialogButton` | swatches |  |  | colors: [..], selection: |
+| `ColumnView` | table |  |  | ColumnView(columns: ["Name", "Size"], rows: [[…]]) — Gtk.ColumnView data table |
+| `ColumnViewColumn` | tablecolumn | title |  |  |
+| `ComboRow` | listitem | title | chevron: true | ComboRow("Title", subtitle:, selected: "Current value") |
+| `Dialog` | dialog | title |  | Adw.Dialog("Title") { ToolbarView … } |
+| `DropDown` | select | label |  | DropDown(model: ["A", "B"], selected: "A", open:) |
+| `EditableLabel` | textfield | text |  |  |
+| `Entry` | textfield | placeholder |  | Entry("Placeholder", text:, icon:) · .state(.focused / .error) |
+| `EntryRow` | textfield | title |  | EntryRow("Title", text:) — the title floats above the text |
+| `ExpanderRow` | accordion | title |  | ExpanderRow("Title", subtitle:, expanded: true) { nested rows } |
+| `FlowBox` | grid |  | columns: 4 | FlowBox(columns: 5) { FlowBoxChild … } |
+| `FlowBoxChild` | vstack |  |  |  |
+| `FontDialogButton` | button | label | variant: "font" |  |
+| `Frame` | card | title |  | Gtk.Frame — a bordered box |
+| `GridView` | grid |  | columns: 5 | GridView(columns: 6) { … } — Nautilus-style icon grid |
+| `HeaderBar` | appbar | title | kind: "window" | HeaderBar("Title", subtitle:, start: { … }, titleWidget: { ViewSwitcher }) { end widgets } — draws the window close button; showEndTitleButtons: false for inner panes |
+| `InlineViewSwitcher` | segmented | items |  | Adw.InlineViewSwitcher (1.7) — items:, selection: |
+| `Label` | text | content |  | Label("Text", style: .title1 / .title2 / .title3 / .title4 / .heading / .caption / .captionHeading / .largeTitle) · .class("dim-label") |
+| `LevelBar` | progress | label | variant: "levelbar" | LevelBar(value: 0.7) · .color(.warning / .error / .success) for the low/high offsets |
+| `LinkButton` | link | label, destination |  | LinkButton("Website", uri:) |
+| `ListBox` | list |  |  | ListBox { rows } · .variant(.boxedList / .navigationSidebar / .richList) |
+| `ListBoxRow` | listitem | title |  |  |
+| `ListView` | list |  |  |  |
+| `MenuButton` | menu | label |  | MenuButton(icon: "open-menu", open: true) { MenuItem … } |
+| `MenuItem` | menuitem | label |  | MenuItem("Preferences", shortcut: "Ctrl+,", checked:) |
+| `MessageDialog` | dialog | title | variant: "alert" |  |
+| `NavigationPage` | vstack | title | alignment: "stretch", spacing: 0 | NavigationPage("Title") { ToolbarView { … } } |
+| `NavigationSidebar` | sidebar | title |  | ListBox.navigation-sidebar — NavigationSidebar(selection:) { SidebarItem("Wi-Fi", icon:) … } |
+| `NavigationSplitView` | split |  |  | NavigationSplitView { sidebar page } content: { content page } |
+| `NavigationView` | vstack |  | alignment: "stretch", spacing: 0 | Navigation stack — shows its (top) page |
+| `Overlay` | zstack |  |  |  |
+| `OverlaySplitView` | split |  |  | OverlaySplitView { sidebar } content: { … } |
+| `Paned` | split |  |  | Paned { start } content: { end } |
+| `PasswordEntry` | textfield | placeholder | kind: "password", reveal: true |  |
+| `PasswordEntryRow` | textfield | title | kind: "password", reveal: true | PasswordEntryRow("Password", text:) |
+| `PathBar` | breadcrumb | items |  | Nautilus path bar: PathBar(["Home", "Projects"]) |
+| `Picture` | image | name |  |  |
+| `Popover` | card | title | variant: "popover" | A popover surface; place it with .overlay(alignment:) |
+| `PopoverMenu` | menu | label |  | PopoverMenu { MenuItem … } — an open menu popover |
+| `PreferencesDialog` | dialog | title | variant: "preferences" | PreferencesDialog("Preferences") { PreferencesPage … } |
+| `PreferencesGroup` | section | title |  | PreferencesGroup("Title", description:) { rows } headerSuffix: { Button } |
+| `PreferencesPage` | form | title |  | PreferencesPage { PreferencesGroup … } — clamped, scrolling page of groups |
+| `PreferencesWindow` | vstack |  | alignment: "stretch", spacing: 0 | Preferences window (deprecated; use PreferencesDialog) |
+| `ProgressBar` | progress | label |  | ProgressBar(fraction: 0.6, showText:) — none = pulsing |
+| `RadioButton` | radio | label |  | CheckButton in a group — RadioButton("Label", active: true) |
+| `Revealer` | group |  |  |  |
+| `Scale` | slider | label |  | Scale(value: 40, in: 0...100, marks: …) |
+| `ScrolledWindow` | scroll | axes |  | Scrolling region (static) |
+| `SearchBar` | toolbar |  | variant: "searchbar" | SearchBar { SearchEntry(…) } — revealed under the HeaderBar |
+| `SearchEntry` | textfield | placeholder | kind: "search" | SearchEntry("Search", text:) |
+| `Separator` | divider |  |  |  |
+| `ShortcutLabel` | kbd | keys |  | ShortcutLabel(["Ctrl", "S"]) |
+| `SidebarItem` | navitem | label |  | SidebarItem("Wi-Fi", icon: "network-wireless", badge:) · .selected() |
+| `SourceView` | code | code |  | GtkSourceView 5 — SourceView("…", language: "python", lineNumbers:, highlight:) |
+| `SpinButton` | stepper | label |  | SpinButton(value: 4) |
+| `SpinRow` | stepper | title |  | SpinRow("Title", value: 4) |
+| `Spinner` | progress |  | variant: "spinner" | Adw.Spinner — indeterminate |
+| `SplitButton` | button | label | split: true | SplitButton("Open") — button + dropdown arrow |
+| `Stack` | tabs |  | variant: "stack" | Stack(selection:) { StackPage("Name") { … } } — shows the selected page |
+| `StackPage` | tab | title |  |  |
+| `StackSwitcher` | segmented | items |  | StackSwitcher(items: ["A", "B"], selection: "A") — linked buttons |
+| `StatusPage` | emptystate | title |  | StatusPage("No Results", icon: "system-search", description:) { Button(…).variant(.pill) } |
+| `Statusbar` | toolbar |  | variant: "statusbar" |  |
+| `Switch` | toggle | label |  | Switch(active: true) |
+| `SwitchRow` | toggle | title |  | SwitchRow("Title", subtitle:, active: true) |
+| `TabBar` | tabs | items | placement: "top", variant: "tabview" | TabBar(items: ["a.txt", "b.txt"], selection:) |
+| `TabPage` | tab | title |  | TabPage("Title", icon:, badge:) { … } |
+| `TabView` | tabs |  | placement: "top", variant: "tabview" | TabView(selection:) { TabPage("notes.md") { … } } — Adw tab bar + pages |
+| `TextView` | textfield | text | kind: "multiline" | TextView(text:, rows:) — multi-line text area |
+| `Toast` | toast | title |  | Toast("‘Report.pdf’ moved to trash", buttonLabel: "Undo") — floats at the bottom |
+| `ToastOverlay` | group |  |  | Hosts toasts; put the content and a Toast inside |
+| `ToggleButton` | button | label |  | ToggleButton("Bold", active: true) |
+| `ToggleGroup` | segmented | items |  | Adw.ToggleGroup (1.7) — items:, selection: |
+| `ToolbarView` | vstack |  | alignment: "stretch", spacing: 0 | ToolbarView { HeaderBar(…); content; bottom bar } — content between the bars fills the space |
+| `TreeExpander` | treeitem | label |  |  |
+| `TreeListView` | tree |  |  |  |
+| `ViewStack` | tabs |  | variant: "stack" | ViewStack(selection:) { ViewStackPage("Albums", icon:) { … } } — the selected page only |
+| `ViewStackPage` | tab | title |  | ViewStackPage("Albums", icon: "photo", badge: 3) { … } |
+| `ViewSwitcher` | tabs |  | placement: "top", variant: "switcher" | ViewSwitcher(selection:) { ViewSwitcherItem("World", icon:) … } — wide switcher for a HeaderBar titleWidget |
+| `ViewSwitcherBar` | tabs |  | placement: "bottom", variant: "switcherBar" | ViewSwitcherBar(selection:) { ViewSwitcherItem … } — the narrow/mobile bottom bar |
+| `ViewSwitcherItem` | tab | title |  |  |
+| `Viewport` | group |  |  |  |
+| `Window` | vstack |  | alignment: "stretch", spacing: 0 | Adw.Window / Gtk.Window |
+| `WindowTitle` | listitem | title, subtitle |  | WindowTitle("Document", "~/Notes") — title + subtitle for a HeaderBar titleWidget |
+| `WrapBox` | hstack |  | spacing: 6, wrap: true | Adw.WrapBox (1.7) — wraps children onto lines |
+
+<!-- end catalogue: gtk -->
+
+## qt — Qt 6 (Fusion)
+
+<!-- catalogue: qt — generate with `mockitdown elements qt --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Action` | menuitem | label |  | QAction("&Open…", icon:, shortcut: "Ctrl+O", checked:) — children make a submenu |
+| `BasicColors` | swatches |  | variant: "basicColors" | QColorDialog basic-colour grid: colors: [..], selection: |
+| `ButtonGroup` | radiogroup | label |  | Exclusive group of RadioButtons: items:, selection: |
+| `CalendarWidget` | calendar |  | firstWeekday: 1 | QCalendarWidget(selectedDate: "2026-11-23") — highlight-coloured navigation bar |
+| `CentralWidget` | vstack |  | alignment: "stretch", spacing: 6 | The main window's central widget; give it .frame(maxWidth: .infinity, maxHeight: .infinity) |
+| `ChartView` | chart |  |  | QChartView(kind: .bar/.line/.pie/…, series:, labels:) — Qt Charts light/dark themes |
+| `CheckBox` | checkbox | label |  | QCheckBox("Option", checked: true/.indeterminate) |
+| `ColorDialog` | dialog | title | closable: true, variant: "colorDialog" | QColorDialog window |
+| `ComboBox` | select | label |  | QComboBox(items: [..], currentText:, editable:) |
+| `CommandLinkButton` | button | label | icon: "arrow.right", variant: "commandLink" | QCommandLinkButton("Install now") |
+| `DateEdit` | datepicker | date | format: "numeric" | QDateEdit(date: "2026-11-23", calendarPopup: true) |
+| `DateTimeEdit` | datepicker | dateTime | format: "numeric", kind: "datetime" | QDateTimeEdit(dateTime: "2026-11-23 14:30") |
+| `Dial` | progress | value | kind: "circular" | QDial(value: 40, maximum: 100) |
+| `Dialog` | dialog | title | closable: true | QDialog("Title") { … } actions: { DialogButtonBox… } — a window with its own title bar |
+| `DialogButtonBox` | hstack |  | spacing: 6, variant: "buttonBox" | QDialogButtonBox { PushButton("OK", default: true); PushButton("Cancel") } — right-aligned |
+| `DockWidget` | card | title | variant: "dock" | QDockWidget("Title") { … } — title bar with float and close buttons |
+| `DoubleSpinBox` | textfield | value | kind: "spin" | QDoubleSpinBox(value: 1.50, suffix:) |
+| `FileDialog` | dialog | title | closable: true, variant: "fileDialog" | QFileDialog window (compose its contents) |
+| `FontComboBox` | select | label | selection: "Segoe UI" | QFontComboBox(currentText:) |
+| `FontDialog` | dialog | title | closable: true, variant: "fontDialog" | QFontDialog window |
+| `FormLayout` | form |  | variant: "formLayout" | QFormLayout { FormRow("Name:") { LineEdit() } } — labels right-aligned in the first column |
+| `FormRow` | labeled | label |  | QFormLayout::addRow(label, field): FormRow("Name:") { LineEdit() } |
+| `Frame` | vstack |  | alignment: "stretch", variant: "styledPanel" | QFrame(frameShape: .box/.panel/.styledPanel/.hLine/.vLine/.noFrame, frameShadow: .sunken/.raised/.plain) |
+| `GridLayout` | grid |  |  | QGridLayout(columns: n) or GridRow children |
+| `GroupBox` | card | title |  | QGroupBox("Title", checkable: true, checked: true) { … } — bold title above a rounded frame |
+| `HBoxLayout` | hstack |  | spacing: 6 | QHBoxLayout: children left to right |
+| `HeaderView` | segmented | items |  | QHeaderView(["Name", "Size"], selection: sorted section) |
+| `InputDialog` | dialog | title | closable: true, variant: "inputDialog" | QInputDialog window |
+| `KeySequenceEdit` | textfield | keySequence |  | QKeySequenceEdit(keySequence: "Ctrl+Shift+S") |
+| `LCDNumber` | text | content | variant: "outline" | QLCDNumber("128.4", segmentStyle: .filled) |
+| `Label` | label | title |  | QLabel("Text") (also icon:) |
+| `LineEdit` | textfield | text |  | QLineEdit("text", placeholderText:, echoMode: .password, clearButtonEnabled:) |
+| `ListView` | list |  |  | QListView { ListWidgetItem… } |
+| `ListWidget` | list |  |  | QListWidget { ListWidgetItem("Item", icon:) … } — select with .selected() |
+| `ListWidgetItem` | listitem | title |  | ListWidgetItem("Text", icon:, checked:) |
+| `MainWindow` | vstack |  | alignment: "stretch", spacing: 0 | QMainWindow: stack MenuBar, ToolBar, the central area (DockWidgets + central widget in an HStack/Splitter) and StatusBar |
+| `MdiArea` | canvas |  |  | QMdiArea: place MdiSubWindow children with .position(x:y:) |
+| `MdiSubWindow` | card | title | variant: "mdi" | QMdiSubWindow("Title") { … } |
+| `Menu` | menu | label | caret: false | QMenu: in a MenuBar a title (open: true shows it); without a label a standalone popup / context menu |
+| `MenuBar` | toolbar |  | variant: "menuBar" | QMenuBar { Menu("&File") { Action… } } |
+| `MessageBox` | dialog | title | closable: true, variant: "messageBox" | QMessageBox("Title", text:, icon: .warning/.information/.critical/.question, buttons: [..], primary:) { informative text } |
+| `PlainTextEdit` | textfield | text | kind: "multiline", rows: 6 | QPlainTextEdit(plainText:) |
+| `ProgressBar` | progress | value | showValue: true | QProgressBar(value: 64) — percentage in the bar; no value = busy |
+| `ProgressDialog` | dialog | title | closable: true, variant: "progressDialog" | QProgressDialog window |
+| `PushButton` | button | label |  | QPushButton("OK", default: true, icon:, checked:, flat:, menu:) |
+| `RadioButton` | radio | label |  | QRadioButton("Option", checked: true) |
+| `RubberBand` | marquee |  |  | QRubberBand: a selection rectangle (size with .frame, place with .position) |
+| `ScrollArea` | scroll | axes |  | QScrollArea with Fusion scroll bars |
+| `ScrollBar` | slider | value | orientation: "horizontal" | QScrollBar(value: 30, orientation: .horizontal) |
+| `Separator` | divider |  |  | addSeparator() in menus and tool bars |
+| `SizeGrip` | spacer |  | variant: "sizeGrip" | QSizeGrip |
+| `Slider` | slider | value |  | QSlider(value: 40, minimum: 0, maximum: 100, tickPosition: .ticksBelow) |
+| `SpinBox` | textfield | value | kind: "spin" | QSpinBox(value: 3, prefix:, suffix: " px") — up/down buttons at the right |
+| `Splitter` | hstack |  | spacing: 0 | QSplitter(orientation: .horizontal/.vertical) — panes separated by a handle; size panes with .frame(width:) |
+| `StackedLayout` | vstack |  | alignment: "stretch" |  |
+| `StackedWidget` | vstack |  | alignment: "stretch" | QStackedWidget: holds the current page only |
+| `StatusBar` | toolbar |  | variant: "statusBar" | QStatusBar { Label("Ready"); Spacer(); Label("Ln 1, Col 1") } — size grip at the right |
+| `TabBar` | tabs | items | placement: "top", variant: "tabBar" | QTabBar(items: [..], selection:) |
+| `TabWidget` | tabs |  | placement: "top", variant: "tabWidget" | QTabWidget(selection:) { Tab("General") { … } } — tabsClosable:, documentMode via .variant(.documentMode) |
+| `TableView` | table |  | variant: "verticalHeader" | QTableView(columns:, rows:, selection:, sortColumn:) — .variant(.noVerticalHeader) hides row numbers |
+| `TableWidget` | table |  | variant: "verticalHeader" | QTableWidget(columns: [..], rows: [[..]], selection: [row], alternatingRowColors:) — row numbers on the left |
+| `TextBrowser` | textfield | text | kind: "multiline", rows: 6 | QTextBrowser(html:) — read-only rich text |
+| `TextEdit` | textfield | text | kind: "multiline", rows: 6 | QTextEdit("rich text", rows:) — rich text editor |
+| `TimeEdit` | datepicker | time | kind: "time" | QTimeEdit(time: "14:30") |
+| `ToolBar` | toolbar |  | variant: "toolBar" | QToolBar { ToolButton(icon:) … Separator() } |
+| `ToolBox` | vstack |  | alignment: "stretch", spacing: 0 | QToolBox { ToolBoxItem("Page", expanded: true) { … } } |
+| `ToolBoxItem` | accordion | title |  | One QToolBox page: tab button + (expanded) contents |
+| `ToolButton` | button | label | variant: "toolButton" | QToolButton("Save", icon: "document-save", toolButtonStyle: .textUnderIcon/.textBesideIcon/.iconOnly, checked:, popupMode:) |
+| `ToolTip` | tooltip | text |  | QToolTip shown over its child |
+| `TreeView` | tree |  |  | QTreeView { HeaderView([…]); TreeWidgetItem… } |
+| `TreeWidget` | tree |  |  | QTreeWidget { HeaderView(["Name", "Size"]); TreeWidgetItem("src") { … } } |
+| `TreeWidgetItem` | treeitem | label |  | TreeWidgetItem("Name", icon:, expanded:) { Text("col 2") … TreeWidgetItem(…) } — Text children are extra columns |
+| `VBoxLayout` | vstack |  | alignment: "stretch", spacing: 6 | QVBoxLayout: children top to bottom |
+| `Widget` | vstack |  | alignment: "leading" | QWidget: a plain container (vertical) |
+| `Wizard` | dialog | title | closable: true, variant: "wizard" | QWizard window holding one WizardPage |
+| `WizardPage` | card | title | variant: "wizardPage" | QWizardPage("Title", subtitle:) { … } — white header band |
+
+<!-- end catalogue: qt -->
+
+## avalonia — Avalonia UI 11 (Fluent theme)
+
+<!-- catalogue: avalonia — generate with `mockitdown elements avalonia --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `AccessText` | text | content |  |  |
+| `AutoCompleteBox` | select | label | variant: "autocomplete" | AutoCompleteBox(text: "Lis", items: ["Lisbon", "Lismore"], isDropDownOpen: true, watermark:) |
+| `Border` | vstack |  | alignment: "stretch" | A decorator: style with .padding / .background / .cornerRadius / .border |
+| `Button` | button | label | variant: "default" | Button("Save", icon:) · classes: "accent" (Classes="accent") for the accent button |
+| `ButtonSpinner` | textfield | text | kind: "number", trailingIcon: "chevron.up.down" |  |
+| `Calendar` | calendar |  | showToday: true | Calendar(selectedDate: "2026-11-18") — today (Nov 23) has the accent fill, the selection an accent ring |
+| `CalendarDatePicker` | datepicker | label | format: "numeric" | CalendarDatePicker(selectedDate: "2026-11-23", watermark:) — a TextBox with a calendar button |
+| `Canvas` | canvas |  |  | Absolute positioning: place children with .position(x:y:) (Canvas.Left/Top) |
+| `Carousel` | zstack |  |  | Carousel { current item } — one item at a time |
+| `CartesianChart` | chart |  | kind: "line" | LiveCharts2 CartesianChart(kind: .line/.bar/.area, series:, labels:) |
+| `CheckBox` | checkbox | label |  | CheckBox("Remember me", isChecked: true / .indeterminate) — IsThreeState shows the dash |
+| `ColorPicker` | swatches | label | variant: "picker" | ColorPicker(colors: ["#0078d7"], selection: 0) — the drop-down button with its colour preview |
+| `ColorSlider` | slider | label |  |  |
+| `ColorSpectrum` | placeholder | label | systemImage: "sun" |  |
+| `ColorView` | swatches | label |  | ColorView palette: colors: [..], selection: |
+| `ComboBox` | select | label |  | ComboBox(items: ["S", "M"], selectedItem: "M", placeholderText:, isDropDownOpen: true) or ComboBoxItem children |
+| `ComboBoxItem` | text | content |  |  |
+| `ContentControl` | group |  |  | Hosts one piece of content |
+| `ContentPresenter` | group |  |  |  |
+| `ContextMenu` | menu |  |  | ContextMenu { MenuItem… } — an open popup (place it with .padding / .position) |
+| `DataGrid` | table |  | variant: "dataGrid" | Avalonia.Controls.DataGrid(columns: [...], rows: [[...]], selected: [1]) or DataGrid*Column children |
+| `DataGridCheckBoxColumn` | tablecolumn | title |  |  |
+| `DataGridTemplateColumn` | tablecolumn | title |  |  |
+| `DataGridTextColumn` | tablecolumn | title |  |  |
+| `DatePicker` | datepicker | label | format: "long", variant: "fields" | DatePicker(selectedDate: "2026-11-23") — month · day · year segments |
+| `Decorator` | group |  |  |  |
+| `Dialog` | dialog | title | closable: true | A modal child Window (ShowDialog): Dialog("Title") { content } actions: { Button… } |
+| `DockPanel` | vstack |  | alignment: "stretch", spacing: 0 | DockPanel { top docks… ; fill } — docked children in order; put a left/right dock and the fill in an HStack |
+| `DropDownButton` | button | label | dropdown: true, variant: "default" | Button with a chevron that opens a Flyout |
+| `Ellipse` | shape |  | shape: "ellipse" |  |
+| `Expander` | accordion | header |  | Expander("Header", isExpanded: true) { content } |
+| `Flyout` | card | title | variant: "flyout" | A light-dismiss popup surface; place with .overlay(alignment:) or .position |
+| `Grid` | grid |  |  | Grid(columns: 3, spacing: 12) { … } — column count (ColumnDefinitions as a count), or GridRow children |
+| `GridSplitter` | divider |  |  | A draggable divider between grid cells |
+| `HeaderedContentControl` | section | header |  | HeaderedContentControl("Header") { content } |
+| `HyperlinkButton` | button | label | variant: "hyperlink" | HyperlinkButton("Learn more", navigateUri:) — link-styled button |
+| `Image` | image | name |  | Image("assets/images/photo-1.svg") or Image(source:) |
+| `ItemsControl` | vstack |  | alignment: "stretch" | Repeats an item template: use ForEach inside |
+| `ItemsRepeater` | vstack |  | alignment: "stretch" | Avalonia.Controls.ItemsRepeater: ForEach inside; .orientation(.horizontal) for a row |
+| `Label` | text | content |  | Label("Name:") — a ContentControl caption for an input (Target:) |
+| `LayoutTransformControl` | group |  |  |  |
+| `ListBox` | list |  | variant: "listBox" | ListBox { ListBoxItem… } — selection uses the accent list brush; .selected() on an item |
+| `ListBoxItem` | listitem | title |  | ListBoxItem("Title", subtitle:, detail:, icon:) or a custom item template as children |
+| `MaskedTextBox` | textfield | text |  | MaskedTextBox(mask: "(000) 000-0000") — the mask shows when empty |
+| `Menu` | toolbar |  | variant: "menubar" | Menu { MenuItem("File") … MenuBarItem("Edit", isSubMenuOpen: true) { MenuItem("Copy", inputGesture: "Ctrl+C") } } |
+| `MenuBarItem` | menu | label | caret: false, variant: "menubar" | A top-level MenuItem of a Menu with its submenu (XAML writes MenuItem; this name lets it open: isSubMenuOpen: true) |
+| `MenuFlyout` | menu | label |  | MenuFlyout { MenuItem… } — an open flyout; MenuFlyout("Sort", isOpen: true) { … } draws the DropDownButton that owns it |
+| `MenuItem` | menuitem | label |  | MenuItem("Copy", icon:, inputGesture: "Ctrl+C", isChecked:) — children make a submenu; in a Menu bar a closed top-level item |
+| `NotificationCard` | toast | title | inline: true, severity: "information" | NotificationCard("Saved", message:, type: .information/.success/.warning/.error) — put inside WindowNotificationManager |
+| `NumericUpDown` | textfield | value | kind: "number", trailingIcon: "chevron.up.down" | NumericUpDown(value: 3, minimum:, maximum:, formatString:) — spinner on the right |
+| `Panel` | zstack |  |  | Children overlap (Panel stacks them on top of each other) |
+| `Path` | shape |  | shape: "rectangle" |  |
+| `PathIcon` | icon | name |  | PathIcon("Settings") — a geometry icon (FluentIcons names work) |
+| `PieChart` | chart |  | kind: "donut" | LiveCharts2 PieChart(values:, labels:) |
+| `PolarChart` | chart |  | kind: "radar" | LiveCharts2 PolarChart(series:, labels:) |
+| `Popup` | card | title | variant: "flyout" |  |
+| `ProgressBar` | progress | label | total: 100 | ProgressBar(value: 60) — 0…100 (Maximum:); no value = indeterminate; showProgressText: true |
+| `RadioButton` | radio | label |  | RadioButton("Small", isChecked: true, groupName:) |
+| `Rectangle` | shape |  | shape: "rectangle" |  |
+| `RefreshContainer` | vstack |  | alignment: "stretch" | Pull-to-refresh host; refreshing: true shows the visualizer |
+| `RefreshVisualizer` | progress |  | kind: "circular" | The pull-to-refresh spinner |
+| `RelativePanel` | zstack |  |  |  |
+| `RepeatButton` | button | label | variant: "default" | Fires repeatedly while pressed |
+| `ReversibleStackPanel` | vstack |  | alignment: "stretch" |  |
+| `Run` | text | content |  |  |
+| `ScrollViewer` | scroll | axes |  | Scrolling region (static; Fluent overlay scroll bars are hidden at rest) |
+| `SelectableTextBlock` | text | content |  | Text the user can select and copy |
+| `Separator` | divider |  |  | A horizontal rule (menus, stack panels) |
+| `Slider` | slider | label |  | Slider(value: 40, minimum: 0, maximum: 100, ticks: 10) |
+| `SplitButton` | button | label | split: true, variant: "default" | Primary part + chevron that opens a Flyout |
+| `SplitView` | split |  | variant: "inline" | SplitView(displayMode: .inline) { pane } content: { … } — the pane sits on PaneBackground |
+| `StackPanel` | vstack |  | alignment: "stretch" | StackPanel(spacing: 8, orientation: .horizontal) { … } — vertical by default, children stretch across |
+| `SymbolIcon` | icon | name |  | FluentIcons.Avalonia SymbolIcon(symbol: "Home") |
+| `TabControl` | tabs |  | placement: "top", variant: "tabControl" | TabControl(selectedIndex: 0) { TabItem("General") { … } } — 24 px SemiLight headers with the accent pipe |
+| `TabItem` | tab | label |  |  |
+| `TabStrip` | tabs | items | placement: "top", variant: "tabStrip" | TabStrip(items: [..], selectedIndex:) — headers only |
+| `TabStripItem` | tab | label |  |  |
+| `TextBlock` | text | content |  | TextBlock("Hi", classes: "h2") — Text; .font(.title2), FontWeight via .bold() |
+| `TextBox` | textfield | text |  | TextBox("text", watermark: "Hint", label:) · .passwordChar("•") · .acceptsReturn() (rows:) · classes: "clearButton" / "revealPasswordButton" |
+| `TextEditor` | code | code |  | AvaloniaEdit TextEditor("…", language:, lineNumbers:, highlight: [3]) — ShowLineNumbers |
+| `TimePicker` | datepicker | label | kind: "time", variant: "fields" | TimePicker(selectedTime: "7:30 AM") |
+| `TitleBar` | appbar | title |  | A client-area title bar (ExtendClientAreaToDecorationsHint): TitleBar("App", logo:) { trailing controls } |
+| `ToggleButton` | button | label | variant: "default" | ToggleButton("Bold", isChecked: true) — checked uses the accent fill |
+| `ToggleSplitButton` | button | label | split: true, variant: "default" | SplitButton whose primary part toggles (isChecked:) |
+| `ToggleSwitch` | toggle | label | offText: "Off", onText: "On" | ToggleSwitch("Wi-Fi", isChecked: true, onContent:, offContent:) — Content is the header above the switch |
+| `ToolTip` | tooltip | text |  | ToolTip("Hint") { target } — ToolTip.Tip |
+| `TransitioningContentControl` | group |  |  | Shows the current page (transitions are static) |
+| `TreeView` | tree |  |  | TreeView { TreeViewItem("src", isExpanded: true) { TreeViewItem("App.axaml") } } |
+| `TreeViewItem` | treeitem | label |  | TreeViewItem("Header", icon:, isExpanded:, isSelected:) { children } |
+| `UniformGrid` | grid |  |  | UniformGrid(columns: n) { … } |
+| `UserControl` | vstack |  | alignment: "stretch", spacing: 0 | A reusable view's root |
+| `Viewbox` | zstack |  |  | Scales its child (static) |
+| `VirtualizingStackPanel` | vstack |  | alignment: "stretch" |  |
+| `Window` | vstack |  | alignment: "stretch", spacing: 0 | Window { … } — the top-level window's content (title and decorations come from the fence's title/chrome) |
+| `WindowNotificationManager` | vstack |  | alignment: "stretch", position: "topRight", spacing: 8 | Hosts NotificationCards in a window corner (position: .topRight/.bottomRight/.topLeft/.bottomLeft) |
+| `WrapPanel` | hstack |  | wrap: true | Children left to right, wrapping |
+
+<!-- end catalogue: avalonia -->
+
+## kde-plasma — KDE Plasma 6 (Breeze)
+
+<!-- catalogue: kde-plasma — generate with `mockitdown elements kde-plasma --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `AbstractCard` | card | title |  | Kirigami.AbstractCard { … } — the card frame with free content |
+| `Action` | button | label | variant: "tool" | Kirigami.Action("Add", icon: "list-add") — shown as a tool button in toolbars and page headers |
+| `ActionButton` | fab | icon |  | Kirigami floating action button (Plasma Mobile pages) |
+| `ActionTextField` | textfield | placeholder | clearButton: true | Kirigami.ActionTextField with inline actions |
+| `ActionToolBar` | toolbar |  | variant: "actions" | Kirigami.ActionToolBar { Action… } |
+| `ApplicationWindow` | hstack |  | alignment: "top" | Kirigami.ApplicationWindow { GlobalDrawer { … } PageRow { Page… } } — drawer and page stack side by side, filling the window |
+| `Avatar` | avatar | name |  | Kirigami.Avatar("Ana Diaz", image:, size: .small/.large) |
+| `Breadcrumb` | breadcrumb | items |  | Dolphin's location bar (KUrlNavigator) in breadcrumb mode: Breadcrumb(["Home", "Documents", "Taxes"]) |
+| `BusyIndicator` | progress | label | variant: "spinner" | BusyIndicator() — the spinning process-working icon |
+| `Button` | button | label | variant: "normal" | Button("Apply", icon: "dialog-ok-apply") · highlighted: true for the default button · flat: true · checked: true |
+| `ButtonGroup` | radiogroup | label |  | ButtonGroup(items: ["A", "B"], selection: "A") — exclusive radio buttons |
+| `Card` | card | title |  | Kirigami.Card("Title", subtitle:, image:) { contentItem } actions: { Action… } |
+| `CardsLayout` | grid |  | columns: 2 | Kirigami.CardsLayout(columns: 3) { Card… } |
+| `CheckBox` | checkbox | label |  | CheckBox("Show hidden files", checked: true / .indeterminate) |
+| `CheckDelegate` | listitem | title | checkbox: true | CheckDelegate("Item", checked: true) |
+| `Chip` | chip | label | checkmark: false | Kirigami.Chip("Tag", closable: true, checked: true) |
+| `ColumnLayout` | vstack |  | alignment: "leading" | QtQuick.Layouts ColumnLayout(spacing: 6) |
+| `ComboBox` | select | label |  | ComboBox(items: ["Icons", "Details"], selection: "Icons", open: true) — label: is the FormLayout label |
+| `ContextDrawer` | sidebar | title | variant: "context" | Kirigami.ContextDrawer("Actions") { … } — page-specific actions on the right |
+| `ContextualHelpButton` | button | label | icon: "help-contents", iconOnly: true, variant: "tool" | Kirigami.ContextualHelpButton — a (?) tool button |
+| `DetailsView` | table |  | variant: "details" | Dolphin's details view: DetailsView(columns: ["Name", "Size", "Modified"], rows: …, selection: [0]) |
+| `Dial` | progress | value | variant: "gauge" | QQC2 Dial(value:) |
+| `Dialog` | dialog | title | closable: true | Kirigami.Dialog("Title", buttons: ["OK", "Cancel"], primary: "OK") { content } |
+| `DockWidget` | card | title | variant: "dock" | QDockWidget / Kate tool view: a titled panel (Dolphin Information, Kate Projects…) |
+| `DrawerAction` | navitem | label |  | An action in a GlobalDrawer: DrawerAction("Inbox", icon:, badge:) · .selected() |
+| `FlexColumn` | vstack |  | alignment: "stretch" | Kirigami.FlexColumn — a centred column of limited width |
+| `FormButtonDelegate` | listitem | title | chevron: true | FormButtonDelegate("About", icon:, description:) |
+| `FormCard` | card | title | variant: "formcard" | Kirigami Addons FormCard { FormTextDelegate … } |
+| `FormCardPage` | navstack | title | titleDisplayMode: "inline" | Kirigami Addons FormCardPage("Settings") { FormHeader … FormCard { … } } |
+| `FormCheckDelegate` | checkbox | label |  | FormCheckDelegate("Show badge", checked: true) |
+| `FormComboBoxDelegate` | select | label |  | FormComboBoxDelegate("Theme", items:, selection:) |
+| `FormDelegateSeparator` | divider |  |  | Separator between FormCard delegates |
+| `FormHeader` | text | content |  | FormHeader("General") — the title above a FormCard |
+| `FormLayout` | form |  |  | Kirigami.FormLayout { TextField(label: "Name:") … } — labels right-aligned in a column, controls left-aligned |
+| `FormRow` | labeled | label |  | FormRow("Clicking files:") { RadioButton… } — any content under a right-aligned FormLayout label |
+| `FormSection` | section | title |  | A FormLayout section: Kirigami.Separator with Kirigami.FormData.isSection and a label |
+| `FormSwitchDelegate` | toggle | label |  | FormSwitchDelegate("Notifications", description:, checked: true) |
+| `FormTextDelegate` | listitem | title |  | FormTextDelegate("Version", description: "6.2") |
+| `FormTextFieldDelegate` | textfield | label |  | FormTextFieldDelegate("Name", text:) |
+| `Frame` | card | title | variant: "frame" | QQC2 Frame / QFrame: a bordered box |
+| `GlobalDrawer` | sidebar | title | variant: "global" | Kirigami.GlobalDrawer("App", titleIcon:) { Action / NavItem… } — the application's main navigation |
+| `GridLayout` | grid |  |  | GridLayout(columns: 3) { … } |
+| `GroupBox` | card | title | variant: "groupbox" | GroupBox("Title") { … } — QGroupBox with its title above the frame |
+| `HamburgerMenu` | menu | label | icon: "application-menu", variant: "tool" | The KHamburgerMenu button at the end of the toolbar (open: true shows the menu) |
+| `Heading` | text | content | level: 1 | Kirigami.Heading("Title", level: 1…5) — 1.35×, 1.2×, 1.15×, 1.1×, 1× the default font; type: .primary is bold |
+| `IconView` | grid |  | columns: 6 | Dolphin's icons view: IconView(columns: 6) { file items } |
+| `InlineMessage` | alert | text | type: "information" | Kirigami.InlineMessage("Text", type: .information/.positive/.warning/.error, showCloseButton: true, position: .header) actions: { Action… } |
+| `ItemDelegate` | listitem | title |  | QQC2 ItemDelegate |
+| `KCM` | navstack | title | titleDisplayMode: "inline" | A System Settings module page: KCM("Mouse") { FormLayout { … } } · .toolbar { ToolbarItem(placement: .bottomBar) { Help / Defaults / Reset / Apply } } |
+| `KCMCategory` | navitem | label |  | KCMCategory("Appearance", icon:, chevron: true) · .selected() — chevron: a category holding sub-pages |
+| `KCMSidebar` | sidebar | title | variant: "kcm" | System Settings' category sidebar: KCMSidebar { SearchField  KCMCategory… } |
+| `KMessageWidget` | alert | text | type: "information" | KMessageWidget (Qt Widgets): KMessageWidget("Text", type: .warning) |
+| `LinkButton` | link | label, destination |  | Kirigami.LinkButton("Learn more") |
+| `ListItem` | listitem | title |  | ListItem("Title", subtitle:, icon:, detail:) — Kirigami delegate |
+| `ListSectionHeader` | section | title |  | Kirigami.ListSectionHeader("Today") { rows } |
+| `ListView` | list |  |  | ListView { ItemDelegate… } |
+| `LoadingPlaceholder` | skeleton |  |  | Kirigami.LoadingPlaceholder |
+| `MainWindow` | vstack |  | alignment: "stretch" | QMainWindow / KXmlGuiWindow: MenuBar, ToolBar, central widget and StatusBar stacked, filling the window |
+| `Menu` | menu | label |  | Menu { MenuItem("Copy", icon: "edit-copy", shortcut: "Ctrl+C") … } |
+| `MenuBar` | toolbar |  | variant: "menubar" | MenuBar { MenuBarItem("File") … } |
+| `MenuBarItem` | menu | label | caret: false, variant: "menubar" | MenuBarItem("Edit", open: true) { MenuItem… } |
+| `MenuDialog` | dialog | title | closable: true | Kirigami.MenuDialog |
+| `MenuItem` | menuitem | label |  | MenuItem("Paste", icon:, shortcut:, checked:) |
+| `MenuSeparator` | divider |  |  | A separator line in a Menu |
+| `MessageBox` | dialog | title | variant: "messagebox" | KMessageBox("Title", message:, icon: "dialog-warning", buttons: […]) |
+| `NavigationTabBar` | tabs |  | placement: "bottom", variant: "navigation" | Kirigami.NavigationTabBar { NavigationTabButton("Home", icon:) … } — the Plasma Mobile bottom bar |
+| `NavigationTabButton` | tab | label |  | NavigationTabButton("Library", icon: "folder", badge: 3) |
+| `Notification` | toast | message | closable: true, position: "bottomTrailing" | A Plasma notification popup: Notification("Title", body:, icon:) actions: { HStack { Button… } } |
+| `OverlayDrawer` | sidebar | title | variant: "global" | Kirigami.OverlayDrawer |
+| `OverlaySheet` | dialog | title | closable: true | Kirigami.OverlaySheet |
+| `Page` | navstack | title | titleDisplayMode: "inline" | Kirigami.Page("Title") { … } — title on the left of the page header; .toolbar { Action… } for page actions |
+| `PageRow` | split |  |  | Kirigami PageRow (pageStack): pages side by side as columns — the first ones 360 px wide, the last fills |
+| `PasswordField` | textfield | placeholder | kind: "password", reveal: true | Kirigami.PasswordField(text: "secret") |
+| `PlaceholderMessage` | emptystate | title | icon: "dialog-information" | Kirigami.PlaceholderMessage("No files", explanation: "…", icon: "folder") { helpfulAction Button } |
+| `PlacesItem` | navitem | label |  | PlacesItem("Home", icon: "user-home") · .selected() |
+| `PlacesPanel` | sidebar | title | variant: "places" | Dolphin's Places panel: PlacesPanel { Section("Places") { PlacesItem… } … } |
+| `PlasmaPanel` | toolbar |  | variant: "panel" | The Plasma panel (task manager, system tray, clock) — place at the bottom of a desktop mockup |
+| `Plasmoid` | card | title | variant: "plasmoid" | A Plasma applet popup / desktop widget |
+| `ProgressBar` | progress | label |  | ProgressBar(value: 0.6) — no value = indeterminate |
+| `PromptDialog` | dialog | title |  | Kirigami.PromptDialog("Delete file?", subtitle: "…", buttons: ["Delete", "Cancel"], destructive: "Delete") |
+| `RadioButton` | radio | label |  | RadioButton("Single-click", checked: true) |
+| `RadioDelegate` | radio | label |  | RadioDelegate("Item", checked: true) |
+| `RangeSlider` | slider | label |  | RangeSlider(value: [20, 80]) |
+| `RoundButton` | button | icon | iconOnly: true, variant: "round" | QQC2 RoundButton(icon:) |
+| `RowLayout` | hstack |  |  | QtQuick.Layouts RowLayout(spacing: 6) |
+| `ScrollView` | scroll | axes |  | QQC2 ScrollView (static) |
+| `ScrollablePage` | navstack | title | titleDisplayMode: "inline" | Kirigami.ScrollablePage("Title") { … } — a Page whose content scrolls |
+| `SearchField` | textfield | placeholder | kind: "search", placeholder: "Search\u2026" | Kirigami.SearchField(text:) |
+| `SelectableLabel` | text | content |  | Kirigami.SelectableLabel |
+| `Separator` | divider |  |  | Kirigami.Separator — a 1 px line in the frame colour |
+| `Slider` | slider | label |  | Slider(value: 40, from: 0, to: 100, ticks: 10) |
+| `SpinBox` | textfield | value | kind: "number", trailingIcon: "chevron.up.down" | SpinBox(value: 5, suffix: " px") — up/down arrows on the right |
+| `SplitView` | split |  |  | QQC2 SplitView |
+| `Splitter` | split |  |  | QSplitter / SplitView: children side by side with a handle; columnWidths: [240, 600] |
+| `StatusBar` | toolbar |  | variant: "statusbar" | QStatusBar (Dolphin, Kate): small text on the left, zoom slider and free-space bar on the right |
+| `SubtitleDelegate` | listitem | title |  | Kirigami.SubtitleDelegate("Title", subtitle:, icon:) |
+| `SwipeListItem` | listitem | title |  | Kirigami.SwipeListItem("Title", subtitle:) actions: { Action… } — inline actions at the end |
+| `Switch` | toggle | label |  | Switch("Enable", checked: true) — the indicator sits before the text |
+| `SwitchDelegate` | toggle | label |  | SwitchDelegate("Item", checked: true) |
+| `SystemMonitorSensor` | stat | label, value |  | A System Monitor sensor face: SystemMonitorSensor("CPU", "23 %", trend: [...]) |
+| `TabBar` | tabs |  | placement: "top" | TabBar(selection: "Files") { TabButton("Files") … } |
+| `TabButton` | tab | label |  | TabButton("General", icon:) { content } |
+| `TabWidget` | tabs |  | placement: "top", variant: "document" | QTabWidget / document tabs (Kate, Konsole): TabWidget { TabButton("main.cpp") { … } } |
+| `TableView` | table |  |  | QTableView / TableView(columns: [...], rows: [[...]], selection: [1]) |
+| `TextArea` | textfield | text | kind: "multiline" | TextArea(text:, rows: 4) |
+| `TextField` | textfield | placeholder |  | TextField("Placeholder", text:, label:) — label: is the FormLayout label |
+| `ToolBar` | toolbar |  |  | ToolBar { ToolButton… } — the main window toolbar, merged with the title bar in Plasma 6 |
+| `ToolButton` | button | label | variant: "tool" | ToolButton("Split", icon: "view-split-left-right") — flat until hovered; checked: true |
+| `ToolTip` | tooltip | text |  | ToolTip("Hint") { target } |
+| `TreeView` | tree |  |  | QTreeView / TreeView { TreeViewItem("src", folder: true) { … } } |
+| `TreeViewItem` | treeitem | label |  | TreeViewItem("main.cpp", icon:, expanded:, selected:) |
+| `UrlButton` | link | label, destination |  | Kirigami.UrlButton("kde.org") |
+| `UrlNavigator` | breadcrumb | items |  | KUrlNavigator — same as Breadcrumb |
+
+<!-- end catalogue: kde-plasma -->
 
 ## mui — Material UI
 
@@ -1574,6 +1908,101 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: primer -->
 
+## swiftui — SwiftUI
+
+<!-- catalogue: swiftui — generate with `mockitdown elements swiftui --markdown` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `ActionSheet` | dialog | title | variant: "action-sheet" | Deprecated action sheet |
+| `Alert` | dialog | title | variant: "alert" | Alert("Delete?", message: "…") { Button("Cancel", role: .cancel) … } — prefer .alert(…) |
+| `AnyView` | group |  |  | Type-erased wrapper |
+| `AreaMark` | chart |  | kind: "area" | An area chart: AreaMark(values: [..], labels: [..]) |
+| `AsyncImage` | image | url |  | AsyncImage(url: "photo.jpg") |
+| `BarMark` | chart |  | kind: "bar" | A bar chart: BarMark(values: [..], labels: [..]) |
+| `Button` | button | label |  | Button("Save", systemImage:, role: .destructive/.cancel) · .buttonStyle(.bordered/.borderedProminent/.glass/.glassProminent) · .controlSize(.small/.large) |
+| `Canvas` | placeholder | label |  | Canvas drawing placeholder |
+| `Card` | card | title |  | Not SwiftUI: a rounded content tile like GroupBox |
+| `Chart` | chart |  |  | Swift Charts: Chart(kind: .bar/.line/.area/.pie/.donut, values: [..], labels: [..]) or series: [[..], [..]] |
+| `ColorPicker` | labeled | label |  | ColorPicker("Tint", selection: .blue) — label with the rainbow colour well |
+| `ConcentricRectangle` | shape |  | shape: "rounded" | iOS 26 concentric shape |
+| `ConfirmationDialog` | dialog | title | variant: "action-sheet" | Action sheet; prefer .confirmationDialog(…) |
+| `ContainerRelativeShape` | shape |  | shape: "rounded" |  |
+| `ContentUnavailableView` | dialog | title | inline: true, variant: "unavailable" | ContentUnavailableView("No Mail", systemImage: "tray", description: Text("…")) { actions }  |
+| `ControlGroup` | toolbar |  | variant: "group" | ControlGroup { Button … } — joined capsule of buttons |
+| `DatePicker` | datepicker | label |  | DatePicker("Starts", selection: "2026-11-23") — compact grey capsule; .datePickerStyle(.graphical) for the calendar |
+| `DisclosureGroup` | accordion | title |  | DisclosureGroup("Advanced", isExpanded: true) { … } |
+| `EditButton` | button | label | label: "Edit" | Toggles a list's edit mode — plain accent text |
+| `EmptyView` | group |  |  | Renders nothing |
+| `Form` | form |  | variant: "grouped" | Form { Section { TextField … Toggle … } } — inset-grouped rows |
+| `Gauge` | progress | value | variant: "accessoryCircular" | Gauge(value: 0.7, label: { Text("BPM") }, currentValueLabel: { Text("72") }) · .gaugeStyle(…) |
+| `GeometryReader` | vstack |  |  | Transparent container (stacked) |
+| `GlassEffectContainer` | hstack |  |  | iOS 26: groups glass shapes; renders as an HStack |
+| `GroupBox` | card | title |  | GroupBox("Activity") { … } — rounded secondary-background box |
+| `HSplitView` | hstack |  |  | macOS horizontal split |
+| `HelpLink` | button |  | iconOnly: true, systemImage: "questionmark", variant: "help" | macOS round help (?) button |
+| `Image` | image | name |  | Image("asset.png") or Image(systemName: "star.fill") |
+| `Inspector` | card | title |  | Inline inspector panel content (prefer the .inspector modifier) |
+| `Label` | label | title |  | Label("Inbox", systemImage: "tray"); .labelStyle(.iconOnly/.titleOnly/.titleAndIcon) |
+| `LabeledContent` | labeled | label, value |  | LabeledContent("Version", value: "26.1") — label + secondary value |
+| `LineMark` | chart |  | kind: "line" | A line chart: LineMark(values: [..], labels: [..]) |
+| `Link` | link | label, destination |  | Link("Privacy Policy", destination: url) — accent text |
+| `List` | list |  | variant: "insetGrouped" | List { Section("…") { … } } — inset-grouped by default; .listStyle(.plain/.sidebar/.grouped) |
+| `Map` | placeholder | label | systemImage: "mappin" | MapKit map placeholder (streets, park, water, pin) |
+| `Menu` | menu | label |  | Menu("Sort", systemImage:) { Button … } · open: true shows the glass menu |
+| `MultiDatePicker` | calendar | label |  | MultiDatePicker("Dates", selection:) — calendar with several marked days (events:) |
+| `NavigationLink` | listitem | title | chevron: true | NavigationLink("General", systemImage: "gear", iconColor: .gray) — row with chevron |
+| `NavigationSplitView` | split |  |  | NavigationSplitView { sidebar } content: { … } detail: { … } |
+| `NavigationStack` | navstack |  |  | NavigationStack { … .navigationTitle("Title") .toolbar { … } } · back: "Settings" shows the glass back button |
+| `NavigationView` | navstack |  |  | Deprecated alias of NavigationStack |
+| `OutlineGroup` | accordion | title |  | Hierarchical rows; written here as a DisclosureGroup-like node: OutlineGroup("Folder", isExpanded: true) { … } |
+| `PasteButton` | button | label | label: "Paste", systemImage: "doc.on.clipboard", variant: "bordered" | System paste button (bordered capsule) |
+| `PhotosPicker` | button | label | label: "Select Photos", systemImage: "photo" | PhotosPicker("Select Photos", selection:) — opens the photo picker |
+| `Picker` | select | label | variant: "menu" | Picker("Sort", selection: "Date") { Text("Date") … } · .pickerStyle(.segmented/.inline/.navigationLink) |
+| `PointMark` | chart |  | kind: "line" | A point/line chart: PointMark(values: [..]) |
+| `Popover` | dialog | title | variant: "popover" | Popover bubble; prefer .popover(isPresented:) |
+| `ProgressView` | progress | label |  | ProgressView() spinner, or ProgressView("Uploading", value: 0.4) |
+| `RealityView` | placeholder | label | systemImage: "cube" | RealityKit view placeholder |
+| `RenameButton` | button | label | label: "Rename", systemImage: "pencil" | Triggers a rename action |
+| `Row` | listitem | title |  | Generic row: title, subtitle:, detail:, systemImage:, iconColor:, chevron: |
+| `SceneView` | placeholder | label | systemImage: "cube" | SceneKit / RealityKit view placeholder |
+| `ScrollView` | scroll | axes |  | ScrollView { … } or ScrollView(.horizontal) { … } |
+| `ScrollViewReader` | group |  |  | Transparent container |
+| `Section` | section | title |  | Section("Header") { … } footer: { Text("…") } |
+| `SectorMark` | chart |  | kind: "donut" | A donut chart: SectorMark(values: [..], labels: [..]) |
+| `SecureField` | textfield | placeholder | kind: "password" | SecureField("Password", text: $password) |
+| `SettingsLink` | button | label | label: "Settings\u2026" | macOS button that opens the Settings window |
+| `ShareLink` | button | label | label: "Share", systemImage: "square.and.arrow.up" | ShareLink(item: url) — share-sheet button |
+| `Sheet` | dialog | title | variant: "sheet" | Bottom sheet; prefer .sheet(isPresented:) { … } |
+| `SignInWithAppleButton` | button | label | label: "Sign in with Apple", variant: "signInWithApple" | AuthenticationServices button — black capsule (white in dark) |
+| `Slider` | slider |  |  | Slider(value: 0.4) { Text("Volume") } minimumValueLabel: { Image(systemName: "speaker") } … |
+| `SpriteView` | placeholder | label | systemImage: "sparkles" | SpriteKit scene placeholder |
+| `Stepper` | stepper | label |  | Stepper("Guests", value: 2) — −/+ capsule |
+| `Tab` | tab | label |  | Tab("Search", systemImage: "magnifyingglass") { … } · .badge(3) |
+| `TabSection` | section | title |  | A group of Tabs (sidebar-adaptable TabView) |
+| `TabView` | tabs |  | placement: "bottom" | TabView { Tab("Home", systemImage: "house") { … } } — floating Liquid Glass tab bar |
+| `Table` | table |  |  | Table(columns: ["Name", "Size"], rows: [[…]]) or TableColumn / TableRow children — macOS/iPadOS table |
+| `TableColumn` | tablecolumn | title |  | TableColumn("Name") |
+| `TableRow` | tablerow |  |  | TableRow { Text(…) … } |
+| `Text` | text | content |  | Text("Hello") with **bold**, *italic*, `code`; .font(.headline) etc. |
+| `TextEditor` | textfield | text | kind: "multiline" | TextEditor(text: $notes) — multi-line editor |
+| `TextField` | textfield | placeholder |  | TextField("Email", text: $email); plain in a Form, .textFieldStyle(.roundedBorder) elsewhere; axis: .vertical |
+| `TimelineView` | group |  |  | Transparent container |
+| `TipView` | alert | title | closable: true, systemImage: "lightbulb" | TipKit tip: TipView("Favorites", message: "Tap the star…") |
+| `Toggle` | toggle | label |  | Toggle("Wi-Fi", isOn: true) — 51×31 green switch; .toggleStyle(.button/.checkbox) |
+| `Toolbar` | toolbar |  |  | Not SwiftUI: an inline bar of controls |
+| `ToolbarItem` | toolbaritem |  |  | ToolbarItem(placement: .topBarTrailing/.topBarLeading/.principal/.bottomBar) { … } |
+| `ToolbarItemGroup` | toolbaritem |  |  | ToolbarItemGroup(placement: .bottomBar) { … } |
+| `ToolbarSpacer` | spacer |  |  | iOS 26: separates toolbar glass groups (.fixed / .flexible) |
+| `UnevenRoundedRectangle` | shape |  | shape: "rounded" |  |
+| `VSplitView` | vstack |  |  | macOS vertical split |
+| `VideoPlayer` | placeholder | label | systemImage: "play" | AVKit video placeholder with play button |
+| `ViewThatFits` | group |  |  | Renders all candidates; keep one child |
+| `WebView` | placeholder | label | systemImage: "globe" | iOS 26 SwiftUI WebView placeholder |
+| `WindowGroup` | group |  |  | Scene wrapper, accepted so App code pastes |
+
+<!-- end catalogue: swiftui -->
+
 ## android — Android (Jetpack Compose Material 3)
 
 <!-- catalogue: android — generate with `mockitdown elements android --markdown --own` -->
@@ -1700,434 +2129,6 @@ the [Role catalogue](../rendering/roles.md).
 | `WideNavigationRail` | sidebar |  | variant: "rail" | M3 Expressive WideNavigationRail (collapsed) |
 
 <!-- end catalogue: android -->
-
-## gtk — GTK 4 (libadwaita)
-
-<!-- catalogue: gtk — generate with `mockitdown elements gtk --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `AboutDialog` | dialog | title | variant: "about" | AboutDialog(applicationName:, developerName:, applicationIcon:) { rows } |
-| `ActionBar` | toolbar |  | variant: "actionbar" | ActionBar { start … Spacer() … end } — bottom bar |
-| `ActionRow` | listitem | title |  | ActionRow("Title", subtitle:, icon:, chevron: true) { suffix widgets } |
-| `AlertDialog` | dialog | title | variant: "alert" | AlertDialog("Delete Notes?", body:, responses: ["Cancel", "Delete"], defaultResponse: "Delete", destructive: "Delete") |
-| `ApplicationWindow` | vstack |  | alignment: "stretch", spacing: 0 | Adw.ApplicationWindow — the window content; put a ToolbarView or a split view inside |
-| `Avatar` | avatar | name |  | Avatar("Ana Lima", size: .large, image:) — Adwaita gradient colours |
-| `Banner` | alert | title | showIcon: false | Banner("Title", actions: { Button("Restart") }) — the strip under a HeaderBar |
-| `Bin` | group |  |  | A single-child container |
-| `BottomSheet` | dialog | title | variant: "sheet" | Adw.BottomSheet (1.6) |
-| `Box` | vstack |  | alignment: "stretch" | Box(orientation: .horizontal, spacing: 6) { … } · .variant(.linked) joins buttons |
-| `BoxedList` | list |  | variant: "boxedList" | ListBox styled .boxed-list — rows in a rounded card |
-| `BreakpointBin` | group |  |  |  |
-| `Button` | button | label |  | Button("Save", icon:) · .variant(.suggested / .destructive / .flat / .pill / .circular / .osd) |
-| `ButtonRow` | listitem | title |  | ButtonRow("Add Account", icon:) · .variant(.suggested / .destructive) — 1.6 |
-| `Calendar` | calendar |  |  | Calendar(selection: "2026-11-24", marked: […]) |
-| `Carousel` | scroll |  | axes: "horizontal" | Carousel { pages } — horizontal pages |
-| `CarouselIndicatorDots` | pagination |  | variant: "dots" | CarouselIndicatorDots(pages: 4, position: 2) |
-| `CarouselIndicatorLines` | pagination |  | variant: "lines" |  |
-| `CenterBox` | hstack |  |  | start / center / end widgets in a row |
-| `CheckButton` | checkbox | label |  | CheckButton("Label", active: true) |
-| `Clamp` | vstack |  | alignment: "stretch" | Clamp { … } — limits its child to 600 px (maximumSize:) and centres it |
-| `ClampScrollable` | vstack |  | alignment: "stretch" |  |
-| `ColorDialogButton` | swatches |  |  | colors: [..], selection: |
-| `ColumnView` | table |  |  | ColumnView(columns: ["Name", "Size"], rows: [[…]]) — Gtk.ColumnView data table |
-| `ColumnViewColumn` | tablecolumn | title |  |  |
-| `ComboRow` | listitem | title | chevron: true | ComboRow("Title", subtitle:, selected: "Current value") |
-| `Dialog` | dialog | title |  | Adw.Dialog("Title") { ToolbarView … } |
-| `DropDown` | select | label |  | DropDown(model: ["A", "B"], selected: "A", open:) |
-| `EditableLabel` | textfield | text |  |  |
-| `Entry` | textfield | placeholder |  | Entry("Placeholder", text:, icon:) · .state(.focused / .error) |
-| `EntryRow` | textfield | title |  | EntryRow("Title", text:) — the title floats above the text |
-| `ExpanderRow` | accordion | title |  | ExpanderRow("Title", subtitle:, expanded: true) { nested rows } |
-| `FlowBox` | grid |  | columns: 4 | FlowBox(columns: 5) { FlowBoxChild … } |
-| `FlowBoxChild` | vstack |  |  |  |
-| `FontDialogButton` | button | label | variant: "font" |  |
-| `Frame` | card | title |  | Gtk.Frame — a bordered box |
-| `GridView` | grid |  | columns: 5 | GridView(columns: 6) { … } — Nautilus-style icon grid |
-| `HeaderBar` | appbar | title | kind: "window" | HeaderBar("Title", subtitle:, start: { … }, titleWidget: { ViewSwitcher }) { end widgets } — draws the window close button; showEndTitleButtons: false for inner panes |
-| `InlineViewSwitcher` | segmented | items |  | Adw.InlineViewSwitcher (1.7) — items:, selection: |
-| `Label` | text | content |  | Label("Text", style: .title1 / .title2 / .title3 / .title4 / .heading / .caption / .captionHeading / .largeTitle) · .class("dim-label") |
-| `LevelBar` | progress | label | variant: "levelbar" | LevelBar(value: 0.7) · .color(.warning / .error / .success) for the low/high offsets |
-| `LinkButton` | link | label, destination |  | LinkButton("Website", uri:) |
-| `ListBox` | list |  |  | ListBox { rows } · .variant(.boxedList / .navigationSidebar / .richList) |
-| `ListBoxRow` | listitem | title |  |  |
-| `ListView` | list |  |  |  |
-| `MenuButton` | menu | label |  | MenuButton(icon: "open-menu", open: true) { MenuItem … } |
-| `MenuItem` | menuitem | label |  | MenuItem("Preferences", shortcut: "Ctrl+,", checked:) |
-| `MessageDialog` | dialog | title | variant: "alert" |  |
-| `NavigationPage` | vstack | title | alignment: "stretch", spacing: 0 | NavigationPage("Title") { ToolbarView { … } } |
-| `NavigationSidebar` | sidebar | title |  | ListBox.navigation-sidebar — NavigationSidebar(selection:) { SidebarItem("Wi-Fi", icon:) … } |
-| `NavigationSplitView` | split |  |  | NavigationSplitView { sidebar page } content: { content page } |
-| `NavigationView` | vstack |  | alignment: "stretch", spacing: 0 | Navigation stack — shows its (top) page |
-| `Overlay` | zstack |  |  |  |
-| `OverlaySplitView` | split |  |  | OverlaySplitView { sidebar } content: { … } |
-| `Paned` | split |  |  | Paned { start } content: { end } |
-| `PasswordEntry` | textfield | placeholder | kind: "password", reveal: true |  |
-| `PasswordEntryRow` | textfield | title | kind: "password", reveal: true | PasswordEntryRow("Password", text:) |
-| `PathBar` | breadcrumb | items |  | Nautilus path bar: PathBar(["Home", "Projects"]) |
-| `Picture` | image | name |  |  |
-| `Popover` | card | title | variant: "popover" | A popover surface; place it with .overlay(alignment:) |
-| `PopoverMenu` | menu | label |  | PopoverMenu { MenuItem … } — an open menu popover |
-| `PreferencesDialog` | dialog | title | variant: "preferences" | PreferencesDialog("Preferences") { PreferencesPage … } |
-| `PreferencesGroup` | section | title |  | PreferencesGroup("Title", description:) { rows } headerSuffix: { Button } |
-| `PreferencesPage` | form | title |  | PreferencesPage { PreferencesGroup … } — clamped, scrolling page of groups |
-| `PreferencesWindow` | vstack |  | alignment: "stretch", spacing: 0 | Preferences window (deprecated; use PreferencesDialog) |
-| `ProgressBar` | progress | label |  | ProgressBar(fraction: 0.6, showText:) — none = pulsing |
-| `RadioButton` | radio | label |  | CheckButton in a group — RadioButton("Label", active: true) |
-| `Revealer` | group |  |  |  |
-| `Scale` | slider | label |  | Scale(value: 40, in: 0...100, marks: …) |
-| `ScrolledWindow` | scroll | axes |  | Scrolling region (static) |
-| `SearchBar` | toolbar |  | variant: "searchbar" | SearchBar { SearchEntry(…) } — revealed under the HeaderBar |
-| `SearchEntry` | textfield | placeholder | kind: "search" | SearchEntry("Search", text:) |
-| `Separator` | divider |  |  |  |
-| `ShortcutLabel` | kbd | keys |  | ShortcutLabel(["Ctrl", "S"]) |
-| `SidebarItem` | navitem | label |  | SidebarItem("Wi-Fi", icon: "network-wireless", badge:) · .selected() |
-| `SourceView` | code | code |  | GtkSourceView 5 — SourceView("…", language: "python", lineNumbers:, highlight:) |
-| `SpinButton` | stepper | label |  | SpinButton(value: 4) |
-| `SpinRow` | stepper | title |  | SpinRow("Title", value: 4) |
-| `Spinner` | progress |  | variant: "spinner" | Adw.Spinner — indeterminate |
-| `SplitButton` | button | label | split: true | SplitButton("Open") — button + dropdown arrow |
-| `Stack` | tabs |  | variant: "stack" | Stack(selection:) { StackPage("Name") { … } } — shows the selected page |
-| `StackPage` | tab | title |  |  |
-| `StackSwitcher` | segmented | items |  | StackSwitcher(items: ["A", "B"], selection: "A") — linked buttons |
-| `StatusPage` | emptystate | title |  | StatusPage("No Results", icon: "system-search", description:) { Button(…).variant(.pill) } |
-| `Statusbar` | toolbar |  | variant: "statusbar" |  |
-| `Switch` | toggle | label |  | Switch(active: true) |
-| `SwitchRow` | toggle | title |  | SwitchRow("Title", subtitle:, active: true) |
-| `TabBar` | tabs | items | placement: "top", variant: "tabview" | TabBar(items: ["a.txt", "b.txt"], selection:) |
-| `TabPage` | tab | title |  | TabPage("Title", icon:, badge:) { … } |
-| `TabView` | tabs |  | placement: "top", variant: "tabview" | TabView(selection:) { TabPage("notes.md") { … } } — Adw tab bar + pages |
-| `TextView` | textfield | text | kind: "multiline" | TextView(text:, rows:) — multi-line text area |
-| `Toast` | toast | title |  | Toast("‘Report.pdf’ moved to trash", buttonLabel: "Undo") — floats at the bottom |
-| `ToastOverlay` | group |  |  | Hosts toasts; put the content and a Toast inside |
-| `ToggleButton` | button | label |  | ToggleButton("Bold", active: true) |
-| `ToggleGroup` | segmented | items |  | Adw.ToggleGroup (1.7) — items:, selection: |
-| `ToolbarView` | vstack |  | alignment: "stretch", spacing: 0 | ToolbarView { HeaderBar(…); content; bottom bar } — content between the bars fills the space |
-| `TreeExpander` | treeitem | label |  |  |
-| `TreeListView` | tree |  |  |  |
-| `ViewStack` | tabs |  | variant: "stack" | ViewStack(selection:) { ViewStackPage("Albums", icon:) { … } } — the selected page only |
-| `ViewStackPage` | tab | title |  | ViewStackPage("Albums", icon: "photo", badge: 3) { … } |
-| `ViewSwitcher` | tabs |  | placement: "top", variant: "switcher" | ViewSwitcher(selection:) { ViewSwitcherItem("World", icon:) … } — wide switcher for a HeaderBar titleWidget |
-| `ViewSwitcherBar` | tabs |  | placement: "bottom", variant: "switcherBar" | ViewSwitcherBar(selection:) { ViewSwitcherItem … } — the narrow/mobile bottom bar |
-| `ViewSwitcherItem` | tab | title |  |  |
-| `Viewport` | group |  |  |  |
-| `Window` | vstack |  | alignment: "stretch", spacing: 0 | Adw.Window / Gtk.Window |
-| `WindowTitle` | listitem | title, subtitle |  | WindowTitle("Document", "~/Notes") — title + subtitle for a HeaderBar titleWidget |
-| `WrapBox` | hstack |  | spacing: 6, wrap: true | Adw.WrapBox (1.7) — wraps children onto lines |
-
-<!-- end catalogue: gtk -->
-
-## qt — Qt 6 (Fusion)
-
-<!-- catalogue: qt — generate with `mockitdown elements qt --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `Action` | menuitem | label |  | QAction("&Open…", icon:, shortcut: "Ctrl+O", checked:) — children make a submenu |
-| `BasicColors` | swatches |  | variant: "basicColors" | QColorDialog basic-colour grid: colors: [..], selection: |
-| `ButtonGroup` | radiogroup | label |  | Exclusive group of RadioButtons: items:, selection: |
-| `CalendarWidget` | calendar |  | firstWeekday: 1 | QCalendarWidget(selectedDate: "2026-11-23") — highlight-coloured navigation bar |
-| `CentralWidget` | vstack |  | alignment: "stretch", spacing: 6 | The main window's central widget; give it .frame(maxWidth: .infinity, maxHeight: .infinity) |
-| `ChartView` | chart |  |  | QChartView(kind: .bar/.line/.pie/…, series:, labels:) — Qt Charts light/dark themes |
-| `CheckBox` | checkbox | label |  | QCheckBox("Option", checked: true/.indeterminate) |
-| `ColorDialog` | dialog | title | closable: true, variant: "colorDialog" | QColorDialog window |
-| `ComboBox` | select | label |  | QComboBox(items: [..], currentText:, editable:) |
-| `CommandLinkButton` | button | label | icon: "arrow.right", variant: "commandLink" | QCommandLinkButton("Install now") |
-| `DateEdit` | datepicker | date | format: "numeric" | QDateEdit(date: "2026-11-23", calendarPopup: true) |
-| `DateTimeEdit` | datepicker | dateTime | format: "numeric", kind: "datetime" | QDateTimeEdit(dateTime: "2026-11-23 14:30") |
-| `Dial` | progress | value | kind: "circular" | QDial(value: 40, maximum: 100) |
-| `Dialog` | dialog | title | closable: true | QDialog("Title") { … } actions: { DialogButtonBox… } — a window with its own title bar |
-| `DialogButtonBox` | hstack |  | spacing: 6, variant: "buttonBox" | QDialogButtonBox { PushButton("OK", default: true); PushButton("Cancel") } — right-aligned |
-| `DockWidget` | card | title | variant: "dock" | QDockWidget("Title") { … } — title bar with float and close buttons |
-| `DoubleSpinBox` | textfield | value | kind: "spin" | QDoubleSpinBox(value: 1.50, suffix:) |
-| `FileDialog` | dialog | title | closable: true, variant: "fileDialog" | QFileDialog window (compose its contents) |
-| `FontComboBox` | select | label | selection: "Segoe UI" | QFontComboBox(currentText:) |
-| `FontDialog` | dialog | title | closable: true, variant: "fontDialog" | QFontDialog window |
-| `FormLayout` | form |  | variant: "formLayout" | QFormLayout { FormRow("Name:") { LineEdit() } } — labels right-aligned in the first column |
-| `FormRow` | labeled | label |  | QFormLayout::addRow(label, field): FormRow("Name:") { LineEdit() } |
-| `Frame` | vstack |  | alignment: "stretch", variant: "styledPanel" | QFrame(frameShape: .box/.panel/.styledPanel/.hLine/.vLine/.noFrame, frameShadow: .sunken/.raised/.plain) |
-| `GridLayout` | grid |  |  | QGridLayout(columns: n) or GridRow children |
-| `GroupBox` | card | title |  | QGroupBox("Title", checkable: true, checked: true) { … } — bold title above a rounded frame |
-| `HBoxLayout` | hstack |  | spacing: 6 | QHBoxLayout: children left to right |
-| `HeaderView` | segmented | items |  | QHeaderView(["Name", "Size"], selection: sorted section) |
-| `InputDialog` | dialog | title | closable: true, variant: "inputDialog" | QInputDialog window |
-| `KeySequenceEdit` | textfield | keySequence |  | QKeySequenceEdit(keySequence: "Ctrl+Shift+S") |
-| `LCDNumber` | text | content | variant: "outline" | QLCDNumber("128.4", segmentStyle: .filled) |
-| `Label` | label | title |  | QLabel("Text") (also icon:) |
-| `LineEdit` | textfield | text |  | QLineEdit("text", placeholderText:, echoMode: .password, clearButtonEnabled:) |
-| `ListView` | list |  |  | QListView { ListWidgetItem… } |
-| `ListWidget` | list |  |  | QListWidget { ListWidgetItem("Item", icon:) … } — select with .selected() |
-| `ListWidgetItem` | listitem | title |  | ListWidgetItem("Text", icon:, checked:) |
-| `MainWindow` | vstack |  | alignment: "stretch", spacing: 0 | QMainWindow: stack MenuBar, ToolBar, the central area (DockWidgets + central widget in an HStack/Splitter) and StatusBar |
-| `MdiArea` | canvas |  |  | QMdiArea: place MdiSubWindow children with .position(x:y:) |
-| `MdiSubWindow` | card | title | variant: "mdi" | QMdiSubWindow("Title") { … } |
-| `Menu` | menu | label | caret: false | QMenu: in a MenuBar a title (open: true shows it); without a label a standalone popup / context menu |
-| `MenuBar` | toolbar |  | variant: "menuBar" | QMenuBar { Menu("&File") { Action… } } |
-| `MessageBox` | dialog | title | closable: true, variant: "messageBox" | QMessageBox("Title", text:, icon: .warning/.information/.critical/.question, buttons: [..], primary:) { informative text } |
-| `PlainTextEdit` | textfield | text | kind: "multiline", rows: 6 | QPlainTextEdit(plainText:) |
-| `ProgressBar` | progress | value | showValue: true | QProgressBar(value: 64) — percentage in the bar; no value = busy |
-| `ProgressDialog` | dialog | title | closable: true, variant: "progressDialog" | QProgressDialog window |
-| `PushButton` | button | label |  | QPushButton("OK", default: true, icon:, checked:, flat:, menu:) |
-| `RadioButton` | radio | label |  | QRadioButton("Option", checked: true) |
-| `RubberBand` | marquee |  |  | QRubberBand: a selection rectangle (size with .frame, place with .position) |
-| `ScrollArea` | scroll | axes |  | QScrollArea with Fusion scroll bars |
-| `ScrollBar` | slider | value | orientation: "horizontal" | QScrollBar(value: 30, orientation: .horizontal) |
-| `Separator` | divider |  |  | addSeparator() in menus and tool bars |
-| `SizeGrip` | spacer |  | variant: "sizeGrip" | QSizeGrip |
-| `Slider` | slider | value |  | QSlider(value: 40, minimum: 0, maximum: 100, tickPosition: .ticksBelow) |
-| `SpinBox` | textfield | value | kind: "spin" | QSpinBox(value: 3, prefix:, suffix: " px") — up/down buttons at the right |
-| `Splitter` | hstack |  | spacing: 0 | QSplitter(orientation: .horizontal/.vertical) — panes separated by a handle; size panes with .frame(width:) |
-| `StackedLayout` | vstack |  | alignment: "stretch" |  |
-| `StackedWidget` | vstack |  | alignment: "stretch" | QStackedWidget: holds the current page only |
-| `StatusBar` | toolbar |  | variant: "statusBar" | QStatusBar { Label("Ready"); Spacer(); Label("Ln 1, Col 1") } — size grip at the right |
-| `TabBar` | tabs | items | placement: "top", variant: "tabBar" | QTabBar(items: [..], selection:) |
-| `TabWidget` | tabs |  | placement: "top", variant: "tabWidget" | QTabWidget(selection:) { Tab("General") { … } } — tabsClosable:, documentMode via .variant(.documentMode) |
-| `TableView` | table |  | variant: "verticalHeader" | QTableView(columns:, rows:, selection:, sortColumn:) — .variant(.noVerticalHeader) hides row numbers |
-| `TableWidget` | table |  | variant: "verticalHeader" | QTableWidget(columns: [..], rows: [[..]], selection: [row], alternatingRowColors:) — row numbers on the left |
-| `TextBrowser` | textfield | text | kind: "multiline", rows: 6 | QTextBrowser(html:) — read-only rich text |
-| `TextEdit` | textfield | text | kind: "multiline", rows: 6 | QTextEdit("rich text", rows:) — rich text editor |
-| `TimeEdit` | datepicker | time | kind: "time" | QTimeEdit(time: "14:30") |
-| `ToolBar` | toolbar |  | variant: "toolBar" | QToolBar { ToolButton(icon:) … Separator() } |
-| `ToolBox` | vstack |  | alignment: "stretch", spacing: 0 | QToolBox { ToolBoxItem("Page", expanded: true) { … } } |
-| `ToolBoxItem` | accordion | title |  | One QToolBox page: tab button + (expanded) contents |
-| `ToolButton` | button | label | variant: "toolButton" | QToolButton("Save", icon: "document-save", toolButtonStyle: .textUnderIcon/.textBesideIcon/.iconOnly, checked:, popupMode:) |
-| `ToolTip` | tooltip | text |  | QToolTip shown over its child |
-| `TreeView` | tree |  |  | QTreeView { HeaderView([…]); TreeWidgetItem… } |
-| `TreeWidget` | tree |  |  | QTreeWidget { HeaderView(["Name", "Size"]); TreeWidgetItem("src") { … } } |
-| `TreeWidgetItem` | treeitem | label |  | TreeWidgetItem("Name", icon:, expanded:) { Text("col 2") … TreeWidgetItem(…) } — Text children are extra columns |
-| `VBoxLayout` | vstack |  | alignment: "stretch", spacing: 6 | QVBoxLayout: children top to bottom |
-| `Widget` | vstack |  | alignment: "leading" | QWidget: a plain container (vertical) |
-| `Wizard` | dialog | title | closable: true, variant: "wizard" | QWizard window holding one WizardPage |
-| `WizardPage` | card | title | variant: "wizardPage" | QWizardPage("Title", subtitle:) { … } — white header band |
-
-<!-- end catalogue: qt -->
-
-## avalonia — Avalonia UI 11 (Fluent theme)
-
-<!-- catalogue: avalonia — generate with `mockitdown elements avalonia --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `AccessText` | text | content |  |  |
-| `AutoCompleteBox` | select | label | variant: "autocomplete" | AutoCompleteBox(text: "Lis", items: ["Lisbon", "Lismore"], isDropDownOpen: true, watermark:) |
-| `Border` | vstack |  | alignment: "stretch" | A decorator: style with .padding / .background / .cornerRadius / .border |
-| `Button` | button | label | variant: "default" | Button("Save", icon:) · classes: "accent" (Classes="accent") for the accent button |
-| `ButtonSpinner` | textfield | text | kind: "number", trailingIcon: "chevron.up.down" |  |
-| `Calendar` | calendar |  | showToday: true | Calendar(selectedDate: "2026-11-18") — today (Nov 23) has the accent fill, the selection an accent ring |
-| `CalendarDatePicker` | datepicker | label | format: "numeric" | CalendarDatePicker(selectedDate: "2026-11-23", watermark:) — a TextBox with a calendar button |
-| `Canvas` | canvas |  |  | Absolute positioning: place children with .position(x:y:) (Canvas.Left/Top) |
-| `Carousel` | zstack |  |  | Carousel { current item } — one item at a time |
-| `CartesianChart` | chart |  | kind: "line" | LiveCharts2 CartesianChart(kind: .line/.bar/.area, series:, labels:) |
-| `CheckBox` | checkbox | label |  | CheckBox("Remember me", isChecked: true / .indeterminate) — IsThreeState shows the dash |
-| `ColorPicker` | swatches | label | variant: "picker" | ColorPicker(colors: ["#0078d7"], selection: 0) — the drop-down button with its colour preview |
-| `ColorSlider` | slider | label |  |  |
-| `ColorSpectrum` | placeholder | label | systemImage: "sun" |  |
-| `ColorView` | swatches | label |  | ColorView palette: colors: [..], selection: |
-| `ComboBox` | select | label |  | ComboBox(items: ["S", "M"], selectedItem: "M", placeholderText:, isDropDownOpen: true) or ComboBoxItem children |
-| `ComboBoxItem` | text | content |  |  |
-| `ContentControl` | group |  |  | Hosts one piece of content |
-| `ContentPresenter` | group |  |  |  |
-| `ContextMenu` | menu |  |  | ContextMenu { MenuItem… } — an open popup (place it with .padding / .position) |
-| `DataGrid` | table |  | variant: "dataGrid" | Avalonia.Controls.DataGrid(columns: [...], rows: [[...]], selected: [1]) or DataGrid*Column children |
-| `DataGridCheckBoxColumn` | tablecolumn | title |  |  |
-| `DataGridTemplateColumn` | tablecolumn | title |  |  |
-| `DataGridTextColumn` | tablecolumn | title |  |  |
-| `DatePicker` | datepicker | label | format: "long", variant: "fields" | DatePicker(selectedDate: "2026-11-23") — month · day · year segments |
-| `Decorator` | group |  |  |  |
-| `Dialog` | dialog | title | closable: true | A modal child Window (ShowDialog): Dialog("Title") { content } actions: { Button… } |
-| `DockPanel` | vstack |  | alignment: "stretch", spacing: 0 | DockPanel { top docks… ; fill } — docked children in order; put a left/right dock and the fill in an HStack |
-| `DropDownButton` | button | label | dropdown: true, variant: "default" | Button with a chevron that opens a Flyout |
-| `Ellipse` | shape |  | shape: "ellipse" |  |
-| `Expander` | accordion | header |  | Expander("Header", isExpanded: true) { content } |
-| `Flyout` | card | title | variant: "flyout" | A light-dismiss popup surface; place with .overlay(alignment:) or .position |
-| `Grid` | grid |  |  | Grid(columns: 3, spacing: 12) { … } — column count (ColumnDefinitions as a count), or GridRow children |
-| `GridSplitter` | divider |  |  | A draggable divider between grid cells |
-| `HeaderedContentControl` | section | header |  | HeaderedContentControl("Header") { content } |
-| `HyperlinkButton` | button | label | variant: "hyperlink" | HyperlinkButton("Learn more", navigateUri:) — link-styled button |
-| `Image` | image | name |  | Image("assets/images/photo-1.svg") or Image(source:) |
-| `ItemsControl` | vstack |  | alignment: "stretch" | Repeats an item template: use ForEach inside |
-| `ItemsRepeater` | vstack |  | alignment: "stretch" | Avalonia.Controls.ItemsRepeater: ForEach inside; .orientation(.horizontal) for a row |
-| `Label` | text | content |  | Label("Name:") — a ContentControl caption for an input (Target:) |
-| `LayoutTransformControl` | group |  |  |  |
-| `ListBox` | list |  | variant: "listBox" | ListBox { ListBoxItem… } — selection uses the accent list brush; .selected() on an item |
-| `ListBoxItem` | listitem | title |  | ListBoxItem("Title", subtitle:, detail:, icon:) or a custom item template as children |
-| `MaskedTextBox` | textfield | text |  | MaskedTextBox(mask: "(000) 000-0000") — the mask shows when empty |
-| `Menu` | toolbar |  | variant: "menubar" | Menu { MenuItem("File") … MenuBarItem("Edit", isSubMenuOpen: true) { MenuItem("Copy", inputGesture: "Ctrl+C") } } |
-| `MenuBarItem` | menu | label | caret: false, variant: "menubar" | A top-level MenuItem of a Menu with its submenu (XAML writes MenuItem; this name lets it open: isSubMenuOpen: true) |
-| `MenuFlyout` | menu | label |  | MenuFlyout { MenuItem… } — an open flyout; MenuFlyout("Sort", isOpen: true) { … } draws the DropDownButton that owns it |
-| `MenuItem` | menuitem | label |  | MenuItem("Copy", icon:, inputGesture: "Ctrl+C", isChecked:) — children make a submenu; in a Menu bar a closed top-level item |
-| `NotificationCard` | toast | title | inline: true, severity: "information" | NotificationCard("Saved", message:, type: .information/.success/.warning/.error) — put inside WindowNotificationManager |
-| `NumericUpDown` | textfield | value | kind: "number", trailingIcon: "chevron.up.down" | NumericUpDown(value: 3, minimum:, maximum:, formatString:) — spinner on the right |
-| `Panel` | zstack |  |  | Children overlap (Panel stacks them on top of each other) |
-| `Path` | shape |  | shape: "rectangle" |  |
-| `PathIcon` | icon | name |  | PathIcon("Settings") — a geometry icon (FluentIcons names work) |
-| `PieChart` | chart |  | kind: "donut" | LiveCharts2 PieChart(values:, labels:) |
-| `PolarChart` | chart |  | kind: "radar" | LiveCharts2 PolarChart(series:, labels:) |
-| `Popup` | card | title | variant: "flyout" |  |
-| `ProgressBar` | progress | label | total: 100 | ProgressBar(value: 60) — 0…100 (Maximum:); no value = indeterminate; showProgressText: true |
-| `RadioButton` | radio | label |  | RadioButton("Small", isChecked: true, groupName:) |
-| `Rectangle` | shape |  | shape: "rectangle" |  |
-| `RefreshContainer` | vstack |  | alignment: "stretch" | Pull-to-refresh host; refreshing: true shows the visualizer |
-| `RefreshVisualizer` | progress |  | kind: "circular" | The pull-to-refresh spinner |
-| `RelativePanel` | zstack |  |  |  |
-| `RepeatButton` | button | label | variant: "default" | Fires repeatedly while pressed |
-| `ReversibleStackPanel` | vstack |  | alignment: "stretch" |  |
-| `Run` | text | content |  |  |
-| `ScrollViewer` | scroll | axes |  | Scrolling region (static; Fluent overlay scroll bars are hidden at rest) |
-| `SelectableTextBlock` | text | content |  | Text the user can select and copy |
-| `Separator` | divider |  |  | A horizontal rule (menus, stack panels) |
-| `Slider` | slider | label |  | Slider(value: 40, minimum: 0, maximum: 100, ticks: 10) |
-| `SplitButton` | button | label | split: true, variant: "default" | Primary part + chevron that opens a Flyout |
-| `SplitView` | split |  | variant: "inline" | SplitView(displayMode: .inline) { pane } content: { … } — the pane sits on PaneBackground |
-| `StackPanel` | vstack |  | alignment: "stretch" | StackPanel(spacing: 8, orientation: .horizontal) { … } — vertical by default, children stretch across |
-| `SymbolIcon` | icon | name |  | FluentIcons.Avalonia SymbolIcon(symbol: "Home") |
-| `TabControl` | tabs |  | placement: "top", variant: "tabControl" | TabControl(selectedIndex: 0) { TabItem("General") { … } } — 24 px SemiLight headers with the accent pipe |
-| `TabItem` | tab | label |  |  |
-| `TabStrip` | tabs | items | placement: "top", variant: "tabStrip" | TabStrip(items: [..], selectedIndex:) — headers only |
-| `TabStripItem` | tab | label |  |  |
-| `TextBlock` | text | content |  | TextBlock("Hi", classes: "h2") — Text; .font(.title2), FontWeight via .bold() |
-| `TextBox` | textfield | text |  | TextBox("text", watermark: "Hint", label:) · .passwordChar("•") · .acceptsReturn() (rows:) · classes: "clearButton" / "revealPasswordButton" |
-| `TextEditor` | code | code |  | AvaloniaEdit TextEditor("…", language:, lineNumbers:, highlight: [3]) — ShowLineNumbers |
-| `TimePicker` | datepicker | label | kind: "time", variant: "fields" | TimePicker(selectedTime: "7:30 AM") |
-| `TitleBar` | appbar | title |  | A client-area title bar (ExtendClientAreaToDecorationsHint): TitleBar("App", logo:) { trailing controls } |
-| `ToggleButton` | button | label | variant: "default" | ToggleButton("Bold", isChecked: true) — checked uses the accent fill |
-| `ToggleSplitButton` | button | label | split: true, variant: "default" | SplitButton whose primary part toggles (isChecked:) |
-| `ToggleSwitch` | toggle | label | offText: "Off", onText: "On" | ToggleSwitch("Wi-Fi", isChecked: true, onContent:, offContent:) — Content is the header above the switch |
-| `ToolTip` | tooltip | text |  | ToolTip("Hint") { target } — ToolTip.Tip |
-| `TransitioningContentControl` | group |  |  | Shows the current page (transitions are static) |
-| `TreeView` | tree |  |  | TreeView { TreeViewItem("src", isExpanded: true) { TreeViewItem("App.axaml") } } |
-| `TreeViewItem` | treeitem | label |  | TreeViewItem("Header", icon:, isExpanded:, isSelected:) { children } |
-| `UniformGrid` | grid |  |  | UniformGrid(columns: n) { … } |
-| `UserControl` | vstack |  | alignment: "stretch", spacing: 0 | A reusable view's root |
-| `Viewbox` | zstack |  |  | Scales its child (static) |
-| `VirtualizingStackPanel` | vstack |  | alignment: "stretch" |  |
-| `Window` | vstack |  | alignment: "stretch", spacing: 0 | Window { … } — the top-level window's content (title and decorations come from the fence's title/chrome) |
-| `WindowNotificationManager` | vstack |  | alignment: "stretch", position: "topRight", spacing: 8 | Hosts NotificationCards in a window corner (position: .topRight/.bottomRight/.topLeft/.bottomLeft) |
-| `WrapPanel` | hstack |  | wrap: true | Children left to right, wrapping |
-
-<!-- end catalogue: avalonia -->
-
-## kde-plasma — KDE Plasma 6 (Breeze)
-
-<!-- catalogue: kde-plasma — generate with `mockitdown elements kde-plasma --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `AbstractCard` | card | title |  | Kirigami.AbstractCard { … } — the card frame with free content |
-| `Action` | button | label | variant: "tool" | Kirigami.Action("Add", icon: "list-add") — shown as a tool button in toolbars and page headers |
-| `ActionButton` | fab | icon |  | Kirigami floating action button (Plasma Mobile pages) |
-| `ActionTextField` | textfield | placeholder | clearButton: true | Kirigami.ActionTextField with inline actions |
-| `ActionToolBar` | toolbar |  | variant: "actions" | Kirigami.ActionToolBar { Action… } |
-| `ApplicationWindow` | hstack |  | alignment: "top" | Kirigami.ApplicationWindow { GlobalDrawer { … } PageRow { Page… } } — drawer and page stack side by side, filling the window |
-| `Avatar` | avatar | name |  | Kirigami.Avatar("Ana Diaz", image:, size: .small/.large) |
-| `Breadcrumb` | breadcrumb | items |  | Dolphin's location bar (KUrlNavigator) in breadcrumb mode: Breadcrumb(["Home", "Documents", "Taxes"]) |
-| `BusyIndicator` | progress | label | variant: "spinner" | BusyIndicator() — the spinning process-working icon |
-| `Button` | button | label | variant: "normal" | Button("Apply", icon: "dialog-ok-apply") · highlighted: true for the default button · flat: true · checked: true |
-| `ButtonGroup` | radiogroup | label |  | ButtonGroup(items: ["A", "B"], selection: "A") — exclusive radio buttons |
-| `Card` | card | title |  | Kirigami.Card("Title", subtitle:, image:) { contentItem } actions: { Action… } |
-| `CardsLayout` | grid |  | columns: 2 | Kirigami.CardsLayout(columns: 3) { Card… } |
-| `CheckBox` | checkbox | label |  | CheckBox("Show hidden files", checked: true / .indeterminate) |
-| `CheckDelegate` | listitem | title | checkbox: true | CheckDelegate("Item", checked: true) |
-| `Chip` | chip | label | checkmark: false | Kirigami.Chip("Tag", closable: true, checked: true) |
-| `ColumnLayout` | vstack |  | alignment: "leading" | QtQuick.Layouts ColumnLayout(spacing: 6) |
-| `ComboBox` | select | label |  | ComboBox(items: ["Icons", "Details"], selection: "Icons", open: true) — label: is the FormLayout label |
-| `ContextDrawer` | sidebar | title | variant: "context" | Kirigami.ContextDrawer("Actions") { … } — page-specific actions on the right |
-| `ContextualHelpButton` | button | label | icon: "help-contents", iconOnly: true, variant: "tool" | Kirigami.ContextualHelpButton — a (?) tool button |
-| `DetailsView` | table |  | variant: "details" | Dolphin's details view: DetailsView(columns: ["Name", "Size", "Modified"], rows: …, selection: [0]) |
-| `Dial` | progress | value | variant: "gauge" | QQC2 Dial(value:) |
-| `Dialog` | dialog | title | closable: true | Kirigami.Dialog("Title", buttons: ["OK", "Cancel"], primary: "OK") { content } |
-| `DockWidget` | card | title | variant: "dock" | QDockWidget / Kate tool view: a titled panel (Dolphin Information, Kate Projects…) |
-| `DrawerAction` | navitem | label |  | An action in a GlobalDrawer: DrawerAction("Inbox", icon:, badge:) · .selected() |
-| `FlexColumn` | vstack |  | alignment: "stretch" | Kirigami.FlexColumn — a centred column of limited width |
-| `FormButtonDelegate` | listitem | title | chevron: true | FormButtonDelegate("About", icon:, description:) |
-| `FormCard` | card | title | variant: "formcard" | Kirigami Addons FormCard { FormTextDelegate … } |
-| `FormCardPage` | navstack | title | titleDisplayMode: "inline" | Kirigami Addons FormCardPage("Settings") { FormHeader … FormCard { … } } |
-| `FormCheckDelegate` | checkbox | label |  | FormCheckDelegate("Show badge", checked: true) |
-| `FormComboBoxDelegate` | select | label |  | FormComboBoxDelegate("Theme", items:, selection:) |
-| `FormDelegateSeparator` | divider |  |  | Separator between FormCard delegates |
-| `FormHeader` | text | content |  | FormHeader("General") — the title above a FormCard |
-| `FormLayout` | form |  |  | Kirigami.FormLayout { TextField(label: "Name:") … } — labels right-aligned in a column, controls left-aligned |
-| `FormRow` | labeled | label |  | FormRow("Clicking files:") { RadioButton… } — any content under a right-aligned FormLayout label |
-| `FormSection` | section | title |  | A FormLayout section: Kirigami.Separator with Kirigami.FormData.isSection and a label |
-| `FormSwitchDelegate` | toggle | label |  | FormSwitchDelegate("Notifications", description:, checked: true) |
-| `FormTextDelegate` | listitem | title |  | FormTextDelegate("Version", description: "6.2") |
-| `FormTextFieldDelegate` | textfield | label |  | FormTextFieldDelegate("Name", text:) |
-| `Frame` | card | title | variant: "frame" | QQC2 Frame / QFrame: a bordered box |
-| `GlobalDrawer` | sidebar | title | variant: "global" | Kirigami.GlobalDrawer("App", titleIcon:) { Action / NavItem… } — the application's main navigation |
-| `GridLayout` | grid |  |  | GridLayout(columns: 3) { … } |
-| `GroupBox` | card | title | variant: "groupbox" | GroupBox("Title") { … } — QGroupBox with its title above the frame |
-| `HamburgerMenu` | menu | label | icon: "application-menu", variant: "tool" | The KHamburgerMenu button at the end of the toolbar (open: true shows the menu) |
-| `Heading` | text | content | level: 1 | Kirigami.Heading("Title", level: 1…5) — 1.35×, 1.2×, 1.15×, 1.1×, 1× the default font; type: .primary is bold |
-| `IconView` | grid |  | columns: 6 | Dolphin's icons view: IconView(columns: 6) { file items } |
-| `InlineMessage` | alert | text | type: "information" | Kirigami.InlineMessage("Text", type: .information/.positive/.warning/.error, showCloseButton: true, position: .header) actions: { Action… } |
-| `ItemDelegate` | listitem | title |  | QQC2 ItemDelegate |
-| `KCM` | navstack | title | titleDisplayMode: "inline" | A System Settings module page: KCM("Mouse") { FormLayout { … } } · .toolbar { ToolbarItem(placement: .bottomBar) { Help / Defaults / Reset / Apply } } |
-| `KCMCategory` | navitem | label |  | KCMCategory("Appearance", icon:, chevron: true) · .selected() — chevron: a category holding sub-pages |
-| `KCMSidebar` | sidebar | title | variant: "kcm" | System Settings' category sidebar: KCMSidebar { SearchField  KCMCategory… } |
-| `KMessageWidget` | alert | text | type: "information" | KMessageWidget (Qt Widgets): KMessageWidget("Text", type: .warning) |
-| `LinkButton` | link | label, destination |  | Kirigami.LinkButton("Learn more") |
-| `ListItem` | listitem | title |  | ListItem("Title", subtitle:, icon:, detail:) — Kirigami delegate |
-| `ListSectionHeader` | section | title |  | Kirigami.ListSectionHeader("Today") { rows } |
-| `ListView` | list |  |  | ListView { ItemDelegate… } |
-| `LoadingPlaceholder` | skeleton |  |  | Kirigami.LoadingPlaceholder |
-| `MainWindow` | vstack |  | alignment: "stretch" | QMainWindow / KXmlGuiWindow: MenuBar, ToolBar, central widget and StatusBar stacked, filling the window |
-| `Menu` | menu | label |  | Menu { MenuItem("Copy", icon: "edit-copy", shortcut: "Ctrl+C") … } |
-| `MenuBar` | toolbar |  | variant: "menubar" | MenuBar { MenuBarItem("File") … } |
-| `MenuBarItem` | menu | label | caret: false, variant: "menubar" | MenuBarItem("Edit", open: true) { MenuItem… } |
-| `MenuDialog` | dialog | title | closable: true | Kirigami.MenuDialog |
-| `MenuItem` | menuitem | label |  | MenuItem("Paste", icon:, shortcut:, checked:) |
-| `MenuSeparator` | divider |  |  | A separator line in a Menu |
-| `MessageBox` | dialog | title | variant: "messagebox" | KMessageBox("Title", message:, icon: "dialog-warning", buttons: […]) |
-| `NavigationTabBar` | tabs |  | placement: "bottom", variant: "navigation" | Kirigami.NavigationTabBar { NavigationTabButton("Home", icon:) … } — the Plasma Mobile bottom bar |
-| `NavigationTabButton` | tab | label |  | NavigationTabButton("Library", icon: "folder", badge: 3) |
-| `Notification` | toast | message | closable: true, position: "bottomTrailing" | A Plasma notification popup: Notification("Title", body:, icon:) actions: { HStack { Button… } } |
-| `OverlayDrawer` | sidebar | title | variant: "global" | Kirigami.OverlayDrawer |
-| `OverlaySheet` | dialog | title | closable: true | Kirigami.OverlaySheet |
-| `Page` | navstack | title | titleDisplayMode: "inline" | Kirigami.Page("Title") { … } — title on the left of the page header; .toolbar { Action… } for page actions |
-| `PageRow` | split |  |  | Kirigami PageRow (pageStack): pages side by side as columns — the first ones 360 px wide, the last fills |
-| `PasswordField` | textfield | placeholder | kind: "password", reveal: true | Kirigami.PasswordField(text: "secret") |
-| `PlaceholderMessage` | emptystate | title | icon: "dialog-information" | Kirigami.PlaceholderMessage("No files", explanation: "…", icon: "folder") { helpfulAction Button } |
-| `PlacesItem` | navitem | label |  | PlacesItem("Home", icon: "user-home") · .selected() |
-| `PlacesPanel` | sidebar | title | variant: "places" | Dolphin's Places panel: PlacesPanel { Section("Places") { PlacesItem… } … } |
-| `PlasmaPanel` | toolbar |  | variant: "panel" | The Plasma panel (task manager, system tray, clock) — place at the bottom of a desktop mockup |
-| `Plasmoid` | card | title | variant: "plasmoid" | A Plasma applet popup / desktop widget |
-| `ProgressBar` | progress | label |  | ProgressBar(value: 0.6) — no value = indeterminate |
-| `PromptDialog` | dialog | title |  | Kirigami.PromptDialog("Delete file?", subtitle: "…", buttons: ["Delete", "Cancel"], destructive: "Delete") |
-| `RadioButton` | radio | label |  | RadioButton("Single-click", checked: true) |
-| `RadioDelegate` | radio | label |  | RadioDelegate("Item", checked: true) |
-| `RangeSlider` | slider | label |  | RangeSlider(value: [20, 80]) |
-| `RoundButton` | button | icon | iconOnly: true, variant: "round" | QQC2 RoundButton(icon:) |
-| `RowLayout` | hstack |  |  | QtQuick.Layouts RowLayout(spacing: 6) |
-| `ScrollView` | scroll | axes |  | QQC2 ScrollView (static) |
-| `ScrollablePage` | navstack | title | titleDisplayMode: "inline" | Kirigami.ScrollablePage("Title") { … } — a Page whose content scrolls |
-| `SearchField` | textfield | placeholder | kind: "search", placeholder: "Search\u2026" | Kirigami.SearchField(text:) |
-| `SelectableLabel` | text | content |  | Kirigami.SelectableLabel |
-| `Separator` | divider |  |  | Kirigami.Separator — a 1 px line in the frame colour |
-| `Slider` | slider | label |  | Slider(value: 40, from: 0, to: 100, ticks: 10) |
-| `SpinBox` | textfield | value | kind: "number", trailingIcon: "chevron.up.down" | SpinBox(value: 5, suffix: " px") — up/down arrows on the right |
-| `SplitView` | split |  |  | QQC2 SplitView |
-| `Splitter` | split |  |  | QSplitter / SplitView: children side by side with a handle; columnWidths: [240, 600] |
-| `StatusBar` | toolbar |  | variant: "statusbar" | QStatusBar (Dolphin, Kate): small text on the left, zoom slider and free-space bar on the right |
-| `SubtitleDelegate` | listitem | title |  | Kirigami.SubtitleDelegate("Title", subtitle:, icon:) |
-| `SwipeListItem` | listitem | title |  | Kirigami.SwipeListItem("Title", subtitle:) actions: { Action… } — inline actions at the end |
-| `Switch` | toggle | label |  | Switch("Enable", checked: true) — the indicator sits before the text |
-| `SwitchDelegate` | toggle | label |  | SwitchDelegate("Item", checked: true) |
-| `SystemMonitorSensor` | stat | label, value |  | A System Monitor sensor face: SystemMonitorSensor("CPU", "23 %", trend: [...]) |
-| `TabBar` | tabs |  | placement: "top" | TabBar(selection: "Files") { TabButton("Files") … } |
-| `TabButton` | tab | label |  | TabButton("General", icon:) { content } |
-| `TabWidget` | tabs |  | placement: "top", variant: "document" | QTabWidget / document tabs (Kate, Konsole): TabWidget { TabButton("main.cpp") { … } } |
-| `TableView` | table |  |  | QTableView / TableView(columns: [...], rows: [[...]], selection: [1]) |
-| `TextArea` | textfield | text | kind: "multiline" | TextArea(text:, rows: 4) |
-| `TextField` | textfield | placeholder |  | TextField("Placeholder", text:, label:) — label: is the FormLayout label |
-| `ToolBar` | toolbar |  |  | ToolBar { ToolButton… } — the main window toolbar, merged with the title bar in Plasma 6 |
-| `ToolButton` | button | label | variant: "tool" | ToolButton("Split", icon: "view-split-left-right") — flat until hovered; checked: true |
-| `ToolTip` | tooltip | text |  | ToolTip("Hint") { target } |
-| `TreeView` | tree |  |  | QTreeView / TreeView { TreeViewItem("src", folder: true) { … } } |
-| `TreeViewItem` | treeitem | label |  | TreeViewItem("main.cpp", icon:, expanded:, selected:) |
-| `UrlButton` | link | label, destination |  | Kirigami.UrlButton("kde.org") |
-| `UrlNavigator` | breadcrumb | items |  | KUrlNavigator — same as Breadcrumb |
-
-<!-- end catalogue: kde-plasma -->
 
 ## nls — NLS — the 1968 oN-Line System
 

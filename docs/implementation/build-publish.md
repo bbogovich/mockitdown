@@ -79,6 +79,12 @@ Definition, Specification, Implementation, Reference. Each site's own sections a
 their own sidebar); the other site's sections are absolute links to their published URLs
 (`https://bbogovich.github.io/mockitdown/…`), so they leave a local preview.
 
+`navigation.tabs.sticky` keeps the tabs in the header while scrolling, and a small stylesheet
+(`assets/site.css` on the example site, `specification/stylesheets/tabs.css` on the documentation)
+overrides the theme's rule that hides them below 1220 px. Framework packs are grouped as Desktop,
+Web and Mobile in both the Demo and the Reference menus; `tools/gen_reference.py` derives the group
+from each pack's default device and chrome.
+
 ## GitHub Pages
 
 `.github/workflows/pages.yml` runs on pushes to `main` and `docs`: it checks out both branches,

@@ -1,0 +1,6 @@
+/* Header tabs (Demo, Definition, Specification, Implementation, Reference) stay visible at every
+   width: the theme hides them below 1220 px and moves them into the drawer. */
+@media screen and (max-width: 76.2344em) {
+  .md-tabs { display: block; }
+  .md-tabs__list { white-space: nowrap; overflow-x: auto; }
+}
