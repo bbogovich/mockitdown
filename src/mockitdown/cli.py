@@ -133,7 +133,7 @@ def cmd_packs(a: argparse.Namespace) -> int:
 
 def cmd_elements(a: argparse.Namespace) -> int:
     pack = registry(tuple(a.pack_path)).get(a.pack)
-    names = sorted(pack.elements)
+    names = sorted(pack.own_elements if a.own else pack.elements)
     if a.markdown:
         print(f"| Element | Role | Arguments | Defaults | Notes |\n|---|---|---|---|---|")
         for n in names:
@@ -177,6 +177,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("pack")
     p.add_argument("-P", "--pack-path", action="append", default=[])
     p.add_argument("--markdown", action="store_true")
+    p.add_argument("--own", action="store_true", help="only the pack's own elements, not inherited ones")
     p.set_defaults(func=cmd_elements)
     a = ap.parse_args(argv)
     try:
