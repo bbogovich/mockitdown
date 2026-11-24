@@ -72,6 +72,28 @@ class ExampleSiteTests(unittest.TestCase):
                     self.assertIn("<style data-mockitdown=", out)
 
 
+@unittest.skipIf(markdown is None, "Markdown / pymdown-extensions not installed")
+class CssInjectionTests(unittest.TestCase):
+    def _md(self):
+        return markdown.Markdown(extensions=["mockitdown", "pymdownx.superfences"], extension_configs={
+            "pymdownx.superfences": {"custom_fences": [
+                {"name": "mockitdown", "class": "mockitdown", "format": fence.format, "validator": fence.validate}]}})
+
+    def test_style_once_even_with_extra_converts_without_reset(self):
+        md = self._md()
+        page = '# T\n\n```mockitdown\nText("a")\n```\n\n```mockitdown\nText("b")\n```\n'
+        out = md.convert(page)
+        self.assertEqual(out.count("<style data-mockitdown"), 1)
+        self.assertNotIn("<style", md.convert("## heading only"))  # e.g. a host's nested heading convert
+
+    def test_nested_convert_does_not_steal_the_stylesheet(self):
+        md = self._md()
+        session = md.mockitdown
+        session.used = ["base"]  # fences already ran for the page …
+        self.assertNotIn("<style", md.convert("heading"))  # … a nested convert without figures
+        self.assertEqual(session.used, ["base"])
+
+
 @unittest.skipUnless(shutil.which("zensical") or os.environ.get("ZENSICAL"), "zensical not installed")
 class ZensicalBuildTests(unittest.TestCase):
     def test_site_builds(self):

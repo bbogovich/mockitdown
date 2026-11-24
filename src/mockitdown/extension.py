@@ -54,9 +54,15 @@ class _StylePostprocessor(Postprocessor):
     def run(self, text: str) -> str:
         if self.session.css != "inline" or not self.session.used:
             return text
+        # Hosts such as Zensical run nested convert() calls (e.g. for headings) while a page is being
+        # converted, and may convert again without reset(). Only the conversion whose output holds the
+        # figures gets the stylesheet; it consumes the packs so the CSS is emitted once.
+        if 'class="mkd-figure ' not in text:
+            return text
+        used, self.session.used = self.session.used, []
         reg = registry(tuple(str(p) for p in self.session.options.pack_paths))
-        css = stylesheet(self.session.used, reg)
-        return f'<style data-mockitdown="{" ".join(self.session.used)}">{css}</style>\n{text}'
+        css = stylesheet(used, reg)
+        return f'<style data-mockitdown="{" ".join(used)}">{css}</style>\n{text}'
 
 
 class MockitdownExtension(Extension):
