@@ -1,0 +1,98 @@
+// Reusable Angular Material components for the angular-material pack page.
+// Imported with:  import "angular-material/shell"
+
+import AngularMaterial
+
+/// The admin shell: a mat-toolbar over a mat-sidenav-container whose mat-nav-list marks the
+/// active route. The page content goes in the trailing closure.
+struct AdminShell: View {
+  var title: String = "Acme Console"
+  var active: String = "Dashboard"
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    VStack(alignment: .stretch, spacing: 0) {
+      MatToolbar(title, menu: true) {
+        MatIconButton("search")
+        MatIconButton("notifications").badge(3)
+        MatIconButton("help_outline")
+        Avatar("Dana Ruiz", image: "assets/images/avatar-2.svg").padding(.leading, 8)
+      }
+      MatSidenavContainer {
+        MatSidenav {
+          MatNavList {
+            ForEach([("Dashboard", "dashboard"), ("Orders", "receipt_long"), ("Customers", "group"),
+                     ("Products", "inventory_2"), ("Reports", "bar_chart")]) { label, icon in
+              MatListItem(label, systemImage: icon).selected(label == active)
+            }
+            MatDivider()
+            ForEach([("Settings", "settings"), ("Help", "help_outline")]) { label, icon in
+              MatListItem(label, systemImage: icon).selected(label == active)
+            }
+          }
+        }
+        MatSidenavContent {
+          content
+        }
+        .padding(24)
+      }
+      .frame(maxHeight: .infinity)
+    }
+    .frame(maxHeight: .infinity)
+  }
+}
+
+/// A dashboard figure on a mat-card: label, value, change chip and a sparkline.
+struct StatCard: View {
+  var label: String
+  var value: String
+  var change: String
+  var up: Bool = true
+  var icon: String = "trending_up"
+  var trend: [Double] = []
+
+  var body: some View {
+    MatCard {
+      HStack(spacing: 12) {
+        MatIcon(icon).foregroundStyle(.accent)
+        Text(label).font(.titleSmall).foregroundStyle(.secondary)
+        Spacer()
+        Badge(change).color(up ? .success : .error).variant(.soft)
+      }
+      Text(value).font(.headlineMedium)
+      if trend.count > 0 {
+        Chart(kind: .area, values: trend, height: 40)
+      }
+    }
+  }
+}
+
+/// A two-line mat-list-item with an avatar and trailing meta text, as used in mobile lists.
+struct ContactRow: View {
+  var name: String
+  var line: String
+  var meta: String = ""
+
+  var body: some View {
+    MatListItem(name, subtitle: line, detail: meta, avatar: name)
+  }
+}
+
+/// A settings row: label and supporting text on the left, a mat-slide-toggle on the right.
+struct ToggleRow: View {
+  var title: String = "Dark theme"
+  var detail: String = "Use the dark palette"
+  var on: Bool = false
+
+  var body: some View {
+    HStack(spacing: 16) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(title).font(.bodyLarge)
+        Text(detail).font(.bodyMedium).foregroundStyle(.secondary)
+      }
+      Spacer()
+      MatSlideToggle(isOn: on)
+    }
+    .padding(.vertical, 8)
+  }
+}

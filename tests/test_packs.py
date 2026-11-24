@@ -11,6 +11,30 @@ from mockitdown import stylesheet
 ROLES = {name[2:].replace("_", "-") for name in dir(Renderer) if name.startswith("r_")}
 
 
+def split_top(sel: str):
+    """Split a selector list at commas outside parentheses, brackets and quotes."""
+    parts, buf, depth, quote = [], "", 0, ""
+    for c in sel:
+        if quote:
+            buf += c
+            if c == quote:
+                quote = ""
+            continue
+        if c in "\"'":
+            quote = c
+        elif c in "([":
+            depth += 1
+        elif c in ")]":
+            depth -= 1
+        elif c == "," and depth == 0:
+            parts.append(buf)
+            buf = ""
+            continue
+        buf += c
+    parts.append(buf)
+    return parts
+
+
 def selectors(css: str):
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
     depth, buf, out, i = 0, "", [], 0
@@ -31,7 +55,7 @@ def selectors(css: str):
             buf = ""
         elif c == "}":
             buf = ""
-        elif c == ";" :
+        elif c == ";" and buf.count("(") == buf.count(")") and buf.count('"') % 2 == 0:
             buf = ""
         else:
             buf += c
@@ -60,7 +84,7 @@ class PackTests(unittest.TestCase):
                 continue
             with self.subTest(pack=pid):
                 for sel in selectors(css_file.read_text(encoding="utf-8")):
-                    for part in sel.split(","):
+                    for part in split_top(sel):
                         part = part.strip()
                         if not part or re.fullmatch(r"(from|to|\d+%)", part):
                             continue

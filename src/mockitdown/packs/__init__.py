@@ -19,6 +19,7 @@ element names, maps them onto roles with default attributes, and restyles the ro
     fonts               font style aliases → canonical font style (e.g. "h4": "title2")
     sizes               device form → [width, height] in CSS points
     icons               icon name → built-in glyph name (pack-specific meaning of a name)
+    attrs               argument label → attribute name it stands for (e.g. "placeholderText": "placeholder")
 
 Site-defined packs are loaded from extra directories (``pack_paths``) with the same layout.
 """
@@ -70,6 +71,8 @@ class Pack:
     sizes: dict[str, tuple[int, int]] = field(default_factory=dict)
     #: Icon name → built-in glyph name, consulted before the global aliases.
     icons: dict[str, str] = field(default_factory=dict)
+    #: Argument label → canonical attribute name, applied to every element's labelled arguments.
+    attrs: dict[str, str] = field(default_factory=dict)
     directory: Path | None = None
     #: Element names defined by this pack itself (not inherited), for documentation.
     own_elements: tuple[str, ...] = ()
@@ -174,6 +177,7 @@ class PackRegistry:
             sizes={**(parent.sizes if parent else {}),
                    **{k: (int(v[0]), int(v[1])) for k, v in raw.get("sizes", {}).items()}},
             icons={**(parent.icons if parent else {}), **raw.get("icons", {})},
+            attrs={**(parent.attrs if parent else {}), **raw.get("attrs", {})},
             directory=d,
             own_elements=tuple(own),
         )

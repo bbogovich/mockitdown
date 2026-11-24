@@ -168,7 +168,9 @@ class StyleBuilder:
                 fill.append("x" if "Width" in key else "y")
             elif (length := u(val)) is not None:
                 style[prop] = length
-                if prop in ("width", "height"):
+                if prop == "width":
+                    style["flex"] = "0 0 auto"
+                elif prop == "height":
                     style["flex-shrink"] = "0"
         if fill:
             data["fill"] = " ".join(sorted(set(fill)))

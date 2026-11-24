@@ -103,6 +103,8 @@ class Evaluator:
         self.pack: Pack | None = None
         self.depth = 0
         self.used_components: list[str] = []
+        #: True while rendering the implicit preview of a declarations-only block.
+        self.preview = False
 
     # --- entry -----------------------------------------------------------------------------------
 
@@ -118,6 +120,7 @@ class Evaluator:
             # A block holding only declarations renders its last struct, as an Xcode preview would.
             last = module.structs[-1]
             statements = [A.ExprStmt(A.Call(A.Ident(last.name, last.loc), [], [], last.loc), last.loc)]
+            self.preview = True
         views = self.block(statements, env)
         if not views:
             self.diags.warning("the mockup has no views", Location(1, 1, module.source), "empty")
@@ -379,6 +382,8 @@ class Evaluator:
                 senv.vars[p.name] = nxt
             elif p.default is not None:
                 senv.vars[p.name] = self.value(p.default, senv)
+            elif self.preview and self.depth == 0:
+                senv.vars[p.name] = None if p.is_view else p.name  # placeholder text in a preview
             else:
                 if not p.type.endswith("?"):
                     self.diags.error(f"missing argument {p.name!r} for struct {decl.name}", call.loc, "argument")
@@ -408,7 +413,7 @@ class Evaluator:
             if arg.label is None:
                 positional.append(val)
             else:
-                attrs[arg.label] = val
+                attrs[self.pack.attrs.get(arg.label, arg.label)] = val
         for i, val in enumerate(positional):
             if i < len(el.params):
                 attrs[el.params[i]] = val

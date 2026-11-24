@@ -1,0 +1,103 @@
+// Reusable WinUI 3 building blocks for the Fluent pack page.
+// Import with:  import "fluent/components"
+
+import WinUI
+
+/// A Windows Settings row: icon, header, description and a ToggleSwitch on the right.
+struct SettingToggle: View {
+  var header: String
+  var description: String = ""
+  var icon: String = ""
+  var isOn: Bool = false
+
+  var body: some View {
+    SettingsCard(header, description: description, icon: icon) {
+      ToggleSwitch(isOn: isOn)
+    }
+  }
+}
+
+/// A Windows Settings row whose control is a ComboBox.
+struct SettingChoice: View {
+  var header: String
+  var description: String = ""
+  var icon: String = ""
+  var items: [String] = []
+  var selection: String = ""
+
+  var body: some View {
+    SettingsCard(header, description: description, icon: icon) {
+      ComboBox(items: items, selection: selection)
+    }
+  }
+}
+
+/// A Windows Settings row that navigates to a sub-page (chevron on the right).
+struct SettingLink: View {
+  var header: String
+  var description: String = ""
+  var icon: String = ""
+  var value: String = ""
+
+  var body: some View {
+    SettingsCard(header, description: description, icon: icon, detail: value, chevron: true)
+  }
+}
+
+/// A message row in a mail list: sender, subject, preview, time and an unread accent bar.
+struct MailItem: View {
+  var sender: String
+  var subject: String
+  var preview: String
+  var time: String
+  var unread: Bool = false
+  var flagged: Bool = false
+  var selected: Bool = false
+
+  var body: some View {
+    ListViewItem(selected: selected) {
+      HStack(alignment: .top, spacing: 12) {
+        PersonPicture(sender, size: .small)
+        VStack(alignment: .leading, spacing: 0) {
+          HStack {
+            TextBlock(sender, style: unread ? .bodyStrong : .body)
+            Spacer()
+            if flagged { FontIcon("Flag").foregroundStyle(.red) }
+            TextBlock(time, style: .caption).foregroundStyle(unread ? .accent : .secondary)
+          }
+          TextBlock(subject, style: .caption).foregroundStyle(unread ? .accent : .primary).lineLimit(1)
+          TextBlock(preview, style: .caption).foregroundStyle(.secondary).lineLimit(1)
+        }
+        .frame(maxWidth: .infinity)
+      }
+    }
+  }
+}
+
+/// A dashboard tile: caption, big number, trend text and a ProgressRing.
+struct StatCard: View {
+  var title: String
+  var value: String
+  var detail: String
+  var progress: Double = 0.5
+
+  var body: some View {
+    Border {
+      HStack(spacing: 16) {
+        VStack(alignment: .leading, spacing: 2) {
+          TextBlock(title, style: .caption).foregroundStyle(.secondary)
+          TextBlock(value, style: .subtitle)
+          TextBlock(detail, style: .caption).foregroundStyle(.secondary)
+        }
+        Spacer()
+        ProgressRing(value: progress, size: .large)
+      }
+      .frame(maxWidth: .infinity)
+    }
+    .padding(16)
+    .frame(maxWidth: .infinity)
+    .background(.surface)
+    .border(.separator)
+    .cornerRadius(8)
+  }
+}

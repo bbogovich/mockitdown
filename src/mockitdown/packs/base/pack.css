@@ -143,9 +143,14 @@
 .mkd-frame :where(.mkd-hstack, .mkd-toolbar) > :where([data-fill~="x"]) { flex: 1 1 0; min-width: 0; }
 .mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-split__col, .mkd-tabs__panel) > :where([data-fill~="y"]) { flex: 1 1 0; min-height: 0; }
 .mkd-frame :where(.mkd-hstack) > :where([data-fill~="y"]) { align-self: stretch; }
-.mkd-frame :where([data-frame-align="leading"]) { text-align: left; justify-content: flex-start; }
-.mkd-frame :where([data-frame-align="trailing"]) { text-align: right; justify-content: flex-end; }
-.mkd-frame :where([data-frame-align="center"]) { text-align: center; justify-content: center; }
+/* A stack holding a child that fills vertically fills its own parent too (else the child has no room). */
+.mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-navstack__content, .mkd-screen, .mkd-split__col, .mkd-tabs__panel, .mkd-presented) > .mkd-vstack:where(:has(> [data-fill~="y"])) { flex: 1 1 auto; min-height: 0; align-self: stretch; }
+.mkd-frame :where([data-frame-align="leading"]) { justify-content: flex-start; }
+.mkd-frame :where([data-frame-align="trailing"]) { justify-content: flex-end; }
+.mkd-frame :where([data-frame-align="center"]) { justify-content: center; }
+.mkd-frame :where(.mkd-text, .mkd-label, .mkd-link)[data-frame-align="leading"] { text-align: left; }
+.mkd-frame :where(.mkd-text, .mkd-label, .mkd-link)[data-frame-align="trailing"] { text-align: right; }
+.mkd-frame :where(.mkd-text, .mkd-label, .mkd-link)[data-frame-align="center"] { text-align: center; }
 .mkd-frame :where([data-material]) { background: color-mix(in srgb, var(--mkd-surface) 78%, transparent); backdrop-filter: blur(20px); }
 .mkd-frame .mkd-overlay-host { position: relative; display: inline-grid; }
 .mkd-frame .mkd-overlay-host > * { grid-area: 1 / 1; }
@@ -233,7 +238,7 @@
 .mkd-frame .mkd-chart__title { font-weight: 600; font-size: 13px; }
 .mkd-frame .mkd-chart__plot { flex: 1 1 auto; min-height: 80px; width: 100%; }
 .mkd-frame .mkd-chart:where([data-kind="sparkline"]) { min-height: 24px; }
-.mkd-frame .mkd-chart:where([data-kind="sparkline"]) .mkd-chart__plot { min-height: 0; }
+.mkd-frame .mkd-chart:where([data-kind="sparkline"], [data-sized="true"]) .mkd-chart__plot { min-height: 0; }
 .mkd-frame .mkd-chart__plot--bars { display: flex; align-items: stretch; gap: 8px; }
 .mkd-frame .mkd-chart__group { flex: 1 1 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .mkd-frame .mkd-chart__bars { flex: 1 1 auto; display: flex; align-items: flex-end; gap: 3px; border-bottom: 1px solid var(--mkd-divider); }
@@ -405,7 +410,7 @@
 .mkd-frame .mkd-split__col:where([data-col="sidebar"]) { flex: 0 0 260px; background: var(--mkd-surface-2); }
 .mkd-frame .mkd-split[data-columns="3"] > .mkd-split__col:where([data-col="content"]) { flex: 0 0 320px; }
 .mkd-frame .mkd-split__col > * { flex: 1 1 auto; min-height: 0; }
-.mkd-frame .mkd-split__col > :where(.mkd-text, .mkd-button, .mkd-hstack) { flex: none; }
+.mkd-frame :where(.mkd-split__col) > :where(.mkd-text, .mkd-button, .mkd-hstack):not([data-fill]) { flex: none; }
 
 .mkd-frame .mkd-tabs { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
 .mkd-frame .mkd-tabs__bar { display: flex; align-items: stretch; gap: 4px; flex: none; border-bottom: 1px solid var(--mkd-divider); }

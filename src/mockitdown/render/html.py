@@ -32,7 +32,7 @@ from .style import StyleBuilder, css_color, style_attr, u
 
 #: Element attributes copied verbatim to ``data-<name>`` when they are simple values.
 PASSTHROUGH = ("variant", "size", "color", "shape", "density", "elevation", "placement", "orientation",
-               "emphasis", "design", "severity", "kind", "labelStyle", "position", "appearance", "level")
+               "emphasis", "design", "severity", "kind", "labelStyle", "position", "level")
 _SAFE_TOKEN = re.compile(r"^[A-Za-z0-9_. -]{1,40}$")
 _INLINE_MD = [
     (re.compile(r"\*\*(.+?)\*\*"), r"<strong>\1</strong>"),
@@ -321,7 +321,7 @@ class Renderer:
         return self.open(v, "scroll", data=data) + self.views(v.children) + "</div>"
 
     def r_grid(self, v: View) -> str:
-        cols = v.attr("columns", "count")
+        cols = v.attr("columns", "count", "cols")
         template = ""
         if isinstance(cols, (int, float)) and not isinstance(cols, bool):
             template = f"repeat({int(cols)}, minmax(0, 1fr))"
@@ -541,6 +541,7 @@ class Renderer:
         if (length := u(_num(v.attr("height")))) is not None:
             style["height"] = length
             style["min-height"] = "0"
+        sized = {"sized": "true"} if "height" in style else {}
         all_series = [list(values)] if values else []
         if isinstance(series, list) and series and isinstance(series[0], list):
             all_series = [[_num(x, 0) for x in s] for s in series]
@@ -591,7 +592,7 @@ class Renderer:
                 groups.append(f'<span class="mkd-chart__group"><span class="mkd-chart__bars">{bars}</span>{lab}</span>')
             body = f'<div class="mkd-chart__plot mkd-chart__plot--bars">{"".join(groups)}</div>'
         head = f'<div class="mkd-chart__title">{title}</div>' if title else ""
-        return self.open(v, "chart", data={"kind": kind}, style=style) + head + body + "</div>"
+        return self.open(v, "chart", data={"kind": kind, **sized}, style=style) + head + body + "</div>"
 
     # --- controls --------------------------------------------------------------------------------
 
@@ -779,6 +780,8 @@ class Renderer:
             kind = "multiline"
         value = v.attr("text", "value")
         placeholder_text = v.attr("placeholder", "prompt")
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            value = _fmt(value)
         if isinstance(value, str) and value:
             shown = "•" * min(len(value), 12) if kind == "password" else value
             inner, is_ph = text_html(shown), False
