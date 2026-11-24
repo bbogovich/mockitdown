@@ -38,6 +38,10 @@ jobs:
           mkdir -p public
           cp -R docs/site/. public/
           mkdir -p public/demos && cp -R main/examples/site/site/. public/demos/
+          # The documentation has no top-level page: send / to the definition overview.
+          if [ ! -f public/index.html ]; then
+            printf '<!doctype html><meta charset="utf-8"><title>mockitdown</title><meta http-equiv="refresh" content="0; url=definition/"><link rel="canonical" href="definition/"><a href="definition/">mockitdown documentation</a>\n' > public/index.html
+          fi
       - uses: actions/upload-pages-artifact@v3
         with: { path: public }
   deploy:
