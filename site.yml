@@ -10,6 +10,7 @@ theme:
   name: material
   variant: classic
   features:
+    - navigation.tabs
     - navigation.sections
     - navigation.top
     - content.code.copy
@@ -56,7 +57,7 @@ markdown_extensions:
           validator: !!python/name:mockitdown.fence.validate
 
 nav:
-  - Demos: https://bbogovich.github.io/mockitdown/demos/
+  - Demo: https://bbogovich.github.io/mockitdown/demos/
   - Definition:
       - Overview: definition/index.md
       - Problem, users and scope: definition/overview.md
@@ -112,3 +113,4 @@ nav:
       - Testing: implementation/testing.md
       - Pack authoring guide: implementation/pack-authoring.md
       - Build and publish: implementation/build-publish.md
+  - Reference: https://bbogovich.github.io/mockitdown/demos/reference/

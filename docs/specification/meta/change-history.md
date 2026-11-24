@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.4.0 | 2026-11-24 | `ADR.2`, `PACK.1` | R-PACK-008 ships antd, tailwind, carbon, primer, avalonia and the nls, win1, nextstep, win95, aqua retro packs; R-PACK-012 Reference gallery and site tabs; ADR-13 updated; catalogue regenerated |
 | 0.3.1 | 2026-11-24 |  | Pack catalogue and role catalogue updated for the platform and retro packs |
 | 0.3.0 | 2026-11-24 | `ADR.1`, `ADR.2`, `ANN.1`, `PACK.1`, `REND.1`, `REND.2` | Non-standard components, charts, annotations and overlays, more chrome kinds, hidden packs, argument aliases; platform, retro and easter-egg packs; ADR-15, ADR-16 |
 | 0.2.1 | 2026-11-24 | `LANG.1`, `LANG.2`, `MDX.1`, `REND.2` | Pack catalogue generated from the shipped packs; known-deviation notes removed after the implementation fixes |

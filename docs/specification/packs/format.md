@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.3.0
+spec_version: 0.4.0
 status: draft
 updated: 2026-11-24
 page_id: PACK.1
@@ -173,23 +173,25 @@ Automated by `tests/test_packs.py::PackTests::test_css_is_scoped` and
 The selection answers SRC-2: SwiftUI, Windows with Fluent, the most popular web frameworks — React
 through Material UI (its current major version) and Angular through Angular Material — and SAPUI5;
 Bootstrap and shadcn/ui are the proposed additions, covering the most common non-Material web
-styles. Ant Design is proposed next (ADR-13). The element catalogue of each pack is on the
+styles. Ant Design, Tailwind Catalyst, IBM Carbon and GitHub Primer followed (ADR-13). The element catalogue of each pack is on the
 [Pack catalogue](catalogue.md) page.
 
 The platform packs added in 0.3 widen coverage to Android and the Linux desktops (SRC-4); the retro packs serve enthusiasts and historical documentation (SRC-5); the easter eggs reward readers who reach the end of the documentation.
+
+Release 0.4 adds four web kits from the recommended-next list (Ant Design, Tailwind Catalyst, IBM Carbon, GitHub Primer), the cross-platform .NET toolkit Avalonia UI and five retro systems (NLS, Windows 1.0, NeXTSTEP, Windows 95, Mac OS X Aqua); the retro pages are ordered by year so the section reads as a history of the GUI.
 
 **Realizes.** F-3 · **Decisions.** ADR-13
 
 | | Statement |
 |---|---|
-| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3), `shadcn` (shadcn/ui), `android` (Jetpack Compose Material 3), `gtk` (GTK 4 with libadwaita), `qt` (Qt 6 Widgets, Fusion) and `kde-plasma` (KDE Plasma 6, Breeze). |
-| C7 | mockitdown MUST ship the retro packs `mac-classic` (Macintosh System 1–6), `lisa` (Lisa Office System), `macos9` (Mac OS 9, Platinum), `gsos` (Apple IIgs GS/OS), `xerox-star` (Xerox Star), `win2` (Windows 2.x), `win31` (Windows 3.1.1), `winxp` (Windows XP, Luna), `vista` (Windows Vista, Aero) and `cde` (Solaris CDE), and the hidden easter-egg packs `lcars`, `phosphor` and `hologram` (R-PACK-010, ADR-16). |
+| C1 | mockitdown MUST ship these packs: `base` (neutral wireframe, the core vocabulary), `swiftui` (SwiftUI on iOS, iPadOS and macOS), `fluent` (Fluent 2 · WinUI 3), `mui` (Material UI v9, React), `angular-material` (Angular Material), `sapui5` (SAPUI5 with the Fiori Horizon theme), `bootstrap` (Bootstrap 5.3), `shadcn` (shadcn/ui), `antd` (Ant Design 5, React), `tailwind` (Tailwind Catalyst, Tailwind Plus), `carbon` (IBM Carbon 11), `primer` (GitHub Primer), `android` (Jetpack Compose Material 3), `gtk` (GTK 4 with libadwaita), `qt` (Qt 6 Widgets, Fusion), `avalonia` (Avalonia UI 11, Fluent theme) and `kde-plasma` (KDE Plasma 6, Breeze). |
+| C7 | mockitdown MUST ship the retro packs `nls` (Engelbart's NLS, 1968), `xerox-star` (Xerox Star), `lisa` (Lisa Office System), `mac-classic` (Macintosh System 1–6), `win1` (Windows 1.0), `win2` (Windows 2.x), `gsos` (Apple IIgs GS/OS), `nextstep` (NeXTSTEP), `win31` (Windows 3.1.1), `win95` (Windows 95), `macos9` (Mac OS 9, Platinum), `cde` (Solaris CDE), `aqua` (Mac OS X Aqua), `winxp` (Windows XP, Luna) and `vista` (Windows Vista, Aero), and the hidden easter-egg packs `lcars`, `phosphor` and `hologram` (R-PACK-010, ADR-16). |
 | C2 | Every shipped pack other than `base` MUST extend `base` directly or indirectly, declare at least one import module, define light and dark tokens, and choose a default device and per-device chrome that match its platform. |
 | C3 | The `swiftui` pack MUST be selected by `import SwiftUI`. |
 | C4 | Each framework pack SHOULD define elements for as many of its framework's components as practical, under the framework's own names, with `doc` lines and documented `variants`. |
 | C5 | Each framework pack MUST map the framework's style modifiers or properties onto attributes its CSS styles (for example a button style onto `variant`), so that the same core elements take on the framework's variants. |
 | C6 | The pack's `framework` and `version` keys MUST name the imitated framework and the version whose design it follows. |
-| V1 | `mockitdown packs` lists the framework and retro identifiers but not the hidden ones; the example site has one page per framework and retro pack and one hidden page per easter egg (F-14). |
+| V1 | `mockitdown packs` lists the framework and retro identifiers but not the hidden ones; the example site has one page per framework and retro pack, the retro pages listed in chronological order, and one hidden page per easter egg (F-14). |
 
 ---
 
@@ -230,6 +232,31 @@ Frameworks spell the same idea differently (`PlaceholderText`, `placeholder`, `h
 | C1 | A pack MAY map argument labels onto attribute names with `attrs` (pack-wide) and an element MAY do so with its own `attrs`; the evaluator MUST apply the element map, then the pack map, to labelled arguments and to labelled trailing closures. |
 | C2 | A colour value naming no known colour MUST resolve to the pack token of the same name in kebab case (`.primaryContainer` → `var(--mkd-primary-container)`). |
 | V1 | In a pack mapping `placeholderText` to `placeholder`, `TextBox(placeholderText: "x")` shows the placeholder x. |
+
+---
+
+### R-PACK-012 — Pack reference gallery and site sections
+
+The demo pages show packs at work in realistic screens; the Reference pages answer the narrower question
+"what can I write in this pack, and what does it look like?". They are generated, never hand-written, so
+they cannot drift from `pack.json`: the test suite regenerates them in memory and compares.
+
+The documentation (docs branch) and the example site (main branch) remain two Zensical builds published
+side by side (`/` and `/demos/`); identical header tabs make them read as one site. The Reference section
+lives in the example site because it is generated from code and needs every pack's CSS.
+
+**Realizes.** F-14
+
+| | Statement |
+|---|---|
+| C1 | The example site MUST have a Reference section with an overview page and one page per shipped, non-hidden pack, generated by `tools/gen_reference.py` from the pack definitions; `base` is listed as Core. |
+| C2 | Each Reference page MUST list every element the pack offers — its own elements first, then the inherited core vocabulary — each with its role, positional arguments, defaults, variants and `doc` line, and a mockup rendering it in the pack's style with its source. |
+| C3 | The sample of an element MUST render without any diagnostic; the generator MUST simplify a sample (fewer arguments, no children) until it does, falling back to the bare call. |
+| C4 | A pack's own elements that declare variants SHOULD be shown once per variant (at most eight) in one mockup. |
+| C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Packs and Retro, the retro packs in chronological order. |
+| C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same five top-level sections in the order Demo, Definition, Specification, Implementation, Reference; a section built by the other site is a link to its published URL. |
+| C7 | The site root MUST redirect to the Demo section. |
+| V1 | `python tools/gen_reference.py --check` fails, and with it the test suite, when a Reference page or the nav block differs from what the pack definitions generate. |
 
 ## Reference: `pack.json`
 
@@ -377,6 +404,8 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.4.0 | 2026-11-24 | New R-PACK-012: Pack reference gallery and site sections; Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |

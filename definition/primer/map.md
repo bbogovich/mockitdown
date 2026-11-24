@@ -7,10 +7,10 @@ F-10 | requirements | active | 0.2.0 r0 | FEAT.2 | Devices, frames and chrome
 F-11 | requirements | active | 0.2.0 r0 | FEAT.2 | Documentation-site integration
 F-12 | requirements | active | 0.2.0 r0 | FEAT.2 | Diagnostics and strict builds
 F-13 | requirements | active | 0.2.0 r0 | FEAT.2 | Command-line tool
-F-14 | requirements | active | 0.2.0 r0 | FEAT.2 | Example site as demo and end-to-end test
+F-14 | requirements | active | 0.4.0 r1 | FEAT.2 | Example site as demo and end-to-end test
 F-15 | requirements | active | 0.3.0 r0 | FEAT.2 | Annotations and overlays
 F-2 | requirements | active | 0.2.0 r0 | FEAT.1 | SwiftUI-syntax notation
-F-3 | requirements | active | 0.2.0 r0 | FEAT.1 | Framework design packs
+F-3 | requirements | active | 0.4.0 r1 | FEAT.1 | Framework design packs
 F-4 | requirements | active | 0.2.0 r0 | FEAT.1 | Custom reusable components
 F-5 | requirements | active | 0.2.0 r0 | FEAT.1 | Embedded external assets
 F-6 | requirements | active | 0.2.0 r0 | FEAT.1 | Element identifiers and the Elements table

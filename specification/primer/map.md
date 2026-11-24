@@ -23,7 +23,7 @@ ADR-1 | decisions | active | 0.2.0 r0 | ADR.1 | HTML and CSS is the only rendere
 ADR-10 | decisions | active | 0.2.0 r0 | ADR.2 | Custom components are structs, imported from files by path
 ADR-11 | decisions | active | 0.2.0 r0 | ADR.2 | An original icon set with framework name aliases
 ADR-12 | decisions | active | 0.2.0 r0 | ADR.2 | Zero runtime dependencies in the core; Python 3.11 or later
-ADR-13 | decisions | active | 0.2.0 r0 | ADR.2 | The shipped packs
+ADR-13 | decisions | active | 0.4.0 r1 | ADR.2 | The shipped packs
 ADR-14 | decisions | active | 0.2.0 r0 | ADR.2 | Documentation sites build with Zensical
 ADR-15 | decisions | active | 0.3.0 r0 | ADR.1 | Annotation marks use CSS anchor positioning with an inline fallback
 ADR-16 | decisions | active | 0.3.0 r0 | ADR.2 | Retro and easter-egg packs are original homages
@@ -118,10 +118,11 @@ R-PACK-004 | requirements | active | 0.2.0 r0 | PACK.1 | Element definitions
 R-PACK-005 | requirements | active | 0.2.0 r0 | PACK.1 | Pack selection
 R-PACK-006 | requirements | active | 0.2.0 r0 | PACK.1 | Design tokens
 R-PACK-007 | requirements | active | 0.2.0 r0 | PACK.1 | Pack stylesheet rules
-R-PACK-008 | requirements | active | 0.3.0 r1 | PACK.1 | Shipped packs
+R-PACK-008 | requirements | active | 0.4.0 r3 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.2.0 r0 | PACK.1 | The core vocabulary
 R-PACK-010 | requirements | active | 0.3.0 r0 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.3.0 r0 | PACK.1 | Argument aliases
+R-PACK-012 | requirements | active | 0.4.0 r0 | PACK.1 | Pack reference gallery and site sections
 R-REND-001 | requirements | active | 0.2.0 r0 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.2.0 r0 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.2.0 r0 | REND.1 | Attributes on the markup

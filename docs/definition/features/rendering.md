@@ -1,6 +1,6 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.3.0
+def_version: 0.4.0
 status: draft
 updated: 2026-11-24
 page_id: FEAT.2
@@ -139,6 +139,8 @@ Manuals and design specifications explain screens by numbering their parts. mock
 
 | Version | Date | Change |
 |---|---|---|
+| 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |

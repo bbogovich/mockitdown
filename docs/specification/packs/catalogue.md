@@ -10,15 +10,21 @@ page_id: PACK.2
 
 The packs mockitdown ships (R-PACK-008, ADR-13) and, for each, its element catalogue. The core
 vocabulary (R-PACK-009) is available in every pack; framework packs add their native components
-and restyle everything.
+and restyle everything. Retro packs are listed in chronological order. The rendered
+gallery of every element is in the [Reference](https://bbogovich.github.io/mockitdown/demos/reference/)
+section of the published site (R-PACK-012).
 
 <!-- packs-table -->
 | Pack id | Imitates | Version followed | Default device · chrome | Selected by | Own elements |
 |---|---|---|---|---|---|
 | `android` | Jetpack Compose · Material 3 Expressive (baseline scheme) | Compose Material 3 1.4 · Android 16 | phone · android | `pack="android"`, `import Android`, `import JetpackCompose`, `import Compose`, `import Material3` | 118 |
 | `angular-material` | Angular Material · Material 3 (azure theme) | Angular Material 20 | desktop · browser | `pack="angular-material"`, `import AngularMaterial`, `import Angular` | 93 |
+| `antd` | Ant Design (antd) + ProComponents · React, default token theme | v5 | desktop · browser | `pack="antd"`, `import Antd`, `import AntDesign`, `import ProComponents` | 150 |
+| `aqua` | Mac OS X Aqua, early era (10.0 Cheetah – 10.2 Jaguar, Cocoa / Carbon) | Mac OS X 10.2 | desktop · window | `pack="aqua"`, `import Aqua`, `import MacOSX`, `import Cheetah`, `import Jaguar` | 73 |
+| `avalonia` | Avalonia UI 11 · FluentTheme (cross-platform .NET desktop apps) | Avalonia 11.3 | desktop · windows | `pack="avalonia"`, `import Avalonia`, `import AvaloniaUI`, `import Avalonia.Controls`, `import Avalonia.Themes.Fluent` | 96 |
 | `base` | Neutral wireframe (the portable core every pack extends) | 1 | desktop · none | `pack="base"`, `import Wireframe`, `import Mockitdown` | 134 |
 | `bootstrap` | Bootstrap 5.3 (as used directly or through React-Bootstrap / ng-bootstrap), default theme | 5.3 | desktop · browser | `pack="bootstrap"`, `import Bootstrap`, `import ReactBootstrap` | 85 |
+| `carbon` | IBM Carbon Design System v11 · @carbon/react, White theme (light) and g100 (dark); g10 / g90 zones via Theme | 11 | desktop · browser | `pack="carbon"`, `import Carbon`, `import CarbonReact` | 148 |
 | `cde` | Common Desktop Environment 1.x on Solaris 2.6–9 · Motif 1.2/2.1 · dtwm | CDE 1.3–1.5 (Solaris default palette) | desktop · window | `pack="cde"`, `import CDE`, `import Motif`, `import Solaris` | 52 |
 | `fluent` | Fluent 2 · WinUI 3 (Windows 11 desktop apps) | Windows App SDK 1.8 | desktop · windows | `pack="fluent"`, `import WinUI`, `import FluentUI`, `import Fluent`, `import WindowsAppSDK`, `import Microsoft.UI.Xaml` | 108 |
 | `gsos` | Apple IIgs GS/OS System 6 Finder (super hi-res 640 mode, 1988–1993) | System 6.0.1 | desktop · window | `pack="gsos"`, `import GSOS`, `import AppleIIgs`, `import IIgs` | 38 |
@@ -28,16 +34,21 @@ and restyle everything.
 | `mac-classic` | Classic Macintosh system software, System 1 – System 6 (1984 – 1991), 1-bit | System 6.0.8 | desktop · none | `pack="mac-classic"`, `import MacClassic`, `import System6`, `import Macintosh` | 45 |
 | `macos9` | Mac OS 8 / 9 Platinum appearance (Appearance Manager, 1997–2001) | Mac OS 9.2 | desktop · window | `pack="macos9"`, `import MacOS9`, `import Platinum`, `import MacOS8` | 54 |
 | `mui` | Material UI (MUI Core + MUI X) · React, default theme | v9 | desktop · browser | `pack="mui"`, `import MaterialUI`, `import MUI` | 116 |
+| `nextstep` | NeXTSTEP 3.x Application Kit / OPENSTEP 4 · Workspace Manager (1989–1997) | NeXTSTEP 3.3 | desktop · window | `pack="nextstep"`, `import NeXTSTEP`, `import AppKitNeXT`, `import OpenStep` | 78 |
+| `nls` | oN-Line System, SRI Augmentation Research Center — as shown at the Fall Joint Computer Conference, 9 December 1968 | NLS on the SDS 940, 1968 | desktop · none | `pack="nls"`, `import NLS`, `import OnLineSystem`, `import ARC` | 30 |
+| `primer` | GitHub Primer · Primer React components and Primer CSS, primitives light/dark default themes | Primer React 37 · Primer Primitives 10 | desktop · browser | `pack="primer"`, `import Primer`, `import PrimerReact`, `import GitHub` | 140 |
 | `qt` | Qt 6 Widgets · Fusion style (cross-platform default palette) | Qt 6.8 | desktop · windows | `pack="qt"`, `import Qt`, `import QtWidgets`, `import Qt6`, `import PySide`, `import PyQt` | 76 |
 | `sapui5` | SAPUI5 / OpenUI5 · SAP Fiori Horizon theme (sap_horizon, sap_horizon_dark) | 1.136 | desktop · browser | `pack="sapui5"`, `import SAPUI5`, `import OpenUI5`, `import UI5`, `import Fiori`, `import sap.m`, `import sap.f`, `import sap.uxap`, `import sap.tnt` | 128 |
 | `shadcn` | shadcn/ui · new-york style, neutral base (Radix primitives, Tailwind CSS v4) | shadcn 3 · Tailwind CSS 4 | desktop · browser | `pack="shadcn"`, `import Shadcn`, `import ShadcnUI`, `import Radix` | 154 |
 | `swiftui` | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) | iOS 26 SDK | phone · ios | `pack="swiftui"`, `import SwiftUI` | 86 |
+| `tailwind` | Catalyst — the Tailwind Plus application UI kit (Headless UI + Tailwind CSS v4), zinc neutrals, plus Tailwind Plus marketing sections | Catalyst 2025 · Tailwind CSS 4.1 | desktop · browser | `pack="tailwind"`, `import Tailwind`, `import TailwindPlus`, `import TailwindCatalyst` | 107 |
 | `vista` | Windows Vista / Windows 7 · Aero Glass (common controls v6, Explorer, Task Dialog, UAC) | Windows Vista (2007) – Windows 7 (2009) | desktop · window | `pack="vista"`, `import WindowsVista`, `import Vista`, `import Aero`, `import Windows7` | 78 |
+| `win1` | Microsoft Windows 1.01–1.04 (1985–87), tiled windows, EGA 16 colours / CGA monochrome | Windows 1.03 | desktop · window | `pack="win1"`, `import Windows1`, `import Win1`, `import Windows101`, `import MSDOSExecutive1` | 53 |
 | `win2` | Microsoft Windows 2.0 / 2.1 (1987–88), EGA/VGA 16 colours | Windows 2.11 | desktop · window | `pack="win2"`, `import Windows2`, `import Win2`, `import MSDOSExecutive` | 43 |
 | `win31` | Windows 3.1 / Windows for Workgroups 3.11 (Win16, Windows Default colour scheme) | 3.11 | desktop · win31 | `pack="win31"`, `import Windows31`, `import Win31`, `import Win16` | 85 |
+| `win95` | Windows 95 · Win32 shell and common controls (Windows Standard colour scheme) | Windows 95 (1995) | desktop · window | `pack="win95"`, `import Windows95`, `import Win95`, `import Win32` | 63 |
 | `winxp` | Windows XP · Luna Blue visual style (Win32 common controls v6, shell) | Windows XP (2001) | desktop · window | `pack="winxp"`, `import WindowsXP`, `import WinXP`, `import Luna` | 69 |
 | `xerox-star` | Xerox 8010 Information System “Star” (1981), 1-bit bitmapped display | ViewPoint precursor, Star 1981 | desktop · window | `pack="xerox-star"`, `import XeroxStar`, `import Star8010`, `import Xerox` | 27 |
-| *proposed* | Ant Design | 5.x | — | — | — |
 <!-- end packs-table -->
 
 !!! note "Generated catalogue"
@@ -982,6 +993,587 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: shadcn -->
 
+## antd — Ant Design 5
+
+<!-- catalogue: antd — generate with `mockitdown elements antd --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | alert | title | showIcon: false | Alert(message: "Saved", description: "…", type: "success"/"info"/"warning"/"error", showIcon: true, closable: true, action: { … }) |
+| `Anchor` | list |  |  | Anchor { AnchorLink("Basic") … } — in-page nav with the ink rail |
+| `AnchorLink` | listitem | title |  |  |
+| `App` | group |  |  | App wrapper (renders its content) |
+| `AutoComplete` | select | placeholder |  | AutoComplete("Search…", value:, options: [..], open: true) |
+| `Avatar` | avatar | name |  | Avatar("Ana Lima", src: "…", icon: "UserOutlined", shape: "square", size: "small"/"large") |
+| `AvatarGroup` | hstack |  | spacing: 0 | Avatar.Group { Avatar … } — overlapped avatars with white rings |
+| `Badge` | badge | count |  | Badge(count: 5) { Avatar(…) } · Badge(dot: true) · Badge(status: "success", text: "Running") · overflowCount: 99 |
+| `BadgeRibbon` | badge | text | variant: "ribbon" | Badge.Ribbon(text: "Recommended", color: "volcano") { Card(…) } — corner ribbon over its child |
+| `Breadcrumb` | breadcrumb | items |  | Breadcrumb(["Home", "Orders", "Detail"]) — "/" separators |
+| `Button` | button | label | variant: "default" | Button("Save", type: "primary", icon: "SaveOutlined", size: "small"/"large", shape: "circle"/"round") · .danger() · v5.21 color:/variant: ("solid", "outlined", "dashed", "filled", "text", "link") |
+| `ButtonGroup` | toolbar |  | variant: "group" | Joined buttons (Space.Compact of Buttons) |
+| `Calendar` | calendar |  |  | Calendar(value: "2026-11-24", fullscreen: false) |
+| `Card` | card | title |  | Card(title: "Orders", extra: { Link("More") }, size: "small", cover: "…", hoverable:) { … } actions: { Icon(…) … } |
+| `CardGrid` | vstack |  |  | Card.Grid — a hoverable cell of a grid card |
+| `CardMeta` | listitem | title |  | Card.Meta(title:, description:, avatar:) |
+| `Carousel` | media | image |  | Carousel(image: "…") — one slide with dots |
+| `Cascader` | select | placeholder |  | Cascader(value: "Asia / Japan / Tokyo", options: ["Asia", "Europe"], open: true) |
+| `CheckCard` | card | title | variant: "check" | CheckCard(title:, description:, avatar:, checked: true) |
+| `CheckableTag` | chip | label | variant: "checkable" | Tag.CheckableTag("Movies", checked: true) |
+| `Checkbox` | checkbox | label |  | Checkbox("Remember me", checked: true) · checked: "indeterminate" |
+| `CheckboxGroup` | hstack |  | spacing: 8 | Checkbox.Group { Checkbox … } — a row of checkboxes (spacing 8) |
+| `Col` | vstack |  | alignment: "stretch" | Col(span: 6) — spans 1…24 columns of its Row |
+| `Collapse` | vstack |  | alignment: "stretch", spacing: 0 | Collapse { CollapsePanel("Header", expanded: true) { … } … } · bordered: false · ghost: true |
+| `CollapsePanel` | accordion | title |  | Collapse panel; extra: { … } on the right |
+| `ColorPicker` | swatches |  |  | ColorPicker(colors: ["#1677ff", …], selection: 0, label: "#1677FF") |
+| `Column` | tablecolumn | title |  | Table column header (alignment: .trailing) |
+| `ConfigProvider` | group |  |  | ConfigProvider wrapper (renders its content) |
+| `Content` | vstack |  | alignment: "stretch" | Layout.Content — the padded page body |
+| `DatePicker` | datepicker | placeholder | format: "iso" | DatePicker(value: "2026-11-24", placeholder: "Select date", open: true) |
+| `Descriptions` | section | title |  | Descriptions(title: "User Info", column: 3, bordered: true, size: "small", extra: { … }) { DescriptionsItem("Name", "Ana") … } |
+| `DescriptionsItem` | labeled | label, value |  | DescriptionsItem("Status") { Badge(status:, text:) } · span: 2 |
+| `DirectoryTree` | tree |  | variant: "directory" |  |
+| `Divider` | divider |  |  | Divider() · Divider(label: "Text", orientation: "left") · type: "vertical" · dashed: true |
+| `Dragger` | dropzone | label | icon: "InboxOutlined" | Alias of UploadDragger |
+| `Drawer` | dialog | title | closable: true, variant: "drawer" | Drawer(title: "Order #1024", placement: .right, width: 420) { … } footer: { Button … } |
+| `Dropdown` | menu | label |  | Dropdown("Actions", open: true) { DropdownItem("Edit", icon:); MenuDivider(); DropdownItem("Delete", danger: true) } |
+| `DropdownButton` | menu | label | variant: "default" | Dropdown.Button — a button with a separate caret |
+| `DropdownItem` | menuitem | label |  | Item of a Dropdown menu; danger: true, extra: "⌘E" |
+| `Empty` | emptystate | description | description: "No data", icon: "tray" | Empty("No orders yet") { Button("Create", type: "primary") } · image: "simple" |
+| `Flex` | hstack |  |  | Flex(gap: 16, vertical: true, justify:, align:, wrap: true) { … } |
+| `FloatButton` | fab | icon | variant: "default" | FloatButton(icon: "QuestionCircleOutlined", type: "primary", description: "HELP") — floats bottom-right |
+| `Footer` | hstack |  |  | Layout.Footer — centered secondary text |
+| `FooterToolbar` | toolbar |  | variant: "footer" | FooterToolbar { Button … } — the fixed bottom action bar |
+| `Form` | form |  | variant: "horizontal" | Form(layout: "horizontal"/"vertical"/"inline") { FormItem(…) { … } · Input(label:) … } — horizontal puts right-aligned labels with a colon left |
+| `FormItem` | labeled | label |  | FormItem("Notifications", required: true, help: "…") { Switch() } — label + any control |
+| `GridContent` | vstack |  | alignment: "stretch", spacing: 24 |  |
+| `Header` | appbar | title | variant: "dark" | Layout.Header — 64 px bar, #001529 (theme: "light" for white); children go to the right |
+| `Icon` | icon | name |  | Ant icon by component name: Icon("SettingOutlined") |
+| `Image` | image | src |  | Image(src: "…", width: …) |
+| `Input` | textfield | placeholder |  | Input("Email", label: "Email", value:, prefix:, suffix:, addonBefore: "https://", allowClear: true, status: "error", size:) |
+| `InputNumber` | textfield | placeholder | kind: "number", trailingIcon: "chevron.up.down" | InputNumber(value: 3, min: 1, max: 10, addonAfter: "kg") |
+| `InputOTP` | segmented | items | variant: "otp" | Input.OTP(items: ["4", "8", "1", "", "", ""]) |
+| `InputPassword` | textfield | placeholder | kind: "password", reveal: true | Input.Password with the eye toggle |
+| `InputSearch` | textfield | placeholder | kind: "search" | Input.Search("Search orders", enterButton: true) |
+| `Kbd` | kbd | keys |  |  |
+| `Layout` | vstack |  | alignment: "stretch", spacing: 0 | Layout { Header; Layout { Sider; Content }; Footer } — colorBgLayout background; hasSider: true for a row |
+| `LayoutHeader` | appbar | title | variant: "dark" | Alias of Header |
+| `LightFilter` | hstack |  | spacing: 8 | LightFilter { Select(…, variant: "borderless") … } — compact inline filters |
+| `List` | list |  |  | List(header: "Activity", bordered: true, size: "small") { ListItem(…) } · itemLayout: "vertical" |
+| `ListItem` | listitem | title |  | List.Item with Meta: ListItem("Title", description: "…", avatar: "Ana") actions: { Link("edit") } |
+| `ListItemMeta` | listitem | title |  |  |
+| `Mentions` | textfield | placeholder | kind: "multiline" | Mentions — a TextArea that suggests @names |
+| `Menu` | sidebar |  | variant: "light" | Menu(mode: "inline"/"vertical"/"horizontal", theme: "dark", selection: "Orders") { MenuItem(…); SubMenu(…) { … } } |
+| `MenuDivider` | divider |  |  |  |
+| `MenuItem` | navitem | label |  | MenuItem("Orders", icon: "ShoppingCartOutlined").selected() · danger via .badge / DropdownItem |
+| `MenuItemGroup` | section | title |  | Menu.ItemGroup — grey caption above a group of items |
+| `Message` | toast | message | icon: "InfoCircleFilled", position: "top", variant: "info" | message.success(…): Message("Saved successfully", type: "success") — a small card at the top centre |
+| `Modal` | dialog | title | closable: true | Modal(title: "Basic Modal", open: true) { … } footer: { Button("Cancel"); Button("OK", type: "primary") } · buttons: ["Cancel", "OK"] |
+| `ModalConfirm` | dialog | title | buttons: ["Cancel", "OK"], icon: "ExclamationCircleFilled", variant: "confirm" | Modal.confirm(title:, content:, buttons: ["Cancel", "Delete"], destructive: "Delete") — icon left, buttons bottom-right |
+| `Notification` | toast | message | closable: true, position: "topRight", variant: "notification" | notification.open: Notification(message: "New order", description: "…", type: "success", icon:) — top-right card |
+| `PageContainer` | card | title |  | PageContainer(title: "Basic list", subtitle:) header: { Breadcrumb([..]) } extra: { Button … } { content } |
+| `PageHeader` | card | title | variant: "header" | PageHeader(title:, subTitle:, onBack: true) extra: { … } |
+| `Pagination` | pagination |  |  | Pagination(total: 85, current: 2, showTotal: "Total 85 items", pageSize: 10, size: "small") — count is pages |
+| `Panel` | accordion | title |  |  |
+| `Paragraph` | text | content |  | Typography.Paragraph — body text with 1em bottom margin; type: "secondary" |
+| `Password` | textfield | placeholder | kind: "password", reveal: true |  |
+| `Popconfirm` | tooltip | title |  | Popconfirm(title: "Delete the task", description: "Are you sure?") { Button(…) } actions: { … } |
+| `Popover` | tooltip | title |  | Popover(title: "Title", content: "…") { Button(…) } — white card bubble |
+| `ProCard` | card | title |  | ProCard(title: "Trend", extra: { … }, bordered: true, headerBordered: true, split: "vertical") { … } |
+| `ProDescriptions` | section | title |  | ProDescriptions(title:, column: 2) { DescriptionsItem … } |
+| `ProForm` | form |  | variant: "vertical" | ProForm(layout: "vertical") { ProFormText(…) … } actions: { Button("Submit", type: "primary") } |
+| `ProFormCheckbox` | checkbox | label |  |  |
+| `ProFormDatePicker` | datepicker | label | format: "iso" |  |
+| `ProFormDateRangePicker` | datepicker | label | format: "iso", kind: "range" |  |
+| `ProFormDigit` | textfield | label | kind: "number", trailingIcon: "chevron.up.down" |  |
+| `ProFormPassword` | textfield | label | kind: "password", reveal: true |  |
+| `ProFormRadioGroup` | radiogroup | label | orientation: "horizontal" |  |
+| `ProFormSelect` | select | label |  | ProFormSelect("Status", options: [..], value:) |
+| `ProFormSwitch` | toggle | label |  |  |
+| `ProFormText` | textfield | label |  | ProFormText("Name", placeholder:, required: true, width: "md") |
+| `ProFormTextArea` | textfield | label | kind: "multiline" |  |
+| `ProFormUploadDragger` | dropzone | label | icon: "InboxOutlined" |  |
+| `ProHeader` | appbar | title | variant: "pro" | ProLayout global header (56 px): ProHeader(title:, search:, notifications: 3, avatar: "Serati Ma") { actions } |
+| `ProLayout` | hstack |  | alignment: "stretch", spacing: 0 | ProLayout(layout: "side"/"mix"/"top") { ProSider(…) { MenuItem … }; VStack { ProHeader(…); PageContainer(…) { … } } } |
+| `ProList` | list |  |  | ProList(headerTitle: "Members") { ListItem … } |
+| `ProSider` | sidebar | title | variant: "light" | ProLayout side menu with logo + title header: ProSider(title: "Ant Design Pro", logo: …) |
+| `ProTable` | table |  |  | ProTable(headerTitle: "Orders", columns:, rows:, rowSelection: true) toolbar: { Button(…) } footer: { Pagination(…) } |
+| `Progress` | progress | percent | showValue: true | Progress(percent: 30, type: "circular", status: "exception"/"success"/"active", size: "small", strokeColor:, showInfo: false) |
+| `QRCode` | placeholder | label | icon: "square.grid.3x3" | QRCode(value:) — a QR placeholder |
+| `QueryFilter` | form |  | variant: "query" | QueryFilter { ProFormText(…) … } actions: { Button("Reset"); Button("Query", type: "primary") } — the 3-column search form above a ProTable |
+| `Radio` | radio | label |  |  |
+| `RadioButton` | radio | label |  |  |
+| `RadioGroup` | radiogroup | label | orientation: "horizontal" | Radio.Group(options: ["Daily", "Weekly"], value: "Weekly", optionType: "button", buttonStyle: "solid") |
+| `RangePicker` | datepicker | placeholder | format: "iso", kind: "range" | DatePicker.RangePicker(value: "2026-11-01  →  2026-11-30") |
+| `Rate` | rating | value |  | Rate(value: 3.5, count: 5) |
+| `Result` | emptystate | title | icon: "checkmark.circle", kind: "success" | Result(status: "success", title: "Successfully Purchased!", subTitle: "Order 2017…") { Button("Go Console", type: "primary") } |
+| `Row` | grid |  | columns: 24 | Row(gutter: 16) { Col(span: 8) { … } … } — the 24-column grid |
+| `Search` | textfield | placeholder | kind: "search" |  |
+| `Segmented` | segmented | options |  | Segmented(options: ["Daily", "Weekly", "Monthly"], value: "Weekly", block: true, size:) |
+| `Select` | select | placeholder |  | Select("Status", value: "Active", options: [..], open: true) · mode: "multiple" with value: [..] renders tags |
+| `Sider` | sidebar | title | variant: "dark" | Layout.Sider(width: 200, theme: "light", collapsed: true) { MenuItem … } |
+| `Skeleton` | skeleton |  |  | Skeleton(avatar: true, lines: 3, active: true) |
+| `Slider` | slider |  |  | Slider(value: 30) · range: value: [20, 50] · marks via ticks: 4 |
+| `Space` | hstack |  |  | Space(size: "small"/"middle"/"large", direction: "vertical") { … } — 8/16/24 px gaps |
+| `SpaceCompact` | toolbar |  | variant: "group" | Space.Compact { Input(…); Button(…) } — joined controls |
+| `Spin` | progress | label | kind: "spinner" | Spin(tip: "Loading…", size: "large") |
+| `Statistic` | stat | title, value |  | Statistic(title: "Active Users", value: "112,893", change: "+11.28%", prefix:/suffix: via value text) |
+| `StatisticCard` | stat | title, value |  | StatisticCard(title: "Sales", value: "¥ 126,560", change: "12%", caption: "week over week", trend: [..]) |
+| `StatisticCountdown` | stat | title, value |  | Statistic.Countdown(title:, value: "23:59:59") |
+| `Steps` | steps | items |  | Steps(items: ["Login", ["title": "Verify", "description": "…"], "Done"], current: 1, direction: "vertical", size: "small") · errors: [1] |
+| `StepsForm` | vstack |  | alignment: "stretch", spacing: 24 | StepsForm { Steps(…); ProForm { … } } |
+| `SubMenu` | navitem | label |  | SubMenu("Settings", icon:, expanded: true) { MenuItem … } |
+| `Switch` | toggle | label |  | Switch(checked: true, checkedChildren: "ON", size: "small", loading:) |
+| `TabPane` | tab | label |  | TabPane("Details", icon:) { panel } |
+| `Table` | table |  |  | Table(columns: [..], rows: [[..]], rowSelection: true, selectedRows: [1], sortColumn: 2, size: "middle"/"small", bordered: true, pagination: "…") — cells may be views |
+| `Tabs` | tabs | items | placement: "top" | Tabs(items: ["Overview", "Logs"], selection: 0, type: "card", size: "small") or Tabs { TabPane("One") { … } } |
+| `TabsItem` | tab | label |  |  |
+| `Tag` | chip | label |  | Tag("processing", color: "blue"/"success"/"processing"/"error"/"warning"/"magenta"…, icon:, closable: true, bordered: false) |
+| `Text` | text | content |  | Typography.Text: Text("Note", type: "secondary"/"success"/"warning"/"danger") · .strong() .code() .mark() .keyboard() .delete() .underline() |
+| `TextArea` | textfield | placeholder | kind: "multiline" | Input.TextArea(rows: 4, showCount: true, maxLength: 100) |
+| `TimePicker` | datepicker | placeholder | kind: "time" |  |
+| `Timeline` | timeline |  |  | Timeline { TimelineItem("Created", color: "green", label: "2026-11-01") … } · pending: |
+| `TimelineItem` | timelineitem | title |  | TimelineItem("Shipped", color: "green"/"blue"/"red"/"gray", description:, dot: "ClockCircleOutlined") |
+| `Title` | text | content | level: 1 | Title("Dashboard", level: 3) — Typography.Title h1–h5 (38/30/24/20/16 px) |
+| `Tooltip` | tooltip | title |  | Tooltip("prompt text", placement: .bottom) { Button(…) } |
+| `Tour` | tooltip | title |  | Tour step bubble: Tour("Upload file", description: "…") { target } |
+| `Transfer` | hstack |  | alignment: "center", spacing: 8 | Transfer { TransferList("Source") { … }; TransferOperation(); TransferList("Target") { … } } |
+| `TransferItem` | listitem | title | checked: false |  |
+| `TransferList` | card | title |  | TransferList("Source", subtitle: "2/8 items") { TransferItem("Content 1", checked: true) } |
+| `TransferOperation` | vstack |  | spacing: 4 | The two arrow buttons between TransferLists (pass children to override) |
+| `Tree` | tree |  |  | Tree { TreeNode("parent", expanded: true) { TreeNode("leaf") } } · showLine · checkable |
+| `TreeNode` | treeitem | title |  | TreeNode("src", folder: true, expanded: true, checked: true).selected() |
+| `TreeSelect` | select | placeholder |  | TreeSelect(value: "Engineering / Platform", options: [..]) |
+| `Typography` | text | content |  | Typography("Body text") — plain text container |
+| `TypographyText` | text | content |  | Alias of Text |
+| `Upload` | vstack |  | alignment: "leading", spacing: 8 | Upload { Button("Click to Upload", icon: "UploadOutlined"); UploadFile("spec.pdf") } — trigger + file list |
+| `UploadDragger` | dropzone | label | icon: "InboxOutlined" | Upload.Dragger("Click or drag file to this area to upload", hint: "Support for a single or bulk upload.") |
+| `UploadFile` | listitem | title | icon: "PaperClipOutlined" | UploadFile("report.pdf", status: "uploading"/"done"/"error") — a row of the upload list |
+| `Watermark` | group |  |  | Watermark wrapper (renders its content) |
+
+<!-- end catalogue: antd -->
+
+## tailwind — Tailwind Catalyst
+
+<!-- catalogue: tailwind — generate with `mockitdown elements tailwind --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | dialog | title | size: "md", variant: "alert" | Catalyst Alert: a small centred confirmation modal. Alert("Are you sure?", description: "…") actions: { … } |
+| `AlertActions` | hstack |  | spacing: 12 | Alert actions |
+| `AlertBody` | vstack |  | alignment: "stretch" | Alert body |
+| `AlertDescription` | text | content |  | Alert description |
+| `AlertTitle` | text | content |  | Alert title |
+| `AuthLayout` | vstack |  | spacing: 0 | Centred sign-in page on an inset panel: AuthLayout { VStack { … } } |
+| `Avatar` | avatar | name |  | Avatar("Erica Jones", src: "…") · initials: "EJ" · square: true |
+| `AvatarButton` | avatar | name |  | An Avatar that is a button (e.g. a dropdown trigger) |
+| `Badge` | badge | text | color: "zinc" | Badge("Paid", color: .lime) — rounded-md tinted pill; any Tailwind colour (zinc default) |
+| `BadgeButton` | badge | text | color: "zinc" | A Badge that is a link/button |
+| `Button` | button | label | variant: "solid" | Button("Save", color: .indigo) · variant: .solid/.outline/.plain (or .outline() / .plain()) · color: dark/zinc (default), light, dark, white, dark/white, zinc, indigo, red, … all Tailwind hues |
+| `Checkbox` | checkbox | label |  | Checkbox("Allow embedding", checked: true, color: .indigo) · indeterminate via checked: .indeterminate |
+| `CheckboxField` | listitem | title | checked: false | CheckboxField("Allow embedding", description: "…", checked: true) — checkbox, label and description |
+| `CheckboxGroup` | vstack |  | alignment: "stretch", spacing: 12 | Stack of CheckboxFields (space-y-3) |
+| `Code` | text | content |  | Code("…") — inline code with a hairline border |
+| `Combobox` | select | placeholder | trailingIcon: "chevron.up.down" | Combobox("Search…", selection: "Can", open: true) { ComboboxOption(…) } — a text input with a listbox |
+| `ComboboxDescription` | text | content |  | Option description |
+| `ComboboxLabel` | text | content |  | Option label |
+| `ComboboxOption` | menuitem | label |  | One Combobox option |
+| `Description` | text | content |  | Field description (zinc-500) |
+| `DescriptionDetails` | text | content |  | Details (zinc-950) |
+| `DescriptionList` | grid |  |  | DescriptionList { DescriptionTerm("Customer"); DescriptionDetails("Leslie Alexander") … } — two columns on desktop |
+| `DescriptionTerm` | text | content |  | Term (zinc-500) |
+| `Dialog` | dialog | title | size: "lg" | Dialog("Refund payment", description: "…") { DialogBody … } actions: { Button("Cancel", variant: .plain); Button("Refund") } · size: .sm…5xl |
+| `DialogActions` | hstack |  | spacing: 12 | Right-aligned actions (gap-3) |
+| `DialogBody` | vstack |  | alignment: "stretch", spacing: 16 | Dialog body (mt-6) |
+| `DialogDescription` | text | content |  | Dialog description |
+| `DialogTitle` | text | content |  | Dialog title |
+| `Divider` | divider |  |  | Divider() · Divider(soft: true) for the lighter zinc-950/5 rule |
+| `Dropdown` | menu | label | variant: "outline" | Dropdown("Options", open: true) { DropdownItem("Edit", shortcut: "⌘E") … } · trigger variant: .outline (default)/.plain/.solid |
+| `DropdownButton` | menu | label | variant: "outline" | Same as Dropdown (Catalyst names the trigger DropdownButton) |
+| `DropdownDescription` | text | content |  | Item description |
+| `DropdownDivider` | divider |  |  | Rule between sections |
+| `DropdownHeader` | vstack |  | alignment: "leading", spacing: 0 | Non-interactive header block (px-3.5 pt-2.5 pb-1) |
+| `DropdownHeading` | text | content |  | Section heading (xs/5 medium zinc-500) |
+| `DropdownItem` | menuitem | label |  | DropdownItem("Settings", systemImage: "cog-6-tooth", shortcut: "⌘S") · .state(.focused) for the blue highlight |
+| `DropdownLabel` | text | content |  | Item label |
+| `DropdownMenu` | menu |  |  | An open dropdown panel on its own (place it with .offset) |
+| `DropdownSection` | group |  |  | A group of items |
+| `DropdownShortcut` | kbd | keys |  | DropdownShortcut(keys: ["⌘", "K"]) |
+| `EmptyState` | emptystate | title |  | Tailwind Plus empty state: dashed box, icon, title, description and a button |
+| `ErrorMessage` | text | content |  | Field error (red-600) |
+| `Eyebrow` | text | content |  | Small indigo kicker above a section title (or a pill announcement with variant: .pill) |
+| `Feature` | listitem | title |  | Feature("Push to deploy", description: "…", systemImage: "cloud-arrow-up") — indigo icon tile + title + text |
+| `FeatureGrid` | grid |  | columns: 3, spacing: 40 | Feature section grid: FeatureGrid(columns: 3) { Feature(…) … } |
+| `Field` | vstack |  | alignment: "stretch", spacing: 12 | Field { Label("Email"); Input(…); Description(…) } |
+| `FieldGroup` | vstack |  | alignment: "stretch", spacing: 32 | Stack of fields (space-y-8) |
+| `Fieldset` | vstack |  | alignment: "stretch", spacing: 0 | Fieldset { Legend(…); Text(…); FieldGroup { Field { … } } } |
+| `Heading` | text | content | style: "title2" | Heading("Orders") — text-2xl/8 sm:text-xl/8 semibold · level: 1…6 |
+| `Hero` | vstack |  | spacing: 24 | Marketing hero (simple centred): Hero { Eyebrow(…); Text(…).font(.display); Lead(…); HStack { Button… } } |
+| `HeroHeading` | text | content |  | Hero title (text-6xl semibold tracking-tight, balanced) |
+| `InlineAlert` | alert | title |  | Tailwind Plus “Alerts” banner: InlineAlert("Attention needed", message: "…", severity: .warning) · variant: .accent for a left border |
+| `Input` | textfield | placeholder |  | Input("you@example.com", label:, description:, text:, type: .email/.password/.search) · invalid: true |
+| `InputGroup` | textfield | placeholder |  | Input with a leading icon: InputGroup("Search…", systemImage: "magnifying-glass") |
+| `Kbd` | kbd | keys |  | Keyboard keys |
+| `Label` | label | title |  | Label("Full name") — form label (sm/6 medium) |
+| `Lead` | text | content |  | Large muted intro paragraph (text-lg/8) |
+| `Legend` | text | content |  | Fieldset legend (base/6 semibold) |
+| `Link` | link | label |  | Link("View") — unstyled link (inherits colour) |
+| `Listbox` | select | placeholder | trailingIcon: "chevron.up.down" | Listbox("Select a status", selection: "Active", open: true) { ListboxOption("Active") … } |
+| `ListboxDescription` | text | content |  | Option description |
+| `ListboxLabel` | text | content |  | Option label |
+| `ListboxOption` | menuitem | label |  | One Listbox option |
+| `Navbar` | toolbar |  |  | Navbar { NavbarSection { NavbarItem("Home", current: true) }; NavbarSpacer(); NavbarItem(systemImage:) } |
+| `NavbarDivider` | divider |  |  | Vertical rule between navbar groups |
+| `NavbarItem` | navitem | label |  | NavbarItem("Orders", systemImage:, current: true) — the current item gets an underline bar |
+| `NavbarLabel` | text | content |  | Text inside a navbar item |
+| `NavbarSection` | hstack |  | spacing: 12 | Group of navbar items |
+| `NavbarSpacer` | spacer |  |  | Flexible gap |
+| `Notification` | toast | message | closable: true, position: "top-right" | Tailwind Plus notification panel (top right): Notification("Successfully saved!", description: "…", systemImage: "check-circle") |
+| `Pagination` | pagination |  |  | Pagination(count: 10, page: 2) — Previous · pages · Next, spread over the width |
+| `PricingGrid` | grid |  | columns: 3, spacing: 32 | Row of PricingTier cards |
+| `PricingTier` | card | title |  | PricingTier("Startup", description: "…", featured: true) { price, features } actions: { Button } |
+| `Radio` | radio | label |  | Radio("Monthly", checked: true) |
+| `RadioField` | radio | label |  | Radio with its label |
+| `RadioGroup` | radiogroup | label |  | RadioGroup(selection: "Monthly") { Radio("Monthly"); Radio("Yearly") } |
+| `SectionHeading` | text | content |  | Marketing section title (text-4xl semibold tracking-tight) |
+| `Select` | select | placeholder | trailingIcon: "chevron.up.down" | Native select: Select("Country", selection: "Canada") { … } |
+| `Sidebar` | sidebar |  |  | Sidebar { SidebarHeader { … }; SidebarBody { SidebarSection { SidebarItem(…) } }; SidebarFooter { … } } |
+| `SidebarBody` | vstack |  | alignment: "stretch", spacing: 32 | Scrolling middle block |
+| `SidebarDivider` | divider |  |  | Rule between sidebar sections |
+| `SidebarFooter` | vstack |  | alignment: "stretch", spacing: 0 | Bottom block with a top border |
+| `SidebarHeader` | vstack |  | alignment: "stretch", spacing: 0 | Top block with a bottom border |
+| `SidebarHeading` | text | content |  | SidebarHeading("Upcoming events") — xs zinc-500 section title |
+| `SidebarItem` | navitem | label |  | SidebarItem("Home", systemImage: "home", current: true) — current: indicator bar on the left |
+| `SidebarLabel` | text | content |  | Label inside a sidebar item |
+| `SidebarLayout` | hstack |  | alignment: "stretch", spacing: 0 | App shell: SidebarLayout { Sidebar { … }; VStack { page } } — the page sits on a white panel with a ring, inset on zinc-100 |
+| `SidebarSection` | vstack |  | alignment: "stretch", spacing: 2 | A group of items (gap-0.5) |
+| `SidebarSpacer` | spacer |  |  | Pushes the following sections down |
+| `StackedLayout` | vstack |  | alignment: "stretch", spacing: 0 | App shell: StackedLayout { Navbar { … }; VStack { page } } — navbar on top, page on an inset panel |
+| `Stat` | stat | label, value |  | Stat(label:, value:, change:) — dashboard stat with a top rule (Catalyst demo) |
+| `Strong` | text | content |  | Strong("…") — zinc-950 medium |
+| `Subheading` | text | content | style: "subheadline" | Subheading("Recent orders") — text-base/7 sm:text-sm/6 semibold |
+| `Switch` | toggle | label |  | Switch(isOn: true, color: .emerald) — h-5 w-8 track, any Tailwind colour |
+| `SwitchField` | toggle | label |  | SwitchField("Allow embedding", isOn: true, description: "…") — label + description left, switch right |
+| `SwitchGroup` | vstack |  | alignment: "stretch", spacing: 12 | Stack of SwitchFields (space-y-3) |
+| `Table` | table |  |  | Table(columns: […], rows: […]) or TableHeader/TableRow children · variant: .striped/.grid · dense: true · bleed: true |
+| `TableBody` | group |  |  | Kept for source compatibility; put TableRow children directly in the Table |
+| `TableCell` | text | content |  | TableCell("…") — a cell (or any view) |
+| `TableHead` | group |  |  | Kept for source compatibility; put TableHeader children directly in the Table |
+| `TableHeader` | tablecolumn | title |  | TableHeader("Amount", alignment: .trailing) |
+| `TableRow` | tablerow |  |  | TableRow { TableCell(…) … } · selected: |
+| `Tabs` | tabs |  | placement: "top" | Tailwind Plus underline tabs: Tabs(selection: "Billing") { Tab("Account") { … } … } · variant: .pills |
+| `Text` | text | content |  | Text("…") — body copy in zinc-500 (Catalyst Text); Markdown inline **bold** `code` |
+| `TextLink` | link | label |  | TextLink("docs") — underlined link |
+| `Textarea` | textfield | placeholder | kind: "multiline" | Textarea("…", rows: 4) |
+| `TouchTarget` | group |  |  | No-op wrapper kept for source compatibility |
+
+<!-- end catalogue: tailwind -->
+
+## carbon — IBM Carbon 11
+
+<!-- catalogue: carbon — generate with `mockitdown elements carbon --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Accordion` | vstack |  | alignment: "stretch", spacing: 0 | Accordion { AccordionItem(title:, open: true) { … } } |
+| `AccordionItem` | accordion | title |  |  |
+| `ActionableNotification` | alert | title | closable: true, severity: "error" | Inline notification with an action: ActionableNotification(…) actions: { Button("Undo", kind: "tertiary", size: "sm") } |
+| `AreaChart` | chart |  | kind: "area" |  |
+| `AspectRatio` | zstack |  |  |  |
+| `Breadcrumb` | breadcrumb | items |  | Breadcrumb(["Home", "Projects", "Atlas"]) or BreadcrumbItem children |
+| `BreadcrumbItem` | link | label, href |  |  |
+| `BubbleChart` | chart |  | kind: "bubble" |  |
+| `Button` | button | label | variant: "primary" | Button("Create", kind: "secondary", size: "sm" / "md" / "lg" / "xl", renderIcon: "Add") — icon sits at the trailing edge |
+| `ButtonSet` | toolbar |  | variant: "set" | Buttons side by side with no gap (secondary + primary) |
+| `Checkbox` | checkbox | label |  | Checkbox("Email me", checked: true) · checked: "mixed" |
+| `CheckboxGroup` | radiogroup | label |  | CheckboxGroup(legendText:) { Checkbox … } |
+| `ClickableTile` | card | title | variant: "clickable" | Whole tile is a link (arrow at the bottom right) |
+| `CodeSnippet` | code | code | lineNumbers: false | CodeSnippet("npm install @carbon/react", type: "single") — copy button at the end |
+| `Column` | vstack |  | alignment: "stretch" | Grid column: Column(lg: 8) spans 8 of 16 columns |
+| `ComboBox` | select | label |  |  |
+| `ComboButton` | menu | label |  | Primary action with a chevron menu |
+| `ComboChart` | chart |  | kind: "combo" |  |
+| `ComposedModal` | dialog | title |  | ComposedModal(title:) { ModalBody { … } } actions: { Button(kind: "secondary"); Button } |
+| `Content` | vstack |  | alignment: "stretch" | UI Shell main content area (32px padding) |
+| `ContentSwitcher` | segmented | items |  | ContentSwitcher(selectedIndex: 0) { Switch("All"); Switch("Active") } · size: "sm" / "lg" |
+| `CopyButton` | button | icon | icon: "doc.on.doc", iconOnly: true, variant: "ghost" |  |
+| `DataTable` | table |  |  | DataTable(columns: [..], rows: [[..]], selectable: true, selectedRows: [1], sortColumn: 0, size: "md") — or TableRow/TableExpandRow children |
+| `DataTableSkeleton` | skeleton |  | lines: 6 |  |
+| `DatePicker` | datepicker | label | format: "numeric", placeholder: "mm/dd/yyyy" | DatePicker("Start date", value: "2026-11-23") |
+| `DatePickerInput` | datepicker | label | format: "numeric", placeholder: "mm/dd/yyyy" |  |
+| `DefinitionTooltip` | tooltip | text |  |  |
+| `DismissibleTag` | chip | label | color: "gray", removable: true |  |
+| `DonutChart` | chart |  | kind: "donut" |  |
+| `Dropdown` | select | label |  | Dropdown("Plan", items: ["Lite", "Standard"], selectedItem: "Standard", open: true) |
+| `ExpandableSearch` | textfield | placeholder | kind: "search" |  |
+| `ExpandableTile` | card | title | variant: "expandable" | Chevron at the bottom right; include TileBelowTheFoldContent to show it expanded |
+| `FileUploader` | card | title |  | FileUploader(labelTitle: "Upload files", labelDescription: "Max 500 kB") { FileUploaderButton("Add file"); FileUploaderItem("a.png", status: "complete") } |
+| `FileUploaderButton` | button | label | size: "sm", variant: "primary" |  |
+| `FileUploaderDropContainer` | dropzone | label |  | Dashed drop area: FileUploaderDropContainer("Drag and drop files here or click to upload") |
+| `FileUploaderItem` | chip | label | removable: true, variant: "edit" | Uploaded file row: FileUploaderItem("report.pdf", status: "complete") |
+| `FilterableMultiSelect` | select | label |  |  |
+| `FlexGrid` | vstack |  | alignment: "stretch" |  |
+| `Form` | form |  |  | Form { TextInput … } · fields stack with 24px gaps |
+| `FormGroup` | section | title |  | FormGroup(legendText: "Contact") { … } |
+| `FormItem` | vstack |  | alignment: "stretch" |  |
+| `FormLabel` | text | content |  | 12px label-01 field label |
+| `GaugeChart` | chart |  | kind: "gauge" |  |
+| `Grid` | grid | columns |  | 16-column CSS Grid: Grid { Column(lg: 4) { … } } · .narrow() / .condensed() |
+| `GroupedBarChart` | chart |  | kind: "bar" | GroupedBarChart(series: [[..], [..]], seriesNames:, labels:) |
+| `Header` | appbar | subtitle |  | UI Shell header (48px, g100): Header("Cloud Console", prefix: "Acme", menu: true) { HeaderGlobalAction("Notification") } center: { HeaderNavigation { … } } |
+| `HeaderGlobalAction` | button | icon | iconOnly: true | 48×48 header icon button: HeaderGlobalAction("Notification").badge(true) |
+| `HeaderGlobalBar` | toolbar |  |  | Right-hand group of HeaderGlobalAction icons |
+| `HeaderMenu` | menu | label |  | HeaderMenu("Manage", open: true) { HeaderMenuItem … } |
+| `HeaderMenuButton` | button | icon | icon: "line.3.horizontal", iconOnly: true |  |
+| `HeaderMenuItem` | button | label |  | Header link; .selected() / isCurrentPage: true marks the current page |
+| `HeaderName` | text | content |  | Header product name (or use Header(prefix:)) |
+| `HeaderNavigation` | toolbar |  |  | HeaderNavigation { HeaderMenuItem("Catalog").selected() … } |
+| `HeaderPanel` | sidebar | title | variant: "panel" | Right-hand panel under the header (e.g. Switcher) |
+| `Heading` | text | content | font: "heading03" | Heading("Deployments") — heading-03 (20px); font: "heading-05" etc. for other productive headings |
+| `HeatmapChart` | chart |  | kind: "heatmap" |  |
+| `HelperText` | text | content |  | 12px helper text under a control |
+| `HistogramChart` | chart |  | kind: "histogram" |  |
+| `IconButton` | button | icon | iconOnly: true, variant: "primary" | IconButton("Edit", kind: "ghost", size: "sm") |
+| `InlineLoading` | progress | label | kind: "circular", size: "small" |  |
+| `InlineNotification` | alert | title | closable: true, severity: "error" | InlineNotification(title: "Error", subtitle: "…", kind: "error" / "success" / "warning" / "info", lowContrast: true) |
+| `Layer` | vstack |  | alignment: "stretch" | Raises nested components one layer (layer-02 / field-02) |
+| `LineChart` | chart |  | kind: "line" |  |
+| `Link` | link | label, href |  | Link("Learn more", icon: "ArrowRight") · size: "sm" / "lg" |
+| `Loading` | progress |  | kind: "circular" | Spinner; size: "small" |
+| `MenuButton` | menu | label |  | MenuButton("Actions", kind: "primary", open: true) { MenuItem … } |
+| `MeterChart` | progress | label |  | Carbon Charts meter: a labelled proportion bar |
+| `Modal` | dialog | title |  | Modal("Delete project?", buttons: ["Cancel", "Delete"], destructive: "Delete", closable: true) { body } |
+| `ModalBody` | vstack |  | alignment: "stretch" |  |
+| `MultiSelect` | select | label |  | MultiSelect("Tags", selectedItems: ["api", "web"]) — selected values show as tags |
+| `NumberInput` | stepper | label |  | NumberInput("Replicas", value: 3) — field with − / + buttons |
+| `OperationalTag` | chip | label | color: "gray" |  |
+| `OrderedList` | list |  |  | OrderedList { ListItem("…") } — numbered |
+| `OverflowMenu` | menu |  | icon: "ellipsis.vertical" | OverflowMenu(open: true) { OverflowMenuItem("Edit"); OverflowMenuItem("Delete", isDelete: true) } |
+| `OverflowMenuItem` | menuitem | label |  |  |
+| `Pagination` | pagination | summary | rowsPerPage: 10 | Carbon's bar: Pagination("31–40 of 97 items", page: 4, count: 10, pageSize: 10) |
+| `PaginationNav` | pagination |  |  | Numbered page links: PaginationNav(page: 3, totalItems: 12) |
+| `PasswordInput` | textfield | label | kind: "password", trailingIcon: "eye" |  |
+| `PieChart` | chart |  | kind: "pie" |  |
+| `ProgressBar` | progress | label |  | ProgressBar("Uploading", value: 60, showValue: true) · size: "small" |
+| `ProgressIndicator` | steps | steps |  | ProgressIndicator(currentIndex: 1) { ProgressStep("Details") … } · errors: [2] |
+| `ProgressStep` | text | label |  | Step of a ProgressIndicator: ProgressStep("Details", secondaryLabel: "Optional") |
+| `RadarChart` | chart |  | kind: "radar" |  |
+| `RadioButton` | radio | label |  |  |
+| `RadioButtonGroup` | radiogroup | label |  | RadioButtonGroup(legendText: "Plan", options: [..], valueSelected: "Lite", orientation: .vertical) |
+| `RadioTile` | card | title | variant: "radio" | Radio at the top right; .selected() |
+| `ScatterChart` | chart |  | kind: "scatter" |  |
+| `Search` | textfield | placeholder | kind: "search" | Search("Search", size: "lg") · value: shows the clear button |
+| `Select` | select | label |  | Select("Region", value: "US South") { SelectItem("US South") … } |
+| `SelectItem` | text | text |  | Option of a Select: SelectItem("US South") |
+| `SelectableTag` | chip | label |  | SelectableTag("Python").selected() |
+| `SelectableTile` | card | title | variant: "selectable" | Checkbox at the top right; .selected() outlines it |
+| `SideNav` | sidebar | title |  | SideNav { SideNavLink("Dashboard", icon: "Dashboard").selected(); SideNavMenu("Manage") { SideNavMenuItem … } } |
+| `SideNavDivider` | divider |  |  |  |
+| `SideNavItems` | group |  |  |  |
+| `SideNavLink` | navitem | label |  |  |
+| `SideNavMenu` | navitem | label |  | Expandable SideNav category; expands when a child is selected or expanded: true |
+| `SideNavMenuItem` | navitem | label |  |  |
+| `SimpleBarChart` | chart |  | kind: "bar" | Carbon Charts: SimpleBarChart(values: [..], labels: [..]) |
+| `SkeletonPlaceholder` | skeleton |  | lines: 0, shape: "rectangle" |  |
+| `SkeletonText` | skeleton |  | lines: 3 |  |
+| `Slider` | slider |  | showValue: true | Slider(labelText: "Budget", value: 40, min: 0, max: 100, minLabel: "0", maxLabel: "100") |
+| `Stack` | vstack |  | alignment: "stretch" | Stack(gap: 16) · orientation: .horizontal for a row |
+| `StackedAreaChart` | chart |  | kind: "area", stacked: true |  |
+| `StackedBarChart` | chart |  | kind: "bar", stacked: true |  |
+| `StructuredList` | table | columns |  | StructuredList(columns: [..]) { StructuredListRow { StructuredListCell("…") } } · selection: true for radio rows |
+| `StructuredListCell` | text | content |  | Cell of a StructuredListRow; head: true for a header cell |
+| `StructuredListRow` | tablerow |  |  |  |
+| `StructuredListWrapper` | table | columns |  |  |
+| `Switch` | text | text |  | Segment of a ContentSwitcher: Switch("Active") |
+| `Switcher` | group |  |  |  |
+| `SwitcherDivider` | divider |  |  |  |
+| `SwitcherItem` | navitem | label |  |  |
+| `Tab` | tab | label |  |  |
+| `TabList` | tabs | items | placement: "top" |  |
+| `TabPanel` | vstack |  | alignment: "stretch" |  |
+| `Table` | table |  |  |  |
+| `TableBatchAction` | button | label |  |  |
+| `TableBatchActions` | toolbar | title |  | Blue batch bar shown when rows are selected: TableBatchActions("3 items selected") { TableBatchAction("Delete", renderIcon: "TrashCan"); Button("Cancel") } |
+| `TableCell` | text | content |  | Cell inside TableRow / StructuredListRow |
+| `TableContainer` | card | title |  | TableContainer(title: "Deployments", description: "…") { TableToolbar { … }; DataTable(…) } |
+| `TableExpandRow` | tablerow |  | status: "collapsed" | Row with an expand chevron; follow it with TableExpandedRow { … } to show it expanded |
+| `TableExpandedRow` | tablerow |  | status: "detail" | Full-width detail row under a TableExpandRow |
+| `TableHeader` | tablecolumn | title |  |  |
+| `TableRow` | tablerow |  |  |  |
+| `TableToolbar` | toolbar |  |  | 48px toolbar above a DataTable: search, icon actions, primary button |
+| `TableToolbarAction` | menuitem | label |  |  |
+| `TableToolbarContent` | hstack |  | spacing: 0 |  |
+| `TableToolbarMenu` | menu |  | icon: "gear" |  |
+| `TableToolbarSearch` | textfield | placeholder | kind: "search", placeholder: "Search" |  |
+| `Tabs` | tabs | items | placement: "top" | Tabs(selectedIndex: 0) { Tab("Overview") { panel } … } · .contained() |
+| `Tag` | chip | label | color: "gray" | Tag("Running", type: "green") — red, magenta, purple, blue, cyan, teal, green, gray, cool-gray, warm-gray, high-contrast, outline · size: "sm" |
+| `TextArea` | textfield | label | kind: "multiline" | TextArea("Notes", value:, rows: 4) |
+| `TextInput` | textfield | label |  | TextInput("Email", placeholder:, helperText:, invalidText: "…", size: "sm" / "md" / "lg") |
+| `Theme` | vstack | variant | alignment: "stretch" | Zoned theme: Theme("g100") { … } renders its content in that theme |
+| `Tile` | card | title |  | Tile(title:) { … } — layer-01 surface, 16px padding, square |
+| `TileAboveTheFoldContent` | vstack |  | alignment: "stretch" |  |
+| `TileBelowTheFoldContent` | vstack |  | alignment: "stretch" | Present = ExpandableTile shown expanded |
+| `TileGroup` | vstack |  | alignment: "stretch" | Group of RadioTiles |
+| `TimePicker` | datepicker | label | kind: "time", placeholder: "hh:mm" |  |
+| `ToastNotification` | toast | title | closable: true, position: "topTrailing", severity: "error" | ToastNotification(title:, subtitle:, kind:) { Text("caption") } — top-right; inline: true to place it |
+| `Toggle` | toggle | label | offText: "Off", onText: "On" | Toggle("Notifications", toggled: true, size: "sm") |
+| `Toggletip` | tooltip | text |  |  |
+| `Tooltip` | tooltip | text |  | Tooltip("Copy") { IconButton … } · align: .bottom |
+| `TreeNode` | treeitem | label |  |  |
+| `TreeView` | tree | label |  |  |
+| `TreemapChart` | chart |  | kind: "treemap" |  |
+| `UnorderedList` | list |  |  | UnorderedList { ListItem("…") } — en-dash bullets |
+
+<!-- end catalogue: carbon -->
+
+## primer — GitHub Primer
+
+<!-- catalogue: primer — generate with `mockitdown elements primer --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `ActionList` | list |  |  | ActionList { ActionListItem("Edit", leadingVisual: "pencil", description:) ; ActionListDivider() } |
+| `ActionListDivider` | divider |  |  |  |
+| `ActionListGroup` | section | title |  | ActionList.Group("Assignees") { items } |
+| `ActionListGroupHeading` | text | content |  |  |
+| `ActionListItem` | listitem | title |  | ActionList.Item(label, leadingVisual:, trailingVisual: text, description:, selected:, variant: .danger) |
+| `ActionListLinkItem` | listitem | title |  |  |
+| `ActionMenu` | menu | label | variant: "default" | ActionMenu("Sort", open: true) { ActionMenuItem("Newest", checked: true) … } — anchor + overlay |
+| `ActionMenuButton` | button | label | trailingIcon: "triangle-down", variant: "default" | ActionMenu.Button (closed menu trigger) |
+| `ActionMenuDivider` | divider |  |  |  |
+| `ActionMenuItem` | menuitem | label |  | Item inside an open ActionMenu: leadingVisual:, trailingVisual: "⌘C", checked:, variant: .danger |
+| `Autocomplete` | select | placeholder | variant: "autocomplete" | Autocomplete("Search users", text: "mo", open: true) { AutocompleteItem("mona") } |
+| `AutocompleteItem` | label | title |  |  |
+| `Avatar` | avatar | name |  | Avatar("Mona Lin", image:, size: 20…64, square: true for orgs/bots) |
+| `AvatarPair` | zstack |  |  | Large avatar with a small one at the bottom right |
+| `AvatarStack` | hstack |  | spacing: 0 | Overlapping avatars: AvatarStack { Avatar … } |
+| `AvatarToken` | chip | text |  | AvatarToken("mona", avatar: "Mona Lin") |
+| `Banner` | alert | title |  | Banner("Title", description:, variant: .info/.success/.warning/.critical/.upsell) { actions } |
+| `Blankslate` | emptystate | title |  | Blankslate("No issues", systemImage: "issue-opened", description:, border: true) { primary / secondary actions } |
+| `BlobView` | code | code |  |  |
+| `Blockquote` | text | content |  |  |
+| `BorderBox` | card | title | variant: "borderbox" | Box with border and rounded corners; header: title; children are rows (Box-row) |
+| `Box` | vstack |  |  | Generic container (Box): style it with modifiers; children stack vertically |
+| `BoxRow` | hstack |  | spacing: 8 | A Box-row inside a BorderBox (bordered row) |
+| `BranchName` | text | content |  | BranchName("feature/login") — monospace accent chip |
+| `Breadcrumbs` | breadcrumb | items |  | Breadcrumbs(items: ["acme", "rocket", "src"]) |
+| `BreadcrumbsItem` | link | label |  |  |
+| `Button` | button | label | variant: "default" | Button("Save", variant: .primary, size: .small/.medium/.large, leadingVisual: "plus", count: 3, trailingAction: "triangle-down") |
+| `ButtonGroup` | toolbar |  | variant: "group" | Joined buttons: ButtonGroup { Button; IconButton } |
+| `Checkbox` | checkbox | label |  | Checkbox("Require review", checked: true) |
+| `CheckboxGroup` | vstack |  | alignment: "leading", spacing: 8 |  |
+| `CircleBadge` | avatar | name |  | Round badge with an icon (systemImage:) |
+| `CodeView` | code | code |  | Blob view: CodeView("…", language: "ts", highlight: [4], title: "src/app.ts") |
+| `CommentBox` | card | title | variant: "comment" |  |
+| `ConfirmationDialog` | dialog | title | variant: "confirmation" | ConfirmationDialog("Delete branch?", buttons: ["Cancel", "Delete"], destructive: "Delete") { body } |
+| `Counter` | badge | text | variant: "secondary" | Counter(12) or Counter(count: 3, scheme: .primary) |
+| `CounterLabel` | badge | text | variant: "secondary" |  |
+| `DataTable` | table |  |  | DataTable(columns: […], rows: [[…]]) — bordered Primer table; title: and footer: |
+| `Details` | accordion | title |  | Details/summary disclosure |
+| `Dialog` | dialog | title | closable: true | Dialog("Title", subtitle:) { body } footer: { Button … } |
+| `DiffCode` | text | content |  | Code cell of a DiffLine (monospace, keeps spaces) |
+| `DiffFile` | card | title | variant: "diff" | File in a diff: DiffFile("src/app.ts", subtitle: "+12 −3") { DiffHunk(…); DiffLine(…) } action: { … } |
+| `DiffHunk` | hstack |  | spacing: 0, variant: "hunk" | @@ hunk header row: DiffHunk { DiffNumber(""); DiffNumber(""); DiffCode("@@ -10,6 +10,8 @@") } |
+| `DiffLine` | hstack |  | spacing: 0, variant: "context" | One diff row: DiffLine(variant: .addition) { DiffNumber(""); DiffNumber("14"); DiffCode("+ …") } |
+| `DiffNumber` | text | content |  | Line-number gutter cell of a DiffLine |
+| `Disclosure` | accordion | title |  |  |
+| `Flash` | alert | title |  | Flash("Saved", variant: .default/.success/.warning/.danger, full: true) |
+| `FormControl` | vstack |  | alignment: "stretch", spacing: 4 | FormControl { FormControlLabel("Name"); TextInput(…); FormControlCaption("…") } |
+| `FormControlCaption` | text | content |  | FormControl.Caption (12px muted) |
+| `FormControlLabel` | text | content |  | FormControl.Label (14px semibold) |
+| `FormControlValidation` | text | content |  | FormControl.Validation("…", variant: .error/.success) |
+| `Header` | appbar | title |  | Global header: Header("acme / rocket", logo: "cube", search: "Type / to search", avatar: "Mona") { actions } |
+| `HeaderItem` | hstack |  | spacing: 8 | Header.Item |
+| `HeaderLink` | link | label |  | Header.Link |
+| `Heading` | text | content | style: "titleMedium" | Heading("Title", variant: .large / .medium / .small) |
+| `IconButton` | button | icon | iconOnly: true, variant: "default" | IconButton("kebab-horizontal", variant: .invisible, "aria-label" via label:) |
+| `InlineMessage` | text | content |  | InlineMessage("Check your token", variant: .critical/.warning/.success/.unavailable) |
+| `IssueLabel` | badge | text | color: "gray", variant: "issue" | Repository label: IssueLabel("bug", color: .red) — tinted pill (named colours) |
+| `IssueLabelToken` | badge | text | color: "gray", variant: "issue" |  |
+| `Kbd` | kbd | keys |  | Keyboard key: Kbd("/") |
+| `Label` | badge | text | variant: "default" | Label("Public", variant: .success, size: .small/.large) |
+| `Link` | link | label, destination |  | Link("Docs", muted: true) or variant: .muted |
+| `LinkButton` | button | label | variant: "default" | A link styled as a Button |
+| `Markdown` | vstack |  | alignment: "leading", spacing: 16 | Rendered Markdown body (markdown-body): spacing 16, headings with rules |
+| `NavList` | vstack |  | alignment: "stretch", spacing: 2 | NavList { NavListItem("General", leadingVisual: "gear").selected(); NavListGroup("Access") { … } } |
+| `NavListDivider` | divider |  |  |  |
+| `NavListGroup` | section | title |  | NavList.Group("Code and automation") { items } |
+| `NavListGroupHeading` | text | content |  |  |
+| `NavListItem` | navitem | label |  | NavList.Item(label, leadingVisual:, trailingVisual: count, selected:) — nested items = SubNav |
+| `Octicon` | icon | name |  | Octicon("git-branch", size: 16) — Octicon names are aliased |
+| `Overlay` | card | title | variant: "overlay" | Floating overlay surface |
+| `PageHeader` | vstack |  | alignment: "stretch", spacing: 8 | PageHeader { PageHeaderContextArea; PageHeaderTitleArea { PageHeaderTitle; PageHeaderActions }; PageHeaderDescription } |
+| `PageHeaderActions` | hstack |  | spacing: 8 | Right-aligned actions of the title row |
+| `PageHeaderContextArea` | hstack |  | spacing: 8 | Parent link / breadcrumbs above the title |
+| `PageHeaderDescription` | hstack |  | spacing: 8 | Muted metadata row under the title |
+| `PageHeaderLeadingAction` | hstack |  | spacing: 4 |  |
+| `PageHeaderLeadingVisual` | hstack |  | spacing: 4 |  |
+| `PageHeaderNavigation` | vstack |  | alignment: "stretch", spacing: 0 | Holds an UnderlineNav under the header |
+| `PageHeaderParentLink` | link | label | systemImage: "arrow-left" | Back link in the context area |
+| `PageHeaderTitle` | text | content | style: "titleMedium" | PageHeader.Title (variant: .large / .medium / .subtitle) |
+| `PageHeaderTitleArea` | hstack |  | spacing: 8 | Title row: leading visual, title, trailing visual, actions |
+| `PageHeaderTrailingAction` | hstack |  | spacing: 4 |  |
+| `PageHeaderTrailingVisual` | hstack |  | spacing: 4 |  |
+| `PageLayout` | vstack |  | alignment: "stretch", spacing: 0 | PageLayout { PageLayoutHeader; PageLayoutContentRow { PageLayoutPane; PageLayoutContent } } |
+| `PageLayoutContent` | vstack |  | alignment: "stretch", spacing: 16 | PageLayout.Content |
+| `PageLayoutContentRow` | hstack |  | alignment: "top", spacing: 0 | Row holding the pane and the content (pane on either side) |
+| `PageLayoutFooter` | vstack |  | alignment: "stretch", spacing: 8 | PageLayout.Footer |
+| `PageLayoutHeader` | vstack |  | alignment: "stretch", spacing: 8 | PageLayout.Header |
+| `PageLayoutPane` | vstack |  | alignment: "stretch", spacing: 8 | PageLayout.Pane (296px side column); divider: true draws the line |
+| `Pagination` | pagination |  |  | Pagination(pageCount: 12, currentPage: 3) — Previous / pages / Next |
+| `Popover` | card | title | variant: "popover" | Popover with caret |
+| `ProgressBar` | progress | value |  | ProgressBar(progress: 60) of 100 |
+| `Radio` | radio | label |  |  |
+| `RadioGroup` | radiogroup | label |  |  |
+| `RelativeTime` | text | content |  | RelativeTime("3 days ago") — muted, dotted hover underline |
+| `SegmentedControl` | segmented | items |  | SegmentedControl { SegmentedControlButton("Preview").selected(); … } or items:, selection: |
+| `SegmentedControlButton` | label | title |  | SegmentedControl.Button("Raw", leadingIcon:, selected:) |
+| `SegmentedControlIconButton` | label | icon | labelStyle: "iconOnly" | SegmentedControl.IconButton(icon: "eye", ariaLabel via title:) |
+| `Select` | select | placeholder |  | Native select: Select(selection: "main") { SelectOption("main") } |
+| `SelectOption` | text | content |  |  |
+| `SelectPanel` | menu | label | variant: "default" | Filterable selection overlay: SelectPanel("Labels", open: true) { TextInput; ActionMenuItem(checked:) } |
+| `SkeletonAvatar` | skeleton |  | shape: "circle" |  |
+| `SkeletonBox` | skeleton |  | shape: "rectangle" |  |
+| `SkeletonText` | skeleton |  | lines: 1 |  |
+| `Snippet` | code | code | lineNumbers: false | Clipboard-copy snippet (markdown code block) |
+| `Spinner` | progress |  | variant: "spinner" | Spinner(size: .small/.medium/.large) |
+| `SplitPageLayout` | hstack |  | alignment: "top", spacing: 0 | SplitPageLayout { SplitPageLayoutPane; SplitPageLayoutContent } (settings pages) |
+| `SplitPageLayoutContent` | vstack |  | alignment: "stretch", spacing: 16 | SplitPageLayout.Content |
+| `SplitPageLayoutPane` | vstack |  | alignment: "stretch", spacing: 8 | SplitPageLayout.Pane |
+| `Stack` | vstack |  | alignment: "stretch", spacing: 16 | Stack (vertical, gap normal); use StackHorizontal or HStack for a row |
+| `StackHorizontal` | hstack |  | spacing: 8 | Stack with direction="horizontal" |
+| `StackItem` | vstack |  |  | Stack.Item |
+| `StateLabel` | badge | text | variant: "open" | StateLabel("Open", status: .issueOpened / .issueClosed / .pullOpened / .pullMerged / .pullClosed / .draft, size: .small) |
+| `SubNav` | toolbar |  | variant: "subnav" | Joined pill links: SubNav { SubNavLink("Labels").selected() } |
+| `SubNavLink` | button | label | variant: "subnav" |  |
+| `TabNav` | tabs | items | placement: "top", variant: "tabnav" | Boxed tabs (TabNav): TabNav(items: ["Write", "Preview"], selection: "Write") |
+| `TabNavLink` | tab | label |  |  |
+| `Table` | table |  |  |  |
+| `TableContainer` | vstack |  | alignment: "stretch", spacing: 8 |  |
+| `TableSubtitle` | text | content |  |  |
+| `TableTitle` | text | content |  |  |
+| `Terminal` | code | code | variant: "terminal" |  |
+| `Text` | text | content |  | Text("…", size: .small/.medium/.large, weight: .light/.normal/.medium/.semibold) · .foregroundStyle(.secondary) |
+| `TextInput` | textfield | placeholder |  | TextInput("Find a file…", value:, leadingVisual: "search", size: .small/.medium/.large) |
+| `TextInputWithTokens` | select | placeholder |  | TextInputWithTokens("Add topics", selection: ["react", "css"]) |
+| `Textarea` | textfield | placeholder | kind: "multiline" | Textarea("Leave a comment", value:, rows: 5) |
+| `Timeline` | timeline |  |  | Timeline { TimelineItem("…", systemImage: "git-commit", time:) } |
+| `TimelineBreak` | divider |  |  |  |
+| `TimelineComment` | card | title | variant: "comment" | Issue/PR comment box: TimelineComment("**mona** commented 2 days ago", avatar: "Mona") { body } action: { … } |
+| `TimelineItem` | timelineitem | title |  | Timeline.Item(title, systemImage: octicon, time:, description:, status: .open/.closed/.merged/.done, variant: .condensed) |
+| `ToggleSwitch` | toggle | label | offText: "Off", onText: "On" | ToggleSwitch("Notifications", checked: true) — On/Off text, size: .small |
+| `Token` | chip | text |  | Token("design", onRemove: true, size: .small/.medium/.large/.xlarge) |
+| `Tooltip` | tooltip | text | placement: "top" | Tooltip("Copy", direction: .s) { IconButton } |
+| `TreeView` | tree |  |  | TreeView { TreeViewItem("src", folder: true) { TreeViewItem("index.ts", systemImage: "file") } } |
+| `TreeViewItem` | treeitem | label |  | TreeView.Item(label, folder:, expanded:, leadingVisual:, current: true) |
+| `TreeViewSubTree` | group |  |  |  |
+| `Truncate` | text | content |  | Single-line text cut with an ellipsis (maxWidth via .frame) |
+| `UnderlineNav` | tabs | items | placement: "top", variant: "underline" | UnderlineNav { UnderlineNavItem("Code", leadingVisual: "code", counter: 3).selected() } |
+| `UnderlineNavItem` | tab | label |  | UnderlineNav.Item(label, leadingVisual:, counter:, selected:) |
+| `UnderlinePanels` | tabs | items | placement: "top", variant: "underline" | Tabs with panels: UnderlinePanels { UnderlinePanelsTab("Code") { panel } } |
+| `UnderlinePanelsTab` | tab | label |  |  |
+
+<!-- end catalogue: primer -->
+
 ## android — Android (Jetpack Compose Material 3)
 
 <!-- catalogue: android — generate with `mockitdown elements android --markdown --own` -->
@@ -1310,6 +1902,111 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: qt -->
 
+## avalonia — Avalonia UI 11 (Fluent theme)
+
+<!-- catalogue: avalonia — generate with `mockitdown elements avalonia --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `AccessText` | text | content |  |  |
+| `AutoCompleteBox` | select | label | variant: "autocomplete" | AutoCompleteBox(text: "Lis", items: ["Lisbon", "Lismore"], isDropDownOpen: true, watermark:) |
+| `Border` | vstack |  | alignment: "stretch" | A decorator: style with .padding / .background / .cornerRadius / .border |
+| `Button` | button | label | variant: "default" | Button("Save", icon:) · classes: "accent" (Classes="accent") for the accent button |
+| `ButtonSpinner` | textfield | text | kind: "number", trailingIcon: "chevron.up.down" |  |
+| `Calendar` | calendar |  | showToday: true | Calendar(selectedDate: "2026-11-18") — today (Nov 23) has the accent fill, the selection an accent ring |
+| `CalendarDatePicker` | datepicker | label | format: "numeric" | CalendarDatePicker(selectedDate: "2026-11-23", watermark:) — a TextBox with a calendar button |
+| `Canvas` | canvas |  |  | Absolute positioning: place children with .position(x:y:) (Canvas.Left/Top) |
+| `Carousel` | zstack |  |  | Carousel { current item } — one item at a time |
+| `CartesianChart` | chart |  | kind: "line" | LiveCharts2 CartesianChart(kind: .line/.bar/.area, series:, labels:) |
+| `CheckBox` | checkbox | label |  | CheckBox("Remember me", isChecked: true / .indeterminate) — IsThreeState shows the dash |
+| `ColorPicker` | swatches | label | variant: "picker" | ColorPicker(colors: ["#0078d7"], selection: 0) — the drop-down button with its colour preview |
+| `ColorSlider` | slider | label |  |  |
+| `ColorSpectrum` | placeholder | label | systemImage: "sun" |  |
+| `ColorView` | swatches | label |  | ColorView palette: colors: [..], selection: |
+| `ComboBox` | select | label |  | ComboBox(items: ["S", "M"], selectedItem: "M", placeholderText:, isDropDownOpen: true) or ComboBoxItem children |
+| `ComboBoxItem` | text | content |  |  |
+| `ContentControl` | group |  |  | Hosts one piece of content |
+| `ContentPresenter` | group |  |  |  |
+| `ContextMenu` | menu |  |  | ContextMenu { MenuItem… } — an open popup (place it with .padding / .position) |
+| `DataGrid` | table |  | variant: "dataGrid" | Avalonia.Controls.DataGrid(columns: [...], rows: [[...]], selected: [1]) or DataGrid*Column children |
+| `DataGridCheckBoxColumn` | tablecolumn | title |  |  |
+| `DataGridTemplateColumn` | tablecolumn | title |  |  |
+| `DataGridTextColumn` | tablecolumn | title |  |  |
+| `DatePicker` | datepicker | label | format: "long", variant: "fields" | DatePicker(selectedDate: "2026-11-23") — month · day · year segments |
+| `Decorator` | group |  |  |  |
+| `Dialog` | dialog | title | closable: true | A modal child Window (ShowDialog): Dialog("Title") { content } actions: { Button… } |
+| `DockPanel` | vstack |  | alignment: "stretch", spacing: 0 | DockPanel { top docks… ; fill } — docked children in order; put a left/right dock and the fill in an HStack |
+| `DropDownButton` | button | label | dropdown: true, variant: "default" | Button with a chevron that opens a Flyout |
+| `Ellipse` | shape |  | shape: "ellipse" |  |
+| `Expander` | accordion | header |  | Expander("Header", isExpanded: true) { content } |
+| `Flyout` | card | title | variant: "flyout" | A light-dismiss popup surface; place with .overlay(alignment:) or .position |
+| `Grid` | grid |  |  | Grid(columns: 3, spacing: 12) { … } — column count (ColumnDefinitions as a count), or GridRow children |
+| `GridSplitter` | divider |  |  | A draggable divider between grid cells |
+| `HeaderedContentControl` | section | header |  | HeaderedContentControl("Header") { content } |
+| `HyperlinkButton` | button | label | variant: "hyperlink" | HyperlinkButton("Learn more", navigateUri:) — link-styled button |
+| `Image` | image | name |  | Image("assets/images/photo-1.svg") or Image(source:) |
+| `ItemsControl` | vstack |  | alignment: "stretch" | Repeats an item template: use ForEach inside |
+| `ItemsRepeater` | vstack |  | alignment: "stretch" | Avalonia.Controls.ItemsRepeater: ForEach inside; .orientation(.horizontal) for a row |
+| `Label` | text | content |  | Label("Name:") — a ContentControl caption for an input (Target:) |
+| `LayoutTransformControl` | group |  |  |  |
+| `ListBox` | list |  | variant: "listBox" | ListBox { ListBoxItem… } — selection uses the accent list brush; .selected() on an item |
+| `ListBoxItem` | listitem | title |  | ListBoxItem("Title", subtitle:, detail:, icon:) or a custom item template as children |
+| `MaskedTextBox` | textfield | text |  | MaskedTextBox(mask: "(000) 000-0000") — the mask shows when empty |
+| `Menu` | toolbar |  | variant: "menubar" | Menu { MenuItem("File") … MenuBarItem("Edit", isSubMenuOpen: true) { MenuItem("Copy", inputGesture: "Ctrl+C") } } |
+| `MenuBarItem` | menu | label | caret: false, variant: "menubar" | A top-level MenuItem of a Menu with its submenu (XAML writes MenuItem; this name lets it open: isSubMenuOpen: true) |
+| `MenuFlyout` | menu | label |  | MenuFlyout { MenuItem… } — an open flyout; MenuFlyout("Sort", isOpen: true) { … } draws the DropDownButton that owns it |
+| `MenuItem` | menuitem | label |  | MenuItem("Copy", icon:, inputGesture: "Ctrl+C", isChecked:) — children make a submenu; in a Menu bar a closed top-level item |
+| `NotificationCard` | toast | title | inline: true, severity: "information" | NotificationCard("Saved", message:, type: .information/.success/.warning/.error) — put inside WindowNotificationManager |
+| `NumericUpDown` | textfield | value | kind: "number", trailingIcon: "chevron.up.down" | NumericUpDown(value: 3, minimum:, maximum:, formatString:) — spinner on the right |
+| `Panel` | zstack |  |  | Children overlap (Panel stacks them on top of each other) |
+| `Path` | shape |  | shape: "rectangle" |  |
+| `PathIcon` | icon | name |  | PathIcon("Settings") — a geometry icon (FluentIcons names work) |
+| `PieChart` | chart |  | kind: "donut" | LiveCharts2 PieChart(values:, labels:) |
+| `PolarChart` | chart |  | kind: "radar" | LiveCharts2 PolarChart(series:, labels:) |
+| `Popup` | card | title | variant: "flyout" |  |
+| `ProgressBar` | progress | label | total: 100 | ProgressBar(value: 60) — 0…100 (Maximum:); no value = indeterminate; showProgressText: true |
+| `RadioButton` | radio | label |  | RadioButton("Small", isChecked: true, groupName:) |
+| `Rectangle` | shape |  | shape: "rectangle" |  |
+| `RefreshContainer` | vstack |  | alignment: "stretch" | Pull-to-refresh host; refreshing: true shows the visualizer |
+| `RefreshVisualizer` | progress |  | kind: "circular" | The pull-to-refresh spinner |
+| `RelativePanel` | zstack |  |  |  |
+| `RepeatButton` | button | label | variant: "default" | Fires repeatedly while pressed |
+| `ReversibleStackPanel` | vstack |  | alignment: "stretch" |  |
+| `Run` | text | content |  |  |
+| `ScrollViewer` | scroll | axes |  | Scrolling region (static; Fluent overlay scroll bars are hidden at rest) |
+| `SelectableTextBlock` | text | content |  | Text the user can select and copy |
+| `Separator` | divider |  |  | A horizontal rule (menus, stack panels) |
+| `Slider` | slider | label |  | Slider(value: 40, minimum: 0, maximum: 100, ticks: 10) |
+| `SplitButton` | button | label | split: true, variant: "default" | Primary part + chevron that opens a Flyout |
+| `SplitView` | split |  | variant: "inline" | SplitView(displayMode: .inline) { pane } content: { … } — the pane sits on PaneBackground |
+| `StackPanel` | vstack |  | alignment: "stretch" | StackPanel(spacing: 8, orientation: .horizontal) { … } — vertical by default, children stretch across |
+| `SymbolIcon` | icon | name |  | FluentIcons.Avalonia SymbolIcon(symbol: "Home") |
+| `TabControl` | tabs |  | placement: "top", variant: "tabControl" | TabControl(selectedIndex: 0) { TabItem("General") { … } } — 24 px SemiLight headers with the accent pipe |
+| `TabItem` | tab | label |  |  |
+| `TabStrip` | tabs | items | placement: "top", variant: "tabStrip" | TabStrip(items: [..], selectedIndex:) — headers only |
+| `TabStripItem` | tab | label |  |  |
+| `TextBlock` | text | content |  | TextBlock("Hi", classes: "h2") — Text; .font(.title2), FontWeight via .bold() |
+| `TextBox` | textfield | text |  | TextBox("text", watermark: "Hint", label:) · .passwordChar("•") · .acceptsReturn() (rows:) · classes: "clearButton" / "revealPasswordButton" |
+| `TextEditor` | code | code |  | AvaloniaEdit TextEditor("…", language:, lineNumbers:, highlight: [3]) — ShowLineNumbers |
+| `TimePicker` | datepicker | label | kind: "time", variant: "fields" | TimePicker(selectedTime: "7:30 AM") |
+| `TitleBar` | appbar | title |  | A client-area title bar (ExtendClientAreaToDecorationsHint): TitleBar("App", logo:) { trailing controls } |
+| `ToggleButton` | button | label | variant: "default" | ToggleButton("Bold", isChecked: true) — checked uses the accent fill |
+| `ToggleSplitButton` | button | label | split: true, variant: "default" | SplitButton whose primary part toggles (isChecked:) |
+| `ToggleSwitch` | toggle | label | offText: "Off", onText: "On" | ToggleSwitch("Wi-Fi", isChecked: true, onContent:, offContent:) — Content is the header above the switch |
+| `ToolTip` | tooltip | text |  | ToolTip("Hint") { target } — ToolTip.Tip |
+| `TransitioningContentControl` | group |  |  | Shows the current page (transitions are static) |
+| `TreeView` | tree |  |  | TreeView { TreeViewItem("src", isExpanded: true) { TreeViewItem("App.axaml") } } |
+| `TreeViewItem` | treeitem | label |  | TreeViewItem("Header", icon:, isExpanded:, isSelected:) { children } |
+| `UniformGrid` | grid |  |  | UniformGrid(columns: n) { … } |
+| `UserControl` | vstack |  | alignment: "stretch", spacing: 0 | A reusable view's root |
+| `Viewbox` | zstack |  |  | Scales its child (static) |
+| `VirtualizingStackPanel` | vstack |  | alignment: "stretch" |  |
+| `Window` | vstack |  | alignment: "stretch", spacing: 0 | Window { … } — the top-level window's content (title and decorations come from the fence's title/chrome) |
+| `WindowNotificationManager` | vstack |  | alignment: "stretch", position: "topRight", spacing: 8 | Hosts NotificationCards in a window corner (position: .topRight/.bottomRight/.topLeft/.bottomLeft) |
+| `WrapPanel` | hstack |  | wrap: true | Children left to right, wrapping |
+
+<!-- end catalogue: avalonia -->
+
 ## kde-plasma — KDE Plasma 6 (Breeze)
 
 <!-- catalogue: kde-plasma — generate with `mockitdown elements kde-plasma --markdown --own` -->
@@ -1432,6 +2129,129 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: kde-plasma -->
 
+## nls — NLS — the 1968 oN-Line System
+
+<!-- catalogue: nls — generate with `mockitdown elements nls --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Bug` | pointer |  | kind: "bug" | The tracking spot moved by the mouse: a short upward arrow · use inline in a statement, or .position(x:y:) in a ZStack/Drawing |
+| `Caption` | text | content | font: "caption" | Dim fine print |
+| `Chord` | kbd | keys |  | A five-key keyset chord as typed (keys pressed together): Chord(["·","█","·","█","·"]) or Chord("d") |
+| `CommandButton` | button | label |  | A command word set in brackets — there were no on-screen buttons; this stands for a keyset command: CommandButton("JUMP") |
+| `CommandFeedback` | toolbar | title |  | Alias of FeedbackLine |
+| `CommandWord` | text | content | variant: "command" | One command word (verb or noun) as shown in the feedback line: CommandWord("JUMP") |
+| `Display` | card | title |  | The whole CRT display as the TV camera saw it: Display(file: "<ARC>LIST,1", viewspec: "abm") { … } header: { FeedbackLine(…) } |
+| `DisplayArea` | card | title | variant: "area" | One display area (window) of a split screen, its file address in the top rule: DisplayArea("<ARC>PLAN,3", viewspec: "bm") { … } |
+| `Drawing` | canvas |  |  | A vector drawing area; place Strokes, Nodes and labels with .position(x:y:) |
+| `Echo` | text | content | variant: "echo" | Characters echoed as they are typed on the keyset, ending in the underline cursor: Echo("2b") |
+| `FeedbackLine` | toolbar | title |  | The command feedback line at the top of the screen: the command being composed, then the echo: FeedbackLine("INSERT STATEMENT") { Echo("fresh bread") } |
+| `FileLink` | link | label | variant: "file" | A link to a statement in another file, shown in parentheses: FileLink("ARC, PLAN, 3a") → (ARC, PLAN, 3a) |
+| `Heading` | text | content | font: "title3" | A larger line of text |
+| `Marker` | text | content | variant: "marker" | A named marker set on a character, shown as a small tag: Marker("m") |
+| `Node` | text | content | variant: "node" | A boxed label in a diagram: Node("library") |
+| `Outline` | tree |  |  | Alias of StatementFile |
+| `PartnerBug` | pointer |  | kind: "partner" | A second user's tracking spot on a shared screen, drawn hollow |
+| `Register` | text | content | variant: "register" | A name register or status slot at the edge of the feedback line: Register("BUG 2c") |
+| `RouteMap` | map |  |  | A line-drawn map with stops and the route between them: RouteMap(pins: [(20, 30, "library")], route: true) |
+| `Rule` | divider | label |  | A drawn horizontal line; Rule("label") sets text into it |
+| `Screen` | card | title |  | Alias of Display |
+| `SplitScreen` | split |  |  | Display areas side by side (or stacked with orientation: .vertical), split by a single drawn line |
+| `Statement` | treeitem | label |  | One statement; nest Statements for sub-statements. number: "3b" overrides the automatic number · .selected() intensifies it |
+| `StatementFile` | tree |  |  | A structured file of hierarchical statements, numbered 1, 1a, 1a1 … automatically · view specs: levels: 1…4, lines: 1 (first line only), numbers: false |
+| `StatementLink` | link | label | variant: "statement" | A link to another statement, shown in parentheses: StatementLink("2b") → (2b) |
+| `Stroke` | shape |  | variant: "line" | A drawn vector line: Stroke().frame(width: 120, height: 2).rotationEffect(.degrees(30)).position(x:y:) |
+| `SystemMessage` | text | content | variant: "message" | A short system reply in the feedback area, set in inverse: SystemMessage("FILE LOADED") |
+| `VideoInset` | placeholder | label | variant: "inset" | The television picture of a person mixed into the display: VideoInset("camera 2 — remote site") · .variant(.overlay) superimposes it translucently |
+| `ViewSpec` | text | content | variant: "viewspec" | The current view-specification letters, shown dim: ViewSpec("abm") |
+| `Window` | card | title | variant: "area" | Alias of DisplayArea |
+
+<!-- end catalogue: nls -->
+
+## xerox-star — Xerox Star
+
+<!-- catalogue: xerox-star — generate with `mockitdown elements xerox-star --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `ChoiceButton` | button | label | variant: "choice" | A single choice box; .selected() reverses it |
+| `ChoiceButtons` | segmented | label |  | ChoiceButtons(items: ["Left", "Center", "Right"], selection: "Left"): the chosen value is in reverse video |
+| `CommandKey` | kbd | keys |  | One function key, e.g. CommandKey("MOVE") |
+| `CommandKeys` | kbd | keys | keys: ["AGAIN", "DELETE", "FIND", "COPY", "SAME", "MOVE", "OPEN", "PROPS", "HELP", "UNDO"] | The universal-command keys of the Star keyboard as a strip |
+| `Confirmation` | dialog | title | variant: "alert" | A boxed confirmation/error message with Yes/No commands |
+| `Desktop` | zstack |  | alignment: "topLeading" | The grey (stippled) desktop; place icons and windows inside |
+| `DesktopIcon` | label | title |  | A pictogram with its name, e.g. DesktopIcon("Report", icon: "Document"); .selected() shows it in reverse video |
+| `DocumentPage` | vstack |  | alignment: "leading", spacing: 8 | A WYSIWYG page in a document window (Classic serif text) |
+| `FieldBox` | textfield | text |  | A boxed text property |
+| `FolderEntry` | listitem | title |  | FolderEntry("Memo", icon: "Document", detail: "12-Mar-81") |
+| `FolderList` | list |  |  | The contents of an opened folder: FolderEntry rows |
+| `Frame` | card | title | variant: "frame" | A graphics frame anchored in a document |
+| `Heading` | text | content | font: "title2" | Document heading |
+| `IconColumn` | vstack |  | alignment: "center", spacing: 18 | A column of desktop icons |
+| `IconRow` | hstack |  | alignment: "top", spacing: 22 | A row of desktop icons |
+| `MenuCommand` | menuitem | label |  | A command in a pop-up menu |
+| `MessageLine` | toolbar |  | variant: "message" | The prompt/message area at the top of the screen |
+| `OnOffBox` | checkbox | label |  | A boolean property: a small square, checked when on |
+| `OptionSheet` | card | title | variant: "sheet" | Option sheet (parameters of a command such as Print) |
+| `Paragraph` | text | content |  | Document paragraph |
+| `PopUpMenu` | menu | label |  | A pop-up command menu |
+| `PropertyField` | labeled | label, value |  | PropertyField("Name") { FieldBox(…) } — a label with its value |
+| `PropertySheet` | card | title | variant: "sheet" | Property sheet: header with Done/Cancel/Defaults, then PropertyField rows |
+| `ScrollBar` | slider | value | orientation: "vertical", variant: "scrollbar" | The window scroll bar with arrow and next/previous-page boxes |
+| `StarWindow` | card | title |  | Window: black header strip with the name and command buttons (headerAction: { WindowCommand(…) }) |
+| `Window` | card | title |  | Alias of StarWindow |
+| `WindowCommand` | button | label | variant: "command" | A command button in a window or property-sheet header |
+
+<!-- end catalogue: xerox-star -->
+
+## lisa — Lisa Office System
+
+<!-- catalogue: lisa — generate with `mockitdown elements lisa --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | dialog | message | severity: "note", variant: "alert" | An alert box: severity .note / .caution / .stop |
+| `Button` | button | label |  | A Lisa button: a heavy rounded box |
+| `CautionAlert` | dialog | message | severity: "caution", variant: "alert" | Alert with the caution symbol |
+| `CheckBox` | checkbox | label, checked |  | A Lisa check box: a small box filled black when chosen |
+| `DefaultButton` | button | label | variant: "default" | The button that Return activates (doubled outline) |
+| `Desktop` | zstack |  | alignment: "topLeading" | The desktop: the patterned area below the menu bar; place windows and icons with .offset(x:y:) |
+| `DesktopIcon` | label | title, kind | kind: "document" | An Office System icon: kind .stationery / .document / .folder / .profile / .clipboard / .trash / .preferences / .calculator / .printer |
+| `Dialog` | dialog | title |  | A dialog box presented over the screen (thick border) |
+| `DialogBox` | card |  | variant: "dialog" | An in-place dialog box with the thick Lisa border |
+| `DocumentWindow` | card | title | variant: "document" | A document window with scroll bars and size control |
+| `DrawCanvas` | canvas |  |  | The drawing area (LisaDraw shows a dotted grid with grid: .dots) |
+| `DrawPalette` | grid |  | columns: 1 | The vertical tool palette of a drawing program |
+| `EditText` | textfield | text |  | A typing field |
+| `FileItem` | listitem | title, kind |  | A row of a ListBox: FileItem("Budget", kind: .stationery) |
+| `Folder` | label | title | kind: "folder" | A folder icon |
+| `FolderWindow` | card | title, subtitle | variant: "folder" | An open folder or disk on the Office System desktop (icon view) |
+| `ListBox` | list |  | kind: "files" | A list of documents in a dialog |
+| `Menu` | menu | label | caret: false | A menu-bar title; Menu("File", open: true) { MenuItem(…) } pulls its menu down |
+| `MenuBar` | toolbar |  |  | The menu bar across the top of the screen; holds Menu elements (one may be open: true) |
+| `MenuItem` | menuitem | label, shortcut |  | A menu command: MenuItem("Quit", shortcut: "⌘Q"); .disabled() greys it |
+| `MenuSeparator` | divider |  |  | The dotted line between menu groups |
+| `NoteAlert` | dialog | message | severity: "note", variant: "alert" | Alert with the note symbol |
+| `PatternPalette` | swatches | colors | colors: ["white", "black", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray"] | Fill patterns; selection: index |
+| `ProgressBar` | progress | value |  | A plain progress bar |
+| `RadioButton` | radio | label, checked |  | One choice of a group, filled when chosen |
+| `RadioGroup` | radiogroup | label |  | Choices from items: […], selection: … |
+| `Ruler` | divider |  | kind: "ruler" | The tab ruler at the top of a word-processing window |
+| `ScrollBar` | divider | orientation | orientation: "vertical" | A Lisa scroll bar with its elevator box: ScrollBar(.vertical, position: .middle) |
+| `Separator` | divider |  |  | A 1-pixel line |
+| `Spreadsheet` | spreadsheet |  |  | Same as Worksheet |
+| `StaticText` | text | content |  | Static text |
+| `StationeryPad` | label | title | kind: "stationery" | A stationery pad: tear off a new document |
+| `StopAlert` | dialog | message | severity: "stop", variant: "alert" | Alert with the stop symbol |
+| `TextField` | textfield | text |  | A typing field: an underlined area |
+| `Tool` | button | kind | iconOnly: true | A palette tool drawn as a 1-bit glyph: Tool(.rect); .selected() inverts it |
+| `ToolPalette` | grid |  | columns: 2 | A two-column tool palette |
+| `ToolWindow` | card | title | variant: "tool" | A window without scroll bars |
+| `Window` | card | title | variant: "document" | A Lisa window: .document (tall white title bar, centred title, scroll bars), .tool (no scroll bars), .dialog (thick-bordered box) |
+| `Worksheet` | spreadsheet |  |  | A LisaCalc-style worksheet (rows: [[…]], selection: "B3", formula: …) |
+
+<!-- end catalogue: lisa -->
+
 ## mac-classic — Macintosh System 1–6
 
 <!-- catalogue: mac-classic — generate with `mockitdown elements mac-classic --markdown --own` -->
@@ -1486,199 +2306,67 @@ the [Role catalogue](../rendering/roles.md).
 
 <!-- end catalogue: mac-classic -->
 
-## lisa — Lisa Office System
+## win1 — Windows 1.0
 
-<!-- catalogue: lisa — generate with `mockitdown elements lisa --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `Alert` | dialog | message | severity: "note", variant: "alert" | An alert box: severity .note / .caution / .stop |
-| `Button` | button | label |  | A Lisa button: a heavy rounded box |
-| `CautionAlert` | dialog | message | severity: "caution", variant: "alert" | Alert with the caution symbol |
-| `CheckBox` | checkbox | label, checked |  | A Lisa check box: a small box filled black when chosen |
-| `DefaultButton` | button | label | variant: "default" | The button that Return activates (doubled outline) |
-| `Desktop` | zstack |  | alignment: "topLeading" | The desktop: the patterned area below the menu bar; place windows and icons with .offset(x:y:) |
-| `DesktopIcon` | label | title, kind | kind: "document" | An Office System icon: kind .stationery / .document / .folder / .profile / .clipboard / .trash / .preferences / .calculator / .printer |
-| `Dialog` | dialog | title |  | A dialog box presented over the screen (thick border) |
-| `DialogBox` | card |  | variant: "dialog" | An in-place dialog box with the thick Lisa border |
-| `DocumentWindow` | card | title | variant: "document" | A document window with scroll bars and size control |
-| `DrawCanvas` | canvas |  |  | The drawing area (LisaDraw shows a dotted grid with grid: .dots) |
-| `DrawPalette` | grid |  | columns: 1 | The vertical tool palette of a drawing program |
-| `EditText` | textfield | text |  | A typing field |
-| `FileItem` | listitem | title, kind |  | A row of a ListBox: FileItem("Budget", kind: .stationery) |
-| `Folder` | label | title | kind: "folder" | A folder icon |
-| `FolderWindow` | card | title, subtitle | variant: "folder" | An open folder or disk on the Office System desktop (icon view) |
-| `ListBox` | list |  | kind: "files" | A list of documents in a dialog |
-| `Menu` | menu | label | caret: false | A menu-bar title; Menu("File", open: true) { MenuItem(…) } pulls its menu down |
-| `MenuBar` | toolbar |  |  | The menu bar across the top of the screen; holds Menu elements (one may be open: true) |
-| `MenuItem` | menuitem | label, shortcut |  | A menu command: MenuItem("Quit", shortcut: "⌘Q"); .disabled() greys it |
-| `MenuSeparator` | divider |  |  | The dotted line between menu groups |
-| `NoteAlert` | dialog | message | severity: "note", variant: "alert" | Alert with the note symbol |
-| `PatternPalette` | swatches | colors | colors: ["white", "black", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray", "gray"] | Fill patterns; selection: index |
-| `ProgressBar` | progress | value |  | A plain progress bar |
-| `RadioButton` | radio | label, checked |  | One choice of a group, filled when chosen |
-| `RadioGroup` | radiogroup | label |  | Choices from items: […], selection: … |
-| `Ruler` | divider |  | kind: "ruler" | The tab ruler at the top of a word-processing window |
-| `ScrollBar` | divider | orientation | orientation: "vertical" | A Lisa scroll bar with its elevator box: ScrollBar(.vertical, position: .middle) |
-| `Separator` | divider |  |  | A 1-pixel line |
-| `Spreadsheet` | spreadsheet |  |  | Same as Worksheet |
-| `StaticText` | text | content |  | Static text |
-| `StationeryPad` | label | title | kind: "stationery" | A stationery pad: tear off a new document |
-| `StopAlert` | dialog | message | severity: "stop", variant: "alert" | Alert with the stop symbol |
-| `TextField` | textfield | text |  | A typing field: an underlined area |
-| `Tool` | button | kind | iconOnly: true | A palette tool drawn as a 1-bit glyph: Tool(.rect); .selected() inverts it |
-| `ToolPalette` | grid |  | columns: 2 | A two-column tool palette |
-| `ToolWindow` | card | title | variant: "tool" | A window without scroll bars |
-| `Window` | card | title | variant: "document" | A Lisa window: .document (tall white title bar, centred title, scroll bars), .tool (no scroll bars), .dialog (thick-bordered box) |
-| `Worksheet` | spreadsheet |  |  | A LisaCalc-style worksheet (rows: [[…]], selection: "B3", formula: …) |
-
-<!-- end catalogue: lisa -->
-
-## macos9 — Mac OS 9 (Platinum)
-
-<!-- catalogue: macos9 — generate with `mockitdown elements macos9 --markdown --own` -->
+<!-- catalogue: win1 — generate with `mockitdown elements win1 --markdown --own` -->
 
 | Element | Role | Arguments | Defaults | Notes |
 |---|---|---|---|---|
-| `Alert` | dialog | title | icon: "exclamationmark.triangle", severity: "caution", variant: "alert" | A modal alert with the Stop / Note / Caution icon: severity: .stop / .note / .caution; buttons:, primary: |
-| `AppleMenu` | menu |  | caret: false, icon: "circle" | The Apple menu at the left of the menu bar (a neutral rainbow glyph); open: true shows its items |
-| `ApplicationIcon` | label | title | icon: "app", kind: "application" | An application icon (the generic diamond) |
-| `ApplicationMenu` | menu | label | caret: false, icon: "app" | The Application menu at the right of the menu bar: icon and name of the frontmost application |
-| `AsyncArrows` | progress |  | kind: "circular" | The chasing-arrows busy indicator |
-| `Balloon` | tooltip | text |  | Balloon help: Balloon("Click to empty the Trash.") { target view }; placement: |
-| `BevelButton` | button | label | variant: "bevel" | A square bevel button (toolbar-style); icon:, .selected() for the pressed state |
-| `Button` | button | label |  | A Platinum push button. .variant(.default) (or DefaultButton) draws the default ring |
-| `CheckBox` | checkbox | label |  | A Platinum check box; checked: true / .mixed |
-| `ControlPanel` | card | title | variant: "panel" | A control panel window (platinum body); combine with Tabs, GroupBox, PopupMenu … |
-| `ControlStrip` | toolbar |  |  | The Control Strip: ControlStripModule children; place at the bottom-left of the Desktop |
-| `ControlStripModule` | button | icon | dropdown: true, iconOnly: true | One Control Strip module (icon + popup arrow) |
-| `DefaultButton` | button | label | variant: "default" | The default push button with its thick outline (Return activates it) |
-| `Desktop` | canvas |  |  | The Finder desktop (pattern background). Put a MenuBar first, then place windows and icons with .position(x:y:) |
-| `Dialog` | dialog | title | variant: "dialog" | A centred modal dialog (Mac OS 9 has no sheets) |
-| `DisclosureTriangle` | accordion | title |  | A disclosure triangle with its label; expanded: true shows the content |
-| `Disk` | label | title | icon: "archivebox", kind: "disk" | A hard disk icon |
-| `DocumentIcon` | label | title | icon: "doc", kind: "document" | A document icon |
-| `DocumentWindow` | card | title | variant: "document" | A document window |
-| `EditText` | textfield | placeholder |  | An edit-text field (Toolbox name) |
-| `Finder` | card | title | variant: "document" | A Finder window; put an InfoBar, then FinderIcon/Folder… (icon view) or a FinderList (list view) inside |
-| `FinderIcon` | label | title |  | A Finder / desktop icon with its name below. icon: any icon name; .selected() inverts the name |
-| `FinderList` | table |  |  | Finder list view: columns: ["Name", "Date Modified", "Size", "Kind"], rows:, sortColumn:, selectedRows: |
-| `FloatingWindow` | card | title | variant: "utility" | A floating palette / utility window with a thin title bar |
-| `Folder` | label | title | icon: "folder", kind: "folder" | A folder icon |
-| `GroupBox` | card | title | variant: "group" | A primary group box (etched frame, title on the frame) |
-| `InfoBar` | labeled | label, value |  | The Finder window header: InfoBar("12 items", "1.2 GB available") |
-| `ListItem` | listitem | title |  | A list row |
-| `ListView` | list |  |  | A list box (white, inset frame); Row/ListItem children, .selected() highlights |
-| `LittleArrows` | stepper | label |  | The little up/down arrows control beside a number field |
-| `MenuBar` | toolbar |  |  | The menu bar: AppleMenu(), Menu("File") …, Spacer(), Text(clock), ApplicationMenu("Finder") |
-| `MenuItem` | menuitem | label |  | A menu item. shortcut: "⌘N", checked:, .disabled(), .highlighted() (the item under the pointer) |
-| `MenuTitle` | menu | label | caret: false | A menu bar title; MenuTitle("File", open: true) { MenuItem(…) } shows its menu |
-| `ModalDialog` | card | title | variant: "dialog" | A modal dialog drawn in place (no title bar); use Dialog for a centred overlay |
-| `MovableModalDialog` | card | title | variant: "movableModal" | A movable modal dialog: title bar without close box |
-| `PasswordField` | textfield | placeholder | kind: "password" | A password field (bullets) |
-| `PopupMenu` | select | label |  | A popup menu button with the double arrow; PopupMenu("Font:", items: […], selection:, open:) |
-| `ProgressBar` | progress | label |  | A progress bar; value: 0…1, or no value for the (static) blue barber pole |
-| `PullDownMenu` | menu | label | caret: false | A pull-down menu (menu bar title or bevel button menu) |
-| `PushButton` | button | label |  | A Platinum push button |
-| `RadioButton` | radio | label |  | A Platinum radio button |
-| `RadioGroup` | radiogroup | label |  | RadioGroup("Size", items: […], selection:) |
-| `ScrollArea` | scroll |  | variant: "both" | A scrolling content area with Platinum scroll bars (arrows together at the bottom / right) |
-| `SearchField` | textfield | placeholder | kind: "search" | A Sherlock-style search field |
-| `SecondaryGroupBox` | card | title | variant: "secondary" | A secondary group box (lighter etched frame) |
-| `Separator` | divider |  |  | An etched separator line |
-| `Slider` | slider | label |  | A Platinum slider with the pointed thumb; Slider("Volume:", value: 0.4, ticks: 5) |
-| `StickyNote` | stickynote | text |  | A Stickies note |
-| `TabControl` | tabs | items | placement: "top" | Platinum tab control (Toolbox name) |
-| `Tabs` | tabs | items | placement: "top" | Platinum tab control (as in the Appearance control panel); Tab("Fonts") { … } children |
-| `TextField` | textfield | placeholder |  | An edit-text field with the inset frame; .state(.focused) draws the focus ring |
-| `Toolbar` | toolbar |  |  | A window toolbar of BevelButtons (application-drawn, platinum) |
-| `TrashIcon` | label | title | icon: "trash", kind: "trash", title: "Trash" | The Trash |
-| `Window` | card | title | variant: "document" | A Platinum window: striped title bar, close box, zoom and collapse boxes. .inactive() greys the title bar |
+| `AppointmentList` | list |  | variant: "appointments" | Calendar day view: one ListBoxItem per time slot |
+| `AutoCheckBox` | checkbox | label |  | BS_AUTOCHECKBOX |
+| `AutoRadioButton` | radio | label |  | BS_AUTORADIOBUTTON |
+| `CText` | text | content |  | CTEXT: centred static text |
+| `CardStack` | zstack |  | alignment: "topLeading" | Cardfile's cascade of index cards |
+| `CheckBox` | checkbox | label |  | Check box: square that shows an X when checked |
+| `ClientArea` | vstack |  | alignment: "stretch", spacing: 0 | The white client area of a window |
+| `Clock` | text | content | variant: "clock" | Digital-style clock face text shown in a Clock window |
+| `DefPushButton` | button | label | variant: "default" | DEFPUSHBUTTON: the default button, with a heavier border |
+| `Desktop` | vstack |  | alignment: "stretch", spacing: 0 | The whole screen: a TiledArea of windows above the IconArea; dialogs and menus overlap it |
+| `DialogBox` | dialog | title |  | Modal dialog box: no caption, a thick double black frame; overlaps the tiles |
+| `DialogIcon` | icon | name |  | ICON in a dialog: hand, exclamation, question, asterisk |
+| `DriveBar` | hstack |  | spacing: 10 | MS-DOS Executive: the row of drive icons |
+| `DriveIcon` | chip | label |  | MS-DOS Executive drive icon, e.g. DriveIcon("C").selected() |
+| `Edit` | textfield | text |  | Edit control (window class "edit") |
+| `EditText` | textfield | text |  | EDITTEXT: single-line edit control in a black box |
+| `FileList` | grid |  | columns: 4, spacing: 0 | MS-DOS Executive file names in columns |
+| `FileName` | text | content |  | A file name in the list; .selected() inverts it |
+| `GroupBox` | card | title | variant: "groupbox" | GROUPBOX: rectangle with its title on the top line |
+| `IconArea` | hstack |  | alignment: "center", spacing: 14 | The strip along the bottom of the screen where iconic (inactive) applications park |
+| `IconicWindow` | label | title |  | An application shrunk to an icon in the icon area, its name below |
+| `IndexCard` | card | title | variant: "indexcard" | Cardfile card: the index line on top, a red rule, then the card text |
+| `LText` | text | content |  | LTEXT: left-aligned static text |
+| `ListBox` | list |  |  | LISTBOX: bordered list; ListBoxItem children, .selected() inverts |
+| `ListBoxItem` | listitem | title |  | A list box string |
+| `MenuBar` | toolbar |  |  | The menu bar under the caption; children are MenuBarItem or PopupMenu |
+| `MenuBarItem` | button | label | variant: "menubar" | A menu title in the menu bar; .selected() inverts it (Windows 1.0 shows no mnemonic underlines) |
+| `MenuItem` | menuitem | label |  | Menu command; checked:, shortcut:, .disabled() (grey), .selected() |
+| `MenuSeparator` | divider |  |  | Separator line in a drop-down menu |
+| `MessageBox` | dialog | title | variant: "alert" | MessageBox("Write", message: "…", icon: "exclamation", buttons: ["OK", "Cancel"]) |
+| `MonthView` | calendar |  |  | Calendar month view (date:, selection:) |
+| `MultiLineEdit` | textfield | text | kind: "multiline" | ES_MULTILINE edit control |
+| `PageView` | vstack |  | alignment: "leading", spacing: 4 | Document text area (Write) |
+| `PaletteTool` | button | label | variant: "tool" | A palette tool: icon:, .selected() |
+| `PathLine` | text | content |  | MS-DOS Executive current path, e.g. "C: \\WINDOWS" |
+| `PatternPalette` | swatches |  |  | Paint pattern/colour palette from colors: |
+| `PopupMenu` | menu | label | caret: false, variant: "menubar" | PopupMenu("File", open: true) { MenuItem("New") … } |
+| `PopupWindow` | card | title | variant: "popup" | Overlapping pop-up window (Control Panel, About): double-line frame over the tiles |
+| `PushButton` | button | label |  | Push button: rounded box with a 1px black border |
+| `RText` | text | content |  | RTEXT: right-aligned static text |
+| `RadioButton` | radio | label |  | RADIOBUTTON: circle, filled dot when checked |
+| `RadioGroup` | radiogroup | label |  | Radio buttons from items:/selection: |
+| `Ruler` | slider |  | ticks: 12, variant: "ruler" | Write ruler with tick marks |
+| `ScrollBar` | slider | value | variant: "scrollbar" | Horizontal scroll bar: grey shaft, white thumb, arrow boxes |
+| `SizeBox` | color |  | variant: "sizebox" | The square where the two scroll bars meet |
+| `Static` | text | content |  | Static control (window class "static") |
+| `StatusLine` | toolbar |  | variant: "status" | Status text line at the bottom of a window |
+| `TerminalScreen` | code | code | kind: "terminal" | Terminal / DOS-application screen (code role, terminal kind) |
+| `TileColumn` | vstack |  | alignment: "stretch", spacing: 0 | A column of tiled windows stacked top to bottom |
+| `TiledArea` | hstack |  | alignment: "stretch", spacing: 0 | The tiling region above the icon area: windows share it side by side, never overlapping |
+| `ToolPalette` | grid |  | columns: 2, spacing: 0 | Paint tool palette |
+| `VScrollBar` | slider | value | orientation: "vertical", variant: "scrollbar" | Vertical scroll bar at a window's right edge |
+| `Window` | card | title |  | Tiled application window: a caption bar with the centred title only (no boxes), menu bar and client area; .variant(.inactive) for a white caption |
 
-<!-- end catalogue: macos9 -->
-
-## gsos — Apple IIgs GS/OS
-
-<!-- catalogue: gsos — generate with `mockitdown elements gsos --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `Alert` | dialog | title | icon: "exclamationmark.triangle", severity: "caution", variant: "alert" | A modal alert: double frame, Stop / Note / Caution icon (severity: .stop / .note / .caution), buttons:, primary: |
-| `AppleMenu` | menu |  | caret: false, icon: "circle" | The Apple menu at the left (a neutral colour glyph, not the logo); open: true shows the desk accessories |
-| `ApplicationIcon` | label | title | icon: "app", kind: "application" | An application (S16) icon |
-| `Button` | button | label |  | A rounded push button; .variant(.default) (or DefaultButton) draws the bold outline |
-| `CheckBox` | checkbox | label |  | A check box (checked shows an X) |
-| `ControlPanel` | card | title | title: "Control Panel", variant: "nda" | The Control Panel NDA window: a CDev list at the left, the selected CDev at the right |
-| `DefaultButton` | button | label | variant: "default" | The default button (Return activates it) |
-| `Desktop` | canvas |  |  | The Finder desktop (dithered pattern). Put a MenuBar first, then place windows and icons with .position(x:y:) |
-| `Dialog` | dialog | title | variant: "modal" | A centred modal dialog with the double frame |
-| `Disk` | label | title | icon: "archivebox", kind: "floppy" | A 3.5-inch disk icon |
-| `DocumentIcon` | label | title | icon: "doc", kind: "document" | A document icon |
-| `FinderIcon` | label | title |  | A Finder icon with its name below; icon: any icon name; .selected() inverts it |
-| `FinderList` | table |  |  | Finder list view: columns:, TableRow children, sortColumn: (underlined), selectedRows: |
-| `FinderWindow` | card | title | variant: "document" | A Finder window; an InfoBar then icons or a list inside a ScrollArea |
-| `Folder` | label | title | icon: "folder", kind: "folder" | A folder icon |
-| `Frame` | card | title | variant: "group" | A plain rectangle grouping controls (static text title on top) |
-| `HardDisk` | label | title | icon: "archivebox", kind: "harddisk" | A hard disk (SCSI or /RAM5) icon |
-| `InfoBar` | labeled | label, value |  | The Finder window info bar: InfoBar("9 items", "312K available") |
-| `LineEdit` | textfield | placeholder |  | A LineEdit text field |
-| `ListControl` | list |  |  | A List Manager list: framed, the selected rows inverted |
-| `ListItem` | listitem | title |  | A list row |
-| `MenuBar` | toolbar |  |  | The menu bar: AppleMenu(), MenuTitle("File") …, Spacer(), Text(…) |
-| `MenuItem` | menuitem | label |  | A menu item; shortcut: "⌘O" (the open-apple key), checked:, .disabled(), .highlighted() |
-| `MenuTitle` | menu | label | caret: false | A menu bar title; MenuTitle("File", open: true) { MenuItem(…) } |
-| `ModalDialog` | card | title | variant: "dialog" | A modal dialog drawn in place (double frame, no title bar) |
-| `NDAWindow` | card | title | variant: "nda" | A New Desk Accessory window (Control Panel, Calculator …) |
-| `PopupMenu` | select | label |  | A pop-up menu with its title at the left and a drop shadow |
-| `ProgressBar` | progress | label |  | A thermometer progress bar; value: 0…1 |
-| `RadioButton` | radio | label |  | A radio button |
-| `RadioGroup` | radiogroup | label |  | RadioGroup("Speed:", items: […], selection:) |
-| `ScrollArea` | scroll |  | variant: "both" | A content area with GS/OS scroll bars (dithered track, arrows at each end) and the grow box |
-| `Separator` | divider |  |  | A dividing line |
-| `Slider` | slider | label |  | A scroll-bar style value control |
-| `StickyNote` | stickynote | text |  | A Note Pad note |
-| `TextEdit` | textfield | text | kind: "multiline" | A multi-line TextEdit box |
-| `TextField` | textfield | placeholder |  | A LineEdit text field |
-| `TrashIcon` | label | title | icon: "trash", kind: "trash", title: "Trash" | The Trash |
-| `Window` | card | title | variant: "document" | A GS/OS window: lined title bar, close box at the left, zoom box at the right |
-
-<!-- end catalogue: gsos -->
-
-## xerox-star — Xerox Star
-
-<!-- catalogue: xerox-star — generate with `mockitdown elements xerox-star --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `ChoiceButton` | button | label | variant: "choice" | A single choice box; .selected() reverses it |
-| `ChoiceButtons` | segmented | label |  | ChoiceButtons(items: ["Left", "Center", "Right"], selection: "Left"): the chosen value is in reverse video |
-| `CommandKey` | kbd | keys |  | One function key, e.g. CommandKey("MOVE") |
-| `CommandKeys` | kbd | keys | keys: ["AGAIN", "DELETE", "FIND", "COPY", "SAME", "MOVE", "OPEN", "PROPS", "HELP", "UNDO"] | The universal-command keys of the Star keyboard as a strip |
-| `Confirmation` | dialog | title | variant: "alert" | A boxed confirmation/error message with Yes/No commands |
-| `Desktop` | zstack |  | alignment: "topLeading" | The grey (stippled) desktop; place icons and windows inside |
-| `DesktopIcon` | label | title |  | A pictogram with its name, e.g. DesktopIcon("Report", icon: "Document"); .selected() shows it in reverse video |
-| `DocumentPage` | vstack |  | alignment: "leading", spacing: 8 | A WYSIWYG page in a document window (Classic serif text) |
-| `FieldBox` | textfield | text |  | A boxed text property |
-| `FolderEntry` | listitem | title |  | FolderEntry("Memo", icon: "Document", detail: "12-Mar-81") |
-| `FolderList` | list |  |  | The contents of an opened folder: FolderEntry rows |
-| `Frame` | card | title | variant: "frame" | A graphics frame anchored in a document |
-| `Heading` | text | content | font: "title2" | Document heading |
-| `IconColumn` | vstack |  | alignment: "center", spacing: 18 | A column of desktop icons |
-| `IconRow` | hstack |  | alignment: "top", spacing: 22 | A row of desktop icons |
-| `MenuCommand` | menuitem | label |  | A command in a pop-up menu |
-| `MessageLine` | toolbar |  | variant: "message" | The prompt/message area at the top of the screen |
-| `OnOffBox` | checkbox | label |  | A boolean property: a small square, checked when on |
-| `OptionSheet` | card | title | variant: "sheet" | Option sheet (parameters of a command such as Print) |
-| `Paragraph` | text | content |  | Document paragraph |
-| `PopUpMenu` | menu | label |  | A pop-up command menu |
-| `PropertyField` | labeled | label, value |  | PropertyField("Name") { FieldBox(…) } — a label with its value |
-| `PropertySheet` | card | title | variant: "sheet" | Property sheet: header with Done/Cancel/Defaults, then PropertyField rows |
-| `ScrollBar` | slider | value | orientation: "vertical", variant: "scrollbar" | The window scroll bar with arrow and next/previous-page boxes |
-| `StarWindow` | card | title |  | Window: black header strip with the name and command buttons (headerAction: { WindowCommand(…) }) |
-| `Window` | card | title |  | Alias of StarWindow |
-| `WindowCommand` | button | label | variant: "command" | A command button in a window or property-sheet header |
-
-<!-- end catalogue: xerox-star -->
+<!-- end catalogue: win1 -->
 
 ## win2 — Windows 2.x
 
@@ -1731,6 +2419,140 @@ the [Role catalogue](../rendering/roles.md).
 | `Window` | card | title |  | Overlapped window: caption with system-menu box, minimise/maximise arrow boxes; .variant(.inactive) for an inactive caption |
 
 <!-- end catalogue: win2 -->
+
+## gsos — Apple IIgs GS/OS
+
+<!-- catalogue: gsos — generate with `mockitdown elements gsos --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | dialog | title | icon: "exclamationmark.triangle", severity: "caution", variant: "alert" | A modal alert: double frame, Stop / Note / Caution icon (severity: .stop / .note / .caution), buttons:, primary: |
+| `AppleMenu` | menu |  | caret: false, icon: "circle" | The Apple menu at the left (a neutral colour glyph, not the logo); open: true shows the desk accessories |
+| `ApplicationIcon` | label | title | icon: "app", kind: "application" | An application (S16) icon |
+| `Button` | button | label |  | A rounded push button; .variant(.default) (or DefaultButton) draws the bold outline |
+| `CheckBox` | checkbox | label |  | A check box (checked shows an X) |
+| `ControlPanel` | card | title | title: "Control Panel", variant: "nda" | The Control Panel NDA window: a CDev list at the left, the selected CDev at the right |
+| `DefaultButton` | button | label | variant: "default" | The default button (Return activates it) |
+| `Desktop` | canvas |  |  | The Finder desktop (dithered pattern). Put a MenuBar first, then place windows and icons with .position(x:y:) |
+| `Dialog` | dialog | title | variant: "modal" | A centred modal dialog with the double frame |
+| `Disk` | label | title | icon: "archivebox", kind: "floppy" | A 3.5-inch disk icon |
+| `DocumentIcon` | label | title | icon: "doc", kind: "document" | A document icon |
+| `FinderIcon` | label | title |  | A Finder icon with its name below; icon: any icon name; .selected() inverts it |
+| `FinderList` | table |  |  | Finder list view: columns:, TableRow children, sortColumn: (underlined), selectedRows: |
+| `FinderWindow` | card | title | variant: "document" | A Finder window; an InfoBar then icons or a list inside a ScrollArea |
+| `Folder` | label | title | icon: "folder", kind: "folder" | A folder icon |
+| `Frame` | card | title | variant: "group" | A plain rectangle grouping controls (static text title on top) |
+| `HardDisk` | label | title | icon: "archivebox", kind: "harddisk" | A hard disk (SCSI or /RAM5) icon |
+| `InfoBar` | labeled | label, value |  | The Finder window info bar: InfoBar("9 items", "312K available") |
+| `LineEdit` | textfield | placeholder |  | A LineEdit text field |
+| `ListControl` | list |  |  | A List Manager list: framed, the selected rows inverted |
+| `ListItem` | listitem | title |  | A list row |
+| `MenuBar` | toolbar |  |  | The menu bar: AppleMenu(), MenuTitle("File") …, Spacer(), Text(…) |
+| `MenuItem` | menuitem | label |  | A menu item; shortcut: "⌘O" (the open-apple key), checked:, .disabled(), .highlighted() |
+| `MenuTitle` | menu | label | caret: false | A menu bar title; MenuTitle("File", open: true) { MenuItem(…) } |
+| `ModalDialog` | card | title | variant: "dialog" | A modal dialog drawn in place (double frame, no title bar) |
+| `NDAWindow` | card | title | variant: "nda" | A New Desk Accessory window (Control Panel, Calculator …) |
+| `PopupMenu` | select | label |  | A pop-up menu with its title at the left and a drop shadow |
+| `ProgressBar` | progress | label |  | A thermometer progress bar; value: 0…1 |
+| `RadioButton` | radio | label |  | A radio button |
+| `RadioGroup` | radiogroup | label |  | RadioGroup("Speed:", items: […], selection:) |
+| `ScrollArea` | scroll |  | variant: "both" | A content area with GS/OS scroll bars (dithered track, arrows at each end) and the grow box |
+| `Separator` | divider |  |  | A dividing line |
+| `Slider` | slider | label |  | A scroll-bar style value control |
+| `StickyNote` | stickynote | text |  | A Note Pad note |
+| `TextEdit` | textfield | text | kind: "multiline" | A multi-line TextEdit box |
+| `TextField` | textfield | placeholder |  | A LineEdit text field |
+| `TrashIcon` | label | title | icon: "trash", kind: "trash", title: "Trash" | The Trash |
+| `Window` | card | title | variant: "document" | A GS/OS window: lined title bar, close box at the left, zoom box at the right |
+
+<!-- end catalogue: gsos -->
+
+## nextstep — NeXTSTEP 3
+
+<!-- catalogue: nextstep — generate with `mockitdown elements nextstep --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `AlertPanel` | dialog | title | icon: "Application", variant: "alert" | An alert panel: title bar, application icon, bold title, message and buttons with the default (return) one on the right |
+| `AppIcon` | button | label | iconOnly: true, variant: "running" | A 64 px Dock tile; .variant(.idle) shows the ellipsis of an application that is not running |
+| `Box` | card | title | variant: "box" | A Box: a grooved frame with its title at the top-left |
+| `Browser` | hstack |  | alignment: "stretch", spacing: 0 | The column browser: BrowserColumn children, each with its own scroller on the left |
+| `BrowserCell` | listitem | title | chevron: true | A branch cell (folder): title and the right arrow; .selected() highlights it white |
+| `BrowserColumn` | list |  |  | One column of a Browser: BrowserCell (branch, with the arrow) and BrowserLeaf rows |
+| `BrowserLeaf` | listitem | title |  | A leaf cell (file) without the arrow |
+| `Button` | button | label |  | A bevelled push button; .variant(.default) (or ReturnButton) adds the return glyph; .selected() is the highlighted (white) state |
+| `ButtonCell` | button | label |  | A bevelled push button; .variant(.default) (or ReturnButton) adds the return glyph; .selected() is the highlighted (white) state |
+| `ButtonRow` | toolbar |  | variant: "buttonrow" | A row of buttons along a window's top (Mail, Edit) |
+| `ColorWell` | color | color |  | A colour well: a bevelled frame around a colour swatch |
+| `DBTableView` | table |  |  | A table view: raised column titles over a white grid (Mail's message list) |
+| `Dock` | vstack |  | alignment: "center", spacing: 0 | The Dock: a column of 64 px tiles at the right edge of the screen |
+| `DockTile` | button | label | iconOnly: true, variant: "running" | A 64 px Dock tile; .variant(.idle) shows the ellipsis of an application that is not running |
+| `FileIcon` | label | title |  | A Workspace icon: a 48 px picture with its name below; .selected() boxes the name |
+| `Form` | vstack |  | alignment: "stretch", spacing: 4 | A Form: a column of FormCells |
+| `FormCell` | textfield | label |  | A Form entry: the title on the left, the bezelled field on the right |
+| `IconButton` | button | icon | iconOnly: true, variant: "image" | A square bevelled button with only an icon |
+| `ImageButton` | button | label | variant: "icontop" | A button showing an icon above its title (Mail's and Preferences' button rows) |
+| `Matrix` | radiogroup | label |  | A Matrix of radio button cells: RadioMatrix("Title", items: […], selection:) |
+| `Menu` | card | title | variant: "menu" | A vertical menu: black title bar over a column of menu cells; MenuItem / SubmenuItem children |
+| `MenuCell` | menuitem | label |  | A menu cell: shortcut: "c" shows the Command-key equivalent on the right; .selected() highlights it white |
+| `MenuItem` | menuitem | label |  | A menu cell: shortcut: "c" shows the Command-key equivalent on the right; .selected() highlights it white |
+| `MiniWindow` | button | label | variant: "miniwindow" | A miniaturized window: a 64 px tile with its title strip at the bottom |
+| `NSBox` | card | title | variant: "box" | A Box: a grooved frame with its title at the top-left |
+| `NSBrowser` | hstack |  | alignment: "stretch", spacing: 0 | The column browser: BrowserColumn children, each with its own scroller on the left |
+| `NSButton` | button | label |  | A bevelled push button; .variant(.default) (or ReturnButton) adds the return glyph; .selected() is the highlighted (white) state |
+| `NSColorWell` | color | color |  | A colour well: a bevelled frame around a colour swatch |
+| `NSForm` | vstack |  | alignment: "stretch", spacing: 4 | A Form: a column of FormCells |
+| `NSFormCell` | textfield | label |  | A Form entry: the title on the left, the bezelled field on the right |
+| `NSMenu` | card | title | variant: "menu" | A vertical menu: black title bar over a column of menu cells; MenuItem / SubmenuItem children |
+| `NSMenuItem` | menuitem | label |  | A menu cell: shortcut: "c" shows the Command-key equivalent on the right; .selected() highlights it white |
+| `NSPanel` | card | title | variant: "panel" | A panel (inspector, find, info): title bar with the close button only, no resize bar |
+| `NSPopUpButton` | select | label |  | A pop-up list: a raised button with the small bar indicator on the right |
+| `NSProgressIndicator` | progress |  |  | A progress bar (OPENSTEP 4): sunken trough with a dark fill |
+| `NSRadioButton` | radio | label |  | A radio button: a round bezel, dark when on |
+| `NSRulerView` | toolbar |  | variant: "ruler" | The Text ruler: a tick-marked strip with alignment, spacing and tab controls |
+| `NSScrollView` | scroll |  |  | A ScrollView with its scroller on the LEFT (NeXT style: knob in a dark trough, both arrows at the bottom) |
+| `NSSecureTextField` | textfield | label | kind: "password" | A text field that shows bullets |
+| `NSSlider` | slider | label |  | A slider: a sunken dark grey trough and a raised knob with a dimple |
+| `NSSplitView` | vstack |  | alignment: "stretch", spacing: 0 | A split view: put Divider() between the panes to get the dimpled divider bar |
+| `NSSubmenuItem` | menuitem | label |  | A menu cell that opens a submenu (the arrow on the right); .selected() while its submenu is attached |
+| `NSSwitchButton` | checkbox | label |  | A switch: a small bevelled square that shows a check mark when on |
+| `NSTableView` | table |  |  | A table view: raised column titles over a white grid (Mail's message list) |
+| `NSTextField` | textfield | label |  | A bezelled text field (white, sunken) |
+| `NSTextView` | textfield | label | kind: "multiline" | A Text object in a ScrollView: white page with the scroller on the left |
+| `NSWindow` | card | title | variant: "key" | A titled window: black title bar when key (.variant(.main) dark grey, .variant(.inactive) light grey), miniaturize button left, close button right, resize bar at the bottom |
+| `NXBrowser` | hstack |  | alignment: "stretch", spacing: 0 | The column browser: BrowserColumn children, each with its own scroller on the left |
+| `NXColorWell` | color | color |  | A colour well: a bevelled frame around a colour swatch |
+| `NXRunAlertPanel` | dialog | title | icon: "Application", variant: "alert" | An alert panel: title bar, application icon, bold title, message and buttons with the default (return) one on the right |
+| `NXSplitView` | vstack |  | alignment: "stretch", spacing: 0 | A split view: put Divider() between the panes to get the dimpled divider bar |
+| `NXText` | textfield | label | kind: "multiline" | A Text object in a ScrollView: white page with the scroller on the left |
+| `NXWorkspace` | canvas |  |  | The Workspace screen: the dark grey backdrop; place Window, Menu and Dock with .position(x:y:) or frames |
+| `Panel` | card | title | variant: "panel" | A panel (inspector, find, info): title bar with the close button only, no resize bar |
+| `PathView` | hstack |  | alignment: "top", spacing: 0 | The File Viewer's icon path: a FileIcon per folder of the current path |
+| `PopUpList` | select | label |  | A pop-up list: a raised button with the small bar indicator on the right |
+| `ProgressIndicator` | progress |  |  | A progress bar (OPENSTEP 4): sunken trough with a dark fill |
+| `PullDownList` | select | label | variant: "pulldown" | A pull-down list: a raised button with a down arrow |
+| `RadioButton` | radio | label |  | A radio button: a round bezel, dark when on |
+| `RadioMatrix` | radiogroup | label |  | A Matrix of radio button cells: RadioMatrix("Title", items: […], selection:) |
+| `ReturnButton` | button | label | variant: "default" | The default button of a panel: the return-key glyph after its title |
+| `Ruler` | toolbar |  | variant: "ruler" | The Text ruler: a tick-marked strip with alignment, spacing and tab controls |
+| `ScrollView` | scroll |  |  | A ScrollView with its scroller on the LEFT (NeXT style: knob in a dark trough, both arrows at the bottom) |
+| `SecureTextField` | textfield | label | kind: "password" | A text field that shows bullets |
+| `Separator` | divider |  |  | An etched separator |
+| `Shelf` | hstack |  | alignment: "top", spacing: 12 | The File Viewer's shelf: a row of FileIcons above the browser |
+| `Slider` | slider | label |  | A slider: a sunken dark grey trough and a raised knob with a dimple |
+| `SplitView` | vstack |  | alignment: "stretch", spacing: 0 | A split view: put Divider() between the panes to get the dimpled divider bar |
+| `SubmenuItem` | menuitem | label |  | A menu cell that opens a submenu (the arrow on the right); .selected() while its submenu is attached |
+| `Switch` | checkbox | label |  | A switch: a small bevelled square that shows a check mark when on |
+| `TableView` | table |  |  | A table view: raised column titles over a white grid (Mail's message list) |
+| `Terminal` | code | code | variant: "terminal" | A Terminal window body (white, monospaced) |
+| `TextField` | textfield | label |  | A bezelled text field (white, sunken) |
+| `TextView` | textfield | label | kind: "multiline" | A Text object in a ScrollView: white page with the scroller on the left |
+| `Title` | text | content | font: "title2" | A Helvetica Bold heading |
+| `TornOffMenu` | card | title | variant: "torn" | A submenu torn off and left on screen: its title bar gains a close button |
+| `Window` | card | title | variant: "key" | A titled window: black title bar when key (.variant(.main) dark grey, .variant(.inactive) light grey), miniaturize button left, close button right, resize bar at the bottom |
+| `Workspace` | canvas |  |  | The Workspace screen: the dark grey backdrop; place Window, Menu and Dock with .position(x:y:) or frames |
+
+<!-- end catalogue: nextstep -->
 
 ## win31 — Windows 3.1.1
 
@@ -1825,6 +2647,284 @@ the [Role catalogue](../rendering/roles.md).
 | `Write` | card | title | kind: "window", title: "Write - (Untitled)", variant: "active" | Windows Write window |
 
 <!-- end catalogue: win31 -->
+
+## win95 — Windows 95
+
+<!-- catalogue: win95 — generate with `mockitdown elements win95 --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `CascadeMenu` | menu |  |  | A cascading menu beside the Start menu or a menu bar: CascadeMenu { MenuItem("Notepad", systemImage: "doc") } |
+| `CheckBox` | checkbox | label |  | 13 px sunken white box with the black check: CheckBox("Hide files", checked: true) |
+| `Clock` | text | content | content: "4:20 PM" | Taskbar clock |
+| `ComboBox` | select | label |  | Drop-down combo with the raised arrow button: ComboBox(items:, selection:) |
+| `ContextMenu` | menu | label |  | Pop-up (right-click) menu, grey with the navy highlight |
+| `ControlPanelItem` | label | title |  | A Control Panel applet: ControlPanelItem("Display", systemImage: "display") |
+| `CopyAnimation` | hstack |  |  | The file-copy animation: two folders with a page flying between them |
+| `DateTimePicker` | datepicker | label |  | Date field with the drop-down arrow |
+| `DefaultButton` | button | label | state: "focused", variant: "default" | The default (Enter) button: black outline and dotted focus rectangle |
+| `Desktop` | canvas |  |  | The teal #008080 desktop; place DesktopIcons and Windows with .position(x:y:) |
+| `DesktopIcon` | label | title |  | DesktopIcon("My Computer", systemImage: "my.computer") — 32 px icon over a caption; .selected() draws the navy caption with the dotted focus rectangle |
+| `DialogBody` | vstack |  |  | Root of a dialog screen: the frame's caption keeps only Close (and ? with .variant(.help)); grey dialog face |
+| `DropDownList` | select | label |  | Drop-down list (not editable) |
+| `DropDownMenu` | menu | label | caret: false, open: true, variant: "menubar" | A menu-bar title with its menu dropped down: MenuBar { DropDownMenu("File") { MenuItem… } MenuBarItem("Edit") } |
+| `FileIcon` | label | title |  | FileIcon("Readme.txt", systemImage: "doc") · .variant(.small) puts the name beside a 16 px icon |
+| `Frame` | card | title |  | Alias of GroupBox |
+| `GroupBox` | card | title |  | Etched frame with the caption breaking the top line |
+| `IconView` | grid |  |  | Large Icons view: a grid of FileIcons in a sunken white well |
+| `ListBox` | list |  |  | Single-selection list box with a sunken border |
+| `ListView` | table |  |  | Details view: raised column headers, columns:, rows:, selectedRows: |
+| `MSDOSPrompt` | code |  | variant: "terminal" | An MS-DOS Prompt window body (black, Fixedsys) |
+| `MenuBar` | toolbar |  |  | A menu bar: MenuBarItem("File")… |
+| `MenuBarItem` | button | label | variant: "plain" | A menu-bar title; .selected() when its menu is open (navy highlight) |
+| `MenuSeparator` | divider |  |  | Etched separator in a menu |
+| `MessageBox` | dialog | title | severity: "info", systemImage: "info.circle" | Modal message box: MessageBox("Confirm File Delete", message: "…", severity: .question, buttons: ["Yes", "No"], primary: "Yes") — the icon is drawn from severity |
+| `Monitor` | zstack |  |  | The monitor preview in Display Properties: a grey bezel around its child (the screen) |
+| `MonthCalendar` | calendar |  |  | Month calendar (Date/Time Properties) |
+| `MultilineTextBox` | textfield | text | kind: "multiline" | Multi-line edit control |
+| `Notepad` | textfield | text | kind: "multiline" | Notepad's edit area: fills its window, white, Fixedsys, with the scroll bars |
+| `NotificationArea` | hstack |  |  | Alias of Tray |
+| `OptionButton` | radio | label |  | Round sunken option button (also RadioButton) |
+| `PaneHeader` | text | content |  | Explorer's raised caption over a pane: PaneHeader("All Folders") |
+| `PasswordBox` | textfield | placeholder | kind: "password" | Password edit (asterisks) |
+| `PopupMenu` | menu | label |  | A free-standing pop-up menu |
+| `ProgressBar` | progress | label |  | Sunken progress bar of navy blocks: ProgressBar(value: 0.6) |
+| `PropertyRow` | labeled | label, value |  | A label: value line in a property sheet |
+| `PropertySheet` | vstack |  | variant: "help" | Root of a property-sheet screen (tabs + OK/Cancel/Apply): caption with ? and Close |
+| `PushButton` | button | label |  | 75 × 23 push button with the two-pixel bevel; .variant(.default) adds the black outline, .state(.focused) the dotted focus rectangle |
+| `RadioButtonList` | radiogroup | label |  | RadioButtonList("View", items: […], selection:) |
+| `ScrollBar` | slider |  | orientation: "horizontal", variant: "scrollbar" | ScrollBar(value: 0.3, orientation: .vertical) — dithered track, arrow buttons and a square thumb |
+| `ScrollCorner` | spacer |  |  | The grey size box where a horizontal and a vertical ScrollBar meet |
+| `StartButton` | button | label | label: "Start", systemImage: "start" | The raised bold Start button with a neutral glyph; .selected() while the menu is open |
+| `StartMenu` | card | title | subtitle: "95", title: "Workspace" | The Start menu with the vertical side banner: StartMenu("Workspace", subtitle: "95") { StartMenuItem… } |
+| `StartMenuItem` | listitem | title |  | StartMenuItem("Programs", systemImage: "programs", submenu: true) — 32 px icon, ▸ for a cascading menu; .selected() is the navy highlight |
+| `StaticText` | text | content |  | A static text control |
+| `StatusBar` | hstack |  |  | Window status bar of sunken StatusBarPanels with the size grip |
+| `StatusBarPanel` | text | content |  | One sunken status-bar field |
+| `TabControl` | tabs |  | placement: "top" | Property-sheet tabs: raised tabs with clipped corners, the selected one 2 px taller |
+| `TabPage` | tab | label |  | TabPage("General") { … } |
+| `Taskbar` | hstack |  |  | The grey taskbar along the bottom: StartButton, TaskbarButton…, Spacer, Tray |
+| `TaskbarButton` | button | label | systemImage: "app" | A window's taskbar button (160 px, icon + caption); .selected() for the active window: pressed and dithered |
+| `TextBox` | textfield | placeholder |  | Sunken white edit control |
+| `ToolBar` | toolbar |  |  | A flat toolbar (the drive combo and 16 px buttons); a grip ridge at its left |
+| `ToolBarButton` | button | label | iconOnly: true, variant: "toolbar" | A flat 23 × 22 toolbar button, raised on .state(.hover), sunken when .selected() |
+| `ToolTip` | tooltip | text | placement: "bottom" | Pale yellow tooltip with a black border, below its target |
+| `TrackBar` | slider |  |  | Trackbar with the pointed raised thumb: TrackBar(value: 3, in: 0...10, ticks: 10) |
+| `Tray` | hstack |  |  | The sunken notification area at the right of the taskbar: TrayIcon… Clock |
+| `TrayIcon` | icon | name |  | A 16 px tray icon |
+| `TreeView` | tree |  |  | Folder tree with dotted lines and +/− boxes in a sunken white well |
+| `TreeViewItem` | treeitem | label |  | TreeViewItem("Windows", systemImage: "folder") |
+| `UpDown` | stepper | label |  | Spin box: UpDown("Copies", value: 2) |
+| `Window` | card | title |  | A window drawn inside a Desktop: navy caption with the app icon, Minimize/Maximize, gap, Close. Window("Notepad", systemImage: "doc") { … } · .variant(.inactive / .dialog / .tool) |
+| `Wizard` | card | title |  | Wizard page: the picture panel at left (systemImage:), title and body at right, actions: { < Back · Next > · Cancel } under an etched line |
+
+<!-- end catalogue: win95 -->
+
+## macos9 — Mac OS 9 (Platinum)
+
+<!-- catalogue: macos9 — generate with `mockitdown elements macos9 --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | dialog | title | icon: "exclamationmark.triangle", severity: "caution", variant: "alert" | A modal alert with the Stop / Note / Caution icon: severity: .stop / .note / .caution; buttons:, primary: |
+| `AppleMenu` | menu |  | caret: false, icon: "circle" | The Apple menu at the left of the menu bar (a neutral rainbow glyph); open: true shows its items |
+| `ApplicationIcon` | label | title | icon: "app", kind: "application" | An application icon (the generic diamond) |
+| `ApplicationMenu` | menu | label | caret: false, icon: "app" | The Application menu at the right of the menu bar: icon and name of the frontmost application |
+| `AsyncArrows` | progress |  | kind: "circular" | The chasing-arrows busy indicator |
+| `Balloon` | tooltip | text |  | Balloon help: Balloon("Click to empty the Trash.") { target view }; placement: |
+| `BevelButton` | button | label | variant: "bevel" | A square bevel button (toolbar-style); icon:, .selected() for the pressed state |
+| `Button` | button | label |  | A Platinum push button. .variant(.default) (or DefaultButton) draws the default ring |
+| `CheckBox` | checkbox | label |  | A Platinum check box; checked: true / .mixed |
+| `ControlPanel` | card | title | variant: "panel" | A control panel window (platinum body); combine with Tabs, GroupBox, PopupMenu … |
+| `ControlStrip` | toolbar |  |  | The Control Strip: ControlStripModule children; place at the bottom-left of the Desktop |
+| `ControlStripModule` | button | icon | dropdown: true, iconOnly: true | One Control Strip module (icon + popup arrow) |
+| `DefaultButton` | button | label | variant: "default" | The default push button with its thick outline (Return activates it) |
+| `Desktop` | canvas |  |  | The Finder desktop (pattern background). Put a MenuBar first, then place windows and icons with .position(x:y:) |
+| `Dialog` | dialog | title | variant: "dialog" | A centred modal dialog (Mac OS 9 has no sheets) |
+| `DisclosureTriangle` | accordion | title |  | A disclosure triangle with its label; expanded: true shows the content |
+| `Disk` | label | title | icon: "archivebox", kind: "disk" | A hard disk icon |
+| `DocumentIcon` | label | title | icon: "doc", kind: "document" | A document icon |
+| `DocumentWindow` | card | title | variant: "document" | A document window |
+| `EditText` | textfield | placeholder |  | An edit-text field (Toolbox name) |
+| `Finder` | card | title | variant: "document" | A Finder window; put an InfoBar, then FinderIcon/Folder… (icon view) or a FinderList (list view) inside |
+| `FinderIcon` | label | title |  | A Finder / desktop icon with its name below. icon: any icon name; .selected() inverts the name |
+| `FinderList` | table |  |  | Finder list view: columns: ["Name", "Date Modified", "Size", "Kind"], rows:, sortColumn:, selectedRows: |
+| `FloatingWindow` | card | title | variant: "utility" | A floating palette / utility window with a thin title bar |
+| `Folder` | label | title | icon: "folder", kind: "folder" | A folder icon |
+| `GroupBox` | card | title | variant: "group" | A primary group box (etched frame, title on the frame) |
+| `InfoBar` | labeled | label, value |  | The Finder window header: InfoBar("12 items", "1.2 GB available") |
+| `ListItem` | listitem | title |  | A list row |
+| `ListView` | list |  |  | A list box (white, inset frame); Row/ListItem children, .selected() highlights |
+| `LittleArrows` | stepper | label |  | The little up/down arrows control beside a number field |
+| `MenuBar` | toolbar |  |  | The menu bar: AppleMenu(), Menu("File") …, Spacer(), Text(clock), ApplicationMenu("Finder") |
+| `MenuItem` | menuitem | label |  | A menu item. shortcut: "⌘N", checked:, .disabled(), .highlighted() (the item under the pointer) |
+| `MenuTitle` | menu | label | caret: false | A menu bar title; MenuTitle("File", open: true) { MenuItem(…) } shows its menu |
+| `ModalDialog` | card | title | variant: "dialog" | A modal dialog drawn in place (no title bar); use Dialog for a centred overlay |
+| `MovableModalDialog` | card | title | variant: "movableModal" | A movable modal dialog: title bar without close box |
+| `PasswordField` | textfield | placeholder | kind: "password" | A password field (bullets) |
+| `PopupMenu` | select | label |  | A popup menu button with the double arrow; PopupMenu("Font:", items: […], selection:, open:) |
+| `ProgressBar` | progress | label |  | A progress bar; value: 0…1, or no value for the (static) blue barber pole |
+| `PullDownMenu` | menu | label | caret: false | A pull-down menu (menu bar title or bevel button menu) |
+| `PushButton` | button | label |  | A Platinum push button |
+| `RadioButton` | radio | label |  | A Platinum radio button |
+| `RadioGroup` | radiogroup | label |  | RadioGroup("Size", items: […], selection:) |
+| `ScrollArea` | scroll |  | variant: "both" | A scrolling content area with Platinum scroll bars (arrows together at the bottom / right) |
+| `SearchField` | textfield | placeholder | kind: "search" | A Sherlock-style search field |
+| `SecondaryGroupBox` | card | title | variant: "secondary" | A secondary group box (lighter etched frame) |
+| `Separator` | divider |  |  | An etched separator line |
+| `Slider` | slider | label |  | A Platinum slider with the pointed thumb; Slider("Volume:", value: 0.4, ticks: 5) |
+| `StickyNote` | stickynote | text |  | A Stickies note |
+| `TabControl` | tabs | items | placement: "top" | Platinum tab control (Toolbox name) |
+| `Tabs` | tabs | items | placement: "top" | Platinum tab control (as in the Appearance control panel); Tab("Fonts") { … } children |
+| `TextField` | textfield | placeholder |  | An edit-text field with the inset frame; .state(.focused) draws the focus ring |
+| `Toolbar` | toolbar |  |  | A window toolbar of BevelButtons (application-drawn, platinum) |
+| `TrashIcon` | label | title | icon: "trash", kind: "trash", title: "Trash" | The Trash |
+| `Window` | card | title | variant: "document" | A Platinum window: striped title bar, close box, zoom and collapse boxes. .inactive() greys the title bar |
+
+<!-- end catalogue: macos9 -->
+
+## cde — Solaris CDE
+
+<!-- catalogue: cde — generate with `mockitdown elements cde --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `DtComboBox` | select | label | variant: "combo" | CDE combo box |
+| `DtIcon` | label | title |  | A File Manager / Application Manager icon: picture with its name below; .selected() |
+| `DtIconButton` | button | label | variant: "icontop" | A button with its icon above the label (Style Manager) |
+| `DtIconGrid` | hstack |  | alignment: "top", spacing: 14, wrap: true | Icon view of a folder |
+| `DtSpinBox` | stepper | label |  | Spin box with up/down arrows |
+| `DtTerm` | code | code | variant: "terminal" | dtterm terminal emulator; lines starting with "$ " are commands |
+| `DtWindow` | card | title |  | A dtwm-framed window inside a Workspace (resize border, window-menu button, minimise/maximise); .variant(.inactive) |
+| `FrontPanel` | toolbar |  | variant: "frontpanel" | The CDE Front Panel along the bottom of the screen |
+| `FrontPanelControl` | button | label | variant: "fpcontrol" | A Front Panel control (icon:) with the subpanel arrow above it |
+| `FrontPanelIcon` | button | label | variant: "fpplain" | A Front Panel control without a subpanel (e.g. the clock) |
+| `StatusLine` | toolbar |  | variant: "status" | Sunken message/status line at the bottom of a main window |
+| `SwitchControl` | button | label | variant: "switchctl" | Lock / Exit / busy-light controls beside the workspace buttons |
+| `Workspace` | zstack |  | alignment: "topLeading" | The workspace backdrop; place windows with .padding and the FrontPanel with .frame(maxHeight: .infinity, alignment: .bottom) |
+| `WorkspaceButton` | button | label | variant: "workspace" | A workspace button; .selected() for the current workspace; .color(.ws2) etc. |
+| `WorkspaceSwitch` | grid |  | columns: 2, spacing: 3 | The workspace switch in the middle of the Front Panel |
+| `XmArrowButton` | button | direction | variant: "arrow" | Arrow button |
+| `XmCascadeButton` | button | label | variant: "cascade" | A menu-bar title; the first letter is the mnemonic; .selected() arms it |
+| `XmComboBox` | select | label | variant: "combo" | Combo box: sunken text with an arrow button |
+| `XmDialogShell` | dialog | title |  | A dialog window |
+| `XmDrawingArea` | canvas |  |  | Free-form drawing area |
+| `XmErrorDialog` | dialog | title | icon: "error", variant: "alert" | Error dialog |
+| `XmForm` | vstack |  | alignment: "stretch", spacing: 8 | Form container |
+| `XmFrame` | card | title | variant: "frame" | Etched-in frame with a title on its top edge |
+| `XmInformationDialog` | dialog | title | icon: "information", variant: "alert" | Information dialog |
+| `XmLabel` | text | content |  | Label |
+| `XmList` | list |  |  | List; ListItem children, .selected() uses the select colour |
+| `XmListItem` | listitem | title |  | An item of an XmList |
+| `XmMainWindow` | vstack |  | alignment: "stretch", spacing: 0 | Main window: menu bar, work area, message line |
+| `XmMenuBar` | toolbar |  | variant: "menubar" | Raised menu bar holding XmCascadeButtons / XmPulldownMenus |
+| `XmMenuItem` | menuitem | label |  | A push-button gadget in a menu: shortcut:, checked:, .selected() (armed) |
+| `XmMessageBox` | dialog | title | variant: "alert" | Message dialog: symbol on the left, message, separator, buttons |
+| `XmNotebook` | tabs |  |  | Motif 2.1 notebook (tabs) |
+| `XmOptionMenu` | select | label |  | Option menu: raised button with the small raised-bar indicator |
+| `XmPanedWindow` | vstack |  | alignment: "stretch", spacing: 0 | Panes separated by sashes |
+| `XmPopupMenu` | menu |  |  | A pop-up menu (no trigger) |
+| `XmPulldownMenu` | menu | label | caret: false, variant: "cascade" | XmPulldownMenu("File", open: true) { MenuItem("Open...") … } |
+| `XmPushButton` | button | label |  | Push button with a 2px bevel; .showAsDefault() adds the default ring |
+| `XmQuestionDialog` | dialog | title | icon: "question", variant: "alert" | Question dialog |
+| `XmRadioBox` | radiogroup | label |  | Radio box from items:/selection: (diamond indicators) |
+| `XmRadioButton` | radio | label |  | One-of-many toggle: diamond indicator |
+| `XmRowColumn` | vstack |  | alignment: "leading", spacing: 6 | Row/column container (use HStack for XmHORIZONTAL) |
+| `XmScale` | slider | label | showValue: true | Scale: sunken trough, raised slider with a centre groove, value shown |
+| `XmScrollBar` | slider | value | variant: "scrollbar" | Scroll bar with arrow buttons |
+| `XmScrolledList` | list |  | variant: "scrolled" | List with a vertical scroll bar |
+| `XmScrolledText` | textfield | label | kind: "multiline" | Multi-line text in a scrolled window |
+| `XmScrolledWindow` | scroll |  |  | Scrolling region |
+| `XmSeparator` | divider |  |  | Etched separator |
+| `XmSpinBox` | stepper | label |  | Motif 2.1 spin box |
+| `XmText` | textfield | label | kind: "multiline" | Multi-line text |
+| `XmTextField` | textfield | label |  | Single-line text field (sunken, light text background) |
+| `XmToggleButton` | checkbox | label |  | N-of-many toggle: square indicator, filled with the select colour when set |
+| `XmWarningDialog` | dialog | title | icon: "warning", variant: "alert" | Warning dialog |
+
+<!-- end catalogue: cde -->
+
+## aqua — Mac OS X Aqua
+
+<!-- catalogue: aqua — generate with `mockitdown elements aqua --markdown --own` -->
+
+| Element | Role | Arguments | Defaults | Notes |
+|---|---|---|---|---|
+| `Alert` | dialog | title | icon: "app", variant: "alert" | An application-modal alert: application icon at the left, bold message, small informative text, buttons at the right with the pulsing default button |
+| `AlertSheet` | dialog | title | icon: "app", variant: "sheet" | An alert presented as a sheet (NSBeginAlertSheet): icon, message and buttons sliding from the title bar |
+| `AppMenu` | menu | label | caret: false | The application menu: the frontmost application's name in bold |
+| `ApplicationIcon` | label | title | icon: "app", kind: "application" | An application icon: a glossy tile in the colour given by color: |
+| `BevelButton` | button | label | variant: "bevel" | A square bevel button (NSRegularSquareBezelStyle) for icons and image wells |
+| `Box` | card | title | variant: "box" | A group box: title above a sunken, slightly darker rounded box |
+| `Browser` | hstack |  |  | The column browser (NSBrowser), as in the Finder's column view: BrowserColumn children |
+| `BrowserCell` | listitem | title | chevron: true, icon: "folder" | A folder cell of a Browser column: icon, name and the black triangle at the right |
+| `BrowserColumn` | list |  |  | One column of a Browser: BrowserCell (folders, with the triangle) and FileCell rows |
+| `Button` | button | label | variant: "push" | A push button: the clear gel lozenge. .variant(.default) is the pulsing blue default button |
+| `CheckBox` | checkbox | label |  | An Aqua check box: clear gel square, blue gel with the check mark when on; checked: true / .mixed |
+| `ColorWell` | swatches |  |  | A row of colour wells / the Colors panel swatches |
+| `ComboBox` | select | label | kind: "combo" | A combo box: a text field with a blue gel arrow button at the right |
+| `ContextMenu` | menu |  |  | A contextual menu drawn open in place: ContextMenu { MenuItem(…) } |
+| `DefaultButton` | button | label | variant: "default" | The default button: blue gel, slowly pulsing; Return activates it |
+| `Desktop` | canvas |  |  | The Aqua desktop (blue wave). Put a MenuBar first, then windows, icons and the Dock placed with .position(x:y:) |
+| `DiskIcon` | label | title | icon: "archivebox", kind: "disk" | A hard disk icon |
+| `Dock` | toolbar |  |  | The Dock: a translucent shelf of DockItem icons with a DockSeparator before the Trash |
+| `DockItem` | button | label | iconOnly: true, variant: "dock" | An icon in the Dock: DockItem("Mail", icon: "envelope", color: .blue); .running() adds the black triangle, .highlighted() shows the name above |
+| `DockSeparator` | divider |  |  | The separator between applications and documents/Trash in the Dock |
+| `DocumentIcon` | label | title | icon: "doc", kind: "document" | A document icon with the folded corner |
+| `DocumentWindow` | card | title | variant: "document" | A document window (pinstriped, white content area) |
+| `Drawer` | card | title | variant: "drawer" | A drawer sliding out of a window side (side: .trailing default, .leading); put it next to the Window in an HStack(spacing: 0) |
+| `FileCell` | listitem | title | icon: "doc" | A file cell of a Browser column (no triangle) |
+| `FinderIcon` | label | title | kind: "generic" | A Finder / desktop icon with its name below; icon: any icon name |
+| `FolderIcon` | label | title | icon: "folder", kind: "folder" | A translucent blue Aqua folder |
+| `HelpButton` | button |  | label: "?", variant: "help" | The round help button with the question mark |
+| `InfoBar` | labeled | label, value |  | The Finder window status text under the toolbar: InfoBar("6 items", "2.4 GB available") |
+| `LevelIndicator` | progress | label |  | A capacity indicator (as in the Finder's disk info) |
+| `ListItem` | listitem | title |  | A list row |
+| `ListView` | list |  |  | A white list (single-column table) with blue selection |
+| `Matrix` | radiogroup | label |  | NSMatrix of radio buttons (Interface Builder name) |
+| `Menu` | menu | label |  | A menu; with no label it is a standalone (open) translucent menu |
+| `MenuBar` | toolbar |  |  | The translucent menu bar: SystemMenu(), AppMenu("Finder"), MenuTitle("File") …, Spacer(), MenuExtra/Text(clock) |
+| `MenuExtra` | label | title |  | A menu extra (status item) at the right of the menu bar: MenuExtra(icon: "speaker") or MenuExtra("Mon 9:41 AM") |
+| `MenuItem` | menuitem | label |  | A menu item: shortcut: "⌘N", checked:, icon:, .disabled(), .highlighted() for the blue gel item under the pointer |
+| `MenuTitle` | menu | label | caret: false | A menu bar title; MenuTitle("File", open: true) { MenuItem(…) } pulls its menu down |
+| `MetalWindow` | card | title | variant: "metal" | A brushed-metal (textured) window, as in the media and camera applications |
+| `OutlineItem` | treeitem | title |  | A row of an OutlineView |
+| `OutlineView` | tree |  |  | An outline view with disclosure triangles |
+| `Panel` | card | title | variant: "utility" | A utility panel (Fonts, Colors, Inspector): small title bar and small gel buttons |
+| `PopUpButton` | select | label |  | A pop-up button: clear gel lozenge with the blue cap holding the double arrows; items:, selection:, open: |
+| `PreferenceIcon` | label | title | kind: "pref" | A System Preferences pane icon: glossy tile (color:) with the glyph and its name below |
+| `ProgressBar` | progress | label |  | Alias of ProgressIndicator |
+| `ProgressIndicator` | progress | label |  | The Aqua progress bar: blue gel with moving barber stripes; no value: the indeterminate blue-and-white pole |
+| `PullDownButton` | menu | label | variant: "pulldown" | A pull-down button: a gel lozenge with a single down arrow; open: true shows its menu |
+| `PushButton` | button | label | variant: "push" | A push button (NSRoundedBezelStyle) |
+| `RadioButton` | radio | label |  | An Aqua radio button: clear gel bead, blue with a dark dot when selected |
+| `RadioGroup` | radiogroup | label |  | A radio matrix: RadioGroup("Show:", items: [...], selection:) |
+| `RoundButton` | button | icon | variant: "round" | A round gel button (NSCircularBezelStyle); on a MetalWindow the transport buttons of a media player |
+| `ScrollView` | scroll |  | variant: "vertical" | A scroll view with Aqua scroll bars: blue gel thumb, both arrows together at the bottom |
+| `SearchField` | textfield | placeholder | kind: "search" | A search field (rounded, with the magnifying glass) |
+| `SecureTextField` | textfield | placeholder | kind: "password" | A secure text field (bullets) |
+| `SegmentedControl` | segmented | label |  | A gel segmented control (items:, selection:) |
+| `Separator` | divider |  |  | A separator line (NSBox separator) |
+| `Sheet` | dialog | title | variant: "sheet" | A document-modal sheet sliding down from the title bar of the window drawn by the window chrome; buttons: [...], primary: |
+| `Slider` | slider | label |  | An Aqua slider: thin gel track and the blue gel knob (pointed when ticks: is set) |
+| `Spinner` | progress |  | kind: "circular" | The spinning (asynchronous) progress indicator with twelve grey spokes |
+| `StatusDisplay` | card | title | variant: "lcd" | The LCD-style status display of a brushed-metal media application: title, subtitle and a progress |
+| `Stepper` | stepper | label |  | The little arrows (NSStepper) beside a number field |
+| `StickyNote` | stickynote | text |  | A Stickies note |
+| `SystemMenu` | menu |  | caret: false, icon: "circle" | The system menu at the far left of the menu bar (drawn as a neutral blue gel orb); open: true shows its items |
+| `TabView` | tabs | items | placement: "top" | An Aqua tab view: gel tab segments centred on the top edge of a sunken box; TabViewItem("General") { … } children |
+| `TabViewItem` | tab | label |  | One tab of a TabView |
+| `TableView` | table |  |  | A table view: gel column headers (the sorted one in blue), alternating blue-white rows when variant: .alternating; columns:, rows:, sortColumn:, selectedRows: |
+| `Terminal` | code |  | variant: "terminal" | A Terminal window (black on white, Monaco) |
+| `TextField` | textfield | placeholder |  | A text field with the inset frame; .state(.focused) draws the blue focus ring |
+| `TextView` | textfield | placeholder | kind: "multiline" | A multi-line text view in an inset frame |
+| `ToolTip` | tooltip | text |  | A help tag: pale yellow tooltip |
+| `Toolbar` | toolbar |  |  | A window toolbar (NSToolbar): ToolbarButton items with large icons and labels below; the white toolbar toggle lozenge is drawn at the top right |
+| `ToolbarButton` | button | label | variant: "toolbar" | A toolbar item: ToolbarButton("Home", icon: "house") |
+| `UtilityWindow` | card | title | variant: "utility" | A utility window (NSPanel with the utility style) |
+| `Window` | card | title | variant: "document" | An Aqua window: pinstriped body, title bar with the red/yellow/green gel buttons. .inactive() greys the buttons and title |
+
+<!-- end catalogue: aqua -->
 
 ## winxp — Windows XP (Luna)
 
@@ -1990,67 +3090,6 @@ the [Role catalogue](../rendering/roles.md).
 | `Wizard` | card | title |  | Aero wizard page: main instruction header, white body, grey footer actions: { Next · Cancel } |
 
 <!-- end catalogue: vista -->
-
-## cde — Solaris CDE
-
-<!-- catalogue: cde — generate with `mockitdown elements cde --markdown --own` -->
-
-| Element | Role | Arguments | Defaults | Notes |
-|---|---|---|---|---|
-| `DtComboBox` | select | label | variant: "combo" | CDE combo box |
-| `DtIcon` | label | title |  | A File Manager / Application Manager icon: picture with its name below; .selected() |
-| `DtIconButton` | button | label | variant: "icontop" | A button with its icon above the label (Style Manager) |
-| `DtIconGrid` | hstack |  | alignment: "top", spacing: 14, wrap: true | Icon view of a folder |
-| `DtSpinBox` | stepper | label |  | Spin box with up/down arrows |
-| `DtTerm` | code | code | variant: "terminal" | dtterm terminal emulator; lines starting with "$ " are commands |
-| `DtWindow` | card | title |  | A dtwm-framed window inside a Workspace (resize border, window-menu button, minimise/maximise); .variant(.inactive) |
-| `FrontPanel` | toolbar |  | variant: "frontpanel" | The CDE Front Panel along the bottom of the screen |
-| `FrontPanelControl` | button | label | variant: "fpcontrol" | A Front Panel control (icon:) with the subpanel arrow above it |
-| `FrontPanelIcon` | button | label | variant: "fpplain" | A Front Panel control without a subpanel (e.g. the clock) |
-| `StatusLine` | toolbar |  | variant: "status" | Sunken message/status line at the bottom of a main window |
-| `SwitchControl` | button | label | variant: "switchctl" | Lock / Exit / busy-light controls beside the workspace buttons |
-| `Workspace` | zstack |  | alignment: "topLeading" | The workspace backdrop; place windows with .padding and the FrontPanel with .frame(maxHeight: .infinity, alignment: .bottom) |
-| `WorkspaceButton` | button | label | variant: "workspace" | A workspace button; .selected() for the current workspace; .color(.ws2) etc. |
-| `WorkspaceSwitch` | grid |  | columns: 2, spacing: 3 | The workspace switch in the middle of the Front Panel |
-| `XmArrowButton` | button | direction | variant: "arrow" | Arrow button |
-| `XmCascadeButton` | button | label | variant: "cascade" | A menu-bar title; the first letter is the mnemonic; .selected() arms it |
-| `XmComboBox` | select | label | variant: "combo" | Combo box: sunken text with an arrow button |
-| `XmDialogShell` | dialog | title |  | A dialog window |
-| `XmDrawingArea` | canvas |  |  | Free-form drawing area |
-| `XmErrorDialog` | dialog | title | icon: "error", variant: "alert" | Error dialog |
-| `XmForm` | vstack |  | alignment: "stretch", spacing: 8 | Form container |
-| `XmFrame` | card | title | variant: "frame" | Etched-in frame with a title on its top edge |
-| `XmInformationDialog` | dialog | title | icon: "information", variant: "alert" | Information dialog |
-| `XmLabel` | text | content |  | Label |
-| `XmList` | list |  |  | List; ListItem children, .selected() uses the select colour |
-| `XmListItem` | listitem | title |  | An item of an XmList |
-| `XmMainWindow` | vstack |  | alignment: "stretch", spacing: 0 | Main window: menu bar, work area, message line |
-| `XmMenuBar` | toolbar |  | variant: "menubar" | Raised menu bar holding XmCascadeButtons / XmPulldownMenus |
-| `XmMenuItem` | menuitem | label |  | A push-button gadget in a menu: shortcut:, checked:, .selected() (armed) |
-| `XmMessageBox` | dialog | title | variant: "alert" | Message dialog: symbol on the left, message, separator, buttons |
-| `XmNotebook` | tabs |  |  | Motif 2.1 notebook (tabs) |
-| `XmOptionMenu` | select | label |  | Option menu: raised button with the small raised-bar indicator |
-| `XmPanedWindow` | vstack |  | alignment: "stretch", spacing: 0 | Panes separated by sashes |
-| `XmPopupMenu` | menu |  |  | A pop-up menu (no trigger) |
-| `XmPulldownMenu` | menu | label | caret: false, variant: "cascade" | XmPulldownMenu("File", open: true) { MenuItem("Open...") … } |
-| `XmPushButton` | button | label |  | Push button with a 2px bevel; .showAsDefault() adds the default ring |
-| `XmQuestionDialog` | dialog | title | icon: "question", variant: "alert" | Question dialog |
-| `XmRadioBox` | radiogroup | label |  | Radio box from items:/selection: (diamond indicators) |
-| `XmRadioButton` | radio | label |  | One-of-many toggle: diamond indicator |
-| `XmRowColumn` | vstack |  | alignment: "leading", spacing: 6 | Row/column container (use HStack for XmHORIZONTAL) |
-| `XmScale` | slider | label | showValue: true | Scale: sunken trough, raised slider with a centre groove, value shown |
-| `XmScrollBar` | slider | value | variant: "scrollbar" | Scroll bar with arrow buttons |
-| `XmScrolledList` | list |  | variant: "scrolled" | List with a vertical scroll bar |
-| `XmScrolledText` | textfield | label | kind: "multiline" | Multi-line text in a scrolled window |
-| `XmScrolledWindow` | scroll |  |  | Scrolling region |
-| `XmSeparator` | divider |  |  | Etched separator |
-| `XmSpinBox` | stepper | label |  | Motif 2.1 spin box |
-| `XmText` | textfield | label | kind: "multiline" | Multi-line text |
-| `XmTextField` | textfield | label |  | Single-line text field (sunken, light text background) |
-| `XmToggleButton` | checkbox | label |  | N-of-many toggle: square indicator, filled with the select colour when set |
-| `XmWarningDialog` | dialog | title | icon: "warning", variant: "alert" | Warning dialog |
-
-<!-- end catalogue: cde -->
 
 ## Revision history
 

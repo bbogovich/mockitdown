@@ -1,6 +1,6 @@
 ---
 title: "Features: authoring"
-def_version: 0.2.0
+def_version: 0.4.0
 status: draft
 updated: 2026-11-24
 page_id: FEAT.1
@@ -184,4 +184,6 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

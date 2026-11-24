@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.3.0
+spec_version: 0.4.0
 status: draft
 updated: 2026-11-24
 page_id: ADR.2
@@ -132,8 +132,8 @@ already bring Python-Markdown and pymdown-extensions.
 and SAPUI5, and asks for proposals of others.
 
 **Decision.** Bootstrap — still the most deployed CSS component framework — and shadcn/ui — the
-fastest-growing React component style — are added; Ant Design, dominant in enterprise React, is
-next.
+fastest-growing React component style — are added. Ant Design (dominant in enterprise React), Tailwind Catalyst, IBM Carbon and GitHub
+Primer followed in 0.4.
 
 **Consequences.** Eight packs to maintain under one contract; framework major versions are
 recorded in each `pack.json` (`version`).
@@ -143,7 +143,7 @@ recorded in each `pack.json` (`version`).
 | | Statement |
 |---|---|
 | D1 | mockitdown ships `base` (wireframe), `swiftui`, `fluent` (WinUI 3 / Fluent 2), `mui` (Material UI v9), `angular-material`, `sapui5` (Fiori Horizon), `bootstrap` (5.3) and `shadcn` (shadcn/ui). |
-| D2 | Ant Design is the proposed next pack. |
+| D2 | Ant Design, Tailwind Catalyst, IBM Carbon and GitHub Primer followed in 0.4 (R-PACK-008); further candidates are listed on the example site's roadmap page. |
 | O1 | rejected: Fluent UI React (web) instead of WinUI 3 — SRC-2 asks for "Windows with Fluent design language"; a web Fluent pack can extend `fluent` later. |
 | O2 | rejected: Material 3 (Material Web / Compose) as the Material pack — SRC-2 names Material UI; MUI is the React implementation most teams use. |
 | O3 | rejected: Chakra UI, Vuetify, Tailwind UI as the extra web packs — lower usage than Bootstrap, or (Tailwind) not a component library; shadcn/ui covers the Tailwind-based style. |
@@ -197,6 +197,8 @@ replaced by site assets or by design (ADR-3).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
