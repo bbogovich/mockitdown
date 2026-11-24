@@ -1,0 +1,80 @@
+// Reusable Qt Widgets building blocks for the qt pack page.
+// Import with:  import "qt/widgets"
+
+import QtWidgets
+
+/// A QToolButton for a main-window tool bar: a freedesktop theme icon, its tool tip text as the label
+/// for screen readers, and an optional checked state.
+struct ToolAction: View {
+  var icon: String
+  var text: String = ""
+  var checked: Bool = false
+
+  var body: some View {
+    ToolButton(text, icon: icon, toolButtonStyle: .iconOnly, checked: checked)
+  }
+}
+
+/// One Qt Designer property-editor row: name in the first column, value (or an editor) in the second.
+/// Modified properties are shown in bold, as Designer does.
+struct Property: View {
+  var name: String
+  var value: String = ""
+  var changed: Bool = false
+  @ViewBuilder var editor: Content?
+
+  var body: some View {
+    TreeWidgetItem(changed ? "**\(name)**" : name) {
+      if value != "" {
+        Text(changed ? "**\(value)**" : value)
+      } else {
+        HBoxLayout(spacing: 4) { editor }
+      }
+    }
+  }
+}
+
+/// A Qt Designer property-editor class section (QObject, QWidget, QPushButton …) with its tinted band.
+struct PropertyClass: View {
+  var name: String
+  var band: Int = 1
+  @ViewBuilder var content: Content
+
+  var body: some View {
+    TreeWidgetItem(name, expanded: true) { content }.class("qt-band-\(band)")
+  }
+}
+
+/// An instrument read-out: a group box holding a QLCDNumber, its unit and a range bar.
+struct Readout: View {
+  var title: String
+  var value: String
+  var unit: String
+  var level: Double = 0.5
+  var segmentStyle: String = "filled"
+
+  var body: some View {
+    GroupBox(title) {
+      HBoxLayout(spacing: 6) {
+        LCDNumber(value, segmentStyle: segmentStyle).frame(maxWidth: .infinity)
+        Label(unit).frame(width: 34)
+      }
+      ProgressBar(value: level * 100, textVisible: false)
+    }
+  }
+}
+
+/// The places side bar of a non-native QFileDialog.
+struct FileDialogSidebar: View {
+  var selection: String = "Documents"
+
+  var body: some View {
+    ListWidget {
+      ListWidgetItem("Computer", icon: "computer").selected(selection == "Computer")
+      ListWidgetItem("brian", icon: "user-home").selected(selection == "brian")
+      ListWidgetItem("Desktop", icon: "user-desktop").selected(selection == "Desktop")
+      ListWidgetItem("Documents", icon: "folder").selected(selection == "Documents")
+      ListWidgetItem("Downloads", icon: "folder").selected(selection == "Downloads")
+    }
+  }
+}

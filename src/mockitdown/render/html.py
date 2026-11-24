@@ -1619,8 +1619,11 @@ class Renderer:
         variant = _name(v.attr("variant")) or "dialog"
         saved = self.in_menu
         self.in_menu = False
+        mark = len(self.overlays)
         body = self.views(v.children)
         self.in_menu = saved
+        inner_layers = self.overlays[mark:]
+        del self.overlays[mark:]
         markup = (self.open(v, "dialog", attrs={"role": "dialog"})
                   + (f'<div class="mkd-dialog__icon">{self.icon(icon, v=v)}</div>' if icon else "")
                   + (f'<div class="mkd-dialog__header"><span class="mkd-dialog__title">{title}</span>'
@@ -1630,9 +1633,11 @@ class Renderer:
                   + (f'<div class="mkd-dialog__body">{body}</div>' if body else "")
                   + (f'<div class="mkd-dialog__actions">{actions}</div>' if actions else "") + "</div>")
         if not _bool(v.attr("modal", "presented", "open"), True) or _bool(v.attr("inline")):
+            self.overlays.extend(inner_layers)
             return markup
         self.overlays.append(f'<div class="mkd-layer" data-kind="{esc(variant)}"><div class="mkd-scrim"></div>'
                              f"{markup}</div>")
+        self.overlays.extend(inner_layers)  # anchored marks after the dialog they point into
         return ""
 
     def r_menu(self, v: View) -> str:
