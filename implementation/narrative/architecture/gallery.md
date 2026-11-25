@@ -1,6 +1,6 @@
 ---
 title: The pack gallery
-impl_version: 0.3.9
+impl_version: 0.3.11
 status: draft
 updated: 2026-11-25
 page_id: IMPL.GALLERY
@@ -125,6 +125,8 @@ suites. A pattern that needs a pack-specific element does not belong here.
 - A blank stage: check the mockup's box (`getBoundingClientRect()`); a figure needs a width from
   its container.
 - A reference file out of date with the packs: `python/tools/gen_reference.py --check`.
+- A card whose sample says nothing about the element: declare a `sample` for it in the pack's
+  `pack.json` (R-PACK-013, [Pack authoring guide](../pack-authoring.md)) and regenerate.
 
 ## Revision history
 
@@ -132,3 +134,4 @@ suites. A pattern that needs a pack-specific element does not belong here.
 |---|---|---|
 | 0.3.8 | 2026-11-25 | Page written: pack gallery, design patterns, IT-15 (#7) |
 | 0.3.9 | 2026-11-25 | Variants seen whole: natural fit width, horizontal scroll, TC-4 geometry tests (#8) |
+| 0.3.11 | 2026-11-25 | Samples declared in `pack.json`; variants 24 points apart; base chart marks test (#10) |

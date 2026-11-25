@@ -1,6 +1,6 @@
 ---
 title: Repository layout and shared assets
-impl_version: 0.3.8
+impl_version: 0.3.11
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REPO
@@ -81,9 +81,15 @@ example site's Reference page and `shared/reference/<pack>.json` (R-REPO-003.C5�
                "sample": "AppBarButton(\"Label\")", "variants_sample": null}, …]}
 ```
 
-Elements are in page order (own, then inherited core, each by name). `sample` is the richest call
-that renders without a diagnostic; `variants_sample` (own elements with variants only) is an
-`HStack` showing each variant, or `null`. `index.json` is
+Elements are in page order (own, then inherited core, each by name). `sample` is the element's
+declared `sample` from `pack.json` (R-PACK-013), taken verbatim — a declared sample with a diagnostic
+stops the generator with `error: pack '…', element '…': …` (`SampleError`) — or else the richest generic
+call that renders without a diagnostic: built from the parameter names, with options and a selection
+for pickers, radio groups and segmented controls, a date for date pickers, values for charts, cells for
+table rows and a `TabView` around a tab-role element (`EXTRA`, `CHILDREN`, `_tab_sample`). Declared
+samples travel with their element into every extending pack and are checked there too.
+`variants_sample` (own elements with variants only) is an `HStack(alignment: .top, spacing: 24)` of
+the sample once per variant (at most eight, `.variant("…")`), each captioned, or `null`. `index.json` is
 `{"groups": [{"title": "Core", "packs": ["base"]}, {"title": "Wireframe", …}, …]}` in menu order.
 `--check` compares the pages, the nav block and the JSON files.
 
@@ -100,3 +106,4 @@ that renders without a diagnostic; `variants_sample` (own elements with variants
 | 0.3.2 | 2026-11-25 | Page written: python/, shared/, build-time copy, reference JSON (#1) |
 | 0.3.4 | 2026-11-25 | typescript/ layout: package, core, copy-shared script, tests (#3) |
 | 0.3.8 | 2026-11-25 | `shared/patterns/` (#7) |
+| 0.3.11 | 2026-11-25 | Declared element samples in the reference JSON (#10) |

@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.2
+spec_version: 0.8.4
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -278,13 +278,33 @@ lives in the example site because it is generated from code and needs every pack
 Generated samples (`Picker("Label")`, a lone `Tab`, charts with one-dimensional `values:`) said
 nothing about the element (SRC-9). Packs now name a sample where the generic one is empty.
 
+A sample is mockitdown source, written in the pack's own vocabulary, for example the `base` picker:
+
+```
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
+```
+
+The generator takes a declared sample verbatim, so a mistake in it is reported (pack, element and the
+diagnostics) rather than quietly simplified away. An element with variants is shown once per variant by
+appending `.variant("…")` to its sample, which is why such a sample must be a call of the element itself;
+a `Tab`, which has none, may instead be shown inside a `TabView`.
+
+Samples declared by `base` travel with the core vocabulary into every pack, so they are checked in every
+pack's style. For the many framework elements that declare none, the generic sample gives the content
+their role needs — options and a selection for pickers, a date for date pickers, a `TabView` around a
+tab — so that only elements whose job the generic sample cannot show need a declaration.
+
 **R-PACK-013.TC-1 — Declared samples**
 
 Python unit test of `gen_reference`: a declared sample is used verbatim; a declared sample with a diagnostic fails naming pack and element; `--check` passes on the shipped packs.
 
+Also: a declared sample of an element with variants that is not a call of the element fails; the variants sample is the declared sample with `.variant("…")`; every pack's reference JSON shows pickers, radio groups, segmented controls, tabs, date pickers and charts with content (IT-18, `python/tests/test_samples.py`).
+
 **R-PACK-013.TC-2 — Base samples carry content**
 
 Python test over `shared/reference/base.json`: the listed elements' samples contain the required arguments; browser gallery test asserts each chart sample draws at least one mark.
+
+IT-18: `python/tests/test_samples.py` (`BaseSampleTests`, every chart sample rendered with at least one mark) and `typescript/tests/browser/gallery.spec.mjs` ("R-PACK-013 TC-2").
 
 **Realizes.** F-18, F-14
 
@@ -295,6 +315,9 @@ Python test over `shared/reference/base.json`: the listed elements' samples cont
 | C3 | The `base` pack MUST declare samples that give: charts data suited to their kind (`points:` for scatter, bubble and candlestick, `matrix:` with labels for heatmaps, `labels:` for categorical kinds); presentations (Alert, Dialog, Sheet, Popover, ConfirmationDialog, Toast) a title, a message or content and actions; `Picker` three options and a selection; `Tab` a place inside a `TabView`; `NavigationSplitView` a sidebar list and a detail; `Tooltip` an anchor button; `MessageBubble` a sentence of at least 15 words; `DatePicker` a selection. |
 | C4 | Every framework pack MUST declare samples for its own elements whose generic sample would be empty or meaningless (no options, no data, no content); the `swiftui` pack MUST do so for every element of R-PACK-014 and R-PACK-015. |
 | C5 | The variants sample MUST keep its variants side by side at their natural size (`HStack(alignment: .top, spacing: 24)`), each captioned; showing them whole relies on R-DEV-008.C1. |
+| C6 | When an element with variants declares a `sample`, the sample MUST be a call of that element, and `tools/gen_reference.py` MUST build the variants sample by applying `.variant("…")` to it; otherwise it MUST fail, naming the pack and element. |
+| C7 | A declared `sample` MUST be inherited with its element by every pack that extends the declaring pack, and `tools/gen_reference.py` MUST check it in each of those packs as in C2. |
+| C8 | Where an element declares no `sample`, the generic sample of `tools/gen_reference.py` MUST give pickers, radio groups and segmented controls three options and a selection (unless a positional argument already gives a list), date pickers a selection, charts values, table rows two cells, and an element of role `tab` a place as one of two tabs inside a `TabView`. |
 | V1 | `gen_reference.py --check` passes; a pack whose declared sample emits a diagnostic makes it fail with the pack and element named; the reference JSON of `swiftui` shows `Picker` with three options. |
 
 ---
@@ -510,16 +533,16 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
 | 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |
 | 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |
-| 0.7.0 | 2026-11-25 | New R-PACK-013: Element samples |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |
 | 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |
-| 0.7.0 | 2026-11-25 | New R-PACK-013: Element samples |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |

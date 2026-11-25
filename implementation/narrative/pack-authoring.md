@@ -1,6 +1,6 @@
 ---
 title: Pack authoring guide
-impl_version: 0.3.9
+impl_version: 0.3.11
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKAUTH
@@ -52,6 +52,19 @@ Then, in this order:
     ```
 
     Use the framework's own component names; keep the core names working (they are inherited).
+
+    Where the Reference gallery's generic sample cannot show what an element is for (a picker with no
+    options, a chart with no data, a tab alone), add `"sample"`: one call in the pack's vocabulary
+    (R-PACK-013). The generator uses it verbatim and stops, naming the pack and the element, if it renders
+    with a diagnostic; for an element with variants it must be a call of that element, because each
+    variant is shown as the sample with `.variant("…")` appended:
+
+    ```json
+    "Picker": {"role": "select", "params": ["label"], "variants": ["menu", "segmented", "inline"],
+               "sample": "Picker(\"Flavor\", selection: \"Vanilla\") { Text(\"Chocolate\"); Text(\"Vanilla\"); Text(\"Strawberry\") }"}
+    ```
+
+    Then run `tools/gen_reference.py` and look at the card.
 4. **Fonts, sizes, icons** when the framework's type names, device sizes or icon names differ.
 
 ## 3. Style the roles in `pack.css`
@@ -105,3 +118,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.2 | 2026-11-25 | Built-in packs in shared/packs (#1) |
 | 0.3.9 | 2026-11-25 | Fit padding token, rows and popups at fit, tooltip arrows (#8) |
+| 0.3.11 | 2026-11-25 | Declared element samples (`sample`) (#10) |
