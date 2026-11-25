@@ -65,6 +65,10 @@ repository's shared assets (SRC-8). Authoring and documentation-site rendering a
 
 **Change.** A test page in `typescript/` lists the packs on the left and shows the selected pack's elements and complete design patterns on the right, all as `mockitdown-mockup` components. The browser test suite (Playwright, SRC-8#clar-deps) drives the same page.
 
+**Meaningful samples (SRC-9).** Generic samples (`Picker("Label")` without options, a lone `Tab`)
+said nothing about the element. Packs can name a sample per element; the gallery lays out variants
+so each is seen whole; multi-platform packs show an example application per platform.
+
 **F-18.UC-1 — Review a pack in the browser**
 
 **Actor:** developer or reviewer.
@@ -73,6 +77,16 @@ repository's shared assets (SRC-8). Authoring and documentation-site rendering a
 2. The reviewer selects a pack in the side panel.
 
 **Outcome:** the main area shows every element of that pack and complete design patterns in its style, each rendered by the web component.
+
+**F-18.UC-2 — Review a multi-platform pack across phone, tablet and desktop**
+
+**Actor:** designer or reviewer.
+
+1. The reviewer opens the pack gallery and selects SwiftUI.
+2. The reviewer scrolls past the element cards to the examples.
+
+**Outcome:** each element card shows a meaningful sample and its variants without overlap; the
+examples show an iPhone app, an iPad app and a Mac app with its menu bar.
 
 ### F-19 — Visual mockup editing components
 

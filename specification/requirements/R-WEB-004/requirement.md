@@ -2,16 +2,16 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.6.7
-rev: 1
+version: 0.7.0
+rev: 2
 page: WEB.2
 slot: reqs
 order: 2
-hash: dc46923cf79e
-source: [SRC-8]
+hash: 936cdee17681
+source: [SRC-8, SRC-9]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
-refs: [R-PACK-012]
+refs: [R-DEV-008, R-PACK-012]
 ---
 
 C1: The pack gallery page `pages/packs.html` MUST have a master-detail layout: a side panel listing every shipped, non-hidden pack grouped and ordered as the example site's Reference menu (R-PACK-012.C5), and a main area showing the selected pack.
@@ -26,4 +26,7 @@ C9: The gallery MUST render each element sample with `device="fit"`, and each de
 C10: The gallery SHOULD create a card's `mockitdown-mockup` only when the card comes near the viewport.
 C11: The gallery MUST expose `window.packGallery` with `state` (`ready` once the side panel and the first pack are shown), `select(id)` and `renderAll()`, which creates every mockup of the selected pack, waits for each one's `rendered`, and resolves with the pack, its element names, its pattern ids, the number of mockups, those without rendered content and the error diagnostics.
 C12: An unknown or missing `#pack=` fragment MUST select the first pack of the side panel.
+C13: Each element card MUST show its sample and its variants sample at their natural `fit` size (R-DEV-008.C1); a mockup wider than its card MUST scroll horizontally within the card rather than be squeezed or scaled.
+C14: An entry of `shared/patterns/index.json` MAY carry `packs` (pack ids; the pattern is shown only for those packs and MAY import their module), `device`, `chrome`, `menubar` and `app`; for `swiftui` the gallery MUST show at least an iPhone app (TabView with a NavigationStack list and detail), an iPad app (three-column NavigationSplitView) and a Mac app (NavigationSplitView with toolbar, `.commands` and `menubar` naming an open menu).
+C15: The browser tests MUST fail, for any pack, when two captioned variant cells of an element card intersect, when a `fit` frame is narrower than its content's scroll width, or when a presentation surface of an element sample is smaller than 200 × 80 points (a toast: than its text).
 V1: The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing.

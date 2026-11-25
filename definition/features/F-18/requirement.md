@@ -2,14 +2,14 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.5.0
-rev: 0
+version: 0.6.0
+rev: 1
 page: FEAT.3
 slot: features
 order: 3
-hash: 0311b23aa4d8
+hash: 93353cdfb8ad
 family: web
-source: [SRC-8]
+source: [SRC-8, SRC-9]
 requires: [F-17]
 ---
 
@@ -23,3 +23,8 @@ AC1: Every listed, non-hidden pack can be selected in the side panel, and select
 AC2: Every element of every pack renders on the page without a diagnostic.
 AC3: `npm test` runs the browser tests against the served page.
 AC4: The development server starts with one npm script and uses no web-server package.
+C6: Every element sample shows the element doing its job: a picker has options, a tab sits in a tab view, a split view has its columns, a chart has data suited to its kind, a presentation shows the surface it presents.
+C7: Variants of an element keep their natural size side by side; when they are wider than the card, the card scrolls horizontally instead of squeezing them, so each variant is seen whole and none overlaps another.
+C8: A pack whose framework spans several platforms also shows complete example applications for each: for SwiftUI an iPhone app, an iPad app and a Mac app with its menu bar and an open menu.
+AC5: The SwiftUI pack's examples include at least one phone, one tablet and one desktop application.
+AC6: The browser tests fail when any two variant cells of an element card overlap.

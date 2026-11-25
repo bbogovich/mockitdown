@@ -1,8 +1,8 @@
 ---
 title: "Pack format"
-spec_version: 0.5.0
+spec_version: 0.7.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: PACK.1
 ---
 
@@ -259,6 +259,101 @@ lives in the example site because it is generated from code and needs every pack
 | C7 | The site root MUST redirect to the Demo section. |
 | V1 | `python tools/gen_reference.py --check` fails, and with it the test suite, when a Reference page or the nav block differs from what the pack definitions generate. |
 
+---
+
+### R-PACK-013 — Element samples
+
+**Requires:** R-PACK-012
+
+Generated samples (`Picker("Label")`, a lone `Tab`, charts with one-dimensional `values:`) said
+nothing about the element (SRC-9). Packs now name a sample where the generic one is empty.
+
+**R-PACK-013.TC-1 — Declared samples**
+
+Python unit test of `gen_reference`: a declared sample is used verbatim; a declared sample with a diagnostic fails naming pack and element; `--check` passes on the shipped packs.
+
+**R-PACK-013.TC-2 — Base samples carry content**
+
+Python test over `shared/reference/base.json`: the listed elements' samples contain the required arguments; browser gallery test asserts each chart sample draws at least one mark.
+
+**Realizes.** F-18, F-14
+
+| | Statement |
+|---|---|
+| C1 | An element definition in `pack.json` MAY declare `sample`: mockitdown source of one call in the pack's vocabulary, showing the element doing its job. |
+| C2 | `tools/gen_reference.py` MUST use a declared `sample` as the element's sample and build its variants sample from it; it MUST fail, naming the pack and element, when a declared sample renders with a diagnostic, instead of simplifying it. |
+| C3 | The `base` pack MUST declare samples that give: charts data suited to their kind (`points:` for scatter, bubble and candlestick, `matrix:` with labels for heatmaps, `labels:` for categorical kinds); presentations (Alert, Dialog, Sheet, Popover, ConfirmationDialog, Toast) a title, a message or content and actions; `Picker` three options and a selection; `Tab` a place inside a `TabView`; `NavigationSplitView` a sidebar list and a detail; `Tooltip` an anchor button; `MessageBubble` a sentence of at least 15 words; `DatePicker` a selection. |
+| C4 | Every framework pack MUST declare samples for its own elements whose generic sample would be empty or meaningless (no options, no data, no content); the `swiftui` pack MUST do so for every element of R-PACK-014 and R-PACK-015. |
+| C5 | The variants sample MUST keep its variants side by side at their natural size (`HStack(alignment: .top, spacing: 24)`), each captioned; showing them whole relies on R-DEV-008.C1. |
+| V1 | `gen_reference.py --check` passes; a pack whose declared sample emits a diagnostic makes it fail with the pack and element named; the reference JSON of `swiftui` shows `Picker` with three options. |
+
+---
+
+### R-PACK-014 — SwiftUI control styles
+
+**Requires:** R-REND-013, R-PACK-013
+
+Each style must look like the native style it names (SRC-9, F-3.C7). The clauses list the visible
+parts that make each style recognisable; colours, sizes and radii come from the pack's tokens, which
+follow Apple's iOS 26 and macOS 26 design resources.
+
+**R-PACK-014.TC-1 — SwiftUI control variants**
+
+Python and TypeScript render tests (conformance cases) per element and variant asserting the listed parts (e.g. graphical DatePicker has 7 weekday cells and one selected day; Picker .segmented has one segment per option; Gauge default is a linear track).
+
+**R-PACK-014.TC-M1 — Visual comparison with SwiftUI**
+
+TC-M: open the gallery at `#pack=swiftui`, compare each card with the same control in Xcode previews or Apple's HIG screenshots.
+
+**Realizes.** F-3
+
+| | Statement |
+|---|---|
+| C1 | `ControlGroup` in the `swiftui` pack MUST render `.automatic` as a joined Liquid Glass capsule of its buttons, `.navigation` as a joined capsule of icon-only buttons, `.palette` as a row of borderless icon buttons, and `.compactMenu` and `.menu` as one button (the group's label or an ellipsis glyph; `.menu` with a trailing chevron) that stands for a menu. |
+| C2 | `DatePicker` MUST show a selection even without `selection:` (fixed default 23 Nov 2026, 9:41 AM, for deterministic output); `.automatic`/`.compact` MUST render the label and grey capsules holding the date (`Nov 23, 2026`) and, unless `displayedComponents: .date`, the time; `.graphical` a month calendar (month title with chevrons, weekday initials, a 7-column day grid, the selected day in a filled accent circle) whose width fits its frame; `.wheel` wheel columns with a selection band; `.field` (macOS) a text field `11/23/2026`; `.stepperField` that field with a stepper. |
+| C3 | `Form` MUST render `.automatic` and `.grouped` as inset rounded sections on the grouped background with each row's label leading and control trailing, and `.columns` (macOS) as two columns — trailing-aligned labels, leading-aligned controls — without section backgrounds. |
+| C4 | `Gauge` MUST default to `.automatic` (a linear track with the value filled and its current value, minimum and maximum labels), render `.accessoryCircular` as an open 240° ring with the current value in its centre, `.accessoryCircularCapacity` as a closed ring filled to the value with the value in its centre, `.accessoryLinear` as a thin track with a dot marker at the value, `.accessoryLinearCapacity` as a thicker capsule filled to the value, and `.linearCapacity` as a full-width capsule filled to the value with the label above. |
+| C5 | `List` MUST render `.insetGrouped` as rounded sections inset 16 points on the grouped background, `.grouped` as full-width sections on the grouped background, `.inset` as rounded inset rows on the plain background, `.plain` as full-width rows with separators inset 16 points, `.sidebar` as a source list (section headers, rows with icons, the selected row an accent-tinted rounded highlight; translucent on macOS), and `.bordered` (macOS) as a bordered box with alternating row backgrounds. |
+| C6 | `Picker` MUST render its options from its children (`Text`, or any view with `.tag`) and mark the `selection:` (default: the first); `.menu`/`.automatic` as the label leading and the selected option with an up-down chevron in the accent colour trailing; `.segmented` as a segmented control of the options; `.inline` as rows with a checkmark on the selected; `.radioGroup` (macOS) as radio buttons; `.wheel` as a wheel with the selection band; `.navigationLink` as a row with the label, the selected option in secondary colour and a chevron; `.palette` as a row of the options with the selected one highlighted. A picker with no options MUST show its label and an empty value, never an empty box. |
+| C7 | `Toggle` MUST render `.automatic`/`.switch` as the label leading and a 51 × 31 switch trailing (green when on), `.button` as a capsule button tinted when on, and `.checkbox` (macOS) as a checkbox followed by the label. |
+| C8 | `Button` variants MUST each keep their natural width (R-REND-013); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent). |
+| V1 | Each variant of each element above renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes. |
+
+---
+
+### R-PACK-015 — SwiftUI presentations and navigation
+
+**Requires:** R-DEV-008, R-PACK-013
+
+Presentations and navigation containers are where SwiftUI's look is most distinctive (SRC-9). The
+clauses fix the visible structure of each; at `fit` they are drawn whole (R-DEV-008).
+
+**R-PACK-015.TC-1 — SwiftUI presentations**
+
+Python and TypeScript render tests per element asserting the parts (alert title, message, capsule actions; action-sheet rows and separate cancel; popover arrow; sheet grabber; tab item); browser box checks at `fit`.
+
+**R-PACK-015.TC-2 — SwiftUI navigation containers**
+
+Render tests: TabView variants (content box above the bar box; page dots for `.page`); V1 split view columns and widths; `.prominentDetail` detail spans the frame.
+
+**R-PACK-015.TC-M1 — Visual comparison with SwiftUI**
+
+TC-M: compare the gallery cards with Apple's iOS 26 and macOS 26 HIG screenshots.
+
+**Realizes.** F-3
+
+| | Statement |
+|---|---|
+| C1 | An `Alert` in the `swiftui` pack MUST render as the iOS 26 alert: a centred Liquid Glass card about 300 points wide with large corner radius (`--mkd-radius-alert`, 34 points), bold centred title, centred message, and its actions as capsule buttons — side by side for two, stacked for more — a `.cancel` role in the neutral style and a `.destructive` role in red. |
+| C2 | A `ConfirmationDialog` MUST render on a phone as an action sheet at the bottom — a Liquid Glass panel with the title in secondary small type, one row per action, the `.cancel` action set apart below — and with `macos` or `ipados` chrome as an alert-style dialog. |
+| C3 | A `Popover` MUST render as a rounded Liquid Glass bubble with an arrow pointing at its anchor; alone, the arrow points up at a placeholder anchor above it. |
+| C4 | A `Sheet` MUST render from the bottom with rounded top corners, a grabber, its content and the dimmed screen above it (R-DEV-008.C4). |
+| C5 | A `Tab` alone MUST render as one item of a tab bar (icon over label, selected tint) inside the tab bar capsule; inside a `TabView` it is one of its tabs. |
+| C6 | A `TabView` MUST render its selected tab's content above a floating Liquid Glass capsule tab bar with icon-over-label items and a highlight pill on the selected item, and the content MUST NOT extend under the bar at `fit`; `.page` MUST render the content with page indicator dots below it and no tab bar; `.sidebarAdaptable` MUST render as `.automatic` on a phone and as a sidebar list of the tabs on tablet and desktop; `.tabBarOnly` as `.automatic`. |
+| C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; `.balanced` MUST share the width between the columns and `.prominentDetail` MUST keep the detail at full width with the sidebar over it; with `macos` chrome it MUST follow R-DEV-010.C3. |
+| C8 | At `fit` with no device, `NavigationSplitView` MUST render at least 640 × 360 points so that its columns are visible. |
+| V1 | `NavigationSplitView { List { Label("Inbox", systemImage: "tray") } .navigationTitle("Mail") } detail: { Text("Select a message") }` renders a sidebar column with the title Mail and an Inbox row beside a detail column. |
+
 ## Reference: `pack.json`
 
 A complete, minimal site pack that extends Material UI:
@@ -405,11 +500,13 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.7.0 | 2026-11-25 | New R-PACK-014: SwiftUI control styles; New R-PACK-013: Element samples; New R-PACK-015: SwiftUI presentations and navigation |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |

@@ -67,6 +67,8 @@ The appearance choice applies to every mockup and is remembered in `localStorage
 
 Open it with `cd typescript && npm run serve`, then `http://127.0.0.1:8173/pages/packs.html`.
 
+**Natural size and per-platform examples (SRC-9).** Cards scroll sideways rather than squeeze their mockups (SRC-9#scroll); multi-platform packs add example applications per platform; the browser tests check geometry, not only the absence of diagnostics.
+
 **R-WEB-004.TC-1 — Every pack renders**
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
@@ -78,6 +80,14 @@ Automated by `typescript/tests/unit/patterns.test.ts`: `render` each pattern und
 **R-WEB-004.TC-3 — Deep link**
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: opening `packs.html#pack=carbon` shows Carbon selected; selecting MUI from the side panel sets `#pack=mui`, survives a reload, and Back returns to Carbon.
+
+**R-WEB-004.TC-4 — Variants seen whole**
+
+`gallery.spec.mjs`: for every pack, after `renderAll()`, no two variant cells intersect, every `fit` frame's width ≥ its scrollWidth, a card whose mockup is wider than the card scrolls (scrollWidth > clientWidth), presentation surfaces meet the minimum size.
+
+**R-WEB-004.TC-5 — SwiftUI per-platform examples**
+
+`gallery.spec.mjs`: at `#pack=swiftui` the examples include patterns with device phone, tablet and desktop, the desktop one showing a menu bar with an open menu; patterns with `packs` are not shown for other packs; `patterns.test.ts` and `test_patterns.py` render each pack-specific pattern in its packs without an error diagnostic.
 
 **R-WEB-004.TC-M1 — Manual review**
 
@@ -99,6 +109,9 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 | C10 | The gallery SHOULD create a card's `mockitdown-mockup` only when the card comes near the viewport. |
 | C11 | The gallery MUST expose `window.packGallery` with `state` (`ready` once the side panel and the first pack are shown), `select(id)` and `renderAll()`, which creates every mockup of the selected pack, waits for each one's `rendered`, and resolves with the pack, its element names, its pattern ids, the number of mockups, those without rendered content and the error diagnostics. |
 | C12 | An unknown or missing `#pack=` fragment MUST select the first pack of the side panel. |
+| C13 | Each element card MUST show its sample and its variants sample at their natural `fit` size (R-DEV-008.C1); a mockup wider than its card MUST scroll horizontally within the card rather than be squeezed or scaled. |
+| C14 | An entry of `shared/patterns/index.json` MAY carry `packs` (pack ids; the pattern is shown only for those packs and MAY import their module), `device`, `chrome`, `menubar` and `app`; for `swiftui` the gallery MUST show at least an iPhone app (TabView with a NavigationStack list and detail), an iPad app (three-column NavigationSplitView) and a Mac app (NavigationSplitView with toolbar, `.commands` and `menubar` naming an open menu). |
+| C15 | The browser tests MUST fail, for any pack, when two captioned variant cells of an element card intersect, when a `fit` frame is narrower than its content's scroll width, or when a presentation surface of an element sample is smaller than 200 × 80 points (a toast: than its text). |
 | V1 | The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing. |
 
 ---

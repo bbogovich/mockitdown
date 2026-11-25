@@ -2,14 +2,14 @@
 id: F-3
 title: Framework design packs
 status: active
-version: 0.4.0
-rev: 1
+version: 0.6.0
+rev: 2
 page: FEAT.1
 slot: features
 order: 3
 family: authoring
-source: [SRC-2, SRC-3]
-hash: 72d56fe6f9d9
+source: [SRC-2, SRC-3, SRC-9]
+hash: f600a5fc06bb
 ---
 
 G1: A mockup must look like the framework the final application is built with, so reviewers judge a realistic screen rather than a generic wireframe.
@@ -23,3 +23,5 @@ AC1: The same block written with core elements renders in every shipped pack, ea
 AC2: Every element a pack lists renders without an error.
 AC3: `import SwiftUI` at the top of a block selects the SwiftUI pack.
 N1: "Packs" were called "kits" in the prototype (base, swift, fiori).
+C7: The SwiftUI pack follows Apple's current platform design (iOS 26, iPadOS 26, macOS 26) for each style it offers, so that each `.…Style(…)` variant looks like the native style rather than a relabelled default.
+AC4: Every variant of the SwiftUI pack's ControlGroup, DatePicker, Form, Gauge, List, Picker, TabView and Toggle, and its Alert, ConfirmationDialog, NavigationSplitView, Popover, Sheet and Tab, renders recognisably as the native SwiftUI style it names.

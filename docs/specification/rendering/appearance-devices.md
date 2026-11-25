@@ -1,8 +1,8 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.3.0
+spec_version: 0.7.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: REND.2
 ---
 
@@ -164,6 +164,114 @@ a list inside a mockup would gain the theme's bullets and margins.
 
 ---
 
+### R-DEV-008 — Fit frames: natural width and presentations
+
+**Requires:** R-DEV-001
+
+**Why.** A `fit` frame was squeezed to its host's width, so wide content (a row of variants) was
+drawn over itself, and presentation layers — absolutely positioned over a screen that had no size of
+its own — collapsed to a small square (SRC-9#images, SRC-9#scroll).
+
+**What changes.** A `fit` frame is exactly as large as its content, presentations included; when the
+page column is narrower, the reader scrolls sideways instead of seeing a squeezed picture.
+
+**R-DEV-008.TC-1 — Fit frames keep their width and hold presentations**
+
+Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth.
+
+**R-DEV-008.TC-2 — Sheet and tooltip at fit**
+
+Browser test: a lone `Sheet` at `fit` is ≥ 240 points tall with a grabber and ≥ 48 points of scrim above; a lone `Tooltip` shows anchor and bubble, the bubble's box not clipped by the frame and the arrow on the anchor's side.
+
+**Realizes.** F-8, F-10
+
+| | Statement |
+|---|---|
+| C1 | At device `fit`, the frame MUST take the max-content width and height of its content and MUST NOT be squeezed or scaled by a narrower host; the figure cell MUST then scroll horizontally (`overflow-x: auto`). |
+| C2 | At device `fit`, a presentation layer (`alert`, `action-sheet`, `dialog`, `sheet`, `popover`, `inspector`, `cover`, `toast`, `tooltip`) MUST contribute to the frame's size, so that the frame is at least the presented surface plus the layer's padding, and its scrim MUST cover the whole frame. |
+| C3 | An element whose role presents a surface (dialog, alert, sheet, popover, toast, tooltip), written on its own rather than as a presentation modifier, MUST render the same surface as its presented form, with title, content and actions. |
+| C4 | At device `fit`, a sheet MUST be drawn at least 240 points tall with its grabber, its content, and a band of dimmed backdrop at least 48 points tall above it. |
+| C5 | A tooltip MUST render its anchor (the element's content, or a placeholder button when it has none) with the tooltip bubble beside it, the bubble's arrow pointing at the anchor, neither clipped by the frame. |
+| C6 | A toast MUST be drawn at its text's natural width (up to the frame's width) and at least one line tall. |
+| V1 | In every shipped pack, `Alert("Title") { Text("Content"); Button("Action") }` at `fit` renders a dialog at least 200 × 80 points containing the title and the action; a `fit` HStack of eight `Toggle("Label")` in a 300-pixel host keeps its natural width and the host scrolls. |
+
+---
+
+### R-DEV-009 — The macOS menu bar
+
+**Requires:** R-DEV-010
+
+On the Mac, the menu bar's titles and commands are designed text and part of the application's
+interface (SRC-9). It is an option because most screens are reviewed without it. Menus are declared
+the SwiftUI way, with `.commands`, so the mockup reads like the app's own code.
+
+```swift
+import SwiftUI
+@Screen(app: "Notes", menubar: "File")
+NavigationSplitView { … } detail: { … }
+  .commands {
+    CommandGroup(after: .newItem) { Button("New Folder").keyboardShortcut("n", modifiers: [.shift, .command]) }
+    CommandMenu("Format") { Button("Bold").keyboardShortcut("b"); Divider(); Toggle("Show Ruler", isOn: true) }
+  }
+```
+
+**R-DEV-009.TC-1 — Menu bar and open menu**
+
+Python and TypeScript render tests (conformance cases added to `shared/conformance/`): V1 source; assert the bar's items in order, the clock text, the open File menu's rows, shortcut glyphs, separator, disabled row and submenu chevron.
+
+**R-DEV-009.TC-2 — Menu bar only with macOS chrome**
+
+`menubar=true` with `device=phone` warns code `chrome` and draws no bar; with `device=desktop` the window's top edge is 24 points below the frame's top.
+
+**Realizes.** F-10
+
+| | Statement |
+|---|---|
+| C1 | The render option `menubar` (fence attribute `menubar`, CLI `--menubar`, `mockitdown-mockup` attribute `menubar`, `@Screen(menubar:)`) MUST accept `true`, `false` (default) or the title of a menu; any value other than `false` MUST draw the macOS menu bar, and a title MUST additionally draw that menu open. |
+| C2 | The menu bar MUST be drawn only with `macos` chrome; with any other chrome the renderer MUST ignore it and warn "menubar needs macOS chrome" with code `chrome`. |
+| C3 | The menu bar MUST span the full width of the frame above the window, 24 points tall, translucent (`--mkd-menubar-bg`), and MUST hold, left to right: the Apple menu glyph, the application name in bold, the application's menus, a flexible gap, and the status items Control Center, Wi-Fi, battery and the clock `Mon Nov 23  9:41 AM` (fixed text, for deterministic output). |
+| C4 | The application name MUST be the `app` option (fence attribute `app`, `@Screen(app:)`), defaulting to the window title, then `App`. |
+| C5 | The application's menus MUST come from `.commands { … }` on the root view: `CommandMenu("T") { … }` adds menu T before Window; `CommandGroup(replacing:&#124;before:&#124;after: <placement>) { … }` edits a standard menu at the SwiftUI placement (`.appInfo`, `.appSettings`, `.newItem`, `.saveItem`, `.printItem`, `.undoRedo`, `.pasteboard`, `.textEditing`, `.sidebar`, `.toolbar`, `.windowSize`, `.windowArrangement`, `.help`). |
+| C6 | Without `.commands`, and around its additions, the menu bar MUST show the standard menus App, File, Edit, View, Window and Help with macOS's standard items for each placement (for example File: New ⌘N, Open… ⌘O, Close ⌘W, Save ⌘S; Edit: Undo ⌘Z, Redo ⇧⌘Z, Cut ⌘X, Copy ⌘C, Paste ⌘V, Select All ⌘A; App: About <App>, Settings… ⌘,, Hide <App> ⌘H, Quit <App> ⌘Q). |
+| C7 | An open menu MUST be drawn as a dropdown under its title (the title highlighted), overlapping the window, as a translucent rounded panel holding one row per item: `Button` (title; `.keyboardShortcut("k", modifiers: …)` drawn right-aligned as ⌃⌥⇧⌘ glyphs then the key, default modifier ⌘), `Divider` (separator), `Menu` (submenu: title and a trailing chevron), `Toggle` (checkmark when on), and `.disabled(true)` items greyed. |
+| C8 | A `CommandMenu` or `Menu` inside `.commands` MAY carry `.open()` (or `isPresented: true`), which opens it like naming it in `menubar`; at most one menu bar menu MUST be drawn open (the first). |
+| C9 | The menu bar MUST be part of the frame's height: at a fixed device the window MUST fill the frame below it. |
+| V1 | `menubar="File"` on a desktop SwiftUI mockup with `.commands { CommandMenu("Shapes") { Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command]) } }` renders the bar with App…File, Edit, View, Shapes, Window, Help, the clock, and an open File menu whose first row is New with ⌘N. |
+
+---
+
+### R-DEV-010 — Multi-platform chrome for SwiftUI
+
+**Requires:** R-DEV-001
+
+SwiftUI runs on iPhone, iPad and Mac, and one source often serves all three (SRC-9). Each form gets
+its platform's chrome, and the shared containers adapt as SwiftUI adapts them.
+
+**R-DEV-010.TC-1 — Chrome per form**
+
+Python and TypeScript render tests: the V1 source at phone, tablet and desktop; assert `data-chrome` ios/ipados/macos, the floating sidebar markup at desktop and the collapsed stack at phone; browser screenshot reviewed manually (TC-M1).
+
+**R-DEV-010.TC-2 — Windowed iPad app**
+
+`windowed=true device=tablet` renders the window with traffic lights inset over the wallpaper.
+
+**R-DEV-010.TC-M1 — Visual comparison with Apple's platforms**
+
+TC-M: compare phone, tablet and desktop renders with iOS 26, iPadOS 26 and macOS 26 screenshots from Apple's Human Interface Guidelines.
+
+**Realizes.** F-10
+
+| | Statement |
+|---|---|
+| C1 | The `swiftui` pack MUST draw `phone` forms in iOS 26 chrome (status bar with time, Dynamic Island, cellular, Wi-Fi and battery; home indicator), `tablet` forms in iPadOS 26 chrome (status bar with time and date, Wi-Fi, battery percentage; home indicator) and `desktop` and `wide` forms in macOS 26 chrome. |
+| C2 | macOS 26 chrome MUST draw a window with rounded corners (`--mkd-window-radius`, 16 points), a shadow, and traffic lights 12 points in diameter; when the root view has a toolbar or navigation title, the title bar MUST be unified with it — title leading after the traffic lights, toolbar items trailing as Liquid Glass capsules — otherwise a centred title. |
+| C3 | With `macos` chrome, a `NavigationSplitView`'s sidebar MUST be drawn as the macOS 26 floating sidebar (an inset rounded translucent panel running under the title bar, the traffic lights over it) with a sidebar toggle button in the toolbar. |
+| C4 | The render option `windowed` (fence attribute, `@Screen(windowed:)`) with `ipados` chrome MUST draw an iPadOS 26 app window — rounded corners, traffic lights at its top leading corner — over a wallpaper, inset from the frame. |
+| C5 | The `swiftui` pack SHOULD adapt shared elements to the form: `NavigationSplitView` collapses to its sidebar in a `NavigationStack` on a phone; `TabView(.sidebarAdaptable)` shows a sidebar on tablet and desktop; `Form` (automatic) uses the grouped style on phone and tablet and the columns style on desktop. |
+| V1 | The same `NavigationSplitView` source renders with an iOS status bar at `phone`, an iPadOS status bar at `tablet` and a macOS window with a floating sidebar at `desktop`. |
+
+---
+
 ### R-REND-011 — Non-standard component roles
 
 Real applications are full of components no UI kit ships — spreadsheets, boards, editors, chat threads, schedules. They are part of the core vocabulary so a mockup of any app can show them, styled by whichever pack is in use. The example site's *Beyond the framework kits* page exercises every one.
@@ -187,6 +295,12 @@ Real applications are full of components no UI kit ships — spreadsheets, board
 
 Dashboards are among the most common mockup subjects. The chart engine draws the common chart types directly, so a mockup needs neither a chart library nor JavaScript, and charts follow the pack's palette in light and dark.
 
+**Charts never empty (SRC-9).** Scatter, bubble, heatmap and candlestick charts drew nothing when given the one-dimensional `values:` that every other kind accepts; they now derive their marks from it.
+
+**R-REND-012.TC-3 — Every kind draws marks from values**
+
+Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 4]` yields an SVG with at least one mark (`circle`, `rect` or `path` besides axes); a chart with no data emits the `chart` warning.
+
 **Realizes.** F-8
 
 | | Statement |
@@ -196,6 +310,8 @@ Dashboards are among the most common mockup subjects. The chart engine draws the
 | C3 | Cartesian charts MUST draw value-axis ticks at rounded intervals, grid lines (unless `grid: false`), category labels and optional axis titles (`xLabel:`, `yLabel:`); a legend MUST be drawn when there are several named series. |
 | C4 | Each series MUST be coloured with the pack token `--mkd-chart-<n>` (n = 1…6, cycling), and every mark MUST expose its colour as `--mkd-series` so packs can restyle strokes per series; `.tint()` on a chart MUST recolour its first series. |
 | C5 | The chart MUST be drawn in a fixed logical canvas (`chartWidth`, `chartHeight`; default 360 × 200) that scales uniformly with its container. |
+| C6 | Given only `values:`, a scatter chart MUST plot the points (index, value), a bubble chart the same points with areas proportional to the values, a heatmap one row of cells shaded by value, and a candlestick chart one candle per value after the first (open = the previous value, close = the value, high and low 10% of the value range beyond them). |
+| C7 | A chart with no usable data MUST draw its axes or outline and warn "<Element> has no data" with code `chart`; it MUST NOT render an empty SVG silently. |
 | V1 | `BarChart(values: [1, 2], labels: ["a", "b"])` renders an SVG with two bars and the labels a and b. |
 | V2 | `PieChart(values: [3, 1])` renders two slices whose angles are 270° and 90°. |
 
@@ -203,8 +319,10 @@ Dashboards are among the most common mockup subjects. The chart engine draws the
 
 | Version | Date | Change |
 |---|---|---|
-| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles; New R-REND-012: Charts |
+| 0.7.0 | 2026-11-25 | New R-DEV-008: Fit frames: natural width and presentations; New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

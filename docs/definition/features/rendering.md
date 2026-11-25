@@ -1,8 +1,8 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.4.0
+def_version: 0.6.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: FEAT.2
 ---
 
@@ -19,6 +19,11 @@ CDN (SRC-3); neither gives a faithful, offline, deterministic picture for seven 
 
 **Change.** Every pack is a static CSS replica of its framework, applied to one shared HTML markup.
 Nothing runs in the browser, so pages stay fast, cacheable and safe.
+
+**Layout without overlap (SRC-9).** The pack gallery showed controls drawn over each other and
+presented surfaces collapsed to a small square. A mockup is a picture of a real screen, and a real
+screen never shows siblings painted over each other: when space runs out, text truncates or wraps,
+and controls keep their size. An element shown alone at `fit` is drawn whole, including what it presents.
 
 **F-8.UC-1 — Review a screen in a pull request preview**
 
@@ -53,6 +58,10 @@ needs its window.
 **Change.** A frame has a logical size in points and scales uniformly to the column. Chrome is
 drawn from the pack's platform, or forced per block.
 
+**Desktop and tablet (SRC-9).** SwiftUI targets iPhone, iPad and Mac. On the Mac the global menu
+bar is part of the application's interface — its menu titles and commands are designed text — so a
+desktop mockup can show it, with one menu dropped down.
+
 **F-10.UC-1 — Show a desktop screen in a browser window**
 
 **Actor:** specification author.
@@ -61,6 +70,17 @@ drawn from the pack's platform, or forced per block.
 
 **Outcome:** the screen appears in a 1280×800 browser window frame showing the address, scaled to
 the page width.
+
+**F-10.UC-2 — Show a Mac app with its menu bar and an open menu**
+
+**Actor:** specification author.
+
+1. The author writes a SwiftUI mockup of a Mac app, sets `device="desktop"` and turns the menu bar on.
+2. The author declares the app's menus (File, Edit, View, a custom menu) and marks the File menu open.
+
+**Outcome:** the screen shows the macOS menu bar across the top — Apple menu, the app's name in
+bold, its menus, the status items and clock — with the File menu dropped down over the window,
+showing its commands, shortcuts and separators; below it, the app's window with traffic lights and toolbar.
 
 ### F-11 — Documentation-site integration
 
@@ -139,8 +159,10 @@ Manuals and design specifications explain screens by numbering their parts. mock
 
 | Version | Date | Change |
 |---|---|---|
+| 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |

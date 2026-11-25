@@ -5,3 +5,6 @@ does not scale to the frameworks teams actually use.
 light and dark mode, its window or device chrome and its stylesheet. mockitdown ships packs for
 SwiftUI, Fluent (WinUI 3), Material UI, Angular Material, SAPUI5 (Fiori), Bootstrap and shadcn/ui,
 on top of a neutral wireframe pack every other pack extends.
+
+**Fidelity of the SwiftUI pack (SRC-9).** Each style variant must look like the native style it
+names; a variant that renders as the default with a different label misleads the reviewer.

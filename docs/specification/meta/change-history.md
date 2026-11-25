@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.7.0 | 2026-11-25 | `PACK.1`, `REND.1`, `REND.2`, `WEB.2` | SRC-9: fit frames and presentations, rows without overlap, shape framing, chart data, element samples, SwiftUI styles, macOS menu bar and multi-platform chrome, gallery geometry |
 | 0.6.7 | 2026-11-25 | `ADR.2`, `WEB.1`, `WEB.2` | R-WEB-004 as built: pattern index, sample and pattern devices, lazy mockups, test hooks, fragment fallback; ADR-19 clarified and R-WEB-002 reviewed against it (#7) |
 | 0.6.6 | 2026-11-25 | `ARCH.3`, `WEB.1` | as built (#6): R-WEB-002 mockup element (script child, attributes, events, rendered, errors); A-WEB-2 import rounds, shared stylesheets, shadow-root appearance selectors, coalesced renders |
 | 0.6.5 | 2026-11-25 | `ARCH.3`, `WEB.2` | As built (#5): development server URL layout, index, content types and 405 (R-WEB-003); npm test in Chromium, CI on Node 22 with Zensical, browser smoke test (R-WEB-005); loadAssetsFromUrl (A-WEB-2) |

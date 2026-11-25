@@ -1,8 +1,8 @@
 ---
 title: "Features: authoring"
-def_version: 0.4.0
+def_version: 0.6.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: FEAT.1
 ---
 
@@ -80,6 +80,9 @@ does not scale to the frameworks teams actually use.
 light and dark mode, its window or device chrome and its stylesheet. mockitdown ships packs for
 SwiftUI, Fluent (WinUI 3), Material UI, Angular Material, SAPUI5 (Fiori), Bootstrap and shadcn/ui,
 on top of a neutral wireframe pack every other pack extends.
+
+**Fidelity of the SwiftUI pack (SRC-9).** Each style variant must look like the native style it
+names; a variant that renders as the default with a different label misleads the reviewer.
 
 **F-3.UC-1 — Show the same screen in the target framework**
 
@@ -184,6 +187,8 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
