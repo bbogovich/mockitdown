@@ -1,0 +1,42 @@
+{
+  "name": "mockitdown",
+  "version": "0.1.0",
+  "description": "UI mockups written in SwiftUI syntax, rendered as HTML styled after real UI frameworks — the TypeScript core and mockitdown- web components.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/mockitdown.js",
+  "types": "./dist/mockitdown.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/mockitdown.d.ts",
+      "default": "./dist/mockitdown.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    },
+    "./shared/*": "./dist/shared/*"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bbogovich/mockitdown.git",
+    "directory": "typescript"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-shared.mjs",
+    "build:tests": "tsc -p tsconfig.test.json",
+    "test": "npm run build && npm run build:tests && node --test \"test-build/unit/*.test.js\""
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "typescript": "^7.0.2"
+  }
+}

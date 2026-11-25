@@ -59,3 +59,11 @@ python/src/mockitdown/packs/*/
 
 # The repository LICENSE, copied beside pyproject.toml at build time
 python/LICENSE
+
+# TypeScript variant: dependencies, build output and compiled tests; the LICENSE copy made at build
+typescript/node_modules/
+typescript/dist/
+typescript/test-build/
+typescript/test-results/
+typescript/playwright-report/
+typescript/LICENSE

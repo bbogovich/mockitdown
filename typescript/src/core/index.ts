@@ -1,0 +1,25 @@
+/**
+ * The mockitdown TypeScript core (A-WEB-1): language, evaluation, packs, diagnostics and options.
+ * It touches no DOM, network or file system (A-WEB-1.K1); assets reach it through `loadAssets`.
+ */
+
+export { evaluate, stylesheet, type Evaluation } from "./api.js";
+export { assetsLoaded, iconTable, loadAssets, pageCss, type SharedAssets, type SharedManifest } from "./assets.js";
+export { clearComponents, registerComponents } from "./components.js";
+export {
+  Diagnostic, Diagnostics, Location, MockitdownError, MockitdownSyntaxError, type Severity,
+} from "./diagnostics.js";
+export { Env, Evaluator, formatValue, truthy, MAX_DEPTH, MAX_ITERATIONS, type ImportContext } from "./evaluate.js";
+export { parseJson } from "./json.js";
+export { CallValue, EnumValue, Modifier, Screen, Thunk, View, ViewList, walk, type Value } from "./model.js";
+export {
+  APPEARANCES, coerceFenceOptions, DEFAULT_OPTIONS, DEVICES, FENCE_OPTIONS, parseBool, renderOptions,
+  type ImportResolver, type RenderOptions,
+} from "./options.js";
+export { ElementDef, Pack, PackRegistry, registerPack, registry, type PackData } from "./packs/registry.js";
+export { buildStylesheet, minifyCss, packCss, scalePx, tokenCss } from "./styles.js";
+export * as ast from "./syntax/ast.js";
+export { Interpolation, Lexer, Token, tokenize } from "./syntax/lexer.js";
+export { parse, Parser } from "./syntax/parser.js";
+export * as values from "./values.js";
+export { IGNORED, NEUTRAL_MODULES, RENDERED, setVocabulary } from "./vocabulary.js";
