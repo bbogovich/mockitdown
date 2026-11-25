@@ -33,7 +33,7 @@ ADR-15 | decisions | active | 0.3.0 r0 | ADR.1 | Annotation marks use CSS anchor
 ADR-16 | decisions | active | 0.3.0 r0 | ADR.2 | Retro and easter-egg packs are original homages
 ADR-17 | decisions | active | 0.6.0 r0 | ADR.2 | One repository for both variants, with shared assets
 ADR-18 | decisions | active | 0.6.0 r0 | ADR.2 | The web variant is a TypeScript port held to the Python output
-ADR-19 | decisions | active | 0.6.0 r0 | ADR.2 | The mockup element carries its code in a script child
+ADR-19 | decisions | active | 0.6.7 r1 | ADR.2 | The mockup element carries its code in a script child
 ADR-2 | decisions | active | 0.2.0 r0 | ADR.1 | The notation is a declarative subset of Swift and SwiftUI
 ADR-20 | decisions | active | 0.6.0 r0 | ADR.2 | Web development dependencies: typescript and Playwright only
 ADR-3 | decisions | active | 0.2.0 r0 | ADR.1 | Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
@@ -148,7 +148,7 @@ R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the s
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.6.2 r1 | REPO.1 | Conformance corpus
 R-WEB-001 | requirements | active | 0.6.4 r2 | WEB.1 | TypeScript package and core
-R-WEB-002 | requirements | active | 0.6.6 r1 | WEB.1 | The mockitdown-mockup element
+R-WEB-002 | requirements | active | 0.6.7 r2 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.5 r1 | WEB.2 | Development server
-R-WEB-004 | requirements | active | 0.6.0 r0 | WEB.2 | Pack gallery test page
+R-WEB-004 | requirements | active | 0.6.7 r1 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.6.5 r2 | WEB.2 | Web test suites

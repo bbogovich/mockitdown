@@ -29,3 +29,7 @@ Every element renders on its own: a syntax error, a bad attribute or a missing i
 box in that element only, and the page hears about it through the `mockitdown-diagnostics` event,
 which bubbles out of shadow roots. `await element.rendered` waits for the render a change has
 started; it is the hook tests and editors use after setting an attribute or `code`.
+
+Pages that show many mockups can create them on demand: the pack gallery (R-WEB-004) sets `code` on
+a new element before inserting it, so each one renders once, and waits on `rendered` to know when a
+whole pack is done.

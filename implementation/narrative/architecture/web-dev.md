@@ -1,6 +1,6 @@
 ---
 title: Web development server, test pages and browser tests
-impl_version: 0.3.7
+impl_version: 0.3.8
 status: draft
 updated: 2026-11-25
 page_id: IMPL.WEBDEV
@@ -20,10 +20,11 @@ asset loader of **A-WEB-2** (P2, K2), under ADR-20: `node:http` and `node:fs` fo
 | `pages/*.html` | the test pages; each is linked from the index by its `<title>` |
 | `pages/core.html` | "Core render": the core API in a page, without custom elements — the smoke test's page |
 | `pages/mockup.html` | "Mockup element": `<mockitdown-mockup>` demo and test page (see [The mockup element](elements.md)) |
+| `pages/packs.html`, `packs.js`, `packs.css` | "Pack gallery": every pack's elements and the design patterns (see [The pack gallery](gallery.md)) |
 | `src/elements/assets.ts` | `loadAssetsFromUrl(base, {fetch})`, exported by `dist/mockitdown.js` |
 | `playwright.config.mjs` | `webServer` starts `scripts/serve.mjs`; projects `chromium`, `firefox`, `webkit` |
 | `tests/unit/serve.test.ts` | IT-12: the server on a free port, and `loadAssetsFromUrl` over HTTP |
-| `tests/browser/*.spec.mjs` | IT-13, IT-14: Playwright tests (plain JavaScript: no type declarations needed) |
+| `tests/browser/*.spec.mjs` | IT-13, IT-14, IT-15: Playwright tests (plain JavaScript: no type declarations needed) |
 | `../.github/workflows/ci.yml` | both suites on every push and pull request |
 
 ## The server
@@ -68,7 +69,7 @@ host.innerHTML = result.html;
 `test:browser` (`playwright test --project=chromium`, R-WEB-005.C4). Playwright starts the server
 itself (`reuseExistingServer` outside CI, so a running `npm run serve` is reused); Firefox and
 WebKit run with `npx playwright test --project=firefox|webkit` after installing those browsers.
-See [Testing](../testing.md) for IT-12 to IT-14.
+See [Testing](../testing.md) for IT-12 to IT-15.
 
 ## CI
 
@@ -93,3 +94,4 @@ report. It publishes nothing; `pages.yml` and `release.yml` keep their own Pytho
 |---|---|---|
 | 0.3.6 | 2026-11-25 | Page written: server, `loadAssetsFromUrl`, core render page, Playwright, CI (#5) |
 | 0.3.7 | 2026-11-25 | Mockup element page and tests listed (#6) |
+| 0.3.8 | 2026-11-25 | The pack gallery page and its files; IT-15 (#7) |

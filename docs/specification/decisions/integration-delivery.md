@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.6.0
+spec_version: 0.6.7
 status: draft
 updated: 2026-11-25
 page_id: ADR.2
@@ -238,7 +238,7 @@ Chosen by the developer (SRC-8#clar-script). A script element with an unknown ty
 
 | | Statement |
 |---|---|
-| D1 | A `mockitdown-mockup` element takes its code from its only child, a `<script type="text/mockitdown">` element, whose text the HTML parser leaves untouched. |
+| D1 | A `mockitdown-mockup` element takes its code from a `<script type="text/mockitdown">` child, whose text the HTML parser leaves untouched; the first such child counts and other children are ignored (R-WEB-002.C2). |
 | O1 | rejected: a CDATA child (the request's first form) — in an HTML document the parser turns `<![CDATA[` into a bogus comment that ends at the first `>` and parses the rest as markup, corrupting code that contains `>`, `<Name` or `&…;`. |
 | O2 | rejected: plain text content — the author would have to escape `<` and `&`. |
 | C1 | The only sequence the code cannot contain is `</script`; the element documents this. |
@@ -264,10 +264,12 @@ Chosen by the developer (SRC-8#clar-deps), following the rule that third-party d
 
 | Version | Date | Change |
 |---|---|---|
-| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets; New ADR-19: The mockup element carries its code in a script child |
+| 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
+| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
