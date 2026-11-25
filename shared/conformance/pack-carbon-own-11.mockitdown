@@ -1,10 +1,10 @@
 // carbon own elements: TableContainer, TableExpandRow, TableExpandedRow, TableHeader, TableRow, TableToolbar, TableToolbarAction, TableToolbarContent, TableToolbarMenu, TableToolbarSearch, Tabs, Tag
 VStack(alignment: .leading, spacing: 12) {
   TableContainer("Title") { Text("Content"); Button("Action") }
-  TableExpandRow()
-  TableExpandedRow()
+  TableExpandRow() { Text("Ana Lima"); Text("Active") }
+  TableExpandedRow() { Text("Ana Lima"); Text("Active") }
   TableHeader("Title")
-  TableRow()
+  TableRow() { Text("Ana Lima"); Text("Active") }
   TableToolbar() { Button("Save"); Button("Share") }
   TableToolbarAction("Label")
   TableToolbarContent() { Text("Content"); Button("Action") }

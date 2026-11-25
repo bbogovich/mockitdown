@@ -1,8 +1,8 @@
 // sapui5 own elements: MessageToast, MultiComboBox, MultiInput, NavigationList, NavigationListItem, NotificationListItem, NumericContent, ObjectAttribute, ObjectHeader, ObjectIdentifier, ObjectListItem, ObjectMarker
 VStack(alignment: .leading, spacing: 12) {
   MessageToast("Message")
-  MultiComboBox("Label")
-  MultiInput("Label")
+  MultiComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
+  MultiInput("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   NavigationList() { Text("Content"); Button("Action") }
   NavigationListItem("Label")
   NotificationListItem("Title")

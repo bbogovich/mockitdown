@@ -1,7 +1,7 @@
 // angular-material own elements: MatTextarea, MatTimepicker, MatTonalButton, MatToolbar, MatToolbarRow, MatTooltip, MatTree, MatTreeNode, MatVerticalStepper
 VStack(alignment: .leading, spacing: 12) {
   MatTextarea("Label")
-  MatTimepicker("Label")
+  MatTimepicker("Label", selection: "2026-11-23")
   MatTonalButton("Label")
   MatToolbar("Title") { Text("Content"); Button("Action") }
   MatToolbarRow() { Button("Save"); Button("Share") }

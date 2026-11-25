@@ -1,6 +1,6 @@
 // winxp own elements: RadioButtonList, StartButton, StartMenu, StartMenuItem, StartMenuPlaces, StartMenuPrograms, StatusBar, StatusBarPanel, SysLink, SystemTray, TabControl, TabPage
 VStack(alignment: .leading, spacing: 12) {
-  RadioButtonList("Label")
+  RadioButtonList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   StartButton()
   StartMenu("Title") { Text("Content"); Button("Action") }
   StartMenuItem("Title")
@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   SysLink("Label")
   SystemTray() { Text("Content"); Button("Action") }
   TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabPage("Label")
+  TabView { TabPage("Inbox") { Text("Inbox content") }; TabPage("Archive") { Text("Archive content") } }
 }
 .padding()

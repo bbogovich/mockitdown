@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   ClickableTile("Title") { Text("Content"); Button("Action") }
   CodeSnippet("let total = items.count")
   Column() { Text("Content"); Button("Action") }
-  ComboBox("Label")
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ComboButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   ComboChart(values: [3, 5, 2, 6, 4])
   ComposedModal("Title") { Text("Content"); Button("Action") }

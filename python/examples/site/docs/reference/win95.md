@@ -64,7 +64,7 @@ Drop-down combo with the raised arrow button: ComboBox(items:, selection:)
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-ComboBox("Label")
+ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -120,7 +120,7 @@ Date field with the drop-down arrow
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-DateTimePicker("Label")
+DateTimePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -176,7 +176,7 @@ Root of a dialog screen: the frame's caption keeps only Close (and ? with .varia
 <p class="ref-props">role <code>vstack</code> · variants <code>help</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { DialogBody() { Text("Content"); Button("Action") }.variant("help"); Text("help").font(.caption).foregroundStyle(.secondary) }
 }
 ```
@@ -192,7 +192,7 @@ Drop-down list (not editable)
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-DropDownList("Label")
+DropDownList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -220,7 +220,7 @@ FileIcon("Readme.txt", systemImage: "doc") · .variant(.small) puts the name bes
 <p class="ref-props">role <code>label</code> · arguments <code>title</code> · variants <code>large</code>, <code>small</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { FileIcon("Title").variant("large"); Text("large").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { FileIcon("Title").variant("small"); Text("small").font(.caption).foregroundStyle(.secondary) }
 }
@@ -293,7 +293,7 @@ Details view: raised column headers, columns:, rows:, selectedRows:
 <p class="ref-props">role <code>table</code> · variants <code>details</code>, <code>report</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ListView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("details"); Text("details").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ListView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("report"); Text("report").font(.caption).foregroundStyle(.secondary) }
 }
@@ -366,7 +366,7 @@ Modal message box: MessageBox("Confirm File Delete", message: "…", severity: .
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>severity: &quot;info&quot;</code>, <code>systemImage: &quot;info.circle&quot;</code> · variants <code>information</code>, <code>warning</code>, <code>error</code>, <code>question</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { MessageBox("Title") { Text("Content"); Button("Action") }.variant("information"); Text("information").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { MessageBox("Title") { Text("Content"); Button("Action") }.variant("warning"); Text("warning").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { MessageBox("Title") { Text("Content"); Button("Action") }.variant("error"); Text("error").font(.caption).foregroundStyle(.secondary) }
@@ -511,7 +511,7 @@ Sunken progress bar of navy blocks: ProgressBar(value: 0.6)
 <p class="ref-props">role <code>progress</code> · arguments <code>label</code> · variants <code>blocks</code>, <code>smooth</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ProgressBar("Label").variant("blocks"); Text("blocks").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProgressBar("Label").variant("smooth"); Text("smooth").font(.caption).foregroundStyle(.secondary) }
 }
@@ -542,7 +542,7 @@ Root of a property-sheet screen (tabs + OK/Cancel/Apply): caption with ? and Clo
 <p class="ref-props">role <code>vstack</code> · defaults <code>variant: &quot;help&quot;</code> · variants <code>help</code>, <code>plain</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { PropertySheet() { Text("Content"); Button("Action") }.variant("help"); Text("help").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { PropertySheet() { Text("Content"); Button("Action") }.variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
 }
@@ -559,7 +559,7 @@ HStack(alignment: .top, spacing: 16) {
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · variants <code>default</code>, <code>standard</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { PushButton("Label").variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { PushButton("Label").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
 }
@@ -576,7 +576,7 @@ RadioButtonList("View", items: […], selection:)
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-RadioButtonList("Label")
+RadioButtonList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -716,7 +716,7 @@ TabPage("General") { … }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-TabPage("Label")
+TabView { TabPage("Inbox") { Text("Inbox content") }; TabPage("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -898,7 +898,7 @@ A window drawn inside a Desktop: navy caption with the app icon, Minimize/Maximi
 <p class="ref-props">role <code>card</code> · arguments <code>title</code> · variants <code>active</code>, <code>inactive</code>, <code>dialog</code>, <code>tool</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Window("Title") { Text("Content"); Button("Action") }.variant("active"); Text("active").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Window("Title") { Text("Content"); Button("Action") }.variant("inactive"); Text("inactive").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Window("Title") { Text("Content"); Button("Action") }.variant("dialog"); Text("dialog").font(.caption).foregroundStyle(.secondary) }
@@ -947,7 +947,7 @@ Accordion("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this draft?", message: "The draft and its attachments will be removed permanently.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
 ```
 
 </div>
@@ -971,7 +971,7 @@ AppBar("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -1031,7 +1031,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -1083,7 +1083,7 @@ Breadcrumb(["One", "Two", "Three"])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -1135,7 +1135,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -1187,7 +1187,7 @@ kind: .bar\|.line\|.area\|.pie\|.donut\|.scatter\|.bubble\|.radar\|.heatmap\|.fu
 <p class="ref-props">role <code>chart</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Chart(values: [3, 5, 2, 6, 4])
+Chart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"])
 ```
 
 </div>
@@ -1287,7 +1287,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -1327,7 +1327,7 @@ selection: "2026-11-23"; .datePickerStyle(.graphical)
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-DatePicker("Label")
+DatePicker("Starts", selection: "2026-11-23")
 ```
 
 </div>
@@ -1339,7 +1339,7 @@ DatePicker("Label")
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Dialog("Title") { Text("Content"); Button("Action") }
+Dialog("Rename file", message: "Enter a new name for the report.", actions: { Button("Cancel"); Button("Rename") }) { TextField("Name", text: "Quarterly report") }
 ```
 
 </div>
@@ -1375,7 +1375,7 @@ Divider()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -1449,7 +1449,7 @@ Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -1487,7 +1487,7 @@ Gauge(60)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -1551,7 +1551,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -1563,7 +1563,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -1717,7 +1717,7 @@ LazyVStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;line&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")
 ```
 
 </div>
@@ -1807,7 +1807,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -1845,7 +1845,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -1897,7 +1905,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -1909,7 +1917,7 @@ Picker("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;pie&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])
 ```
 
 </div>
@@ -1963,7 +1971,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -1987,7 +1995,7 @@ RadioButton("Label")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -2049,7 +2057,7 @@ Row("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -2151,7 +2159,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -2215,7 +2226,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -2295,7 +2306,11 @@ Tab("Home", systemImage: "house") { … }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Tab("Label")
+TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search the library") }
+  Tab("Profile", systemImage: "person") { Text("Your profile") }
+}
 ```
 
 </div>
@@ -2347,7 +2362,7 @@ TableColumn("Title")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -2463,7 +2478,7 @@ TimelineItem("Title")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -2527,7 +2542,7 @@ ToolbarItemGroup() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>tooltip</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Tooltip("Text") { Text("Content"); Button("Action") }
+Tooltip("Share a link to this page") { Button("Share", systemImage: "square.and.arrow.up") }
 ```
 
 </div>
@@ -2567,7 +2582,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="win95" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

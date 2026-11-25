@@ -1,11 +1,11 @@
 // prime own elements: RadioButtonGroup, Rating, Row, ScrollPanel, ScrollTop, Select, SelectButton, Sidebar, Skeleton, Slider, SpeedDial, SplitButton
 VStack(alignment: .leading, spacing: 12) {
-  RadioButtonGroup("Label")
+  RadioButtonGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Rating(60)
-  Row()
+  Row() { Text("Ana Lima"); Text("Active") }
   ScrollPanel() { Text("Content"); Button("Action") }
   ScrollTop()
-  Select("Placeholder")
+  Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   SelectButton(["One", "Two"])
   Sidebar("Header") { Text("Content"); Button("Action") }
   Skeleton().frame(width: 160, height: 96)

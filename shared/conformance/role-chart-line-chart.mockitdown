@@ -1,2 +1,2 @@
 // base element LineChart (role chart)
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")

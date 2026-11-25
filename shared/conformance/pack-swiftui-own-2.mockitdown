@@ -1,15 +1,24 @@
 // swiftui own elements: ConfirmationDialog, ContainerRelativeShape, ContentUnavailableView, ControlGroup, DatePicker, DisclosureGroup, EditButton, EmptyView, Form, Gauge, GeometryReader, GlassEffectContainer
 VStack(alignment: .leading, spacing: 12) {
-  ConfirmationDialog("Title") { Text("Content"); Button("Action") }
+  ConfirmationDialog("Discard your changes?", message: "Your edits to this note have not been saved.", actions: { Button("Discard Changes", role: .destructive); Button("Keep Editing"); Button("Cancel", role: .cancel) })
   ContainerRelativeShape().frame(width: 160, height: 96)
   ContentUnavailableView("Title") { Text("Content"); Button("Action") }
-  ControlGroup() { Button("Save"); Button("Share") }
-  DatePicker("Label")
+  ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }
+  DatePicker("Starts", selection: "2026-11-23")
   DisclosureGroup("Title") { Text("Content"); Button("Action") }
   EditButton()
   EmptyView() { Text("Content"); Button("Action") }
-  Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
-  Gauge(60)
+  Form {
+  Section("Account") {
+    TextField("Name", text: "Ana Lima")
+    Toggle("Notifications", isOn: true)
+  }
+  Section("Display") {
+    Picker("Appearance", selection: "Automatic") { Text("Light"); Text("Dark"); Text("Automatic") }
+    Stepper("Font size", value: 17)
+  }
+}
+  Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%")
   GeometryReader() { Text("Content"); Button("Action") }
   GlassEffectContainer() { Text("Content"); Button("Action") }
 }

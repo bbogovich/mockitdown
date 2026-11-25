@@ -1,2 +1,2 @@
 // base element Histogram (role chart)
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")

@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   StatusBarPanel("Content")
   SysLink("Label")
   TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabPage("Label")
+  TabView { TabPage("Inbox") { Text("Inbox content") }; TabPage("Archive") { Text("Archive content") } }
   TaskDialog("Title") { Text("Content"); Button("Action") }
   Taskbar() { Text("Content"); Button("Action") }
   TaskbarButton("Label")

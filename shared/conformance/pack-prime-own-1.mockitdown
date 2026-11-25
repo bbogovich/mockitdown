@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   AccordionContent() { Text("Content"); Button("Action") }
   AccordionPanel("Header") { Text("Content"); Button("Action") }
   AccordionTab("Header") { Text("Content"); Button("Action") }
-  AutoComplete("Placeholder")
+  AutoComplete("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Avatar("Label")
   AvatarGroup() { Text("Content"); Button("Action") }
   Badge("Value")

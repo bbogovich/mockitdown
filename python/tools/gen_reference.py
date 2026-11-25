@@ -9,9 +9,13 @@ Every element a pack offers is shown rendered in that pack's style, with its rol
 arguments, defaults, variants and doc line, taken from `pack.json`. The pack's own elements come
 first, then the core vocabulary it inherits. Hidden (easter-egg) packs are left out.
 
-Samples are built from the element's parameter names (`label`, `items`, `values`, …) and its role
-(containers get two children); each sample is rendered once here and simplified until it renders
-without a diagnostic, so the generated pages build cleanly under `strict: true`.
+An element's sample is the `sample` its `pack.json` entry declares (R-PACK-013), used verbatim; a
+declared sample that renders with a diagnostic stops the generator, naming the pack and the element.
+Otherwise the sample is built from the element's parameter names (`label`, `items`, `values`, …) and
+its role (containers get two children, pickers options and a selection, date pickers a date, a tab a
+place in a `TabView`), rendered once here and simplified until it renders without a diagnostic, so the
+generated pages build cleanly under `strict: true`. The variants sample shows the sample once per
+variant (`.variant("…")`), side by side and captioned.
 
 The same data is written as JSON for the TypeScript variant's pack gallery (R-REPO-003.C5,
 R-WEB-004): `shared/reference/<pack>.json` per listed pack and `shared/reference/index.json` with the
@@ -67,19 +71,19 @@ NUMERIC_VALUE_ROLES = {"progress", "slider", "rating", "stepper", "stat", "chart
 
 CONTAINERS = {"vstack", "hstack", "zstack", "group", "scroll", "section", "form", "card", "list",
               "navstack", "split", "sidebar", "toolbar", "menu", "dialog", "accordion", "grid",
-              "gridrow", "radiogroup", "tabs", "board", "boardcolumn", "tree", "timeline", "canvas",
-              "appbar", "toolbaritem", "labeled", "tooltip"}
+              "gridrow", "tabs", "board", "boardcolumn", "tree", "timeline", "canvas",
+              "appbar", "toolbaritem", "labeled", "tooltip", "tablerow"}
 CHILDREN = {
     "list": 'Text("First item"); Text("Second item")',
     "section": 'Text("First item"); Text("Second item")',
     "form": 'TextField("Name"); Toggle("Notifications", isOn: true)',
     "menu": 'Button("Open"); Button("Save"); Divider(); Button("Close")',
     "toolbar": 'Button("Save"); Button("Share")',
-    "radiogroup": 'Radio("First", selected: true); Radio("Second")',
     "board": 'BoardColumn("To do") { KanbanCard("Write copy") }',
     "boardcolumn": 'KanbanCard("Write copy"); KanbanCard("Review")',
     "tree": 'TreeItem("Folder") { TreeItem("File") }',
     "timeline": 'TimelineItem("Created"); TimelineItem("Shipped")',
+    "tablerow": 'Text("Ana Lima"); Text("Active")',
     "tabs": 'Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") }',
 }
 EXTRA = {  # named arguments that make data roles show something
@@ -87,10 +91,22 @@ EXTRA = {  # named arguments that make data roles show something
     "spreadsheet": 'columns: ["A", "B"], rows: [[1, 2], [3, 4]]',
     "chart": "values: [3, 5, 2, 6, 4]",
     "gantt": 'tasks: [("Design", 0, 3), ("Build", 2, 5)]',
+    "select": 'options: ["Small", "Medium", "Large"], selection: "Medium"',
+    "radiogroup": 'options: ["Small", "Medium", "Large"], selection: "Medium"',
+    "segmented": 'options: ["Day", "Week", "Month"], selection: "Week"',
+    "datepicker": 'selection: "2026-11-23"',
 }
+#: Roles whose EXTRA names the options: left out when a positional argument already gave a list.
+OPTION_ROLES = {"select", "radiogroup", "segmented"}
+#: The two tabs a tab-role element is shown with, inside a `TabView` (R-PACK-013.C4).
+TAB_LABELS = ("Inbox", "Archive")
 SIZED = {"shape", "color", "skeleton", "image", "map", "media", "placeholder", "canvas"}
 WIDE = {"table", "spreadsheet", "chart", "gantt", "schedule", "calendar", "board", "split", "navstack",
         "map", "media", "appbar", "sidebar", "dialog", "tabs", "timeline", "code", "canvas", "datepicker"}
+
+
+class SampleError(Exception):
+    """A declared sample that cannot be shown: the generator stops (R-PACK-013.C2)."""
 
 
 def _q(s: str) -> str:
@@ -138,18 +154,57 @@ def _call(name: str, e, args: list[str], named: str | None, children: bool, vari
     return src
 
 
-def _clean(src: str, pid: str) -> bool:
+def _diagnostics(src: str, pid: str) -> list[str] | None:
+    """The diagnostics of `src` rendered at fit in pack `pid` (None when it crashes)."""
     try:
         res = render(src, RenderOptions(pack=pid, device="fit"))
     except Exception:  # noqa: BLE001 - a crash simply disqualifies the sample
-        return False
-    return not res.diagnostics
+        return None
+    return [f"{d.code}: {d.message}" for d in res.diagnostics]
+
+
+def _clean(src: str, pid: str) -> bool:
+    return _diagnostics(src, pid) == []
+
+
+def _declared(name: str, e, pid: str, src: str) -> str:
+    """A declared sample, verbatim, or SampleError naming the pack and the element (R-PACK-013.C2)."""
+    diags = _diagnostics(src, pid)
+    if diags is None:
+        raise SampleError(f"pack {pid!r}, element {name!r}: the declared sample does not render: {src}")
+    if diags:
+        raise SampleError(f"pack {pid!r}, element {name!r}: the declared sample renders with diagnostics "
+                          f"({'; '.join(diags)}): {src}")
+    return src
+
+
+def _tab_sample(name: str, e, args: list[str]) -> str:
+    """A tab-role element as two tabs of a `TabView` (a lone tab shows nothing of its job)."""
+    if not args or not args[0].startswith('"'):
+        return f"TabView {{ {name}() {{ Text(\"First tab\") }}; {name}() {{ Text(\"Second tab\") }} }}"
+    one, two = TAB_LABELS
+    rest = "".join(", " + a for a in args[1:])
+    return (f"TabView {{ {name}({_q(one)}{rest}) {{ Text({_q(one + ' content')}) }}; "
+            f"{name}({_q(two)}{rest}) {{ Text({_q(two + ' content')}) }} }}")
+
+
+def _named(e, args: list[str]) -> str | None:
+    named = EXTRA.get(e.role)
+    if (e.role in OPTION_ROLES or e.role == "chart") and any(a.startswith("[") for a in args):
+        return None  # a positional argument already gave the list
+    return named
 
 
 def sample(name: str, e, pid: str) -> str:
-    """The richest variant of a sample call that renders without diagnostics."""
+    """The declared sample, else the richest generic sample call that renders without diagnostics."""
+    if getattr(e, "sample", ""):
+        return _declared(name, e, pid, e.sample)
     args = _args(e)
-    named = EXTRA.get(e.role)
+    if e.role == "tab":
+        for src in (_tab_sample(name, e, args), _tab_sample(name, e, [])):
+            if _clean(src, pid):
+                return src
+    named = _named(e, args)
     kids = e.role in CONTAINERS
     tries = [(args, named, kids), (args, None, kids), (args, named, False), (args, None, False),
              (args[:1], None, False), ([], None, kids), ([], None, False)]
@@ -160,18 +215,31 @@ def sample(name: str, e, pid: str) -> str:
     return f"{name}()"
 
 
+def _variant_row(cells: list[tuple[str, str]]) -> str:
+    """Variants side by side at their natural size, each captioned (R-PACK-013.C5)."""
+    lines = []
+    for v, call in cells:
+        call = call.replace("\n", "\n    ")
+        lines.append(f'  VStack(alignment: .leading, spacing: 4) {{ {call}; '
+                     f'Text({_q(v)}).font(.caption).foregroundStyle(.secondary) }}')
+    return "HStack(alignment: .top, spacing: 24) {\n" + "\n".join(lines) + "\n}"
+
+
 def variants_sample(name: str, e, pid: str, base: str) -> str | None:
     vs = [v for v in (e.variants or ()) if isinstance(v, str)][:8]
     if not vs:
         return None
+    if getattr(e, "sample", ""):
+        # The declared sample with each variant (R-PACK-013.C2): it must be a call of the element itself.
+        if not (base.startswith(name + "(") or base.startswith(name + " {") or base.startswith(name + "{")):
+            raise SampleError(f"pack {pid!r}, element {name!r}: the element has variants, so its declared "
+                              f"sample must be a call of {name}: {base}")
+        return _declared(name, e, pid, _variant_row([(v, f"{base}.variant({_q(v)})") for v in vs]))
     args = _args(e)
     kids = e.role in CONTAINERS and base.endswith("}")
-    lines = []
-    for v in vs:
-        call = _call(name, e, args, EXTRA.get(e.role) if EXTRA.get(e.role) and EXTRA[e.role] in base else None,
-                     kids, v)
-        lines.append(f'  VStack(alignment: .leading, spacing: 4) {{ {call}; Text({_q(v)}).font(.caption).foregroundStyle(.secondary) }}')
-    src = "HStack(alignment: .top, spacing: 16) {\n" + "\n".join(lines) + "\n}"
+    named = _named(e, args)
+    cells = [(v, _call(name, e, args, named if named and named in base else None, kids, v)) for v in vs]
+    src = _variant_row(cells)
     return src if _clean(src, pid) else None
 
 
@@ -349,7 +417,11 @@ def main() -> int:
     if a.nav:
         print(nav_yaml())
         return 0
-    want = files()
+    try:
+        want = files()
+    except SampleError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 1
     if a.check:
         stale = [p for p, t in want.items() if not p.exists() or p.read_text(encoding="utf-8") != t]
         for p in stale:

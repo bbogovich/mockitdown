@@ -1,2 +1,2 @@
 // base element GaugeChart (role chart)
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")

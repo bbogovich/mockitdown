@@ -2,7 +2,7 @@
 VStack(alignment: .leading, spacing: 12) {
   PropertySheet() { Text("Content"); Button("Action") }
   PushButton("Label")
-  RadioButtonList("Label")
+  RadioButtonList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ScrollBar()
   ScrollCorner()
   StartButton()

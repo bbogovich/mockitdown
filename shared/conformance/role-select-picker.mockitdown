@@ -1,2 +1,2 @@
 // base element Picker (role select)
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }

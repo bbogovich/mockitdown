@@ -5,9 +5,9 @@ VStack(alignment: .leading, spacing: 12) {
   Step("Title")
   Stepper(["One", "Two", "Three"])
   Steps(["One", "Two", "Three"])
-  Tab("Label")
+  TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
   TabMenu(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabPanel("Header")
+  TabView { TabPanel("Inbox") { Text("Inbox content") }; TabPanel("Archive") { Text("Archive content") } }
   TabView(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   Tag("Value")

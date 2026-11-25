@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   PushButton("Label")
   RText("Content")
   RadioButton("Label")
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Ruler()
   ScrollBar(60)
   SizeBox().frame(width: 160, height: 96)

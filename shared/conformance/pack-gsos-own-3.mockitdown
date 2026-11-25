@@ -2,10 +2,10 @@
 VStack(alignment: .leading, spacing: 12) {
   ModalDialog("Title") { Text("Content"); Button("Action") }
   NDAWindow("Title") { Text("Content"); Button("Action") }
-  PopupMenu("Label")
+  PopupMenu("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ProgressBar("Label")
   RadioButton("Label")
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ScrollArea() { Text("Content"); Button("Action") }
   Separator()
   Slider("Label")

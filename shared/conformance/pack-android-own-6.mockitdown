@@ -8,7 +8,7 @@ VStack(alignment: .leading, spacing: 12) {
   ModalNavigationDrawer() { Text("Content"); Button("Action") }
   MultiChoiceSegmentedButtonRow(["One", "Two", "Three"])
   NavigationBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  NavigationBarItem("Label")
+  TabView { NavigationBarItem("Inbox") { Text("Inbox content") }; NavigationBarItem("Archive") { Text("Archive content") } }
   NavigationDrawerItem("Label")
   NavigationRail() { Text("Content"); Button("Action") }
   NavigationRailItem("Label")

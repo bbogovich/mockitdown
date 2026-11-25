@@ -424,7 +424,8 @@
     },
     "Chart": {
       "role": "chart",
-      "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:"
+      "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+      "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])"
     },
     "Button": {
       "role": "button",
@@ -512,7 +513,8 @@
       "params": [
         "label"
       ],
-      "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }"
+      "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+      "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }"
     },
     "SegmentedControl": {
       "role": "segmented",
@@ -535,7 +537,8 @@
       "params": [
         "label"
       ],
-      "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)"
+      "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
+      "sample": "DatePicker(\"Starts\", selection: \"2026-11-23\")"
     },
     "Calendar": {
       "role": "calendar"
@@ -555,7 +558,8 @@
     },
     "NavigationSplitView": {
       "role": "split",
-      "doc": "{ sidebar } content: { … } detail: { … }"
+      "doc": "{ sidebar } content: { … } detail: { … }",
+      "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}"
     },
     "TabView": {
       "role": "tabs",
@@ -569,7 +573,8 @@
       "params": [
         "label"
       ],
-      "doc": "Tab(\"Home\", systemImage: \"house\") { … }"
+      "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
+      "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}"
     },
     "Tabs": {
       "role": "tabs",
@@ -713,7 +718,8 @@
       "role": "dialog",
       "params": [
         "title"
-      ]
+      ],
+      "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }"
     },
     "Alert": {
       "role": "dialog",
@@ -722,7 +728,8 @@
       ],
       "defaults": {
         "variant": "alert"
-      }
+      },
+      "sample": "Alert(\"Delete this draft?\", message: \"The draft and its attachments will be removed permanently.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })"
     },
     "Sheet": {
       "role": "dialog",
@@ -731,7 +738,8 @@
       ],
       "defaults": {
         "variant": "sheet"
-      }
+      },
+      "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}"
     },
     "Menu": {
       "role": "menu",
@@ -749,13 +757,15 @@
       "role": "tooltip",
       "params": [
         "text"
-      ]
+      ],
+      "sample": "Tooltip(\"Share a link to this page\") { Button(\"Share\", systemImage: \"square.and.arrow.up\") }"
     },
     "Toast": {
       "role": "toast",
       "params": [
         "message"
-      ]
+      ],
+      "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")"
     },
     "Banner": {
       "role": "alert",
@@ -823,7 +833,8 @@
       "params": [
         "text"
       ],
-      "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])"
+      "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+      "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")"
     },
     "Comment": {
       "role": "message",
@@ -938,91 +949,106 @@
       "role": "chart",
       "defaults": {
         "kind": "bar"
-      }
+      },
+      "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")"
     },
     "LineChart": {
       "role": "chart",
       "defaults": {
         "kind": "line"
-      }
+      },
+      "sample": "LineChart(values: [18, 22, 19, 27, 25, 31], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Revenue\")"
     },
     "AreaChart": {
       "role": "chart",
       "defaults": {
         "kind": "area"
-      }
+      },
+      "sample": "AreaChart(values: [12, 18, 15, 24, 21, 30], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Active users\")"
     },
     "PieChart": {
       "role": "chart",
       "defaults": {
         "kind": "pie"
-      }
+      },
+      "sample": "PieChart(values: [55, 25, 20], labels: [\"Desktop\", \"Mobile\", \"Tablet\"])"
     },
     "DonutChart": {
       "role": "chart",
       "defaults": {
         "kind": "donut"
-      }
+      },
+      "sample": "DonutChart(values: [45, 30, 25], labels: [\"Direct\", \"Search\", \"Social\"])"
     },
     "ScatterChart": {
       "role": "chart",
       "defaults": {
         "kind": "scatter"
-      }
+      },
+      "sample": "ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: \"Hours\", yLabel: \"Score\")"
     },
     "BubbleChart": {
       "role": "chart",
       "defaults": {
         "kind": "bubble"
-      }
+      },
+      "sample": "BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: \"Price\", yLabel: \"Rating\")"
     },
     "RadarChart": {
       "role": "chart",
       "defaults": {
         "kind": "radar"
-      }
+      },
+      "sample": "RadarChart(values: [4, 3, 5, 2, 4], labels: [\"Speed\", \"Power\", \"Range\", \"Cost\", \"Comfort\"])"
     },
     "Heatmap": {
       "role": "chart",
       "defaults": {
         "kind": "heatmap"
-      }
+      },
+      "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])"
     },
     "FunnelChart": {
       "role": "chart",
       "defaults": {
         "kind": "funnel"
-      }
+      },
+      "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])"
     },
     "Treemap": {
       "role": "chart",
       "defaults": {
         "kind": "treemap"
-      }
+      },
+      "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])"
     },
     "GaugeChart": {
       "role": "chart",
       "defaults": {
         "kind": "gauge"
-      }
+      },
+      "sample": "GaugeChart(value: 72, unit: \"%\")"
     },
     "CandlestickChart": {
       "role": "chart",
       "defaults": {
         "kind": "candlestick"
-      }
+      },
+      "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])"
     },
     "Histogram": {
       "role": "chart",
       "defaults": {
         "kind": "histogram"
-      }
+      },
+      "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")"
     },
     "ComboChart": {
       "role": "chart",
       "defaults": {
         "kind": "combo"
-      }
+      },
+      "sample": "ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], seriesNames: [\"Revenue\", \"Target\"])"
     },
     "Sparkline": {
       "role": "chart",
@@ -1031,7 +1057,8 @@
       ],
       "defaults": {
         "kind": "sparkline"
-      }
+      },
+      "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])"
     }
   }
 }

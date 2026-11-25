@@ -1,6 +1,6 @@
 // mui own elements: BottomNavigationAction, Box, Breadcrumbs, Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Chip
 VStack(alignment: .leading, spacing: 12) {
-  BottomNavigationAction("Label")
+  TabView { BottomNavigationAction("Inbox") { Text("Inbox content") }; BottomNavigationAction("Archive") { Text("Archive content") } }
   Box() { Text("Content"); Button("Action") }
   Breadcrumbs(["One", "Two", "Three"])
   Button("Label")

@@ -11,6 +11,9 @@ VStack(alignment: .leading, spacing: 12) {
   SecureField("Placeholder")
   SettingsLink()
   ShareLink()
-  Sheet("Title") { Text("Content"); Button("Action") }
+  Sheet("New event", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Team lunch")
+  DatePicker("Starts", selection: "2026-11-23")
+}
 }
 .padding()

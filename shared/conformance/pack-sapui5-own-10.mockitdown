@@ -1,11 +1,11 @@
 // sapui5 own elements: TabContainerItem, Table, Text, TextArea, TileContent, TimePicker, Title, ToggleButton, Token, Tokenizer, ToolHeader, ToolPage
 VStack(alignment: .leading, spacing: 12) {
-  TabContainerItem("Text")
+  TabView { TabContainerItem("Inbox") { Text("Inbox content") }; TabContainerItem("Archive") { Text("Archive content") } }
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   Text("Content")
   TextArea("Value")
   TileContent("Footer") { Text("First item"); Text("Second item") }
-  TimePicker("Label")
+  TimePicker("Label", selection: "2026-11-23")
   Title("Content")
   ToggleButton("Label")
   Token("Text")

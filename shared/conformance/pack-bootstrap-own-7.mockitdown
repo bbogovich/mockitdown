@@ -1,7 +1,7 @@
 // bootstrap own elements: Stack, Tab, TabContainer, TabContent, TabPane, Table, Tabs, Toast, ToastBody, ToastContainer, ToggleButton, ToggleButtonGroup
 VStack(alignment: .leading, spacing: 12) {
   Stack() { Text("Content"); Button("Action") }
-  Tab("Title")
+  TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
   TabContainer() { Text("Content"); Button("Action") }
   TabContent() { Text("Content"); Button("Action") }
   TabPane() { Text("Content"); Button("Action") }

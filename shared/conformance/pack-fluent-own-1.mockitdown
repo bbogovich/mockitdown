@@ -10,7 +10,7 @@ VStack(alignment: .leading, spacing: 12) {
   Border() { Text("Content"); Button("Action") }
   BreadcrumbBar(["One", "Two", "Three"])
   Button("Label")
-  CalendarDatePicker("Header")
+  CalendarDatePicker("Header", selection: "2026-11-23")
   CalendarView()
 }
 .padding()

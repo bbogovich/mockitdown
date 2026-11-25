@@ -78,7 +78,7 @@ AutoComplete("Search", selection:, options:, open: true, dropdown: true)
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-AutoComplete("Placeholder")
+AutoComplete("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -92,7 +92,7 @@ Avatar(label: "P", image: "…", icon: "pi pi-user", shape: "circle", size: "lar
 <p class="ref-props">role <code>avatar</code> · arguments <code>label</code> · variants <code>circle</code>, <code>square</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Avatar("Label").variant("circle"); Text("circle").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Avatar("Label").variant("square"); Text("square").font(.caption).foregroundStyle(.secondary) }
 }
@@ -165,7 +165,7 @@ Button("Save", icon: "pi pi-check", severity: "secondary"\|"success"\|"info"\|"w
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · variants <code>outlined</code>, <code>text</code>, <code>link</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("link"); Text("link").font(.caption).foregroundStyle(.secondary) }
@@ -267,7 +267,7 @@ CascadeSelect("Select a City", selection: "Sydney", options:)
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-CascadeSelect("Placeholder")
+CascadeSelect("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -435,7 +435,7 @@ DatePicker("Select date", selection: "2026-11-24", showIcon: true, label:) · Da
 <p class="ref-props">role <code>datepicker</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-DatePicker("Placeholder")
+DatePicker("Placeholder", selection: "2026-11-23")
 ```
 
 </div>
@@ -477,7 +477,7 @@ Divider() · Divider(label: "OR") · type: "dashed" · layout: "vertical"
 <p class="ref-props">role <code>divider</code> · variants <code>solid</code>, <code>dashed</code>, <code>dotted</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Divider().variant("solid"); Text("solid").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("dashed"); Text("dashed").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("dotted"); Text("dotted").font(.caption).foregroundStyle(.secondary) }
@@ -537,7 +537,7 @@ Pre-v4 name of Select
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Dropdown("Placeholder")
+Dropdown("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -789,7 +789,7 @@ InputText("Username", value:, label:, icon: "pi pi-search", invalid: true, size:
 <p class="ref-props">role <code>textfield</code> · arguments <code>placeholder</code> · variants <code>filled</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { InputText("Placeholder").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
 }
 ```
@@ -973,7 +973,7 @@ Message("Saved", severity: "success"\|"info"\|"warn"\|"error"\|"secondary"\|"con
 <p class="ref-props">role <code>alert</code> · arguments <code>text</code> · defaults <code>severity: &quot;info&quot;</code>, <code>showIcon: False</code> · variants <code>outlined</code>, <code>simple</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Message("Text").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Message("Text").variant("simple"); Text("simple").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1004,7 +1004,7 @@ MultiSelect("Select Cities", selection: ["Rome", "Paris"], options:, display: "c
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-MultiSelect("Placeholder")
+MultiSelect("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1130,7 +1130,7 @@ PasswordMeter(value: 66, label: "Medium", color: "medium") — the strength bar 
 <p class="ref-props">role <code>progress</code> · arguments <code>value</code> · defaults <code>variant: &quot;meter&quot;</code> · variants <code>weak</code>, <code>medium</code>, <code>strong</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { PasswordMeter(60).variant("weak"); Text("weak").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { PasswordMeter(60).variant("medium"); Text("medium").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { PasswordMeter(60).variant("strong"); Text("strong").font(.caption).foregroundStyle(.secondary) }
@@ -1218,7 +1218,7 @@ RadioButtonGroup(options: ["Card", "PayPal"], selection: "Card")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-RadioButtonGroup("Label")
+RadioButtonGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1246,7 +1246,7 @@ Row { cells } — one DataTable row of views
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Row()
+Row() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1288,8 +1288,8 @@ Select("Select a City", options: ["New York", "Rome"], selection: "Rome", open: 
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code> · variants <code>filled</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Select("Placeholder").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1374,7 +1374,7 @@ SplitButton("Save", icon: "pi pi-check", severity:) — the default action joine
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>dropdown: True</code> · variants <code>outlined</code>, <code>text</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { SplitButton("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { SplitButton("Label").variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1461,7 +1461,7 @@ Tab("Header I", icon: "pi pi-user") { TabPanel content }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Tab("Label")
+TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1489,7 +1489,7 @@ TabPanel("Header I") { … } — pre-v4 TabView child
 <p class="ref-props">role <code>tab</code> · arguments <code>header</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-TabPanel("Header")
+TabView { TabPanel("Inbox") { Text("Inbox content") }; TabPanel("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1587,7 +1587,7 @@ Timeline { TimelineEvent("Ordered", time: "15/10/2026 10:30", icon: "pi pi-shopp
 <p class="ref-props">role <code>timeline</code> · variants <code>left</code>, <code>right</code>, <code>alternate</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("left"); Text("left").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("right"); Text("right").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("alternate"); Text("alternate").font(.caption).foregroundStyle(.secondary) }
@@ -1717,7 +1717,7 @@ TreeSelect("Select Item", selection: "Documents / Work")
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-TreeSelect("Placeholder")
+TreeSelect("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1777,7 +1777,7 @@ VirtualScroller() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this draft?", message: "The draft and its attachments will be removed permanently.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
 ```
 
 </div>
@@ -1801,7 +1801,7 @@ AppBar("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -1837,7 +1837,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -1877,7 +1877,7 @@ BoardColumn("Title") { KanbanCard("Write copy"); KanbanCard("Review") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -1903,7 +1903,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -2005,7 +2005,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -2055,7 +2055,7 @@ DisclosureGroup("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -2129,7 +2129,7 @@ Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -2167,7 +2167,7 @@ Gauge(60)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -2243,7 +2243,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -2255,7 +2255,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -2369,7 +2369,7 @@ LazyVStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;line&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")
 ```
 
 </div>
@@ -2435,7 +2435,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -2473,7 +2473,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -2525,7 +2533,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -2537,7 +2545,7 @@ Picker("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;pie&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])
 ```
 
 </div>
@@ -2591,7 +2599,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -2603,7 +2611,7 @@ RadarChart(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -2639,7 +2647,7 @@ RoundedRectangle().frame(width: 160, height: 96)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -2741,7 +2749,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -2765,7 +2776,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -2845,7 +2856,7 @@ TableColumn("Title")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -2965,7 +2976,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="prime" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

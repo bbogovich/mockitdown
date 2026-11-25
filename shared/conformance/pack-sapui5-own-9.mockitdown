@@ -1,6 +1,6 @@
 // sapui5 own elements: Select, Shell, ShellBar, SideNavigation, SimpleForm, Slider, SplitApp, SplitContainer, StandardListItem, StepInput, Switch, TabContainer
 VStack(alignment: .leading, spacing: 12) {
-  Select("Label")
+  Select("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Shell() { Text("Content"); Button("Action") }
   ShellBar("Title") { Text("Content"); Button("Action") }
   SideNavigation("Title") { Text("Content"); Button("Action") }

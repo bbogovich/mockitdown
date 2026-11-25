@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   Column("Title")
   ConfigProvider() { Text("Content"); Button("Action") }
   Content() { Text("Content"); Button("Action") }
-  DatePicker("Placeholder")
+  DatePicker("Placeholder", selection: "2026-11-23")
   Descriptions("Title") { Text("First item"); Text("Second item") }
   DescriptionsItem("Label", "Value") { Text("Content"); Button("Action") }
   DirectoryTree() { TreeItem("Folder") { TreeItem("File") } }

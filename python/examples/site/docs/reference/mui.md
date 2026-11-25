@@ -48,7 +48,7 @@ Alert("Saved", severity: "info", title: "Info", variant: "filled", closable: tru
 <p class="ref-props">role <code>alert</code> · arguments <code>message</code> · defaults <code>severity: &quot;success&quot;</code>, <code>variant: &quot;standard&quot;</code> · variants <code>standard</code>, <code>filled</code>, <code>outlined</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Alert("Message").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Alert("Message").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Alert("Message").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
@@ -80,7 +80,7 @@ AppBar(title: "Dashboard", menu: true, avatar: "Ana", search: "Search…") { Ico
 <p class="ref-props">role <code>appbar</code> · arguments <code>title</code> · variants <code>elevation</code>, <code>outlined</code>, <code>dense</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { AppBar("Title") { Text("Content"); Button("Action") }.variant("elevation"); Text("elevation").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { AppBar("Title") { Text("Content"); Button("Action") }.variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { AppBar("Title") { Text("Content"); Button("Action") }.variant("dense"); Text("dense").font(.caption).foregroundStyle(.secondary) }
@@ -98,7 +98,7 @@ Autocomplete("Movie", value: "Inception") · value: [..] renders chips (multiple
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;outlined&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Autocomplete("Label")
+Autocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -112,7 +112,7 @@ Avatar("Remy Sharp", image: "…") · variant: "rounded"
 <p class="ref-props">role <code>avatar</code> · arguments <code>name</code> · variants <code>circular</code>, <code>rounded</code>, <code>square</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Avatar("Ana Lima").variant("circular"); Text("circular").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Avatar("Ana Lima").variant("rounded"); Text("rounded").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Avatar("Ana Lima").variant("square"); Text("square").font(.caption).foregroundStyle(.secondary) }
@@ -158,7 +158,7 @@ Badge(4, color: "error") { SvgIcon("mail") } — or .badge(4) on IconButton/Tab/
 <p class="ref-props">role <code>badge</code> · arguments <code>content</code> · variants <code>standard</code>, <code>dot</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Badge("Content").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Badge("Content").variant("dot"); Text("dot").font(.caption).foregroundStyle(.secondary) }
 }
@@ -201,7 +201,7 @@ BottomNavigation() { Text("First tab").tabItem { Text("One") }; Text("Second tab
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-BottomNavigationAction("Label")
+TabView { BottomNavigationAction("Inbox") { Text("Inbox content") }; BottomNavigationAction("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -243,7 +243,7 @@ Button("Save", variant: "contained", color: "secondary", size: "small", startIco
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>variant: &quot;text&quot;</code> · variants <code>text</code>, <code>outlined</code>, <code>contained</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("contained"); Text("contained").font(.caption).foregroundStyle(.secondary) }
@@ -261,7 +261,7 @@ ButtonGroup(variant: "contained") { Button("One") … }
 <p class="ref-props">role <code>toolbar</code> · defaults <code>variant: &quot;outlined&quot;</code> · variants <code>contained</code>, <code>outlined</code>, <code>text</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button("Save"); Button("Share") }.variant("contained"); Text("contained").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button("Save"); Button("Share") }.variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button("Save"); Button("Share") }.variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
@@ -279,7 +279,7 @@ Card(title:, subheader:, avatar:, image:) { content } actions: { Button … } he
 <p class="ref-props">role <code>card</code> · arguments <code>title</code> · defaults <code>elevation: 1</code> · variants <code>elevation</code>, <code>outlined</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Card("Title") { Text("Content"); Button("Action") }.variant("elevation"); Text("elevation").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Card("Title") { Text("Content"); Button("Action") }.variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
 }
@@ -366,7 +366,7 @@ Chip("Active", color: "success", variant: "outlined", onDelete: true, icon:, ava
 <p class="ref-props">role <code>chip</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Chip("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Chip("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
 }
@@ -451,7 +451,7 @@ MUI X DatePicker("Start date", value: "2026-11-23")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;numeric&quot;</code>, <code>variant: &quot;outlined&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-DatePicker("Label")
+DatePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -463,7 +463,7 @@ DatePicker("Label")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;numeric&quot;</code>, <code>kind: &quot;datetime&quot;</code>, <code>variant: &quot;outlined&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-DateTimePicker("Label")
+DateTimePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -545,7 +545,7 @@ Divider(variant: "inset") · Divider(label: "OR")
 <p class="ref-props">role <code>divider</code> · variants <code>fullWidth</code>, <code>inset</code>, <code>middle</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Divider().variant("fullWidth"); Text("fullWidth").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("middle"); Text("middle").font(.caption).foregroundStyle(.secondary) }
@@ -563,7 +563,7 @@ Drawer(title: "Acme") { ListItemButton("Inbox", icon: "inbox").selected() … } 
 <p class="ref-props">role <code>sidebar</code> · arguments <code>title</code> · defaults <code>variant: &quot;permanent&quot;</code> · variants <code>permanent</code>, <code>persistent</code>, <code>temporary</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Drawer("Title") { Text("Content"); Button("Action") }.variant("permanent"); Text("permanent").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Drawer("Title") { Text("Content"); Button("Action") }.variant("persistent"); Text("persistent").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Drawer("Title") { Text("Content"); Button("Action") }.variant("temporary"); Text("temporary").font(.caption).foregroundStyle(.secondary) }
@@ -581,7 +581,7 @@ Fab("add", color: "primary") · Fab("navigation", label: "Navigate", variant: "e
 <p class="ref-props">role <code>fab</code> · arguments <code>icon</code> · variants <code>circular</code>, <code>extended</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Fab("star").variant("circular"); Text("circular").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Fab("star").variant("extended"); Text("extended").font(.caption).foregroundStyle(.secondary) }
 }
@@ -816,7 +816,7 @@ LinearProgress(value: 60) · no value = indeterminate
 <p class="ref-props">role <code>progress</code> · variants <code>determinate</code>, <code>indeterminate</code>, <code>buffer</code>, <code>query</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { LinearProgress().variant("determinate"); Text("determinate").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { LinearProgress().variant("indeterminate"); Text("indeterminate").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { LinearProgress().variant("buffer"); Text("buffer").font(.caption).foregroundStyle(.secondary) }
@@ -833,7 +833,7 @@ HStack(alignment: .top, spacing: 16) {
 <p class="ref-props">role <code>link</code> · arguments <code>label</code>, <code>href</code> · variants <code>always</code>, <code>hover</code>, <code>none</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Link("Label", "#").variant("always"); Text("always").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Link("Label", "#").variant("hover"); Text("hover").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Link("Label", "#").variant("none"); Text("none").font(.caption).foregroundStyle(.secondary) }
@@ -949,7 +949,7 @@ Button with a progress spinner (Button loading:)
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>loading: True</code>, <code>variant: &quot;contained&quot;</code> · variants <code>text</code>, <code>outlined</code>, <code>contained</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { LoadingButton("Label").variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { LoadingButton("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { LoadingButton("Label").variant("contained"); Text("contained").font(.caption).foregroundStyle(.secondary) }
@@ -1021,7 +1021,7 @@ MobileStepper(count: 4, page: 2) — dots with Back/Next
 <p class="ref-props">role <code>pagination</code> · variants <code>dots</code>, <code>text</code>, <code>progress</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { MobileStepper().variant("dots"); Text("dots").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { MobileStepper().variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { MobileStepper().variant("progress"); Text("progress").font(.caption).foregroundStyle(.secondary) }
@@ -1049,7 +1049,7 @@ Modal("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;standard&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-NativeSelect("Label")
+NativeSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1075,7 +1075,7 @@ Pagination(count: 10, page: 2, color: "primary", shape: "rounded")
 <p class="ref-props">role <code>pagination</code> · variants <code>text</code>, <code>outlined</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Pagination().variant("text"); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Pagination().variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1092,7 +1092,7 @@ Paper(elevation: 3) { … } — surface with no padding; variant: "outlined"
 <p class="ref-props">role <code>card</code> · defaults <code>elevation: 1</code> · variants <code>elevation</code>, <code>outlined</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Paper() { Text("Content"); Button("Action") }.variant("elevation"); Text("elevation").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Paper() { Text("Content"); Button("Action") }.variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1159,7 +1159,7 @@ RadioGroup("Gender", options: [..], value: "Female") · orientation: .horizontal
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1187,10 +1187,10 @@ Select("Age", options: ["Ten", "Twenty"], value: "Twenty", open: true)
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;outlined&quot;</code> · variants <code>outlined</code>, <code>filled</code>, <code>standard</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Select("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Select("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Select("Label").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Select("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Select("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Select("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1205,7 +1205,7 @@ Skeleton(variant: "circular").frame(width: 40, height: 40)
 <p class="ref-props">role <code>shape</code> · defaults <code>shape: &quot;rectangle&quot;</code>, <code>variant: &quot;text&quot;</code> · variants <code>text</code>, <code>rectangular</code>, <code>rounded</code>, <code>circular</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Skeleton().variant("text").frame(width: 160, height: 96); Text("text").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Skeleton().variant("rectangular").frame(width: 160, height: 96); Text("rectangular").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Skeleton().variant("rounded").frame(width: 160, height: 96); Text("rounded").font(.caption).foregroundStyle(.secondary) }
@@ -1340,7 +1340,7 @@ Stepper(["Shipping", "Payment", "Review"], activeStep: 1) · orientation: .verti
 <p class="ref-props">role <code>steps</code> · arguments <code>steps</code> · variants <code>horizontal</code>, <code>vertical</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Stepper(["Cart", "Shipping", "Payment"]).variant("horizontal"); Text("horizontal").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Stepper(["Cart", "Shipping", "Payment"]).variant("vertical"); Text("vertical").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1397,7 +1397,7 @@ Tab("Favorites", icon: "favorite") { panel }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Tab("Label")
+TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1489,7 +1489,7 @@ TablePagination("Summary")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1503,7 +1503,7 @@ Tabs(["Account", "Security"], value: 0) or Tabs { Tab("One") { panel } }
 <p class="ref-props">role <code>tabs</code> · arguments <code>items</code> · defaults <code>placement: &quot;top&quot;</code> · variants <code>standard</code>, <code>scrollable</code>, <code>fullWidth</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("scrollable"); Text("scrollable").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("fullWidth"); Text("fullWidth").font(.caption).foregroundStyle(.secondary) }
@@ -1521,7 +1521,7 @@ TextField("Email", value: "…", helperText:, error: true, prefix: "$", size: "s
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>variant: &quot;outlined&quot;</code> · variants <code>outlined</code>, <code>filled</code>, <code>standard</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { TextField("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { TextField("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { TextField("Label").variant("standard"); Text("standard").font(.caption).foregroundStyle(.secondary) }
@@ -1549,7 +1549,7 @@ TextareaAutosize("Placeholder")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>kind: &quot;time&quot;</code>, <code>variant: &quot;outlined&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-TimePicker("Label")
+TimePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -1603,7 +1603,7 @@ Toolbar { IconButton; Typography; Spacer(); Button }
 <p class="ref-props">role <code>toolbar</code> · variants <code>regular</code>, <code>dense</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Toolbar() { Button("Save"); Button("Share") }.variant("regular"); Text("regular").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Toolbar() { Button("Save"); Button("Share") }.variant("dense"); Text("dense").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1634,7 +1634,7 @@ Typography("Title", variant: "h5", color: "text.secondary")
 <p class="ref-props">role <code>text</code> · arguments <code>content</code> · defaults <code>variant: &quot;body1&quot;</code> · variants <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>h4</code>, <code>h5</code>, <code>h6</code>, <code>subtitle1</code>, <code>subtitle2</code>, <code>body1</code>, <code>body2</code>, <code>button</code>, <code>caption</code>, <code>overline</code>, <code>inherit</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Typography("Content").variant("h1"); Text("h1").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Typography("Content").variant("h2"); Text("h2").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Typography("Content").variant("h3"); Text("h3").font(.caption).foregroundStyle(.secondary) }
@@ -1673,7 +1673,7 @@ Zoom() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -1749,7 +1749,7 @@ Breadcrumb(["One", "Two", "Three"])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -1787,7 +1787,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -1827,7 +1827,7 @@ kind: .bar\|.line\|.area\|.pie\|.donut\|.scatter\|.bubble\|.radar\|.heatmap\|.fu
 <p class="ref-props">role <code>chart</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Chart(values: [3, 5, 2, 6, 4])
+Chart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"])
 ```
 
 </div>
@@ -1903,7 +1903,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -1953,7 +1953,7 @@ DisclosureGroup("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -2027,7 +2027,7 @@ Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -2053,7 +2053,7 @@ Gantt(tasks: [("Design", 0, 3), ("Build", 2, 5)])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -2115,7 +2115,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -2127,7 +2127,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -2285,7 +2285,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -2323,7 +2323,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -2363,7 +2371,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -2403,7 +2411,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -2465,7 +2473,7 @@ Row("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -2567,7 +2575,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -2603,7 +2614,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -2761,7 +2772,7 @@ TimelineItem("Title")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -2841,7 +2852,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="mui" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

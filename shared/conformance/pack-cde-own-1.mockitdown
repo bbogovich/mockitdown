@@ -1,6 +1,6 @@
 // cde own elements: DtComboBox, DtIcon, DtIconButton, DtIconGrid, DtSpinBox, DtTerm, DtWindow, FrontPanel, FrontPanelControl, FrontPanelIcon, StatusLine, SwitchControl
 VStack(alignment: .leading, spacing: 12) {
-  DtComboBox("Label")
+  DtComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   DtIcon("Title")
   DtIconButton("Label")
   DtIconGrid() { Text("Content"); Button("Action") }

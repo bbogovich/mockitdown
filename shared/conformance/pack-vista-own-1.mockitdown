@@ -9,7 +9,7 @@ VStack(alignment: .leading, spacing: 12) {
   CheckBox("Label")
   Clock()
   ClockGadget("Content")
-  ComboBox("Label")
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   CommandBar() { Button("Save"); Button("Share") }
   CommandButton("Label")
 }

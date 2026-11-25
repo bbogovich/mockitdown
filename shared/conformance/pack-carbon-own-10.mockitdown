@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   Switcher() { Text("Content"); Button("Action") }
   SwitcherDivider()
   SwitcherItem("Label")
-  Tab("Label")
+  TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
   TabList(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   TabPanel() { Text("Content"); Button("Action") }
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])

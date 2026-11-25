@@ -4,12 +4,20 @@ VStack(alignment: .leading, spacing: 12) {
   Slider()
   SpriteView("Label").frame(width: 160, height: 96)
   Stepper("Label")
-  Tab("Label")
+  TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search the library") }
+  Tab("Profile", systemImage: "person") { Text("Your profile") }
+}
   TabSection("Title") { Text("First item"); Text("Second item") }
-  TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+}
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   TableColumn("Title")
-  TableRow()
+  TableRow() { Text("Ana Lima"); Text("Active") }
   Text("Content")
   TextEditor("Text")
 }

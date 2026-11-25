@@ -151,7 +151,7 @@
    "variants": [],
    "doc": "Combo box",
    "own": true,
-   "sample": "ComboBox(\"Label\")",
+   "sample": "ComboBox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -231,7 +231,7 @@
    "variants": [],
    "doc": "Date picker field",
    "own": true,
-   "sample": "DateTimePicker(\"Label\")",
+   "sample": "DateTimePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -297,7 +297,7 @@
    "doc": "Root of a dialog screen: the frame keeps only Close (and ? with .variant(.help))",
    "own": true,
    "sample": "DialogBody() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { DialogBody() { Text(\"Content\"); Button(\"Action\") }.variant(\"help\"); Text(\"help\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { DialogBody() { Text(\"Content\"); Button(\"Action\") }.variant(\"help\"); Text(\"help\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "DialogFooter",
@@ -322,7 +322,7 @@
    "variants": [],
    "doc": "Drop-down list drawn as a glossy button",
    "own": true,
-   "sample": "DropDownList(\"Label\")",
+   "sample": "DropDownList(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -368,7 +368,7 @@
    "doc": "FileIcon(\"Report.docx\", systemImage: \"doc\") · .variant(.tiles)",
    "own": true,
    "sample": "FileIcon(\"Title\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { FileIcon(\"Title\").variant(\"icons\"); Text(\"icons\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileIcon(\"Title\").variant(\"tiles\"); Text(\"tiles\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { FileIcon(\"Title\").variant(\"icons\"); Text(\"icons\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileIcon(\"Title\").variant(\"tiles\"); Text(\"tiles\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ForwardButton",
@@ -456,7 +456,7 @@
    "doc": "Details view: columns:, TableRow children or rows:, sortColumn:, selectedRows:",
    "own": true,
    "sample": "ListView(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ListView(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"details\"); Text(\"details\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { ListView(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"details\"); Text(\"details\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "LockButton",
@@ -662,7 +662,7 @@
    "doc": "Green glossy progress bar; .variant(.paused) yellow, .variant(.error) red",
    "own": true,
    "sample": "ProgressBar(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"normal\"); Text(\"normal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"paused\"); Text(\"paused\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"normal\"); Text(\"normal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"paused\"); Text(\"paused\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProgressBar(\"Label\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "PropertyRow",
@@ -692,7 +692,7 @@
    "doc": "Glossy push button; .state(.hover) light-blue, .variant(.default) blue border",
    "own": true,
    "sample": "PushButton(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { PushButton(\"Label\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { PushButton(\"Label\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { PushButton(\"Label\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { PushButton(\"Label\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "QuickLaunch",
@@ -715,7 +715,7 @@
    "variants": [],
    "doc": "RadioButtonList(\"View\", items: […], selection:)",
    "own": true,
-   "sample": "RadioButtonList(\"Label\")",
+   "sample": "RadioButtonList(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -888,7 +888,7 @@
    "variants": [],
    "doc": "TabPage(\"General\") { … }",
    "own": true,
-   "sample": "TabPage(\"Label\")",
+   "sample": "TabView { TabPage(\"Inbox\") { Text(\"Inbox content\") }; TabPage(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1045,7 +1045,7 @@
    "doc": "An Aero glass window drawn inside a Desktop: Window(\"Pictures\", systemImage: \"photo\") { … } · .variant(.inactive | .dialog | .tool)",
    "own": true,
    "sample": "Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"active\"); Text(\"active\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"inactive\"); Text(\"inactive\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dialog\"); Text(\"dialog\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"tool\"); Text(\"tool\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"active\"); Text(\"active\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"inactive\"); Text(\"inactive\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dialog\"); Text(\"dialog\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Window(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"tool\"); Text(\"tool\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Wizard",
@@ -1085,7 +1085,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Alert(\"Delete this draft?\", message: \"The draft and its attachments will be removed permanently.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })",
    "variants_sample": null
   },
   {
@@ -1111,7 +1111,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "sample": "AreaChart(values: [12, 18, 15, 24, 21, 30], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Active users\")",
    "variants_sample": null
   },
   {
@@ -1176,7 +1176,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")",
    "variants_sample": null
   },
   {
@@ -1226,7 +1226,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: \"Price\", yLabel: \"Rating\")",
    "variants_sample": null
   },
   {
@@ -1277,7 +1277,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])",
    "variants_sample": null
   },
   {
@@ -1325,7 +1325,7 @@
    "variants": [],
    "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
    "own": false,
-   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])",
    "variants_sample": null
   },
   {
@@ -1429,7 +1429,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], seriesNames: [\"Revenue\", \"Target\"])",
    "variants_sample": null
   },
   {
@@ -1470,7 +1470,7 @@
    "variants": [],
    "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
    "own": false,
-   "sample": "DatePicker(\"Label\")",
+   "sample": "DatePicker(\"Starts\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1483,7 +1483,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }",
    "variants_sample": null
   },
   {
@@ -1520,7 +1520,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "sample": "DonutChart(values: [45, 30, 25], labels: [\"Direct\", \"Search\", \"Social\"])",
    "variants_sample": null
   },
   {
@@ -1596,7 +1596,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])",
    "variants_sample": null
   },
   {
@@ -1635,7 +1635,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "sample": "GaugeChart(value: 72, unit: \"%\")",
    "variants_sample": null
   },
   {
@@ -1705,7 +1705,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])",
    "variants_sample": null
   },
   {
@@ -1718,7 +1718,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")",
    "variants_sample": null
   },
   {
@@ -1869,7 +1869,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "sample": "LineChart(values: [18, 22, 19, 27, 25, 31], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Revenue\")",
    "variants_sample": null
   },
   {
@@ -1957,7 +1957,7 @@
    "variants": [],
    "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
    "own": false,
-   "sample": "MessageBubble(\"Text\")",
+   "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")",
    "variants_sample": null
   },
   {
@@ -1996,7 +1996,7 @@
    "variants": [],
    "doc": "{ sidebar } content: { … } detail: { … }",
    "own": false,
-   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": null
   },
   {
@@ -2042,7 +2042,7 @@
    "variants": [],
    "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
    "own": false,
-   "sample": "Picker(\"Label\")",
+   "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }",
    "variants_sample": null
   },
   {
@@ -2055,7 +2055,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "sample": "PieChart(values: [55, 25, 20], labels: [\"Desktop\", \"Mobile\", \"Tablet\"])",
    "variants_sample": null
   },
   {
@@ -2107,7 +2107,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "RadarChart(values: [4, 3, 5, 2, 4], labels: [\"Speed\", \"Power\", \"Range\", \"Cost\", \"Comfort\"])",
    "variants_sample": null
   },
   {
@@ -2133,7 +2133,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadioGroup(\"Label\")",
+   "sample": "RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -2198,7 +2198,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: \"Hours\", yLabel: \"Score\")",
    "variants_sample": null
   },
   {
@@ -2304,7 +2304,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}",
    "variants_sample": null
   },
   {
@@ -2365,7 +2365,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])",
    "variants_sample": null
   },
   {
@@ -2442,7 +2442,7 @@
    "variants": [],
    "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
    "own": false,
-   "sample": "Tab(\"Label\")",
+   "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}",
    "variants_sample": null
   },
   {
@@ -2490,7 +2490,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "TableRow()",
+   "sample": "TableRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -2611,7 +2611,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Toast(\"Message\")",
+   "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")",
    "variants_sample": null
   },
   {
@@ -2670,7 +2670,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Tooltip(\"Share a link to this page\") { Button(\"Share\", systemImage: \"square.and.arrow.up\") }",
    "variants_sample": null
   },
   {
@@ -2707,7 +2707,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])",
    "variants_sample": null
   },
   {

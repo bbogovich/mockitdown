@@ -48,7 +48,7 @@
    "variants": [],
    "doc": "input with matAutocomplete: value: (typed text), options:, open: true",
    "own": true,
-   "sample": "MatAutocomplete(\"Label\")",
+   "sample": "MatAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -98,7 +98,7 @@
    "doc": "button matButton=\"text|filled|tonal|outlined|elevated\" · .variant(.filled) or variant: \"filled\"",
    "own": true,
    "sample": "MatButton(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatButton(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatButtonToggle",
@@ -156,7 +156,7 @@
    "doc": "mat-card: title:, subtitle:, avatar:, image:, children = content, actions: slot; appearance raised|outlined|filled",
    "own": true,
    "sample": "MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"raised\"); Text(\"raised\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"raised\"); Text(\"raised\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatCardActions",
@@ -392,7 +392,7 @@
    "variants": [],
    "doc": "mat-date-range-input: selection: \"11/3/2026 – 11/9/2026\"",
    "own": true,
-   "sample": "MatDateRangeInput(\"Label\")",
+   "sample": "MatDateRangeInput(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -418,7 +418,7 @@
    "variants": [],
    "doc": "input [matDatepicker] + toggle: selection: \"2026-11-23\"",
    "own": true,
-   "sample": "MatDatepicker(\"Label\")",
+   "sample": "MatDatepicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -580,7 +580,7 @@
    "doc": "mat-form-field + matInput: label (mat-label), text:, placeholder:, helper: (mat-hint), error: (mat-error); .appearance(.outline)",
    "own": true,
    "sample": "MatFormField(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatFormField(\"Label\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatFormField(\"Label\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatFormField(\"Label\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatFormField(\"Label\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatGridList",
@@ -682,7 +682,7 @@
    "doc": "input matInput inside its mat-form-field (same as MatFormField)",
    "own": true,
    "sample": "MatInput(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatInput(\"Label\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatInput(\"Label\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatInput(\"Label\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatInput(\"Label\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatList",
@@ -876,7 +876,7 @@
    "variants": [],
    "doc": "mat-radio-group: options: [..] or MatRadioButton children, value:",
    "own": true,
-   "sample": "MatRadioGroup(\"Label\")",
+   "sample": "MatRadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -902,7 +902,7 @@
    "variants": [],
    "doc": "tr mat-row: cells as children",
    "own": true,
-   "sample": "MatRow()",
+   "sample": "MatRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -920,8 +920,8 @@
    ],
    "doc": "mat-select in a mat-form-field: options: [..] or MatOption children, value:, open: true",
    "own": true,
-   "sample": "MatSelect(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatSelect(\"Label\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSelect(\"Label\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "MatSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"fill\"); Text(\"fill\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"outline\"); Text(\"outline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatSelectionList",
@@ -953,7 +953,7 @@
    "doc": "mat-sidenav: title:, header:/footer: slots, children (usually a MatNavList)",
    "own": true,
    "sample": "MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"side\"); Text(\"side\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"over\"); Text(\"over\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"push\"); Text(\"push\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"side\"); Text(\"side\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"over\"); Text(\"over\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MatSidenav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"push\"); Text(\"push\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MatSidenavContainer",
@@ -1052,7 +1052,7 @@
    "variants": [],
    "doc": "mat-step: label, children = step content",
    "own": true,
-   "sample": "MatStep(\"Label\")",
+   "sample": "TabView { MatStep(\"Inbox\") { Text(\"Inbox content\") }; MatStep(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1107,7 +1107,7 @@
    "variants": [],
    "doc": "mat-tab: label, systemImage:, children = content",
    "own": true,
-   "sample": "MatTab(\"Label\")",
+   "sample": "TabView { MatTab(\"Inbox\") { Text(\"Inbox content\") }; MatTab(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1133,7 +1133,7 @@
    "variants": [],
    "doc": "a mat-tab-link",
    "own": true,
-   "sample": "MatTabLink(\"Label\")",
+   "sample": "TabView { MatTabLink(\"Inbox\") { Text(\"Inbox content\") }; MatTabLink(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1191,7 +1191,7 @@
    "variants": [],
    "doc": "input [matTimepicker]: selection: \"9:30 AM\"",
    "own": true,
-   "sample": "MatTimepicker(\"Label\")",
+   "sample": "MatTimepicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1315,7 +1315,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Alert(\"Delete this draft?\", message: \"The draft and its attachments will be removed permanently.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })",
    "variants_sample": null
   },
   {
@@ -1341,7 +1341,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "sample": "AreaChart(values: [12, 18, 15, 24, 21, 30], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Active users\")",
    "variants_sample": null
   },
   {
@@ -1406,7 +1406,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")",
    "variants_sample": null
   },
   {
@@ -1456,7 +1456,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: \"Price\", yLabel: \"Rating\")",
    "variants_sample": null
   },
   {
@@ -1507,7 +1507,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])",
    "variants_sample": null
   },
   {
@@ -1555,7 +1555,7 @@
    "variants": [],
    "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
    "own": false,
-   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])",
    "variants_sample": null
   },
   {
@@ -1659,7 +1659,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], seriesNames: [\"Revenue\", \"Target\"])",
    "variants_sample": null
   },
   {
@@ -1700,7 +1700,7 @@
    "variants": [],
    "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
    "own": false,
-   "sample": "DatePicker(\"Label\")",
+   "sample": "DatePicker(\"Starts\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1713,7 +1713,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }",
    "variants_sample": null
   },
   {
@@ -1750,7 +1750,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "sample": "DonutChart(values: [45, 30, 25], labels: [\"Direct\", \"Search\", \"Social\"])",
    "variants_sample": null
   },
   {
@@ -1826,7 +1826,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])",
    "variants_sample": null
   },
   {
@@ -1865,7 +1865,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "sample": "GaugeChart(value: 72, unit: \"%\")",
    "variants_sample": null
   },
   {
@@ -1935,7 +1935,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])",
    "variants_sample": null
   },
   {
@@ -1948,7 +1948,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")",
    "variants_sample": null
   },
   {
@@ -2099,7 +2099,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "sample": "LineChart(values: [18, 22, 19, 27, 25, 31], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Revenue\")",
    "variants_sample": null
   },
   {
@@ -2187,7 +2187,7 @@
    "variants": [],
    "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
    "own": false,
-   "sample": "MessageBubble(\"Text\")",
+   "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")",
    "variants_sample": null
   },
   {
@@ -2226,7 +2226,7 @@
    "variants": [],
    "doc": "{ sidebar } content: { … } detail: { … }",
    "own": false,
-   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": null
   },
   {
@@ -2272,7 +2272,7 @@
    "variants": [],
    "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
    "own": false,
-   "sample": "Picker(\"Label\")",
+   "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }",
    "variants_sample": null
   },
   {
@@ -2285,7 +2285,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "sample": "PieChart(values: [55, 25, 20], labels: [\"Desktop\", \"Mobile\", \"Tablet\"])",
    "variants_sample": null
   },
   {
@@ -2337,7 +2337,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "RadarChart(values: [4, 3, 5, 2, 4], labels: [\"Speed\", \"Power\", \"Range\", \"Cost\", \"Comfort\"])",
    "variants_sample": null
   },
   {
@@ -2363,7 +2363,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadioGroup(\"Label\")",
+   "sample": "RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -2428,7 +2428,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: \"Hours\", yLabel: \"Score\")",
    "variants_sample": null
   },
   {
@@ -2534,7 +2534,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}",
    "variants_sample": null
   },
   {
@@ -2595,7 +2595,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])",
    "variants_sample": null
   },
   {
@@ -2672,7 +2672,7 @@
    "variants": [],
    "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
    "own": false,
-   "sample": "Tab(\"Label\")",
+   "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}",
    "variants_sample": null
   },
   {
@@ -2720,7 +2720,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "TableRow()",
+   "sample": "TableRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -2841,7 +2841,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Toast(\"Message\")",
+   "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")",
    "variants_sample": null
   },
   {
@@ -2900,7 +2900,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Tooltip(\"Share a link to this page\") { Button(\"Share\", systemImage: \"square.and.arrow.up\") }",
    "variants_sample": null
   },
   {
@@ -2937,7 +2937,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])",
    "variants_sample": null
   },
   {

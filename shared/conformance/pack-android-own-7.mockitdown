@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   NavigationSuiteScaffold() { Text("Content"); Button("Action") }
   OutlinedButton("Label")
   OutlinedCard("Title") { Text("Content"); Button("Action") }
-  OutlinedExposedDropdownMenuBox("Label")
+  OutlinedExposedDropdownMenuBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   OutlinedIconButton("star")
   OutlinedSecureTextField("Label")
   OutlinedTextField("Label")

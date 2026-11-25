@@ -124,7 +124,7 @@ Button("Create", kind: "secondary", size: "sm" \| "md" \| "lg" \| "xl", renderIc
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>variant: &quot;primary&quot;</code> · variants <code>primary</code>, <code>secondary</code>, <code>tertiary</code>, <code>ghost</code>, <code>danger</code>, <code>danger--tertiary</code>, <code>danger--ghost</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("primary"); Text("primary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("secondary"); Text("secondary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("tertiary"); Text("tertiary").font(.caption).foregroundStyle(.secondary) }
@@ -174,7 +174,7 @@ CheckboxGroup(legendText:) { Checkbox … }
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-CheckboxGroup("Label")
+CheckboxGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -202,7 +202,7 @@ CodeSnippet("npm install @carbon/react", type: "single") — copy button at the 
 <p class="ref-props">role <code>code</code> · arguments <code>code</code> · defaults <code>lineNumbers: False</code> · variants <code>single</code>, <code>multi</code>, <code>inline</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { CodeSnippet("let total = items.count").variant("single"); Text("single").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { CodeSnippet("let total = items.count").variant("multi"); Text("multi").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { CodeSnippet("let total = items.count").variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
@@ -232,7 +232,7 @@ Column() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-ComboBox("Label")
+ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -326,7 +326,7 @@ DataTable(columns: [..], rows: [[..]], selectable: true, selectedRows: [1], sort
 <p class="ref-props">role <code>table</code> · variants <code>zebra</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("zebra"); Text("zebra").font(.caption).foregroundStyle(.secondary) }
 }
 ```
@@ -354,7 +354,7 @@ DatePicker("Start date", value: "2026-11-23")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;numeric&quot;</code>, <code>placeholder: &quot;mm/dd/yyyy&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-DatePicker("Label")
+DatePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -366,7 +366,7 @@ DatePicker("Label")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;numeric&quot;</code>, <code>placeholder: &quot;mm/dd/yyyy&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-DatePickerInput("Label")
+DatePickerInput("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -416,7 +416,7 @@ Dropdown("Plan", items: ["Lite", "Standard"], selectedItem: "Standard", open: tr
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Dropdown("Label")
+Dropdown("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -496,7 +496,7 @@ Uploaded file row: FileUploaderItem("report.pdf", status: "complete")
 <p class="ref-props">role <code>chip</code> · arguments <code>label</code> · defaults <code>removable: True</code>, <code>variant: &quot;edit&quot;</code> · variants <code>edit</code>, <code>uploading</code>, <code>complete</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { FileUploaderItem("Label").variant("edit"); Text("edit").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { FileUploaderItem("Label").variant("uploading"); Text("uploading").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { FileUploaderItem("Label").variant("complete"); Text("complete").font(.caption).foregroundStyle(.secondary) }
@@ -512,7 +512,7 @@ HStack(alignment: .top, spacing: 16) {
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-FilterableMultiSelect("Label")
+FilterableMultiSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -604,7 +604,7 @@ GaugeChart(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>grid</code> · arguments <code>columns</code> · variants <code>wide</code>, <code>narrow</code>, <code>condensed</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Grid(["Name", "Status"]) { Text("Content"); Button("Action") }.variant("wide"); Text("wide").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Grid(["Name", "Status"]) { Text("Content"); Button("Action") }.variant("narrow"); Text("narrow").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Grid(["Name", "Status"]) { Text("Content"); Button("Action") }.variant("condensed"); Text("condensed").font(.caption).foregroundStyle(.secondary) }
@@ -812,7 +812,7 @@ IconButton("Edit", kind: "ghost", size: "sm")
 <p class="ref-props">role <code>button</code> · arguments <code>icon</code> · defaults <code>iconOnly: True</code>, <code>variant: &quot;primary&quot;</code> · variants <code>primary</code>, <code>secondary</code>, <code>tertiary</code>, <code>ghost</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { IconButton("star").variant("primary"); Text("primary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { IconButton("star").variant("secondary"); Text("secondary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { IconButton("star").variant("tertiary"); Text("tertiary").font(.caption).foregroundStyle(.secondary) }
@@ -843,7 +843,7 @@ InlineNotification(title: "Error", subtitle: "…", kind: "error" \| "success" \
 <p class="ref-props">role <code>alert</code> · arguments <code>title</code> · defaults <code>closable: True</code>, <code>severity: &quot;error&quot;</code> · variants <code>lowContrast</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { InlineNotification("Title").variant("lowContrast"); Text("lowContrast").font(.caption).foregroundStyle(.secondary) }
 }
 ```
@@ -967,7 +967,7 @@ MultiSelect("Tags", selectedItems: ["api", "web"]) — selected values show as t
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-MultiSelect("Label")
+MultiSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1165,7 +1165,7 @@ RadioButtonGroup(legendText: "Plan", options: [..], valueSelected: "Lite", orien
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-RadioButtonGroup("Label")
+RadioButtonGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1219,7 +1219,7 @@ Select("Region", value: "US South") { SelectItem("US South") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Select("Label")
+Select("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1275,7 +1275,7 @@ SideNav { SideNavLink("Dashboard", icon: "Dashboard").selected(); SideNavMenu("M
 <p class="ref-props">role <code>sidebar</code> · arguments <code>title</code> · variants <code>fixed</code>, <code>rail</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { SideNav("Title") { Text("Content"); Button("Action") }.variant("fixed"); Text("fixed").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { SideNav("Title") { Text("Content"); Button("Action") }.variant("rail"); Text("rail").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1470,7 +1470,7 @@ StructuredListCell("Content")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-StructuredListRow()
+StructuredListRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1544,7 +1544,7 @@ SwitcherItem("Label")
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Tab("Label")
+TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1648,7 +1648,7 @@ Row with an expand chevron; follow it with TableExpandedRow { … } to show it e
 <p class="ref-props">role <code>tablerow</code> · defaults <code>status: &quot;collapsed&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-TableExpandRow()
+TableExpandRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1662,7 +1662,7 @@ Full-width detail row under a TableExpandRow
 <p class="ref-props">role <code>tablerow</code> · defaults <code>status: &quot;detail&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-TableExpandedRow()
+TableExpandedRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1686,7 +1686,7 @@ TableHeader("Title")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1762,7 +1762,7 @@ Tabs(selectedIndex: 0) { Tab("Overview") { panel } … } · .contained()
 <p class="ref-props">role <code>tabs</code> · arguments <code>items</code> · defaults <code>placement: &quot;top&quot;</code> · variants <code>line</code>, <code>contained</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("line"); Text("line").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("contained"); Text("contained").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1821,7 +1821,7 @@ Zoned theme: Theme("g100") { … } renders its content in that theme
 <p class="ref-props">role <code>vstack</code> · arguments <code>variant</code> · defaults <code>alignment: &quot;stretch&quot;</code> · variants <code>white</code>, <code>g10</code>, <code>g90</code>, <code>g100</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Theme() { Text("Content"); Button("Action") }.variant("white"); Text("white").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Theme() { Text("Content"); Button("Action") }.variant("g10"); Text("g10").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Theme() { Text("Content"); Button("Action") }.variant("g90"); Text("g90").font(.caption).foregroundStyle(.secondary) }
@@ -1892,7 +1892,7 @@ TileGroup() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>kind: &quot;time&quot;</code>, <code>placeholder: &quot;hh:mm&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-TimePicker("Label")
+TimePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -2014,7 +2014,7 @@ UnorderedList() { Text("First item"); Text("Second item") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this draft?", message: "The draft and its attachments will be removed permanently.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
 ```
 
 </div>
@@ -2086,7 +2086,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -2152,7 +2152,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -2204,7 +2204,7 @@ kind: .bar\|.line\|.area\|.pie\|.donut\|.scatter\|.bubble\|.radar\|.heatmap\|.fu
 <p class="ref-props">role <code>chart</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Chart(values: [3, 5, 2, 6, 4])
+Chart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"])
 ```
 
 </div>
@@ -2318,7 +2318,7 @@ ControlGroup() { Button("Save"); Button("Share") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Dialog("Title") { Text("Content"); Button("Action") }
+Dialog("Rename file", message: "Enter a new name for the report.", actions: { Button("Cancel"); Button("Rename") }) { TextField("Name", text: "Quarterly report") }
 ```
 
 </div>
@@ -2404,7 +2404,7 @@ FloatingActionButton("star")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -2492,7 +2492,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -2504,7 +2504,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -2712,7 +2712,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -2750,7 +2750,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -2790,7 +2798,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -2844,7 +2852,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -2996,7 +3004,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -3046,7 +3057,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -3230,7 +3241,7 @@ TimelineItem("Title")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -3308,7 +3319,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="carbon" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

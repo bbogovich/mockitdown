@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   ElevatedCard("Title") { Text("Content"); Button("Action") }
   ElevatedFilterChip("Label")
   ElevatedSuggestionChip("Label")
-  ExposedDropdownMenuBox("Label")
+  ExposedDropdownMenuBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ExtendedFloatingActionButton("Label")
   FilledIconButton("star")
   FilledTonalButton("Label")

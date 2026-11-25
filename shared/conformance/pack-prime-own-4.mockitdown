@@ -1,6 +1,6 @@
 // prime own elements: Dropdown, Editor, Fieldset, FileUpload, FileUploadItem, FloatLabel, Fluid, Galleria, Icon, IconField, Image, InlineMessage
 VStack(alignment: .leading, spacing: 12) {
-  Dropdown("Placeholder")
+  Dropdown("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Editor("Placeholder")
   Fieldset() { Text("Content"); Button("Action") }
   FileUpload()

@@ -9,7 +9,7 @@ VStack(alignment: .leading, spacing: 12) {
   MeterChart("Label")
   Modal("Title") { Text("Content"); Button("Action") }
   ModalBody() { Text("Content"); Button("Action") }
-  MultiSelect("Label")
+  MultiSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   NumberInput("Label")
   OperationalTag("Label")
 }

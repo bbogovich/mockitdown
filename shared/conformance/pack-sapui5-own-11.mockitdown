@@ -7,6 +7,6 @@ VStack(alignment: .leading, spacing: 12) {
   VBox() { Text("Content"); Button("Action") }
   VariantManagement("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   Wizard() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  WizardStep("Title")
+  TabView { WizardStep("Inbox") { Text("Inbox content") }; WizardStep("Archive") { Text("Archive content") } }
 }
 .padding()

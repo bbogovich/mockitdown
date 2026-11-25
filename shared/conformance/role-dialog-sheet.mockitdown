@@ -1,2 +1,5 @@
 // base element Sheet (role dialog)
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}

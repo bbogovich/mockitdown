@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   WorkspaceSwitch() { Text("Content"); Button("Action") }
   XmArrowButton()
   XmCascadeButton("Label")
-  XmComboBox("Label")
+  XmComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   XmDialogShell("Title") { Text("Content"); Button("Action") }
   XmDrawingArea() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
   XmErrorDialog("Title") { Text("Content"); Button("Action") }

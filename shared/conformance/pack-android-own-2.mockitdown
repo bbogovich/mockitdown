@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   ConnectedButtonGroup() { Text("Content"); Button("Action") }
   DatePicker()
   DatePickerDialog("Title") { Text("Content"); Button("Action") }
-  DatePickerField("Label")
+  DatePickerField("Label", selection: "2026-11-23")
   DateRangePicker()
   Dialog("Title") { Text("Content"); Button("Action") }
   DismissibleNavigationDrawer() { Text("Content"); Button("Action") }

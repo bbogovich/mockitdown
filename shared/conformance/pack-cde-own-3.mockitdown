@@ -8,7 +8,7 @@ VStack(alignment: .leading, spacing: 12) {
   XmMenuItem("Label")
   XmMessageBox("Title") { Text("Content"); Button("Action") }
   XmNotebook() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  XmOptionMenu("Label")
+  XmOptionMenu("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   XmPanedWindow() { Text("Content"); Button("Action") }
   XmPopupMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
   XmPulldownMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }

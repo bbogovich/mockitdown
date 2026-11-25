@@ -2,9 +2,9 @@
 VStack(alignment: .leading, spacing: 12) {
   MatChipSet() { Text("Content"); Button("Action") }
   MatColumnDef("Title")
-  MatDateRangeInput("Label")
+  MatDateRangeInput("Label", selection: "2026-11-23")
   MatDateRangePicker()
-  MatDatepicker("Label")
+  MatDatepicker("Label", selection: "2026-11-23")
   MatDialog("Title") { Text("Content"); Button("Action") }
   MatDialogActions() { Text("Content"); Button("Action") }
   MatDialogContent() { Text("Content"); Button("Action") }

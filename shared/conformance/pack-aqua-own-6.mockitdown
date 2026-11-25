@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   StickyNote("Text")
   SystemMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
   TabView(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabViewItem("Label")
+  TabView { TabViewItem("Inbox") { Text("Inbox content") }; TabViewItem("Archive") { Text("Archive content") } }
   TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   Terminal()
   TextField("Placeholder")

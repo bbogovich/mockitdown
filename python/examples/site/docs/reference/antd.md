@@ -22,7 +22,7 @@ Alert(message: "Saved", description: "…", type: "success"\|"info"\|"warning"\|
 <p class="ref-props">role <code>alert</code> · arguments <code>title</code> · defaults <code>showIcon: False</code> · variants <code>default</code>, <code>banner</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Alert("Title").variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Alert("Title").variant("banner"); Text("banner").font(.caption).foregroundStyle(.secondary) }
 }
@@ -79,7 +79,7 @@ AutoComplete("Search…", value:, options: [..], open: true)
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-AutoComplete("Placeholder")
+AutoComplete("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -93,7 +93,7 @@ Avatar("Ana Lima", src: "…", icon: "UserOutlined", shape: "square", size: "sma
 <p class="ref-props">role <code>avatar</code> · arguments <code>name</code> · variants <code>circle</code>, <code>square</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Avatar("Ana Lima").variant("circle"); Text("circle").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Avatar("Ana Lima").variant("square"); Text("square").font(.caption).foregroundStyle(.secondary) }
 }
@@ -166,7 +166,7 @@ Button("Save", type: "primary", icon: "SaveOutlined", size: "small"\|"large", sh
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>variant: &quot;default&quot;</code> · variants <code>primary</code>, <code>default</code>, <code>dashed</code>, <code>text</code>, <code>link</code>, <code>solid</code>, <code>outlined</code>, <code>filled</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("primary"); Text("primary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Button("Label").variant("dashed"); Text("dashed").font(.caption).foregroundStyle(.secondary) }
@@ -217,7 +217,7 @@ Card(title: "Orders", extra: { Link("More") }, size: "small", cover: "…", hove
 <p class="ref-props">role <code>card</code> · arguments <code>title</code> · variants <code>outlined</code>, <code>borderless</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Card("Title") { Text("Content"); Button("Action") }.variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Card("Title") { Text("Content"); Button("Action") }.variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
 }
@@ -276,7 +276,7 @@ Cascader(value: "Asia / Japan / Tokyo", options: ["Asia", "Europe"], open: true)
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Cascader("Placeholder")
+Cascader("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -360,7 +360,7 @@ Collapse { CollapsePanel("Header", expanded: true) { … } … } · bordered: fa
 <p class="ref-props">role <code>vstack</code> · defaults <code>alignment: &quot;stretch&quot;</code>, <code>spacing: 0</code> · variants <code>default</code>, <code>borderless</code>, <code>ghost</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Collapse() { Text("Content"); Button("Action") }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Collapse() { Text("Content"); Button("Action") }.variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Collapse() { Text("Content"); Button("Action") }.variant("ghost"); Text("ghost").font(.caption).foregroundStyle(.secondary) }
@@ -448,7 +448,7 @@ DatePicker(value: "2026-11-24", placeholder: "Select date", open: true)
 <p class="ref-props">role <code>datepicker</code> · arguments <code>placeholder</code> · defaults <code>format: &quot;iso&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-DatePicker("Placeholder")
+DatePicker("Placeholder", selection: "2026-11-23")
 ```
 
 </div>
@@ -502,7 +502,7 @@ Divider() · Divider(label: "Text", orientation: "left") · type: "vertical" · 
 <p class="ref-props">role <code>divider</code> · variants <code>solid</code>, <code>dashed</code>, <code>dotted</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Divider().variant("solid"); Text("solid").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("dashed"); Text("dashed").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Divider().variant("dotted"); Text("dotted").font(.caption).foregroundStyle(.secondary) }
@@ -590,7 +590,7 @@ Empty("No orders yet") { Button("Create", type: "primary") } · image: "simple"
 <p class="ref-props">role <code>emptystate</code> · arguments <code>description</code> · defaults <code>description: &quot;No data&quot;</code>, <code>icon: &quot;tray&quot;</code> · variants <code>default</code>, <code>simple</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Empty().variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Empty().variant("simple"); Text("simple").font(.caption).foregroundStyle(.secondary) }
 }
@@ -621,7 +621,7 @@ FloatButton(icon: "QuestionCircleOutlined", type: "primary", description: "HELP"
 <p class="ref-props">role <code>fab</code> · arguments <code>icon</code> · defaults <code>variant: &quot;default&quot;</code> · variants <code>default</code>, <code>primary</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { FloatButton("star").variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { FloatButton("star").variant("primary"); Text("primary").font(.caption).foregroundStyle(.secondary) }
 }
@@ -666,7 +666,7 @@ Form(layout: "horizontal"\|"vertical"\|"inline") { FormItem(…) { … } · Inpu
 <p class="ref-props">role <code>form</code> · defaults <code>variant: &quot;horizontal&quot;</code> · variants <code>horizontal</code>, <code>vertical</code>, <code>inline</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("horizontal"); Text("horizontal").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("vertical"); Text("vertical").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
@@ -710,7 +710,7 @@ Layout.Header — 64 px bar, #001529 (theme: "light" for white); children go to 
 <p class="ref-props">role <code>appbar</code> · arguments <code>title</code> · defaults <code>variant: &quot;dark&quot;</code> · variants <code>dark</code>, <code>light</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Header("Title") { Text("Content"); Button("Action") }.variant("dark"); Text("dark").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Header("Title") { Text("Content"); Button("Action") }.variant("light"); Text("light").font(.caption).foregroundStyle(.secondary) }
 }
@@ -755,7 +755,7 @@ Input("Email", label: "Email", value:, prefix:, suffix:, addonBefore: "https://"
 <p class="ref-props">role <code>textfield</code> · arguments <code>placeholder</code> · variants <code>outlined</code>, <code>filled</code>, <code>borderless</code>, <code>underlined</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Input("Placeholder").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Input("Placeholder").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Input("Placeholder").variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
@@ -884,7 +884,7 @@ List(header: "Activity", bordered: true, size: "small") { ListItem(…) } · ite
 <p class="ref-props">role <code>list</code> · variants <code>default</code>, <code>bordered</code>, <code>split</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("split"); Text("split").font(.caption).foregroundStyle(.secondary) }
@@ -942,7 +942,7 @@ Menu(mode: "inline"\|"vertical"\|"horizontal", theme: "dark", selection: "Orders
 <p class="ref-props">role <code>sidebar</code> · defaults <code>variant: &quot;light&quot;</code> · variants <code>light</code>, <code>dark</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Menu() { Text("Content"); Button("Action") }.variant("light"); Text("light").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Menu() { Text("Content"); Button("Action") }.variant("dark"); Text("dark").font(.caption).foregroundStyle(.secondary) }
 }
@@ -999,7 +999,7 @@ message.success(…): Message("Saved successfully", type: "success") — a small
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code> · defaults <code>icon: &quot;InfoCircleFilled&quot;</code>, <code>position: &quot;top&quot;</code>, <code>variant: &quot;info&quot;</code> · variants <code>info</code>, <code>success</code>, <code>error</code>, <code>warning</code>, <code>loading</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Message("Message").variant("info"); Text("info").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Message("Message").variant("success"); Text("success").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Message("Message").variant("error"); Text("error").font(.caption).foregroundStyle(.secondary) }
@@ -1089,7 +1089,7 @@ Pagination(total: 85, current: 2, showTotal: "Total 85 items", pageSize: 10, siz
 <p class="ref-props">role <code>pagination</code> · variants <code>default</code>, <code>simple</code>, <code>mini</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Pagination().variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Pagination().variant("simple"); Text("simple").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Pagination().variant("mini"); Text("mini").font(.caption).foregroundStyle(.secondary) }
@@ -1173,7 +1173,7 @@ ProCard(title: "Trend", extra: { … }, bordered: true, headerBordered: true, sp
 <p class="ref-props">role <code>card</code> · arguments <code>title</code> · variants <code>default</code>, <code>inner</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ProCard("Title") { Text("Content"); Button("Action") }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProCard("Title") { Text("Content"); Button("Action") }.variant("inner"); Text("inner").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1204,7 +1204,7 @@ ProForm(layout: "vertical") { ProFormText(…) … } actions: { Button("Submit",
 <p class="ref-props">role <code>form</code> · defaults <code>variant: &quot;vertical&quot;</code> · variants <code>horizontal</code>, <code>vertical</code>, <code>inline</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ProForm() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("horizontal"); Text("horizontal").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProForm() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("vertical"); Text("vertical").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProForm() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
@@ -1232,7 +1232,7 @@ ProFormCheckbox("Label")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;iso&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ProFormDatePicker("Label")
+ProFormDatePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -1244,7 +1244,7 @@ ProFormDatePicker("Label")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>format: &quot;iso&quot;</code>, <code>kind: &quot;range&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ProFormDateRangePicker("Label")
+ProFormDateRangePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -1280,7 +1280,7 @@ ProFormPassword("Label")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code> · defaults <code>orientation: &quot;horizontal&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ProFormRadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+ProFormRadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1294,7 +1294,7 @@ ProFormSelect("Status", options: [..], value:)
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ProFormSelect("Label")
+ProFormSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1414,7 +1414,7 @@ ProTable(headerTitle: "Orders", columns:, rows:, rowSelection: true) toolbar: { 
 <p class="ref-props">role <code>table</code> · variants <code>default</code>, <code>bordered</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ProTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1431,7 +1431,7 @@ Progress(percent: 30, type: "circular", status: "exception"\|"success"\|"active"
 <p class="ref-props">role <code>progress</code> · arguments <code>percent</code> · defaults <code>showValue: True</code> · variants <code>line</code>, <code>circle</code>, <code>dashboard</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Progress(60).variant("line"); Text("line").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Progress(60).variant("circle"); Text("circle").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Progress(60).variant("dashboard"); Text("dashboard").font(.caption).foregroundStyle(.secondary) }
@@ -1501,10 +1501,10 @@ Radio.Group(options: ["Daily", "Weekly"], value: "Weekly", optionType: "button",
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code> · defaults <code>orientation: &quot;horizontal&quot;</code> · variants <code>default</code>, <code>button</code>, <code>solid</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }.variant("button"); Text("button").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }.variant("solid"); Text("solid").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("button"); Text("button").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solid"); Text("solid").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1519,7 +1519,7 @@ DatePicker.RangePicker(value: "2026-11-01  →  2026-11-30")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>placeholder</code> · defaults <code>format: &quot;iso&quot;</code>, <code>kind: &quot;range&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-RangePicker("Placeholder")
+RangePicker("Placeholder", selection: "2026-11-23")
 ```
 
 </div>
@@ -1547,7 +1547,7 @@ Result(status: "success", title: "Successfully Purchased!", subTitle: "Order 201
 <p class="ref-props">role <code>emptystate</code> · arguments <code>title</code> · defaults <code>icon: &quot;checkmark.circle&quot;</code>, <code>kind: &quot;success&quot;</code> · variants <code>success</code>, <code>error</code>, <code>info</code>, <code>warning</code>, <code>404</code>, <code>403</code>, <code>500</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Result("Title").variant("success"); Text("success").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Result("Title").variant("error"); Text("error").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Result("Title").variant("info"); Text("info").font(.caption).foregroundStyle(.secondary) }
@@ -1609,11 +1609,11 @@ Select("Status", value: "Active", options: [..], open: true) · mode: "multiple"
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code> · variants <code>outlined</code>, <code>filled</code>, <code>borderless</code>, <code>underlined</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Select("Placeholder").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Select("Placeholder").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Select("Placeholder").variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Select("Placeholder").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium").variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1628,7 +1628,7 @@ Layout.Sider(width: 200, theme: "light", collapsed: true) { MenuItem … }
 <p class="ref-props">role <code>sidebar</code> · arguments <code>title</code> · defaults <code>variant: &quot;dark&quot;</code> · variants <code>dark</code>, <code>light</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Sider("Title") { Text("Content"); Button("Action") }.variant("dark"); Text("dark").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Sider("Title") { Text("Content"); Button("Action") }.variant("light"); Text("light").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1757,7 +1757,7 @@ Steps(items: ["Login", ["title": "Verify", "description": "…"], "Done"], curre
 <p class="ref-props">role <code>steps</code> · arguments <code>items</code> · variants <code>default</code>, <code>navigation</code>, <code>inline</code>, <code>dot</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Steps(["One", "Two", "Three"]).variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Steps(["One", "Two", "Three"]).variant("navigation"); Text("navigation").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Steps(["One", "Two", "Three"]).variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
@@ -1818,7 +1818,7 @@ TabPane("Details", icon:) { panel }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-TabPane("Label")
+TabView { TabPane("Inbox") { Text("Inbox content") }; TabPane("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1832,7 +1832,7 @@ Table(columns: [..], rows: [[..]], rowSelection: true, selectedRows: [1], sortCo
 <p class="ref-props">role <code>table</code> · variants <code>default</code>, <code>bordered</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
 }
@@ -1849,7 +1849,7 @@ Tabs(items: ["Overview", "Logs"], selection: 0, type: "card", size: "small") or 
 <p class="ref-props">role <code>tabs</code> · arguments <code>items</code> · defaults <code>placement: &quot;top&quot;</code> · variants <code>line</code>, <code>card</code>, <code>editable-card</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("line"); Text("line").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("card"); Text("card").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("editable-card"); Text("editable-card").font(.caption).foregroundStyle(.secondary) }
@@ -1865,7 +1865,7 @@ HStack(alignment: .top, spacing: 16) {
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-TabsItem("Label")
+TabView { TabsItem("Inbox") { Text("Inbox content") }; TabsItem("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1879,7 +1879,7 @@ Tag("processing", color: "blue"\|"success"\|"processing"\|"error"\|"warning"\|"m
 <p class="ref-props">role <code>chip</code> · arguments <code>label</code> · variants <code>filled</code>, <code>outlined</code>, <code>solid</code>, <code>borderless</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Tag("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tag("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tag("Label").variant("solid"); Text("solid").font(.caption).foregroundStyle(.secondary) }
@@ -1898,7 +1898,7 @@ Typography.Text: Text("Note", type: "secondary"\|"success"\|"warning"\|"danger")
 <p class="ref-props">role <code>text</code> · arguments <code>content</code> · variants <code>secondary</code>, <code>success</code>, <code>warning</code>, <code>danger</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Text("Content").variant("secondary"); Text("secondary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Text("Content").variant("success"); Text("success").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Text("Content").variant("warning"); Text("warning").font(.caption).foregroundStyle(.secondary) }
@@ -1929,7 +1929,7 @@ TextArea("Placeholder")
 <p class="ref-props">role <code>datepicker</code> · arguments <code>placeholder</code> · defaults <code>kind: &quot;time&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-TimePicker("Placeholder")
+TimePicker("Placeholder", selection: "2026-11-23")
 ```
 
 </div>
@@ -1943,7 +1943,7 @@ Timeline { TimelineItem("Created", color: "green", label: "2026-11-01") … } ·
 <p class="ref-props">role <code>timeline</code> · variants <code>left</code>, <code>alternate</code>, <code>right</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("left"); Text("left").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("alternate"); Text("alternate").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }.variant("right"); Text("right").font(.caption).foregroundStyle(.secondary) }
@@ -2071,7 +2071,7 @@ Tree { TreeNode("parent", expanded: true) { TreeNode("leaf") } } · showLine · 
 <p class="ref-props">role <code>tree</code> · variants <code>default</code>, <code>directory</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem("Folder") { TreeItem("File") } }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem("Folder") { TreeItem("File") } }.variant("directory"); Text("directory").font(.caption).foregroundStyle(.secondary) }
 }
@@ -2102,7 +2102,7 @@ TreeSelect(value: "Engineering / Platform", options: [..])
 <p class="ref-props">role <code>select</code> · arguments <code>placeholder</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-TreeSelect("Placeholder")
+TreeSelect("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -2228,7 +2228,7 @@ AppBar("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -2264,7 +2264,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -2304,7 +2304,7 @@ BoardColumn("Title") { KanbanCard("Write copy"); KanbanCard("Review") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -2330,7 +2330,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -2370,7 +2370,7 @@ kind: .bar\|.line\|.area\|.pie\|.donut\|.scatter\|.bubble\|.radar\|.heatmap\|.fu
 <p class="ref-props">role <code>chart</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Chart(values: [3, 5, 2, 6, 4])
+Chart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"])
 ```
 
 </div>
@@ -2458,7 +2458,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -2496,7 +2496,7 @@ ControlGroup() { Button("Save"); Button("Share") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Dialog("Title") { Text("Content"); Button("Action") }
+Dialog("Rename file", message: "Enter a new name for the report.", actions: { Button("Cancel"); Button("Rename") }) { TextField("Name", text: "Quarterly report") }
 ```
 
 </div>
@@ -2520,7 +2520,7 @@ DisclosureGroup("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -2582,7 +2582,7 @@ FloatingActionButton("star")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -2620,7 +2620,7 @@ Gauge(60)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -2696,7 +2696,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -2708,7 +2708,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -2822,7 +2822,7 @@ LazyVStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;line&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")
 ```
 
 </div>
@@ -2862,7 +2862,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -2900,7 +2900,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -2940,7 +2948,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -2952,7 +2960,7 @@ Picker("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;pie&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])
 ```
 
 </div>
@@ -3006,7 +3014,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -3054,7 +3062,7 @@ RoundedRectangle().frame(width: 160, height: 96)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -3156,7 +3164,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -3192,7 +3203,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -3260,7 +3271,11 @@ Tab("Home", systemImage: "house") { … }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Tab("Label")
+TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search the library") }
+  Tab("Profile", systemImage: "person") { Text("Your profile") }
+}
 ```
 
 </div>
@@ -3298,7 +3313,7 @@ TableColumn("Title")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -3350,7 +3365,7 @@ TextField("Placeholder")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -3428,7 +3443,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="antd" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

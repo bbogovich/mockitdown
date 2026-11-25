@@ -36,7 +36,7 @@ A table row (children are cells)
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Tr()
+Tr() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -50,7 +50,7 @@ VAlert("Saved.", type: "success", title:, variant: "tonal" \| "outlined" \| "fla
 <p class="ref-props">role <code>alert</code> · arguments <code>message</code> · defaults <code>variant: &quot;flat&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VAlert("Message").variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VAlert("Message").variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VAlert("Message").variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -141,14 +141,14 @@ VAutocomplete("State", items: [..], modelValue: [..]) — filterable select; mul
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -163,7 +163,7 @@ VAvatar(image: "avatar-1.svg", size: 40) · VAvatar("Ana Lima", color: "primary"
 <p class="ref-props">role <code>avatar</code> · arguments <code>name</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VAvatar("Ana Lima").variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VAvatar("Ana Lima").variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VAvatar("Ana Lima").variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -296,7 +296,7 @@ VBtn("Save", color: "primary", variant: "tonal", size: "small", density: "compac
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · defaults <code>variant: &quot;elevated&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VBtn("Label").variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtn("Label").variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtn("Label").variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -317,7 +317,7 @@ VBtnGroup(variant: "outlined", divided: true) { VBtn … } — joined buttons
 <p class="ref-props">role <code>toolbar</code> · defaults <code>variant: &quot;elevated&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button("Save"); Button("Share") }.variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button("Save"); Button("Share") }.variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button("Save"); Button("Share") }.variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -338,7 +338,7 @@ VBtnToggle(variant: "outlined", divided: true) { VBtn(icon: "mdi-format-bold").s
 <p class="ref-props">role <code>toolbar</code> · defaults <code>variant: &quot;text&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button("Save"); Button("Share") }.variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button("Save"); Button("Share") }.variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button("Save"); Button("Share") }.variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -359,7 +359,7 @@ VCard(title:, subtitle:, prependIcon:, image:, variant: "outlined") { VCardText 
 <p class="ref-props">role <code>card</code> · arguments <code>title</code> · defaults <code>variant: &quot;elevated&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VCard("Title") { Text("Content"); Button("Action") }.variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VCard("Title") { Text("Content"); Button("Action") }.variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VCard("Title") { Text("Content"); Button("Action") }.variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -506,7 +506,7 @@ VChip("Active", color: "success", variant: "tonal" \| "flat" \| "outlined" \| "e
 <p class="ref-props">role <code>chip</code> · arguments <code>label</code> · defaults <code>variant: &quot;tonal&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VChip("Label").variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VChip("Label").variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VChip("Label").variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -583,14 +583,14 @@ VCombobox("Tags", items: [..], modelValue: [..], chips: true) — select that ac
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VCombobox("Label").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VCombobox("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -703,14 +703,14 @@ VDateInput("Delivery date", modelValue: "2026-11-23") — text field opening a V
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VDateInput("Label").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VDateInput("Label", selection: "2026-11-23").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -767,7 +767,7 @@ VDivider() · VDivider(vertical: true) · inset: true · thickness:
 <p class="ref-props">role <code>divider</code> · variants <code>inset</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VDivider().variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
 }
 ```
@@ -839,7 +839,7 @@ VExpansionPanels(variant: "accordion" \| "inset" \| "popout") { VExpansionPanel(
 <p class="ref-props">role <code>vstack</code> · defaults <code>alignment: &quot;stretch&quot;</code>, <code>spacing: 0</code> · variants <code>default</code>, <code>accordion</code>, <code>inset</code>, <code>popout</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text("Content"); Button("Action") }.variant("default"); Text("default").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text("Content"); Button("Action") }.variant("accordion"); Text("accordion").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text("Content"); Button("Action") }.variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
@@ -858,7 +858,7 @@ VFab(icon: "mdi-plus", color: "primary") · extended: VFab(icon:, label: "Compos
 <p class="ref-props">role <code>fab</code> · arguments <code>icon</code> · defaults <code>color: &quot;primary&quot;</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VFab("star").variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VFab("star").variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VFab("star").variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -879,7 +879,7 @@ The bare field box of an input
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VField("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VField("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VField("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -901,7 +901,7 @@ VFileInput("Attachment", modelValue: "report.pdf", chips: true) — file field w
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>icon: &quot;mdi-paperclip&quot;</code>, <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VFileInput("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VFileInput("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VFileInput("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -1315,7 +1315,7 @@ VNavigationDrawer(title:) { VList(nav: true) { VListItem(title:, prependIcon:) }
 <p class="ref-props">role <code>sidebar</code> · arguments <code>title</code> · variants <code>permanent</code>, <code>temporary</code>, <code>rail</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VNavigationDrawer("Title") { Text("Content"); Button("Action") }.variant("permanent"); Text("permanent").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VNavigationDrawer("Title") { Text("Content"); Button("Action") }.variant("temporary"); Text("temporary").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VNavigationDrawer("Title") { Text("Content"); Button("Action") }.variant("rail"); Text("rail").font(.caption).foregroundStyle(.secondary) }
@@ -1347,7 +1347,7 @@ VNumberInput("Quantity", modelValue: 2) — number field with − / + controls
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>trailingIcon: &quot;mdi-unfold-more-horizontal&quot;</code>, <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VNumberInput("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VNumberInput("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VNumberInput("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -1369,7 +1369,7 @@ One-time-code field
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>variant: &quot;outlined&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VOtpInput("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VOtpInput("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VOtpInput("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -1475,7 +1475,7 @@ VRadioGroup("Shipping", items: [..], modelValue: "Express", inline: true) — or
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-VRadioGroup("Label")
+VRadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -1545,14 +1545,14 @@ VSelect("Country", items: ["France", "Peru"], modelValue: "Peru", chips: true, m
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { VSelect("Label").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo"); Text("solo").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-filled"); Text("solo-filled").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("solo-inverted"); Text("solo-inverted").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1567,7 +1567,7 @@ VSheet(elevation: 2, rounded: true, color:) { … } — plain surface with no pa
 <p class="ref-props">role <code>card</code> · defaults <code>elevation: 0</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VSheet() { Text("Content"); Button("Action") }.variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VSheet() { Text("Content"); Button("Action") }.variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VSheet() { Text("Content"); Button("Action") }.variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -1686,7 +1686,7 @@ VSparkline(modelValue: [1, 4, 2, 6], color: "primary", fill: true, smooth: true)
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-VSparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+VSparkline([3, 5, 2, 6, 4])
 ```
 
 </div>
@@ -1854,7 +1854,7 @@ VTab("Favorites", prependIcon: "mdi-heart") { pane }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-VTab("Label")
+TabView { VTab("Inbox") { Text("Inbox content") }; VTab("Archive") { Text("Archive content") } }
 ```
 
 </div>
@@ -1924,7 +1924,7 @@ VTextField("Email", modelValue:, variant: "outlined", density: "compact", prepen
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VTextField("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VTextField("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VTextField("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -1946,7 +1946,7 @@ VTextarea("Notes", rows: 3, counter: 200, autoGrow: true)
 <p class="ref-props">role <code>textfield</code> · arguments <code>label</code> · defaults <code>kind: &quot;multiline&quot;</code>, <code>variant: &quot;filled&quot;</code> · variants <code>filled</code>, <code>outlined</code>, <code>underlined</code>, <code>solo</code>, <code>solo-filled</code>, <code>solo-inverted</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VTextarea("Label").variant("filled"); Text("filled").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VTextarea("Label").variant("outlined"); Text("outlined").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VTextarea("Label").variant("underlined"); Text("underlined").font(.caption).foregroundStyle(.secondary) }
@@ -1982,7 +1982,7 @@ Time picker field
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>kind: &quot;time&quot;</code>, <code>variant: &quot;filled&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-VTimePicker("Label")
+VTimePicker("Label", selection: "2026-11-23")
 ```
 
 </div>
@@ -2024,7 +2024,7 @@ VToolbar(title:, color:, density:) { VBtn … } — 64px bar (surface-light by d
 <p class="ref-props">role <code>toolbar</code> · arguments <code>title</code> · variants <code>elevated</code>, <code>flat</code>, <code>tonal</code>, <code>outlined</code>, <code>text</code>, <code>plain</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { VToolbar("Title") { Button("Save"); Button("Share") }.variant("elevated"); Text("elevated").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VToolbar("Title") { Button("Save"); Button("Share") }.variant("flat"); Text("flat").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { VToolbar("Title") { Button("Save"); Button("Share") }.variant("tonal"); Text("tonal").font(.caption).foregroundStyle(.secondary) }
@@ -2173,7 +2173,7 @@ Accordion("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this draft?", message: "The draft and its attachments will be removed permanently.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
 ```
 
 </div>
@@ -2197,7 +2197,7 @@ AppBar("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -2257,7 +2257,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -2309,7 +2309,7 @@ Breadcrumb(["One", "Two", "Three"])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -2361,7 +2361,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -2413,7 +2413,7 @@ kind: .bar\|.line\|.area\|.pie\|.donut\|.scatter\|.bubble\|.radar\|.heatmap\|.fu
 <p class="ref-props">role <code>chart</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Chart(values: [3, 5, 2, 6, 4])
+Chart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"])
 ```
 
 </div>
@@ -2513,7 +2513,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -2553,7 +2553,7 @@ selection: "2026-11-23"; .datePickerStyle(.graphical)
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-DatePicker("Label")
+DatePicker("Starts", selection: "2026-11-23")
 ```
 
 </div>
@@ -2565,7 +2565,7 @@ DatePicker("Label")
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Dialog("Title") { Text("Content"); Button("Action") }
+Dialog("Rename file", message: "Enter a new name for the report.", actions: { Button("Cancel"); Button("Rename") }) { TextField("Name", text: "Quarterly report") }
 ```
 
 </div>
@@ -2601,7 +2601,7 @@ Divider()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -2675,7 +2675,7 @@ Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -2713,7 +2713,7 @@ Gauge(60)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -2789,7 +2789,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -2801,7 +2801,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -2955,7 +2955,7 @@ LazyVStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;line&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")
 ```
 
 </div>
@@ -3045,7 +3045,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -3083,7 +3083,15 @@ NavigationLink("Title")
 <p class="ref-props">role <code>split</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-NavigationSplitView() { Text("Content"); Button("Action") }
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
 ```
 
 </div>
@@ -3135,7 +3143,7 @@ Picker("Size", selection: "M") { Text("S") … }
 <p class="ref-props">role <code>select</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Picker("Label")
+Picker("Size", selection: "Medium") { Text("Small"); Text("Medium"); Text("Large") }
 ```
 
 </div>
@@ -3147,7 +3155,7 @@ Picker("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;pie&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])
 ```
 
 </div>
@@ -3201,7 +3209,7 @@ ProgressView("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -3225,7 +3233,7 @@ RadioButton("Label")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -3287,7 +3295,7 @@ Row("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -3389,7 +3397,10 @@ SelectionRect()
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New reminder", message: "It is added to your Today list.", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Call the dentist")
+  Toggle("Remind me on a day", isOn: true)
+}
 ```
 
 </div>
@@ -3453,7 +3464,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -3533,7 +3544,11 @@ Tab("Home", systemImage: "house") { … }
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Tab("Label")
+TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search the library") }
+  Tab("Profile", systemImage: "person") { Text("Your profile") }
+}
 ```
 
 </div>
@@ -3585,7 +3600,7 @@ TableColumn("Title")
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -3701,7 +3716,7 @@ TimelineItem("Title")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -3765,7 +3780,7 @@ ToolbarItemGroup() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>tooltip</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Tooltip("Text") { Text("Content"); Button("Action") }
+Tooltip("Share a link to this page") { Button("Share", systemImage: "square.and.arrow.up") }
 ```
 
 </div>
@@ -3805,7 +3820,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="vuetify" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

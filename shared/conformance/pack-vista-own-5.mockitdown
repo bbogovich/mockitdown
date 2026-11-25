@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   PropertyRow("Label", "Value") { Text("Content"); Button("Action") }
   PushButton("Label")
   QuickLaunch() { Text("Content"); Button("Action") }
-  RadioButtonList("Label")
+  RadioButtonList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   SearchBox()
   StartButton("Label")
   StartMenu("Title") { Text("Content"); Button("Action") }

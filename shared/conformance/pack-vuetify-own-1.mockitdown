@@ -1,14 +1,14 @@
 // vuetify own elements: Td, Tr, VAlert, VAlertTitle, VApp, VAppBar, VAppBarNavIcon, VAppBarTitle, VAutocomplete, VAvatar, VBadge, VBanner
 VStack(alignment: .leading, spacing: 12) {
   Td("Content")
-  Tr()
+  Tr() { Text("Ana Lima"); Text("Active") }
   VAlert("Message")
   VAlertTitle("Content")
   VApp() { Text("Content"); Button("Action") }
   VAppBar("Title") { Text("Content"); Button("Action") }
   VAppBarNavIcon()
   VAppBarTitle("Content")
-  VAutocomplete("Label")
+  VAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   VAvatar("Ana Lima")
   VBadge("Content")
   VBanner("Message")

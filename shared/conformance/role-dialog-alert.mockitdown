@@ -1,2 +1,2 @@
 // base element Alert (role dialog)
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this draft?", message: "The draft and its attachments will be removed permanently.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })

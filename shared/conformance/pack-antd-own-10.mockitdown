@@ -2,7 +2,7 @@
 VStack(alignment: .leading, spacing: 12) {
   Search("Placeholder")
   Segmented(["One", "Two"])
-  Select("Placeholder")
+  Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Sider("Title") { Text("Content"); Button("Action") }
   Skeleton().frame(width: 160, height: 96)
   Slider()

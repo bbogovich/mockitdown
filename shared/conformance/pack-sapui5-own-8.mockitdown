@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   ProductSwitchItem("Text")
   ProgressIndicator(60)
   RadioButton("Label")
-  RadioButtonGroup("Label")
+  RadioButtonGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RangeSlider()
   RatingIndicator(60)
   ResponsivePopover("Title") { Text("Content"); Button("Action") }

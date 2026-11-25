@@ -36,7 +36,7 @@ Alert("Delete?", message: "…") { Button("Cancel", role: .cancel) … } — pre
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Alert("Title") { Text("Content"); Button("Action") }
+Alert("Delete this photo?", message: "It will be removed from all your devices.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
 ```
 
 </div>
@@ -106,15 +106,15 @@ Button("Save", systemImage:, role: .destructive\|.cancel) · .buttonStyle(.borde
 <p class="ref-props">role <code>button</code> · arguments <code>label</code> · variants <code>automatic</code>, <code>borderless</code>, <code>plain</code>, <code>bordered</code>, <code>borderedProminent</code>, <code>glass</code>, <code>glassProminent</code>, <code>link</code>, <code>accessoryBar</code>, <code>accessoryBarAction</code>, <code>card</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("borderedProminent"); Text("borderedProminent").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("glass"); Text("glass").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("glassProminent"); Text("glassProminent").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Button("Label").variant("link"); Text("link").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("borderless"); Text("borderless").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("borderedProminent"); Text("borderedProminent").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("glass"); Text("glass").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("glassProminent"); Text("glassProminent").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Button("Share", systemImage: "square.and.arrow.up").variant("link"); Text("link").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -157,7 +157,7 @@ Swift Charts: Chart(kind: .bar\|.line\|.area\|.pie\|.donut, values: [..], labels
 <p class="ref-props">role <code>chart</code> · variants <code>bar</code>, <code>line</code>, <code>area</code>, <code>pie</code>, <code>donut</code>, <code>sparkline</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Chart(values: [3, 5, 2, 6, 4]).variant("bar"); Text("bar").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Chart(values: [3, 5, 2, 6, 4]).variant("line"); Text("line").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Chart(values: [3, 5, 2, 6, 4]).variant("area"); Text("area").font(.caption).foregroundStyle(.secondary) }
@@ -206,7 +206,7 @@ Action sheet; prefer .confirmationDialog(…)
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;action-sheet&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-ConfirmationDialog("Title") { Text("Content"); Button("Action") }
+ConfirmationDialog("Discard your changes?", message: "Your edits to this note have not been saved.", actions: { Button("Discard Changes", role: .destructive); Button("Keep Editing"); Button("Cancel", role: .cancel) })
 ```
 
 </div>
@@ -246,12 +246,12 @@ ControlGroup { Button … } — joined capsule of buttons
 <p class="ref-props">role <code>toolbar</code> · defaults <code>variant: &quot;group&quot;</code> · variants <code>automatic</code>, <code>navigation</code>, <code>palette</code>, <code>compactMenu</code>, <code>menu</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { ControlGroup() { Button("Save"); Button("Share") }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { ControlGroup() { Button("Save"); Button("Share") }.variant("navigation"); Text("navigation").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { ControlGroup() { Button("Save"); Button("Share") }.variant("palette"); Text("palette").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { ControlGroup() { Button("Save"); Button("Share") }.variant("compactMenu"); Text("compactMenu").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { ControlGroup() { Button("Save"); Button("Share") }.variant("menu"); Text("menu").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("navigation"); Text("navigation").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("palette"); Text("palette").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("compactMenu"); Text("compactMenu").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("menu"); Text("menu").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -266,13 +266,13 @@ DatePicker("Starts", selection: "2026-11-23") — compact grey capsule; .datePic
 <p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · variants <code>automatic</code>, <code>compact</code>, <code>graphical</code>, <code>wheel</code>, <code>field</code>, <code>stepperField</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("compact"); Text("compact").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("graphical"); Text("graphical").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("wheel"); Text("wheel").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("field"); Text("field").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { DatePicker("Label").variant("stepperField"); Text("stepperField").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("compact"); Text("compact").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("graphical"); Text("graphical").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("wheel"); Text("wheel").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("field"); Text("field").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { DatePicker("Starts", selection: "2026-11-23").variant("stepperField"); Text("stepperField").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -329,10 +329,37 @@ Form { Section { TextField … Toggle … } } — inset-grouped rows
 <p class="ref-props">role <code>form</code> · defaults <code>variant: &quot;grouped&quot;</code> · variants <code>automatic</code>, <code>grouped</code>, <code>columns</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("grouped"); Text("grouped").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Form() { TextField("Name"); Toggle("Notifications", isOn: true) }.variant("columns"); Text("columns").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Form {
+      Section("Account") {
+        TextField("Name", text: "Ana Lima")
+        Toggle("Notifications", isOn: true)
+      }
+      Section("Display") {
+        Picker("Appearance", selection: "Automatic") { Text("Light"); Text("Dark"); Text("Automatic") }
+        Stepper("Font size", value: 17)
+      }
+    }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Form {
+      Section("Account") {
+        TextField("Name", text: "Ana Lima")
+        Toggle("Notifications", isOn: true)
+      }
+      Section("Display") {
+        Picker("Appearance", selection: "Automatic") { Text("Light"); Text("Dark"); Text("Automatic") }
+        Stepper("Font size", value: 17)
+      }
+    }.variant("grouped"); Text("grouped").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Form {
+      Section("Account") {
+        TextField("Name", text: "Ana Lima")
+        Toggle("Notifications", isOn: true)
+      }
+      Section("Display") {
+        Picker("Appearance", selection: "Automatic") { Text("Light"); Text("Dark"); Text("Automatic") }
+        Stepper("Font size", value: 17)
+      }
+    }.variant("columns"); Text("columns").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -347,13 +374,13 @@ Gauge(value: 0.7, label: { Text("BPM") }, currentValueLabel: { Text("72") }) · 
 <p class="ref-props">role <code>progress</code> · arguments <code>value</code> · defaults <code>variant: &quot;accessoryCircular&quot;</code> · variants <code>automatic</code>, <code>accessoryCircular</code>, <code>accessoryCircularCapacity</code>, <code>accessoryLinear</code>, <code>accessoryLinearCapacity</code>, <code>linearCapacity</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("accessoryCircular"); Text("accessoryCircular").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("accessoryCircularCapacity"); Text("accessoryCircularCapacity").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("accessoryLinear"); Text("accessoryLinear").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("accessoryLinearCapacity"); Text("accessoryLinearCapacity").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(60).variant("linearCapacity"); Text("linearCapacity").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryCircular"); Text("accessoryCircular").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryCircularCapacity"); Text("accessoryCircularCapacity").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryLinear"); Text("accessoryLinear").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryLinearCapacity"); Text("accessoryLinearCapacity").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("linearCapacity"); Text("linearCapacity").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -522,14 +549,77 @@ List { Section("…") { … } } — inset-grouped by default; .listStyle(.plain\
 <p class="ref-props">role <code>list</code> · defaults <code>variant: &quot;insetGrouped&quot;</code> · variants <code>automatic</code>, <code>insetGrouped</code>, <code>grouped</code>, <code>inset</code>, <code>plain</code>, <code>sidebar</code>, <code>bordered</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("insetGrouped"); Text("insetGrouped").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("grouped"); Text("grouped").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("sidebar"); Text("sidebar").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List() { Text("First item"); Text("Second item") }.variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("insetGrouped"); Text("insetGrouped").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("grouped"); Text("grouped").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("sidebar"); Text("sidebar").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { List {
+      Section("Favourites") {
+        Label("Inbox", systemImage: "tray")
+        Label("Drafts", systemImage: "doc")
+      }
+      Section("Folders") {
+        Label("Archive", systemImage: "archivebox")
+        Label("Projects", systemImage: "folder")
+      }
+    }.variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -600,10 +690,34 @@ NavigationSplitView { sidebar } content: { … } detail: { … }
 <p class="ref-props">role <code>split</code> · variants <code>automatic</code>, <code>balanced</code>, <code>prominentDetail</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { NavigationSplitView() { Text("Content"); Button("Action") }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { NavigationSplitView() { Text("Content"); Button("Action") }.variant("balanced"); Text("balanced").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { NavigationSplitView() { Text("Content"); Button("Action") }.variant("prominentDetail"); Text("prominentDetail").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {
+      List {
+        Label("Inbox", systemImage: "tray")
+        Label("Sent", systemImage: "paperplane")
+        Label("Archive", systemImage: "archivebox")
+      }.navigationTitle("Mail")
+    } detail: {
+      Text("Select a message")
+    }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {
+      List {
+        Label("Inbox", systemImage: "tray")
+        Label("Sent", systemImage: "paperplane")
+        Label("Archive", systemImage: "archivebox")
+      }.navigationTitle("Mail")
+    } detail: {
+      Text("Select a message")
+    }.variant("balanced"); Text("balanced").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {
+      List {
+        Label("Inbox", systemImage: "tray")
+        Label("Sent", systemImage: "paperplane")
+        Label("Archive", systemImage: "archivebox")
+      }.navigationTitle("Mail")
+    } detail: {
+      Text("Select a message")
+    }.variant("prominentDetail"); Text("prominentDetail").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -688,15 +802,15 @@ Picker("Sort", selection: "Date") { Text("Date") … } · .pickerStyle(.segmente
 <p class="ref-props">role <code>select</code> · arguments <code>label</code> · defaults <code>variant: &quot;menu&quot;</code> · variants <code>automatic</code>, <code>menu</code>, <code>segmented</code>, <code>inline</code>, <code>radioGroup</code>, <code>wheel</code>, <code>navigationLink</code>, <code>palette</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("menu"); Text("menu").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("segmented"); Text("segmented").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("radioGroup"); Text("radioGroup").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("wheel"); Text("wheel").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("navigationLink"); Text("navigationLink").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Picker("Label").variant("palette"); Text("palette").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("menu"); Text("menu").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("segmented"); Text("segmented").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("inline"); Text("inline").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("radioGroup"); Text("radioGroup").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("wheel"); Text("wheel").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("navigationLink"); Text("navigationLink").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("palette"); Text("palette").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -725,7 +839,7 @@ Popover bubble; prefer .popover(isPresented:)
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;popover&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Popover("Title") { Text("Content"); Button("Action") }
+Popover("Filters") { Toggle("Unread only", isOn: true); Toggle("Flagged", isOn: false) }
 ```
 
 </div>
@@ -739,7 +853,7 @@ ProgressView() spinner, or ProgressView("Uploading", value: 0.4)
 <p class="ref-props">role <code>progress</code> · arguments <code>label</code> · variants <code>automatic</code>, <code>linear</code>, <code>circular</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { ProgressView("Label").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProgressView("Label").variant("linear"); Text("linear").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { ProgressView("Label").variant("circular"); Text("circular").font(.caption).foregroundStyle(.secondary) }
@@ -869,7 +983,7 @@ SecureField("Password", text: $password)
 <p class="ref-props">role <code>textfield</code> · arguments <code>placeholder</code> · defaults <code>kind: &quot;password&quot;</code> · variants <code>automatic</code>, <code>plain</code>, <code>roundedBorder</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { SecureField("Placeholder").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { SecureField("Placeholder").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { SecureField("Placeholder").variant("roundedBorder"); Text("roundedBorder").font(.caption).foregroundStyle(.secondary) }
@@ -915,7 +1029,10 @@ Bottom sheet; prefer .sheet(isPresented:) { … }
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;sheet&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Sheet("Title") { Text("Content"); Button("Action") }
+Sheet("New event", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Team lunch")
+  DatePicker("Starts", selection: "2026-11-23")
+}
 ```
 
 </div>
@@ -985,7 +1102,11 @@ Tab("Search", systemImage: "magnifyingglass") { … } · .badge(3)
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Tab("Label")
+TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search the library") }
+  Tab("Profile", systemImage: "person") { Text("Your profile") }
+}
 ```
 
 </div>
@@ -1013,11 +1134,27 @@ TabView { Tab("Home", systemImage: "house") { … } } — floating Liquid Glass 
 <p class="ref-props">role <code>tabs</code> · defaults <code>placement: &quot;bottom&quot;</code> · variants <code>automatic</code>, <code>page</code>, <code>sidebarAdaptable</code>, <code>tabBarOnly</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("page"); Text("page").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("sidebarAdaptable"); Text("sidebarAdaptable").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }.variant("tabBarOnly"); Text("tabBarOnly").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { TabView {
+      Tab("Home", systemImage: "house") { Text("Welcome home") }
+      Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+      Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+    }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { TabView {
+      Tab("Home", systemImage: "house") { Text("Welcome home") }
+      Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+      Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+    }.variant("page"); Text("page").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { TabView {
+      Tab("Home", systemImage: "house") { Text("Welcome home") }
+      Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+      Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+    }.variant("sidebarAdaptable"); Text("sidebarAdaptable").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { TabView {
+      Tab("Home", systemImage: "house") { Text("Welcome home") }
+      Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+      Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+    }.variant("tabBarOnly"); Text("tabBarOnly").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1032,7 +1169,7 @@ Table(columns: ["Name", "Size"], rows: [[…]]) or TableColumn / TableRow childr
 <p class="ref-props">role <code>table</code> · variants <code>automatic</code>, <code>inset</code>, <code>bordered</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]]).variant("bordered"); Text("bordered").font(.caption).foregroundStyle(.secondary) }
@@ -1064,7 +1201,7 @@ TableRow { Text(…) … }
 <p class="ref-props">role <code>tablerow</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }
 ```
 
 </div>
@@ -1106,7 +1243,7 @@ TextField("Email", text: $email); plain in a Form, .textFieldStyle(.roundedBorde
 <p class="ref-props">role <code>textfield</code> · arguments <code>placeholder</code> · variants <code>automatic</code>, <code>plain</code>, <code>roundedBorder</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
+HStack(alignment: .top, spacing: 24) {
   VStack(alignment: .leading, spacing: 4) { TextField("Placeholder").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { TextField("Placeholder").variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
   VStack(alignment: .leading, spacing: 4) { TextField("Placeholder").variant("roundedBorder"); Text("roundedBorder").font(.caption).foregroundStyle(.secondary) }
@@ -1152,11 +1289,11 @@ Toggle("Wi-Fi", isOn: true) — 51×31 green switch; .toggleStyle(.button\|.chec
 <p class="ref-props">role <code>toggle</code> · arguments <code>label</code> · variants <code>automatic</code>, <code>switch</code>, <code>button</code>, <code>checkbox</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-HStack(alignment: .top, spacing: 16) {
-  VStack(alignment: .leading, spacing: 4) { Toggle("Label").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Toggle("Label").variant("switch"); Text("switch").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Toggle("Label").variant("button"); Text("button").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Toggle("Label").variant("checkbox"); Text("checkbox").font(.caption).foregroundStyle(.secondary) }
+HStack(alignment: .top, spacing: 24) {
+  VStack(alignment: .leading, spacing: 4) { Toggle("Wi-Fi", isOn: true).variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Toggle("Wi-Fi", isOn: true).variant("switch"); Text("switch").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Toggle("Wi-Fi", isOn: true).variant("button"); Text("button").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Toggle("Wi-Fi", isOn: true).variant("checkbox"); Text("checkbox").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -1337,7 +1474,7 @@ AppBar("Title") { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;area&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-AreaChart(values: [3, 5, 2, 6, 4])
+AreaChart(values: [12, 18, 15, 24, 21, 30], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Active users")
 ```
 
 </div>
@@ -1385,7 +1522,7 @@ Banner("Title")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bar&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-BarChart(values: [3, 5, 2, 6, 4])
+BarChart(values: [42, 58, 35, 64], labels: ["Q1", "Q2", "Q3", "Q4"], title: "Orders")
 ```
 
 </div>
@@ -1437,7 +1574,7 @@ Breadcrumb(["One", "Two", "Three"])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;bubble&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-BubbleChart(values: [3, 5, 2, 6, 4])
+BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: "Price", yLabel: "Rating")
 ```
 
 </div>
@@ -1475,7 +1612,7 @@ Callout(1, "Text")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;candlestick&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-CandlestickChart(values: [3, 5, 2, 6, 4])
+CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"])
 ```
 
 </div>
@@ -1587,7 +1724,7 @@ ColorSwatches()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;combo&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-ComboChart(values: [3, 5, 2, 6, 4])
+ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: ["Q1", "Q2", "Q3", "Q4"], seriesNames: ["Revenue", "Target"])
 ```
 
 </div>
@@ -1613,7 +1750,7 @@ Comment("Text")
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Dialog("Title") { Text("Content"); Button("Action") }
+Dialog("Rename file", message: "Enter a new name for the report.", actions: { Button("Cancel"); Button("Rename") }) { TextField("Name", text: "Quarterly report") }
 ```
 
 </div>
@@ -1637,7 +1774,7 @@ Divider()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;donut&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])
 ```
 
 </div>
@@ -1699,7 +1836,7 @@ FloatingActionButton("star")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;funnel&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-FunnelChart(values: [3, 5, 2, 6, 4])
+FunnelChart(values: [1200, 640, 310, 120], labels: ["Visits", "Sign-ups", "Trials", "Purchases"])
 ```
 
 </div>
@@ -1725,7 +1862,7 @@ Gantt(tasks: [("Design", 0, 3), ("Build", 2, 5)])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;gauge&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-GaugeChart(values: [3, 5, 2, 6, 4])
+GaugeChart(value: 72, unit: "%")
 ```
 
 </div>
@@ -1789,7 +1926,7 @@ HStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;heatmap&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Heatmap(values: [3, 5, 2, 6, 4])
+Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: ["Mon", "Tue", "Wed", "Thu", "Fri"], yLabels: ["Morning", "Noon", "Evening"])
 ```
 
 </div>
@@ -1801,7 +1938,7 @@ Heatmap(values: [3, 5, 2, 6, 4])
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;histogram&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Histogram(values: [3, 5, 2, 6, 4])
+Histogram(values: [2, 6, 11, 14, 9, 4], labels: ["0", "10", "20", "30", "40", "50"], xLabel: "Minutes")
 ```
 
 </div>
@@ -1915,7 +2052,7 @@ LazyVStack() { Text("Content"); Button("Action") }
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;line&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-LineChart(values: [3, 5, 2, 6, 4])
+LineChart(values: [18, 22, 19, 27, 25, 31], labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], title: "Revenue")
 ```
 
 </div>
@@ -1953,7 +2090,7 @@ MessageBubble("Hi", from: .me\|.them, author:, time:, status:, reactions: [..])
 <p class="ref-props">role <code>message</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")
 ```
 
 </div>
@@ -1989,7 +2126,7 @@ Pagination()
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;pie&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])
 ```
 
 </div>
@@ -2029,7 +2166,7 @@ Pointer(.arrow)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;radar&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-RadarChart(values: [3, 5, 2, 6, 4])
+RadarChart(values: [4, 3, 5, 2, 4], labels: ["Speed", "Power", "Range", "Cost", "Comfort"])
 ```
 
 </div>
@@ -2053,7 +2190,7 @@ RadioButton("Label")
 <p class="ref-props">role <code>radiogroup</code> · arguments <code>label</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 ```
 
 </div>
@@ -2101,7 +2238,7 @@ RoundedRectangle().frame(width: 160, height: 96)
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;scatter&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-ScatterChart(values: [3, 5, 2, 6, 4])
+ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: "Hours", yLabel: "Score")
 ```
 
 </div>
@@ -2203,7 +2340,7 @@ Spacer()
 <p class="ref-props">role <code>chart</code> · arguments <code>values</code> · defaults <code>kind: &quot;sparkline&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])
 ```
 
 </div>
@@ -2333,7 +2470,7 @@ TimelineItem("Title")
 <p class="ref-props">role <code>toast</code> · arguments <code>message</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")
 ```
 
 </div>
@@ -2345,7 +2482,7 @@ Toast("Message")
 <p class="ref-props">role <code>tooltip</code> · arguments <code>text</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Tooltip("Text") { Text("Content"); Button("Action") }
+Tooltip("Share a link to this page") { Button("Share", systemImage: "square.and.arrow.up") }
 ```
 
 </div>
@@ -2385,7 +2522,7 @@ TreeItem("Label")
 <p class="ref-props">role <code>chart</code> · defaults <code>kind: &quot;treemap&quot;</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
-Treemap(values: [3, 5, 2, 6, 4])
+Treemap(values: [48, 26, 14, 8, 4], labels: ["Photos", "Video", "Mail", "Apps", "Other"])
 ```
 
 </div>

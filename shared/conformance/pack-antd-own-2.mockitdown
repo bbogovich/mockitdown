@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   CardGrid() { Text("Content"); Button("Action") }
   CardMeta("Title")
   Carousel().frame(width: 160, height: 96)
-  Cascader("Placeholder")
+  Cascader("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   CheckCard("Title") { Text("Content"); Button("Action") }
   CheckableTag("Label")
   Checkbox("Label")

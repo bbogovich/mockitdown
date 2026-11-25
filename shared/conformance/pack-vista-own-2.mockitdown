@@ -3,14 +3,14 @@ VStack(alignment: .leading, spacing: 12) {
   CommandLink("Title")
   ConsentBanner("Title")
   ContextMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
-  DateTimePicker("Label")
+  DateTimePicker("Label", selection: "2026-11-23")
   DefaultButton("Label")
   Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
   DesktopIcon("Title")
   DetailsPane("Title") { Text("Content"); Button("Action") }
   DialogBody() { Text("Content"); Button("Action") }
   DialogFooter() { Text("Content"); Button("Action") }
-  DropDownList("Label")
+  DropDownList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ExpandoButton("Label")
 }
 .padding()

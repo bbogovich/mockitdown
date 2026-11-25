@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   SwitchDelegate("Label")
   SystemMonitorSensor("Label", 60)
   TabBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabButton("Label")
+  TabView { TabButton("Inbox") { Text("Inbox content") }; TabButton("Archive") { Text("Archive content") } }
   TabWidget() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   TextArea("Text")

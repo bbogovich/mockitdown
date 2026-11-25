@@ -3,9 +3,9 @@ VStack(alignment: .leading, spacing: 12) {
   PricingTier("Title") { Text("Content"); Button("Action") }
   Radio("Label")
   RadioField("Label")
-  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   SectionHeading("Content")
-  Select("Placeholder")
+  Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Sidebar() { Text("Content"); Button("Action") }
   SidebarBody() { Text("Content"); Button("Action") }
   SidebarDivider()

@@ -5,11 +5,11 @@ VStack(alignment: .leading, spacing: 12) {
   NoteAlert("Message") { Text("Content"); Button("Action") }
   PaintCanvas() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
   PatternPalette()
-  PopUpMenu("Label")
+  PopUpMenu("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ProgressBar(60)
   PushButton("Label")
   RadioButton("Label", true)
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RoundWindow("Title") { Text("Content"); Button("Action") }
   ScrollBar()
 }

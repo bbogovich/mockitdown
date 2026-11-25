@@ -1,2 +1,2 @@
 // base element Tooltip (role tooltip)
-Tooltip("Text") { Text("Content"); Button("Action") }
+Tooltip("Share a link to this page") { Button("Share", systemImage: "square.and.arrow.up") }

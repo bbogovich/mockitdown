@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   Anchor() { Text("First item"); Text("Second item") }
   AnchorLink("Title")
   App() { Text("Content"); Button("Action") }
-  AutoComplete("Placeholder")
+  AutoComplete("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Avatar("Ana Lima")
   AvatarGroup() { Text("Content"); Button("Action") }
   Badge(3)

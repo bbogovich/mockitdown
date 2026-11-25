@@ -15,7 +15,7 @@ element names, maps them onto roles with default attributes, and restyles the ro
     chrome              device form → chrome kind (ios, ipados, macos, windows, android, browser, none)
     hidden              true for packs left out of listings (they still work when named)
     tokens              {"light": {name: value}, "dark": {name: value}} → --mkd-<name> CSS properties
-    elements            Name → {role, params, defaults, variants, doc, attrs}
+    elements            Name → {role, params, defaults, variants, doc, attrs, sample}
     modifiers           modifier name → {"attr": attribute it sets, "value": optional fixed value}
     fonts               font style aliases → canonical font style (e.g. "h4": "title2")
     sizes               device form → [width, height] in CSS points
@@ -50,6 +50,8 @@ class ElementDef:
     doc: str = ""
     #: Argument label → attribute name for this element only (e.g. SAP `type:` → `variant`).
     attrs: tuple[tuple[str, str], ...] = ()
+    #: mockitdown source of one call showing the element doing its job, for the reference gallery (R-PACK-013).
+    sample: str = ""
 
     @property
     def default_attrs(self) -> dict[str, object]:
@@ -122,6 +124,7 @@ def _element(name: str, raw: dict, where: str) -> ElementDef:
         variants=tuple(raw.get("variants", ())),
         doc=raw.get("doc", ""),
         attrs=tuple(sorted(raw.get("attrs", {}).items())),
+        sample=raw.get("sample", ""),
     )
 
 

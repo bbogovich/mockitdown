@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   HBox() { Text("Content"); Button("Action") }
   Icon("star")
   IconTabBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  IconTabFilter("Text")
+  TabView { IconTabFilter("Inbox") { Text("Inbox content") }; IconTabFilter("Archive") { Text("Archive content") } }
   IllustratedMessage("Title")
   Image().frame(width: 160, height: 96)
   InfoLabel("Text")

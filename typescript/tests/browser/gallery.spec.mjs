@@ -278,3 +278,20 @@ test("R-REND-014 TC-1: shapes keep their frame; a circle is a centred circle, an
   expect(free).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+// R-PACK-013 TC-2 (C3): every chart card of the base gallery draws at least one mark from its declared data.
+test("R-PACK-013 TC-2: every base chart sample draws at least one mark", async ({ page }) => {
+  const errors = await open(page, "#pack=base");
+  await page.evaluate(() => window.packGallery.renderAll());
+  const charts = REFERENCES.base.elements.filter((e) => e.role === "chart").map((e) => e.name);
+  expect(charts.length).toBeGreaterThan(10);
+  const marks = await page.evaluate((names) => names.map((name) => {
+    const m = document.querySelector(`.element[data-name="${name}"] mockitdown-mockup`);
+    const svg = m?.shadowRoot.querySelector("svg.mkd-chart__svg");
+    const drawn = svg ? [...svg.querySelectorAll("circle, rect, path, polygon, polyline")]
+      .filter((el) => !/mkd-chart__(grid|axis|track)/.test(el.getAttribute("class") || "")) : [];
+    return [name, drawn.length];
+  }), charts);
+  expect(marks.filter(([, n]) => n < 1).map(([name]) => name)).toEqual([]);
+  expect(errors).toEqual([]);
+});

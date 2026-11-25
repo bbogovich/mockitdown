@@ -8,7 +8,7 @@ VStack(alignment: .leading, spacing: 12) {
   FormLabel("Content")
   FormRadio("Label")
   FormRange("Label")
-  FormSelect()
+  FormSelect(options: ["Small", "Medium", "Large"], selection: "Medium")
   FormSwitch("Label")
   FormText("Content")
   Image().frame(width: 160, height: 96)

@@ -1,11 +1,11 @@
 // aqua own elements: RadioGroup, RoundButton, ScrollView, SearchField, SecureTextField, SegmentedControl, Separator, Sheet, Slider, Spinner, StatusDisplay, Stepper
 VStack(alignment: .leading, spacing: 12) {
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RoundButton("star")
   ScrollView() { Text("Content"); Button("Action") }
   SearchField("Placeholder")
   SecureTextField("Placeholder")
-  SegmentedControl("Label")
+  SegmentedControl("Label", options: ["Day", "Week", "Month"], selection: "Week")
   Separator()
   Sheet("Title") { Text("Content"); Button("Action") }
   Slider("Label")

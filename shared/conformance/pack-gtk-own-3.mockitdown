@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   ColumnViewColumn("Title")
   ComboRow("Title")
   Dialog("Title") { Text("Content"); Button("Action") }
-  DropDown("Label")
+  DropDown("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   EditableLabel("Text")
   Entry("Placeholder")
   EntryRow("Title")

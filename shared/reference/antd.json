@@ -28,7 +28,7 @@
    "doc": "Alert(message: \"Saved\", description: \"…\", type: \"success\"|\"info\"|\"warning\"|\"error\", showIcon: true, closable: true, action: { … })",
    "own": true,
    "sample": "Alert(\"Title\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Title\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Title\").variant(\"banner\"); Text(\"banner\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Title\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Title\").variant(\"banner\"); Text(\"banner\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Anchor",
@@ -75,7 +75,7 @@
    "variants": [],
    "doc": "AutoComplete(\"Search…\", value:, options: [..], open: true)",
    "own": true,
-   "sample": "AutoComplete(\"Placeholder\")",
+   "sample": "AutoComplete(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -92,7 +92,7 @@
    "doc": "Avatar(\"Ana Lima\", src: \"…\", icon: \"UserOutlined\", shape: \"square\", size: \"small\"|\"large\")",
    "own": true,
    "sample": "Avatar(\"Ana Lima\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"circle\"); Text(\"circle\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"square\"); Text(\"square\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"circle\"); Text(\"circle\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"square\"); Text(\"square\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "AvatarGroup",
@@ -170,7 +170,7 @@
    "doc": "Button(\"Save\", type: \"primary\", icon: \"SaveOutlined\", size: \"small\"|\"large\", shape: \"circle\"|\"round\") · .danger() · v5.21 color:/variant: (\"solid\", \"outlined\", \"dashed\", \"filled\", \"text\", \"link\")",
    "own": true,
    "sample": "Button(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"dashed\"); Text(\"dashed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"link\"); Text(\"link\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"dashed\"); Text(\"dashed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"link\"); Text(\"link\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ButtonGroup",
@@ -210,7 +210,7 @@
    "doc": "Card(title: \"Orders\", extra: { Link(\"More\") }, size: \"small\", cover: \"…\", hoverable:) { … } actions: { Icon(…) … }",
    "own": true,
    "sample": "Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "CardGrid",
@@ -259,7 +259,7 @@
    "variants": [],
    "doc": "Cascader(value: \"Asia / Japan / Tokyo\", options: [\"Asia\", \"Europe\"], open: true)",
    "own": true,
-   "sample": "Cascader(\"Placeholder\")",
+   "sample": "Cascader(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -347,7 +347,7 @@
    "doc": "Collapse { CollapsePanel(\"Header\", expanded: true) { … } … } · bordered: false · ghost: true",
    "own": true,
    "sample": "Collapse() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Collapse() { Text(\"Content\"); Button(\"Action\") }.variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "CollapsePanel",
@@ -422,7 +422,7 @@
    "variants": [],
    "doc": "DatePicker(value: \"2026-11-24\", placeholder: \"Select date\", open: true)",
    "own": true,
-   "sample": "DatePicker(\"Placeholder\")",
+   "sample": "DatePicker(\"Placeholder\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -478,7 +478,7 @@
    "doc": "Divider() · Divider(label: \"Text\", orientation: \"left\") · type: \"vertical\" · dashed: true",
    "own": true,
    "sample": "Divider()",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"dashed\"); Text(\"dashed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"dotted\"); Text(\"dotted\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"dashed\"); Text(\"dashed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"dotted\"); Text(\"dotted\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Dragger",
@@ -569,7 +569,7 @@
    "doc": "Empty(\"No orders yet\") { Button(\"Create\", type: \"primary\") } · image: \"simple\"",
    "own": true,
    "sample": "Empty()",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Empty().variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Empty().variant(\"simple\"); Text(\"simple\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Empty().variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Empty().variant(\"simple\"); Text(\"simple\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Flex",
@@ -598,7 +598,7 @@
    "doc": "FloatButton(icon: \"QuestionCircleOutlined\", type: \"primary\", description: \"HELP\") — floats bottom-right",
    "own": true,
    "sample": "FloatButton(\"star\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { FloatButton(\"star\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FloatButton(\"star\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { FloatButton(\"star\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FloatButton(\"star\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Footer",
@@ -639,7 +639,7 @@
    "doc": "Form(layout: \"horizontal\"|\"vertical\"|\"inline\") { FormItem(…) { … } · Input(label:) … } — horizontal puts right-aligned labels with a colon left",
    "own": true,
    "sample": "Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"horizontal\"); Text(\"horizontal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"vertical\"); Text(\"vertical\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"horizontal\"); Text(\"horizontal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"vertical\"); Text(\"vertical\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "FormItem",
@@ -684,7 +684,7 @@
    "doc": "Layout.Header — 64 px bar, #001529 (theme: \"light\" for white); children go to the right",
    "own": true,
    "sample": "Header(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Header(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Header(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Header(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Header(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Icon",
@@ -728,7 +728,7 @@
    "doc": "Input(\"Email\", label: \"Email\", value:, prefix:, suffix:, addonBefore: \"https://\", allowClear: true, status: \"error\", size:)",
    "own": true,
    "sample": "Input(\"Placeholder\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Input(\"Placeholder\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "InputNumber",
@@ -860,7 +860,7 @@
    "doc": "List(header: \"Activity\", bordered: true, size: \"small\") { ListItem(…) } · itemLayout: \"vertical\"",
    "own": true,
    "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"split\"); Text(\"split\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { List() { Text(\"First item\"); Text(\"Second item\") }.variant(\"split\"); Text(\"split\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ListItem",
@@ -917,7 +917,7 @@
    "doc": "Menu(mode: \"inline\"|\"vertical\"|\"horizontal\", theme: \"dark\", selection: \"Orders\") { MenuItem(…); SubMenu(…) { … } }",
    "own": true,
    "sample": "Menu() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Menu() { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Menu() { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Menu() { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Menu() { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "MenuDivider",
@@ -977,7 +977,7 @@
    "doc": "message.success(…): Message(\"Saved successfully\", type: \"success\") — a small card at the top centre",
    "own": true,
    "sample": "Message(\"Message\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"info\"); Text(\"info\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"loading\"); Text(\"loading\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"info\"); Text(\"info\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Message(\"Message\").variant(\"loading\"); Text(\"loading\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Modal",
@@ -1072,7 +1072,7 @@
    "doc": "Pagination(total: 85, current: 2, showTotal: \"Total 85 items\", pageSize: 10, size: \"small\") — count is pages",
    "own": true,
    "sample": "Pagination()",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"simple\"); Text(\"simple\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"mini\"); Text(\"mini\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"simple\"); Text(\"simple\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"mini\"); Text(\"mini\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Panel",
@@ -1156,7 +1156,7 @@
    "doc": "ProCard(title: \"Trend\", extra: { … }, bordered: true, headerBordered: true, split: \"vertical\") { … }",
    "own": true,
    "sample": "ProCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ProCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"inner\"); Text(\"inner\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { ProCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"inner\"); Text(\"inner\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ProDescriptions",
@@ -1186,7 +1186,7 @@
    "doc": "ProForm(layout: \"vertical\") { ProFormText(…) … } actions: { Button(\"Submit\", type: \"primary\") }",
    "own": true,
    "sample": "ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"horizontal\"); Text(\"horizontal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"vertical\"); Text(\"vertical\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"horizontal\"); Text(\"horizontal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"vertical\"); Text(\"vertical\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProForm() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }.variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ProFormCheckbox",
@@ -1213,7 +1213,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "ProFormDatePicker(\"Label\")",
+   "sample": "ProFormDatePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1229,7 +1229,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "ProFormDateRangePicker(\"Label\")",
+   "sample": "ProFormDateRangePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1276,7 +1276,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "ProFormRadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }",
+   "sample": "ProFormRadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1289,7 +1289,7 @@
    "variants": [],
    "doc": "ProFormSelect(\"Status\", options: [..], value:)",
    "own": true,
-   "sample": "ProFormSelect(\"Label\")",
+   "sample": "ProFormSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1415,7 +1415,7 @@
    "doc": "ProTable(headerTitle: \"Orders\", columns:, rows:, rowSelection: true) toolbar: { Button(…) } footer: { Pagination(…) }",
    "own": true,
    "sample": "ProTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ProTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { ProTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ProTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Progress",
@@ -1434,7 +1434,7 @@
    "doc": "Progress(percent: 30, type: \"circular\", status: \"exception\"|\"success\"|\"active\", size: \"small\", strokeColor:, showInfo: false)",
    "own": true,
    "sample": "Progress(60)",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"circle\"); Text(\"circle\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"dashboard\"); Text(\"dashboard\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"circle\"); Text(\"circle\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Progress(60).variant(\"dashboard\"); Text(\"dashboard\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "QRCode",
@@ -1506,8 +1506,8 @@
    ],
    "doc": "Radio.Group(options: [\"Daily\", \"Weekly\"], value: \"Weekly\", optionType: \"button\", buttonStyle: \"solid\")",
    "own": true,
-   "sample": "RadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }.variant(\"button\"); Text(\"button\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }.variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"button\"); Text(\"button\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "RangePicker",
@@ -1522,7 +1522,7 @@
    "variants": [],
    "doc": "DatePicker.RangePicker(value: \"2026-11-01  →  2026-11-30\")",
    "own": true,
-   "sample": "RangePicker(\"Placeholder\")",
+   "sample": "RangePicker(\"Placeholder\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1560,7 +1560,7 @@
    "doc": "Result(status: \"success\", title: \"Successfully Purchased!\", subTitle: \"Order 2017…\") { Button(\"Go Console\", type: \"primary\") }",
    "own": true,
    "sample": "Result(\"Title\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"info\"); Text(\"info\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"404\"); Text(\"404\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"403\"); Text(\"403\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"500\"); Text(\"500\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"error\"); Text(\"error\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"info\"); Text(\"info\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"404\"); Text(\"404\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"403\"); Text(\"403\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Result(\"Title\").variant(\"500\"); Text(\"500\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Row",
@@ -1618,8 +1618,8 @@
    ],
    "doc": "Select(\"Status\", value: \"Active\", options: [..], open: true) · mode: \"multiple\" with value: [..] renders tags",
    "own": true,
-   "sample": "Select(\"Placeholder\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "Select(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Sider",
@@ -1637,7 +1637,7 @@
    "doc": "Layout.Sider(width: 200, theme: \"light\", collapsed: true) { MenuItem … }",
    "own": true,
    "sample": "Sider(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Sider(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Sider(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Sider(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dark\"); Text(\"dark\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Sider(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"light\"); Text(\"light\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Skeleton",
@@ -1758,7 +1758,7 @@
    "doc": "Steps(items: [\"Login\", [\"title\": \"Verify\", \"description\": \"…\"], \"Done\"], current: 1, direction: \"vertical\", size: \"small\") · errors: [1]",
    "own": true,
    "sample": "Steps([\"One\", \"Two\", \"Three\"])",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"navigation\"); Text(\"navigation\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"dot\"); Text(\"dot\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"navigation\"); Text(\"navigation\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Steps([\"One\", \"Two\", \"Three\"]).variant(\"dot\"); Text(\"dot\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "StepsForm",
@@ -1810,7 +1810,7 @@
    "variants": [],
    "doc": "TabPane(\"Details\", icon:) { panel }",
    "own": true,
-   "sample": "TabPane(\"Label\")",
+   "sample": "TabView { TabPane(\"Inbox\") { Text(\"Inbox content\") }; TabPane(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1825,7 +1825,7 @@
    "doc": "Table(columns: [..], rows: [[..]], rowSelection: true, selectedRows: [1], sortColumn: 2, size: \"middle\"|\"small\", bordered: true, pagination: \"…\") — cells may be views",
    "own": true,
    "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"bordered\"); Text(\"bordered\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Tabs",
@@ -1844,7 +1844,7 @@
    "doc": "Tabs(items: [\"Overview\", \"Logs\"], selection: 0, type: \"card\", size: \"small\") or Tabs { TabPane(\"One\") { … } }",
    "own": true,
    "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"card\"); Text(\"card\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"editable-card\"); Text(\"editable-card\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"card\"); Text(\"card\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"editable-card\"); Text(\"editable-card\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "TabsItem",
@@ -1856,7 +1856,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "TabsItem(\"Label\")",
+   "sample": "TabView { TabsItem(\"Inbox\") { Text(\"Inbox content\") }; TabsItem(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1875,7 +1875,7 @@
    "doc": "Tag(\"processing\", color: \"blue\"|\"success\"|\"processing\"|\"error\"|\"warning\"|\"magenta\"…, icon:, closable: true, bordered: false)",
    "own": true,
    "sample": "Tag(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"solid\"); Text(\"solid\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tag(\"Label\").variant(\"borderless\"); Text(\"borderless\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Text",
@@ -1893,7 +1893,7 @@
    "doc": "Typography.Text: Text(\"Note\", type: \"secondary\"|\"success\"|\"warning\"|\"danger\") · .strong() .code() .mark() .keyboard() .delete() .underline()",
    "own": true,
    "sample": "Text(\"Content\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"danger\"); Text(\"danger\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"success\"); Text(\"success\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"warning\"); Text(\"warning\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Text(\"Content\").variant(\"danger\"); Text(\"danger\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "TextArea",
@@ -1922,7 +1922,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "TimePicker(\"Placeholder\")",
+   "sample": "TimePicker(\"Placeholder\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1938,7 +1938,7 @@
    "doc": "Timeline { TimelineItem(\"Created\", color: \"green\", label: \"2026-11-01\") … } · pending:",
    "own": true,
    "sample": "Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"left\"); Text(\"left\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"alternate\"); Text(\"alternate\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"right\"); Text(\"right\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"left\"); Text(\"left\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"alternate\"); Text(\"alternate\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }.variant(\"right\"); Text(\"right\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "TimelineItem",
@@ -2061,7 +2061,7 @@
    "doc": "Tree { TreeNode(\"parent\", expanded: true) { TreeNode(\"leaf\") } } · showLine · checkable",
    "own": true,
    "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }.variant(\"directory\"); Text(\"directory\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }.variant(\"directory\"); Text(\"directory\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "TreeNode",
@@ -2086,7 +2086,7 @@
    "variants": [],
    "doc": "TreeSelect(value: \"Engineering / Platform\", options: [..])",
    "own": true,
-   "sample": "TreeSelect(\"Placeholder\")",
+   "sample": "TreeSelect(\"Placeholder\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -2206,7 +2206,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "sample": "AreaChart(values: [12, 18, 15, 24, 21, 30], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Active users\")",
    "variants_sample": null
   },
   {
@@ -2245,7 +2245,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")",
    "variants_sample": null
   },
   {
@@ -2282,7 +2282,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: \"Price\", yLabel: \"Rating\")",
    "variants_sample": null
   },
   {
@@ -2309,7 +2309,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])",
    "variants_sample": null
   },
   {
@@ -2344,7 +2344,7 @@
    "variants": [],
    "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
    "own": false,
-   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])",
    "variants_sample": null
   },
   {
@@ -2435,7 +2435,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], seriesNames: [\"Revenue\", \"Target\"])",
    "variants_sample": null
   },
   {
@@ -2476,7 +2476,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }",
    "variants_sample": null
   },
   {
@@ -2502,7 +2502,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "sample": "DonutChart(values: [45, 30, 25], labels: [\"Direct\", \"Search\", \"Social\"])",
    "variants_sample": null
   },
   {
@@ -2567,7 +2567,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])",
    "variants_sample": null
   },
   {
@@ -2606,7 +2606,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "sample": "GaugeChart(value: 72, unit: \"%\")",
    "variants_sample": null
   },
   {
@@ -2676,7 +2676,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])",
    "variants_sample": null
   },
   {
@@ -2689,7 +2689,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")",
    "variants_sample": null
   },
   {
@@ -2801,7 +2801,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "sample": "LineChart(values: [18, 22, 19, 27, 25, 31], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Revenue\")",
    "variants_sample": null
   },
   {
@@ -2839,7 +2839,7 @@
    "variants": [],
    "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
    "own": false,
-   "sample": "MessageBubble(\"Text\")",
+   "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")",
    "variants_sample": null
   },
   {
@@ -2878,7 +2878,7 @@
    "variants": [],
    "doc": "{ sidebar } content: { … } detail: { … }",
    "own": false,
-   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": null
   },
   {
@@ -2913,7 +2913,7 @@
    "variants": [],
    "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
    "own": false,
-   "sample": "Picker(\"Label\")",
+   "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }",
    "variants_sample": null
   },
   {
@@ -2926,7 +2926,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "sample": "PieChart(values: [55, 25, 20], labels: [\"Desktop\", \"Mobile\", \"Tablet\"])",
    "variants_sample": null
   },
   {
@@ -2978,7 +2978,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "RadarChart(values: [4, 3, 5, 2, 4], labels: [\"Speed\", \"Power\", \"Range\", \"Cost\", \"Comfort\"])",
    "variants_sample": null
   },
   {
@@ -3030,7 +3030,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: \"Hours\", yLabel: \"Score\")",
    "variants_sample": null
   },
   {
@@ -3136,7 +3136,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}",
    "variants_sample": null
   },
   {
@@ -3175,7 +3175,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])",
    "variants_sample": null
   },
   {
@@ -3239,7 +3239,7 @@
    "variants": [],
    "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
    "own": false,
-   "sample": "Tab(\"Label\")",
+   "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}",
    "variants_sample": null
   },
   {
@@ -3276,7 +3276,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "TableRow()",
+   "sample": "TableRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -3332,7 +3332,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Toast(\"Message\")",
+   "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")",
    "variants_sample": null
   },
   {
@@ -3404,7 +3404,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])",
    "variants_sample": null
   },
   {

@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   FormCell("Label")
   IconButton("star")
   ImageButton("Label")
-  Matrix("Label")
+  Matrix("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Menu("Title") { Text("Content"); Button("Action") }
   MenuCell("Label")
   MenuItem("Label")

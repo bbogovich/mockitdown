@@ -2,10 +2,10 @@
 VStack(alignment: .leading, spacing: 12) {
   MatProgressSpinner()
   MatRadioButton("Label")
-  MatRadioGroup("Label")
+  MatRadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   MatRaisedButton("Label")
-  MatRow()
-  MatSelect("Label")
+  MatRow() { Text("Ana Lima"); Text("Active") }
+  MatSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   MatSelectionList() { Text("First item"); Text("Second item") }
   MatSidenav("Title") { Text("Content"); Button("Action") }
   MatSidenavContainer() { Text("Content"); Button("Action") }

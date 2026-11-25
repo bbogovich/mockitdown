@@ -3,11 +3,11 @@ VStack(alignment: .leading, spacing: 12) {
   PersonPicture("Ana Lima")
   PipsPager()
   Pivot() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  PivotItem("Label")
+  TabView { PivotItem("Inbox") { Text("Inbox content") }; PivotItem("Archive") { Text("Archive content") } }
   ProgressBar("Label")
   ProgressRing("Label")
   RadioButton("Label")
-  RadioButtons("Label")
+  RadioButtons("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RadioMenuFlyoutItem("Label")
   RangeSelector("Label")
   RatingControl(60)

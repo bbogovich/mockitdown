@@ -10,7 +10,7 @@ VStack(alignment: .leading, spacing: 12) {
   SecureTextField("Label")
   SegmentedButton("Label")
   ShortNavigationBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  ShortNavigationBarItem("Label")
+  TabView { ShortNavigationBarItem("Inbox") { Text("Inbox content") }; ShortNavigationBarItem("Archive") { Text("Archive content") } }
   SingleChoiceSegmentedButtonRow(["One", "Two", "Three"])
 }
 .padding()

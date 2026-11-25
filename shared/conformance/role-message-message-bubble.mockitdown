@@ -1,2 +1,2 @@
 // base element MessageBubble (role message)
-MessageBubble("Text")
+MessageBubble("Running ten minutes late because the train stopped outside the station, so please start the meeting without me.", author: "Ana Lima", time: "09:41")

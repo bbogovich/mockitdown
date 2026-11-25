@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   Canvas() { Text("Content"); Button("Action") }
   CheckBox("Label")
   ColorPicker("Label").frame(width: 160, height: 96)
-  ComboBox("Header")
+  ComboBox("Header", options: ["Small", "Medium", "Large"], selection: "Medium")
   ComboBoxItem("Content")
   CommandBar() { Button("Save"); Button("Share") }
   CommandBarFlyout("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   DataGridTemplateColumn("Title")
   DataGridTextColumn("Title")
-  DatePicker("Header")
+  DatePicker("Header", selection: "2026-11-23")
 }
 .padding()

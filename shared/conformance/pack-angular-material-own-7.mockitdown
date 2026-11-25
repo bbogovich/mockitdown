@@ -3,13 +3,13 @@ VStack(alignment: .leading, spacing: 12) {
   MatSnackBar("Message")
   MatSortHeader("Title")
   MatSpinner()
-  MatStep("Label")
+  TabView { MatStep("Inbox") { Text("Inbox content") }; MatStep("Archive") { Text("Archive content") } }
   MatStepper() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   MatStepperHeader(["Cart", "Shipping", "Payment"])
   MatStrokedButton("Label")
-  MatTab("Label")
+  TabView { MatTab("Inbox") { Text("Inbox content") }; MatTab("Archive") { Text("Archive content") } }
   MatTabGroup() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  MatTabLink("Label")
+  TabView { MatTabLink("Inbox") { Text("Inbox content") }; MatTabLink("Archive") { Text("Archive content") } }
   MatTabNavBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   MatTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
 }

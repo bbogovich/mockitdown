@@ -1,10 +1,10 @@
 // antd own elements: ProFormDateRangePicker, ProFormDigit, ProFormPassword, ProFormRadioGroup, ProFormSelect, ProFormSwitch, ProFormText, ProFormTextArea, ProFormUploadDragger, ProHeader, ProLayout, ProList
 VStack(alignment: .leading, spacing: 12) {
-  ProFormDateRangePicker("Label")
+  ProFormDateRangePicker("Label", selection: "2026-11-23")
   ProFormDigit("Label")
   ProFormPassword("Label")
-  ProFormRadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
-  ProFormSelect("Label")
+  ProFormRadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
+  ProFormSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ProFormSwitch("Label")
   ProFormText("Label")
   ProFormTextArea("Label")

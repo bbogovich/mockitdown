@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   VRating(60)
   VResponsive() { Text("Content"); Button("Action") }
   VRow() { Text("Content"); Button("Action") }
-  VSelect("Label")
+  VSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   VSheet() { Text("Content"); Button("Action") }
   VSkeletonLoader().frame(width: 160, height: 96)
   VSlideGroup() { Text("Content"); Button("Action") }

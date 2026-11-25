@@ -6,11 +6,11 @@ VStack(alignment: .leading, spacing: 12) {
   SuggestionChip("Label")
   Surface() { Text("Content"); Button("Action") }
   Switch("Label")
-  Tab("Label")
+  TabView { Tab("Inbox") { Text("Inbox content") }; Tab("Archive") { Text("Archive content") } }
   TabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   TextButton("Label")
   TextField("Label")
-  TimeInput("Label")
-  TimePicker()
+  TimeInput("Label", selection: "2026-11-23")
+  TimePicker(options: ["Small", "Medium", "Large"], selection: "Medium")
 }
 .padding()

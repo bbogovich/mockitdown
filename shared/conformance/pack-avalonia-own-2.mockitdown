@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   ColorSlider("Label")
   ColorSpectrum("Label").frame(width: 160, height: 96)
   ColorView("Label")
-  ComboBox("Label")
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ComboBoxItem("Content")
   ContentControl() { Text("Content"); Button("Action") }
   ContentPresenter() { Text("Content"); Button("Action") }

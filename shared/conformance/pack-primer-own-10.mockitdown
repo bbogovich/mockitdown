@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   SubNav() { Button("Save"); Button("Share") }
   SubNavLink("Label")
   TabNav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabNavLink("Label")
+  TabView { TabNavLink("Inbox") { Text("Inbox content") }; TabNavLink("Archive") { Text("Archive content") } }
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   TableContainer() { Text("Content"); Button("Action") }
   TableSubtitle("Content")

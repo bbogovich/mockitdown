@@ -1,2 +1,2 @@
 // base element Sparkline (role chart)
-Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+Sparkline([3, 5, 4, 6, 5, 8, 7, 9])

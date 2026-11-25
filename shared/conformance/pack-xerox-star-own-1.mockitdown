@@ -1,7 +1,7 @@
 // xerox-star own elements: ChoiceButton, ChoiceButtons, CommandKey, CommandKeys, Confirmation, Desktop, DesktopIcon, DocumentPage, FieldBox, FolderEntry, FolderList, Frame
 VStack(alignment: .leading, spacing: 12) {
   ChoiceButton("Label")
-  ChoiceButtons("Label")
+  ChoiceButtons("Label", options: ["Day", "Week", "Month"], selection: "Week")
   CommandKey(["⌘", "K"])
   CommandKeys()
   Confirmation("Title") { Text("Content"); Button("Action") }

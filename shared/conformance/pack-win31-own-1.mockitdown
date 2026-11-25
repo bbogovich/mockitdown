@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   AutoRadioButton("Label")
   Button("Label")
   CHECKBOX("Label")
-  COMBOBOX("Label")
+  COMBOBOX("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   CTEXT("Content")
   CalcKey("Label")
   Calculator() { Text("Content"); Button("Action") }

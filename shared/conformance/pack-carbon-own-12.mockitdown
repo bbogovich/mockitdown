@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   TileAboveTheFoldContent() { Text("Content"); Button("Action") }
   TileBelowTheFoldContent() { Text("Content"); Button("Action") }
   TileGroup() { Text("Content"); Button("Action") }
-  TimePicker("Label")
+  TimePicker("Label", selection: "2026-11-23")
   ToastNotification("Title")
   Toggle("Label")
   Toggletip("Text") { Text("Content"); Button("Action") }

@@ -1,6 +1,6 @@
 // win95 own elements: TabPage, Taskbar, TaskbarButton, TextBox, ToolBar, ToolBarButton, ToolTip, TrackBar, Tray, TrayIcon, TreeView, TreeViewItem
 VStack(alignment: .leading, spacing: 12) {
-  TabPage("Label")
+  TabView { TabPage("Inbox") { Text("Inbox content") }; TabPage("Archive") { Text("Archive content") } }
   Taskbar() { Text("Content"); Button("Action") }
   TaskbarButton("Label")
   TextBox("Placeholder")

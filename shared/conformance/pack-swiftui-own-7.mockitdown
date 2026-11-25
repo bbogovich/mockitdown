@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   TextField("Placeholder")
   TimelineView() { Text("Content"); Button("Action") }
   TipView("Title")
-  Toggle("Label")
+  Toggle("Wi-Fi", isOn: true)
   Toolbar() { Button("Save"); Button("Share") }
   ToolbarItem() { Text("Content"); Button("Action") }
   ToolbarItemGroup() { Text("Content"); Button("Action") }

@@ -4,7 +4,7 @@ VStack(alignment: .leading, spacing: 12) {
   Switch("Label")
   SwitchRow("Title")
   TabBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabPage("Title")
+  TabView { TabPage("Inbox") { Text("Inbox content") }; TabPage("Archive") { Text("Archive content") } }
   TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   TextView("Text")
   Toast("Title")

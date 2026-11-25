@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   Button("Label")
   ButtonSet() { Button("Save"); Button("Share") }
   Checkbox("Label")
-  CheckboxGroup("Label")
+  CheckboxGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 }
 .padding()

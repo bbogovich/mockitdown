@@ -1,12 +1,12 @@
 // shadcn own elements: RadioGroup, RadioGroupItem, ResizableHandle, ResizablePanel, ResizablePanelGroup, ScrollArea, Select, SelectGroup, SelectItem, SelectLabel, Separator, Sheet
 VStack(alignment: .leading, spacing: 12) {
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RadioGroupItem("Label")
   ResizableHandle()
   ResizablePanel() { Text("Content"); Button("Action") }
   ResizablePanelGroup() { Text("Content"); Button("Action") }
   ScrollArea() { Text("Content"); Button("Action") }
-  Select("Placeholder")
+  Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   SelectGroup() { Text("Content"); Button("Action") }
   SelectItem("Label")
   SelectLabel("Content")

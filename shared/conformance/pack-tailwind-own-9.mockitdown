@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   TableCell("Content")
   TableHead() { Text("Content"); Button("Action") }
   TableHeader("Title")
-  TableRow()
+  TableRow() { Text("Ana Lima"); Text("Active") }
   Tabs() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   Text("Content")
   TextLink("Label")

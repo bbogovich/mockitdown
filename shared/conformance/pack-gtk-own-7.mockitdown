@@ -9,7 +9,7 @@ VStack(alignment: .leading, spacing: 12) {
   Spinner()
   SplitButton("Label")
   Stack() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  StackPage("Title")
+  TabView { StackPage("Inbox") { Text("Inbox content") }; StackPage("Archive") { Text("Archive content") } }
   StackSwitcher(["One", "Two", "Three"])
   StatusPage("Title")
 }

@@ -4,13 +4,13 @@ VStack(alignment: .leading, spacing: 12) {
   StepsForm() { Text("Content"); Button("Action") }
   SubMenu("Label")
   Switch("Label")
-  TabPane("Label")
+  TabView { TabPane("Inbox") { Text("Inbox content") }; TabPane("Archive") { Text("Archive content") } }
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabsItem("Label")
+  TabView { TabsItem("Inbox") { Text("Inbox content") }; TabsItem("Archive") { Text("Archive content") } }
   Tag("Label")
   Text("Content")
   TextArea("Placeholder")
-  TimePicker("Placeholder")
+  TimePicker("Placeholder", selection: "2026-11-23")
 }
 .padding()

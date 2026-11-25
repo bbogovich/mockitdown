@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   LazyColumn() { Text("Content"); Button("Action") }
   LazyRow() { Text("Content"); Button("Action") }
   LazyVerticalGrid(["Name", "Status"]) { Text("Content"); Button("Action") }
-  LeadingIconTab("Label")
+  TabView { LeadingIconTab("Inbox") { Text("Inbox content") }; LeadingIconTab("Archive") { Text("Archive content") } }
   LinearProgressIndicator()
   LinearWavyProgressIndicator()
   ListDetailPaneScaffold() { Text("Content"); Button("Action") }

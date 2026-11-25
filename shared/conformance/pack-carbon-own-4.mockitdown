@@ -1,6 +1,6 @@
 // carbon own elements: FilterableMultiSelect, FlexGrid, Form, FormGroup, FormItem, FormLabel, GaugeChart, Grid, GroupedBarChart, Header, HeaderGlobalAction, HeaderGlobalBar
 VStack(alignment: .leading, spacing: 12) {
-  FilterableMultiSelect("Label")
+  FilterableMultiSelect("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   FlexGrid() { Text("Content"); Button("Action") }
   Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
   FormGroup("Title") { Text("First item"); Text("Second item") }

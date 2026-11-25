@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   ScrollViewer() { Text("Content"); Button("Action") }
   Segmented(["One", "Two", "Three"])
   SelectorBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  SelectorBarItem("Label")
+  TabView { SelectorBarItem("Inbox") { Text("Inbox content") }; SelectorBarItem("Archive") { Text("Archive content") } }
   SettingsCard("Title")
   SettingsExpander("Header") { Text("Content"); Button("Action") }
   Slider("Label")

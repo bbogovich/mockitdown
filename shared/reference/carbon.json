@@ -139,7 +139,7 @@
    "doc": "Button(\"Create\", kind: \"secondary\", size: \"sm\" | \"md\" | \"lg\" | \"xl\", renderIcon: \"Add\") — icon sits at the trailing edge",
    "own": true,
    "sample": "Button(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"tertiary\"); Text(\"tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger\"); Text(\"danger\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger--tertiary\"); Text(\"danger--tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger--ghost\"); Text(\"danger--ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"tertiary\"); Text(\"tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger\"); Text(\"danger\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger--tertiary\"); Text(\"danger--tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"danger--ghost\"); Text(\"danger--ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "ButtonSet",
@@ -177,7 +177,7 @@
    "variants": [],
    "doc": "CheckboxGroup(legendText:) { Checkbox … }",
    "own": true,
-   "sample": "CheckboxGroup(\"Label\")",
+   "sample": "CheckboxGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -212,7 +212,7 @@
    "doc": "CodeSnippet(\"npm install @carbon/react\", type: \"single\") — copy button at the end",
    "own": true,
    "sample": "CodeSnippet(\"let total = items.count\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"single\"); Text(\"single\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"multi\"); Text(\"multi\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"single\"); Text(\"single\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"multi\"); Text(\"multi\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { CodeSnippet(\"let total = items.count\").variant(\"inline\"); Text(\"inline\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Column",
@@ -237,7 +237,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "ComboBox(\"Label\")",
+   "sample": "ComboBox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -333,7 +333,7 @@
    "doc": "DataTable(columns: [..], rows: [[..]], selectable: true, selectedRows: [1], sortColumn: 0, size: \"md\") — or TableRow/TableExpandRow children",
    "own": true,
    "sample": "DataTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { DataTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"zebra\"); Text(\"zebra\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { DataTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]]).variant(\"zebra\"); Text(\"zebra\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "DataTableSkeleton",
@@ -361,7 +361,7 @@
    "variants": [],
    "doc": "DatePicker(\"Start date\", value: \"2026-11-23\")",
    "own": true,
-   "sample": "DatePicker(\"Label\")",
+   "sample": "DatePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -377,7 +377,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "DatePickerInput(\"Label\")",
+   "sample": "DatePickerInput(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -432,7 +432,7 @@
    "variants": [],
    "doc": "Dropdown(\"Plan\", items: [\"Lite\", \"Standard\"], selectedItem: \"Standard\", open: true)",
    "own": true,
-   "sample": "Dropdown(\"Label\")",
+   "sample": "Dropdown(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -525,7 +525,7 @@
    "doc": "Uploaded file row: FileUploaderItem(\"report.pdf\", status: \"complete\")",
    "own": true,
    "sample": "FileUploaderItem(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"edit\"); Text(\"edit\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"uploading\"); Text(\"uploading\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"complete\"); Text(\"complete\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"edit\"); Text(\"edit\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"uploading\"); Text(\"uploading\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FileUploaderItem(\"Label\").variant(\"complete\"); Text(\"complete\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "FilterableMultiSelect",
@@ -537,7 +537,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "FilterableMultiSelect(\"Label\")",
+   "sample": "FilterableMultiSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -631,7 +631,7 @@
    "doc": "16-column CSS Grid: Grid { Column(lg: 4) { … } } · .narrow() / .condensed()",
    "own": true,
    "sample": "Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"wide\"); Text(\"wide\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"narrow\"); Text(\"narrow\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"condensed\"); Text(\"condensed\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"wide\"); Text(\"wide\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"narrow\"); Text(\"narrow\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }.variant(\"condensed\"); Text(\"condensed\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "GroupedBarChart",
@@ -839,7 +839,7 @@
    "doc": "IconButton(\"Edit\", kind: \"ghost\", size: \"sm\")",
    "own": true,
    "sample": "IconButton(\"star\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"tertiary\"); Text(\"tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"primary\"); Text(\"primary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"secondary\"); Text(\"secondary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"tertiary\"); Text(\"tertiary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { IconButton(\"star\").variant(\"ghost\"); Text(\"ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "InlineLoading",
@@ -873,7 +873,7 @@
    "doc": "InlineNotification(title: \"Error\", subtitle: \"…\", kind: \"error\" | \"success\" | \"warning\" | \"info\", lowContrast: true)",
    "own": true,
    "sample": "InlineNotification(\"Title\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { InlineNotification(\"Title\").variant(\"lowContrast\"); Text(\"lowContrast\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { InlineNotification(\"Title\").variant(\"lowContrast\"); Text(\"lowContrast\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Layer",
@@ -990,7 +990,7 @@
    "variants": [],
    "doc": "MultiSelect(\"Tags\", selectedItems: [\"api\", \"web\"]) — selected values show as tags",
    "own": true,
-   "sample": "MultiSelect(\"Label\")",
+   "sample": "MultiSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1188,7 +1188,7 @@
    "variants": [],
    "doc": "RadioButtonGroup(legendText: \"Plan\", options: [..], valueSelected: \"Lite\", orientation: .vertical)",
    "own": true,
-   "sample": "RadioButtonGroup(\"Label\")",
+   "sample": "RadioButtonGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1244,7 +1244,7 @@
    "variants": [],
    "doc": "Select(\"Region\", value: \"US South\") { SelectItem(\"US South\") … }",
    "own": true,
-   "sample": "Select(\"Label\")",
+   "sample": "Select(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1302,7 +1302,7 @@
    "doc": "SideNav { SideNavLink(\"Dashboard\", icon: \"Dashboard\").selected(); SideNavMenu(\"Manage\") { SideNavMenuItem … } }",
    "own": true,
    "sample": "SideNav(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { SideNav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"fixed\"); Text(\"fixed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { SideNav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"rail\"); Text(\"rail\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { SideNav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"fixed\"); Text(\"fixed\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { SideNav(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"rail\"); Text(\"rail\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "SideNavDivider",
@@ -1493,7 +1493,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "StructuredListRow()",
+   "sample": "StructuredListRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -1567,7 +1567,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "Tab(\"Label\")",
+   "sample": "TabView { Tab(\"Inbox\") { Text(\"Inbox content\") }; Tab(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1671,7 +1671,7 @@
    "variants": [],
    "doc": "Row with an expand chevron; follow it with TableExpandedRow { … } to show it expanded",
    "own": true,
-   "sample": "TableExpandRow()",
+   "sample": "TableExpandRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -1684,7 +1684,7 @@
    "variants": [],
    "doc": "Full-width detail row under a TableExpandRow",
    "own": true,
-   "sample": "TableExpandedRow()",
+   "sample": "TableExpandedRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -1708,7 +1708,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "TableRow()",
+   "sample": "TableRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -1793,7 +1793,7 @@
    "doc": "Tabs(selectedIndex: 0) { Tab(\"Overview\") { panel } … } · .contained()",
    "own": true,
    "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"contained\"); Text(\"contained\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"line\"); Text(\"line\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"contained\"); Text(\"contained\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Tag",
@@ -1856,7 +1856,7 @@
    "doc": "Zoned theme: Theme(\"g100\") { … } renders its content in that theme",
    "own": true,
    "sample": "Theme() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"white\"); Text(\"white\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g10\"); Text(\"g10\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g90\"); Text(\"g90\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g100\"); Text(\"g100\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"white\"); Text(\"white\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g10\"); Text(\"g10\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g90\"); Text(\"g90\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Theme() { Text(\"Content\"); Button(\"Action\") }.variant(\"g100\"); Text(\"g100\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "Tile",
@@ -1923,7 +1923,7 @@
    "variants": [],
    "doc": "",
    "own": true,
-   "sample": "TimePicker(\"Label\")",
+   "sample": "TimePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -2047,7 +2047,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Alert(\"Delete this draft?\", message: \"The draft and its attachments will be removed permanently.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })",
    "variants_sample": null
   },
   {
@@ -2125,7 +2125,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")",
    "variants_sample": null
   },
   {
@@ -2187,7 +2187,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])",
    "variants_sample": null
   },
   {
@@ -2235,7 +2235,7 @@
    "variants": [],
    "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
    "own": false,
-   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])",
    "variants_sample": null
   },
   {
@@ -2354,7 +2354,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }",
    "variants_sample": null
   },
   {
@@ -2443,7 +2443,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])",
    "variants_sample": null
   },
   {
@@ -2528,7 +2528,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])",
    "variants_sample": null
   },
   {
@@ -2541,7 +2541,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")",
    "variants_sample": null
   },
   {
@@ -2738,7 +2738,7 @@
    "variants": [],
    "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
    "own": false,
-   "sample": "MessageBubble(\"Text\")",
+   "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")",
    "variants_sample": null
   },
   {
@@ -2777,7 +2777,7 @@
    "variants": [],
    "doc": "{ sidebar } content: { … } detail: { … }",
    "own": false,
-   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": null
   },
   {
@@ -2812,7 +2812,7 @@
    "variants": [],
    "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
    "own": false,
-   "sample": "Picker(\"Label\")",
+   "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }",
    "variants_sample": null
   },
   {
@@ -2864,7 +2864,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadioGroup(\"Label\")",
+   "sample": "RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -3022,7 +3022,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}",
    "variants_sample": null
   },
   {
@@ -3072,7 +3072,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])",
    "variants_sample": null
   },
   {
@@ -3255,7 +3255,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Toast(\"Message\")",
+   "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")",
    "variants_sample": null
   },
   {
@@ -3325,7 +3325,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])",
    "variants_sample": null
   },
   {

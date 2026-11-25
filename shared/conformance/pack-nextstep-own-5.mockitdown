@@ -7,10 +7,10 @@ VStack(alignment: .leading, spacing: 12) {
   NXWorkspace() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
   Panel("Title") { Text("Content"); Button("Action") }
   PathView() { Text("Content"); Button("Action") }
-  PopUpList("Label")
+  PopUpList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ProgressIndicator()
-  PullDownList("Label")
+  PullDownList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RadioButton("Label")
-  RadioMatrix("Label")
+  RadioMatrix("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 }
 .padding()

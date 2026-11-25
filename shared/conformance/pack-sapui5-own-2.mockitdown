@@ -3,12 +3,12 @@ VStack(alignment: .leading, spacing: 12) {
   Carousel() { Text("Content"); Button("Action") }
   CheckBox("Label")
   Column("Title")
-  ColumnListItem()
-  ComboBox("Label")
+  ColumnListItem() { Text("Ana Lima"); Text("Active") }
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   CustomListItem()
-  DatePicker("Label")
-  DateRangeSelection("Label")
-  DateTimePicker("Label")
+  DatePicker("Label", selection: "2026-11-23")
+  DateRangeSelection("Label", selection: "2026-11-23")
+  DateTimePicker("Label", selection: "2026-11-23")
   Dialog("Title") { Text("Content"); Button("Action") }
   DisplayListItem("Label", "Detail")
   DynamicPage() { Text("Content"); Button("Action") }

@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   DockWidget("Title") { Text("Content"); Button("Action") }
   DoubleSpinBox("Value")
   FileDialog("Title") { Text("Content"); Button("Action") }
-  FontComboBox("Label")
+  FontComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   FontDialog("Title") { Text("Content"); Button("Action") }
   FormLayout() { TextField("Name"); Toggle("Notifications", isOn: true) }
   FormRow("Label") { Text("Content"); Button("Action") }

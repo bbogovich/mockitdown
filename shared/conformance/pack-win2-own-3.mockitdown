@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   PushButton("Label")
   RText("Content")
   RadioButton("Label")
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
 }
 .padding()

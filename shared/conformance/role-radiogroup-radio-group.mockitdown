@@ -1,2 +1,2 @@
 // base element RadioGroup (role radiogroup)
-RadioGroup("Label")
+RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")

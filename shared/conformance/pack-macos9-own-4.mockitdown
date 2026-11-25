@@ -1,11 +1,11 @@
 // macos9 own elements: PopupMenu, ProgressBar, PullDownMenu, PushButton, RadioButton, RadioGroup, ScrollArea, SearchField, SecondaryGroupBox, Separator, Slider, StickyNote
 VStack(alignment: .leading, spacing: 12) {
-  PopupMenu("Label")
+  PopupMenu("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ProgressBar("Label")
   PullDownMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   PushButton("Label")
   RadioButton("Label")
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ScrollArea() { Text("Content"); Button("Action") }
   SearchField("Placeholder")
   SecondaryGroupBox("Title") { Text("Content"); Button("Action") }

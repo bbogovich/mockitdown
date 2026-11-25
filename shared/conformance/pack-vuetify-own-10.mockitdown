@@ -1,7 +1,7 @@
 // vuetify own elements: VSpacer, VSparkline, VSpeedDial, VStepper, VStepperActions, VStepperHeader, VStepperItem, VStepperVertical, VStepperWindow, VStepperWindowItem, VSubheader, VSwitch
 VStack(alignment: .leading, spacing: 12) {
   VSpacer()
-  VSparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])
+  VSparkline([3, 5, 2, 6, 4])
   VSpeedDial("star")
   VStepper(["Cart", "Shipping", "Payment"])
   VStepperActions() { Text("Content"); Button("Action") }

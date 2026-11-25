@@ -5,8 +5,8 @@ VStack(alignment: .leading, spacing: 12) {
   Container() { Text("Content"); Button("Action") }
   DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   DateCalendar()
-  DatePicker("Label")
-  DateTimePicker("Label")
+  DatePicker("Label", selection: "2026-11-23")
+  DateTimePicker("Label", selection: "2026-11-23")
   Dialog("Title") { Text("Content"); Button("Action") }
   DialogActions() { Text("Content"); Button("Action") }
   DialogContent() { Text("Content"); Button("Action") }

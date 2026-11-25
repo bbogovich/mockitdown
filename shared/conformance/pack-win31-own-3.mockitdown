@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   DirectoryWindow("Title") { Text("Content"); Button("Action") }
   Drive("Label")
   DriveBar() { Button("Save"); Button("Share") }
-  DropDownList("Label")
+  DropDownList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   EDITTEXT("Text")
   Edit("Text")
   EditText("Text")

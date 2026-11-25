@@ -4,11 +4,11 @@ VStack(alignment: .leading, spacing: 12) {
   StackPanel() { Text("Content"); Button("Action") }
   SymbolIcon("star")
   TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabViewItem("Label")
+  TabView { TabViewItem("Inbox") { Text("Inbox content") }; TabViewItem("Archive") { Text("Archive content") } }
   TeachingTip("Title") { Text("Content"); Button("Action") }
   TextBlock("Content")
   TextBox("Header")
-  TimePicker("Header")
+  TimePicker("Header", selection: "2026-11-23")
   TitleBar("Title") { Text("Content"); Button("Action") }
   ToggleButton("Label")
   ToggleMenuFlyoutItem("Label")

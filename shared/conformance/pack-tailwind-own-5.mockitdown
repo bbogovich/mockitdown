@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   Lead("Content")
   Legend("Content")
   Link("Label")
-  Listbox("Placeholder")
+  Listbox("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
 }
 .padding()

@@ -2,13 +2,13 @@
 VStack(alignment: .leading, spacing: 12) {
   SymbolIcon("star")
   TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabItem("Label")
+  TabView { TabItem("Inbox") { Text("Inbox content") }; TabItem("Archive") { Text("Archive content") } }
   TabStrip(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabStripItem("Label")
+  TabView { TabStripItem("Inbox") { Text("Inbox content") }; TabStripItem("Archive") { Text("Archive content") } }
   TextBlock("Content")
   TextBox("Text")
   TextEditor("let total = items.count")
-  TimePicker("Label")
+  TimePicker("Label", selection: "2026-11-23")
   TitleBar("Title") { Text("Content"); Button("Action") }
   ToggleButton("Label")
   ToggleSplitButton("Label")

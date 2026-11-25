@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   Carousel() { Text("Content"); Button("Action") }
   CarouselIndicators(["One", "Two", "Three"])
   CarouselItem("Title") { Text("Content"); Button("Action") }
-  CascadeSelect("Placeholder")
+  CascadeSelect("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Chart(values: [3, 5, 2, 6, 4])
   Checkbox("Label")
   Chip("Label")

@@ -10,7 +10,7 @@ VStack(alignment: .leading, spacing: 12) {
   ActionMenuButton("Label")
   ActionMenuDivider()
   ActionMenuItem("Label")
-  Autocomplete("Placeholder")
+  Autocomplete("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   AutocompleteItem("Title")
 }
 .padding()

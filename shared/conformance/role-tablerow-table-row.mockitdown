@@ -1,2 +1,2 @@
 // base element TableRow (role tablerow)
-TableRow()
+TableRow() { Text("Ana Lima"); Text("Active") }

@@ -8,7 +8,7 @@ VStack(alignment: .leading, spacing: 12) {
   Popover("Title") { Text("Content"); Button("Action") }
   ProgressBar(60)
   Radio("Label")
-  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   RelativeTime("Content")
   SegmentedControl(["One", "Two", "Three"])
   SegmentedControlButton("Title")

@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   OutlineItem("Title")
   OutlineView() { TreeItem("Folder") { TreeItem("File") } }
   Panel("Title") { Text("Content"); Button("Action") }
-  PopUpButton("Label")
+  PopUpButton("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   PreferenceIcon("Title")
   ProgressBar("Label")
   ProgressIndicator("Label")

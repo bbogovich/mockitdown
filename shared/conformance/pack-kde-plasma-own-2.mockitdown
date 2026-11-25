@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   CheckDelegate("Title")
   Chip("Label")
   ColumnLayout() { Text("Content"); Button("Action") }
-  ComboBox("Label")
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ContextDrawer("Title") { Text("Content"); Button("Action") }
   ContextualHelpButton("Label")
   DetailsView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])

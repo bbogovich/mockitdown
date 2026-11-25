@@ -7,8 +7,8 @@ VStack(alignment: .leading, spacing: 12) {
   QueryFilter() { TextField("Name"); Toggle("Notifications", isOn: true) }
   Radio("Label")
   RadioButton("Label")
-  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
-  RangePicker("Placeholder")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
+  RangePicker("Placeholder", selection: "2026-11-23")
   Rate(60)
   Result("Title")
   Row() { Text("Content"); Button("Action") }

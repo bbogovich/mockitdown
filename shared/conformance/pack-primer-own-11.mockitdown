@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   Terminal("let total = items.count")
   Text("Content")
   TextInput("Placeholder")
-  TextInputWithTokens("Placeholder")
+  TextInputWithTokens("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Textarea("Placeholder")
   Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }
   TimelineBreak()

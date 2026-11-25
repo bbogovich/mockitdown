@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   Clock() { Text("Content"); Button("Action") }
   ClockFace().frame(width: 160, height: 96)
   ColorPalette()
-  ComboBox("Label")
+  ComboBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   ControlPanel() { Text("Content"); Button("Action") }
   DEFPUSHBUTTON("Label")
   DIALOG("Title") { Text("Content"); Button("Action") }

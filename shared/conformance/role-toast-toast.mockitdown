@@ -1,2 +1,2 @@
 // base element Toast (role toast)
-Toast("Message")
+Toast("Message sent", description: "Your reply reached 3 people.", action: "Undo", systemImage: "checkmark.circle")

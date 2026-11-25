@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   ContextMenuLabel("Content")
   ContextMenuSeparator()
   DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
-  DatePicker("Label")
+  DatePicker("Label", selection: "2026-11-23")
 }
 .padding()

@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   TableWidget(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   TextBrowser("Text")
   TextEdit("Text")
-  TimeEdit("09:41")
+  TimeEdit("09:41", selection: "2026-11-23")
   ToolBar() { Button("Save"); Button("Share") }
   ToolBox() { Text("Content"); Button("Action") }
   ToolBoxItem("Title") { Text("Content"); Button("Action") }

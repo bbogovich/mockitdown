@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   MenuSeparator()
   MessageBox("Title") { Text("Content"); Button("Action") }
   NavigationTabBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  NavigationTabButton("Label")
+  TabView { NavigationTabButton("Inbox") { Text("Inbox content") }; NavigationTabButton("Archive") { Text("Archive content") } }
   Notification("Message")
   OverlayDrawer("Title") { Text("Content"); Button("Action") }
   OverlaySheet("Title") { Text("Content"); Button("Action") }

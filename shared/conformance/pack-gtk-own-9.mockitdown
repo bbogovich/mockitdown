@@ -3,10 +3,10 @@ VStack(alignment: .leading, spacing: 12) {
   TreeExpander("Label")
   TreeListView() { TreeItem("Folder") { TreeItem("File") } }
   ViewStack() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  ViewStackPage("Title")
+  TabView { ViewStackPage("Inbox") { Text("Inbox content") }; ViewStackPage("Archive") { Text("Archive content") } }
   ViewSwitcher() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   ViewSwitcherBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  ViewSwitcherItem("Title")
+  TabView { ViewSwitcherItem("Inbox") { Text("Inbox content") }; ViewSwitcherItem("Archive") { Text("Archive content") } }
   Viewport() { Text("Content"); Button("Action") }
   Window() { Text("Content"); Button("Action") }
   WindowTitle("Title", "Subtitle")

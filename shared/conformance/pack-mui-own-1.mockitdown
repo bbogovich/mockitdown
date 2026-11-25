@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   Alert("Message")
   AlertTitle("Content")
   AppBar("Title") { Text("Content"); Button("Action") }
-  Autocomplete("Label")
+  Autocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Avatar("Ana Lima")
   AvatarGroup() { Text("Content"); Button("Action") }
   Backdrop() { Text("Content"); Button("Action") }

@@ -1,2 +1,2 @@
 // base element DonutChart (role chart)
-DonutChart(values: [3, 5, 2, 6, 4])
+DonutChart(values: [45, 30, 25], labels: ["Direct", "Search", "Social"])

@@ -2,7 +2,7 @@
 VStack(alignment: .leading, spacing: 12) {
   MatAccordion() { Text("Content"); Button("Action") }
   MatActionList() { Text("First item"); Text("Second item") }
-  MatAutocomplete("Label")
+  MatAutocomplete("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   MatBadge("Text")
   MatBottomSheet("Title") { Text("Content"); Button("Action") }
   MatButton("Label")

@@ -7,7 +7,7 @@ VStack(alignment: .leading, spacing: 12) {
   LevelIndicator("Label")
   ListItem("Title")
   ListView() { Text("First item"); Text("Second item") }
-  Matrix("Label")
+  Matrix("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   MenuBar() { Button("Save"); Button("Share") }
   MenuExtra("Title")

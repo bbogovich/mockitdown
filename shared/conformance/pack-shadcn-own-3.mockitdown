@@ -8,7 +8,7 @@ VStack(alignment: .leading, spacing: 12) {
   ChartContainer(values: [3, 5, 2, 6, 4])
   Checkbox("Label")
   Collapsible("Title") { Text("Content"); Button("Action") }
-  Combobox("Placeholder")
+  Combobox("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   Command() { Button("Open"); Button("Save"); Divider(); Button("Close") }
   CommandDialog() { Text("Content"); Button("Action") }
   CommandEmpty("Content")

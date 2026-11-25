@@ -10,7 +10,7 @@ VStack(alignment: .leading, spacing: 12) {
   Breadcrumb(["One", "Two", "Three"])
   BusyIndicator("Label")
   Button("Label")
-  ButtonGroup("Label")
+  ButtonGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Card("Title") { Text("Content"); Button("Action") }
 }
 .padding()

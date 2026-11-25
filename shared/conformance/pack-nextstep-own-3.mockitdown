@@ -9,7 +9,7 @@ VStack(alignment: .leading, spacing: 12) {
   NSMenu("Title") { Text("Content"); Button("Action") }
   NSMenuItem("Label")
   NSPanel("Title") { Text("Content"); Button("Action") }
-  NSPopUpButton("Label")
+  NSPopUpButton("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   NSProgressIndicator()
   NSRadioButton("Label")
 }

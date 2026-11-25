@@ -1,9 +1,9 @@
 // shadcn own elements: TableRow, Tabs, TabsContent, TabsTrigger, Textarea, Toast, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TypographyBlockquote
 VStack(alignment: .leading, spacing: 12) {
-  TableRow()
+  TableRow() { Text("Ana Lima"); Text("Active") }
   Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  TabsContent("Label")
-  TabsTrigger("Label")
+  TabView { TabsContent("Inbox") { Text("Inbox content") }; TabsContent("Archive") { Text("Archive content") } }
+  TabView { TabsTrigger("Inbox") { Text("Inbox content") }; TabsTrigger("Archive") { Text("Archive content") } }
   Textarea("Placeholder")
   Toast("Message")
   Toaster("Message")

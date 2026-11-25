@@ -1,7 +1,7 @@
 // lisa own elements: RadioButton, RadioGroup, Ruler, ScrollBar, Separator, Spreadsheet, StaticText, StationeryPad, StopAlert, TextField, Tool, ToolPalette
 VStack(alignment: .leading, spacing: 12) {
   RadioButton("Label", true)
-  RadioGroup("Label")
+  RadioGroup("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   Ruler()
   ScrollBar()
   Separator()

@@ -1,6 +1,6 @@
 // mui own elements: TimePicker, Timeline, ToggleButton, ToggleButtonGroup, Toolbar, Tooltip, Typography, Zoom
 VStack(alignment: .leading, spacing: 12) {
-  TimePicker("Label")
+  TimePicker("Label", selection: "2026-11-23")
   Timeline(["Cart", "Shipping", "Payment"])
   ToggleButton("Label")
   ToggleButtonGroup(["One", "Two", "Three"])

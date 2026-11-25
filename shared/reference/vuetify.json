@@ -32,7 +32,7 @@
    "variants": [],
    "doc": "A table row (children are cells)",
    "own": true,
-   "sample": "Tr()",
+   "sample": "Tr() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -55,7 +55,7 @@
    "doc": "VAlert(\"Saved.\", type: \"success\", title:, variant: \"tonal\" | \"outlined\" | \"flat\", closable: true, density:)",
    "own": true,
    "sample": "VAlert(\"Message\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VAlertTitle",
@@ -145,8 +145,8 @@
    ],
    "doc": "VAutocomplete(\"State\", items: [..], modelValue: [..]) — filterable select; multiple values render chips",
    "own": true,
-   "sample": "VAutocomplete(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VAvatar",
@@ -166,7 +166,7 @@
    "doc": "VAvatar(image: \"avatar-1.svg\", size: 40) · VAvatar(\"Ana Lima\", color: \"primary\") · VAvatar(icon: \"mdi-account\", rounded: 0)",
    "own": true,
    "sample": "VAvatar(\"Ana Lima\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VBadge",
@@ -294,7 +294,7 @@
    "doc": "VBtn(\"Save\", color: \"primary\", variant: \"tonal\", size: \"small\", density: \"compact\", rounded: \"pill\", prependIcon: \"mdi-content-save\") · VBtn(icon: \"mdi-heart\")",
    "own": true,
    "sample": "VBtn(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VBtnGroup",
@@ -314,7 +314,7 @@
    "doc": "VBtnGroup(variant: \"outlined\", divided: true) { VBtn … } — joined buttons",
    "own": true,
    "sample": "VBtnGroup() { Button(\"Save\"); Button(\"Share\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VBtnToggle",
@@ -334,7 +334,7 @@
    "doc": "VBtnToggle(variant: \"outlined\", divided: true) { VBtn(icon: \"mdi-format-bold\").selected() … } — joined toggle buttons",
    "own": true,
    "sample": "VBtnToggle() { Button(\"Save\"); Button(\"Share\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VCard",
@@ -356,7 +356,7 @@
    "doc": "VCard(title:, subtitle:, prependIcon:, image:, variant: \"outlined\") { VCardText … } actions: { VBtn(\"Ok\", variant: \"text\") }",
    "own": true,
    "sample": "VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VCardActions",
@@ -497,7 +497,7 @@
    "doc": "VChip(\"Active\", color: \"success\", variant: \"tonal\" | \"flat\" | \"outlined\" | \"elevated\" | \"text\", size: \"small\", closable: true, prependIcon:, label: true)",
    "own": true,
    "sample": "VChip(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VChipGroup",
@@ -571,8 +571,8 @@
    ],
    "doc": "VCombobox(\"Tags\", items: [..], modelValue: [..], chips: true) — select that accepts new values",
    "own": true,
-   "sample": "VCombobox(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VConfirmEdit",
@@ -677,8 +677,8 @@
    ],
    "doc": "VDateInput(\"Delivery date\", modelValue: \"2026-11-23\") — text field opening a VDatePicker",
    "own": true,
-   "sample": "VDateInput(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "VDateInput(\"Label\", selection: \"2026-11-23\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\", selection: \"2026-11-23\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VDatePicker",
@@ -726,7 +726,7 @@
    "doc": "VDivider() · VDivider(vertical: true) · inset: true · thickness:",
    "own": true,
    "sample": "VDivider()",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VDivider().variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VDivider().variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VEmptyState",
@@ -797,7 +797,7 @@
    "doc": "VExpansionPanels(variant: \"accordion\" | \"inset\" | \"popout\") { VExpansionPanel(title:, text:) … }",
    "own": true,
    "sample": "VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"accordion\"); Text(\"accordion\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"popout\"); Text(\"popout\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"accordion\"); Text(\"accordion\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"popout\"); Text(\"popout\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VFab",
@@ -819,7 +819,7 @@
    "doc": "VFab(icon: \"mdi-plus\", color: \"primary\") · extended: VFab(icon:, label: \"Compose\")",
    "own": true,
    "sample": "VFab(\"star\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VField",
@@ -842,7 +842,7 @@
    "doc": "The bare field box of an input",
    "own": true,
    "sample": "VField(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VFileInput",
@@ -866,7 +866,7 @@
    "doc": "VFileInput(\"Attachment\", modelValue: \"report.pdf\", chips: true) — file field with a paperclip prepend icon",
    "own": true,
    "sample": "VFileInput(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VFileUpload",
@@ -1235,7 +1235,7 @@
    "doc": "VNavigationDrawer(title:) { VList(nav: true) { VListItem(title:, prependIcon:) } } — 256px drawer; rail: true for 56px",
    "own": true,
    "sample": "VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"permanent\"); Text(\"permanent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"temporary\"); Text(\"temporary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"rail\"); Text(\"rail\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"permanent\"); Text(\"permanent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"temporary\"); Text(\"temporary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"rail\"); Text(\"rail\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VNoSsr",
@@ -1270,7 +1270,7 @@
    "doc": "VNumberInput(\"Quantity\", modelValue: 2) — number field with − / + controls",
    "own": true,
    "sample": "VNumberInput(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VOtpInput",
@@ -1293,7 +1293,7 @@
    "doc": "One-time-code field",
    "own": true,
    "sample": "VOtpInput(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VOverlay",
@@ -1379,7 +1379,7 @@
    "variants": [],
    "doc": "VRadioGroup(\"Shipping\", items: [..], modelValue: \"Express\", inline: true) — or VRadio children",
    "own": true,
-   "sample": "VRadioGroup(\"Label\")",
+   "sample": "VRadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -1454,8 +1454,8 @@
    ],
    "doc": "VSelect(\"Country\", items: [\"France\", \"Peru\"], modelValue: \"Peru\", chips: true, multiple: true, open: true)",
    "own": true,
-   "sample": "VSelect(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "sample": "VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VSheet",
@@ -1475,7 +1475,7 @@
    "doc": "VSheet(elevation: 2, rounded: true, color:) { … } — plain surface with no padding",
    "own": true,
    "sample": "VSheet() { Text(\"Content\"); Button(\"Action\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VSkeletonLoader",
@@ -1572,7 +1572,7 @@
    "variants": [],
    "doc": "VSparkline(modelValue: [1, 4, 2, 6], color: \"primary\", fill: true, smooth: true) — trend line",
    "own": true,
-   "sample": "VSparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "VSparkline([3, 5, 2, 6, 4])",
    "variants_sample": null
   },
   {
@@ -1728,7 +1728,7 @@
    "variants": [],
    "doc": "VTab(\"Favorites\", prependIcon: \"mdi-heart\") { pane }",
    "own": true,
-   "sample": "VTab(\"Label\")",
+   "sample": "TabView { VTab(\"Inbox\") { Text(\"Inbox content\") }; VTab(\"Archive\") { Text(\"Archive content\") } }",
    "variants_sample": null
   },
   {
@@ -1804,7 +1804,7 @@
    "doc": "VTextField(\"Email\", modelValue:, variant: \"outlined\", density: \"compact\", prependInnerIcon:, hint:, errorMessages: \"…\", clearable: true)",
    "own": true,
    "sample": "VTextField(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VTextarea",
@@ -1828,7 +1828,7 @@
    "doc": "VTextarea(\"Notes\", rows: 3, counter: 200, autoGrow: true)",
    "own": true,
    "sample": "VTextarea(\"Label\")",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VThemeProvider",
@@ -1854,7 +1854,7 @@
    "variants": [],
    "doc": "Time picker field",
    "own": true,
-   "sample": "VTimePicker(\"Label\")",
+   "sample": "VTimePicker(\"Label\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -1899,7 +1899,7 @@
    "doc": "VToolbar(title:, color:, density:) { VBtn … } — 64px bar (surface-light by default)",
    "own": true,
    "sample": "VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }",
-   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+   "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
   },
   {
    "name": "VToolbarItems",
@@ -2026,7 +2026,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Alert(\"Delete this draft?\", message: \"The draft and its attachments will be removed permanently.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })",
    "variants_sample": null
   },
   {
@@ -2052,7 +2052,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "sample": "AreaChart(values: [12, 18, 15, 24, 21, 30], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Active users\")",
    "variants_sample": null
   },
   {
@@ -2117,7 +2117,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BarChart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], title: \"Orders\")",
    "variants_sample": null
   },
   {
@@ -2167,7 +2167,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "sample": "BubbleChart(points: [[1, 3, 4], [2, 6, 9], [4, 4, 2], [5, 8, 6], [6, 5, 3]], xLabel: \"Price\", yLabel: \"Rating\")",
    "variants_sample": null
   },
   {
@@ -2218,7 +2218,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "sample": "CandlestickChart(points: [[20, 26, 18, 24], [24, 28, 22, 23], [23, 25, 19, 21], [21, 27, 20, 26], [26, 30, 25, 29]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"])",
    "variants_sample": null
   },
   {
@@ -2266,7 +2266,7 @@
    "variants": [],
    "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
    "own": false,
-   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "sample": "Chart(values: [42, 58, 35, 64], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"])",
    "variants_sample": null
   },
   {
@@ -2370,7 +2370,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ComboChart(values: [[40, 52, 48, 61], [45, 50, 55, 60]], labels: [\"Q1\", \"Q2\", \"Q3\", \"Q4\"], seriesNames: [\"Revenue\", \"Target\"])",
    "variants_sample": null
   },
   {
@@ -2411,7 +2411,7 @@
    "variants": [],
    "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
    "own": false,
-   "sample": "DatePicker(\"Label\")",
+   "sample": "DatePicker(\"Starts\", selection: \"2026-11-23\")",
    "variants_sample": null
   },
   {
@@ -2424,7 +2424,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Dialog(\"Rename file\", message: \"Enter a new name for the report.\", actions: { Button(\"Cancel\"); Button(\"Rename\") }) { TextField(\"Name\", text: \"Quarterly report\") }",
    "variants_sample": null
   },
   {
@@ -2461,7 +2461,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "sample": "DonutChart(values: [45, 30, 25], labels: [\"Direct\", \"Search\", \"Social\"])",
    "variants_sample": null
   },
   {
@@ -2537,7 +2537,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "sample": "FunnelChart(values: [1200, 640, 310, 120], labels: [\"Visits\", \"Sign-ups\", \"Trials\", \"Purchases\"])",
    "variants_sample": null
   },
   {
@@ -2576,7 +2576,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "sample": "GaugeChart(value: 72, unit: \"%\")",
    "variants_sample": null
   },
   {
@@ -2646,7 +2646,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "sample": "Heatmap(matrix: [[1, 4, 2, 5, 3], [3, 6, 4, 2, 5], [5, 2, 7, 3, 1]], labels: [\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"], yLabels: [\"Morning\", \"Noon\", \"Evening\"])",
    "variants_sample": null
   },
   {
@@ -2659,7 +2659,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "sample": "Histogram(values: [2, 6, 11, 14, 9, 4], labels: [\"0\", \"10\", \"20\", \"30\", \"40\", \"50\"], xLabel: \"Minutes\")",
    "variants_sample": null
   },
   {
@@ -2810,7 +2810,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "sample": "LineChart(values: [18, 22, 19, 27, 25, 31], labels: [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"], title: \"Revenue\")",
    "variants_sample": null
   },
   {
@@ -2898,7 +2898,7 @@
    "variants": [],
    "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
    "own": false,
-   "sample": "MessageBubble(\"Text\")",
+   "sample": "MessageBubble(\"Running ten minutes late because the train stopped outside the station, so please start the meeting without me.\", author: \"Ana Lima\", time: \"09:41\")",
    "variants_sample": null
   },
   {
@@ -2937,7 +2937,7 @@
    "variants": [],
    "doc": "{ sidebar } content: { … } detail: { … }",
    "own": false,
-   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": null
   },
   {
@@ -2983,7 +2983,7 @@
    "variants": [],
    "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
    "own": false,
-   "sample": "Picker(\"Label\")",
+   "sample": "Picker(\"Size\", selection: \"Medium\") { Text(\"Small\"); Text(\"Medium\"); Text(\"Large\") }",
    "variants_sample": null
   },
   {
@@ -2996,7 +2996,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "sample": "PieChart(values: [55, 25, 20], labels: [\"Desktop\", \"Mobile\", \"Tablet\"])",
    "variants_sample": null
   },
   {
@@ -3048,7 +3048,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "sample": "RadarChart(values: [4, 3, 5, 2, 4], labels: [\"Speed\", \"Power\", \"Range\", \"Cost\", \"Comfort\"])",
    "variants_sample": null
   },
   {
@@ -3074,7 +3074,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "RadioGroup(\"Label\")",
+   "sample": "RadioGroup(\"Label\", options: [\"Small\", \"Medium\", \"Large\"], selection: \"Medium\")",
    "variants_sample": null
   },
   {
@@ -3139,7 +3139,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "sample": "ScatterChart(points: [[1, 3], [2, 5], [3, 4], [4, 7], [5, 6], [6, 9], [7, 8]], xLabel: \"Hours\", yLabel: \"Score\")",
    "variants_sample": null
   },
   {
@@ -3245,7 +3245,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Sheet(\"New reminder\", message: \"It is added to your Today list.\", actions: { Button(\"Cancel\"); Button(\"Add\") }) {\n  TextField(\"Title\", text: \"Call the dentist\")\n  Toggle(\"Remind me on a day\", isOn: true)\n}",
    "variants_sample": null
   },
   {
@@ -3306,7 +3306,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "sample": "Sparkline([3, 5, 4, 6, 5, 8, 7, 9])",
    "variants_sample": null
   },
   {
@@ -3383,7 +3383,7 @@
    "variants": [],
    "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
    "own": false,
-   "sample": "Tab(\"Label\")",
+   "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}",
    "variants_sample": null
   },
   {
@@ -3431,7 +3431,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "TableRow()",
+   "sample": "TableRow() { Text(\"Ana Lima\"); Text(\"Active\") }",
    "variants_sample": null
   },
   {
@@ -3552,7 +3552,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Toast(\"Message\")",
+   "sample": "Toast(\"Message sent\", description: \"Your reply reached 3 people.\", action: \"Undo\", systemImage: \"checkmark.circle\")",
    "variants_sample": null
   },
   {
@@ -3611,7 +3611,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "sample": "Tooltip(\"Share a link to this page\") { Button(\"Share\", systemImage: \"square.and.arrow.up\") }",
    "variants_sample": null
   },
   {
@@ -3648,7 +3648,7 @@
    "variants": [],
    "doc": "",
    "own": false,
-   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "sample": "Treemap(values: [48, 26, 14, 8, 4], labels: [\"Photos\", \"Video\", \"Mail\", \"Apps\", \"Other\"])",
    "variants_sample": null
   },
   {

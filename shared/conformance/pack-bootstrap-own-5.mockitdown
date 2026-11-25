@@ -7,8 +7,8 @@ VStack(alignment: .leading, spacing: 12) {
   Modal("Title") { Text("Content"); Button("Action") }
   Nav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   NavDropdown("Title") { Button("Open"); Button("Save"); Divider(); Button("Close") }
-  NavItem("Label")
-  NavLink("Label")
+  TabView { NavItem("Inbox") { Text("Inbox content") }; NavItem("Archive") { Text("Archive content") } }
+  TabView { NavLink("Inbox") { Text("Inbox content") }; NavLink("Archive") { Text("Archive content") } }
   Navbar("Brand") { Text("Content"); Button("Action") }
   NavbarBrand("Content")
   NavbarCollapse() { Text("Content"); Button("Action") }

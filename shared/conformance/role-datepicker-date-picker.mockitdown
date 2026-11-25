@@ -1,2 +1,2 @@
 // base element DatePicker (role datepicker)
-DatePicker("Label")
+DatePicker("Starts", selection: "2026-11-23")

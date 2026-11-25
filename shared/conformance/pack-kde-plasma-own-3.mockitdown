@@ -6,7 +6,7 @@ VStack(alignment: .leading, spacing: 12) {
   FormCard("Title") { Text("Content"); Button("Action") }
   FormCardPage("Title") { Text("Content"); Button("Action") }
   FormCheckDelegate("Label")
-  FormComboBoxDelegate("Label")
+  FormComboBoxDelegate("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   FormDelegateSeparator()
   FormHeader("Content")
   FormLayout() { TextField("Name"); Toggle("Notifications", isOn: true) }

@@ -1,7 +1,7 @@
 // vuetify own elements: VSystemBar, VTab, VTable, VTabs, VTabsWindow, VTabsWindowItem, VTextField, VTextarea, VThemeProvider, VTimePicker, VTimeline, VTimelineItem
 VStack(alignment: .leading, spacing: 12) {
   VSystemBar() { Button("Save"); Button("Share") }
-  VTab("Label")
+  TabView { VTab("Inbox") { Text("Inbox content") }; VTab("Archive") { Text("Archive content") } }
   VTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   VTabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
   VTabsWindow() { Text("Content"); Button("Action") }
@@ -9,7 +9,7 @@ VStack(alignment: .leading, spacing: 12) {
   VTextField("Label")
   VTextarea("Label")
   VThemeProvider() { Text("Content"); Button("Action") }
-  VTimePicker("Label")
+  VTimePicker("Label", selection: "2026-11-23")
   VTimeline() { TimelineItem("Created"); TimelineItem("Shipped") }
   VTimelineItem("Title")
 }

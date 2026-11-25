@@ -2,7 +2,7 @@
 VStack(alignment: .leading, spacing: 12) {
   XmPushButton("Label")
   XmQuestionDialog("Title") { Text("Content"); Button("Action") }
-  XmRadioBox("Label")
+  XmRadioBox("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   XmRadioButton("Label")
   XmRowColumn() { Text("Content"); Button("Action") }
   XmScale("Label")

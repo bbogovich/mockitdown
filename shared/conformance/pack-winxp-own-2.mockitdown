@@ -3,7 +3,7 @@ VStack(alignment: .leading, spacing: 12) {
   Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
   DesktopIcon("Title")
   DialogBody() { Text("Content"); Button("Action") }
-  DropDownList("Label")
+  DropDownList("Label", options: ["Small", "Medium", "Large"], selection: "Medium")
   FileIcon("Title")
   ForwardButton("Label")
   Frame("Title") { Text("Content"); Button("Action") }

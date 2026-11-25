@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   StackedBarChart(values: [3, 5, 2, 6, 4])
   StructuredList(["Name", "Status"], columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   StructuredListCell("Content")
-  StructuredListRow()
+  StructuredListRow() { Text("Ana Lima"); Text("Active") }
 }
 .padding()

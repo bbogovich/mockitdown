@@ -5,8 +5,8 @@ VStack(alignment: .leading, spacing: 12) {
   TreeViewSubTree() { Text("Content"); Button("Action") }
   Truncate("Content")
   UnderlineNav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  UnderlineNavItem("Label")
+  TabView { UnderlineNavItem("Inbox") { Text("Inbox content") }; UnderlineNavItem("Archive") { Text("Archive content") } }
   UnderlinePanels(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
-  UnderlinePanelsTab("Label")
+  TabView { UnderlinePanelsTab("Inbox") { Text("Inbox content") }; UnderlinePanelsTab("Archive") { Text("Archive content") } }
 }
 .padding()

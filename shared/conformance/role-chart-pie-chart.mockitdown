@@ -1,2 +1,2 @@
 // base element PieChart (role chart)
-PieChart(values: [3, 5, 2, 6, 4])
+PieChart(values: [55, 25, 20], labels: ["Desktop", "Mobile", "Tablet"])

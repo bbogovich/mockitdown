@@ -5,7 +5,7 @@ VStack(alignment: .leading, spacing: 12) {
   DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   DataView() { Text("First item"); Text("Second item") }
   DataViewItem("Title")
-  DatePicker("Placeholder")
+  DatePicker("Placeholder", selection: "2026-11-23")
   DatePickerPanel()
   Dialog("Header") { Text("Content"); Button("Action") }
   Divider()

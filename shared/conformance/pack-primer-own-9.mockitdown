@@ -1,7 +1,7 @@
 // primer own elements: SegmentedControlIconButton, Select, SelectOption, SelectPanel, SkeletonAvatar, SkeletonBox, SkeletonText, Snippet, Spinner, SplitPageLayout, SplitPageLayoutContent, SplitPageLayoutPane
 VStack(alignment: .leading, spacing: 12) {
   SegmentedControlIconButton("star")
-  Select("Placeholder")
+  Select("Placeholder", options: ["Small", "Medium", "Large"], selection: "Medium")
   SelectOption("Content")
   SelectPanel("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   SkeletonAvatar().frame(width: 160, height: 96)

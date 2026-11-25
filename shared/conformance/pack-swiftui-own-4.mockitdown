@@ -2,15 +2,23 @@
 VStack(alignment: .leading, spacing: 12) {
   MultiDatePicker("Label")
   NavigationLink("Title")
-  NavigationSplitView() { Text("Content"); Button("Action") }
+  NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
   NavigationStack() { Text("Content"); Button("Action") }
   NavigationView() { Text("Content"); Button("Action") }
   OutlineGroup("Title") { Text("Content"); Button("Action") }
   PasteButton()
   PhotosPicker()
-  Picker("Label")
+  Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }
   PointMark(values: [3, 5, 2, 6, 4])
-  Popover("Title") { Text("Content"); Button("Action") }
+  Popover("Filters") { Toggle("Unread only", isOn: true); Toggle("Flagged", isOn: false) }
   ProgressView("Label")
 }
 .padding()
