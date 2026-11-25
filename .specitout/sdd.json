@@ -66,8 +66,8 @@
       "impl-headless",
       "impl-library"
     ],
-    "build": ".venv/bin/python -m pip install -e '.[markdown]'",
-    "test": ".venv/bin/python -m unittest discover -s tests -t .",
+    "build": ".venv/bin/python -m pip install -e 'python[markdown]'",
+    "test": "cd python && ../.venv/bin/python -m unittest discover -s tests -t .",
     "site": {
       "branch": "docs",
       "worktree": "../mockitdown.docs"

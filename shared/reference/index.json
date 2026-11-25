@@ -1,0 +1,69 @@
+{
+ "groups": [
+  {
+   "title": "Core",
+   "packs": [
+    "base"
+   ]
+  },
+  {
+   "title": "Wireframe",
+   "packs": [
+    "sketch"
+   ]
+  },
+  {
+   "title": "Desktop",
+   "packs": [
+    "fluent",
+    "gtk",
+    "qt",
+    "avalonia",
+    "kde-plasma"
+   ]
+  },
+  {
+   "title": "Web",
+   "packs": [
+    "mui",
+    "angular-material",
+    "sapui5",
+    "bootstrap",
+    "shadcn",
+    "antd",
+    "tailwind",
+    "carbon",
+    "primer",
+    "vuetify",
+    "prime"
+   ]
+  },
+  {
+   "title": "Mobile",
+   "packs": [
+    "swiftui",
+    "android"
+   ]
+  },
+  {
+   "title": "Retro",
+   "packs": [
+    "nls",
+    "xerox-star",
+    "lisa",
+    "mac-classic",
+    "win1",
+    "win2",
+    "gsos",
+    "nextstep",
+    "win31",
+    "win95",
+    "macos9",
+    "cde",
+    "aqua",
+    "winxp",
+    "vista"
+   ]
+  }
+ ]
+}

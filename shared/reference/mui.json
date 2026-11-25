@@ -1,0 +1,2858 @@
+{
+ "id": "mui",
+ "name": "Material UI",
+ "framework": "Material UI (MUI Core + MUI X) · React, default theme",
+ "version": "v9",
+ "modules": [
+  "MaterialUI",
+  "MUI"
+ ],
+ "device": "desktop",
+ "chrome": "browser",
+ "group": "Web",
+ "elements": [
+  {
+   "name": "Accordion",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Accordion(\"General settings\", subtitle:, expanded: true) { details }",
+   "own": true,
+   "sample": "Accordion(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AccordionDetails",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "AccordionDetails() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Alert",
+   "role": "alert",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "severity": "success",
+    "variant": "standard"
+   },
+   "variants": [
+    "standard",
+    "filled",
+    "outlined"
+   ],
+   "doc": "Alert(\"Saved\", severity: \"info\", title: \"Info\", variant: \"filled\", closable: true)",
+   "own": true,
+   "sample": "Alert(\"Message\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Message\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Message\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Alert(\"Message\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "AlertTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Bold first line inside an Alert",
+   "own": true,
+   "sample": "AlertTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "AppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [
+    "elevation",
+    "outlined",
+    "dense"
+   ],
+   "doc": "AppBar(title: \"Dashboard\", menu: true, avatar: \"Ana\", search: \"Search…\") { IconButton(…) } · color: \"default\"",
+   "own": true,
+   "sample": "AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevation\"); Text(\"elevation\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"dense\"); Text(\"dense\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Autocomplete",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "Autocomplete(\"Movie\", value: \"Inception\") · value: [..] renders chips (multiple)",
+   "own": true,
+   "sample": "Autocomplete(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Avatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [
+    "circular",
+    "rounded",
+    "square"
+   ],
+   "doc": "Avatar(\"Remy Sharp\", image: \"…\") · variant: \"rounded\"",
+   "own": true,
+   "sample": "Avatar(\"Ana Lima\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"circular\"); Text(\"circular\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"rounded\"); Text(\"rounded\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"Ana Lima\").variant(\"square\"); Text(\"square\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "AvatarGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "AvatarGroup { Avatar(…) … } — overlapped avatars",
+   "own": true,
+   "sample": "AvatarGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Backdrop",
+   "role": "dialog",
+   "params": [],
+   "defaults": {
+    "variant": "backdrop"
+   },
+   "variants": [],
+   "doc": "Backdrop { CircularProgress() }",
+   "own": true,
+   "sample": "Backdrop() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Badge",
+   "role": "badge",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [
+    "standard",
+    "dot"
+   ],
+   "doc": "Badge(4, color: \"error\") { SvgIcon(\"mail\") } — or .badge(4) on IconButton/Tab/ListItem",
+   "own": true,
+   "sample": "Badge(\"Content\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Badge(\"Content\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Badge(\"Content\").variant(\"dot\"); Text(\"dot\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "BarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bar"
+   },
+   "variants": [],
+   "doc": "MUI X BarChart(series: [[..], [..]], labels: [..], height: 200)",
+   "own": true,
+   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "BottomNavigation",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "BottomNavigation(value: 0) { BottomNavigationAction(\"Recents\", icon: \"restore\") … }",
+   "own": true,
+   "sample": "BottomNavigation() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BottomNavigationAction",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "BottomNavigationAction(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Box",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Generic container (a column that stretches its children)",
+   "own": true,
+   "sample": "Box() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumbs",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Breadcrumbs([\"Home\", \"Catalog\", \"Shoes\"]) or Link children",
+   "own": true,
+   "sample": "Breadcrumbs([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Button",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "text"
+   },
+   "variants": [
+    "text",
+    "outlined",
+    "contained"
+   ],
+   "doc": "Button(\"Save\", variant: \"contained\", color: \"secondary\", size: \"small\", startIcon: \"send\")",
+   "own": true,
+   "sample": "Button(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"contained\"); Text(\"contained\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "ButtonGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [
+    "contained",
+    "outlined",
+    "text"
+   ],
+   "doc": "ButtonGroup(variant: \"contained\") { Button(\"One\") … }",
+   "own": true,
+   "sample": "ButtonGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"contained\"); Text(\"contained\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { ButtonGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Card",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "elevation": 1
+   },
+   "variants": [
+    "elevation",
+    "outlined"
+   ],
+   "doc": "Card(title:, subheader:, avatar:, image:) { content } actions: { Button … } headerAction: { IconButton }",
+   "own": true,
+   "sample": "Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevation\"); Text(\"elevation\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "CardActions",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Row of small buttons at the bottom of a Card",
+   "own": true,
+   "sample": "CardActions() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CardContent",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "16px-padded body of a Card",
+   "own": true,
+   "sample": "CardContent() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CardHeader",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CardHeader(title:, subheader:, avatar:) action: { … }",
+   "own": true,
+   "sample": "CardHeader(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CardMedia",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CardMedia(\"photo.svg\") — 140px cover image (or Card(image:))",
+   "own": true,
+   "sample": "CardMedia().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Checkbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Checkbox(\"Remember me\", checked: true, color:)",
+   "own": true,
+   "sample": "Checkbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Chip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined"
+   ],
+   "doc": "Chip(\"Active\", color: \"success\", variant: \"outlined\", onDelete: true, icon:, avatar:)",
+   "own": true,
+   "sample": "Chip(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Chip(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Chip(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "CircularProgress",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "kind": "circular"
+   },
+   "variants": [],
+   "doc": "CircularProgress(value: 75, color:)",
+   "own": true,
+   "sample": "CircularProgress()",
+   "variants_sample": null
+  },
+  {
+   "name": "Collapse",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Collapse() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Container",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Centered, max-width 1200 column with 24px gutters",
+   "own": true,
+   "sample": "Container() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DataGrid",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "MUI X DataGrid(columns:, rows:, checkboxSelection: true, selectedRows: [1], pagination: \"…\")",
+   "own": true,
+   "sample": "DataGrid(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "DateCalendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "MUI X DateCalendar(value: \"2026-11-23\", showToday: true)",
+   "own": true,
+   "sample": "DateCalendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "format": "numeric",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "MUI X DatePicker(\"Start date\", value: \"2026-11-23\")",
+   "own": true,
+   "sample": "DatePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DateTimePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "format": "numeric",
+    "kind": "datetime",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "DateTimePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Dialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Dialog(title:, message:) { content } actions: { Button(\"Cancel\") … }",
+   "own": true,
+   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DialogActions",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Right-aligned row of dialog buttons",
+   "own": true,
+   "sample": "DialogActions() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DialogContent",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "DialogContent() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DialogContentText",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Secondary body text of a Dialog",
+   "own": true,
+   "sample": "DialogContentText(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DialogTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Dialog heading (or use Dialog(title:))",
+   "own": true,
+   "sample": "DialogTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Divider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "fullWidth",
+    "inset",
+    "middle"
+   ],
+   "doc": "Divider(variant: \"inset\") · Divider(label: \"OR\")",
+   "own": true,
+   "sample": "Divider()",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"fullWidth\"); Text(\"fullWidth\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Divider().variant(\"middle\"); Text(\"middle\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Drawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "permanent"
+   },
+   "variants": [
+    "permanent",
+    "persistent",
+    "temporary"
+   ],
+   "doc": "Drawer(title: \"Acme\") { ListItemButton(\"Inbox\", icon: \"inbox\").selected() … } · variant: \"temporary\" floats over a backdrop",
+   "own": true,
+   "sample": "Drawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Drawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"permanent\"); Text(\"permanent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Drawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"persistent\"); Text(\"persistent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Drawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"temporary\"); Text(\"temporary\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Fab",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [
+    "circular",
+    "extended"
+   ],
+   "doc": "Fab(\"add\", color: \"primary\") · Fab(\"navigation\", label: \"Navigate\", variant: \"extended\") — floats bottom-right; inline: true to place it",
+   "own": true,
+   "sample": "Fab(\"star\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Fab(\"star\").variant(\"circular\"); Text(\"circular\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Fab(\"star\").variant(\"extended\"); Text(\"extended\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Fade",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Fade() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FilledInput",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "FilledInput(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormControl",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "FormControl() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormControlLabel",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Checkbox with a label (use Switch(label) for a switch)",
+   "own": true,
+   "sample": "FormControlLabel(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormGroup",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "leading"
+   },
+   "variants": [],
+   "doc": "Column of Checkbox / Switch controls; orientation: .horizontal for row",
+   "own": true,
+   "sample": "FormGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormHelperText",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Caption under a control; error: true",
+   "own": true,
+   "sample": "FormHelperText(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormLabel",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Label of a RadioGroup / FormGroup",
+   "own": true,
+   "sample": "FormLabel(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Gauge",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "kind": "circular"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Gauge(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Grid",
+   "role": "grid",
+   "params": [
+    "columns"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Grid(spacing: 16) { Grid(size: 4) { … } } — 12-column grid, items span size:",
+   "own": true,
+   "sample": "Grid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Grow",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Grow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "IconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true
+   },
+   "variants": [],
+   "doc": "IconButton(\"delete\", color: \"primary\", size: \"small\")",
+   "own": true,
+   "sample": "IconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ImageList",
+   "role": "grid",
+   "params": [
+    "columns"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ImageList(columns: 3) { ImageListItem(\"photo.svg\") … }",
+   "own": true,
+   "sample": "ImageList([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ImageListItem",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "ImageListItem().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Input",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "variant": "standard"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Input(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "InputBase",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "variant": "base"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "InputBase(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "InputLabel",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "InputLabel(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "line"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "LinearProgress",
+   "role": "progress",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "determinate",
+    "indeterminate",
+    "buffer",
+    "query"
+   ],
+   "doc": "LinearProgress(value: 60) · no value = indeterminate",
+   "own": true,
+   "sample": "LinearProgress()",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { LinearProgress().variant(\"determinate\"); Text(\"determinate\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { LinearProgress().variant(\"indeterminate\"); Text(\"indeterminate\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { LinearProgress().variant(\"buffer\"); Text(\"buffer\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { LinearProgress().variant(\"query\"); Text(\"query\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Link",
+   "role": "link",
+   "params": [
+    "label",
+    "href"
+   ],
+   "defaults": {},
+   "variants": [
+    "always",
+    "hover",
+    "none"
+   ],
+   "doc": "",
+   "own": true,
+   "sample": "Link(\"Label\", \"#\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Link(\"Label\", \"#\").variant(\"always\"); Text(\"always\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Link(\"Label\", \"#\").variant(\"hover\"); Text(\"hover\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Link(\"Label\", \"#\").variant(\"none\"); Text(\"none\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "List",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "List { ListItem(…) … } · .dense() · List(header: \"Folders\")",
+   "own": true,
+   "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItem",
+   "role": "listitem",
+   "params": [
+    "primary"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ListItem(\"Inbox\", secondary: \"…\", icon: \"inbox\", avatar: \"Ana\") { secondary action }",
+   "own": true,
+   "sample": "ListItem(\"Primary\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItemAvatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Leading avatar of a ListItem",
+   "own": true,
+   "sample": "ListItemAvatar(\"Ana Lima\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItemButton",
+   "role": "listitem",
+   "params": [
+    "primary"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Clickable ListItem; .selected() tints it",
+   "own": true,
+   "sample": "ListItemButton(\"Primary\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItemIcon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Leading icon of a ListItem (56px column)",
+   "own": true,
+   "sample": "ListItemIcon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItemText",
+   "role": "listitem",
+   "params": [
+    "primary"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ListItemText(primary:, secondary:) inside a ListItem",
+   "own": true,
+   "sample": "ListItemText(\"Primary\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListSubheader",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section heading inside a List",
+   "own": true,
+   "sample": "ListSubheader(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LoadingButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "loading": true,
+    "variant": "contained"
+   },
+   "variants": [
+    "text",
+    "outlined",
+    "contained"
+   ],
+   "doc": "Button with a progress spinner (Button loading:)",
+   "own": true,
+   "sample": "LoadingButton(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { LoadingButton(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { LoadingButton(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { LoadingButton(\"Label\").variant(\"contained\"); Text(\"contained\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Masonry",
+   "role": "grid",
+   "params": [
+    "columns"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Masonry([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Menu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Menu(icon: \"more_vert\", open: true) { MenuItem(\"Edit\", icon: \"edit\") … }",
+   "own": true,
+   "sample": "Menu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuItem",
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MenuItem(\"Profile\", icon:, shortcut: \"⌘P\").selected()",
+   "own": true,
+   "sample": "MenuItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuList",
+   "role": "menu",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "A standalone menu surface",
+   "own": true,
+   "sample": "MenuList() { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MobileStepper",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "dots",
+    "text",
+    "progress"
+   ],
+   "doc": "MobileStepper(count: 4, page: 2) — dots with Back/Next",
+   "own": true,
+   "sample": "MobileStepper()",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MobileStepper().variant(\"dots\"); Text(\"dots\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MobileStepper().variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MobileStepper().variant(\"progress\"); Text(\"progress\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Modal",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Modal(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NativeSelect",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "standard"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "NativeSelect(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedInput",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "OutlinedInput(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Pagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "text",
+    "outlined"
+   ],
+   "doc": "Pagination(count: 10, page: 2, color: \"primary\", shape: \"rounded\")",
+   "own": true,
+   "sample": "Pagination()",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Pagination().variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Paper",
+   "role": "card",
+   "params": [],
+   "defaults": {
+    "elevation": 1
+   },
+   "variants": [
+    "elevation",
+    "outlined"
+   ],
+   "doc": "Paper(elevation: 3) { … } — surface with no padding; variant: \"outlined\"",
+   "own": true,
+   "sample": "Paper() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Paper() { Text(\"Content\"); Button(\"Action\") }.variant(\"elevation\"); Text(\"elevation\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Paper() { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "PieChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "pie"
+   },
+   "variants": [],
+   "doc": "MUI X PieChart(values: [..], labels: [..])",
+   "own": true,
+   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Placeholder",
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Placeholder(\"Label\").frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Popover",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Popover(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Radio",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Radio(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "RadioGroup(\"Gender\", options: [..], value: \"Female\") · orientation: .horizontal for row",
+   "own": true,
+   "sample": "RadioGroup(\"Label\") { Radio(\"First\", selected: true); Radio(\"Second\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Rating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Rating(value: 3.5, max: 5, size: \"small\")",
+   "own": true,
+   "sample": "Rating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Select",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [
+    "outlined",
+    "filled",
+    "standard"
+   ],
+   "doc": "Select(\"Age\", options: [\"Ten\", \"Twenty\"], value: \"Twenty\", open: true)",
+   "own": true,
+   "sample": "Select(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Select(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Select(\"Label\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Skeleton",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle",
+    "variant": "text"
+   },
+   "variants": [
+    "text",
+    "rectangular",
+    "rounded",
+    "circular"
+   ],
+   "doc": "Skeleton(variant: \"circular\").frame(width: 40, height: 40)",
+   "own": true,
+   "sample": "Skeleton().frame(width: 160, height: 96)",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Skeleton().variant(\"text\").frame(width: 160, height: 96); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Skeleton().variant(\"rectangular\").frame(width: 160, height: 96); Text(\"rectangular\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Skeleton().variant(\"rounded\").frame(width: 160, height: 96); Text(\"rounded\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Skeleton().variant(\"circular\").frame(width: 160, height: 96); Text(\"circular\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Slide",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Slide() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Slider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Slider(value: 30, min: 0, max: 100, color:) · value: [20, 37] for a range",
+   "own": true,
+   "sample": "Slider()",
+   "variants_sample": null
+  },
+  {
+   "name": "Snackbar",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Snackbar(\"Note archived\", action: \"UNDO\", closable: true) · position: .bottomCenter",
+   "own": true,
+   "sample": "Snackbar(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SparkLineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "SparkLineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "SpeedDial",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "color": "primary"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "SpeedDial(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Stack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Stack(spacing: 16) · orientation: .horizontal for direction=\"row\" (spacing in px)",
+   "own": true,
+   "sample": "Stack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "StaticDatePicker",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "StaticDatePicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "Step",
+   "role": "text",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stepper { Step(\"Shipping\") … } (or steps: [..])",
+   "own": true,
+   "sample": "Step(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "StepLabel",
+   "role": "text",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "StepLabel(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Stepper",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [
+    "horizontal",
+    "vertical"
+   ],
+   "doc": "Stepper([\"Shipping\", \"Payment\", \"Review\"], activeStep: 1) · orientation: .vertical",
+   "own": true,
+   "sample": "Stepper([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Stepper([\"Cart\", \"Shipping\", \"Payment\"]).variant(\"horizontal\"); Text(\"horizontal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Stepper([\"Cart\", \"Shipping\", \"Payment\"]).variant(\"vertical\"); Text(\"vertical\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "SvgIcon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Material icon by name: SvgIcon(\"inbox\")",
+   "own": true,
+   "sample": "SvgIcon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SwipeableDrawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "temporary"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "SwipeableDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Switch",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Switch(\"Wi-Fi\", checked: true) · labelPlacement: .start",
+   "own": true,
+   "sample": "Switch(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tab(\"Favorites\", icon: \"favorite\") { panel }",
+   "own": true,
+   "sample": "Tab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabList",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "TabList([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TabPanel",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "TabPanel() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Table",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Table(columns: [..], rows: [[..]], size: \"small\") or TableRow { TableCell … } children",
+   "own": true,
+   "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "TableCell",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Cell inside TableRow",
+   "own": true,
+   "sample": "TableCell(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableContainer",
+   "role": "card",
+   "params": [],
+   "defaults": {
+    "elevation": 1
+   },
+   "variants": [],
+   "doc": "Paper around a Table",
+   "own": true,
+   "sample": "TableContainer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TablePagination",
+   "role": "pagination",
+   "params": [
+    "summary"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TablePagination(\"Rows per page: 10 ▾    1–10 of 100\") — the label, then prev/next",
+   "own": true,
+   "sample": "TablePagination(\"Summary\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableRow",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "TableRow()",
+   "variants_sample": null
+  },
+  {
+   "name": "Tabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [
+    "standard",
+    "scrollable",
+    "fullWidth"
+   ],
+   "doc": "Tabs([\"Account\", \"Security\"], value: 0) or Tabs { Tab(\"One\") { panel } }",
+   "own": true,
+   "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"scrollable\"); Text(\"scrollable\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }.variant(\"fullWidth\"); Text(\"fullWidth\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "TextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [
+    "outlined",
+    "filled",
+    "standard"
+   ],
+   "doc": "TextField(\"Email\", value: \"…\", helperText:, error: true, prefix: \"$\", size: \"small\", multiline via kind: .multiline)",
+   "own": true,
+   "sample": "TextField(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { TextField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TextField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TextField(\"Label\").variant(\"standard\"); Text(\"standard\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "TextareaAutosize",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "multiline",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "TextareaAutosize(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TimePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "time",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "TimePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Timeline",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {
+    "orientation": "vertical"
+   },
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Timeline([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "ToggleButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToggleButton(icon: \"format_bold\").selected()",
+   "own": true,
+   "sample": "ToggleButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToggleButtonGroup",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToggleButtonGroup([\"Web\", \"Android\", \"iOS\"], value: \"Web\") — items may be [\"icon\": …] dicts",
+   "own": true,
+   "sample": "ToggleButtonGroup([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Toolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "regular",
+    "dense"
+   ],
+   "doc": "Toolbar { IconButton; Typography; Spacer(); Button }",
+   "own": true,
+   "sample": "Toolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Toolbar() { Button(\"Save\"); Button(\"Share\") }.variant(\"regular\"); Text(\"regular\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Toolbar() { Button(\"Save\"); Button(\"Share\") }.variant(\"dense\"); Text(\"dense\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Tooltip",
+   "role": "tooltip",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tooltip(\"Delete\") { IconButton(\"delete\") } · placement: .bottom",
+   "own": true,
+   "sample": "Tooltip(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Typography",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {
+    "variant": "body1"
+   },
+   "variants": [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "subtitle1",
+    "subtitle2",
+    "body1",
+    "body2",
+    "button",
+    "caption",
+    "overline",
+    "inherit"
+   ],
+   "doc": "Typography(\"Title\", variant: \"h5\", color: \"text.secondary\")",
+   "own": true,
+   "sample": "Typography(\"Content\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h1\"); Text(\"h1\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h2\"); Text(\"h2\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h3\"); Text(\"h3\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h4\"); Text(\"h4\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h5\"); Text(\"h5\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"h6\"); Text(\"h6\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"subtitle1\"); Text(\"subtitle1\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Typography(\"Content\").variant(\"subtitle2\"); Text(\"subtitle2\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Zoom",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": true,
+   "sample": "Zoom() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AreaChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "area"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "AsyncImage",
+   "role": "image",
+   "params": [
+    "url"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AsyncImage().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Banner",
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Banner(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Board",
+   "role": "board",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kanban board of BoardColumn children",
+   "own": false,
+   "sample": "Board() { BoardColumn(\"To do\") { KanbanCard(\"Write copy\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BoardColumn",
+   "role": "boardcolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "BoardColumn(\"To do\", count:, color:) { KanbanCard(…) }",
+   "own": false,
+   "sample": "BoardColumn(\"Title\") { KanbanCard(\"Write copy\"); KanbanCard(\"Review\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumb",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Breadcrumb([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BubbleChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bubble"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Calendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Calendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "Callout",
+   "role": "callout",
+   "params": [
+    "number",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "a numbered annotation; place with .position(x:y:)",
+   "own": false,
+   "sample": "Callout(1, \"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CandlestickChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "candlestick"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Canvas",
+   "role": "canvas",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "free-form area; place children with .position(x:y:); grid: .dots|.lines",
+   "own": false,
+   "sample": "Canvas() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Capsule",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "capsule"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Capsule().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Chart",
+   "role": "chart",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+   "own": false,
+   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Circle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "circle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Circle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeBlock",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "lineNumbers": false
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CodeBlock(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeEditor",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CodeEditor(\"…\", language: \"swift\", lineNumbers:, highlight: [3], tabs: [..])",
+   "own": false,
+   "sample": "CodeEditor(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Color",
+   "role": "color",
+   "params": [
+    "color"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Color(.blue).frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ColorSwatches",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "colors: [.red, \"#0af\", …], selection:",
+   "own": false,
+   "sample": "ColorSwatches()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "combo"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Comment",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "comment"
+   },
+   "variants": [],
+   "doc": "author:, time:, avatar:",
+   "own": false,
+   "sample": "Comment(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ControlGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "group"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ControlGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DisclosureGroup",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DisclosureGroup(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DonutChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "donut"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dropzone",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dropzone(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Ellipse",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "ellipse"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Ellipse().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "EmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, systemImage:, description: { actions }",
+   "own": false,
+   "sample": "EmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Form",
+   "role": "form",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FunnelChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "funnel"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gantt",
+   "role": "gantt",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "scale: [\"W1\",…], tasks: [(\"Design\", 0, 2, 0.6), …], today:",
+   "own": false,
+   "sample": "Gantt(tasks: [(\"Design\", 0, 3), (\"Build\", 2, 5)])",
+   "variants_sample": null
+  },
+  {
+   "name": "GaugeChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "GridRow",
+   "role": "gridrow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GridRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Group",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Group() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GroupBox",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GroupBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontal stack. spacing:, alignment: .top|.center|.bottom",
+   "own": false,
+   "sample": "HStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heatmap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "heatmap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Histogram",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "histogram"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Icon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Icon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Image",
+   "role": "image",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Image(\"path.png\") or Image(systemName: \"star\")",
+   "own": false,
+   "sample": "Image().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "KanbanCard",
+   "role": "kanbancard",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, description:, tags: [..], assignees: [..], due:, comments:, priority:",
+   "own": false,
+   "sample": "KanbanCard(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Kbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kbd([\"⌘\", \"K\"]) or Kbd(\"Esc\")",
+   "own": false,
+   "sample": "Kbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Label",
+   "role": "label",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Label(\"Inbox\", systemImage: \"tray\")",
+   "own": false,
+   "sample": "Label(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LabeledContent",
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LabeledContent(\"Label\", \"Value\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [GridItem(.flexible()), …] or a count",
+   "own": false,
+   "sample": "LazyVGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyVStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Map",
+   "role": "map",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "pins: [(x%, y%, \"label\")], route:, showsUserLocation:, height:",
+   "own": false,
+   "sample": "Map().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBubble",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+   "own": false,
+   "sample": "MessageBubble(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationLink",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationLink(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "{ sidebar } content: { … } detail: { … }",
+   "own": false,
+   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationStack",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Content's .navigationTitle / .toolbar form the bar",
+   "own": false,
+   "sample": "NavigationStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationView",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Picker",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+   "own": false,
+   "sample": "Picker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Pointer",
+   "role": "pointer",
+   "params": [
+    "kind"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Pointer(.arrow|.hand|.ibeam|.grab|.crosshair|.touch); place with .position",
+   "own": false,
+   "sample": "Pointer(.arrow)",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressView",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "value: 0…1 (or total:); none = indeterminate",
+   "own": false,
+   "sample": "ProgressView(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "radar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButton",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Rectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundedRectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rounded"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RoundedRectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Row",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, subtitle:, detail:, systemImage:, chevron:",
+   "own": false,
+   "sample": "Row(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ScatterChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "scatter"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Schedule",
+   "role": "schedule",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "days: [..], startHour:, endHour:, events: [(\"Standup\", \"Mon\", 9, 9.5, .blue)], now:",
+   "own": false,
+   "sample": "Schedule()",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollView",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScrollView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SearchField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Section",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section(\"Header\") { … } footer: { … }",
+   "own": false,
+   "sample": "Section(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SecureField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedControl",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SegmentedControl([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectionRect",
+   "role": "marquee",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "a drag-selection rectangle; size with .frame, place with .position",
+   "own": false,
+   "sample": "SelectionRect()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Sidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Spacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Spacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Spreadsheet",
+   "role": "spreadsheet",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "rows: [[…]], selection: \"B2:C4\", active:, formula:, sheets: [..], highlight: [\"B3\": .yellow]",
+   "own": false,
+   "sample": "Spreadsheet(columns: [\"A\", \"B\"], rows: [[1, 2], [3, 4]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Stat",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stat(\"Revenue\", \"$48k\", change: \"+12%\", trend: [..], systemImage:)",
+   "own": false,
+   "sample": "Stat(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Steps",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Steps([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "StickyNote",
+   "role": "stickynote",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "StickyNote(\"Call Ana\", color: .yellow, rotation: -2, author:)",
+   "own": false,
+   "sample": "StickyNote(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabView",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "Children with .tabItem { Label } or Tab(…)",
+   "own": false,
+   "sample": "TabView() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TableColumn",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableColumn(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Terminal",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "variant": "terminal"
+   },
+   "variants": [],
+   "doc": "lines starting with \"$ \" are commands",
+   "own": false,
+   "sample": "Terminal(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Text",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Text with **bold**, *italic*, `code` Markdown",
+   "own": false,
+   "sample": "Text(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextEditor",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TextEditor(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, time:, description:, systemImage:, status:",
+   "own": false,
+   "sample": "TimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toggle",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Toggle(\"Wi-Fi\", isOn: true)",
+   "own": false,
+   "sample": "Toggle(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItem",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolbarItem(placement: .topBarTrailing) { … }",
+   "own": false,
+   "sample": "ToolbarItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItemGroup",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ToolbarItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tree",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tree { TreeItem(\"src\") { TreeItem(\"main.swift\") } }",
+   "own": false,
+   "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, systemImage:, folder:, expanded:, selected:, detail:",
+   "own": false,
+   "sample": "TreeItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Treemap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "treemap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Vertical stack. spacing:, alignment: .leading|.center|.trailing",
+   "own": false,
+   "sample": "VStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VideoPlayer",
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "poster image, progress: 0…1, time:, duration:, playing:",
+   "own": false,
+   "sample": "VideoPlayer().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Whiteboard",
+   "role": "canvas",
+   "params": [],
+   "defaults": {
+    "grid": "dots"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Whiteboard() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ZStack",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Overlapping layers. alignment:",
+   "own": false,
+   "sample": "ZStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  }
+ ]
+}

@@ -1,0 +1,3061 @@
+{
+ "id": "kde-plasma",
+ "name": "KDE Plasma (Breeze)",
+ "framework": "KDE Plasma 6 apps · Kirigami (KF6) and Qt Widgets · Breeze style, Breeze Light / Breeze Dark colours",
+ "version": "Plasma 6.2 · KDE Frameworks 6",
+ "modules": [
+  "KDE",
+  "Plasma",
+  "Breeze",
+  "Kirigami",
+  "KF6"
+ ],
+ "device": "desktop",
+ "chrome": "kde",
+ "group": "Desktop",
+ "elements": [
+  {
+   "name": "AbstractCard",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.AbstractCard { … } — the card frame with free content",
+   "own": true,
+   "sample": "AbstractCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Action",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "tool"
+   },
+   "variants": [],
+   "doc": "Kirigami.Action(\"Add\", icon: \"list-add\") — shown as a tool button in toolbars and page headers",
+   "own": true,
+   "sample": "Action(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami floating action button (Plasma Mobile pages)",
+   "own": true,
+   "sample": "ActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ActionTextField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "clearButton": true
+   },
+   "variants": [],
+   "doc": "Kirigami.ActionTextField with inline actions",
+   "own": true,
+   "sample": "ActionTextField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ActionToolBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "actions"
+   },
+   "variants": [],
+   "doc": "Kirigami.ActionToolBar { Action… }",
+   "own": true,
+   "sample": "ActionToolBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ApplicationWindow",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "alignment": "top"
+   },
+   "variants": [],
+   "doc": "Kirigami.ApplicationWindow { GlobalDrawer { … } PageRow { Page… } } — drawer and page stack side by side, filling the window",
+   "own": true,
+   "sample": "ApplicationWindow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Avatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.Avatar(\"Ana Diaz\", image:, size: .small|.large)",
+   "own": true,
+   "sample": "Avatar(\"Ana Lima\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumb",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Dolphin's location bar (KUrlNavigator) in breadcrumb mode: Breadcrumb([\"Home\", \"Documents\", \"Taxes\"])",
+   "own": true,
+   "sample": "Breadcrumb([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BusyIndicator",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "spinner"
+   },
+   "variants": [],
+   "doc": "BusyIndicator() — the spinning process-working icon",
+   "own": true,
+   "sample": "BusyIndicator(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Button",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "normal"
+   },
+   "variants": [
+    "normal",
+    "flat",
+    "highlighted",
+    "default"
+   ],
+   "doc": "Button(\"Apply\", icon: \"dialog-ok-apply\") · highlighted: true for the default button · flat: true · checked: true",
+   "own": true,
+   "sample": "Button(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"normal\"); Text(\"normal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"highlighted\"); Text(\"highlighted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "ButtonGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ButtonGroup(items: [\"A\", \"B\"], selection: \"A\") — exclusive radio buttons",
+   "own": true,
+   "sample": "ButtonGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Card",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.Card(\"Title\", subtitle:, image:) { contentItem } actions: { Action… }",
+   "own": true,
+   "sample": "Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CardsLayout",
+   "role": "grid",
+   "params": [],
+   "defaults": {
+    "columns": 2
+   },
+   "variants": [],
+   "doc": "Kirigami.CardsLayout(columns: 3) { Card… }",
+   "own": true,
+   "sample": "CardsLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CheckBox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CheckBox(\"Show hidden files\", checked: true | .indeterminate)",
+   "own": true,
+   "sample": "CheckBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CheckDelegate",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "checkbox": true
+   },
+   "variants": [],
+   "doc": "CheckDelegate(\"Item\", checked: true)",
+   "own": true,
+   "sample": "CheckDelegate(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Chip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "checkmark": false
+   },
+   "variants": [],
+   "doc": "Kirigami.Chip(\"Tag\", closable: true, checked: true)",
+   "own": true,
+   "sample": "Chip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ColumnLayout",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "leading"
+   },
+   "variants": [],
+   "doc": "QtQuick.Layouts ColumnLayout(spacing: 6)",
+   "own": true,
+   "sample": "ColumnLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboBox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ComboBox(items: [\"Icons\", \"Details\"], selection: \"Icons\", open: true) — label: is the FormLayout label",
+   "own": true,
+   "sample": "ComboBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ContextDrawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "context"
+   },
+   "variants": [],
+   "doc": "Kirigami.ContextDrawer(\"Actions\") { … } — page-specific actions on the right",
+   "own": true,
+   "sample": "ContextDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ContextualHelpButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "help-contents",
+    "iconOnly": true,
+    "variant": "tool"
+   },
+   "variants": [],
+   "doc": "Kirigami.ContextualHelpButton — a (?) tool button",
+   "own": true,
+   "sample": "ContextualHelpButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DetailsView",
+   "role": "table",
+   "params": [],
+   "defaults": {
+    "variant": "details"
+   },
+   "variants": [],
+   "doc": "Dolphin's details view: DetailsView(columns: [\"Name\", \"Size\", \"Modified\"], rows: …, selection: [0])",
+   "own": true,
+   "sample": "DetailsView(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dial",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "variant": "gauge"
+   },
+   "variants": [],
+   "doc": "QQC2 Dial(value:)",
+   "own": true,
+   "sample": "Dial(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Dialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "closable": true
+   },
+   "variants": [],
+   "doc": "Kirigami.Dialog(\"Title\", buttons: [\"OK\", \"Cancel\"], primary: \"OK\") { content }",
+   "own": true,
+   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DockWidget",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "dock"
+   },
+   "variants": [],
+   "doc": "QDockWidget / Kate tool view: a titled panel (Dolphin Information, Kate Projects…)",
+   "own": true,
+   "sample": "DockWidget(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DrawerAction",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "An action in a GlobalDrawer: DrawerAction(\"Inbox\", icon:, badge:) · .selected()",
+   "own": true,
+   "sample": "DrawerAction(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FlexColumn",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Kirigami.FlexColumn — a centred column of limited width",
+   "own": true,
+   "sample": "FlexColumn() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormButtonDelegate",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "FormButtonDelegate(\"About\", icon:, description:)",
+   "own": true,
+   "sample": "FormButtonDelegate(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormCard",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "formcard"
+   },
+   "variants": [],
+   "doc": "Kirigami Addons FormCard { FormTextDelegate … }",
+   "own": true,
+   "sample": "FormCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormCardPage",
+   "role": "navstack",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "titleDisplayMode": "inline"
+   },
+   "variants": [],
+   "doc": "Kirigami Addons FormCardPage(\"Settings\") { FormHeader … FormCard { … } }",
+   "own": true,
+   "sample": "FormCardPage(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormCheckDelegate",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormCheckDelegate(\"Show badge\", checked: true)",
+   "own": true,
+   "sample": "FormCheckDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormComboBoxDelegate",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormComboBoxDelegate(\"Theme\", items:, selection:)",
+   "own": true,
+   "sample": "FormComboBoxDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormDelegateSeparator",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Separator between FormCard delegates",
+   "own": true,
+   "sample": "FormDelegateSeparator()",
+   "variants_sample": null
+  },
+  {
+   "name": "FormHeader",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormHeader(\"General\") — the title above a FormCard",
+   "own": true,
+   "sample": "FormHeader(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormLayout",
+   "role": "form",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.FormLayout { TextField(label: \"Name:\") … } — labels right-aligned in a column, controls left-aligned",
+   "own": true,
+   "sample": "FormLayout() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormRow",
+   "role": "labeled",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormRow(\"Clicking files:\") { RadioButton… } — any content under a right-aligned FormLayout label",
+   "own": true,
+   "sample": "FormRow(\"Label\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormSection",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A FormLayout section: Kirigami.Separator with Kirigami.FormData.isSection and a label",
+   "own": true,
+   "sample": "FormSection(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormSwitchDelegate",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormSwitchDelegate(\"Notifications\", description:, checked: true)",
+   "own": true,
+   "sample": "FormSwitchDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormTextDelegate",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormTextDelegate(\"Version\", description: \"6.2\")",
+   "own": true,
+   "sample": "FormTextDelegate(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FormTextFieldDelegate",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FormTextFieldDelegate(\"Name\", text:)",
+   "own": true,
+   "sample": "FormTextFieldDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Frame",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "frame"
+   },
+   "variants": [],
+   "doc": "QQC2 Frame / QFrame: a bordered box",
+   "own": true,
+   "sample": "Frame(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GlobalDrawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "global"
+   },
+   "variants": [],
+   "doc": "Kirigami.GlobalDrawer(\"App\", titleIcon:) { Action / NavItem… } — the application's main navigation",
+   "own": true,
+   "sample": "GlobalDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GridLayout",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "GridLayout(columns: 3) { … }",
+   "own": true,
+   "sample": "GridLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GroupBox",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "groupbox"
+   },
+   "variants": [],
+   "doc": "GroupBox(\"Title\") { … } — QGroupBox with its title above the frame",
+   "own": true,
+   "sample": "GroupBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HamburgerMenu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "application-menu",
+    "variant": "tool"
+   },
+   "variants": [],
+   "doc": "The KHamburgerMenu button at the end of the toolbar (open: true shows the menu)",
+   "own": true,
+   "sample": "HamburgerMenu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heading",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {
+    "level": 1
+   },
+   "variants": [],
+   "doc": "Kirigami.Heading(\"Title\", level: 1…5) — 1.35×, 1.2×, 1.15×, 1.1×, 1× the default font; type: .primary is bold",
+   "own": true,
+   "sample": "Heading(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconView",
+   "role": "grid",
+   "params": [],
+   "defaults": {
+    "columns": 6
+   },
+   "variants": [],
+   "doc": "Dolphin's icons view: IconView(columns: 6) { file items }",
+   "own": true,
+   "sample": "IconView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "InlineMessage",
+   "role": "alert",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "type": "information"
+   },
+   "variants": [],
+   "doc": "Kirigami.InlineMessage(\"Text\", type: .information|.positive|.warning|.error, showCloseButton: true, position: .header) actions: { Action… }",
+   "own": true,
+   "sample": "InlineMessage(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ItemDelegate",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "QQC2 ItemDelegate",
+   "own": true,
+   "sample": "ItemDelegate(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "KCM",
+   "role": "navstack",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "titleDisplayMode": "inline"
+   },
+   "variants": [],
+   "doc": "A System Settings module page: KCM(\"Mouse\") { FormLayout { … } } · .toolbar { ToolbarItem(placement: .bottomBar) { Help / Defaults / Reset / Apply } }",
+   "own": true,
+   "sample": "KCM(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "KCMCategory",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "KCMCategory(\"Appearance\", icon:, chevron: true) · .selected() — chevron: a category holding sub-pages",
+   "own": true,
+   "sample": "KCMCategory(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "KCMSidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "kcm"
+   },
+   "variants": [],
+   "doc": "System Settings' category sidebar: KCMSidebar { SearchField  KCMCategory… }",
+   "own": true,
+   "sample": "KCMSidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "KMessageWidget",
+   "role": "alert",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "type": "information"
+   },
+   "variants": [],
+   "doc": "KMessageWidget (Qt Widgets): KMessageWidget(\"Text\", type: .warning)",
+   "own": true,
+   "sample": "KMessageWidget(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LinkButton",
+   "role": "link",
+   "params": [
+    "label",
+    "destination"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.LinkButton(\"Learn more\")",
+   "own": true,
+   "sample": "LinkButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ListItem(\"Title\", subtitle:, icon:, detail:) — Kirigami delegate",
+   "own": true,
+   "sample": "ListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ListSectionHeader",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.ListSectionHeader(\"Today\") { rows }",
+   "own": true,
+   "sample": "ListSectionHeader(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ListView",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ListView { ItemDelegate… }",
+   "own": true,
+   "sample": "ListView() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LoadingPlaceholder",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.LoadingPlaceholder",
+   "own": true,
+   "sample": "LoadingPlaceholder().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "MainWindow",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "QMainWindow / KXmlGuiWindow: MenuBar, ToolBar, central widget and StatusBar stacked, filling the window",
+   "own": true,
+   "sample": "MainWindow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Menu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Menu { MenuItem(\"Copy\", icon: \"edit-copy\", shortcut: \"Ctrl+C\") … }",
+   "own": true,
+   "sample": "Menu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "menubar"
+   },
+   "variants": [],
+   "doc": "MenuBar { MenuBarItem(\"File\") … }",
+   "own": true,
+   "sample": "MenuBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuBarItem",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "caret": false,
+    "variant": "menubar"
+   },
+   "variants": [],
+   "doc": "MenuBarItem(\"Edit\", open: true) { MenuItem… }",
+   "own": true,
+   "sample": "MenuBarItem(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "closable": true
+   },
+   "variants": [],
+   "doc": "Kirigami.MenuDialog",
+   "own": true,
+   "sample": "MenuDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuItem",
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MenuItem(\"Paste\", icon:, shortcut:, checked:)",
+   "own": true,
+   "sample": "MenuItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuSeparator",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "A separator line in a Menu",
+   "own": true,
+   "sample": "MenuSeparator()",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBox",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "messagebox"
+   },
+   "variants": [],
+   "doc": "KMessageBox(\"Title\", message:, icon: \"dialog-warning\", buttons: […])",
+   "own": true,
+   "sample": "MessageBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationTabBar",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom",
+    "variant": "navigation"
+   },
+   "variants": [],
+   "doc": "Kirigami.NavigationTabBar { NavigationTabButton(\"Home\", icon:) … } — the Plasma Mobile bottom bar",
+   "own": true,
+   "sample": "NavigationTabBar() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationTabButton",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "NavigationTabButton(\"Library\", icon: \"folder\", badge: 3)",
+   "own": true,
+   "sample": "NavigationTabButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Notification",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "closable": true,
+    "position": "bottomTrailing"
+   },
+   "variants": [],
+   "doc": "A Plasma notification popup: Notification(\"Title\", body:, icon:) actions: { HStack { Button… } }",
+   "own": true,
+   "sample": "Notification(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OverlayDrawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "global"
+   },
+   "variants": [],
+   "doc": "Kirigami.OverlayDrawer",
+   "own": true,
+   "sample": "OverlayDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "OverlaySheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "closable": true
+   },
+   "variants": [],
+   "doc": "Kirigami.OverlaySheet",
+   "own": true,
+   "sample": "OverlaySheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Page",
+   "role": "navstack",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "titleDisplayMode": "inline"
+   },
+   "variants": [],
+   "doc": "Kirigami.Page(\"Title\") { … } — title on the left of the page header; .toolbar { Action… } for page actions",
+   "own": true,
+   "sample": "Page(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PageRow",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami PageRow (pageStack): pages side by side as columns — the first ones 360 px wide, the last fills",
+   "own": true,
+   "sample": "PageRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PasswordField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password",
+    "reveal": true
+   },
+   "variants": [],
+   "doc": "Kirigami.PasswordField(text: \"secret\")",
+   "own": true,
+   "sample": "PasswordField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PlaceholderMessage",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "icon": "dialog-information"
+   },
+   "variants": [],
+   "doc": "Kirigami.PlaceholderMessage(\"No files\", explanation: \"…\", icon: \"folder\") { helpfulAction Button }",
+   "own": true,
+   "sample": "PlaceholderMessage(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PlacesItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "PlacesItem(\"Home\", icon: \"user-home\") · .selected()",
+   "own": true,
+   "sample": "PlacesItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PlacesPanel",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "places"
+   },
+   "variants": [],
+   "doc": "Dolphin's Places panel: PlacesPanel { Section(\"Places\") { PlacesItem… } … }",
+   "own": true,
+   "sample": "PlacesPanel(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PlasmaPanel",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "panel"
+   },
+   "variants": [],
+   "doc": "The Plasma panel (task manager, system tray, clock) — place at the bottom of a desktop mockup",
+   "own": true,
+   "sample": "PlasmaPanel() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Plasmoid",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "plasmoid"
+   },
+   "variants": [],
+   "doc": "A Plasma applet popup / desktop widget",
+   "own": true,
+   "sample": "Plasmoid(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressBar",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ProgressBar(value: 0.6) — no value = indeterminate",
+   "own": true,
+   "sample": "ProgressBar(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PromptDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.PromptDialog(\"Delete file?\", subtitle: \"…\", buttons: [\"Delete\", \"Cancel\"], destructive: \"Delete\")",
+   "own": true,
+   "sample": "PromptDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButton",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "RadioButton(\"Single-click\", checked: true)",
+   "own": true,
+   "sample": "RadioButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioDelegate",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "RadioDelegate(\"Item\", checked: true)",
+   "own": true,
+   "sample": "RadioDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RangeSlider",
+   "role": "slider",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "RangeSlider(value: [20, 80])",
+   "own": true,
+   "sample": "RangeSlider(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "round"
+   },
+   "variants": [],
+   "doc": "QQC2 RoundButton(icon:)",
+   "own": true,
+   "sample": "RoundButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RowLayout",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "QtQuick.Layouts RowLayout(spacing: 6)",
+   "own": true,
+   "sample": "RowLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollView",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "QQC2 ScrollView (static)",
+   "own": true,
+   "sample": "ScrollView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollablePage",
+   "role": "navstack",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "titleDisplayMode": "inline"
+   },
+   "variants": [],
+   "doc": "Kirigami.ScrollablePage(\"Title\") { … } — a Page whose content scrolls",
+   "own": true,
+   "sample": "ScrollablePage(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search",
+    "placeholder": "Search…"
+   },
+   "variants": [],
+   "doc": "Kirigami.SearchField(text:)",
+   "own": true,
+   "sample": "SearchField()",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectableLabel",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.SelectableLabel",
+   "own": true,
+   "sample": "SelectableLabel(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Separator",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.Separator — a 1 px line in the frame colour",
+   "own": true,
+   "sample": "Separator()",
+   "variants_sample": null
+  },
+  {
+   "name": "Slider",
+   "role": "slider",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Slider(value: 40, from: 0, to: 100, ticks: 10)",
+   "own": true,
+   "sample": "Slider(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SpinBox",
+   "role": "textfield",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "kind": "number",
+    "trailingIcon": "chevron.up.down"
+   },
+   "variants": [],
+   "doc": "SpinBox(value: 5, suffix: \" px\") — up/down arrows on the right",
+   "own": true,
+   "sample": "SpinBox(\"Value\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "QQC2 SplitView",
+   "own": true,
+   "sample": "SplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Splitter",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "QSplitter / SplitView: children side by side with a handle; columnWidths: [240, 600]",
+   "own": true,
+   "sample": "Splitter() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "StatusBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "statusbar"
+   },
+   "variants": [],
+   "doc": "QStatusBar (Dolphin, Kate): small text on the left, zoom slider and free-space bar on the right",
+   "own": true,
+   "sample": "StatusBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SubtitleDelegate",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.SubtitleDelegate(\"Title\", subtitle:, icon:)",
+   "own": true,
+   "sample": "SubtitleDelegate(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SwipeListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.SwipeListItem(\"Title\", subtitle:) actions: { Action… } — inline actions at the end",
+   "own": true,
+   "sample": "SwipeListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Switch",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Switch(\"Enable\", checked: true) — the indicator sits before the text",
+   "own": true,
+   "sample": "Switch(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SwitchDelegate",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "SwitchDelegate(\"Item\", checked: true)",
+   "own": true,
+   "sample": "SwitchDelegate(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SystemMonitorSensor",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A System Monitor sensor face: SystemMonitorSensor(\"CPU\", \"23 %\", trend: [...])",
+   "own": true,
+   "sample": "SystemMonitorSensor(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "TabBar",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "TabBar(selection: \"Files\") { TabButton(\"Files\") … }",
+   "own": true,
+   "sample": "TabBar() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TabButton",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TabButton(\"General\", icon:) { content }",
+   "own": true,
+   "sample": "TabButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabWidget",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "top",
+    "variant": "document"
+   },
+   "variants": [],
+   "doc": "QTabWidget / document tabs (Kate, Konsole): TabWidget { TabButton(\"main.cpp\") { … } }",
+   "own": true,
+   "sample": "TabWidget() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TableView",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "QTableView / TableView(columns: [...], rows: [[...]], selection: [1])",
+   "own": true,
+   "sample": "TableView(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "TextArea",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "TextArea(text:, rows: 4)",
+   "own": true,
+   "sample": "TextArea(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TextField(\"Placeholder\", text:, label:) — label: is the FormLayout label",
+   "own": true,
+   "sample": "TextField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolBar { ToolButton… } — the main window toolbar, merged with the title bar in Plasma 6",
+   "own": true,
+   "sample": "ToolBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "tool"
+   },
+   "variants": [],
+   "doc": "ToolButton(\"Split\", icon: \"view-split-left-right\") — flat until hovered; checked: true",
+   "own": true,
+   "sample": "ToolButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolTip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolTip(\"Hint\") { target }",
+   "own": true,
+   "sample": "ToolTip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeView",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "QTreeView / TreeView { TreeViewItem(\"src\", folder: true) { … } }",
+   "own": true,
+   "sample": "TreeView() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeViewItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TreeViewItem(\"main.cpp\", icon:, expanded:, selected:)",
+   "own": true,
+   "sample": "TreeViewItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "UrlButton",
+   "role": "link",
+   "params": [
+    "label",
+    "destination"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kirigami.UrlButton(\"kde.org\")",
+   "own": true,
+   "sample": "UrlButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "UrlNavigator",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "KUrlNavigator — same as Breadcrumb",
+   "own": true,
+   "sample": "UrlNavigator([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Accordion",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Accordion(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Alert",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AreaChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "area"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "AsyncImage",
+   "role": "image",
+   "params": [
+    "url"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AsyncImage().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Badge",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Badge(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Banner",
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Banner(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "BarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Board",
+   "role": "board",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kanban board of BoardColumn children",
+   "own": false,
+   "sample": "Board() { BoardColumn(\"To do\") { KanbanCard(\"Write copy\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BoardColumn",
+   "role": "boardcolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "BoardColumn(\"To do\", count:, color:) { KanbanCard(…) }",
+   "own": false,
+   "sample": "BoardColumn(\"Title\") { KanbanCard(\"Write copy\"); KanbanCard(\"Review\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "BubbleChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bubble"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Calendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Calendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "Callout",
+   "role": "callout",
+   "params": [
+    "number",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "a numbered annotation; place with .position(x:y:)",
+   "own": false,
+   "sample": "Callout(1, \"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CandlestickChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "candlestick"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Canvas",
+   "role": "canvas",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "free-form area; place children with .position(x:y:); grid: .dots|.lines",
+   "own": false,
+   "sample": "Canvas() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Capsule",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "capsule"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Capsule().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Chart",
+   "role": "chart",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+   "own": false,
+   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Checkbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Checkbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Circle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "circle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Circle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeBlock",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "lineNumbers": false
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CodeBlock(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeEditor",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CodeEditor(\"…\", language: \"swift\", lineNumbers:, highlight: [3], tabs: [..])",
+   "own": false,
+   "sample": "CodeEditor(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Color",
+   "role": "color",
+   "params": [
+    "color"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Color(.blue).frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ColorSwatches",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "colors: [.red, \"#0af\", …], selection:",
+   "own": false,
+   "sample": "ColorSwatches()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "combo"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Comment",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "comment"
+   },
+   "variants": [],
+   "doc": "author:, time:, avatar:",
+   "own": false,
+   "sample": "Comment(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ControlGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "group"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ControlGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
+   "own": false,
+   "sample": "DatePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DisclosureGroup",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DisclosureGroup(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Divider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Divider()",
+   "variants_sample": null
+  },
+  {
+   "name": "DonutChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "donut"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dropzone",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dropzone(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Ellipse",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "ellipse"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Ellipse().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "EmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, systemImage:, description: { actions }",
+   "own": false,
+   "sample": "EmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Form",
+   "role": "form",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FunnelChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "funnel"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gantt",
+   "role": "gantt",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "scale: [\"W1\",…], tasks: [(\"Design\", 0, 2, 0.6), …], today:",
+   "own": false,
+   "sample": "Gantt(tasks: [(\"Design\", 0, 3), (\"Build\", 2, 5)])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gauge",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "variant": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Gauge(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "GaugeChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Grid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Grid of GridRow children, or columns: n",
+   "own": false,
+   "sample": "Grid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GridRow",
+   "role": "gridrow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GridRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Group",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Group() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontal stack. spacing:, alignment: .top|.center|.bottom",
+   "own": false,
+   "sample": "HStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heatmap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "heatmap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Histogram",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "histogram"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Icon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Icon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "IconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Image",
+   "role": "image",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Image(\"path.png\") or Image(systemName: \"star\")",
+   "own": false,
+   "sample": "Image().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "KanbanCard",
+   "role": "kanbancard",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, description:, tags: [..], assignees: [..], due:, comments:, priority:",
+   "own": false,
+   "sample": "KanbanCard(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Kbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kbd([\"⌘\", \"K\"]) or Kbd(\"Esc\")",
+   "own": false,
+   "sample": "Kbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Label",
+   "role": "label",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Label(\"Inbox\", systemImage: \"tray\")",
+   "own": false,
+   "sample": "Label(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LabeledContent",
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LabeledContent(\"Label\", \"Value\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [GridItem(.flexible()), …] or a count",
+   "own": false,
+   "sample": "LazyVGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyVStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "line"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Link",
+   "role": "link",
+   "params": [
+    "label",
+    "destination"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Link(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "List",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": ".listStyle(.insetGrouped|.plain|.sidebar|…)",
+   "own": false,
+   "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Map",
+   "role": "map",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "pins: [(x%, y%, \"label\")], route:, showsUserLocation:, height:",
+   "own": false,
+   "sample": "Map().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBubble",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+   "own": false,
+   "sample": "MessageBubble(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationLink",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationLink(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "{ sidebar } content: { … } detail: { … }",
+   "own": false,
+   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationStack",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Content's .navigationTitle / .toolbar form the bar",
+   "own": false,
+   "sample": "NavigationStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationView",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Pagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Pagination()",
+   "variants_sample": null
+  },
+  {
+   "name": "Picker",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+   "own": false,
+   "sample": "Picker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PieChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "pie"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Placeholder",
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A labelled box for maps, charts, media",
+   "own": false,
+   "sample": "Placeholder(\"Label\").frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Pointer",
+   "role": "pointer",
+   "params": [
+    "kind"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Pointer(.arrow|.hand|.ibeam|.grab|.crosshair|.touch); place with .position",
+   "own": false,
+   "sample": "Pointer(.arrow)",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressView",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "value: 0…1 (or total:); none = indeterminate",
+   "own": false,
+   "sample": "ProgressView(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "radar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Rating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Rectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundedRectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rounded"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RoundedRectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Row",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, subtitle:, detail:, systemImage:, chevron:",
+   "own": false,
+   "sample": "Row(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ScatterChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "scatter"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Schedule",
+   "role": "schedule",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "days: [..], startHour:, endHour:, events: [(\"Standup\", \"Mon\", 9, 9.5, .blue)], now:",
+   "own": false,
+   "sample": "Schedule()",
+   "variants_sample": null
+  },
+  {
+   "name": "Section",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section(\"Header\") { … } footer: { … }",
+   "own": false,
+   "sample": "Section(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SecureField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedControl",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SegmentedControl([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectionRect",
+   "role": "marquee",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "a drag-selection rectangle; size with .frame, place with .position",
+   "own": false,
+   "sample": "SelectionRect()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Sidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Skeleton",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "lines:, avatar:, image:, shape: .circle|.rectangle|.text",
+   "own": false,
+   "sample": "Skeleton().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Spacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Spacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Spreadsheet",
+   "role": "spreadsheet",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "rows: [[…]], selection: \"B2:C4\", active:, formula:, sheets: [..], highlight: [\"B3\": .yellow]",
+   "own": false,
+   "sample": "Spreadsheet(columns: [\"A\", \"B\"], rows: [[1, 2], [3, 4]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Stat",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stat(\"Revenue\", \"$48k\", change: \"+12%\", trend: [..], systemImage:)",
+   "own": false,
+   "sample": "Stat(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Stepper",
+   "role": "stepper",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Stepper(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Steps",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Steps([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "StickyNote",
+   "role": "stickynote",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "StickyNote(\"Call Ana\", color: .yellow, rotation: -2, author:)",
+   "own": false,
+   "sample": "StickyNote(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
+   "own": false,
+   "sample": "Tab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabView",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "Children with .tabItem { Label } or Tab(…)",
+   "own": false,
+   "sample": "TabView() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Table",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [\"Name\", …], rows: [[…], …] or TableRow children",
+   "own": false,
+   "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "TableColumn",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableColumn(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableRow",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableRow()",
+   "variants_sample": null
+  },
+  {
+   "name": "Tabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Terminal",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "variant": "terminal"
+   },
+   "variants": [],
+   "doc": "lines starting with \"$ \" are commands",
+   "own": false,
+   "sample": "Terminal(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Text",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Text with **bold**, *italic*, `code` Markdown",
+   "own": false,
+   "sample": "Text(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextEditor",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TextEditor(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Timeline",
+   "role": "timeline",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, time:, description:, systemImage:, status:",
+   "own": false,
+   "sample": "TimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toggle",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Toggle(\"Wi-Fi\", isOn: true)",
+   "own": false,
+   "sample": "Toggle(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItem",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolbarItem(placement: .topBarTrailing) { … }",
+   "own": false,
+   "sample": "ToolbarItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItemGroup",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ToolbarItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tree",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tree { TreeItem(\"src\") { TreeItem(\"main.swift\") } }",
+   "own": false,
+   "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, systemImage:, folder:, expanded:, selected:, detail:",
+   "own": false,
+   "sample": "TreeItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Treemap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "treemap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Vertical stack. spacing:, alignment: .leading|.center|.trailing",
+   "own": false,
+   "sample": "VStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VideoPlayer",
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "poster image, progress: 0…1, time:, duration:, playing:",
+   "own": false,
+   "sample": "VideoPlayer().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Whiteboard",
+   "role": "canvas",
+   "params": [],
+   "defaults": {
+    "grid": "dots"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Whiteboard() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ZStack",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Overlapping layers. alignment:",
+   "own": false,
+   "sample": "ZStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  }
+ ]
+}

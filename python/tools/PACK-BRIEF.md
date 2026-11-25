@@ -4,14 +4,14 @@
 mockitdown renders UI mockups written in a fenced ```` ```mockitdown ```` Markdown block, in SwiftUI
 syntax, as static HTML+CSS that looks like a real UI framework's components. A *pack* = one framework.
 Repository: this repository (Python ≥3.11, venv at
-`.venv`, package in `src/mockitdown`). The core is done and committed; you are writing ONE pack.
+`.venv`, package in `python/src/mockitdown`, packs in `shared/packs`). The core is done and committed; you are writing ONE pack.
 
 Read these first (they are the contract):
-- `src/mockitdown/packs/__init__.py` — pack.json format (docstring at top).
-- `src/mockitdown/packs/base/pack.json` — the core vocabulary every pack inherits, the token names, the
+- `python/src/mockitdown/packs/__init__.py` — pack.json format (docstring at top).
+- `shared/packs/base/pack.json` — the core vocabulary every pack inherits, the token names, the
   attribute-setting modifier map. Your pack `extends` base automatically.
-- `src/mockitdown/packs/base/pack.css` — structural CSS for every render role. You restyle these.
-- `src/mockitdown/render/html.py` — the markup each role emits (class `mkd-<role>`, parts
+- `shared/packs/base/pack.css` — structural CSS for every render role. You restyle these.
+- `python/src/mockitdown/render/html.py` — the markup each role emits (class `mkd-<role>`, parts
   `mkd-<role>__<part>`, `data-el`, `data-variant`, `data-size`, `data-color`, `data-state`,
   `data-selected`, …) and which attributes each role reads (`v.attr("…")`). Roles: vstack hstack
   zstack grid gridrow scroll group spacer divider shape color text label image(+symbol) icon avatar
@@ -19,12 +19,12 @@ Read these first (they are the contract):
   segmented textfield select slider stepper datepicker calendar dropzone navstack split tabs tab
   appbar sidebar navitem breadcrumb pagination steps card section list form listitem labeled table
   tablerow tablecolumn toolbar toolbaritem accordion dialog menu menuitem tooltip toast alert.
-- `src/mockitdown/render/__init__.py` (frame/figure structure), `render/chrome.py` (device chrome),
-  `src/mockitdown/styles.py` (px scaling, token CSS), `src/mockitdown/icons.py` (icon names/aliases).
-- `examples/site/docs/index.md`, `tests/test_render.py` for syntax examples.
+- `python/src/mockitdown/render/__init__.py` (frame/figure structure), `render/chrome.py` (device chrome),
+  `python/src/mockitdown/styles.py` (px scaling, token CSS), `shared/icons/icons.json` (icon names/aliases).
+- `python/examples/site/docs/index.md`, `python/tests/test_render.py` for syntax examples.
 
 ## What you write (only these paths — nothing else)
-1. `src/mockitdown/packs/<id>/pack.json` — id, name, framework, version, modules (names for
+1. `shared/packs/<id>/pack.json` — id, name, framework, version, modules (names for
    `import <Module>`), device (default form), chrome (device→chrome kind), sizes (optional), tokens
    (COMPLETE light AND dark sets overriding every base token whose value should differ: colours,
    fonts, font sizes/weights `fs-*`/`fw-*`, radii, control height, shadows, chart colours, named
@@ -35,7 +35,7 @@ Read these first (they are the contract):
    argument names), `defaults` (e.g. `{"variant": "contained"}`), `variants` (the framework's own
    variant names) and a one-line `doc`. Use the framework's real names and real variant/prop names
    (e.g. MUI `variant: "outlined"`, `color: "secondary"`).
-2. `src/mockitdown/packs/<id>/pack.css` — styling. Rules:
+2. `shared/packs/<id>/pack.css` — styling. Rules:
    - EVERY selector starts with `.mkd-pack-<id> ` (tests will enforce this; `@keyframes` excepted).
      Base rules are `.mkd-frame .mkd-x` (specificity 0,2,0) and load first; yours load later, so equal
      specificity wins. Match or exceed base specificity when overriding `:where()`-qualified rules.
@@ -51,7 +51,7 @@ Read these first (they are the contract):
    - Aim for fidelity: sizes, radii, paddings, elevation, focus/selected states, typography of the
      framework's current version. Device chrome is drawn by base; restyle chrome via its classes if
      needed (`.mkd-pack-<id> .mkd-chrome--titlebar` …).
-3. `examples/site/docs/packs/<id>.md` — the demo page (replace the placeholder): a short intro
+3. `python/examples/site/docs/packs/<id>.md` — the demo page (replace the placeholder): a short intro
    (framework + version, the `import` line, the main element names), then **6–9 mockups of
    increasing complexity following common UI patterns for that platform** — e.g. sign-in form,
    settings, list → detail, inbox/master-detail, dashboard (cards, KPIs, chart, table), data table
@@ -61,12 +61,12 @@ Read these first (they are the contract):
    leave the rest default (auto follows the site's light/dark). Fence attributes available: pack,
    device, appearance, width, height, chrome, title, id, caption, elements, url, source.
    Images: `Image("assets/images/photo-1.svg")` (avatar-1..6.svg, photo-1..6.svg, logo.svg, map.svg,
-   banner.png exist under `examples/site/docs/assets/images/`).
-4. `examples/site/docs/mockups/<id>/*.mockitdown` — at least one file of reusable custom components
+   banner.png exist under `python/examples/site/docs/assets/images/`).
+4. `python/examples/site/docs/mockups/<id>/*.mockitdown` — at least one file of reusable custom components
    (`struct X: View { … }`) imported by your page with `import "<id>/<file>"` (import root is
    `docs/mockups`). Show the extension mechanism off: a custom row, card or toolbar used several times.
 
-Do NOT edit anything else: not the core (`src/mockitdown/*.py`, `render/`, `syntax/`, base pack,
+Do NOT edit anything else: not the core (`python/src/mockitdown/*.py`, `render/`, `syntax/`, base pack,
 page.css), not tests, not mkdocs.yml, not other packs. Other agents work in the same tree right now.
 If the core blocks you (a role lacks an attribute, a bug, a missing role), work around it in your
 pack/CSS if reasonable and **report it** precisely in your final message (file, function, repro
@@ -105,11 +105,12 @@ Values: strings with `\(x)`, numbers, true/false, `.enumCase`, arrays, dicts, tu
 
 ## Verify (all must pass before you finish)
 ```
-cd <repo root>
-.venv/bin/python -m unittest discover -s tests -t .          # your page: zero errors, zero warnings
-.venv/bin/mockitdown check <file>.mockitdown                  # quick diagnostics
-.venv/bin/python tools/snapshot.py examples/site/docs/packs/<id>.md --block N -o /tmp/…/x.png --appearance both
-.venv/bin/python tools/snapshot.py examples/site/docs/packs/<id>.md --all -o …png --width 1300
+cd <repo root>/python
+../.venv/bin/python tools/sync_shared.py                        # copy shared/ into the package (or reinstall)
+../.venv/bin/python -m unittest discover -s tests -t .          # your page: zero errors, zero warnings
+../.venv/bin/mockitdown check <file>.mockitdown                  # quick diagnostics
+../.venv/bin/python tools/snapshot.py examples/site/docs/packs/<id>.md --block N -o /tmp/…/x.png --appearance both
+../.venv/bin/python tools/snapshot.py examples/site/docs/packs/<id>.md --all -o …png --width 1300
 ```
 Then LOOK at the PNGs with the Read tool, compare against your knowledge of the real framework, and
 iterate on pack.css until the mockups are convincing in light AND dark. Do this for every mockup,
@@ -121,7 +122,7 @@ Report: elements added (count + notable ones), tokens/fonts approach, which mock
 known fidelity gaps, and the exact core issues you hit (with repro). Keep it under 400 words.
 
 ## Round 2 additions (read these too)
-The core now also has (see `examples/site/docs/widgets.md`, `annotations.md`, `charts.md` for usage, and
+The core now also has (see `python/examples/site/docs/widgets.md`, `annotations.md`, `charts.md` for usage, and
 `render/html.py` / `render/charts.py` / base `pack.css` for markup):
 - **Non-standard component roles**: spreadsheet, stickynote, board/boardcolumn/kanbancard, code (editor and
   terminal), message (chat bubble, comment), tree/treeitem, timeline/timelineitem, gantt, schedule, kbd,
@@ -137,7 +138,7 @@ The core now also has (see `examples/site/docs/widgets.md`, `annotations.md`, `c
   HeaderBar draws it), kde (Breeze titlebar), win31. Restyle `.mkd-chrome…[data-chrome="…"]` in your CSS.
 - Your demo page must also use several of these new components where they fit the platform, and at least one
   mockup with numbered callouts referenced as `(#1)`, `(#2)` in the page text.
-- The page sits under `examples/site/docs/packs/<id>.md` unless your brief says otherwise.
+- The page sits under `python/examples/site/docs/packs/<id>.md` unless your brief says otherwise.
 
 ## Round 3: retro packs
 - Chrome kind **`window`** (generic): `.mkd-chrome--window` title bar with `.mkd-chrome__lead` (i[data-btn=close|menu]),
@@ -149,5 +150,5 @@ The core now also has (see `examples/site/docs/widgets.md`, `annotations.md`, `c
   system offered, or an inverted CRT look) so `appearance: dark|auto` still works. Light is the canonical look.
 - No recreations of specific games; invented app content and names only; no reproduction of trademarked logos
   (draw a neutral glyph where an Apple/Windows/Sun logo would be).
-- Pages go in `examples/site/docs/retro/<id>.md`. The lead adds them to the nav.
+- Pages go in `python/examples/site/docs/retro/<id>.md`. The lead adds them to the nav.
 - Several agents work at once: write only your own pack dirs, pages and `docs/mockups/<id>/` folders.

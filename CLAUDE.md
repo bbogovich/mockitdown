@@ -8,7 +8,14 @@ Code is on this branch (`main`). The definition, the specification and the imple
 - A question the documents and the vault cannot answer: comment it on the issue, label it
   `needs-clarification`, move on. Answers: `vibe-answer`.
 - Every issue ends with `sio commit <issue> --summary …`: docs first, then code.
-- Build: `python3 -m pip install -e .` · Test: `python3 -m unittest discover -s tests`. Policies load on demand (`sio-policy need <topic>`).
+- Layout: `python/` (the PyPI package, its tests, tools and example site), `typescript/` (the npm web
+  components), `shared/` (packs, page.css, icons.json, vocabulary.json, reference/ — the only place they
+  are written; each variant's build copies them, `python/tools/sync_shared.py` for Python).
+- Python — venv at the repository root (`.venv`). Build: `.venv/bin/python -m pip install -e 'python[markdown]'`
+  · Test: `cd python && ../.venv/bin/python -m unittest discover -s tests -t .` (with the real Zensical
+  build: prefix `ZENSICAL=$PWD/../.venv/bin/zensical`). After a pack change: `cd python && ../.venv/bin/python tools/gen_reference.py`.
+- TypeScript (in `typescript/`, once it exists): build `npm run build`, test `npm test` (see `typescript/README.md`).
+- Policies load on demand (`sio-policy need <topic>`).
 
 ## "Publish python module" (or "release", "publish to PyPI")
 
@@ -16,11 +23,11 @@ The request itself is the go-ahead: run these steps without asking again, except
 PyPI never accepts a version number twice, so stop at the first failure and report it.
 
 1. Preconditions: on `main`, working tree clean, `git pull --ff-only` done, and the tests pass
-   with the real Zensical build: `ZENSICAL=$PWD/.venv/bin/zensical .venv/bin/python -m unittest discover -s tests -t .`
+   with the real Zensical build: `cd python && ZENSICAL=$PWD/../.venv/bin/zensical ../.venv/bin/python -m unittest discover -s tests -t .`
 2. Version: use the one the user named. Otherwise pick it by semver from `git log $(git describe --tags --abbrev=0)..HEAD`
    (new packs, elements or options → minor; fixes only → patch), state it, and go on. Nothing new since the
    last tag → say so and stop.
-3. Set `version` in `pyproject.toml`; commit `Release X.Y.Z` (with the attribution trailer); `git push`.
+3. Set `version` in `python/pyproject.toml`; commit `Release X.Y.Z` (with the attribution trailer); `git push`.
 4. `git tag -a vX.Y.Z -m "mockitdown X.Y.Z" && git push origin vX.Y.Z`. This starts
    `.github/workflows/release.yml`, which checks tag = version, tests, builds and publishes through
    PyPI Trusted Publishing (environment `pypi`, no token).

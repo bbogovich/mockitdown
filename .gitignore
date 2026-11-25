@@ -40,10 +40,22 @@ __pycache__/
 dist/
 
 # example site build output
-examples/site/site/
+python/examples/site/site/
 *.png.html
 
 # Zensical render cache
 .cache/
 /build/
 /dist/
+python/build/
+python/dist/
+
+# Python package copies of the shared assets, written at build time by python/tools/sync_shared.py
+# (R-REPO-002: shared/ is the only place they are written)
+python/src/mockitdown/page.css
+python/src/mockitdown/icons.json
+python/src/mockitdown/vocabulary.json
+python/src/mockitdown/packs/*/
+
+# The repository LICENSE, copied beside pyproject.toml at build time
+python/LICENSE

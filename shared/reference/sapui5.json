@@ -1,0 +1,3182 @@
+{
+ "id": "sapui5",
+ "name": "SAPUI5",
+ "framework": "SAPUI5 / OpenUI5 · SAP Fiori Horizon theme (sap_horizon, sap_horizon_dark)",
+ "version": "1.136",
+ "modules": [
+  "SAPUI5",
+  "OpenUI5",
+  "UI5",
+  "Fiori",
+  "sap.m",
+  "sap.f",
+  "sap.uxap",
+  "sap.tnt"
+ ],
+ "device": "desktop",
+ "chrome": "browser",
+ "group": "Web",
+ "elements": [
+  {
+   "name": "ActionListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ActionListItem: centered action text",
+   "own": true,
+   "sample": "ActionListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ActionSheet",
+   "role": "menu",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ActionSheet: a menu of buttons",
+   "own": true,
+   "sample": "ActionSheet() { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AnchorBar",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.uxap.AnchorBar(items: [section titles], selection:)",
+   "own": true,
+   "sample": "AnchorBar([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "App",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "sap.m.App: the root container",
+   "own": true,
+   "sample": "App() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Avatar",
+   "role": "avatar",
+   "params": [
+    "initials"
+   ],
+   "defaults": {},
+   "variants": [
+    "Circle",
+    "Square"
+   ],
+   "doc": "sap.m.Avatar(initials, src:); .displayShape(.Square), .displaySize(.L), .backgroundColor(.Accent6)",
+   "own": true,
+   "sample": "Avatar(\"AL\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"AL\").variant(\"Circle\"); Text(\"Circle\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Avatar(\"AL\").variant(\"Square\"); Text(\"Square\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "AvatarGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.f.AvatarGroup",
+   "own": true,
+   "sample": "AvatarGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Bar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Bar: left/middle/right content; use ToolbarSpacer between",
+   "own": true,
+   "sample": "Bar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumbs",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Breadcrumbs(items: [..., current])",
+   "own": true,
+   "sample": "Breadcrumbs([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BusyIndicator",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "circular"
+   },
+   "variants": [],
+   "doc": "sap.m.BusyIndicator: three pulsing dots",
+   "own": true,
+   "sample": "BusyIndicator(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Button",
+   "role": "button",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [
+    "Default",
+    "Emphasized",
+    "Transparent",
+    "Ghost",
+    "Accept",
+    "Reject",
+    "Attention",
+    "Negative",
+    "Critical",
+    "Success",
+    "Neutral",
+    "Back",
+    "Up",
+    "Unstyled"
+   ],
+   "doc": "sap.m.Button; .type(.Emphasized) etc.; icon: \"sap-icon://add\"",
+   "own": true,
+   "sample": "Button(\"Text\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Default\"); Text(\"Default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Emphasized\"); Text(\"Emphasized\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Transparent\"); Text(\"Transparent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Ghost\"); Text(\"Ghost\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Accept\"); Text(\"Accept\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Reject\"); Text(\"Reject\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Attention\"); Text(\"Attention\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Text\").variant(\"Negative\"); Text(\"Negative\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Calendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.unified.Calendar(selection: \"2026-11-24\")",
+   "own": true,
+   "sample": "Calendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "Card",
+   "role": "card",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.f.Card(title, subtitle, icon:, status:) { content }",
+   "own": true,
+   "sample": "Card(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Carousel",
+   "role": "scroll",
+   "params": [],
+   "defaults": {
+    "axes": "horizontal"
+   },
+   "variants": [],
+   "doc": "sap.m.Carousel { Image(…) … }: first page + page indicator",
+   "own": true,
+   "sample": "Carousel() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CheckBox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.CheckBox(\"text\", selected: true)",
+   "own": true,
+   "sample": "CheckBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Column",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Column(header text, alignment: .End)",
+   "own": true,
+   "sample": "Column(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ColumnListItem",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ColumnListItem { cells }",
+   "own": true,
+   "sample": "ColumnListItem()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboBox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ComboBox: typeable select",
+   "own": true,
+   "sample": "ComboBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CustomListItem",
+   "role": "listitem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.CustomListItem { any content }",
+   "own": true,
+   "sample": "CustomListItem()",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.DatePicker(value: \"2026-11-24\")",
+   "own": true,
+   "sample": "DatePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DateRangeSelection",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.DateRangeSelection(value: \"Nov 1 – Nov 30, 2026\")",
+   "own": true,
+   "sample": "DateRangeSelection(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DateTimePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "datetime"
+   },
+   "variants": [],
+   "doc": "sap.m.DateTimePicker",
+   "own": true,
+   "sample": "DateTimePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Dialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Dialog(title, state:, buttons: [...]) { content } actions: { buttons }",
+   "own": true,
+   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DisplayListItem",
+   "role": "listitem",
+   "params": [
+    "label",
+    "detail"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.DisplayListItem(label, value)",
+   "own": true,
+   "sample": "DisplayListItem(\"Label\", \"Detail\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DynamicPage",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "sap.f.DynamicPage { DynamicPageTitle; DynamicPageHeader; content }",
+   "own": true,
+   "sample": "DynamicPage() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DynamicPageHeader",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "sap.f.DynamicPageHeader: collapsible header content (filter bar, key facts)",
+   "own": true,
+   "sample": "DynamicPageHeader() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DynamicPageTitle",
+   "role": "card",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.f.DynamicPageTitle(heading, subtitle) { key info } actions: { buttons }",
+   "own": true,
+   "sample": "DynamicPageTitle(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ExpandableText",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ExpandableText",
+   "own": true,
+   "sample": "ExpandableText(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FeedListItem",
+   "role": "listitem",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.FeedListItem(sender, text, avatar:, detail: timestamp)",
+   "own": true,
+   "sample": "FeedListItem(\"Title\", \"Subtitle\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FileUploader",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "trailingIcon": "sap-icon://upload"
+   },
+   "variants": [],
+   "doc": "sap.ui.unified.FileUploader",
+   "own": true,
+   "sample": "FileUploader(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FilterBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.comp FilterBar: labelled filter fields + Go",
+   "own": true,
+   "sample": "FilterBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FlexBox",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.FlexBox; wrap: true wraps",
+   "own": true,
+   "sample": "FlexBox() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FlexibleColumnLayout",
+   "role": "split",
+   "params": [],
+   "defaults": {
+    "variant": "TwoColumnsMidExpanded"
+   },
+   "variants": [
+    "OneColumn",
+    "TwoColumnsBeginExpanded",
+    "TwoColumnsMidExpanded",
+    "ThreeColumnsMidExpanded",
+    "ThreeColumnsEndExpanded"
+   ],
+   "doc": "sap.f.FlexibleColumnLayout { begin } { mid } { end } as children; .layout(.TwoColumnsBeginExpanded)",
+   "own": true,
+   "sample": "FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }.variant(\"OneColumn\"); Text(\"OneColumn\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }.variant(\"TwoColumnsBeginExpanded\"); Text(\"TwoColumnsBeginExpanded\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }.variant(\"TwoColumnsMidExpanded\"); Text(\"TwoColumnsMidExpanded\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }.variant(\"ThreeColumnsMidExpanded\"); Text(\"ThreeColumnsMidExpanded\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { FlexibleColumnLayout() { Text(\"Content\"); Button(\"Action\") }.variant(\"ThreeColumnsEndExpanded\"); Text(\"ThreeColumnsEndExpanded\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "Form",
+   "role": "form",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.layout.form.Form { FormContainer { FormElement } }",
+   "own": true,
+   "sample": "Form(\"Title\") { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormContainer",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.layout.form.FormContainer",
+   "own": true,
+   "sample": "FormContainer(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormElement",
+   "role": "labeled",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.layout.form.FormElement(label) { fields }",
+   "own": true,
+   "sample": "FormElement(\"Label\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "FormattedText",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.FormattedText (inline **bold**, *italic*, `code`, [link](…))",
+   "own": true,
+   "sample": "FormattedText(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "GenericTag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.GenericTag",
+   "own": true,
+   "sample": "GenericTag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "GenericTile",
+   "role": "card",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [
+    "TileContent",
+    "ActionMode",
+    "ArticleMode"
+   ],
+   "doc": "sap.m.GenericTile(header, subheader, icon:) { TileContent(footer:) { NumericContent } }; .frameType(.TwoByOne)",
+   "own": true,
+   "sample": "GenericTile(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { GenericTile(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }.variant(\"TileContent\"); Text(\"TileContent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { GenericTile(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }.variant(\"ActionMode\"); Text(\"ActionMode\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { GenericTile(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }.variant(\"ArticleMode\"); Text(\"ArticleMode\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "GroupHeaderListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.GroupHeaderListItem",
+   "own": true,
+   "sample": "GroupHeaderListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "HBox",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.HBox (FlexBox, row)",
+   "own": true,
+   "sample": "HBox() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Icon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.core.Icon(\"sap-icon://home\")",
+   "own": true,
+   "sample": "Icon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconTabBar",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.IconTabBar(selection:) { IconTabFilter(…) }",
+   "own": true,
+   "sample": "IconTabBar([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "IconTabFilter",
+   "role": "tab",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.IconTabFilter(text, icon:) { content }; .count(12)",
+   "own": true,
+   "sample": "IconTabFilter(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IllustratedMessage",
+   "role": "dropzone",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "icon": "sap-icon://search"
+   },
+   "variants": [],
+   "doc": "sap.m.IllustratedMessage(title, description:, icon:) { additional buttons }",
+   "own": true,
+   "sample": "IllustratedMessage(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Image",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Image(src)",
+   "own": true,
+   "sample": "Image().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "InfoLabel",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.tnt.InfoLabel; .colorScheme(.c7) or color: 1…10",
+   "own": true,
+   "sample": "InfoLabel(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Input",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Input(placeholder, value:, label:); .valueState(.Error), error: \"text\" for the value state message",
+   "own": true,
+   "sample": "Input(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "InputListItem",
+   "role": "listitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.InputListItem(label) { control }",
+   "own": true,
+   "sample": "InputListItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Item",
+   "role": "text",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.core.Item: an option of Select / ComboBox / SegmentedButton",
+   "own": true,
+   "sample": "Item(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Label",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Label: field caption in sapContent_LabelColor",
+   "own": true,
+   "sample": "Label(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Link",
+   "role": "link",
+   "params": [
+    "text",
+    "href"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Link",
+   "own": true,
+   "sample": "Link(\"Text\", \"#\")",
+   "variants_sample": null
+  },
+  {
+   "name": "List",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.List(header:) { StandardListItem … }",
+   "own": true,
+   "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MaskInput",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MaskInput",
+   "own": true,
+   "sample": "MaskInput(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Menu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Menu (standalone without a label)",
+   "own": true,
+   "sample": "Menu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuButton",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [
+    "Default",
+    "Emphasized",
+    "Transparent",
+    "Ghost"
+   ],
+   "doc": "sap.m.MenuButton { MenuItem(…) }; open: true shows the menu",
+   "own": true,
+   "sample": "MenuButton(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { MenuButton(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }.variant(\"Default\"); Text(\"Default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MenuButton(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }.variant(\"Emphasized\"); Text(\"Emphasized\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MenuButton(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }.variant(\"Transparent\"); Text(\"Transparent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { MenuButton(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }.variant(\"Ghost\"); Text(\"Ghost\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "MenuItem",
+   "role": "menuitem",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MenuItem(text, icon:)",
+   "own": true,
+   "sample": "MenuItem(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBox",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MessageBox(title, message:, state: .Error|.Warning|.Success|.Information, icon:, buttons:)",
+   "own": true,
+   "sample": "MessageBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MessageItem(title, subtitle:, icon:, status:)",
+   "own": true,
+   "sample": "MessageItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MessagePopover",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "popover"
+   },
+   "variants": [],
+   "doc": "sap.m.MessagePopover { MessageItem … }",
+   "own": true,
+   "sample": "MessagePopover(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageStrip",
+   "role": "alert",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MessageStrip(text, type: .Information|.Success|.Warning|.Error, showCloseButton:)",
+   "own": true,
+   "sample": "MessageStrip(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageToast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MessageToast(\"Saved\")",
+   "own": true,
+   "sample": "MessageToast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MultiComboBox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.MultiComboBox(selection: [\"A\", \"B\"]): tokens in the field",
+   "own": true,
+   "sample": "MultiComboBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MultiInput",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "trailingIcon": "sap-icon://value-help"
+   },
+   "variants": [],
+   "doc": "sap.m.MultiInput(selection: [tokens]) with value help",
+   "own": true,
+   "sample": "MultiInput(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationList",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.tnt.NavigationList",
+   "own": true,
+   "sample": "NavigationList() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationListItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.tnt.NavigationListItem(text, icon:) with nested items",
+   "own": true,
+   "sample": "NavigationListItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NotificationListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.NotificationListItem(title, description:, avatar:, detail: time, status: .Error)",
+   "own": true,
+   "sample": "NotificationListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NumericContent",
+   "role": "labeled",
+   "params": [
+    "value",
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.NumericContent(value, scale, color: .Good|.Critical|.Error); .indicator(.Up)",
+   "own": true,
+   "sample": "NumericContent(\"Value\", \"Label\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectAttribute",
+   "role": "labeled",
+   "params": [
+    "title",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectAttribute(title, text) → “Title: text”",
+   "own": true,
+   "sample": "ObjectAttribute(\"Title\", \"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectHeader",
+   "role": "card",
+   "params": [
+    "title",
+    "status"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectHeader(title, number) { ObjectAttribute; ObjectStatus }",
+   "own": true,
+   "sample": "ObjectHeader(\"Title\", \"Status\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectIdentifier",
+   "role": "labeled",
+   "params": [
+    "title",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectIdentifier(title, text): bold title over a grey text",
+   "own": true,
+   "sample": "ObjectIdentifier(\"Title\", \"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectListItem",
+   "role": "listitem",
+   "params": [
+    "title",
+    "detail"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectListItem(title, number) { ObjectAttribute; ObjectStatus }",
+   "own": true,
+   "sample": "ObjectListItem(\"Title\", \"Detail\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectMarker",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "icon": "sap-icon://favorite"
+   },
+   "variants": [],
+   "doc": "sap.m.ObjectMarker (Favorite, Flagged, Draft …)",
+   "own": true,
+   "sample": "ObjectMarker(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectNumber",
+   "role": "labeled",
+   "params": [
+    "value",
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectNumber(\"1,250.00\", \"EUR\", state:)",
+   "own": true,
+   "sample": "ObjectNumber(\"Value\", \"Label\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectPageDynamicHeaderTitle",
+   "role": "card",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "alias of ObjectPageHeader",
+   "own": true,
+   "sample": "ObjectPageDynamicHeaderTitle(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectPageHeader",
+   "role": "card",
+   "params": [
+    "title",
+    "subtitle"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.uxap.ObjectPageDynamicHeaderTitle(title, subtitle, avatar:) { header facts } actions: { … }",
+   "own": true,
+   "sample": "ObjectPageHeader(\"Title\", \"Subtitle\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectPageLayout",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "sap.uxap.ObjectPageLayout { ObjectPageHeader; AnchorBar; ObjectPageSection … }",
+   "own": true,
+   "sample": "ObjectPageLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectPageSection",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.uxap.ObjectPageSection(title) { content }",
+   "own": true,
+   "sample": "ObjectPageSection(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectPageSubSection",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.uxap.ObjectPageSubSection",
+   "own": true,
+   "sample": "ObjectPageSubSection(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ObjectStatus",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ObjectStatus(text, state: .Success|.Warning|.Error|.Information|.Indication05, icon:); .inverted()",
+   "own": true,
+   "sample": "ObjectStatus(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OverflowToolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.OverflowToolbar: header toolbar of tables and lists",
+   "own": true,
+   "sample": "OverflowToolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "OverflowToolbarButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "Transparent"
+   },
+   "variants": [],
+   "doc": "sap.m.OverflowToolbarButton: icon-only transparent button",
+   "own": true,
+   "sample": "OverflowToolbarButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Page",
+   "role": "navstack",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "titleDisplayMode": "inline"
+   },
+   "variants": [],
+   "doc": "sap.m.Page: header Bar with title (start-aligned in Horizon), content; back: true shows the nav button",
+   "own": true,
+   "sample": "Page(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Panel",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "expanded": true
+   },
+   "variants": [],
+   "doc": "sap.m.Panel(headerText, expanded:)",
+   "own": true,
+   "sample": "Panel(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Popover",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "popover"
+   },
+   "variants": [],
+   "doc": "sap.m.Popover",
+   "own": true,
+   "sample": "Popover(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ProductSwitch",
+   "role": "grid",
+   "params": [],
+   "defaults": {
+    "columns": 4
+   },
+   "variants": [],
+   "doc": "sap.f.ProductSwitch { ProductSwitchItem(title, icon:) }",
+   "own": true,
+   "sample": "ProductSwitch() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ProductSwitchItem",
+   "role": "button",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.f.ProductSwitchItem",
+   "own": true,
+   "sample": "ProductSwitchItem(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressIndicator",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "showValue": true
+   },
+   "variants": [],
+   "doc": "sap.m.ProgressIndicator(value: 60, state: .Success)",
+   "own": true,
+   "sample": "ProgressIndicator(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButton",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.RadioButton(\"text\", selected: true)",
+   "own": true,
+   "sample": "RadioButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButtonGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.RadioButtonGroup(options: [...], selection: 0)",
+   "own": true,
+   "sample": "RadioButtonGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RangeSlider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.RangeSlider(value: [20, 60], in: 0...100)",
+   "own": true,
+   "sample": "RangeSlider()",
+   "variants_sample": null
+  },
+  {
+   "name": "RatingIndicator",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.RatingIndicator(value: 4, max: 5)",
+   "own": true,
+   "sample": "RatingIndicator(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "ResponsivePopover",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "popover"
+   },
+   "variants": [],
+   "doc": "sap.m.ResponsivePopover",
+   "own": true,
+   "sample": "ResponsivePopover(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollContainer",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ScrollContainer",
+   "own": true,
+   "sample": "ScrollContainer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "variants": [],
+   "doc": "sap.m.SearchField (magnifier at the end)",
+   "own": true,
+   "sample": "SearchField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedButton",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.SegmentedButton(items: [...], selection:) or SegmentedButtonItem children",
+   "own": true,
+   "sample": "SegmentedButton([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedButtonItem",
+   "role": "button",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.SegmentedButtonItem",
+   "own": true,
+   "sample": "SegmentedButtonItem(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Select",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Select(selection:) { Item(\"…\") }",
+   "own": true,
+   "sample": "Select(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Shell",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "sap.m.Shell: letterboxed app root",
+   "own": true,
+   "sample": "Shell() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ShellBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.f.ShellBar(title, secondaryTitle:, logo:, search:, notifications: 3, avatar: \"JD\") { extra buttons, e.g. product switch }",
+   "own": true,
+   "sample": "ShellBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SideNavigation",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.tnt.SideNavigation(selection:) { NavigationListItem … } footer: { fixed items }",
+   "own": true,
+   "sample": "SideNavigation(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SimpleForm",
+   "role": "form",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.layout.form.SimpleForm(title) { Title; Label; Input … }: labels at the start on desktop",
+   "own": true,
+   "sample": "SimpleForm(\"Title\") { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "Slider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Slider(value: 30, in: 0...100)",
+   "own": true,
+   "sample": "Slider()",
+   "variants_sample": null
+  },
+  {
+   "name": "SplitApp",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.SplitApp: master + detail",
+   "own": true,
+   "sample": "SplitApp() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SplitContainer",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.SplitContainer",
+   "own": true,
+   "sample": "SplitContainer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "StandardListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.StandardListItem(title, description:, icon:, info:, status:, count:); .type(.Navigation)",
+   "own": true,
+   "sample": "StandardListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "StepInput",
+   "role": "stepper",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.StepInput(value: 3): − value + in one field",
+   "own": true,
+   "sample": "StepInput(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Switch",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Switch(isOn: true)",
+   "own": true,
+   "sample": "Switch(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabContainer",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.TabContainer",
+   "own": true,
+   "sample": "TabContainer([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TabContainerItem",
+   "role": "tab",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.TabContainerItem",
+   "own": true,
+   "sample": "TabContainerItem(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Table",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Table(selectable:) { Column(…) … ColumnListItem { cells } } header: { OverflowToolbar }",
+   "own": true,
+   "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Text",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Text",
+   "own": true,
+   "sample": "Text(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextArea",
+   "role": "textfield",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "sap.m.TextArea(value, rows:)",
+   "own": true,
+   "sample": "TextArea(\"Value\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TileContent",
+   "role": "section",
+   "params": [
+    "footer"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.TileContent(footer, unit:) { NumericContent }",
+   "own": true,
+   "sample": "TileContent(\"Footer\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TimePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "time"
+   },
+   "variants": [],
+   "doc": "sap.m.TimePicker",
+   "own": true,
+   "sample": "TimePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Title",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {
+    "style": "H5"
+   },
+   "variants": [],
+   "doc": "sap.m.Title; level: .H1 … .H6 (or .titleStyle(.H3)) sets the size",
+   "own": true,
+   "sample": "Title(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToggleButton",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "button"
+   },
+   "variants": [],
+   "doc": "sap.m.ToggleButton; .pressed() shows the pressed state",
+   "own": true,
+   "sample": "ToggleButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Token",
+   "role": "chip",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "removable": true
+   },
+   "variants": [],
+   "doc": "sap.m.Token",
+   "own": true,
+   "sample": "Token(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tokenizer",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 4,
+    "wrap": true
+   },
+   "variants": [],
+   "doc": "sap.m.Tokenizer { Token(…) }",
+   "own": true,
+   "sample": "Tokenizer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolHeader",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.tnt.ToolHeader",
+   "own": true,
+   "sample": "ToolHeader(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolPage",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "sap.tnt.ToolPage { ToolHeader; HStack { SideNavigation; content } }",
+   "own": true,
+   "sample": "ToolPage() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Toolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Toolbar",
+   "own": true,
+   "sample": "Toolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarSeparator",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ToolbarSeparator",
+   "own": true,
+   "sample": "ToolbarSeparator()",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarSpacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.ToolbarSpacer: pushes the following content to the end",
+   "own": true,
+   "sample": "ToolbarSpacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "UploadSet",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.upload.UploadSet drop area",
+   "own": true,
+   "sample": "UploadSet(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VBox",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "leading"
+   },
+   "variants": [],
+   "doc": "sap.m.VBox (FlexBox, column)",
+   "own": true,
+   "sample": "VBox() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VariantManagement",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.ui.fl VariantManagement (“Standard ▾” title)",
+   "own": true,
+   "sample": "VariantManagement(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Wizard",
+   "role": "tabs",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.Wizard(selection: 1) { WizardStep(title) { content } … }: numbered progress navigator",
+   "own": true,
+   "sample": "Wizard() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "WizardStep",
+   "role": "tab",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "sap.m.WizardStep(title) { content }",
+   "own": true,
+   "sample": "WizardStep(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Accordion",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Accordion(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Alert",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AreaChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "area"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "AsyncImage",
+   "role": "image",
+   "params": [
+    "url"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AsyncImage().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Badge",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Badge(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Banner",
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Banner(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "BarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Board",
+   "role": "board",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kanban board of BoardColumn children",
+   "own": false,
+   "sample": "Board() { BoardColumn(\"To do\") { KanbanCard(\"Write copy\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BoardColumn",
+   "role": "boardcolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "BoardColumn(\"To do\", count:, color:) { KanbanCard(…) }",
+   "own": false,
+   "sample": "BoardColumn(\"Title\") { KanbanCard(\"Write copy\"); KanbanCard(\"Review\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumb",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Breadcrumb([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BubbleChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bubble"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Callout",
+   "role": "callout",
+   "params": [
+    "number",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "a numbered annotation; place with .position(x:y:)",
+   "own": false,
+   "sample": "Callout(1, \"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CandlestickChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "candlestick"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Canvas",
+   "role": "canvas",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "free-form area; place children with .position(x:y:); grid: .dots|.lines",
+   "own": false,
+   "sample": "Canvas() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Capsule",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "capsule"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Capsule().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Chart",
+   "role": "chart",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+   "own": false,
+   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Checkbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Checkbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Chip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Chip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Circle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "circle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Circle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeBlock",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "lineNumbers": false
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CodeBlock(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeEditor",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CodeEditor(\"…\", language: \"swift\", lineNumbers:, highlight: [3], tabs: [..])",
+   "own": false,
+   "sample": "CodeEditor(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Color",
+   "role": "color",
+   "params": [
+    "color"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Color(.blue).frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ColorSwatches",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "colors: [.red, \"#0af\", …], selection:",
+   "own": false,
+   "sample": "ColorSwatches()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "combo"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Comment",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "comment"
+   },
+   "variants": [],
+   "doc": "author:, time:, avatar:",
+   "own": false,
+   "sample": "Comment(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ControlGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "group"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ControlGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DisclosureGroup",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DisclosureGroup(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Divider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Divider()",
+   "variants_sample": null
+  },
+  {
+   "name": "DonutChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "donut"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dropzone",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dropzone(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Ellipse",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "ellipse"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Ellipse().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "EmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, systemImage:, description: { actions }",
+   "own": false,
+   "sample": "EmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FunnelChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "funnel"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gantt",
+   "role": "gantt",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "scale: [\"W1\",…], tasks: [(\"Design\", 0, 2, 0.6), …], today:",
+   "own": false,
+   "sample": "Gantt(tasks: [(\"Design\", 0, 3), (\"Build\", 2, 5)])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gauge",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "variant": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Gauge(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "GaugeChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Grid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Grid of GridRow children, or columns: n",
+   "own": false,
+   "sample": "Grid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GridRow",
+   "role": "gridrow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GridRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Group",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Group() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GroupBox",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GroupBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontal stack. spacing:, alignment: .top|.center|.bottom",
+   "own": false,
+   "sample": "HStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heatmap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "heatmap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Histogram",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "histogram"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "IconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "IconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "KanbanCard",
+   "role": "kanbancard",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, description:, tags: [..], assignees: [..], due:, comments:, priority:",
+   "own": false,
+   "sample": "KanbanCard(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Kbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kbd([\"⌘\", \"K\"]) or Kbd(\"Esc\")",
+   "own": false,
+   "sample": "Kbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "LabeledContent",
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LabeledContent(\"Label\", \"Value\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [GridItem(.flexible()), …] or a count",
+   "own": false,
+   "sample": "LazyVGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyVStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "line"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Map",
+   "role": "map",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "pins: [(x%, y%, \"label\")], route:, showsUserLocation:, height:",
+   "own": false,
+   "sample": "Map().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBubble",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+   "own": false,
+   "sample": "MessageBubble(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationLink",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationLink(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "{ sidebar } content: { … } detail: { … }",
+   "own": false,
+   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationStack",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Content's .navigationTitle / .toolbar form the bar",
+   "own": false,
+   "sample": "NavigationStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationView",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Pagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Pagination()",
+   "variants_sample": null
+  },
+  {
+   "name": "Picker",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+   "own": false,
+   "sample": "Picker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PieChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "pie"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Placeholder",
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A labelled box for maps, charts, media",
+   "own": false,
+   "sample": "Placeholder(\"Label\").frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Pointer",
+   "role": "pointer",
+   "params": [
+    "kind"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Pointer(.arrow|.hand|.ibeam|.grab|.crosshair|.touch); place with .position",
+   "own": false,
+   "sample": "Pointer(.arrow)",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressView",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "value: 0…1 (or total:); none = indeterminate",
+   "own": false,
+   "sample": "ProgressView(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "radar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Rating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Rectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundedRectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rounded"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RoundedRectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Row",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, subtitle:, detail:, systemImage:, chevron:",
+   "own": false,
+   "sample": "Row(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ScatterChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "scatter"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Schedule",
+   "role": "schedule",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "days: [..], startHour:, endHour:, events: [(\"Standup\", \"Mon\", 9, 9.5, .blue)], now:",
+   "own": false,
+   "sample": "Schedule()",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollView",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScrollView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Section",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section(\"Header\") { … } footer: { … }",
+   "own": false,
+   "sample": "Section(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SecureField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedControl",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SegmentedControl([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectionRect",
+   "role": "marquee",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "a drag-selection rectangle; size with .frame, place with .position",
+   "own": false,
+   "sample": "SelectionRect()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Sidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Skeleton",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "lines:, avatar:, image:, shape: .circle|.rectangle|.text",
+   "own": false,
+   "sample": "Skeleton().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Spacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Spacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Spreadsheet",
+   "role": "spreadsheet",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "rows: [[…]], selection: \"B2:C4\", active:, formula:, sheets: [..], highlight: [\"B3\": .yellow]",
+   "own": false,
+   "sample": "Spreadsheet(columns: [\"A\", \"B\"], rows: [[1, 2], [3, 4]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Stat",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stat(\"Revenue\", \"$48k\", change: \"+12%\", trend: [..], systemImage:)",
+   "own": false,
+   "sample": "Stat(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Stepper",
+   "role": "stepper",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Stepper(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Steps",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Steps([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "StickyNote",
+   "role": "stickynote",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "StickyNote(\"Call Ana\", color: .yellow, rotation: -2, author:)",
+   "own": false,
+   "sample": "StickyNote(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
+   "own": false,
+   "sample": "Tab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabView",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "Children with .tabItem { Label } or Tab(…)",
+   "own": false,
+   "sample": "TabView() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TableColumn",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableColumn(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableRow",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableRow()",
+   "variants_sample": null
+  },
+  {
+   "name": "Tabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Terminal",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "variant": "terminal"
+   },
+   "variants": [],
+   "doc": "lines starting with \"$ \" are commands",
+   "own": false,
+   "sample": "Terminal(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextEditor",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TextEditor(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TextField(\"Placeholder\", text: \"value\")",
+   "own": false,
+   "sample": "TextField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Timeline",
+   "role": "timeline",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, time:, description:, systemImage:, status:",
+   "own": false,
+   "sample": "TimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toggle",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Toggle(\"Wi-Fi\", isOn: true)",
+   "own": false,
+   "sample": "Toggle(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItem",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolbarItem(placement: .topBarTrailing) { … }",
+   "own": false,
+   "sample": "ToolbarItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItemGroup",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ToolbarItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tree",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tree { TreeItem(\"src\") { TreeItem(\"main.swift\") } }",
+   "own": false,
+   "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, systemImage:, folder:, expanded:, selected:, detail:",
+   "own": false,
+   "sample": "TreeItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Treemap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "treemap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Vertical stack. spacing:, alignment: .leading|.center|.trailing",
+   "own": false,
+   "sample": "VStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VideoPlayer",
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "poster image, progress: 0…1, time:, duration:, playing:",
+   "own": false,
+   "sample": "VideoPlayer().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Whiteboard",
+   "role": "canvas",
+   "params": [],
+   "defaults": {
+    "grid": "dots"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Whiteboard() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ZStack",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Overlapping layers. alignment:",
+   "own": false,
+   "sample": "ZStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  }
+ ]
+}

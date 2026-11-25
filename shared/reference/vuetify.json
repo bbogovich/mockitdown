@@ -1,0 +1,3703 @@
+{
+ "id": "vuetify",
+ "name": "Vuetify",
+ "framework": "Vuetify 3 · Vue 3, default theme (Material Design 2 blueprint)",
+ "version": "3.x",
+ "modules": [
+  "Vuetify",
+  "Vue"
+ ],
+ "device": "desktop",
+ "chrome": "browser",
+ "group": "Web",
+ "elements": [
+  {
+   "name": "Td",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Td(\"value\") — a table cell",
+   "own": true,
+   "sample": "Td(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tr",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "A table row (children are cells)",
+   "own": true,
+   "sample": "Tr()",
+   "variants_sample": null
+  },
+  {
+   "name": "VAlert",
+   "role": "alert",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "variant": "flat"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VAlert(\"Saved.\", type: \"success\", title:, variant: \"tonal\" | \"outlined\" | \"flat\", closable: true, density:)",
+   "own": true,
+   "sample": "VAlert(\"Message\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAlert(\"Message\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VAlertTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Bold first line of a VAlert",
+   "own": true,
+   "sample": "VAlertTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VApp",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "Root of every Vuetify app: a full-height column on the theme background",
+   "own": true,
+   "sample": "VApp() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VAppBar(title: \"Inbox\", color: \"primary\", density: \"compact\") { VBtn(icon: \"mdi-magnify\") } — 64px top bar, elevation 4; leading: { VAppBarNavIcon() }",
+   "own": true,
+   "sample": "VAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VAppBarNavIcon",
+   "role": "button",
+   "params": [],
+   "defaults": {
+    "icon": "mdi-menu",
+    "iconOnly": true,
+    "variant": "text"
+   },
+   "variants": [],
+   "doc": "The ☰ icon button at the start of a VAppBar",
+   "own": true,
+   "sample": "VAppBarNavIcon()",
+   "variants_sample": null
+  },
+  {
+   "name": "VAppBarTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Title text of a VAppBar (1.25rem)",
+   "own": true,
+   "sample": "VAppBarTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VAutocomplete",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VAutocomplete(\"State\", items: [..], modelValue: [..]) — filterable select; multiple values render chips",
+   "own": true,
+   "sample": "VAutocomplete(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAutocomplete(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VAvatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VAvatar(image: \"avatar-1.svg\", size: 40) · VAvatar(\"Ana Lima\", color: \"primary\") · VAvatar(icon: \"mdi-account\", rounded: 0)",
+   "own": true,
+   "sample": "VAvatar(\"Ana Lima\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VAvatar(\"Ana Lima\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VBadge",
+   "role": "badge",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VBadge(content: 6, color: \"error\") { VIcon(\"mdi-bell\") } · dot: true",
+   "own": true,
+   "sample": "VBadge(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VBanner",
+   "role": "alert",
+   "params": [
+    "message"
+   ],
+   "defaults": {
+    "severity": "info"
+   },
+   "variants": [],
+   "doc": "VBanner(\"No internet connection\", icon: \"mdi-wifi-strength-alert-outline\") actions: { VBtn(\"Retry\", variant: \"text\") } — full-width strip with a bottom border",
+   "own": true,
+   "sample": "VBanner(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VBannerActions",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Action buttons of a VBanner",
+   "own": true,
+   "sample": "VBannerActions() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VBannerText",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Text of a VBanner",
+   "own": true,
+   "sample": "VBannerText(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VBottomNavigation",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "VBottomNavigation(value: 0, color: \"primary\", items: [[\"title\": \"Home\", \"icon\": \"mdi-home\"], …]) — 56px bar, icon above label (or VTab children)",
+   "own": true,
+   "sample": "VBottomNavigation() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "VBottomSheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "VBottomSheet { VList … } — sheet sliding up from the bottom",
+   "own": true,
+   "sample": "VBottomSheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VBreadcrumbs",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VBreadcrumbs(items: [\"Dashboard\", \"Orders\", \"#10423\"], divider: \"/\")",
+   "own": true,
+   "sample": "VBreadcrumbs([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "VBreadcrumbsItem",
+   "role": "link",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "One item of a VBreadcrumbs",
+   "own": true,
+   "sample": "VBreadcrumbsItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VBtn",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "elevated"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VBtn(\"Save\", color: \"primary\", variant: \"tonal\", size: \"small\", density: \"compact\", rounded: \"pill\", prependIcon: \"mdi-content-save\") · VBtn(icon: \"mdi-heart\")",
+   "own": true,
+   "sample": "VBtn(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtn(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VBtnGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "elevated"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VBtnGroup(variant: \"outlined\", divided: true) { VBtn … } — joined buttons",
+   "own": true,
+   "sample": "VBtnGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnGroup() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VBtnToggle",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "text"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VBtnToggle(variant: \"outlined\", divided: true) { VBtn(icon: \"mdi-format-bold\").selected() … } — joined toggle buttons",
+   "own": true,
+   "sample": "VBtnToggle() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VBtnToggle() { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VCard",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "elevated"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VCard(title:, subtitle:, prependIcon:, image:, variant: \"outlined\") { VCardText … } actions: { VBtn(\"Ok\", variant: \"text\") }",
+   "own": true,
+   "sample": "VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VCardActions",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8
+   },
+   "variants": [],
+   "doc": "VCardActions { VSpacer(); VBtn(\"Cancel\", variant: \"text\") … } — 8px-padded button row",
+   "own": true,
+   "sample": "VCardActions() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VCardItem",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Header block of a VCard (title, subtitle, prepend/append)",
+   "own": true,
+   "sample": "VCardItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VCardSubtitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VCardSubtitle(\"…\") — medium-emphasis 0.875rem line under the title",
+   "own": true,
+   "sample": "VCardSubtitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VCardText",
+   "role": "vstack",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "VCardText { … } — 16px-padded body of a VCard (0.875rem)",
+   "own": true,
+   "sample": "VCardText(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VCardTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VCardTitle(\"Title\") — 1.25rem / 500 heading of a VCard",
+   "own": true,
+   "sample": "VCardTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VCarousel",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VCarousel(\"photo.svg\") — slideshow (shows its first slide)",
+   "own": true,
+   "sample": "VCarousel().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VCarouselItem",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VCarouselItem(src: \"photo.svg\")",
+   "own": true,
+   "sample": "VCarouselItem().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VCheckbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VCheckbox(\"Remember me\", modelValue: true, color: \"primary\", density: \"compact\")",
+   "own": true,
+   "sample": "VCheckbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VCheckboxBtn",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "The bare checkbox control (no label)",
+   "own": true,
+   "sample": "VCheckboxBtn(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "tonal"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VChip(\"Active\", color: \"success\", variant: \"tonal\" | \"flat\" | \"outlined\" | \"elevated\" | \"text\", size: \"small\", closable: true, prependIcon:, label: true)",
+   "own": true,
+   "sample": "VChip(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VChip(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VChipGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8
+   },
+   "variants": [],
+   "doc": "VChipGroup(selectedClass: \"text-primary\", column: true) { VChip … }",
+   "own": true,
+   "sample": "VChipGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VCode",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Inline code",
+   "own": true,
+   "sample": "VCode(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VCol",
+   "role": "vstack",
+   "params": [
+    "size"
+   ],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "VCol(cols: 6) — column spanning cols/12 of a VRow (cols: 0 = auto grow)",
+   "own": true,
+   "sample": "VCol() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VColorPicker",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Colour picker (swatch grid)",
+   "own": true,
+   "sample": "VColorPicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "VCombobox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VCombobox(\"Tags\", items: [..], modelValue: [..], chips: true) — select that accepts new values",
+   "own": true,
+   "sample": "VCombobox(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VCombobox(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VConfirmEdit",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Save / Cancel wrapper around an editable value",
+   "own": true,
+   "sample": "VConfirmEdit() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VContainer",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Centered, padded (16px) content column; fluid: true for full width",
+   "own": true,
+   "sample": "VContainer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VDataIterator",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Custom layout over items with the data-table plumbing",
+   "own": true,
+   "sample": "VDataIterator() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VDataTable",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VDataTable(headers: [..], items: [[..]], search:, sortBy: 2, showSelect: true, selectedRows: [1], itemsPerPage: 10) — sortable table with footer",
+   "own": true,
+   "sample": "VDataTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "VDataTableFooter",
+   "role": "pagination",
+   "params": [
+    "summary"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VDataTableFooter(\"Items per page:  10 ▾     1-10 of 42\") — the table footer with first/prev/next/last",
+   "own": true,
+   "sample": "VDataTableFooter(\"Summary\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VDataTableServer",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Server-side VDataTable (same look)",
+   "own": true,
+   "sample": "VDataTableServer(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "VDataTableVirtual",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Virtualised VDataTable (no footer)",
+   "own": true,
+   "sample": "VDataTableVirtual(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "VDateInput",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VDateInput(\"Delivery date\", modelValue: \"2026-11-23\") — text field opening a VDatePicker",
+   "own": true,
+   "sample": "VDateInput(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VDateInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VDatePicker",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VDatePicker(modelValue: \"2026-11-23\", title: \"Select date\", showAdjacentMonths: true)",
+   "own": true,
+   "sample": "VDatePicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "VDefaultsProvider",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Sets default props for its subtree (renders its children)",
+   "own": true,
+   "sample": "VDefaultsProvider() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VDialog(title: \"Delete file?\", maxWidth: 400) { VCardText … } actions: { VBtn … } — modal card over a scrim",
+   "own": true,
+   "sample": "VDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VDivider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [
+    "inset"
+   ],
+   "doc": "VDivider() · VDivider(vertical: true) · inset: true · thickness:",
+   "own": true,
+   "sample": "VDivider()",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VDivider().variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VEmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VEmptyState(headline: \"No orders yet\", title:, text:, icon: \"mdi-cart\") { VBtn … }",
+   "own": true,
+   "sample": "VEmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VExpansionPanel",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VExpansionPanel(title: \"Shipping\", text: \"…\", expanded: true) { content }",
+   "own": true,
+   "sample": "VExpansionPanel(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VExpansionPanelText",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Body of a VExpansionPanel",
+   "own": true,
+   "sample": "VExpansionPanelText() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VExpansionPanelTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Header of a VExpansionPanel",
+   "own": true,
+   "sample": "VExpansionPanelTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VExpansionPanels",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [
+    "default",
+    "accordion",
+    "inset",
+    "popout"
+   ],
+   "doc": "VExpansionPanels(variant: \"accordion\" | \"inset\" | \"popout\") { VExpansionPanel(title:, text:) … }",
+   "own": true,
+   "sample": "VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"default\"); Text(\"default\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"accordion\"); Text(\"accordion\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"inset\"); Text(\"inset\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VExpansionPanels() { Text(\"Content\"); Button(\"Action\") }.variant(\"popout\"); Text(\"popout\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VFab",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "color": "primary"
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VFab(icon: \"mdi-plus\", color: \"primary\") · extended: VFab(icon:, label: \"Compose\")",
+   "own": true,
+   "sample": "VFab(\"star\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFab(\"star\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "The bare field box of an input",
+   "own": true,
+   "sample": "VField(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VFileInput",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "icon": "mdi-paperclip",
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VFileInput(\"Attachment\", modelValue: \"report.pdf\", chips: true) — file field with a paperclip prepend icon",
+   "own": true,
+   "sample": "VFileInput(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VFileInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VFileUpload",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VFileUpload(title: \"Drag and drop files\") — drop zone with browse button",
+   "own": true,
+   "sample": "VFileUpload(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VFooter",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VFooter(border: true) { Text(\"© 2026 Acme\") } — footer bar at the bottom of the app",
+   "own": true,
+   "sample": "VFooter() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VForm",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "VForm { VTextField … } — a column of fields with 8px gaps",
+   "own": true,
+   "sample": "VForm() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VHotkey",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Keyboard shortcut display",
+   "own": true,
+   "sample": "VHotkey([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "VHover",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Hover state provider (renders its children)",
+   "own": true,
+   "sample": "VHover() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VIcon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VIcon(\"mdi-home\", color: \"primary\", size: \"large\") — Material Design Icons by name",
+   "own": true,
+   "sample": "VIcon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VIconBtn",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "text"
+   },
+   "variants": [],
+   "doc": "VIconBtn(icon: \"mdi-cog\") — compact icon-only button",
+   "own": true,
+   "sample": "VIconBtn(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VImg",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VImg(src: \"photo.svg\", height: 200, cover: true)",
+   "own": true,
+   "sample": "VImg().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VInfiniteScroll",
+   "role": "scroll",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VInfiniteScroll(height: 300) { items … VProgressCircular } — scroll area that loads more at its end",
+   "own": true,
+   "sample": "VInfiniteScroll() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VInput",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "plain"
+   },
+   "variants": [],
+   "doc": "Base input wrapper",
+   "own": true,
+   "sample": "VInput(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VItem",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "One selectable item of a VItemGroup",
+   "own": true,
+   "sample": "VItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VItemGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Selection group around VItem children",
+   "own": true,
+   "sample": "VItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VKbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VKbd(\"Ctrl\") — keyboard key",
+   "own": true,
+   "sample": "VKbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "VLabel",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Medium-emphasis form label",
+   "own": true,
+   "sample": "VLabel(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VLayout",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "alignment": "top",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "Layout container for app bar / drawer / main (row; nest VLayout for columns)",
+   "own": true,
+   "sample": "VLayout() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VLazy",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Renders its children when visible",
+   "own": true,
+   "sample": "VLazy() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VList",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VList(nav: true, density: \"compact\", lines: \"two\") { VListSubheader(\"…\"); VListItem(title:, subtitle:, prependIcon:) }",
+   "own": true,
+   "sample": "VList() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VListGroup",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VListGroup(\"Admin\", prependIcon:, expanded: true) { VListItem … } — collapsible group in a nav list",
+   "own": true,
+   "sample": "VListGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VListImg",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Image inside a VList",
+   "own": true,
+   "sample": "VListImg().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VListItem(title: \"Inbox\", subtitle:, prependIcon: \"mdi-inbox\", value:, active: true) — 48px row; prepend: / append: slots",
+   "own": true,
+   "sample": "VListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VListItemAction",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Trailing action area of a VListItem",
+   "own": true,
+   "sample": "VListItemAction() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VListItemSubtitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Subtitle text of a VListItem",
+   "own": true,
+   "sample": "VListItemSubtitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VListItemTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Title text of a VListItem",
+   "own": true,
+   "sample": "VListItemTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VListSubheader",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VListSubheader(\"REPORTS\") — 0.875rem / 500 label inside a VList",
+   "own": true,
+   "sample": "VListSubheader(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VLocaleProvider",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Applies a locale to its subtree",
+   "own": true,
+   "sample": "VLocaleProvider() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VMain",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Main content area beside VNavigationDrawer and under VAppBar",
+   "own": true,
+   "sample": "VMain() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VMenu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VMenu(\"Options\", open: true) { VListItem(title: \"Edit\", prependIcon: \"mdi-pencil\") … } · VMenu(icon: \"mdi-dots-vertical\")",
+   "own": true,
+   "sample": "VMenu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VMessages",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Hint / error line under a control",
+   "own": true,
+   "sample": "VMessages(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VNavigationDrawer",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [
+    "permanent",
+    "temporary",
+    "rail"
+   ],
+   "doc": "VNavigationDrawer(title:) { VList(nav: true) { VListItem(title:, prependIcon:) } } — 256px drawer; rail: true for 56px",
+   "own": true,
+   "sample": "VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"permanent\"); Text(\"permanent\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"temporary\"); Text(\"temporary\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNavigationDrawer(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"rail\"); Text(\"rail\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VNoSsr",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Client-only children",
+   "own": true,
+   "sample": "VNoSsr() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VNumberInput",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "trailingIcon": "mdi-unfold-more-horizontal",
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VNumberInput(\"Quantity\", modelValue: 2) — number field with − / + controls",
+   "own": true,
+   "sample": "VNumberInput(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VNumberInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VOtpInput",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "One-time-code field",
+   "own": true,
+   "sample": "VOtpInput(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VOtpInput(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VOverlay",
+   "role": "dialog",
+   "params": [],
+   "defaults": {
+    "variant": "backdrop"
+   },
+   "variants": [],
+   "doc": "Scrim with centred content",
+   "own": true,
+   "sample": "VOverlay() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VPagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VPagination(length: 10, modelValue: 2, totalVisible: 7, rounded: \"circle\", activeColor: \"primary\")",
+   "own": true,
+   "sample": "VPagination()",
+   "variants_sample": null
+  },
+  {
+   "name": "VParallax",
+   "role": "image",
+   "params": [
+    "src"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VParallax(src:) — scrolling background image",
+   "own": true,
+   "sample": "VParallax().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VProgressCircular",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "kind": "circular"
+   },
+   "variants": [],
+   "doc": "VProgressCircular(modelValue: 70, size: 48, width: 4, color: \"primary\") · indeterminate: true",
+   "own": true,
+   "sample": "VProgressCircular()",
+   "variants_sample": null
+  },
+  {
+   "name": "VProgressLinear",
+   "role": "progress",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VProgressLinear(modelValue: 40, color: \"primary\", height: 6, rounded: true) · indeterminate: true",
+   "own": true,
+   "sample": "VProgressLinear()",
+   "variants_sample": null
+  },
+  {
+   "name": "VRadio",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VRadio(\"Express\", value:) inside VRadioGroup",
+   "own": true,
+   "sample": "VRadio(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VRadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VRadioGroup(\"Shipping\", items: [..], modelValue: \"Express\", inline: true) — or VRadio children",
+   "own": true,
+   "sample": "VRadioGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VRangeSlider",
+   "role": "slider",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VRangeSlider(modelValue: [20, 60], max: 100)",
+   "own": true,
+   "sample": "VRangeSlider(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VRating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VRating(modelValue: 3.5, halfIncrements: true, color: \"amber\", density: \"compact\", size: \"small\")",
+   "own": true,
+   "sample": "VRating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "VResponsive",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Aspect-ratio box",
+   "own": true,
+   "sample": "VResponsive() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VRow",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "alignment": "top"
+   },
+   "variants": [],
+   "doc": "Flex row of VCol in a 12-column grid (24px gutters)",
+   "own": true,
+   "sample": "VRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VSelect",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VSelect(\"Country\", items: [\"France\", \"Peru\"], modelValue: \"Peru\", chips: true, multiple: true, open: true)",
+   "own": true,
+   "sample": "VSelect(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSelect(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VSheet",
+   "role": "card",
+   "params": [],
+   "defaults": {
+    "elevation": 0
+   },
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VSheet(elevation: 2, rounded: true, color:) { … } — plain surface with no padding",
+   "own": true,
+   "sample": "VSheet() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VSheet() { Text(\"Content\"); Button(\"Action\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VSkeletonLoader",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VSkeletonLoader(type: \"list-item-avatar\") — use avatar: true, lines: 3, image: true",
+   "own": true,
+   "sample": "VSkeletonLoader().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "VSlideGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontally scrolling group with arrows",
+   "own": true,
+   "sample": "VSlideGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VSlideGroupItem",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "One item of a VSlideGroup",
+   "own": true,
+   "sample": "VSlideGroupItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VSlider",
+   "role": "slider",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VSlider(modelValue: 40, min: 0, max: 100, step: 10, thumbLabel: true, color:)",
+   "own": true,
+   "sample": "VSlider(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VSnackbar",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VSnackbar(\"Saved\", action: \"Undo\", color:, location: .bottom) — 344px dark message bar",
+   "own": true,
+   "sample": "VSnackbar(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VSnackbarQueue",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A queue of VSnackbar messages (shows the first)",
+   "own": true,
+   "sample": "VSnackbarQueue(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VSpacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Flexible space in a VToolbar, VCardActions or VRow",
+   "own": true,
+   "sample": "VSpacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "VSparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "VSparkline(modelValue: [1, 4, 2, 6], color: \"primary\", fill: true, smooth: true) — trend line",
+   "own": true,
+   "sample": "VSparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VSpeedDial",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "color": "primary"
+   },
+   "variants": [],
+   "doc": "Fab that opens a list of action buttons",
+   "own": true,
+   "sample": "VSpeedDial(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepper",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VStepper(items: [\"Cart\", \"Shipping\", \"Payment\"], modelValue: 1, altLabels: true) — numbered header; modelValue is the 0-based current step",
+   "own": true,
+   "sample": "VStepper([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperActions",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VStepperActions() — Previous / Next buttons of a VStepper",
+   "own": true,
+   "sample": "VStepperActions() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperHeader",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Header row of a VStepper",
+   "own": true,
+   "sample": "VStepperHeader() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperItem",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "One step of a VStepperHeader",
+   "own": true,
+   "sample": "VStepperItem(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperVertical",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {
+    "orientation": "vertical"
+   },
+   "variants": [],
+   "doc": "Vertical stepper",
+   "own": true,
+   "sample": "VStepperVertical([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperWindow",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Pane area of a VStepper",
+   "own": true,
+   "sample": "VStepperWindow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VStepperWindowItem",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "One step's pane",
+   "own": true,
+   "sample": "VStepperWindowItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VSubheader",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section label (Vuetify 2 name; use VListSubheader)",
+   "own": true,
+   "sample": "VSubheader(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VSwitch",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VSwitch(\"Wi-Fi\", modelValue: true, color: \"primary\", inset: true, hideDetails: true)",
+   "own": true,
+   "sample": "VSwitch(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VSystemBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "density": "compact"
+   },
+   "variants": [],
+   "doc": "VSystemBar { VIcon(\"mdi-wifi\") … } — 24px status strip at the top of a mobile app",
+   "own": true,
+   "sample": "VSystemBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTab(\"Favorites\", prependIcon: \"mdi-heart\") { pane }",
+   "own": true,
+   "sample": "VTab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VTable",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTable(density:) { thead/tbody as TableRow children } — or columns:, rows:",
+   "own": true,
+   "sample": "VTable(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "VTabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "VTabs(value: 0, color: \"primary\", grow: true, alignTabs: \"center\") { VTab(\"Profile\", prependIcon:) … } or VTabs(items: [..])",
+   "own": true,
+   "sample": "VTabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTabsWindow",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "Panes of a VTabs",
+   "own": true,
+   "sample": "VTabsWindow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTabsWindowItem",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "One pane of a VTabsWindow",
+   "own": true,
+   "sample": "VTabsWindowItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VTextField(\"Email\", modelValue:, variant: \"outlined\", density: \"compact\", prependInnerIcon:, hint:, errorMessages: \"…\", clearable: true)",
+   "own": true,
+   "sample": "VTextField(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextField(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VTextarea",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "multiline",
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined",
+    "underlined",
+    "solo",
+    "solo-filled",
+    "solo-inverted",
+    "plain"
+   ],
+   "doc": "VTextarea(\"Notes\", rows: 3, counter: 200, autoGrow: true)",
+   "own": true,
+   "sample": "VTextarea(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"underlined\"); Text(\"underlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo\"); Text(\"solo\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-filled\"); Text(\"solo-filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"solo-inverted\"); Text(\"solo-inverted\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VTextarea(\"Label\").variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VThemeProvider",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Applies a theme to its subtree (renders its children)",
+   "own": true,
+   "sample": "VThemeProvider() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTimePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "time",
+    "variant": "filled"
+   },
+   "variants": [],
+   "doc": "Time picker field",
+   "own": true,
+   "sample": "VTimePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VTimeline",
+   "role": "timeline",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTimeline(side: \"end\", density: \"compact\") { VTimelineItem(\"Order placed\", dotColor: \"primary\") }",
+   "own": true,
+   "sample": "VTimeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTimelineItem(\"Shipped\", time:, description:, dotColor: \"success\", icon:)",
+   "own": true,
+   "sample": "VTimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VToolbar",
+   "role": "toolbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [
+    "elevated",
+    "flat",
+    "tonal",
+    "outlined",
+    "text",
+    "plain"
+   ],
+   "doc": "VToolbar(title:, color:, density:) { VBtn … } — 64px bar (surface-light by default)",
+   "own": true,
+   "sample": "VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"flat\"); Text(\"flat\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { VToolbar(\"Title\") { Button(\"Save\"); Button(\"Share\") }.variant(\"plain\"); Text(\"plain\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "VToolbarItems",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "Full-height buttons inside a VToolbar",
+   "own": true,
+   "sample": "VToolbarItems() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VToolbarTitle",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Title text of a VToolbar",
+   "own": true,
+   "sample": "VToolbarTitle(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VTooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTooltip(\"Delete\", location: .bottom) { VBtn(icon: \"mdi-delete\") }",
+   "own": true,
+   "sample": "VTooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTreeview",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTreeview { VTreeviewItem(\"src\", expanded: true) { … } } — hierarchical list",
+   "own": true,
+   "sample": "VTreeview() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "VTreeviewItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "VTreeviewItem(\"main.ts\", icon: \"mdi-language-typescript\", expanded:, selected:)",
+   "own": true,
+   "sample": "VTreeviewItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VVirtualScroll",
+   "role": "scroll",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Virtualised scroll area of items",
+   "own": true,
+   "sample": "VVirtualScroll() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VWindow",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "VWindow { VWindowItem { … } } — the visible pane of a VTabs/VStepper",
+   "own": true,
+   "sample": "VWindow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VWindowItem",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch"
+   },
+   "variants": [],
+   "doc": "One pane of a VWindow / VTabsWindow",
+   "own": true,
+   "sample": "VWindowItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Accordion",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Accordion(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Alert",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AreaChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "area"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "AsyncImage",
+   "role": "image",
+   "params": [
+    "url"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AsyncImage().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Avatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Avatar(\"Ana Lima\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Badge",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Badge(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Banner",
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Banner(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "BarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Board",
+   "role": "board",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kanban board of BoardColumn children",
+   "own": false,
+   "sample": "Board() { BoardColumn(\"To do\") { KanbanCard(\"Write copy\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BoardColumn",
+   "role": "boardcolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "BoardColumn(\"To do\", count:, color:) { KanbanCard(…) }",
+   "own": false,
+   "sample": "BoardColumn(\"Title\") { KanbanCard(\"Write copy\"); KanbanCard(\"Review\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumb",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Breadcrumb([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BubbleChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bubble"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Button",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Button(\"Save\", systemImage:) · .buttonStyle(…)",
+   "own": false,
+   "sample": "Button(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Calendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Calendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "Callout",
+   "role": "callout",
+   "params": [
+    "number",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "a numbered annotation; place with .position(x:y:)",
+   "own": false,
+   "sample": "Callout(1, \"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CandlestickChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "candlestick"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Canvas",
+   "role": "canvas",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "free-form area; place children with .position(x:y:); grid: .dots|.lines",
+   "own": false,
+   "sample": "Canvas() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Capsule",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "capsule"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Capsule().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Card",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Chart",
+   "role": "chart",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+   "own": false,
+   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Checkbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Checkbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Chip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Chip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Circle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "circle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Circle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeBlock",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "lineNumbers": false
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CodeBlock(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeEditor",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CodeEditor(\"…\", language: \"swift\", lineNumbers:, highlight: [3], tabs: [..])",
+   "own": false,
+   "sample": "CodeEditor(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Color",
+   "role": "color",
+   "params": [
+    "color"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Color(.blue).frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ColorSwatches",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "colors: [.red, \"#0af\", …], selection:",
+   "own": false,
+   "sample": "ColorSwatches()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "combo"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Comment",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "comment"
+   },
+   "variants": [],
+   "doc": "author:, time:, avatar:",
+   "own": false,
+   "sample": "Comment(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ControlGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "group"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ControlGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePicker",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "selection: \"2026-11-23\"; .datePickerStyle(.graphical)",
+   "own": false,
+   "sample": "DatePicker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Dialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DisclosureGroup",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DisclosureGroup(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Divider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Divider()",
+   "variants_sample": null
+  },
+  {
+   "name": "DonutChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "donut"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dropzone",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dropzone(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Ellipse",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "ellipse"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Ellipse().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "EmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, systemImage:, description: { actions }",
+   "own": false,
+   "sample": "EmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Form",
+   "role": "form",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FunnelChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "funnel"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gantt",
+   "role": "gantt",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "scale: [\"W1\",…], tasks: [(\"Design\", 0, 2, 0.6), …], today:",
+   "own": false,
+   "sample": "Gantt(tasks: [(\"Design\", 0, 3), (\"Build\", 2, 5)])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gauge",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "variant": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Gauge(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "GaugeChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Grid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Grid of GridRow children, or columns: n",
+   "own": false,
+   "sample": "Grid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GridRow",
+   "role": "gridrow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GridRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Group",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Group() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GroupBox",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GroupBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontal stack. spacing:, alignment: .top|.center|.bottom",
+   "own": false,
+   "sample": "HStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heatmap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "heatmap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Histogram",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "histogram"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Icon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Icon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "IconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Image",
+   "role": "image",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Image(\"path.png\") or Image(systemName: \"star\")",
+   "own": false,
+   "sample": "Image().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "KanbanCard",
+   "role": "kanbancard",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, description:, tags: [..], assignees: [..], due:, comments:, priority:",
+   "own": false,
+   "sample": "KanbanCard(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Kbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kbd([\"⌘\", \"K\"]) or Kbd(\"Esc\")",
+   "own": false,
+   "sample": "Kbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Label",
+   "role": "label",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Label(\"Inbox\", systemImage: \"tray\")",
+   "own": false,
+   "sample": "Label(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LabeledContent",
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LabeledContent(\"Label\", \"Value\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [GridItem(.flexible()), …] or a count",
+   "own": false,
+   "sample": "LazyVGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyVStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "line"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Link",
+   "role": "link",
+   "params": [
+    "label",
+    "destination"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Link(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "List",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": ".listStyle(.insetGrouped|.plain|.sidebar|…)",
+   "own": false,
+   "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Map",
+   "role": "map",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "pins: [(x%, y%, \"label\")], route:, showsUserLocation:, height:",
+   "own": false,
+   "sample": "Map().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Menu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Menu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuItem",
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "MenuItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBubble",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+   "own": false,
+   "sample": "MessageBubble(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationLink",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationLink(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "{ sidebar } content: { … } detail: { … }",
+   "own": false,
+   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationStack",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Content's .navigationTitle / .toolbar form the bar",
+   "own": false,
+   "sample": "NavigationStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationView",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Pagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Pagination()",
+   "variants_sample": null
+  },
+  {
+   "name": "Picker",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+   "own": false,
+   "sample": "Picker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PieChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "pie"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Placeholder",
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A labelled box for maps, charts, media",
+   "own": false,
+   "sample": "Placeholder(\"Label\").frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Pointer",
+   "role": "pointer",
+   "params": [
+    "kind"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Pointer(.arrow|.hand|.ibeam|.grab|.crosshair|.touch); place with .position",
+   "own": false,
+   "sample": "Pointer(.arrow)",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressView",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "value: 0…1 (or total:); none = indeterminate",
+   "own": false,
+   "sample": "ProgressView(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "radar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButton",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Rating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Rectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundedRectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rounded"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RoundedRectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Row",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, subtitle:, detail:, systemImage:, chevron:",
+   "own": false,
+   "sample": "Row(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ScatterChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "scatter"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Schedule",
+   "role": "schedule",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "days: [..], startHour:, endHour:, events: [(\"Standup\", \"Mon\", 9, 9.5, .blue)], now:",
+   "own": false,
+   "sample": "Schedule()",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollView",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScrollView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SearchField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Section",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section(\"Header\") { … } footer: { … }",
+   "own": false,
+   "sample": "Section(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SecureField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedControl",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SegmentedControl([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectionRect",
+   "role": "marquee",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "a drag-selection rectangle; size with .frame, place with .position",
+   "own": false,
+   "sample": "SelectionRect()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Sidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Skeleton",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "lines:, avatar:, image:, shape: .circle|.rectangle|.text",
+   "own": false,
+   "sample": "Skeleton().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Slider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Slider(value: 0.4) or Slider(value: 30, in: 0...100)",
+   "own": false,
+   "sample": "Slider()",
+   "variants_sample": null
+  },
+  {
+   "name": "Spacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Spacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Spreadsheet",
+   "role": "spreadsheet",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "rows: [[…]], selection: \"B2:C4\", active:, formula:, sheets: [..], highlight: [\"B3\": .yellow]",
+   "own": false,
+   "sample": "Spreadsheet(columns: [\"A\", \"B\"], rows: [[1, 2], [3, 4]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Stat",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stat(\"Revenue\", \"$48k\", change: \"+12%\", trend: [..], systemImage:)",
+   "own": false,
+   "sample": "Stat(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Stepper",
+   "role": "stepper",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Stepper(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Steps",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Steps([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "StickyNote",
+   "role": "stickynote",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "StickyNote(\"Call Ana\", color: .yellow, rotation: -2, author:)",
+   "own": false,
+   "sample": "StickyNote(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tab(\"Home\", systemImage: \"house\") { … }",
+   "own": false,
+   "sample": "Tab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabView",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "Children with .tabItem { Label } or Tab(…)",
+   "own": false,
+   "sample": "TabView() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Table",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [\"Name\", …], rows: [[…], …] or TableRow children",
+   "own": false,
+   "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "TableColumn",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableColumn(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableRow",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableRow()",
+   "variants_sample": null
+  },
+  {
+   "name": "Tabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Terminal",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "variant": "terminal"
+   },
+   "variants": [],
+   "doc": "lines starting with \"$ \" are commands",
+   "own": false,
+   "sample": "Terminal(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Text",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Text with **bold**, *italic*, `code` Markdown",
+   "own": false,
+   "sample": "Text(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextEditor",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TextEditor(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TextField(\"Placeholder\", text: \"value\")",
+   "own": false,
+   "sample": "TextField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Timeline",
+   "role": "timeline",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, time:, description:, systemImage:, status:",
+   "own": false,
+   "sample": "TimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toggle",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Toggle(\"Wi-Fi\", isOn: true)",
+   "own": false,
+   "sample": "Toggle(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItem",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolbarItem(placement: .topBarTrailing) { … }",
+   "own": false,
+   "sample": "ToolbarItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItemGroup",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ToolbarItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tree",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tree { TreeItem(\"src\") { TreeItem(\"main.swift\") } }",
+   "own": false,
+   "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, systemImage:, folder:, expanded:, selected:, detail:",
+   "own": false,
+   "sample": "TreeItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Treemap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "treemap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Vertical stack. spacing:, alignment: .leading|.center|.trailing",
+   "own": false,
+   "sample": "VStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VideoPlayer",
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "poster image, progress: 0…1, time:, duration:, playing:",
+   "own": false,
+   "sample": "VideoPlayer().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Whiteboard",
+   "role": "canvas",
+   "params": [],
+   "defaults": {
+    "grid": "dots"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Whiteboard() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ZStack",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Overlapping layers. alignment:",
+   "own": false,
+   "sample": "ZStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  }
+ ]
+}

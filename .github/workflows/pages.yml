@@ -22,22 +22,22 @@ jobs:
         with: { python-version: "3.12" }
       - name: Install
         run: |
-          python -m pip install -e "main[markdown]"
-          python -m pip install -r main/examples/site/requirements.txt -r docs/requirements.txt
+          python -m pip install -e "main/python[markdown]"
+          python -m pip install -r main/python/examples/site/requirements.txt -r docs/requirements.txt
       - name: Test
-        working-directory: main
+        working-directory: main/python
         run: python -m unittest discover -s tests -t .
       - name: Build documentation (docs branch)
         working-directory: docs
         run: zensical build --clean
       - name: Build example site
-        working-directory: main/examples/site
+        working-directory: main/python/examples/site
         run: zensical build --clean
       - name: Assemble
         run: |
           mkdir -p public
           cp -R docs/site/. public/
-          mkdir -p public/demos && cp -R main/examples/site/site/. public/demos/
+          mkdir -p public/demos && cp -R main/python/examples/site/site/. public/demos/
           # The site has no top-level page: send / to the first header tab, Demo.
           if [ ! -f public/index.html ]; then
             printf '<!doctype html><meta charset="utf-8"><title>mockitdown</title><meta http-equiv="refresh" content="0; url=demos/"><link rel="canonical" href="demos/"><a href="demos/">mockitdown</a>\n' > public/index.html

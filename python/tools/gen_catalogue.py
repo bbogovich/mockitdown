@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regenerate the pack table and per-pack element catalogues on the specification's catalogue page.
 
-    python tools/gen_catalogue.py ../mockitdown.docs/specification/narrative/packs/catalogue.md
+    python tools/gen_catalogue.py ../../mockitdown.docs/specification/narrative/packs/catalogue.md   # from python/
 
 Replaces the text between `<!-- packs-table -->` … `<!-- end packs-table -->` and between each
 `<!-- catalogue: <id> … -->` … `<!-- end catalogue: <id> -->` (an end marker is added when missing).

@@ -47,5 +47,7 @@ mockitdown = "mockitdown.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+# The data files are copies of the repository's shared/ assets, written by setup.py at build time
+# (tools/sync_shared.py); they are not tracked in git under python/.
 [tool.setuptools.package-data]
-mockitdown = ["page.css", "packs/*/pack.json", "packs/*/pack.css"]
+mockitdown = ["page.css", "icons.json", "vocabulary.json", "packs/*/pack.json", "packs/*/pack.css"]

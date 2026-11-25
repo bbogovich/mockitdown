@@ -1,0 +1,3190 @@
+{
+ "id": "android",
+ "name": "Android · Jetpack Compose",
+ "framework": "Jetpack Compose · Material 3 Expressive (baseline scheme)",
+ "version": "Compose Material 3 1.4 · Android 16",
+ "modules": [
+  "Android",
+  "JetpackCompose",
+  "Compose",
+  "Material3"
+ ],
+ "device": "phone",
+ "chrome": "android",
+ "group": "Mobile",
+ "elements": [
+  {
+   "name": "AlertDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "AlertDialog(title: \"Discard draft?\", text: \"…\", icon: \"delete\", buttons: [\"Cancel\", \"Discard\"]) or confirmButton: { TextButton… }",
+   "own": true,
+   "sample": "AlertDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AssistChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "assist"
+   },
+   "variants": [],
+   "doc": "AssistChip(\"Add to calendar\", leadingIcon: \"event\") — 32dp, 8dp corners",
+   "own": true,
+   "sample": "AssistChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Badge",
+   "role": "badge",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Badge() — 6dp dot; Badge(\"12\") — 16dp large badge (error colours)",
+   "own": true,
+   "sample": "Badge(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "BadgedBox",
+   "role": "label",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "BadgedBox(badge: 3) { Icon(\"mail\") } — badge: true for a dot",
+   "own": true,
+   "sample": "BadgedBox()",
+   "variants_sample": null
+  },
+  {
+   "name": "BasicAlertDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "BasicAlertDialog { custom content }",
+   "own": true,
+   "sample": "BasicAlertDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "BottomAppBar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "BottomAppBar { IconButton(…) …; Spacer(); FloatingActionButton(\"add\", inline: true) }",
+   "own": true,
+   "sample": "BottomAppBar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Box",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Compose Box: overlapping children; alignment:",
+   "own": true,
+   "sample": "Box() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Button",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "tonal",
+    "outlined",
+    "text",
+    "elevated"
+   ],
+   "doc": "Button(onClick: {}) { Text(\"Save\") } or Button(\"Save\", icon:) — filled, 40dp pill",
+   "own": true,
+   "sample": "Button(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"tonal\"); Text(\"tonal\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"text\"); Text(\"text\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Button(\"Label\").variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "ButtonGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8
+   },
+   "variants": [],
+   "doc": "M3 Expressive ButtonGroup { ToggleButton … } (standard)",
+   "own": true,
+   "sample": "ButtonGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Card",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "elevated",
+    "outlined"
+   ],
+   "doc": "Card { … } — filled (surfaceContainerHighest), 12dp corners; title:, subtitle:, image:, actions:",
+   "own": true,
+   "sample": "Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"elevated\"); Text(\"elevated\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { Card(\"Title\") { Text(\"Content\"); Button(\"Action\") }.variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "CarouselItem",
+   "role": "zstack",
+   "params": [],
+   "defaults": {
+    "alignment": "bottomLeading"
+   },
+   "variants": [],
+   "doc": "CarouselItem { Image(…); Text(\"caption\") } — a masked carousel item with an overlay label",
+   "own": true,
+   "sample": "CarouselItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "CenterAlignedTopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "centerAligned"
+   },
+   "variants": [],
+   "doc": "CenterAlignedTopAppBar(title:, navigationIcon:, actions:)",
+   "own": true,
+   "sample": "CenterAlignedTopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Checkbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Checkbox(checked: true) (label optional, Compose puts it in a Row)",
+   "own": true,
+   "sample": "Checkbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CircularProgressIndicator",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "variant": "circular"
+   },
+   "variants": [],
+   "doc": "CircularProgressIndicator(progress: 0.7)",
+   "own": true,
+   "sample": "CircularProgressIndicator()",
+   "variants_sample": null
+  },
+  {
+   "name": "CircularWavyProgressIndicator",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "variant": "circular"
+   },
+   "variants": [],
+   "doc": "M3 Expressive wavy circular indicator",
+   "own": true,
+   "sample": "CircularWavyProgressIndicator()",
+   "variants_sample": null
+  },
+  {
+   "name": "Column",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "leading"
+   },
+   "variants": [],
+   "doc": "Compose Column (vertical layout); spacing:, alignment:",
+   "own": true,
+   "sample": "Column() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ConnectedButtonGroup",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 2
+   },
+   "variants": [],
+   "doc": "M3 Expressive connected button group: ToggleButtons with shared inner corners",
+   "own": true,
+   "sample": "ConnectedButtonGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePicker",
+   "role": "calendar",
+   "params": [],
+   "defaults": {
+    "showToday": true
+   },
+   "variants": [],
+   "doc": "DatePicker(selection: \"2026-11-27\") — month grid, selected day in a primary circle, today outlined",
+   "own": true,
+   "sample": "DatePicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePickerDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "picker"
+   },
+   "variants": [],
+   "doc": "DatePickerDialog(actions: { TextButton(\"Cancel\"); TextButton(\"OK\") }) { DatePicker(…) }",
+   "own": true,
+   "sample": "DatePickerDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DatePickerField",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "a date text field with a calendar icon: DatePickerField(\"Date\", selection:)",
+   "own": true,
+   "sample": "DatePickerField(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DateRangePicker",
+   "role": "calendar",
+   "params": [],
+   "defaults": {
+    "showToday": true
+   },
+   "variants": [],
+   "doc": "DateRangePicker(range: [\"2026-11-23\", \"2026-11-27\"])",
+   "own": true,
+   "sample": "DateRangePicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "Dialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "Dialog { Card { … } } — a custom dialog window",
+   "own": true,
+   "sample": "Dialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DismissibleNavigationDrawer",
+   "role": "sidebar",
+   "params": [],
+   "defaults": {
+    "variant": "drawer"
+   },
+   "variants": [],
+   "doc": "an open dismissible drawer beside the content",
+   "own": true,
+   "sample": "DismissibleNavigationDrawer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DockedSearchBar",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search",
+    "variant": "docked"
+   },
+   "variants": [],
+   "doc": "DockedSearchBar(\"Search\", query:)",
+   "own": true,
+   "sample": "DockedSearchBar(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "DropdownMenu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "DropdownMenu(expanded: true) { DropdownMenuItem(\"Edit\", leadingIcon: \"edit\") } — label:/icon: give it an anchor",
+   "own": true,
+   "sample": "DropdownMenu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DropdownMenuItem",
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "DropdownMenuItem(\"Share\", leadingIcon: \"share\", trailingText: \"⌘S\")",
+   "own": true,
+   "sample": "DropdownMenuItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ElevatedAssistChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "elevation": "1",
+    "variant": "assist"
+   },
+   "variants": [],
+   "doc": "elevated assist chip",
+   "own": true,
+   "sample": "ElevatedAssistChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ElevatedButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "elevated"
+   },
+   "variants": [],
+   "doc": "surfaceContainerLow pill button with level-1 shadow",
+   "own": true,
+   "sample": "ElevatedButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ElevatedCard",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "elevated"
+   },
+   "variants": [],
+   "doc": "ElevatedCard: surfaceContainerLow + level-1 shadow",
+   "own": true,
+   "sample": "ElevatedCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ElevatedFilterChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "elevation": "1",
+    "variant": "filter"
+   },
+   "variants": [],
+   "doc": "elevated filter chip",
+   "own": true,
+   "sample": "ElevatedFilterChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ElevatedSuggestionChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "elevation": "1",
+    "variant": "suggestion"
+   },
+   "variants": [],
+   "doc": "elevated suggestion chip",
+   "own": true,
+   "sample": "ElevatedSuggestionChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ExposedDropdownMenuBox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [],
+   "doc": "ExposedDropdownMenuBox(\"Country\", value: \"Portugal\", options: [..], expanded: true)",
+   "own": true,
+   "sample": "ExposedDropdownMenuBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ExtendedFloatingActionButton",
+   "role": "fab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ExtendedFloatingActionButton(\"Compose\", icon: \"edit\") — 56dp, label + icon",
+   "own": true,
+   "sample": "ExtendedFloatingActionButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FilledIconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "filled"
+   },
+   "variants": [],
+   "doc": "FilledIconButton(\"add\")",
+   "own": true,
+   "sample": "FilledIconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FilledTonalButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "tonal"
+   },
+   "variants": [],
+   "doc": "secondaryContainer pill button",
+   "own": true,
+   "sample": "FilledTonalButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FilledTonalIconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "tonal"
+   },
+   "variants": [],
+   "doc": "FilledTonalIconButton(\"edit\")",
+   "own": true,
+   "sample": "FilledTonalIconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FilterChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filter"
+   },
+   "variants": [],
+   "doc": "FilterChip(\"Nature\", selected: true) — check icon when selected",
+   "own": true,
+   "sample": "FilterChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "FloatingActionButton(\"add\") — 56dp, 16dp corners, primaryContainer; floats bottom-end (inline: true to place in flow)",
+   "own": true,
+   "sample": "FloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "FlowRow",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8,
+    "wrap": true
+   },
+   "variants": [],
+   "doc": "FlowRow { … } — wraps its children (chips)",
+   "own": true,
+   "sample": "FlowRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HorizontalCenteredHeroCarousel",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8,
+    "variant": "hero"
+   },
+   "variants": [],
+   "doc": "M3 Expressive hero carousel: one large centred item between two small ones",
+   "own": true,
+   "sample": "HorizontalCenteredHeroCarousel() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HorizontalDivider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "HorizontalDivider() — 1dp outlineVariant; .variant(.inset) for a 16dp inset",
+   "own": true,
+   "sample": "HorizontalDivider()",
+   "variants_sample": null
+  },
+  {
+   "name": "HorizontalFloatingToolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "floating"
+   },
+   "variants": [],
+   "doc": "M3 Expressive floating toolbar: a pill of IconButtons",
+   "own": true,
+   "sample": "HorizontalFloatingToolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HorizontalMultiBrowseCarousel",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8,
+    "variant": "multiBrowse"
+   },
+   "variants": [],
+   "doc": "HorizontalMultiBrowseCarousel { Image(…) … } — large, medium and small items with 28dp corners",
+   "own": true,
+   "sample": "HorizontalMultiBrowseCarousel() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HorizontalUncontainedCarousel",
+   "role": "hstack",
+   "params": [],
+   "defaults": {
+    "spacing": 8,
+    "variant": "uncontained"
+   },
+   "variants": [],
+   "doc": "HorizontalUncontainedCarousel { Image(…) … } — equal-width items",
+   "own": true,
+   "sample": "HorizontalUncontainedCarousel() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Icon",
+   "role": "icon",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Icon(\"favorite\") — Material Symbols names (snake_case) map onto built-in glyphs",
+   "own": true,
+   "sample": "Icon(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "standard"
+   },
+   "variants": [],
+   "doc": "IconButton(\"more_vert\") — 40dp touch target, on-surface-variant icon; selected: for toggles",
+   "own": true,
+   "sample": "IconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "IconToggleButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "standard"
+   },
+   "variants": [],
+   "doc": "IconToggleButton(\"star\", selected: true)",
+   "own": true,
+   "sample": "IconToggleButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "InputChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "removable": true,
+    "variant": "input"
+   },
+   "variants": [],
+   "doc": "InputChip(\"Ana Lima\", avatar: \"Ana Lima\") — trailing close icon",
+   "own": true,
+   "sample": "InputChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LargeFlexibleTopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "large"
+   },
+   "variants": [],
+   "doc": "M3 Expressive LargeFlexibleTopAppBar(title:, subtitle:)",
+   "own": true,
+   "sample": "LargeFlexibleTopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LargeFloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "size": "large"
+   },
+   "variants": [],
+   "doc": "96dp, 28dp corners",
+   "own": true,
+   "sample": "LargeFloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LargeTopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "large"
+   },
+   "variants": [],
+   "doc": "LargeTopAppBar: 152dp, headlineMedium title below the icons",
+   "own": true,
+   "sample": "LargeTopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyColumn",
+   "role": "scroll",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "LazyColumn { … } — a vertically scrolling column",
+   "own": true,
+   "sample": "LazyColumn() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyRow",
+   "role": "scroll",
+   "params": [],
+   "defaults": {
+    "axes": "horizontal"
+   },
+   "variants": [],
+   "doc": "LazyRow { … } — a horizontally scrolling row",
+   "own": true,
+   "sample": "LazyRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVerticalGrid",
+   "role": "grid",
+   "params": [
+    "columns"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "LazyVerticalGrid(columns: 3, spacing:) { … }",
+   "own": true,
+   "sample": "LazyVerticalGrid([\"Name\", \"Status\"]) { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LeadingIconTab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "LeadingIconTab(\"Mail\", icon:) (rendered like Tab)",
+   "own": true,
+   "sample": "LeadingIconTab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LinearProgressIndicator",
+   "role": "progress",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "LinearProgressIndicator(progress: 0.6) — no progress: indeterminate",
+   "own": true,
+   "sample": "LinearProgressIndicator()",
+   "variants_sample": null
+  },
+  {
+   "name": "LinearWavyProgressIndicator",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "variant": "wavy"
+   },
+   "variants": [],
+   "doc": "M3 Expressive wavy linear indicator (progress:)",
+   "own": true,
+   "sample": "LinearWavyProgressIndicator()",
+   "variants_sample": null
+  },
+  {
+   "name": "ListDetailPaneScaffold",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "adaptive list–detail: ListDetailPaneScaffold { listPane; detailPane } (two children)",
+   "own": true,
+   "sample": "ListDetailPaneScaffold() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ListItem",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "ListItem(headlineContent: \"Ana\", supportingContent:, overlineContent:, leadingContent: { Avatar(…) }, trailingContent: { Text(\"9:41\") }) — or title/subtitle/avatar:/icon:",
+   "own": true,
+   "sample": "ListItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LoadingIndicator",
+   "role": "progress",
+   "params": [],
+   "defaults": {
+    "variant": "circular"
+   },
+   "variants": [],
+   "doc": "M3 Expressive LoadingIndicator (shown as a spinner)",
+   "own": true,
+   "sample": "LoadingIndicator()",
+   "variants_sample": null
+  },
+  {
+   "name": "MediumFlexibleTopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "medium"
+   },
+   "variants": [],
+   "doc": "M3 Expressive MediumFlexibleTopAppBar(title:, subtitle:)",
+   "own": true,
+   "sample": "MediumFlexibleTopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MediumFloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "size": "medium"
+   },
+   "variants": [],
+   "doc": "M3 Expressive 80dp FAB, 20dp corners",
+   "own": true,
+   "sample": "MediumFloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MediumTopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "medium"
+   },
+   "variants": [],
+   "doc": "MediumTopAppBar: 112dp, headlineSmall title below the icons",
+   "own": true,
+   "sample": "MediumTopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ModalBottomSheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "ModalBottomSheet { … } — 28dp top corners, drag handle, over a scrim",
+   "own": true,
+   "sample": "ModalBottomSheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ModalDrawerSheet",
+   "role": "dialog",
+   "params": [],
+   "defaults": {
+    "variant": "drawer"
+   },
+   "variants": [],
+   "doc": "the sheet of an open ModalNavigationDrawer (same rendering)",
+   "own": true,
+   "sample": "ModalDrawerSheet() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ModalNavigationDrawer",
+   "role": "dialog",
+   "params": [],
+   "defaults": {
+    "variant": "drawer"
+   },
+   "variants": [],
+   "doc": "an open modal drawer over the screen: ModalNavigationDrawer { Text(\"Mail\"); NavigationDrawerItem(…) }",
+   "own": true,
+   "sample": "ModalNavigationDrawer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MultiChoiceSegmentedButtonRow",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MultiChoiceSegmentedButtonRow (renders one selection: selection:)",
+   "own": true,
+   "sample": "MultiChoiceSegmentedButtonRow([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationBar",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "NavigationBar { NavigationBarItem(\"Mail\", icon: \"mail\", selected: true, badge: 3) … }",
+   "own": true,
+   "sample": "NavigationBar() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationBarItem",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, icon:, selected:, badge: (number, or true for a dot)",
+   "own": true,
+   "sample": "NavigationBarItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationDrawerItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, icon:, selected:, badge: (shown as trailing text)",
+   "own": true,
+   "sample": "NavigationDrawerItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationRail",
+   "role": "sidebar",
+   "params": [],
+   "defaults": {
+    "variant": "rail"
+   },
+   "variants": [],
+   "doc": "NavigationRail(header: { FloatingActionButton(\"edit\", inline: true) }) { NavigationRailItem(…) }",
+   "own": true,
+   "sample": "NavigationRail() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationRailItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, icon:, selected:, badge:",
+   "own": true,
+   "sample": "NavigationRailItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSuiteScaffold",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "adaptive navigation: NavigationSuiteScaffold { NavigationRail { … }; content }",
+   "own": true,
+   "sample": "NavigationSuiteScaffold() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "outline-bordered pill button",
+   "own": true,
+   "sample": "OutlinedButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedCard",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "OutlinedCard: surface with an outlineVariant border",
+   "own": true,
+   "sample": "OutlinedCard(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedExposedDropdownMenuBox",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "an ExposedDropdownMenuBox holding an OutlinedTextField",
+   "own": true,
+   "sample": "OutlinedExposedDropdownMenuBox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedIconButton",
+   "role": "button",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "iconOnly": true,
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "OutlinedIconButton(\"share\")",
+   "own": true,
+   "sample": "OutlinedIconButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedSecureTextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "password",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "OutlinedSecureTextField(\"Password\", value:, reveal:)",
+   "own": true,
+   "sample": "OutlinedSecureTextField(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "OutlinedTextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "OutlinedTextField(\"Email\", value:, supportingText:, isError:, leadingIcon:, trailingIcon:)",
+   "own": true,
+   "sample": "OutlinedTextField(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PermanentDrawerSheet",
+   "role": "sidebar",
+   "params": [],
+   "defaults": {
+    "variant": "drawer"
+   },
+   "variants": [],
+   "doc": "a permanent drawer sheet",
+   "own": true,
+   "sample": "PermanentDrawerSheet() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PermanentNavigationDrawer",
+   "role": "sidebar",
+   "params": [],
+   "defaults": {
+    "variant": "drawer"
+   },
+   "variants": [],
+   "doc": "PermanentDrawerSheet beside the content (tablets)",
+   "own": true,
+   "sample": "PermanentNavigationDrawer() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PlainTooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "PlainTooltip(\"Delete\") { IconButton(\"delete\") }",
+   "own": true,
+   "sample": "PlainTooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "PrimaryScrollableTabRow",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top",
+    "variant": "scrollable"
+   },
+   "variants": [],
+   "doc": "PrimaryScrollableTabRow(selectedTabIndex:)",
+   "own": true,
+   "sample": "PrimaryScrollableTabRow([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "PrimaryTabRow",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top",
+    "variant": "primary"
+   },
+   "variants": [],
+   "doc": "PrimaryTabRow(selectedTabIndex:) { Tab(…) } — content-width indicator, primary colour",
+   "own": true,
+   "sample": "PrimaryTabRow([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioButton",
+   "role": "radio",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "RadioButton(selected: true) (label optional)",
+   "own": true,
+   "sample": "RadioButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RangeSlider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "RangeSlider(value: [20, 80], in: 0...100)",
+   "own": true,
+   "sample": "RangeSlider()",
+   "variants_sample": null
+  },
+  {
+   "name": "RichTooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "rich"
+   },
+   "variants": [],
+   "doc": "RichTooltip(\"Title\", message: \"…\", actions: { TextButton(\"Learn more\") }) { anchor }",
+   "own": true,
+   "sample": "RichTooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Scaffold",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "Scaffold { TopAppBar(…); content; NavigationBar { … } } — fills the screen; FABs float over it",
+   "own": true,
+   "sample": "Scaffold() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollableTabRow",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top",
+    "variant": "scrollable"
+   },
+   "variants": [],
+   "doc": "ScrollableTabRow / PrimaryScrollableTabRow",
+   "own": true,
+   "sample": "ScrollableTabRow([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchBar",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search",
+    "variant": "searchbar"
+   },
+   "variants": [],
+   "doc": "SearchBar(\"Search in mail\", leadingIcon: \"menu\", trailingIcon: \"account_circle\", query:) — 56dp pill",
+   "own": true,
+   "sample": "SearchBar(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SecondaryTabRow",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top",
+    "variant": "secondary"
+   },
+   "variants": [],
+   "doc": "SecondaryTabRow(selectedTabIndex:) — full-width 2dp indicator, on-surface text",
+   "own": true,
+   "sample": "SecondaryTabRow([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureTextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "password",
+    "variant": "filled"
+   },
+   "variants": [],
+   "doc": "SecureTextField(\"Password\", value:) — masked",
+   "own": true,
+   "sample": "SecureTextField(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "SegmentedButton(\"Week\") inside a SegmentedButtonRow; the row's selection: picks it",
+   "own": true,
+   "sample": "SegmentedButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ShortNavigationBar",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom",
+    "variant": "short"
+   },
+   "variants": [],
+   "doc": "M3 Expressive ShortNavigationBar (64dp); same items as NavigationBar",
+   "own": true,
+   "sample": "ShortNavigationBar() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "ShortNavigationBarItem",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, icon:, selected:, badge:",
+   "own": true,
+   "sample": "ShortNavigationBarItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SingleChoiceSegmentedButtonRow",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "SingleChoiceSegmentedButtonRow(selection: \"Week\") { SegmentedButton(\"Day\") … } or ([\"Day\", \"Week\"], selection: 1)",
+   "own": true,
+   "sample": "SingleChoiceSegmentedButtonRow([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Slider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Slider(value: 0.4) or (value: 30, in: 0...100, steps: 4, ticks: true) — M3 Expressive bar handle",
+   "own": true,
+   "sample": "Slider()",
+   "variants_sample": null
+  },
+  {
+   "name": "SmallFloatingActionButton",
+   "role": "fab",
+   "params": [
+    "icon"
+   ],
+   "defaults": {
+    "size": "small"
+   },
+   "variants": [],
+   "doc": "40dp, 12dp corners",
+   "own": true,
+   "sample": "SmallFloatingActionButton(\"star\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Snackbar",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Snackbar(\"Message archived\", action: \"Undo\") — inverseSurface; inline: true to place in flow",
+   "own": true,
+   "sample": "Snackbar(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SuggestionChip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "suggestion"
+   },
+   "variants": [],
+   "doc": "SuggestionChip(\"Sounds good!\")",
+   "own": true,
+   "sample": "SuggestionChip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Surface",
+   "role": "vstack",
+   "params": [],
+   "defaults": {
+    "alignment": "stretch",
+    "spacing": 0
+   },
+   "variants": [],
+   "doc": "Surface(color:, tonalElevation:) { … } — a plain M3 surface; .elevation(1…5) adds tonal elevation",
+   "own": true,
+   "sample": "Surface() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Switch",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Switch(checked: true) — 52×32 track, check icon in the thumb when on (thumbContent)",
+   "own": true,
+   "sample": "Switch(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tab",
+   "role": "tab",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tab(\"Photos\", icon: \"photo\", selected:) { panel content }",
+   "own": true,
+   "sample": "Tab(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabRow",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top",
+    "variant": "primary"
+   },
+   "variants": [],
+   "doc": "TabRow(selectedTabIndex: 0) { Tab(\"Photos\", icon:) … } or TabRow([\"A\", \"B\"])",
+   "own": true,
+   "sample": "TabRow([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TextButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "text"
+   },
+   "variants": [],
+   "doc": "text-only button (dialog actions, card actions)",
+   "own": true,
+   "sample": "TextButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextField",
+   "role": "textfield",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "filled"
+   },
+   "variants": [
+    "filled",
+    "outlined"
+   ],
+   "doc": "TextField(\"Label\", value:, placeholder:, supportingText:, isError:, leadingIcon: \"search\", trailingIcon:) — filled",
+   "own": true,
+   "sample": "TextField(\"Label\")",
+   "variants_sample": "HStack(alignment: .top, spacing: 16) {\n  VStack(alignment: .leading, spacing: 4) { TextField(\"Label\").variant(\"filled\"); Text(\"filled\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TextField(\"Label\").variant(\"outlined\"); Text(\"outlined\").font(.caption).foregroundStyle(.secondary) }\n}"
+  },
+  {
+   "name": "TimeInput",
+   "role": "datepicker",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "kind": "time",
+    "variant": "outlined"
+   },
+   "variants": [],
+   "doc": "TimeInput(\"Time\", selection: \"10:30 AM\")",
+   "own": true,
+   "sample": "TimeInput(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TimePicker",
+   "role": "radiogroup",
+   "params": [],
+   "defaults": {
+    "options": [
+     "12",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11"
+    ],
+    "variant": "dial"
+   },
+   "variants": [],
+   "doc": "TimePicker(hour: \"10\") — the 256dp clock dial with the selected hour",
+   "own": true,
+   "sample": "TimePicker()",
+   "variants_sample": null
+  },
+  {
+   "name": "TimePickerDialog",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "picker"
+   },
+   "variants": [],
+   "doc": "TimePickerDialog(title: \"Select time\", actions:) { TimePicker(hour: \"10\") }",
+   "own": true,
+   "sample": "TimePickerDialog(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToggleButton",
+   "role": "button",
+   "params": [
+    "label"
+   ],
+   "defaults": {
+    "variant": "toggle"
+   },
+   "variants": [],
+   "doc": "M3 Expressive ToggleButton(\"Bold\", checked: true)",
+   "own": true,
+   "sample": "ToggleButton(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Tooltip",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "plain tooltip: Tooltip(\"Add to favorites\") { IconButton(\"star\") }",
+   "own": true,
+   "sample": "Tooltip(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TooltipBox",
+   "role": "tooltip",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TooltipBox(\"Label\") { anchor }",
+   "own": true,
+   "sample": "TooltipBox(\"Text\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TopAppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "small"
+   },
+   "variants": [],
+   "doc": "TopAppBar(title: \"Inbox\", navigationIcon: { IconButton(\"menu\") }, actions: { IconButton(\"search\") }) — 64dp small bar",
+   "own": true,
+   "sample": "TopAppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TopSearchBar",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search",
+    "variant": "searchbar"
+   },
+   "variants": [],
+   "doc": "M3 Expressive TopSearchBar (app bar with search)",
+   "own": true,
+   "sample": "TopSearchBar(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TriStateCheckbox",
+   "role": "checkbox",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "TriStateCheckbox(state: .indeterminate | .on | .off)",
+   "own": true,
+   "sample": "TriStateCheckbox(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "VerticalDivider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "VerticalDivider() inside a Row",
+   "own": true,
+   "sample": "VerticalDivider()",
+   "variants_sample": null
+  },
+  {
+   "name": "VerticalSlider",
+   "role": "slider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "M3 Expressive VerticalSlider (rendered horizontally)",
+   "own": true,
+   "sample": "VerticalSlider()",
+   "variants_sample": null
+  },
+  {
+   "name": "WideNavigationRail",
+   "role": "sidebar",
+   "params": [],
+   "defaults": {
+    "variant": "rail"
+   },
+   "variants": [],
+   "doc": "M3 Expressive WideNavigationRail (collapsed)",
+   "own": true,
+   "sample": "WideNavigationRail() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Accordion",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Accordion(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Alert",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "alert"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Alert(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AppBar",
+   "role": "appbar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AppBar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "AreaChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "area"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AreaChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "AsyncImage",
+   "role": "image",
+   "params": [
+    "url"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "AsyncImage().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Avatar",
+   "role": "avatar",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Avatar(\"Ana Lima\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Banner",
+   "role": "alert",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Banner(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "BarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Board",
+   "role": "board",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kanban board of BoardColumn children",
+   "own": false,
+   "sample": "Board() { BoardColumn(\"To do\") { KanbanCard(\"Write copy\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "BoardColumn",
+   "role": "boardcolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "BoardColumn(\"To do\", count:, color:) { KanbanCard(…) }",
+   "own": false,
+   "sample": "BoardColumn(\"Title\") { KanbanCard(\"Write copy\"); KanbanCard(\"Review\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Breadcrumb",
+   "role": "breadcrumb",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Breadcrumb([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "BubbleChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "bubble"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "BubbleChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Calendar",
+   "role": "calendar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Calendar()",
+   "variants_sample": null
+  },
+  {
+   "name": "Callout",
+   "role": "callout",
+   "params": [
+    "number",
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "a numbered annotation; place with .position(x:y:)",
+   "own": false,
+   "sample": "Callout(1, \"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CandlestickChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "candlestick"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CandlestickChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Canvas",
+   "role": "canvas",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "free-form area; place children with .position(x:y:); grid: .dots|.lines",
+   "own": false,
+   "sample": "Canvas() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Capsule",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "capsule"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Capsule().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Chart",
+   "role": "chart",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "kind: .bar|.line|.area|.pie|.donut|.scatter|.bubble|.radar|.heatmap|.funnel|.treemap|.gauge|.candlestick|.combo|.sparkline; values:/series:/labels:/points:/matrix:",
+   "own": false,
+   "sample": "Chart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Chip",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Chip(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Circle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "circle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Circle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeBlock",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "lineNumbers": false
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "CodeBlock(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "CodeEditor",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CodeEditor(\"…\", language: \"swift\", lineNumbers:, highlight: [3], tabs: [..])",
+   "own": false,
+   "sample": "CodeEditor(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Color",
+   "role": "color",
+   "params": [
+    "color"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Color(.blue).frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ColorSwatches",
+   "role": "swatches",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "colors: [.red, \"#0af\", …], selection:",
+   "own": false,
+   "sample": "ColorSwatches()",
+   "variants_sample": null
+  },
+  {
+   "name": "ComboChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "combo"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ComboChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Comment",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "variant": "comment"
+   },
+   "variants": [],
+   "doc": "author:, time:, avatar:",
+   "own": false,
+   "sample": "Comment(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ControlGroup",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {
+    "variant": "group"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ControlGroup() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "DisclosureGroup",
+   "role": "accordion",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DisclosureGroup(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Divider",
+   "role": "divider",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Divider()",
+   "variants_sample": null
+  },
+  {
+   "name": "DonutChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "donut"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "DonutChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Dropzone",
+   "role": "dropzone",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Dropzone(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Ellipse",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "ellipse"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Ellipse().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "EmptyState",
+   "role": "emptystate",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, systemImage:, description: { actions }",
+   "own": false,
+   "sample": "EmptyState(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Form",
+   "role": "form",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Form() { TextField(\"Name\"); Toggle(\"Notifications\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
+   "name": "FunnelChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "funnel"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "FunnelChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gantt",
+   "role": "gantt",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "scale: [\"W1\",…], tasks: [(\"Design\", 0, 2, 0.6), …], today:",
+   "own": false,
+   "sample": "Gantt(tasks: [(\"Design\", 0, 3), (\"Build\", 2, 5)])",
+   "variants_sample": null
+  },
+  {
+   "name": "Gauge",
+   "role": "progress",
+   "params": [
+    "value"
+   ],
+   "defaults": {
+    "variant": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Gauge(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "GaugeChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "gauge"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GaugeChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Grid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Grid of GridRow children, or columns: n",
+   "own": false,
+   "sample": "Grid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GridRow",
+   "role": "gridrow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GridRow() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Group",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Group() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "GroupBox",
+   "role": "card",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "GroupBox(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "HStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Horizontal stack. spacing:, alignment: .top|.center|.bottom",
+   "own": false,
+   "sample": "HStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Heatmap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "heatmap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Heatmap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Histogram",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "histogram"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Histogram(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Image",
+   "role": "image",
+   "params": [
+    "name"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Image(\"path.png\") or Image(systemName: \"star\")",
+   "own": false,
+   "sample": "Image().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "KanbanCard",
+   "role": "kanbancard",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, description:, tags: [..], assignees: [..], due:, comments:, priority:",
+   "own": false,
+   "sample": "KanbanCard(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Kbd",
+   "role": "kbd",
+   "params": [
+    "keys"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Kbd([\"⌘\", \"K\"]) or Kbd(\"Esc\")",
+   "own": false,
+   "sample": "Kbd([\"⌘\", \"K\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "Label",
+   "role": "label",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Label(\"Inbox\", systemImage: \"tray\")",
+   "own": false,
+   "sample": "Label(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "LabeledContent",
+   "role": "labeled",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LabeledContent(\"Label\", \"Value\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyHStack",
+   "role": "hstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyHStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVGrid",
+   "role": "grid",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [GridItem(.flexible()), …] or a count",
+   "own": false,
+   "sample": "LazyVGrid() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LazyVStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LazyVStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "LineChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "line"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "LineChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Link",
+   "role": "link",
+   "params": [
+    "label",
+    "destination"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Link(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "List",
+   "role": "list",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": ".listStyle(.insetGrouped|.plain|.sidebar|…)",
+   "own": false,
+   "sample": "List() { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Map",
+   "role": "map",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "pins: [(x%, y%, \"label\")], route:, showsUserLocation:, height:",
+   "own": false,
+   "sample": "Map().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Menu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Menu(\"Label\") { Button(\"Open\"); Button(\"Save\"); Divider(); Button(\"Close\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "MenuItem",
+   "role": "menuitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "MenuItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "MessageBubble",
+   "role": "message",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "MessageBubble(\"Hi\", from: .me|.them, author:, time:, status:, reactions: [..])",
+   "own": false,
+   "sample": "MessageBubble(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavItem",
+   "role": "navitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationLink",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "chevron": true
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationLink(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationSplitView",
+   "role": "split",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "{ sidebar } content: { … } detail: { … }",
+   "own": false,
+   "sample": "NavigationSplitView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationStack",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Content's .navigationTitle / .toolbar form the bar",
+   "own": false,
+   "sample": "NavigationStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "NavigationView",
+   "role": "navstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "NavigationView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Pagination",
+   "role": "pagination",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Pagination()",
+   "variants_sample": null
+  },
+  {
+   "name": "Picker",
+   "role": "select",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Picker(\"Size\", selection: \"M\") { Text(\"S\") … }",
+   "own": false,
+   "sample": "Picker(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "PieChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "pie"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "PieChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Placeholder",
+   "role": "placeholder",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "A labelled box for maps, charts, media",
+   "own": false,
+   "sample": "Placeholder(\"Label\").frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Pointer",
+   "role": "pointer",
+   "params": [
+    "kind"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Pointer(.arrow|.hand|.ibeam|.grab|.crosshair|.touch); place with .position",
+   "own": false,
+   "sample": "Pointer(.arrow)",
+   "variants_sample": null
+  },
+  {
+   "name": "ProgressView",
+   "role": "progress",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "value: 0…1 (or total:); none = indeterminate",
+   "own": false,
+   "sample": "ProgressView(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "RadarChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "radar"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadarChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "RadioGroup",
+   "role": "radiogroup",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RadioGroup(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Rating",
+   "role": "rating",
+   "params": [
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rating(60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Rectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rectangle"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Rectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "RoundedRectangle",
+   "role": "shape",
+   "params": [],
+   "defaults": {
+    "shape": "rounded"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "RoundedRectangle().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Row",
+   "role": "listitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, subtitle:, detail:, systemImage:, chevron:",
+   "own": false,
+   "sample": "Row(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "ScatterChart",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "scatter"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScatterChart(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Schedule",
+   "role": "schedule",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "days: [..], startHour:, endHour:, events: [(\"Standup\", \"Mon\", 9, 9.5, .blue)], now:",
+   "own": false,
+   "sample": "Schedule()",
+   "variants_sample": null
+  },
+  {
+   "name": "ScrollView",
+   "role": "scroll",
+   "params": [
+    "axes"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ScrollView() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SearchField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "search"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SearchField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Section",
+   "role": "section",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Section(\"Header\") { … } footer: { … }",
+   "own": false,
+   "sample": "Section(\"Title\") { Text(\"First item\"); Text(\"Second item\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "SecureField",
+   "role": "textfield",
+   "params": [
+    "placeholder"
+   ],
+   "defaults": {
+    "kind": "password"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SecureField(\"Placeholder\")",
+   "variants_sample": null
+  },
+  {
+   "name": "SegmentedControl",
+   "role": "segmented",
+   "params": [
+    "items"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "SegmentedControl([\"One\", \"Two\", \"Three\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "SelectionRect",
+   "role": "marquee",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "a drag-selection rectangle; size with .frame, place with .position",
+   "own": false,
+   "sample": "SelectionRect()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sheet",
+   "role": "dialog",
+   "params": [
+    "title"
+   ],
+   "defaults": {
+    "variant": "sheet"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sheet(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Sidebar",
+   "role": "sidebar",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sidebar(\"Title\") { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Skeleton",
+   "role": "skeleton",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "lines:, avatar:, image:, shape: .circle|.rectangle|.text",
+   "own": false,
+   "sample": "Skeleton().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Spacer",
+   "role": "spacer",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Spacer()",
+   "variants_sample": null
+  },
+  {
+   "name": "Sparkline",
+   "role": "chart",
+   "params": [
+    "values"
+   ],
+   "defaults": {
+    "kind": "sparkline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Sparkline([3, 5, 2, 6, 4], values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "Spreadsheet",
+   "role": "spreadsheet",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "rows: [[…]], selection: \"B2:C4\", active:, formula:, sheets: [..], highlight: [\"B3\": .yellow]",
+   "own": false,
+   "sample": "Spreadsheet(columns: [\"A\", \"B\"], rows: [[1, 2], [3, 4]])",
+   "variants_sample": null
+  },
+  {
+   "name": "Stat",
+   "role": "stat",
+   "params": [
+    "label",
+    "value"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Stat(\"Revenue\", \"$48k\", change: \"+12%\", trend: [..], systemImage:)",
+   "own": false,
+   "sample": "Stat(\"Label\", 60)",
+   "variants_sample": null
+  },
+  {
+   "name": "Stepper",
+   "role": "stepper",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Stepper(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Steps",
+   "role": "steps",
+   "params": [
+    "steps"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Steps([\"Cart\", \"Shipping\", \"Payment\"])",
+   "variants_sample": null
+  },
+  {
+   "name": "StickyNote",
+   "role": "stickynote",
+   "params": [
+    "text"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "StickyNote(\"Call Ana\", color: .yellow, rotation: -2, author:)",
+   "own": false,
+   "sample": "StickyNote(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TabView",
+   "role": "tabs",
+   "params": [],
+   "defaults": {
+    "placement": "bottom"
+   },
+   "variants": [],
+   "doc": "Children with .tabItem { Label } or Tab(…)",
+   "own": false,
+   "sample": "TabView() { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Table",
+   "role": "table",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "columns: [\"Name\", …], rows: [[…], …] or TableRow children",
+   "own": false,
+   "sample": "Table(columns: [\"Name\", \"Status\"], rows: [[\"Ana Lima\", \"Active\"], [\"Ben Okafor\", \"Away\"]])",
+   "variants_sample": null
+  },
+  {
+   "name": "TableColumn",
+   "role": "tablecolumn",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableColumn(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TableRow",
+   "role": "tablerow",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TableRow()",
+   "variants_sample": null
+  },
+  {
+   "name": "Tabs",
+   "role": "tabs",
+   "params": [
+    "items"
+   ],
+   "defaults": {
+    "placement": "top"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tabs([\"One\", \"Two\", \"Three\"]) { Text(\"First tab\").tabItem { Text(\"One\") }; Text(\"Second tab\").tabItem { Text(\"Two\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tag",
+   "role": "chip",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Tag(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Terminal",
+   "role": "code",
+   "params": [
+    "code"
+   ],
+   "defaults": {
+    "variant": "terminal"
+   },
+   "variants": [],
+   "doc": "lines starting with \"$ \" are commands",
+   "own": false,
+   "sample": "Terminal(\"let total = items.count\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Text",
+   "role": "text",
+   "params": [
+    "content"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Text with **bold**, *italic*, `code` Markdown",
+   "own": false,
+   "sample": "Text(\"Content\")",
+   "variants_sample": null
+  },
+  {
+   "name": "TextEditor",
+   "role": "textfield",
+   "params": [
+    "text"
+   ],
+   "defaults": {
+    "kind": "multiline"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "TextEditor(\"Text\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Timeline",
+   "role": "timeline",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Timeline() { TimelineItem(\"Created\"); TimelineItem(\"Shipped\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "TimelineItem",
+   "role": "timelineitem",
+   "params": [
+    "title"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "title, time:, description:, systemImage:, status:",
+   "own": false,
+   "sample": "TimelineItem(\"Title\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toast",
+   "role": "toast",
+   "params": [
+    "message"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toast(\"Message\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toggle",
+   "role": "toggle",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "Toggle(\"Wi-Fi\", isOn: true)",
+   "own": false,
+   "sample": "Toggle(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Toolbar",
+   "role": "toolbar",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Toolbar() { Button(\"Save\"); Button(\"Share\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItem",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "ToolbarItem(placement: .topBarTrailing) { … }",
+   "own": false,
+   "sample": "ToolbarItem() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "ToolbarItemGroup",
+   "role": "toolbaritem",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "ToolbarItemGroup() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "Tree",
+   "role": "tree",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Tree { TreeItem(\"src\") { TreeItem(\"main.swift\") } }",
+   "own": false,
+   "sample": "Tree() { TreeItem(\"Folder\") { TreeItem(\"File\") } }",
+   "variants_sample": null
+  },
+  {
+   "name": "TreeItem",
+   "role": "treeitem",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "label, systemImage:, folder:, expanded:, selected:, detail:",
+   "own": false,
+   "sample": "TreeItem(\"Label\")",
+   "variants_sample": null
+  },
+  {
+   "name": "Treemap",
+   "role": "chart",
+   "params": [],
+   "defaults": {
+    "kind": "treemap"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Treemap(values: [3, 5, 2, 6, 4])",
+   "variants_sample": null
+  },
+  {
+   "name": "VStack",
+   "role": "vstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Vertical stack. spacing:, alignment: .leading|.center|.trailing",
+   "own": false,
+   "sample": "VStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  },
+  {
+   "name": "VideoPlayer",
+   "role": "media",
+   "params": [
+    "image"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "poster image, progress: 0…1, time:, duration:, playing:",
+   "own": false,
+   "sample": "VideoPlayer().frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "Whiteboard",
+   "role": "canvas",
+   "params": [],
+   "defaults": {
+    "grid": "dots"
+   },
+   "variants": [],
+   "doc": "",
+   "own": false,
+   "sample": "Whiteboard() { Text(\"Content\"); Button(\"Action\") }.frame(width: 160, height: 96)",
+   "variants_sample": null
+  },
+  {
+   "name": "ZStack",
+   "role": "zstack",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "Overlapping layers. alignment:",
+   "own": false,
+   "sample": "ZStack() { Text(\"Content\"); Button(\"Action\") }",
+   "variants_sample": null
+  }
+ ]
+}

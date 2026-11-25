@@ -1,0 +1,24 @@
+"""Modifier vocabulary shared by every pack.
+
+* RENDERED: modifiers the HTML renderer interprets (layout, typography, colour, navigation …).
+* IGNORED: behaviour-only SwiftUI modifiers accepted silently so real SwiftUI code can be pasted.
+
+A pack adds attribute-setting modifiers in its ``pack.json`` ``modifiers`` map (for instance
+``buttonStyle`` → ``variant``). Any other modifier draws a warning and is ignored.
+
+The lists are data, written once in the repository's ``shared/language/vocabulary.json`` and copied
+into this package at build time as ``vocabulary.json`` (R-REPO-002).
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+_DATA = json.loads((Path(__file__).resolve().parent / "vocabulary.json").read_text(encoding="utf-8"))
+
+RENDERED = frozenset(_DATA["rendered"])
+IGNORED = frozenset(_DATA["ignored"])
+
+#: Import names that select no pack but are legal in pasted Swift code.
+NEUTRAL_MODULES = frozenset(_DATA["neutral_modules"])
