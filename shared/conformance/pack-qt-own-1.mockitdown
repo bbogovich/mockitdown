@@ -1,0 +1,16 @@
+// qt own elements: Action, BasicColors, ButtonGroup, CalendarWidget, CentralWidget, ChartView, CheckBox, ColorDialog, ComboBox, CommandLinkButton, DateEdit, DateTimeEdit
+VStack(alignment: .leading, spacing: 12) {
+  Action("Label")
+  BasicColors()
+  ButtonGroup("Label")
+  CalendarWidget()
+  CentralWidget() { Text("Content"); Button("Action") }
+  ChartView(values: [3, 5, 2, 6, 4])
+  CheckBox("Label")
+  ColorDialog("Title") { Text("Content"); Button("Action") }
+  ComboBox("Label")
+  CommandLinkButton("Label")
+  DateEdit("2026-11-24")
+  DateTimeEdit()
+}
+.padding()

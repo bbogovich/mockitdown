@@ -1,0 +1,16 @@
+// mac-classic own elements: DocumentWindow, EditText, FileItem, FinderIcon, FinderWindow, GrowBox, LineWidths, ListBox, Menu, MenuBar, MenuItem, MenuSeparator
+VStack(alignment: .leading, spacing: 12) {
+  DocumentWindow("Title") { Text("Content"); Button("Action") }
+  EditText("Text")
+  FileItem("Title")
+  FinderIcon("Title")
+  FinderWindow("Title", "Subtitle") { Text("Content"); Button("Action") }
+  GrowBox().frame(width: 160, height: 96)
+  LineWidths() { Text("Content"); Button("Action") }
+  ListBox() { Text("First item"); Text("Second item") }
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuItem("Label", "⌘S")
+  MenuSeparator()
+}
+.padding()

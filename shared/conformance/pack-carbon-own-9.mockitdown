@@ -1,0 +1,16 @@
+// carbon own elements: SideNavMenu, SideNavMenuItem, SimpleBarChart, SkeletonPlaceholder, SkeletonText, Slider, Stack, StackedAreaChart, StackedBarChart, StructuredList, StructuredListCell, StructuredListRow
+VStack(alignment: .leading, spacing: 12) {
+  SideNavMenu("Label")
+  SideNavMenuItem("Label")
+  SimpleBarChart(values: [3, 5, 2, 6, 4])
+  SkeletonPlaceholder().frame(width: 160, height: 96)
+  SkeletonText().frame(width: 160, height: 96)
+  Slider()
+  Stack() { Text("Content"); Button("Action") }
+  StackedAreaChart(values: [3, 5, 2, 6, 4])
+  StackedBarChart(values: [3, 5, 2, 6, 4])
+  StructuredList(["Name", "Status"], columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  StructuredListCell("Content")
+  StructuredListRow()
+}
+.padding()

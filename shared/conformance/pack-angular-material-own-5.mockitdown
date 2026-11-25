@@ -1,0 +1,16 @@
+// angular-material own elements: MatList, MatListItem, MatListOption, MatListSubheader, MatMenu, MatMenuItem, MatMiniFab, MatNavList, MatNestedTreeNode, MatOption, MatPaginator, MatProgressBar
+VStack(alignment: .leading, spacing: 12) {
+  MatList() { Text("First item"); Text("Second item") }
+  MatListItem("Title")
+  MatListOption("Title")
+  MatListSubheader("Content")
+  MatMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MatMenuItem("Label")
+  MatMiniFab("star")
+  MatNavList() { Text("First item"); Text("Second item") }
+  MatNestedTreeNode("Label")
+  MatOption("Content")
+  MatPaginator("Summary")
+  MatProgressBar()
+}
+.padding()

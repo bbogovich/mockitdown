@@ -1,0 +1,16 @@
+// bootstrap own elements: CardBody, CardGroup, CardImg, CardLink, CardSubtitle, CardText, CardTitle, Carousel, CloseButton, Col, Container, Dropdown
+VStack(alignment: .leading, spacing: 12) {
+  CardBody() { Text("Content"); Button("Action") }
+  CardGroup() { Text("Content"); Button("Action") }
+  CardImg().frame(width: 160, height: 96)
+  CardLink("Label")
+  CardSubtitle("Content")
+  CardText("Content")
+  CardTitle("Content")
+  Carousel("Title") { Text("Content"); Button("Action") }
+  CloseButton()
+  Col(1) { Text("Content"); Button("Action") }
+  Container() { Text("Content"); Button("Action") }
+  Dropdown("Title") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+}
+.padding()

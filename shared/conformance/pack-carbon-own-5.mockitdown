@@ -1,0 +1,16 @@
+// carbon own elements: HeaderMenu, HeaderMenuButton, HeaderMenuItem, HeaderName, HeaderNavigation, HeaderPanel, Heading, HeatmapChart, HelperText, HistogramChart, IconButton, InlineLoading
+VStack(alignment: .leading, spacing: 12) {
+  HeaderMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  HeaderMenuButton()
+  HeaderMenuItem("Label")
+  HeaderName("Content")
+  HeaderNavigation() { Button("Save"); Button("Share") }
+  HeaderPanel("Title") { Text("Content"); Button("Action") }
+  Heading("Content")
+  HeatmapChart(values: [3, 5, 2, 6, 4])
+  HelperText("Content")
+  HistogramChart(values: [3, 5, 2, 6, 4])
+  IconButton("star")
+  InlineLoading("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// shadcn own elements: MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, NativeSelect, NavigationMenu, NavigationMenuItem, NavigationMenuLink, Pagination, Popover, PopoverContent, Progress
+VStack(alignment: .leading, spacing: 12) {
+  MenubarItem("Label")
+  MenubarMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenubarSeparator()
+  MenubarShortcut("Content")
+  NativeSelect("Placeholder")
+  NavigationMenu() { Button("Save"); Button("Share") }
+  NavigationMenuItem("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  NavigationMenuLink("Label")
+  Pagination()
+  Popover("Title") { Text("Content"); Button("Action") }
+  PopoverContent("Title") { Text("Content"); Button("Action") }
+  Progress(60)
+}
+.padding()

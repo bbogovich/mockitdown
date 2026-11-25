@@ -1,0 +1,16 @@
+// nextstep own elements: NSBox, NSBrowser, NSButton, NSColorWell, NSForm, NSFormCell, NSMenu, NSMenuItem, NSPanel, NSPopUpButton, NSProgressIndicator, NSRadioButton
+VStack(alignment: .leading, spacing: 12) {
+  NSBox("Title") { Text("Content"); Button("Action") }
+  NSBrowser() { Text("Content"); Button("Action") }
+  NSButton("Label")
+  NSColorWell(.blue).frame(width: 160, height: 96)
+  NSForm() { Text("Content"); Button("Action") }
+  NSFormCell("Label")
+  NSMenu("Title") { Text("Content"); Button("Action") }
+  NSMenuItem("Label")
+  NSPanel("Title") { Text("Content"); Button("Action") }
+  NSPopUpButton("Label")
+  NSProgressIndicator()
+  NSRadioButton("Label")
+}
+.padding()

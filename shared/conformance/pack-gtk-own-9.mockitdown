@@ -1,0 +1,15 @@
+// gtk own elements: TreeExpander, TreeListView, ViewStack, ViewStackPage, ViewSwitcher, ViewSwitcherBar, ViewSwitcherItem, Viewport, Window, WindowTitle, WrapBox
+VStack(alignment: .leading, spacing: 12) {
+  TreeExpander("Label")
+  TreeListView() { TreeItem("Folder") { TreeItem("File") } }
+  ViewStack() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  ViewStackPage("Title")
+  ViewSwitcher() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  ViewSwitcherBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  ViewSwitcherItem("Title")
+  Viewport() { Text("Content"); Button("Action") }
+  Window() { Text("Content"); Button("Action") }
+  WindowTitle("Title", "Subtitle")
+  WrapBox() { Text("Content"); Button("Action") }
+}
+.padding()

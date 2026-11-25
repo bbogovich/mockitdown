@@ -1,0 +1,16 @@
+// prime own elements: ConfirmPopup, ContextMenu, DataTable, DataView, DataViewItem, DatePicker, DatePickerPanel, Dialog, Divider, Dock, DockItem, Drawer
+VStack(alignment: .leading, spacing: 12) {
+  ConfirmPopup("Message") { Text("Content"); Button("Action") }
+  ContextMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  DataView() { Text("First item"); Text("Second item") }
+  DataViewItem("Title")
+  DatePicker("Placeholder")
+  DatePickerPanel()
+  Dialog("Header") { Text("Content"); Button("Action") }
+  Divider()
+  Dock() { Button("Save"); Button("Share") }
+  DockItem("Label")
+  Drawer("Header") { Text("Content"); Button("Action") }
+}
+.padding()

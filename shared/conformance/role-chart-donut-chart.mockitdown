@@ -1,0 +1,2 @@
+// base element DonutChart (role chart)
+DonutChart(values: [3, 5, 2, 6, 4])

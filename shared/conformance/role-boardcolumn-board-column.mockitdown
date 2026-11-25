@@ -1,0 +1,2 @@
+// base element BoardColumn (role boardcolumn)
+BoardColumn("Title") { KanbanCard("Write copy"); KanbanCard("Review") }

@@ -1,0 +1,3 @@
+// the .mockitdown extension may be written
+import "components/pill.mockitdown"
+StatusPill(text: "Online")

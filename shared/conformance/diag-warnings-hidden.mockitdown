@@ -1,0 +1,3 @@
+// warnings are reported but not shown by default
+import NoSuchKit
+Text("x")

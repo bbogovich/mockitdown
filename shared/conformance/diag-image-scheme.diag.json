@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "asset",
+      "message": "unsupported asset scheme in 'javascript:alert(1)'",
+      "line": 2,
+      "col": 6,
+      "source": ""
+    }
+  ]
+}

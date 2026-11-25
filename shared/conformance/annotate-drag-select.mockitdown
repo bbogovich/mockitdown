@@ -1,0 +1,7 @@
+// a selection rectangle
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").dragSelect()
+  Button("Send")
+}
+.padding()
+.frame(width: 360)

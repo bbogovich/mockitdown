@@ -1,0 +1,16 @@
+// prime own elements: Calendar, Card, Carousel, CarouselIndicators, CarouselItem, CascadeSelect, Chart, Checkbox, Chip, ColorPicker, Column, ConfirmDialog
+VStack(alignment: .leading, spacing: 12) {
+  Calendar()
+  Card("Title") { Text("Content"); Button("Action") }
+  Carousel() { Text("Content"); Button("Action") }
+  CarouselIndicators(["One", "Two", "Three"])
+  CarouselItem("Title") { Text("Content"); Button("Action") }
+  CascadeSelect("Placeholder")
+  Chart(values: [3, 5, 2, 6, 4])
+  Checkbox("Label")
+  Chip("Label")
+  ColorPicker()
+  Column("Header")
+  ConfirmDialog("Header") { Text("Content"); Button("Action") }
+}
+.padding()

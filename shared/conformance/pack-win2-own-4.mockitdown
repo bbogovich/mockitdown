@@ -1,0 +1,11 @@
+// win2 own elements: Ruler, ScrollBar, Static, StatusLine, ToolPalette, VScrollBar, Window
+VStack(alignment: .leading, spacing: 12) {
+  Ruler()
+  ScrollBar(60)
+  Static("Content")
+  StatusLine() { Button("Save"); Button("Share") }
+  ToolPalette() { Text("Content"); Button("Action") }
+  VScrollBar(60)
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

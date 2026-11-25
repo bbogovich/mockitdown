@@ -1,0 +1,4 @@
+// a second pack import is ignored
+import SwiftUI
+import FluentUI
+Text("x")

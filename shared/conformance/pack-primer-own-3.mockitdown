@@ -1,0 +1,16 @@
+// primer own elements: Breadcrumbs, BreadcrumbsItem, Button, ButtonGroup, Checkbox, CheckboxGroup, CircleBadge, CodeView, CommentBox, ConfirmationDialog, Counter, CounterLabel
+VStack(alignment: .leading, spacing: 12) {
+  Breadcrumbs(["One", "Two", "Three"])
+  BreadcrumbsItem("Label")
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+  Checkbox("Label")
+  CheckboxGroup() { Text("Content"); Button("Action") }
+  CircleBadge("Ana Lima")
+  CodeView("let total = items.count")
+  CommentBox("Title") { Text("Content"); Button("Action") }
+  ConfirmationDialog("Title") { Text("Content"); Button("Action") }
+  Counter("Text")
+  CounterLabel("Text")
+}
+.padding()

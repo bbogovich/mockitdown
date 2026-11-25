@@ -1,0 +1,10 @@
+// macos9 own elements: TabControl, Tabs, TextField, Toolbar, TrashIcon, Window
+VStack(alignment: .leading, spacing: 12) {
+  TabControl(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TextField("Placeholder")
+  Toolbar() { Button("Save"); Button("Share") }
+  TrashIcon()
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

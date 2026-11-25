@@ -1,0 +1,2 @@
+// chart: line
+LineChart(title: "Users", subtitle: "Weekly", series: [[12, 14, 13, 17], [8, 9, 9, 11]], seriesNames: ["Web", "iOS"], labels: ["W1", "W2", "W3", "W4"])

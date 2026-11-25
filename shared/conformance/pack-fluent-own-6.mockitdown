@@ -1,0 +1,16 @@
+// fluent own elements: PersonPicture, PipsPager, Pivot, PivotItem, ProgressBar, ProgressRing, RadioButton, RadioButtons, RadioMenuFlyoutItem, RangeSelector, RatingControl, RelativePanel
+VStack(alignment: .leading, spacing: 12) {
+  PersonPicture("Ana Lima")
+  PipsPager()
+  Pivot() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  PivotItem("Label")
+  ProgressBar("Label")
+  ProgressRing("Label")
+  RadioButton("Label")
+  RadioButtons("Label")
+  RadioMenuFlyoutItem("Label")
+  RangeSelector("Label")
+  RatingControl(60)
+  RelativePanel() { Text("Content"); Button("Action") }
+}
+.padding()

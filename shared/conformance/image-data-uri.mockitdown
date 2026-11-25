@@ -1,0 +1,2 @@
+// Image with a data: URI passes through
+Image("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0IDMiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjMiIGZpbGw9IiM4OGIiLz48L3N2Zz4=").frame(width: 120, height: 90)

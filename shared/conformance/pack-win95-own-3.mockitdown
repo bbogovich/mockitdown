@@ -1,0 +1,16 @@
+// win95 own elements: MessageBox, Monitor, MonthCalendar, MultilineTextBox, Notepad, NotificationArea, OptionButton, PaneHeader, PasswordBox, PopupMenu, ProgressBar, PropertyRow
+VStack(alignment: .leading, spacing: 12) {
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  Monitor() { Text("Content"); Button("Action") }
+  MonthCalendar()
+  MultilineTextBox("Text")
+  Notepad("Text")
+  NotificationArea() { Text("Content"); Button("Action") }
+  OptionButton("Label")
+  PaneHeader("Content")
+  PasswordBox("Placeholder")
+  PopupMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ProgressBar("Label")
+  PropertyRow("Label", "Value") { Text("Content"); Button("Action") }
+}
+.padding()

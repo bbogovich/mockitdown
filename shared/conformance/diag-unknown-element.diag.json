@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "unknown",
+      "message": "'Frobnicate' is not an element of pack 'base' and no struct of that name is declared or imported",
+      "line": 2,
+      "col": 32,
+      "source": ""
+    }
+  ]
+}

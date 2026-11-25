@@ -1,0 +1,16 @@
+// sapui5 own elements: Carousel, CheckBox, Column, ColumnListItem, ComboBox, CustomListItem, DatePicker, DateRangeSelection, DateTimePicker, Dialog, DisplayListItem, DynamicPage
+VStack(alignment: .leading, spacing: 12) {
+  Carousel() { Text("Content"); Button("Action") }
+  CheckBox("Label")
+  Column("Title")
+  ColumnListItem()
+  ComboBox("Label")
+  CustomListItem()
+  DatePicker("Label")
+  DateRangeSelection("Label")
+  DateTimePicker("Label")
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DisplayListItem("Label", "Detail")
+  DynamicPage() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,16 @@
+// vista own elements: PropertyRow, PushButton, QuickLaunch, RadioButtonList, SearchBox, StartButton, StartMenu, StartMenuItem, StartMenuPlaces, StartMenuPrograms, StartOrb, StartSearch
+VStack(alignment: .leading, spacing: 12) {
+  PropertyRow("Label", "Value") { Text("Content"); Button("Action") }
+  PushButton("Label")
+  QuickLaunch() { Text("Content"); Button("Action") }
+  RadioButtonList("Label")
+  SearchBox()
+  StartButton("Label")
+  StartMenu("Title") { Text("Content"); Button("Action") }
+  StartMenuItem("Title")
+  StartMenuPlaces() { Text("Content"); Button("Action") }
+  StartMenuPrograms() { Text("Content"); Button("Action") }
+  StartOrb("Label")
+  StartSearch()
+}
+.padding()

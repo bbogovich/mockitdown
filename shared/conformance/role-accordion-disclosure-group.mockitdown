@@ -1,0 +1,2 @@
+// base element DisclosureGroup (role accordion)
+DisclosureGroup("Title") { Text("Content"); Button("Action") }

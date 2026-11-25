@@ -1,0 +1,7 @@
+// prime own elements: TreeTable, TreeTableToggle, VirtualScroller
+VStack(alignment: .leading, spacing: 12) {
+  TreeTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TreeTableToggle("Title")
+  VirtualScroller() { Text("Content"); Button("Action") }
+}
+.padding()

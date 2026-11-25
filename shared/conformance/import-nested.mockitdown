@@ -1,0 +1,3 @@
+// a component file importing another, with trailing content
+import "components/person"
+VStack { PersonRow(name: "Ana Lima", role: "Design lead") { Button("Message") } }.frame(width: 420)

@@ -1,0 +1,2 @@
+// device phone-landscape (852×393)
+VStack { Text("Device"); Spacer(); Button("OK") }

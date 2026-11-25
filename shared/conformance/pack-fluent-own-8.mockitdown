@@ -1,0 +1,16 @@
+// fluent own elements: SplitView, StackPanel, SymbolIcon, TabView, TabViewItem, TeachingTip, TextBlock, TextBox, TimePicker, TitleBar, ToggleButton, ToggleMenuFlyoutItem
+VStack(alignment: .leading, spacing: 12) {
+  SplitView() { Text("Content"); Button("Action") }
+  StackPanel() { Text("Content"); Button("Action") }
+  SymbolIcon("star")
+  TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabViewItem("Label")
+  TeachingTip("Title") { Text("Content"); Button("Action") }
+  TextBlock("Content")
+  TextBox("Header")
+  TimePicker("Header")
+  TitleBar("Title") { Text("Content"); Button("Action") }
+  ToggleButton("Label")
+  ToggleMenuFlyoutItem("Label")
+}
+.padding()

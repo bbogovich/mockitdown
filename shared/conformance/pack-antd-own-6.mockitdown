@@ -1,0 +1,16 @@
+// antd own elements: ListItem, ListItemMeta, Mentions, Menu, MenuDivider, MenuItem, MenuItemGroup, Message, Modal, ModalConfirm, Notification, PageContainer
+VStack(alignment: .leading, spacing: 12) {
+  ListItem("Title")
+  ListItemMeta("Title")
+  Mentions("Placeholder")
+  Menu() { Text("Content"); Button("Action") }
+  MenuDivider()
+  MenuItem("Label")
+  MenuItemGroup("Title") { Text("First item"); Text("Second item") }
+  Message("Message")
+  Modal("Title") { Text("Content"); Button("Action") }
+  ModalConfirm("Title") { Text("Content"); Button("Action") }
+  Notification("Message")
+  PageContainer("Title") { Text("Content"); Button("Action") }
+}
+.padding()

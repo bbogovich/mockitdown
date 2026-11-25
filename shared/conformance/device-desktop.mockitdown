@@ -1,0 +1,2 @@
+// device desktop (1280×800)
+VStack { Text("Device"); Spacer(); Button("OK") }

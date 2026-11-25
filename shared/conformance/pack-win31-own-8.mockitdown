@@ -1,0 +1,5 @@
+// win31 own elements: Write
+VStack(alignment: .leading, spacing: 12) {
+  Write() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,2 @@
+// base element AreaChart (role chart)
+AreaChart(values: [3, 5, 2, 6, 4])

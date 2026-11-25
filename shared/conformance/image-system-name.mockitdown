@@ -1,0 +1,2 @@
+// Image(systemName:) draws a built-in icon
+HStack { Image(systemName: "star.fill"); Image(systemName: "trash"); Image(systemName: "bell") }

@@ -1,0 +1,16 @@
+// antd own elements: Search, Segmented, Select, Sider, Skeleton, Slider, Space, SpaceCompact, Spin, Statistic, StatisticCard, StatisticCountdown
+VStack(alignment: .leading, spacing: 12) {
+  Search("Placeholder")
+  Segmented(["One", "Two"])
+  Select("Placeholder")
+  Sider("Title") { Text("Content"); Button("Action") }
+  Skeleton().frame(width: 160, height: 96)
+  Slider()
+  Space() { Text("Content"); Button("Action") }
+  SpaceCompact() { Button("Save"); Button("Share") }
+  Spin("Label")
+  Statistic("Title", 60)
+  StatisticCard("Title", 60)
+  StatisticCountdown("Title", 60)
+}
+.padding()

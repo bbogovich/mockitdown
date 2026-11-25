@@ -1,0 +1,16 @@
+// sapui5 own elements: MessageToast, MultiComboBox, MultiInput, NavigationList, NavigationListItem, NotificationListItem, NumericContent, ObjectAttribute, ObjectHeader, ObjectIdentifier, ObjectListItem, ObjectMarker
+VStack(alignment: .leading, spacing: 12) {
+  MessageToast("Message")
+  MultiComboBox("Label")
+  MultiInput("Label")
+  NavigationList() { Text("Content"); Button("Action") }
+  NavigationListItem("Label")
+  NotificationListItem("Title")
+  NumericContent("Value", "Label") { Text("Content"); Button("Action") }
+  ObjectAttribute("Title", "Text") { Text("Content"); Button("Action") }
+  ObjectHeader("Title", "Status") { Text("Content"); Button("Action") }
+  ObjectIdentifier("Title", "Text") { Text("Content"); Button("Action") }
+  ObjectListItem("Title", "Detail")
+  ObjectMarker("Text")
+}
+.padding()

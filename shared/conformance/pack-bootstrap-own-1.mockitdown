@@ -1,0 +1,16 @@
+// bootstrap own elements: Accordion, AccordionItem, Alert, AlertHeading, AlertLink, Badge, Breadcrumb, BreadcrumbItem, Button, ButtonGroup, ButtonToolbar, Card
+VStack(alignment: .leading, spacing: 12) {
+  Accordion() { Text("Content"); Button("Action") }
+  AccordionItem("Title") { Text("Content"); Button("Action") }
+  Alert("Message")
+  AlertHeading("Content")
+  AlertLink("Label")
+  Badge("Text")
+  Breadcrumb(["One", "Two", "Three"])
+  BreadcrumbItem("Content")
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+  ButtonToolbar() { Button("Save"); Button("Share") }
+  Card("Title") { Text("Content"); Button("Action") }
+}
+.padding()

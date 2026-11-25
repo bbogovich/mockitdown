@@ -1,0 +1,2 @@
+// Image without a source draws a placeholder
+Image().frame(width: 120, height: 90)

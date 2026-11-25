@@ -1,0 +1,5 @@
+// aqua own elements: Window
+VStack(alignment: .leading, spacing: 12) {
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

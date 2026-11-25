@@ -1,0 +1,7 @@
+// two callouts in one figure (anchors 1 and 2)
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").callout(1)
+  Button("Send").callout(2, alignment: .topTrailing)
+}
+.padding()
+.frame(width: 360)

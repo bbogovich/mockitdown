@@ -1,0 +1,16 @@
+// android own elements: DropdownMenu, DropdownMenuItem, ElevatedAssistChip, ElevatedButton, ElevatedCard, ElevatedFilterChip, ElevatedSuggestionChip, ExposedDropdownMenuBox, ExtendedFloatingActionButton, FilledIconButton, FilledTonalButton, FilledTonalIconButton
+VStack(alignment: .leading, spacing: 12) {
+  DropdownMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownMenuItem("Label")
+  ElevatedAssistChip("Label")
+  ElevatedButton("Label")
+  ElevatedCard("Title") { Text("Content"); Button("Action") }
+  ElevatedFilterChip("Label")
+  ElevatedSuggestionChip("Label")
+  ExposedDropdownMenuBox("Label")
+  ExtendedFloatingActionButton("Label")
+  FilledIconButton("star")
+  FilledTonalButton("Label")
+  FilledTonalIconButton("star")
+}
+.padding()

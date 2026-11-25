@@ -1,0 +1,2 @@
+// base element Steps (role steps)
+Steps(["Cart", "Shipping", "Payment"])

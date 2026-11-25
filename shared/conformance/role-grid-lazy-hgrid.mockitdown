@@ -1,0 +1,2 @@
+// base element LazyHGrid (role grid)
+LazyHGrid() { Text("Content"); Button("Action") }

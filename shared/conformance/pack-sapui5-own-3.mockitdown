@@ -1,0 +1,16 @@
+// sapui5 own elements: DynamicPageHeader, DynamicPageTitle, ExpandableText, FeedListItem, FileUploader, FilterBar, FlexBox, FlexibleColumnLayout, Form, FormContainer, FormElement, FormattedText
+VStack(alignment: .leading, spacing: 12) {
+  DynamicPageHeader() { Text("Content"); Button("Action") }
+  DynamicPageTitle("Title", "Subtitle") { Text("Content"); Button("Action") }
+  ExpandableText("Content")
+  FeedListItem("Title", "Subtitle")
+  FileUploader("Placeholder")
+  FilterBar() { Button("Save"); Button("Share") }
+  FlexBox() { Text("Content"); Button("Action") }
+  FlexibleColumnLayout() { Text("Content"); Button("Action") }
+  Form("Title") { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormContainer("Title") { Text("First item"); Text("Second item") }
+  FormElement("Label") { Text("Content"); Button("Action") }
+  FormattedText("Content")
+}
+.padding()

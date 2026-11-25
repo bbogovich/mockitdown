@@ -1,0 +1,16 @@
+// avalonia own elements: ColorSlider, ColorSpectrum, ColorView, ComboBox, ComboBoxItem, ContentControl, ContentPresenter, ContextMenu, DataGrid, DataGridCheckBoxColumn, DataGridTemplateColumn, DataGridTextColumn
+VStack(alignment: .leading, spacing: 12) {
+  ColorSlider("Label")
+  ColorSpectrum("Label").frame(width: 160, height: 96)
+  ColorView("Label")
+  ComboBox("Label")
+  ComboBoxItem("Content")
+  ContentControl() { Text("Content"); Button("Action") }
+  ContentPresenter() { Text("Content"); Button("Action") }
+  ContextMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  DataGridCheckBoxColumn("Title")
+  DataGridTemplateColumn("Title")
+  DataGridTextColumn("Title")
+}
+.padding()

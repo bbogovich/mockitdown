@@ -1,0 +1,2 @@
+// device tablet-portrait (820×1180)
+VStack { Text("Device"); Spacer(); Button("OK") }

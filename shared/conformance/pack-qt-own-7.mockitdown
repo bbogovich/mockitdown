@@ -1,0 +1,8 @@
+// qt own elements: VBoxLayout, Widget, Wizard, WizardPage
+VStack(alignment: .leading, spacing: 12) {
+  VBoxLayout() { Text("Content"); Button("Action") }
+  Widget() { Text("Content"); Button("Action") }
+  Wizard("Title") { Text("Content"); Button("Action") }
+  WizardPage("Title") { Text("Content"); Button("Action") }
+}
+.padding()

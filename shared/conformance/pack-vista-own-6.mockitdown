@@ -1,0 +1,16 @@
+// vista own elements: StatusBar, StatusBarPanel, SysLink, TabControl, TabPage, TaskDialog, Taskbar, TaskbarButton, TextBox, ToolTip, TrackBar, TrayIcon
+VStack(alignment: .leading, spacing: 12) {
+  StatusBar() { Text("Content"); Button("Action") }
+  StatusBarPanel("Content")
+  SysLink("Label")
+  TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabPage("Label")
+  TaskDialog("Title") { Text("Content"); Button("Action") }
+  Taskbar() { Text("Content"); Button("Action") }
+  TaskbarButton("Label")
+  TextBox("Placeholder")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TrackBar()
+  TrayIcon("star")
+}
+.padding()

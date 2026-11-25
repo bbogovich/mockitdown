@@ -1,0 +1,2 @@
+// base element NavigationSplitView (role split)
+NavigationSplitView() { Text("Content"); Button("Action") }

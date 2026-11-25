@@ -1,0 +1,12 @@
+// sketch own elements: Annotation, Arrow, CrossedImage, Highlight, Lorem, Note, Scribble, Squiggle
+VStack(alignment: .leading, spacing: 12) {
+  Annotation("Text")
+  Arrow("Label")
+  CrossedImage("Label").frame(width: 160, height: 96)
+  Highlight("Content")
+  Lorem()
+  Note("Text")
+  Scribble().frame(width: 160, height: 96)
+  Squiggle().frame(width: 160, height: 96)
+}
+.padding()

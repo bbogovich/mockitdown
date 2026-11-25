@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "chrome",
+      "message": "unknown chrome 'spaceship' (known: none, ios, ipados, macos, windows, android, browser, gnome, kde, win31, window)",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+// base element Map (role map)
+Map().frame(width: 160, height: 96)

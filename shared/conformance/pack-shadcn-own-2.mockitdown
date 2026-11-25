@@ -1,0 +1,16 @@
+// shadcn own elements: Breadcrumb, Button, ButtonGroup, Calendar, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Carousel
+VStack(alignment: .leading, spacing: 12) {
+  Breadcrumb(["One", "Two", "Three"])
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+  Calendar()
+  Card("Title") { Text("Content"); Button("Action") }
+  CardAction() { Text("Content"); Button("Action") }
+  CardContent() { Text("Content"); Button("Action") }
+  CardDescription("Content")
+  CardFooter() { Text("Content"); Button("Action") }
+  CardHeader() { Text("Content"); Button("Action") }
+  CardTitle("Content")
+  Carousel() { Text("Content"); Button("Action") }
+}
+.padding()

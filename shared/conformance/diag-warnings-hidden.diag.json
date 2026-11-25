@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "pack",
+      "message": "import NoSuchKit names no known pack",
+      "line": 2,
+      "col": 1,
+      "source": ""
+    }
+  ]
+}

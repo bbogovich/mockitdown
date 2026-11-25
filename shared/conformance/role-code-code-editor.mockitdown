@@ -1,0 +1,2 @@
+// base element CodeEditor (role code)
+CodeEditor("let total = items.count")

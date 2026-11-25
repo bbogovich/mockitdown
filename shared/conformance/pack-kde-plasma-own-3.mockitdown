@@ -1,0 +1,16 @@
+// kde-plasma own elements: DrawerAction, FlexColumn, FormButtonDelegate, FormCard, FormCardPage, FormCheckDelegate, FormComboBoxDelegate, FormDelegateSeparator, FormHeader, FormLayout, FormRow, FormSection
+VStack(alignment: .leading, spacing: 12) {
+  DrawerAction("Label")
+  FlexColumn() { Text("Content"); Button("Action") }
+  FormButtonDelegate("Title")
+  FormCard("Title") { Text("Content"); Button("Action") }
+  FormCardPage("Title") { Text("Content"); Button("Action") }
+  FormCheckDelegate("Label")
+  FormComboBoxDelegate("Label")
+  FormDelegateSeparator()
+  FormHeader("Content")
+  FormLayout() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormRow("Label") { Text("Content"); Button("Action") }
+  FormSection("Title") { Text("First item"); Text("Second item") }
+}
+.padding()

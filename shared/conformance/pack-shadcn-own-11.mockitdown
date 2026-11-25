@@ -1,0 +1,16 @@
+// shadcn own elements: SidebarMenuSubItem, SidebarProvider, SidebarSeparator, SidebarTrigger, Skeleton, Slider, Sonner, Spinner, Switch, Table, TableCell, TableHead
+VStack(alignment: .leading, spacing: 12) {
+  SidebarMenuSubItem("Label")
+  SidebarProvider() { Text("Content"); Button("Action") }
+  SidebarSeparator()
+  SidebarTrigger()
+  Skeleton().frame(width: 160, height: 96)
+  Slider()
+  Sonner("Message")
+  Spinner()
+  Switch("Label")
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableCell("Content")
+  TableHead("Title")
+}
+.padding()

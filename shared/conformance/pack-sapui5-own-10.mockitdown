@@ -1,0 +1,16 @@
+// sapui5 own elements: TabContainerItem, Table, Text, TextArea, TileContent, TimePicker, Title, ToggleButton, Token, Tokenizer, ToolHeader, ToolPage
+VStack(alignment: .leading, spacing: 12) {
+  TabContainerItem("Text")
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Text("Content")
+  TextArea("Value")
+  TileContent("Footer") { Text("First item"); Text("Second item") }
+  TimePicker("Label")
+  Title("Content")
+  ToggleButton("Label")
+  Token("Text")
+  Tokenizer() { Text("Content"); Button("Action") }
+  ToolHeader("Title") { Text("Content"); Button("Action") }
+  ToolPage() { Text("Content"); Button("Action") }
+}
+.padding()

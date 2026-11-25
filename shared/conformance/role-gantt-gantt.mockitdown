@@ -1,0 +1,2 @@
+// base element Gantt (role gantt)
+Gantt(tasks: [("Design", 0, 3), ("Build", 2, 5)])

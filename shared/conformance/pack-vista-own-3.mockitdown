@@ -1,0 +1,16 @@
+// vista own elements: FavoriteLink, FileIcon, ForwardButton, Frame, GadgetSidebar, IconView, InfoBar, ListBox, ListView, LockButton, MainInstruction, MenuBar
+VStack(alignment: .leading, spacing: 12) {
+  FavoriteLink("Label")
+  FileIcon("Title")
+  ForwardButton("Label")
+  Frame("Title") { Text("Content"); Button("Action") }
+  GadgetSidebar() { Text("Content"); Button("Action") }
+  IconView() { Text("Content"); Button("Action") }
+  InfoBar("Title")
+  ListBox() { Text("First item"); Text("Second item") }
+  ListView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  LockButton("Label")
+  MainInstruction("Content")
+  MenuBar() { Button("Save"); Button("Share") }
+}
+.padding()

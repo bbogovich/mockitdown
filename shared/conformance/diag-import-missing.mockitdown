@@ -1,0 +1,3 @@
+// a missing component file
+import "components/nope"
+Text("x")

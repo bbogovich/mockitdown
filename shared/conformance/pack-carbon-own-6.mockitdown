@@ -1,0 +1,16 @@
+// carbon own elements: InlineNotification, Layer, LineChart, Link, Loading, MenuButton, MeterChart, Modal, ModalBody, MultiSelect, NumberInput, OperationalTag
+VStack(alignment: .leading, spacing: 12) {
+  InlineNotification("Title")
+  Layer() { Text("Content"); Button("Action") }
+  LineChart(values: [3, 5, 2, 6, 4])
+  Link("Label", "#")
+  Loading()
+  MenuButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MeterChart("Label")
+  Modal("Title") { Text("Content"); Button("Action") }
+  ModalBody() { Text("Content"); Button("Action") }
+  MultiSelect("Label")
+  NumberInput("Label")
+  OperationalTag("Label")
+}
+.padding()

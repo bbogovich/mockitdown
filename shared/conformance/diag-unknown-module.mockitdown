@@ -1,0 +1,3 @@
+// an import naming no known pack
+import NoSuchKit
+Text("x")

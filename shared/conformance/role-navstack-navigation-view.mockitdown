@@ -1,0 +1,2 @@
+// base element NavigationView (role navstack)
+NavigationView() { Text("Content"); Button("Action") }

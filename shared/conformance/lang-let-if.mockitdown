@@ -1,0 +1,6 @@
+// let bindings and if/else
+let n = 3
+VStack {
+  if n > 2 { Text("many") } else { Text("few") }
+  Text("n = \(n)")
+}

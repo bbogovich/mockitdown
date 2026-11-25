@@ -1,0 +1,2 @@
+// base element Sidebar (role sidebar)
+Sidebar("Title") { Text("Content"); Button("Action") }

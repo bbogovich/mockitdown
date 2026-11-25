@@ -1,0 +1,16 @@
+// prime own elements: Inplace, InputGroup, InputMask, InputNumber, InputOtp, InputSwitch, InputText, Kbd, Knob, ListControls, Listbox, MegaMenu
+VStack(alignment: .leading, spacing: 12) {
+  Inplace() { Text("Content"); Button("Action") }
+  InputGroup("Placeholder")
+  InputMask("Placeholder")
+  InputNumber("Placeholder")
+  InputOtp(["One", "Two", "Three"])
+  InputSwitch("Label")
+  InputText("Placeholder")
+  Kbd(["⌘", "K"])
+  Knob(60)
+  ListControls() { Text("Content"); Button("Action") }
+  Listbox(["One", "Two"])
+  MegaMenu() { Button("Save"); Button("Share") }
+}
+.padding()

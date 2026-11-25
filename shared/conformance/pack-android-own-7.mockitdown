@@ -1,0 +1,16 @@
+// android own elements: NavigationSuiteScaffold, OutlinedButton, OutlinedCard, OutlinedExposedDropdownMenuBox, OutlinedIconButton, OutlinedSecureTextField, OutlinedTextField, PermanentDrawerSheet, PermanentNavigationDrawer, PlainTooltip, PrimaryScrollableTabRow, PrimaryTabRow
+VStack(alignment: .leading, spacing: 12) {
+  NavigationSuiteScaffold() { Text("Content"); Button("Action") }
+  OutlinedButton("Label")
+  OutlinedCard("Title") { Text("Content"); Button("Action") }
+  OutlinedExposedDropdownMenuBox("Label")
+  OutlinedIconButton("star")
+  OutlinedSecureTextField("Label")
+  OutlinedTextField("Label")
+  PermanentDrawerSheet() { Text("Content"); Button("Action") }
+  PermanentNavigationDrawer() { Text("Content"); Button("Action") }
+  PlainTooltip("Text") { Text("Content"); Button("Action") }
+  PrimaryScrollableTabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  PrimaryTabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+}
+.padding()

@@ -1,0 +1,10 @@
+// nls own elements: StatementLink, Stroke, SystemMessage, VideoInset, ViewSpec, Window
+VStack(alignment: .leading, spacing: 12) {
+  StatementLink("Label")
+  Stroke().frame(width: 160, height: 96)
+  SystemMessage("Content")
+  VideoInset("Label").frame(width: 160, height: 96)
+  ViewSpec("Content")
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

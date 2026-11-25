@@ -1,0 +1,2 @@
+// chart: kind
+Chart(kind: .line, values: [3, 5, 2, 6, 4])

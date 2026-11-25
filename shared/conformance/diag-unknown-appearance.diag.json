@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "appearance",
+      "message": "unknown appearance 'sepia'; using light",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+// xerox-star own elements: StarWindow, Window, WindowCommand
+VStack(alignment: .leading, spacing: 12) {
+  StarWindow("Title") { Text("Content"); Button("Action") }
+  Window("Title") { Text("Content"); Button("Action") }
+  WindowCommand("Label")
+}
+.padding()

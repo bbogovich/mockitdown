@@ -1,0 +1,2 @@
+// chart: area-stacked
+AreaChart(series: [[2, 3, 4], [1, 1, 2]], seriesNames: ["A", "B"], labels: ["Jun", "Jul", "Aug"], stacked: true)

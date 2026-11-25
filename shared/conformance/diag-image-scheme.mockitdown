@@ -1,0 +1,2 @@
+// an unsupported image scheme
+Image("javascript:alert(1)")

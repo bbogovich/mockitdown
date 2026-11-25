@@ -1,0 +1,2 @@
+// width alone keeps the device height
+VStack { Text("Device"); Spacer(); Button("OK") }

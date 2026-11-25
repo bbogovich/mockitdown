@@ -1,0 +1,15 @@
+// tailwind own elements: Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Tabs, Text, TextLink, Textarea, TouchTarget
+VStack(alignment: .leading, spacing: 12) {
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableBody() { Text("Content"); Button("Action") }
+  TableCell("Content")
+  TableHead() { Text("Content"); Button("Action") }
+  TableHeader("Title")
+  TableRow()
+  Tabs() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Text("Content")
+  TextLink("Label")
+  Textarea("Placeholder")
+  TouchTarget() { Text("Content"); Button("Action") }
+}
+.padding()

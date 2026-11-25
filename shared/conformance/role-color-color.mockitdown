@@ -1,0 +1,2 @@
+// base element Color (role color)
+Color(.blue).frame(width: 160, height: 96)

@@ -1,0 +1,16 @@
+// fluent own elements: DockPanel, DropDownButton, Expander, FlipView, Flyout, FontIcon, Frame, Grid, GridView, GridViewItem, HeaderedContentControl, Hyperlink
+VStack(alignment: .leading, spacing: 12) {
+  DockPanel() { Text("Content"); Button("Action") }
+  DropDownButton("Label")
+  Expander("Header") { Text("Content"); Button("Action") }
+  FlipView("Label").frame(width: 160, height: 96)
+  Flyout("Title") { Text("Content"); Button("Action") }
+  FontIcon("star")
+  Frame() { Text("Content"); Button("Action") }
+  Grid() { Text("Content"); Button("Action") }
+  GridView() { Text("Content"); Button("Action") }
+  GridViewItem() { Text("Content"); Button("Action") }
+  HeaderedContentControl("Header") { Text("First item"); Text("Second item") }
+  Hyperlink("Label")
+}
+.padding()

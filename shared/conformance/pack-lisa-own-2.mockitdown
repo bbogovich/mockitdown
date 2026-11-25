@@ -1,0 +1,16 @@
+// lisa own elements: EditText, FileItem, Folder, FolderWindow, ListBox, Menu, MenuBar, MenuItem, MenuSeparator, NoteAlert, PatternPalette, ProgressBar
+VStack(alignment: .leading, spacing: 12) {
+  EditText("Text")
+  FileItem("Title")
+  Folder("Title")
+  FolderWindow("Title", "Subtitle") { Text("Content"); Button("Action") }
+  ListBox() { Text("First item"); Text("Second item") }
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuItem("Label", "⌘S")
+  MenuSeparator()
+  NoteAlert("Message") { Text("Content"); Button("Action") }
+  PatternPalette()
+  ProgressBar(60)
+}
+.padding()

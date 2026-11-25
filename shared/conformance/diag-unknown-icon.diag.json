@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "icon",
+      "message": "unknown icon 'unknown-glyph-name'",
+      "line": 2,
+      "col": 5,
+      "source": ""
+    }
+  ]
+}

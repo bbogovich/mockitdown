@@ -1,0 +1,9 @@
+// kde-plasma own elements: ToolTip, TreeView, TreeViewItem, UrlButton, UrlNavigator
+VStack(alignment: .leading, spacing: 12) {
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+  TreeViewItem("Label")
+  UrlButton("Label")
+  UrlNavigator(["One", "Two", "Three"])
+}
+.padding()

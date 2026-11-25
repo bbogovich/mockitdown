@@ -1,0 +1,2 @@
+// a floating action button
+VStack { Text("List"); FloatingActionButton("plus") }

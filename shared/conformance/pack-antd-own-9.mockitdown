@@ -1,0 +1,16 @@
+// antd own elements: ProSider, ProTable, Progress, QRCode, QueryFilter, Radio, RadioButton, RadioGroup, RangePicker, Rate, Result, Row
+VStack(alignment: .leading, spacing: 12) {
+  ProSider("Title") { Text("Content"); Button("Action") }
+  ProTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Progress(60)
+  QRCode("Label").frame(width: 160, height: 96)
+  QueryFilter() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  Radio("Label")
+  RadioButton("Label")
+  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+  RangePicker("Placeholder")
+  Rate(60)
+  Result("Title")
+  Row() { Text("Content"); Button("Action") }
+}
+.padding()

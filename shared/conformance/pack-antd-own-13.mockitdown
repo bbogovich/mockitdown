@@ -1,0 +1,10 @@
+// antd own elements: Typography, TypographyText, Upload, UploadDragger, UploadFile, Watermark
+VStack(alignment: .leading, spacing: 12) {
+  Typography("Content")
+  TypographyText("Content")
+  Upload() { Text("Content"); Button("Action") }
+  UploadDragger("Label")
+  UploadFile("Title")
+  Watermark() { Text("Content"); Button("Action") }
+}
+.padding()

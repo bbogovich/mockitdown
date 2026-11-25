@@ -1,0 +1,16 @@
+// tailwind own elements: DropdownLabel, DropdownMenu, DropdownSection, DropdownShortcut, EmptyState, ErrorMessage, Eyebrow, Feature, FeatureGrid, Field, FieldGroup, Fieldset
+VStack(alignment: .leading, spacing: 12) {
+  DropdownLabel("Content")
+  DropdownMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownSection() { Text("Content"); Button("Action") }
+  DropdownShortcut(["⌘", "K"])
+  EmptyState("Title")
+  ErrorMessage("Content")
+  Eyebrow("Content")
+  Feature("Title")
+  FeatureGrid() { Text("Content"); Button("Action") }
+  Field() { Text("Content"); Button("Action") }
+  FieldGroup() { Text("Content"); Button("Action") }
+  Fieldset() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,16 @@
+// aqua own elements: StickyNote, SystemMenu, TabView, TabViewItem, TableView, Terminal, TextField, TextView, ToolTip, Toolbar, ToolbarButton, UtilityWindow
+VStack(alignment: .leading, spacing: 12) {
+  StickyNote("Text")
+  SystemMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  TabView(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabViewItem("Label")
+  TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Terminal()
+  TextField("Placeholder")
+  TextView("Placeholder")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  Toolbar() { Button("Save"); Button("Share") }
+  ToolbarButton("Label")
+  UtilityWindow("Title") { Text("Content"); Button("Action") }
+}
+.padding()

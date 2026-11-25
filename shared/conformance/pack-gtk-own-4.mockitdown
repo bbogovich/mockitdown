@@ -1,0 +1,16 @@
+// gtk own elements: GridView, HeaderBar, InlineViewSwitcher, Label, LevelBar, LinkButton, ListBox, ListBoxRow, ListView, MenuButton, MenuItem, MessageDialog
+VStack(alignment: .leading, spacing: 12) {
+  GridView() { Text("Content"); Button("Action") }
+  HeaderBar("Title") { Text("Content"); Button("Action") }
+  InlineViewSwitcher(["One", "Two", "Three"])
+  Label("Content")
+  LevelBar("Label")
+  LinkButton("Label")
+  ListBox() { Text("First item"); Text("Second item") }
+  ListBoxRow("Title")
+  ListView() { Text("First item"); Text("Second item") }
+  MenuButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuItem("Label")
+  MessageDialog("Title") { Text("Content"); Button("Action") }
+}
+.padding()

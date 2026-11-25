@@ -1,0 +1,2 @@
+// default_appearance applies when nothing names one
+VStack(spacing: 8) { Text("Appearance").font(.headline); Button("Continue"); Toggle("On", isOn: true) }

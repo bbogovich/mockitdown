@@ -1,0 +1,16 @@
+// antd own elements: Dropdown, DropdownButton, DropdownItem, Empty, Flex, FloatButton, Footer, FooterToolbar, Form, FormItem, GridContent, Header
+VStack(alignment: .leading, spacing: 12) {
+  Dropdown("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownItem("Label")
+  Empty()
+  Flex() { Text("Content"); Button("Action") }
+  FloatButton("star")
+  Footer() { Text("Content"); Button("Action") }
+  FooterToolbar() { Button("Save"); Button("Share") }
+  Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormItem("Label") { Text("Content"); Button("Action") }
+  GridContent() { Text("Content"); Button("Action") }
+  Header("Title") { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,16 @@
+// win31 own elements: RadioButton, SCROLLBAR, ScrollBar, Static, StatusBar, StatusBarPane, SystemMenu, ToolBar, ToolBarButton, TrackBar, Window, Worksheet
+VStack(alignment: .leading, spacing: 12) {
+  RadioButton("Label")
+  SCROLLBAR()
+  ScrollBar()
+  Static("Content")
+  StatusBar() { Button("Save"); Button("Share") }
+  StatusBarPane("Content")
+  SystemMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ToolBar() { Button("Save"); Button("Share") }
+  ToolBarButton("star")
+  TrackBar("Label")
+  Window("Title") { Text("Content"); Button("Action") }
+  Worksheet(columns: ["A", "B"], rows: [[1, 2], [3, 4]])
+}
+.padding()

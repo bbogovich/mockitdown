@@ -1,0 +1,16 @@
+// prime own elements: MegaMenuItem, Menu, MenuGroup, MenuItem, MenuSeparator, Menubar, MenubarItem, Message, MeterGroup, MultiSelect, OrderList, OverlayBadge
+VStack(alignment: .leading, spacing: 12) {
+  MegaMenuItem("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuGroup("Label") { Text("First item"); Text("Second item") }
+  MenuItem("Label")
+  MenuSeparator()
+  Menubar() { Button("Save"); Button("Share") }
+  MenubarItem("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  Message("Text")
+  MeterGroup(values: [3, 5, 2, 6, 4])
+  MultiSelect("Placeholder")
+  OrderList() { Text("Content"); Button("Action") }
+  OverlayBadge("Value")
+}
+.padding()

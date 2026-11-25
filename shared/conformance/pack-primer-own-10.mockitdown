@@ -1,0 +1,16 @@
+// primer own elements: Stack, StackHorizontal, StackItem, StateLabel, SubNav, SubNavLink, TabNav, TabNavLink, Table, TableContainer, TableSubtitle, TableTitle
+VStack(alignment: .leading, spacing: 12) {
+  Stack() { Text("Content"); Button("Action") }
+  StackHorizontal() { Text("Content"); Button("Action") }
+  StackItem() { Text("Content"); Button("Action") }
+  StateLabel("Text")
+  SubNav() { Button("Save"); Button("Share") }
+  SubNavLink("Label")
+  TabNav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabNavLink("Label")
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableContainer() { Text("Content"); Button("Action") }
+  TableSubtitle("Content")
+  TableTitle("Content")
+}
+.padding()

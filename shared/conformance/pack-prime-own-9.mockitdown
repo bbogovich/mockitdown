@@ -1,0 +1,16 @@
+// prime own elements: Splitter, SplitterPanel, Step, Stepper, Steps, Tab, TabMenu, TabPanel, TabView, Tabs, Tag, Terminal
+VStack(alignment: .leading, spacing: 12) {
+  Splitter() { Text("Content"); Button("Action") }
+  SplitterPanel() { Text("Content"); Button("Action") }
+  Step("Title")
+  Stepper(["One", "Two", "Three"])
+  Steps(["One", "Two", "Three"])
+  Tab("Label")
+  TabMenu(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabPanel("Header")
+  TabView(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Tag("Value")
+  Terminal("let total = items.count")
+}
+.padding()

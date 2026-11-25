@@ -1,0 +1,2 @@
+// base element LazyVStack (role vstack)
+LazyVStack() { Text("Content"); Button("Action") }

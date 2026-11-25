@@ -1,0 +1,13 @@
+// winxp own elements: TreeViewItem, TurnOffButton, UpButton, UpDown, UserTile, WelcomeBand, WelcomeScreen, Window, Wizard
+VStack(alignment: .leading, spacing: 12) {
+  TreeViewItem("Label")
+  TurnOffButton()
+  UpButton("Label")
+  UpDown("Label")
+  UserTile("Title")
+  WelcomeBand() { Text("Content"); Button("Action") }
+  WelcomeScreen() { Text("Content"); Button("Action") }
+  Window("Title") { Text("Content"); Button("Action") }
+  Wizard("Title") { Text("Content"); Button("Action") }
+}
+.padding()

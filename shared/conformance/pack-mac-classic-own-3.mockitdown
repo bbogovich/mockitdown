@@ -1,0 +1,16 @@
+// mac-classic own elements: ModalDialog, NoGrowWindow, NoteAlert, PaintCanvas, PatternPalette, PopUpMenu, ProgressBar, PushButton, RadioButton, RadioGroup, RoundWindow, ScrollBar
+VStack(alignment: .leading, spacing: 12) {
+  ModalDialog("Title") { Text("Content"); Button("Action") }
+  NoGrowWindow("Title") { Text("Content"); Button("Action") }
+  NoteAlert("Message") { Text("Content"); Button("Action") }
+  PaintCanvas() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  PatternPalette()
+  PopUpMenu("Label")
+  ProgressBar(60)
+  PushButton("Label")
+  RadioButton("Label", true)
+  RadioGroup("Label")
+  RoundWindow("Title") { Text("Content"); Button("Action") }
+  ScrollBar()
+}
+.padding()

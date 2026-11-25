@@ -1,0 +1,2 @@
+// a toast element
+VStack { Text("Saved list"); Toast("Saved") }

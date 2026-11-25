@@ -1,0 +1,2 @@
+// chart: donut
+DonutChart(title: "Budget", values: [68, 32], labels: ["Spent", "Left"], unit: "68%")

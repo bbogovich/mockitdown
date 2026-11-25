@@ -1,0 +1,2 @@
+// device phone (393×852)
+VStack { Text("Device"); Spacer(); Button("OK") }

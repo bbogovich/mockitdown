@@ -1,0 +1,2 @@
+// base element Image (role image)
+Image().frame(width: 160, height: 96)

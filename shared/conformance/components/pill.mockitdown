@@ -1,0 +1,13 @@
+// A status pill: a coloured dot and a short label.
+struct StatusPill: View {
+  var text: String
+  var color: Color = .green
+  var body: some View {
+    HStack(spacing: 6) {
+      Circle().fill(color).frame(width: 8, height: 8)
+      Text(text).font(.footnote)
+    }
+    .padding(.horizontal, 10).padding(.vertical, 4)
+    .background(.surface).border(.separator).cornerRadius(12)
+  }
+}

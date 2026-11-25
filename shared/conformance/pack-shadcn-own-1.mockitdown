@@ -1,0 +1,16 @@
+// shadcn own elements: Accordion, AccordionItem, Alert, AlertDescription, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertTitle, AspectRatio, Avatar, AvatarFallback, Badge
+VStack(alignment: .leading, spacing: 12) {
+  Accordion() { Text("Content"); Button("Action") }
+  AccordionItem("Title") { Text("Content"); Button("Action") }
+  Alert("Title")
+  AlertDescription("Content")
+  AlertDialog("Title") { Text("Content"); Button("Action") }
+  AlertDialogAction()
+  AlertDialogCancel()
+  AlertTitle("Content")
+  AspectRatio() { Text("Content"); Button("Action") }
+  Avatar("Ana Lima")
+  AvatarFallback("Ana Lima")
+  Badge("Text")
+}
+.padding()

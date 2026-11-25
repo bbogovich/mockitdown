@@ -1,0 +1,16 @@
+// fluent own elements: HyperlinkButton, ImageIcon, InfoBadge, InfoBar, ItemsRepeater, ItemsView, ListView, ListViewHeaderItem, ListViewItem, MapControl, MediaPlayerElement, MenuBar
+VStack(alignment: .leading, spacing: 12) {
+  HyperlinkButton("Label")
+  ImageIcon("star")
+  InfoBadge("Value")
+  InfoBar("Title")
+  ItemsRepeater() { Text("Content"); Button("Action") }
+  ItemsView() { Text("Content"); Button("Action") }
+  ListView() { Text("First item"); Text("Second item") }
+  ListViewHeaderItem("Content")
+  ListViewItem("Title")
+  MapControl("Label").frame(width: 160, height: 96)
+  MediaPlayerElement("Label").frame(width: 160, height: 96)
+  MenuBar() { Button("Save"); Button("Share") }
+}
+.padding()

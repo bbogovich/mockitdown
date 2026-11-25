@@ -1,0 +1,16 @@
+// sapui5 own elements: ObjectNumber, ObjectPageDynamicHeaderTitle, ObjectPageHeader, ObjectPageLayout, ObjectPageSection, ObjectPageSubSection, ObjectStatus, OverflowToolbar, OverflowToolbarButton, Page, Panel, Popover
+VStack(alignment: .leading, spacing: 12) {
+  ObjectNumber("Value", "Label") { Text("Content"); Button("Action") }
+  ObjectPageDynamicHeaderTitle("Title", "Subtitle") { Text("Content"); Button("Action") }
+  ObjectPageHeader("Title", "Subtitle") { Text("Content"); Button("Action") }
+  ObjectPageLayout() { Text("Content"); Button("Action") }
+  ObjectPageSection("Title") { Text("First item"); Text("Second item") }
+  ObjectPageSubSection("Title") { Text("First item"); Text("Second item") }
+  ObjectStatus("Text")
+  OverflowToolbar() { Button("Save"); Button("Share") }
+  OverflowToolbarButton("star")
+  Page("Title") { Text("Content"); Button("Action") }
+  Panel("Title") { Text("Content"); Button("Action") }
+  Popover("Title") { Text("Content"); Button("Action") }
+}
+.padding()

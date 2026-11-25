@@ -1,0 +1,16 @@
+// gtk own elements: Separator, ShortcutLabel, SidebarItem, SourceView, SpinButton, SpinRow, Spinner, SplitButton, Stack, StackPage, StackSwitcher, StatusPage
+VStack(alignment: .leading, spacing: 12) {
+  Separator()
+  ShortcutLabel(["⌘", "K"])
+  SidebarItem("Label")
+  SourceView("let total = items.count")
+  SpinButton("Label")
+  SpinRow("Title")
+  Spinner()
+  SplitButton("Label")
+  Stack() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  StackPage("Title")
+  StackSwitcher(["One", "Two", "Three"])
+  StatusPage("Title")
+}
+.padding()

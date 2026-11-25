@@ -1,0 +1,16 @@
+// prime own elements: Accordion, AccordionContent, AccordionPanel, AccordionTab, AutoComplete, Avatar, AvatarGroup, Badge, BlockUI, Breadcrumb, Button, ButtonGroup
+VStack(alignment: .leading, spacing: 12) {
+  Accordion() { Text("Content"); Button("Action") }
+  AccordionContent() { Text("Content"); Button("Action") }
+  AccordionPanel("Header") { Text("Content"); Button("Action") }
+  AccordionTab("Header") { Text("Content"); Button("Action") }
+  AutoComplete("Placeholder")
+  Avatar("Label")
+  AvatarGroup() { Text("Content"); Button("Action") }
+  Badge("Value")
+  BlockUI() { Text("Content"); Button("Action") }
+  Breadcrumb(["One", "Two", "Three"])
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+}
+.padding()

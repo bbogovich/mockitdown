@@ -1,0 +1,16 @@
+// shadcn own elements: CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, Chart, ChartContainer, Checkbox, Collapsible, Combobox, Command, CommandDialog, CommandEmpty
+VStack(alignment: .leading, spacing: 12) {
+  CarouselContent() { Text("Content"); Button("Action") }
+  CarouselItem("Title") { Text("Content"); Button("Action") }
+  CarouselNext()
+  CarouselPrevious()
+  Chart(values: [3, 5, 2, 6, 4])
+  ChartContainer(values: [3, 5, 2, 6, 4])
+  Checkbox("Label")
+  Collapsible("Title") { Text("Content"); Button("Action") }
+  Combobox("Placeholder")
+  Command() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  CommandDialog() { Text("Content"); Button("Action") }
+  CommandEmpty("Content")
+}
+.padding()

@@ -1,0 +1,2292 @@
+{
+  "cases": [
+    {
+      "name": "role-accordion-accordion",
+      "area": "role"
+    },
+    {
+      "name": "role-accordion-disclosure-group",
+      "area": "role"
+    },
+    {
+      "name": "role-alert-banner",
+      "area": "role"
+    },
+    {
+      "name": "role-appbar-app-bar",
+      "area": "role"
+    },
+    {
+      "name": "role-avatar-avatar",
+      "area": "role"
+    },
+    {
+      "name": "role-badge-badge",
+      "area": "role"
+    },
+    {
+      "name": "role-board-board",
+      "area": "role"
+    },
+    {
+      "name": "role-boardcolumn-board-column",
+      "area": "role"
+    },
+    {
+      "name": "role-breadcrumb-breadcrumb",
+      "area": "role"
+    },
+    {
+      "name": "role-button-button",
+      "area": "role"
+    },
+    {
+      "name": "role-button-icon-button",
+      "area": "role"
+    },
+    {
+      "name": "role-calendar-calendar",
+      "area": "role"
+    },
+    {
+      "name": "role-callout-callout",
+      "area": "role"
+    },
+    {
+      "name": "role-canvas-canvas",
+      "area": "role"
+    },
+    {
+      "name": "role-canvas-whiteboard",
+      "area": "role"
+    },
+    {
+      "name": "role-card-card",
+      "area": "role"
+    },
+    {
+      "name": "role-card-group-box",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-area-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-bar-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-bubble-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-candlestick-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-combo-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-donut-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-funnel-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-gauge-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-heatmap",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-histogram",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-line-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-pie-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-radar-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-scatter-chart",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-sparkline",
+      "area": "role"
+    },
+    {
+      "name": "role-chart-treemap",
+      "area": "role"
+    },
+    {
+      "name": "role-checkbox-checkbox",
+      "area": "role"
+    },
+    {
+      "name": "role-chip-chip",
+      "area": "role"
+    },
+    {
+      "name": "role-chip-tag",
+      "area": "role"
+    },
+    {
+      "name": "role-code-code-block",
+      "area": "role"
+    },
+    {
+      "name": "role-code-code-editor",
+      "area": "role"
+    },
+    {
+      "name": "role-code-terminal",
+      "area": "role"
+    },
+    {
+      "name": "role-color-color",
+      "area": "role"
+    },
+    {
+      "name": "role-datepicker-date-picker",
+      "area": "role"
+    },
+    {
+      "name": "role-dialog-alert",
+      "area": "role"
+    },
+    {
+      "name": "role-dialog-dialog",
+      "area": "role"
+    },
+    {
+      "name": "role-dialog-sheet",
+      "area": "role"
+    },
+    {
+      "name": "role-divider-divider",
+      "area": "role"
+    },
+    {
+      "name": "role-dropzone-dropzone",
+      "area": "role"
+    },
+    {
+      "name": "role-emptystate-empty-state",
+      "area": "role"
+    },
+    {
+      "name": "role-fab-floating-action-button",
+      "area": "role"
+    },
+    {
+      "name": "role-form-form",
+      "area": "role"
+    },
+    {
+      "name": "role-gantt-gantt",
+      "area": "role"
+    },
+    {
+      "name": "role-grid-grid",
+      "area": "role"
+    },
+    {
+      "name": "role-grid-lazy-hgrid",
+      "area": "role"
+    },
+    {
+      "name": "role-grid-lazy-vgrid",
+      "area": "role"
+    },
+    {
+      "name": "role-gridrow-grid-row",
+      "area": "role"
+    },
+    {
+      "name": "role-group-group",
+      "area": "role"
+    },
+    {
+      "name": "role-hstack-hstack",
+      "area": "role"
+    },
+    {
+      "name": "role-hstack-lazy-hstack",
+      "area": "role"
+    },
+    {
+      "name": "role-icon-icon",
+      "area": "role"
+    },
+    {
+      "name": "role-image-async-image",
+      "area": "role"
+    },
+    {
+      "name": "role-image-image",
+      "area": "role"
+    },
+    {
+      "name": "role-kanbancard-kanban-card",
+      "area": "role"
+    },
+    {
+      "name": "role-kbd-kbd",
+      "area": "role"
+    },
+    {
+      "name": "role-label-label",
+      "area": "role"
+    },
+    {
+      "name": "role-labeled-labeled-content",
+      "area": "role"
+    },
+    {
+      "name": "role-link-link",
+      "area": "role"
+    },
+    {
+      "name": "role-list-list",
+      "area": "role"
+    },
+    {
+      "name": "role-listitem-list-item",
+      "area": "role"
+    },
+    {
+      "name": "role-listitem-navigation-link",
+      "area": "role"
+    },
+    {
+      "name": "role-listitem-row",
+      "area": "role"
+    },
+    {
+      "name": "role-map-map",
+      "area": "role"
+    },
+    {
+      "name": "role-marquee-selection-rect",
+      "area": "role"
+    },
+    {
+      "name": "role-media-video-player",
+      "area": "role"
+    },
+    {
+      "name": "role-menu-menu",
+      "area": "role"
+    },
+    {
+      "name": "role-menuitem-menu-item",
+      "area": "role"
+    },
+    {
+      "name": "role-message-comment",
+      "area": "role"
+    },
+    {
+      "name": "role-message-message-bubble",
+      "area": "role"
+    },
+    {
+      "name": "role-navitem-nav-item",
+      "area": "role"
+    },
+    {
+      "name": "role-navstack-navigation-stack",
+      "area": "role"
+    },
+    {
+      "name": "role-navstack-navigation-view",
+      "area": "role"
+    },
+    {
+      "name": "role-pagination-pagination",
+      "area": "role"
+    },
+    {
+      "name": "role-placeholder-placeholder",
+      "area": "role"
+    },
+    {
+      "name": "role-pointer-pointer",
+      "area": "role"
+    },
+    {
+      "name": "role-progress-gauge",
+      "area": "role"
+    },
+    {
+      "name": "role-progress-progress-view",
+      "area": "role"
+    },
+    {
+      "name": "role-radio-radio-button",
+      "area": "role"
+    },
+    {
+      "name": "role-radiogroup-radio-group",
+      "area": "role"
+    },
+    {
+      "name": "role-rating-rating",
+      "area": "role"
+    },
+    {
+      "name": "role-schedule-schedule",
+      "area": "role"
+    },
+    {
+      "name": "role-scroll-scroll-view",
+      "area": "role"
+    },
+    {
+      "name": "role-section-section",
+      "area": "role"
+    },
+    {
+      "name": "role-segmented-segmented-control",
+      "area": "role"
+    },
+    {
+      "name": "role-select-picker",
+      "area": "role"
+    },
+    {
+      "name": "role-shape-capsule",
+      "area": "role"
+    },
+    {
+      "name": "role-shape-circle",
+      "area": "role"
+    },
+    {
+      "name": "role-shape-ellipse",
+      "area": "role"
+    },
+    {
+      "name": "role-shape-rectangle",
+      "area": "role"
+    },
+    {
+      "name": "role-shape-rounded-rectangle",
+      "area": "role"
+    },
+    {
+      "name": "role-sidebar-sidebar",
+      "area": "role"
+    },
+    {
+      "name": "role-skeleton-skeleton",
+      "area": "role"
+    },
+    {
+      "name": "role-slider-slider",
+      "area": "role"
+    },
+    {
+      "name": "role-spacer-spacer",
+      "area": "role"
+    },
+    {
+      "name": "role-split-navigation-split-view",
+      "area": "role"
+    },
+    {
+      "name": "role-spreadsheet-spreadsheet",
+      "area": "role"
+    },
+    {
+      "name": "role-stat-stat",
+      "area": "role"
+    },
+    {
+      "name": "role-stepper-stepper",
+      "area": "role"
+    },
+    {
+      "name": "role-steps-steps",
+      "area": "role"
+    },
+    {
+      "name": "role-stickynote-sticky-note",
+      "area": "role"
+    },
+    {
+      "name": "role-swatches-color-swatches",
+      "area": "role"
+    },
+    {
+      "name": "role-tab-tab",
+      "area": "role"
+    },
+    {
+      "name": "role-table-table",
+      "area": "role"
+    },
+    {
+      "name": "role-tablecolumn-table-column",
+      "area": "role"
+    },
+    {
+      "name": "role-tablerow-table-row",
+      "area": "role"
+    },
+    {
+      "name": "role-tabs-tab-view",
+      "area": "role"
+    },
+    {
+      "name": "role-tabs-tabs",
+      "area": "role"
+    },
+    {
+      "name": "role-text-text",
+      "area": "role"
+    },
+    {
+      "name": "role-textfield-search-field",
+      "area": "role"
+    },
+    {
+      "name": "role-textfield-secure-field",
+      "area": "role"
+    },
+    {
+      "name": "role-textfield-text-editor",
+      "area": "role"
+    },
+    {
+      "name": "role-textfield-text-field",
+      "area": "role"
+    },
+    {
+      "name": "role-timeline-timeline",
+      "area": "role"
+    },
+    {
+      "name": "role-timelineitem-timeline-item",
+      "area": "role"
+    },
+    {
+      "name": "role-toast-toast",
+      "area": "role"
+    },
+    {
+      "name": "role-toggle-toggle",
+      "area": "role"
+    },
+    {
+      "name": "role-toolbar-control-group",
+      "area": "role"
+    },
+    {
+      "name": "role-toolbar-toolbar",
+      "area": "role"
+    },
+    {
+      "name": "role-toolbaritem-toolbar-item",
+      "area": "role"
+    },
+    {
+      "name": "role-toolbaritem-toolbar-item-group",
+      "area": "role"
+    },
+    {
+      "name": "role-tooltip-tooltip",
+      "area": "role"
+    },
+    {
+      "name": "role-tree-tree",
+      "area": "role"
+    },
+    {
+      "name": "role-treeitem-tree-item",
+      "area": "role"
+    },
+    {
+      "name": "role-vstack-lazy-vstack",
+      "area": "role"
+    },
+    {
+      "name": "role-vstack-vstack",
+      "area": "role"
+    },
+    {
+      "name": "role-zstack-zstack",
+      "area": "role"
+    },
+    {
+      "name": "pack-android",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia",
+      "area": "pack"
+    },
+    {
+      "name": "pack-base",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gsos",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk",
+      "area": "pack"
+    },
+    {
+      "name": "pack-hologram",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lcars",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lisa",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mac-classic",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nls",
+      "area": "pack"
+    },
+    {
+      "name": "pack-phosphor",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sketch",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp",
+      "area": "pack"
+    },
+    {
+      "name": "pack-xerox-star",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-android-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-angular-material-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-12",
+      "area": "pack"
+    },
+    {
+      "name": "pack-antd-own-13",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-aqua-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-avalonia-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-bootstrap-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-12",
+      "area": "pack"
+    },
+    {
+      "name": "pack-carbon-own-13",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-cde-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-fluent-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gsos-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gsos-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gsos-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gsos-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-gtk-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-kde-plasma-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lisa-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lisa-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lisa-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lisa-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mac-classic-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mac-classic-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mac-classic-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mac-classic-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-macos9-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-mui-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nextstep-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nls-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nls-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-nls-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-prime-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-primer-own-12",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-qt-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sapui5-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-12",
+      "area": "pack"
+    },
+    {
+      "name": "pack-shadcn-own-13",
+      "area": "pack"
+    },
+    {
+      "name": "pack-sketch-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-swiftui-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-tailwind-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vista-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-9",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-11",
+      "area": "pack"
+    },
+    {
+      "name": "pack-vuetify-own-12",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win1-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win2-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win2-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win2-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win2-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-7",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win31-own-8",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-win95-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-4",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-5",
+      "area": "pack"
+    },
+    {
+      "name": "pack-winxp-own-6",
+      "area": "pack"
+    },
+    {
+      "name": "pack-xerox-star-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-xerox-star-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-xerox-star-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "appearance-light",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-dark",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-auto",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-both",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-screen-dark",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-option-overrides-screen",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-default-dark",
+      "area": "appearance"
+    },
+    {
+      "name": "appearance-both-swiftui",
+      "area": "appearance"
+    },
+    {
+      "name": "device-phone",
+      "area": "device"
+    },
+    {
+      "name": "device-phone-landscape",
+      "area": "device"
+    },
+    {
+      "name": "device-tablet",
+      "area": "device"
+    },
+    {
+      "name": "device-tablet-portrait",
+      "area": "device"
+    },
+    {
+      "name": "device-desktop",
+      "area": "device"
+    },
+    {
+      "name": "device-wide",
+      "area": "device"
+    },
+    {
+      "name": "device-fit",
+      "area": "device"
+    },
+    {
+      "name": "device-screen",
+      "area": "device"
+    },
+    {
+      "name": "device-default",
+      "area": "device"
+    },
+    {
+      "name": "device-pack-default",
+      "area": "device"
+    },
+    {
+      "name": "device-size",
+      "area": "device"
+    },
+    {
+      "name": "device-width-only",
+      "area": "device"
+    },
+    {
+      "name": "chrome-none",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-ios",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-ipados",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-windows",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-android",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-browser",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-gnome",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-kde",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-win31",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-window",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-auto-pack",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-browser-url",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-screen",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-window-dialog",
+      "area": "chrome"
+    },
+    {
+      "name": "option-title",
+      "area": "option"
+    },
+    {
+      "name": "option-id",
+      "area": "option"
+    },
+    {
+      "name": "option-id-title",
+      "area": "option"
+    },
+    {
+      "name": "option-caption-off",
+      "area": "option"
+    },
+    {
+      "name": "option-screen-meta",
+      "area": "option"
+    },
+    {
+      "name": "option-elements",
+      "area": "option"
+    },
+    {
+      "name": "option-source",
+      "area": "option"
+    },
+    {
+      "name": "option-pack-overrides-import",
+      "area": "option"
+    },
+    {
+      "name": "option-default-pack",
+      "area": "option"
+    },
+    {
+      "name": "import-module",
+      "area": "import"
+    },
+    {
+      "name": "import-module-alias",
+      "area": "import"
+    },
+    {
+      "name": "import-component",
+      "area": "import"
+    },
+    {
+      "name": "import-component-extension",
+      "area": "import"
+    },
+    {
+      "name": "import-nested",
+      "area": "import"
+    },
+    {
+      "name": "import-component-in-pack",
+      "area": "import"
+    },
+    {
+      "name": "import-inline-struct",
+      "area": "import"
+    },
+    {
+      "name": "import-inline-overrides",
+      "area": "import"
+    },
+    {
+      "name": "annotate-callout",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-callout-label",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-callout-two",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-callout-color",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-callout-label-side",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-annotation-alias",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-hand",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-cursor-alias",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-drag-select",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-marquee-color",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-highlight",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-tap",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-stacked",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-free-elements",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-position-zstack",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-in-dialog",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-arrow",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-ibeam",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-grab",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-crosshair",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-pointer-touch",
+      "area": "annotate"
+    },
+    {
+      "name": "overlay-alert",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-sheet",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-confirmation-dialog",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-overlay",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-badge",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-toast",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-dialog-element",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-fab",
+      "area": "overlay"
+    },
+    {
+      "name": "overlay-navigation",
+      "area": "overlay"
+    },
+    {
+      "name": "chart-bar-series",
+      "area": "chart"
+    },
+    {
+      "name": "chart-bar-horizontal",
+      "area": "chart"
+    },
+    {
+      "name": "chart-bar-stacked",
+      "area": "chart"
+    },
+    {
+      "name": "chart-line",
+      "area": "chart"
+    },
+    {
+      "name": "chart-line-decimals",
+      "area": "chart"
+    },
+    {
+      "name": "chart-line-negative",
+      "area": "chart"
+    },
+    {
+      "name": "chart-area-stacked",
+      "area": "chart"
+    },
+    {
+      "name": "chart-combo",
+      "area": "chart"
+    },
+    {
+      "name": "chart-pie",
+      "area": "chart"
+    },
+    {
+      "name": "chart-donut",
+      "area": "chart"
+    },
+    {
+      "name": "chart-gauge",
+      "area": "chart"
+    },
+    {
+      "name": "chart-scatter",
+      "area": "chart"
+    },
+    {
+      "name": "chart-bubble",
+      "area": "chart"
+    },
+    {
+      "name": "chart-radar",
+      "area": "chart"
+    },
+    {
+      "name": "chart-heatmap",
+      "area": "chart"
+    },
+    {
+      "name": "chart-funnel",
+      "area": "chart"
+    },
+    {
+      "name": "chart-treemap",
+      "area": "chart"
+    },
+    {
+      "name": "chart-candlestick",
+      "area": "chart"
+    },
+    {
+      "name": "chart-sparkline",
+      "area": "chart"
+    },
+    {
+      "name": "chart-kind",
+      "area": "chart"
+    },
+    {
+      "name": "chart-marks",
+      "area": "chart"
+    },
+    {
+      "name": "chart-dark-mui",
+      "area": "chart"
+    },
+    {
+      "name": "image-data-uri",
+      "area": "image"
+    },
+    {
+      "name": "image-remote",
+      "area": "image"
+    },
+    {
+      "name": "image-protocol-relative",
+      "area": "image"
+    },
+    {
+      "name": "image-placeholder",
+      "area": "image"
+    },
+    {
+      "name": "image-system-name",
+      "area": "image"
+    },
+    {
+      "name": "image-icon-names",
+      "area": "image"
+    },
+    {
+      "name": "image-async",
+      "area": "image"
+    },
+    {
+      "name": "image-avatar",
+      "area": "image"
+    },
+    {
+      "name": "image-resizable",
+      "area": "image"
+    },
+    {
+      "name": "lang-let-if",
+      "area": "lang"
+    },
+    {
+      "name": "lang-foreach",
+      "area": "lang"
+    },
+    {
+      "name": "lang-text-markdown",
+      "area": "lang"
+    },
+    {
+      "name": "lang-fonts",
+      "area": "lang"
+    },
+    {
+      "name": "lang-modifiers-layout",
+      "area": "lang"
+    },
+    {
+      "name": "lang-colors",
+      "area": "lang"
+    },
+    {
+      "name": "lang-escape",
+      "area": "lang"
+    },
+    {
+      "name": "lang-unicode",
+      "area": "lang"
+    },
+    {
+      "name": "lang-ids-refs",
+      "area": "lang"
+    },
+    {
+      "name": "lang-stacks-spacing",
+      "area": "lang"
+    },
+    {
+      "name": "diag-syntax-error",
+      "area": "diag"
+    },
+    {
+      "name": "diag-syntax-unterminated-string",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-element",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-module",
+      "area": "diag"
+    },
+    {
+      "name": "diag-module-conflict",
+      "area": "diag"
+    },
+    {
+      "name": "diag-import-missing",
+      "area": "diag"
+    },
+    {
+      "name": "diag-image-missing",
+      "area": "diag"
+    },
+    {
+      "name": "diag-image-scheme",
+      "area": "diag"
+    },
+    {
+      "name": "diag-image-data-not-image",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-icon",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-appearance",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-chrome",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-device",
+      "area": "diag"
+    },
+    {
+      "name": "diag-unknown-pack-option",
+      "area": "diag"
+    },
+    {
+      "name": "diag-warnings-hidden",
+      "area": "diag"
+    },
+    {
+      "name": "diag-warnings-shown",
+      "area": "diag"
+    },
+    {
+      "name": "diag-errors-shown",
+      "area": "diag"
+    }
+  ]
+}

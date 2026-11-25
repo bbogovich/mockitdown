@@ -1,0 +1,16 @@
+// win1 own elements: PopupMenu, PopupWindow, PushButton, RText, RadioButton, RadioGroup, Ruler, ScrollBar, SizeBox, Static, StatusLine, TerminalScreen
+VStack(alignment: .leading, spacing: 12) {
+  PopupMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  PopupWindow("Title") { Text("Content"); Button("Action") }
+  PushButton("Label")
+  RText("Content")
+  RadioButton("Label")
+  RadioGroup("Label")
+  Ruler()
+  ScrollBar(60)
+  SizeBox().frame(width: 160, height: 96)
+  Static("Content")
+  StatusLine() { Button("Save"); Button("Share") }
+  TerminalScreen("let total = items.count")
+}
+.padding()

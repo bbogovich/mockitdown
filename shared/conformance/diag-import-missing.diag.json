@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "import",
+      "message": "cannot find import 'components/nope' (searched .)",
+      "line": 2,
+      "col": 1,
+      "source": ""
+    }
+  ]
+}

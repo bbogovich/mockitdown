@@ -1,0 +1,7 @@
+// a hand pointer
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com")
+  Button("Send").pointer(.hand)
+}
+.padding()
+.frame(width: 360)

@@ -1,0 +1,2 @@
+// chrome ipados
+VStack { Text("Window content"); Button("OK") }

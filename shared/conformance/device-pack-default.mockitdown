@@ -1,0 +1,2 @@
+// the pack's default device (swiftui: phone)
+VStack { Text("Device"); Spacer(); Button("OK") }

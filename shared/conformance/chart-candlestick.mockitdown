@@ -1,0 +1,2 @@
+// chart: candlestick
+CandlestickChart(points: [[100, 108, 98, 106], [106, 110, 101, 103], [103, 104, 95, 97]], labels: ["Mon", "Tue", "Wed"])

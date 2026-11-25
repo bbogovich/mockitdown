@@ -1,0 +1,16 @@
+// cde own elements: XmPushButton, XmQuestionDialog, XmRadioBox, XmRadioButton, XmRowColumn, XmScale, XmScrollBar, XmScrolledList, XmScrolledText, XmScrolledWindow, XmSeparator, XmSpinBox
+VStack(alignment: .leading, spacing: 12) {
+  XmPushButton("Label")
+  XmQuestionDialog("Title") { Text("Content"); Button("Action") }
+  XmRadioBox("Label")
+  XmRadioButton("Label")
+  XmRowColumn() { Text("Content"); Button("Action") }
+  XmScale("Label")
+  XmScrollBar(60)
+  XmScrolledList() { Text("First item"); Text("Second item") }
+  XmScrolledText("Label")
+  XmScrolledWindow() { Text("Content"); Button("Action") }
+  XmSeparator()
+  XmSpinBox("Label")
+}
+.padding()

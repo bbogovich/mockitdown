@@ -1,0 +1,2 @@
+// base element TabView (role tabs)
+TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }

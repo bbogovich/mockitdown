@@ -1,0 +1,16 @@
+// android own elements: AlertDialog, AssistChip, Badge, BadgedBox, BasicAlertDialog, BottomAppBar, Box, Button, ButtonGroup, Card, CarouselItem, CenterAlignedTopAppBar
+VStack(alignment: .leading, spacing: 12) {
+  AlertDialog("Title") { Text("Content"); Button("Action") }
+  AssistChip("Label")
+  Badge("Text")
+  BadgedBox()
+  BasicAlertDialog("Title") { Text("Content"); Button("Action") }
+  BottomAppBar() { Button("Save"); Button("Share") }
+  Box() { Text("Content"); Button("Action") }
+  Button("Label")
+  ButtonGroup() { Text("Content"); Button("Action") }
+  Card("Title") { Text("Content"); Button("Action") }
+  CarouselItem() { Text("Content"); Button("Action") }
+  CenterAlignedTopAppBar("Title") { Text("Content"); Button("Action") }
+}
+.padding()

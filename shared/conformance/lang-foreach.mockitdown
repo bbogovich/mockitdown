@@ -1,0 +1,2 @@
+// ForEach over a list
+List { ForEach(["Ana", "Ben", "Cy"]) { name in Text(name) } }

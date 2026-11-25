@@ -1,0 +1,2 @@
+// chart: radar
+RadarChart(series: [[4, 3, 5, 2, 4], [3, 4, 3, 4, 3]], seriesNames: ["Ana", "Ben"], labels: ["Design", "Code", "Research", "Ops", "Writing"])

@@ -1,0 +1,2 @@
+// base element GridRow (role gridrow)
+GridRow() { Text("Content"); Button("Action") }

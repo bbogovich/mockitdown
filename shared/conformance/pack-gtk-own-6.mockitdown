@@ -1,0 +1,16 @@
+// gtk own elements: PopoverMenu, PreferencesDialog, PreferencesGroup, PreferencesPage, PreferencesWindow, ProgressBar, RadioButton, Revealer, Scale, ScrolledWindow, SearchBar, SearchEntry
+VStack(alignment: .leading, spacing: 12) {
+  PopoverMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  PreferencesDialog("Title") { Text("Content"); Button("Action") }
+  PreferencesGroup("Title") { Text("First item"); Text("Second item") }
+  PreferencesPage("Title") { TextField("Name"); Toggle("Notifications", isOn: true) }
+  PreferencesWindow() { Text("Content"); Button("Action") }
+  ProgressBar("Label")
+  RadioButton("Label")
+  Revealer() { Text("Content"); Button("Action") }
+  Scale("Label")
+  ScrolledWindow() { Text("Content"); Button("Action") }
+  SearchBar() { Button("Save"); Button("Share") }
+  SearchEntry("Placeholder")
+}
+.padding()

@@ -1,0 +1,2 @@
+// base element ZStack (role zstack)
+ZStack() { Text("Content"); Button("Action") }

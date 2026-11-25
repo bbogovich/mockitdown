@@ -1,0 +1,3 @@
+// a struct imported from a component file
+import "components/pill"
+HStack(spacing: 8) { StatusPill(text: "Online"); StatusPill(text: "Offline", color: .red) }

@@ -1,0 +1,13 @@
+// vuetify own elements: VToolbar, VToolbarItems, VToolbarTitle, VTooltip, VTreeview, VTreeviewItem, VVirtualScroll, VWindow, VWindowItem
+VStack(alignment: .leading, spacing: 12) {
+  VToolbar("Title") { Button("Save"); Button("Share") }
+  VToolbarItems() { Text("Content"); Button("Action") }
+  VToolbarTitle("Content")
+  VTooltip("Text") { Text("Content"); Button("Action") }
+  VTreeview() { TreeItem("Folder") { TreeItem("File") } }
+  VTreeviewItem("Label")
+  VVirtualScroll() { Text("Content"); Button("Action") }
+  VWindow() { Text("Content"); Button("Action") }
+  VWindowItem() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,16 @@
+// aqua own elements: FinderIcon, FolderIcon, HelpButton, InfoBar, LevelIndicator, ListItem, ListView, Matrix, Menu, MenuBar, MenuExtra, MenuItem
+VStack(alignment: .leading, spacing: 12) {
+  FinderIcon("Title")
+  FolderIcon("Title")
+  HelpButton()
+  InfoBar("Label", "Value") { Text("Content"); Button("Action") }
+  LevelIndicator("Label")
+  ListItem("Title")
+  ListView() { Text("First item"); Text("Second item") }
+  Matrix("Label")
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuExtra("Title")
+  MenuItem("Label")
+}
+.padding()

@@ -1,0 +1,6 @@
+// chart: marks
+Chart {
+  BarMark(x: .value("Day", "Mon"), y: .value("Steps", 6200))
+  BarMark(x: .value("Day", "Tue"), y: .value("Steps", 8400))
+  BarMark(x: .value("Day", "Wed"), y: .value("Steps", 7100))
+}

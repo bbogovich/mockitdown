@@ -66,7 +66,7 @@ def render(source: str, options: RenderOptions | None = None, **overrides: objec
     assets = AssetResolver(_search_paths(opts.asset_paths), base_dir, diags, embed=opts.embed_assets,
                            max_bytes=opts.max_embed_bytes)
     renderer = Renderer(screen.pack, diags, assets)
-    body = render_screen(screen, renderer, opts, diags)
+    body = render_screen(screen, renderer, opts, diags, source)
     errors = diags.errors
     shown = errors + (diags.warnings if opts.show_warnings else [])
     prefix = error_html(shown) if shown else ""

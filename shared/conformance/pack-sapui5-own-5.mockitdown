@@ -1,0 +1,16 @@
+// sapui5 own elements: Item, Label, Link, List, MaskInput, Menu, MenuButton, MenuItem, MessageBox, MessageItem, MessagePopover, MessageStrip
+VStack(alignment: .leading, spacing: 12) {
+  Item("Text")
+  Label("Content")
+  Link("Text", "#")
+  List() { Text("First item"); Text("Second item") }
+  MaskInput("Placeholder")
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuItem("Text")
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  MessageItem("Title")
+  MessagePopover("Title") { Text("Content"); Button("Action") }
+  MessageStrip("Text")
+}
+.padding()

@@ -1,0 +1,7 @@
+// pointer kind grab
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com")
+  Button("Send").pointer(.grab)
+}
+.padding()
+.frame(width: 360)

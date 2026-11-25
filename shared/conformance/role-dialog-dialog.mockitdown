@@ -1,0 +1,2 @@
+// base element Dialog (role dialog)
+Dialog("Title") { Text("Content"); Button("Action") }

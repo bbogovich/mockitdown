@@ -1,0 +1,16 @@
+// winxp own elements: Desktop, DesktopIcon, DialogBody, DropDownList, FileIcon, ForwardButton, Frame, GoButton, IconView, ListBox, ListView, LogOffButton
+VStack(alignment: .leading, spacing: 12) {
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  DesktopIcon("Title")
+  DialogBody() { Text("Content"); Button("Action") }
+  DropDownList("Label")
+  FileIcon("Title")
+  ForwardButton("Label")
+  Frame("Title") { Text("Content"); Button("Action") }
+  GoButton()
+  IconView() { Text("Content"); Button("Action") }
+  ListBox() { Text("First item"); Text("Second item") }
+  ListView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  LogOffButton()
+}
+.padding()

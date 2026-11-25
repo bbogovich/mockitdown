@@ -1,0 +1,2 @@
+// base element ComboChart (role chart)
+ComboChart(values: [3, 5, 2, 6, 4])

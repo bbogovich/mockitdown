@@ -1,0 +1,16 @@
+// avalonia own elements: ToggleSwitch, ToolTip, TransitioningContentControl, TreeView, TreeViewItem, UniformGrid, UserControl, Viewbox, VirtualizingStackPanel, Window, WindowNotificationManager, WrapPanel
+VStack(alignment: .leading, spacing: 12) {
+  ToggleSwitch("Label")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TransitioningContentControl() { Text("Content"); Button("Action") }
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+  TreeViewItem("Label")
+  UniformGrid() { Text("Content"); Button("Action") }
+  UserControl() { Text("Content"); Button("Action") }
+  Viewbox() { Text("Content"); Button("Action") }
+  VirtualizingStackPanel() { Text("Content"); Button("Action") }
+  Window() { Text("Content"); Button("Action") }
+  WindowNotificationManager() { Text("Content"); Button("Action") }
+  WrapPanel() { Text("Content"); Button("Action") }
+}
+.padding()

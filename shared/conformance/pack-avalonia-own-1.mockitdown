@@ -1,0 +1,16 @@
+// avalonia own elements: AccessText, AutoCompleteBox, Border, Button, ButtonSpinner, Calendar, CalendarDatePicker, Canvas, Carousel, CartesianChart, CheckBox, ColorPicker
+VStack(alignment: .leading, spacing: 12) {
+  AccessText("Content")
+  AutoCompleteBox("Label")
+  Border() { Text("Content"); Button("Action") }
+  Button("Label")
+  ButtonSpinner("Text")
+  Calendar()
+  CalendarDatePicker("Label")
+  Canvas() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  Carousel() { Text("Content"); Button("Action") }
+  CartesianChart(values: [3, 5, 2, 6, 4])
+  CheckBox("Label")
+  ColorPicker("Label")
+}
+.padding()

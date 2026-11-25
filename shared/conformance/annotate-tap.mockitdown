@@ -1,0 +1,7 @@
+// a touch indicator
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com")
+  Button("Send").tap(alignment: .center)
+}
+.padding()
+.frame(width: 360)

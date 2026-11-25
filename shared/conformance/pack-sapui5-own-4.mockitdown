@@ -1,0 +1,16 @@
+// sapui5 own elements: GenericTag, GenericTile, GroupHeaderListItem, HBox, Icon, IconTabBar, IconTabFilter, IllustratedMessage, Image, InfoLabel, Input, InputListItem
+VStack(alignment: .leading, spacing: 12) {
+  GenericTag("Label")
+  GenericTile("Title", "Subtitle") { Text("Content"); Button("Action") }
+  GroupHeaderListItem("Title")
+  HBox() { Text("Content"); Button("Action") }
+  Icon("star")
+  IconTabBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  IconTabFilter("Text")
+  IllustratedMessage("Title")
+  Image().frame(width: 160, height: 96)
+  InfoLabel("Text")
+  Input("Placeholder")
+  InputListItem("Label")
+}
+.padding()

@@ -1,0 +1,2 @@
+// base element Circle (role shape)
+Circle().frame(width: 160, height: 96)

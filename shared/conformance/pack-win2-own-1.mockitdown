@@ -1,0 +1,16 @@
+// win2 own elements: AutoCheckBox, AutoRadioButton, CText, CheckBox, ClientArea, DefPushButton, Desktop, DialogBox, DialogIcon, DriveBar, DriveIcon, Edit
+VStack(alignment: .leading, spacing: 12) {
+  AutoCheckBox("Label")
+  AutoRadioButton("Label")
+  CText("Content")
+  CheckBox("Label")
+  ClientArea() { Text("Content"); Button("Action") }
+  DefPushButton("Label")
+  Desktop() { Text("Content"); Button("Action") }
+  DialogBox("Title") { Text("Content"); Button("Action") }
+  DialogIcon("star")
+  DriveBar() { Text("Content"); Button("Action") }
+  DriveIcon("Label")
+  Edit("Text")
+}
+.padding()

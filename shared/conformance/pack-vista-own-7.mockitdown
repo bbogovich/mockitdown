@@ -1,0 +1,10 @@
+// vista own elements: TreeView, TreeViewItem, UpDown, WeatherGadget, Window, Wizard
+VStack(alignment: .leading, spacing: 12) {
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+  TreeViewItem("Label")
+  UpDown("Label")
+  WeatherGadget("Label", 60)
+  Window("Title") { Text("Content"); Button("Action") }
+  Wizard("Title") { Text("Content"); Button("Action") }
+}
+.padding()

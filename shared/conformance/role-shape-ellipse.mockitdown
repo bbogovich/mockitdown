@@ -1,0 +1,2 @@
+// base element Ellipse (role shape)
+Ellipse().frame(width: 160, height: 96)

@@ -1,0 +1,16 @@
+// avalonia own elements: NotificationCard, NumericUpDown, Panel, Path, PathIcon, PieChart, PolarChart, Popup, ProgressBar, RadioButton, Rectangle, RefreshContainer
+VStack(alignment: .leading, spacing: 12) {
+  NotificationCard("Title")
+  NumericUpDown("Value")
+  Panel() { Text("Content"); Button("Action") }
+  Path().frame(width: 160, height: 96)
+  PathIcon("star")
+  PieChart(values: [3, 5, 2, 6, 4])
+  PolarChart(values: [3, 5, 2, 6, 4])
+  Popup("Title") { Text("Content"); Button("Action") }
+  ProgressBar("Label")
+  RadioButton("Label")
+  Rectangle().frame(width: 160, height: 96)
+  RefreshContainer() { Text("Content"); Button("Action") }
+}
+.padding()

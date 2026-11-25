@@ -1,0 +1,2 @@
+// chart: line-negative
+LineChart(values: [-3, 2, -1, 4, 0])

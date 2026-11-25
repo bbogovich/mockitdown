@@ -1,0 +1,16 @@
+// primer own elements: Avatar, AvatarPair, AvatarStack, AvatarToken, Banner, Blankslate, BlobView, Blockquote, BorderBox, Box, BoxRow, BranchName
+VStack(alignment: .leading, spacing: 12) {
+  Avatar("Ana Lima")
+  AvatarPair() { Text("Content"); Button("Action") }
+  AvatarStack() { Text("Content"); Button("Action") }
+  AvatarToken("Text")
+  Banner("Title")
+  Blankslate("Title")
+  BlobView("let total = items.count")
+  Blockquote("Content")
+  BorderBox("Title") { Text("Content"); Button("Action") }
+  Box() { Text("Content"); Button("Action") }
+  BoxRow() { Text("Content"); Button("Action") }
+  BranchName("Content")
+}
+.padding()

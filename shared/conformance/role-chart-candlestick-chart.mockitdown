@@ -1,0 +1,2 @@
+// base element CandlestickChart (role chart)
+CandlestickChart(values: [3, 5, 2, 6, 4])

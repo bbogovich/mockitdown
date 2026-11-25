@@ -1,0 +1,16 @@
+// fluent own elements: ToggleSplitButton, ToggleSwitch, TokenizingTextBox, ToolTip, TreeView, TreeViewItem, TreeViewNode, TwoPaneView, UniformGrid, Viewbox, WebView2, WrapPanel
+VStack(alignment: .leading, spacing: 12) {
+  ToggleSplitButton("Label")
+  ToggleSwitch("Label")
+  TokenizingTextBox("Header")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TreeView() { Text("First item"); Text("Second item") }
+  TreeViewItem("Label")
+  TreeViewNode("Label")
+  TwoPaneView() { Text("Content"); Button("Action") }
+  UniformGrid() { Text("Content"); Button("Action") }
+  Viewbox() { Text("Content"); Button("Action") }
+  WebView2("Label").frame(width: 160, height: 96)
+  WrapPanel() { Text("Content"); Button("Action") }
+}
+.padding()

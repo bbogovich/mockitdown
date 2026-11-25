@@ -1,0 +1,2 @@
+// a syntax error stops rendering
+VStack { Text("open"

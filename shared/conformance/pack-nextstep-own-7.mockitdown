@@ -1,0 +1,10 @@
+// nextstep own elements: TextField, TextView, Title, TornOffMenu, Window, Workspace
+VStack(alignment: .leading, spacing: 12) {
+  TextField("Label")
+  TextView("Label")
+  Title("Content")
+  TornOffMenu("Title") { Text("Content"); Button("Action") }
+  Window("Title") { Text("Content"); Button("Action") }
+  Workspace() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+}
+.padding()

@@ -1,0 +1,16 @@
+// win2 own elements: MenuSeparator, MessageBox, MultiLineEdit, PageView, PaletteTool, PathLine, PatternPalette, PopupMenu, PushButton, RText, RadioButton, RadioGroup
+VStack(alignment: .leading, spacing: 12) {
+  MenuSeparator()
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  MultiLineEdit("Text")
+  PageView() { Text("Content"); Button("Action") }
+  PaletteTool("Label")
+  PathLine("Content")
+  PatternPalette()
+  PopupMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  PushButton("Label")
+  RText("Content")
+  RadioButton("Label")
+  RadioGroup("Label")
+}
+.padding()

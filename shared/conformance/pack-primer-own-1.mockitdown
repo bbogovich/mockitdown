@@ -1,0 +1,16 @@
+// primer own elements: ActionList, ActionListDivider, ActionListGroup, ActionListGroupHeading, ActionListItem, ActionListLinkItem, ActionMenu, ActionMenuButton, ActionMenuDivider, ActionMenuItem, Autocomplete, AutocompleteItem
+VStack(alignment: .leading, spacing: 12) {
+  ActionList() { Text("First item"); Text("Second item") }
+  ActionListDivider()
+  ActionListGroup("Title") { Text("First item"); Text("Second item") }
+  ActionListGroupHeading("Content")
+  ActionListItem("Title")
+  ActionListLinkItem("Title")
+  ActionMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ActionMenuButton("Label")
+  ActionMenuDivider()
+  ActionMenuItem("Label")
+  Autocomplete("Placeholder")
+  AutocompleteItem("Title")
+}
+.padding()

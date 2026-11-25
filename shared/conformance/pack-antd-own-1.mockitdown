@@ -1,0 +1,16 @@
+// antd own elements: Alert, Anchor, AnchorLink, App, AutoComplete, Avatar, AvatarGroup, Badge, BadgeRibbon, Breadcrumb, Button, ButtonGroup
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title")
+  Anchor() { Text("First item"); Text("Second item") }
+  AnchorLink("Title")
+  App() { Text("Content"); Button("Action") }
+  AutoComplete("Placeholder")
+  Avatar("Ana Lima")
+  AvatarGroup() { Text("Content"); Button("Action") }
+  Badge(3)
+  BadgeRibbon("Text")
+  Breadcrumb(["One", "Two", "Three"])
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+}
+.padding()

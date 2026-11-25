@@ -1,0 +1,2 @@
+// base element Timeline (role timeline)
+Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }

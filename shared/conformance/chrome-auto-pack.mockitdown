@@ -1,0 +1,2 @@
+// chrome auto takes the pack's chrome for the device (fluent: windows)
+VStack { Text("Window content"); Button("OK") }

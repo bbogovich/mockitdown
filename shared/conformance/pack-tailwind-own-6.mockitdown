@@ -1,0 +1,16 @@
+// tailwind own elements: ListboxDescription, ListboxLabel, ListboxOption, Navbar, NavbarDivider, NavbarItem, NavbarLabel, NavbarSection, NavbarSpacer, Notification, Pagination, PricingGrid
+VStack(alignment: .leading, spacing: 12) {
+  ListboxDescription("Content")
+  ListboxLabel("Content")
+  ListboxOption("Label")
+  Navbar() { Button("Save"); Button("Share") }
+  NavbarDivider()
+  NavbarItem("Label")
+  NavbarLabel("Content")
+  NavbarSection() { Text("Content"); Button("Action") }
+  NavbarSpacer()
+  Notification("Message")
+  Pagination()
+  PricingGrid() { Text("Content"); Button("Action") }
+}
+.padding()

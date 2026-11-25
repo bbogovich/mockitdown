@@ -1,0 +1,16 @@
+// nextstep own elements: NSRulerView, NSScrollView, NSSecureTextField, NSSlider, NSSplitView, NSSubmenuItem, NSSwitchButton, NSTableView, NSTextField, NSTextView, NSWindow, NXBrowser
+VStack(alignment: .leading, spacing: 12) {
+  NSRulerView() { Button("Save"); Button("Share") }
+  NSScrollView() { Text("Content"); Button("Action") }
+  NSSecureTextField("Label")
+  NSSlider("Label")
+  NSSplitView() { Text("Content"); Button("Action") }
+  NSSubmenuItem("Label")
+  NSSwitchButton("Label")
+  NSTableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  NSTextField("Label")
+  NSTextView("Label")
+  NSWindow("Title") { Text("Content"); Button("Action") }
+  NXBrowser() { Text("Content"); Button("Action") }
+}
+.padding()

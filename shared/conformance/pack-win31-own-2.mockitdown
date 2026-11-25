@@ -1,0 +1,16 @@
+// win31 own elements: Cardfile, CheckBox, Clock, ClockFace, ColorPalette, ComboBox, ControlPanel, DEFPUSHBUTTON, DIALOG, DefPushButton, Desktop, DesktopIcon
+VStack(alignment: .leading, spacing: 12) {
+  Cardfile() { Text("Content"); Button("Action") }
+  CheckBox("Label")
+  Clock() { Text("Content"); Button("Action") }
+  ClockFace().frame(width: 160, height: 96)
+  ColorPalette()
+  ComboBox("Label")
+  ControlPanel() { Text("Content"); Button("Action") }
+  DEFPUSHBUTTON("Label")
+  DIALOG("Title") { Text("Content"); Button("Action") }
+  DefPushButton("Label")
+  Desktop() { Text("Content"); Button("Action") }
+  DesktopIcon("Title")
+}
+.padding()

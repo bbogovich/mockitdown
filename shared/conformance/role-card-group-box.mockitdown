@@ -1,0 +1,2 @@
+// base element GroupBox (role card)
+GroupBox("Title") { Text("Content"); Button("Action") }

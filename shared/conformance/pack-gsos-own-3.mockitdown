@@ -1,0 +1,16 @@
+// gsos own elements: ModalDialog, NDAWindow, PopupMenu, ProgressBar, RadioButton, RadioGroup, ScrollArea, Separator, Slider, StickyNote, TextEdit, TextField
+VStack(alignment: .leading, spacing: 12) {
+  ModalDialog("Title") { Text("Content"); Button("Action") }
+  NDAWindow("Title") { Text("Content"); Button("Action") }
+  PopupMenu("Label")
+  ProgressBar("Label")
+  RadioButton("Label")
+  RadioGroup("Label")
+  ScrollArea() { Text("Content"); Button("Action") }
+  Separator()
+  Slider("Label")
+  StickyNote("Text")
+  TextEdit("Text")
+  TextField("Placeholder")
+}
+.padding()

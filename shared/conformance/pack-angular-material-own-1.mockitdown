@@ -1,0 +1,16 @@
+// angular-material own elements: MatAccordion, MatActionList, MatAutocomplete, MatBadge, MatBottomSheet, MatButton, MatButtonToggle, MatButtonToggleGroup, MatCalendar, MatCard, MatCardActions, MatCardAvatar
+VStack(alignment: .leading, spacing: 12) {
+  MatAccordion() { Text("Content"); Button("Action") }
+  MatActionList() { Text("First item"); Text("Second item") }
+  MatAutocomplete("Label")
+  MatBadge("Text")
+  MatBottomSheet("Title") { Text("Content"); Button("Action") }
+  MatButton("Label")
+  MatButtonToggle("Label")
+  MatButtonToggleGroup(["One", "Two", "Three"])
+  MatCalendar()
+  MatCard("Title") { Text("Content"); Button("Action") }
+  MatCardActions() { Text("Content"); Button("Action") }
+  MatCardAvatar("Ana Lima")
+}
+.padding()

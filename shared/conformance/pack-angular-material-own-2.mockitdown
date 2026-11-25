@@ -1,0 +1,16 @@
+// angular-material own elements: MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle, MatCardTitle, MatCell, MatCheckbox, MatChip, MatChipGrid, MatChipListbox, MatChipOption, MatChipRow
+VStack(alignment: .leading, spacing: 12) {
+  MatCardContent() { Text("Content"); Button("Action") }
+  MatCardHeader() { Text("Content"); Button("Action") }
+  MatCardImage().frame(width: 160, height: 96)
+  MatCardSubtitle("Content")
+  MatCardTitle("Content")
+  MatCell("Content")
+  MatCheckbox("Label")
+  MatChip("Label")
+  MatChipGrid() { Text("Content"); Button("Action") }
+  MatChipListbox() { Text("Content"); Button("Action") }
+  MatChipOption("Label")
+  MatChipRow("Label")
+}
+.padding()

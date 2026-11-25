@@ -1,0 +1,16 @@
+// antd own elements: Steps, StepsForm, SubMenu, Switch, TabPane, Table, Tabs, TabsItem, Tag, Text, TextArea, TimePicker
+VStack(alignment: .leading, spacing: 12) {
+  Steps(["One", "Two", "Three"])
+  StepsForm() { Text("Content"); Button("Action") }
+  SubMenu("Label")
+  Switch("Label")
+  TabPane("Label")
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabsItem("Label")
+  Tag("Label")
+  Text("Content")
+  TextArea("Placeholder")
+  TimePicker("Placeholder")
+}
+.padding()

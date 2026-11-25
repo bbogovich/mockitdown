@@ -1,0 +1,2 @@
+// chart: combo
+ComboChart(series: [[120, 150, 170], [80, 95, 110]], seriesNames: ["Visits", "Orders"], labels: ["Jun", "Jul", "Aug"])

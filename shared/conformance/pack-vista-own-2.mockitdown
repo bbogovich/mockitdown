@@ -1,0 +1,16 @@
+// vista own elements: CommandLink, ConsentBanner, ContextMenu, DateTimePicker, DefaultButton, Desktop, DesktopIcon, DetailsPane, DialogBody, DialogFooter, DropDownList, ExpandoButton
+VStack(alignment: .leading, spacing: 12) {
+  CommandLink("Title")
+  ConsentBanner("Title")
+  ContextMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DateTimePicker("Label")
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  DesktopIcon("Title")
+  DetailsPane("Title") { Text("Content"); Button("Action") }
+  DialogBody() { Text("Content"); Button("Action") }
+  DialogFooter() { Text("Content"); Button("Action") }
+  DropDownList("Label")
+  ExpandoButton("Label")
+}
+.padding()

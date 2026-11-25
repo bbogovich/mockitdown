@@ -1,0 +1,16 @@
+// vuetify own elements: VCardSubtitle, VCardText, VCardTitle, VCarousel, VCarouselItem, VCheckbox, VCheckboxBtn, VChip, VChipGroup, VCode, VCol, VColorPicker
+VStack(alignment: .leading, spacing: 12) {
+  VCardSubtitle("Content")
+  VCardText("Text") { Text("Content"); Button("Action") }
+  VCardTitle("Content")
+  VCarousel().frame(width: 160, height: 96)
+  VCarouselItem().frame(width: 160, height: 96)
+  VCheckbox("Label")
+  VCheckboxBtn("Label")
+  VChip("Label")
+  VChipGroup() { Text("Content"); Button("Action") }
+  VCode("let total = items.count")
+  VCol() { Text("Content"); Button("Action") }
+  VColorPicker()
+}
+.padding()

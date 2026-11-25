@@ -1,0 +1,2 @@
+// chart colours in a pack, dark
+BarChart(title: "Revenue", series: [[42, 51, 48, 63], [35, 39, 44, 52]], seriesNames: ["2026", "2025"], labels: ["Q1", "Q2", "Q3", "Q4"])

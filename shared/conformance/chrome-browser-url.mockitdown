@@ -1,0 +1,2 @@
+// browser chrome shows the url option
+VStack { Text("Window content"); Button("OK") }

@@ -1,0 +1,5 @@
+// bootstrap own elements: Tooltip
+VStack(alignment: .leading, spacing: 12) {
+  Tooltip("Text") { Text("Content"); Button("Action") }
+}
+.padding()

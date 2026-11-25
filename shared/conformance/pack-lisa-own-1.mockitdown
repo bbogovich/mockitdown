@@ -1,0 +1,16 @@
+// lisa own elements: Alert, Button, CautionAlert, CheckBox, DefaultButton, Desktop, DesktopIcon, Dialog, DialogBox, DocumentWindow, DrawCanvas, DrawPalette
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Message") { Text("Content"); Button("Action") }
+  Button("Label")
+  CautionAlert("Message") { Text("Content"); Button("Action") }
+  CheckBox("Label", true)
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }
+  DesktopIcon("Title")
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DialogBox() { Text("Content"); Button("Action") }
+  DocumentWindow("Title") { Text("Content"); Button("Action") }
+  DrawCanvas() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  DrawPalette() { Text("Content"); Button("Action") }
+}
+.padding()

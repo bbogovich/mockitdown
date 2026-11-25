@@ -1,0 +1,16 @@
+// android own elements: LargeFlexibleTopAppBar, LargeFloatingActionButton, LargeTopAppBar, LazyColumn, LazyRow, LazyVerticalGrid, LeadingIconTab, LinearProgressIndicator, LinearWavyProgressIndicator, ListDetailPaneScaffold, ListItem, LoadingIndicator
+VStack(alignment: .leading, spacing: 12) {
+  LargeFlexibleTopAppBar("Title") { Text("Content"); Button("Action") }
+  LargeFloatingActionButton("star")
+  LargeTopAppBar("Title") { Text("Content"); Button("Action") }
+  LazyColumn() { Text("Content"); Button("Action") }
+  LazyRow() { Text("Content"); Button("Action") }
+  LazyVerticalGrid(["Name", "Status"]) { Text("Content"); Button("Action") }
+  LeadingIconTab("Label")
+  LinearProgressIndicator()
+  LinearWavyProgressIndicator()
+  ListDetailPaneScaffold() { Text("Content"); Button("Action") }
+  ListItem("Title")
+  LoadingIndicator()
+}
+.padding()

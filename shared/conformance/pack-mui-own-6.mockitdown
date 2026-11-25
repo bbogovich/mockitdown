@@ -1,0 +1,16 @@
+// mui own elements: ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, ListSubheader, LoadingButton, Masonry, Menu, MenuItem, MenuList, MobileStepper, Modal
+VStack(alignment: .leading, spacing: 12) {
+  ListItemAvatar("Ana Lima")
+  ListItemButton("Primary")
+  ListItemIcon("star")
+  ListItemText("Primary")
+  ListSubheader("Content")
+  LoadingButton("Label")
+  Masonry(["Name", "Status"]) { Text("Content"); Button("Action") }
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuItem("Label")
+  MenuList() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MobileStepper()
+  Modal("Title") { Text("Content"); Button("Action") }
+}
+.padding()

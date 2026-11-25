@@ -1,0 +1,6 @@
+// swiftui own elements: WebView, WindowGroup
+VStack(alignment: .leading, spacing: 12) {
+  WebView("Label").frame(width: 160, height: 96)
+  WindowGroup() { Text("Content"); Button("Action") }
+}
+.padding()

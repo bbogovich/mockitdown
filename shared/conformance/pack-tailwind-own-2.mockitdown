@@ -1,0 +1,16 @@
+// tailwind own elements: CheckboxField, CheckboxGroup, Code, Combobox, ComboboxDescription, ComboboxLabel, ComboboxOption, Description, DescriptionDetails, DescriptionList, DescriptionTerm, Dialog
+VStack(alignment: .leading, spacing: 12) {
+  CheckboxField("Title")
+  CheckboxGroup() { Text("Content"); Button("Action") }
+  Code("Content")
+  Combobox("Placeholder")
+  ComboboxDescription("Content")
+  ComboboxLabel("Content")
+  ComboboxOption("Label")
+  Description("Content")
+  DescriptionDetails("Content")
+  DescriptionList() { Text("Content"); Button("Action") }
+  DescriptionTerm("Content")
+  Dialog("Title") { Text("Content"); Button("Action") }
+}
+.padding()

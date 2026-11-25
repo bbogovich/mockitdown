@@ -1,0 +1,2 @@
+// window option emitted as data-window
+VStack { Text("Window content"); Button("OK") }

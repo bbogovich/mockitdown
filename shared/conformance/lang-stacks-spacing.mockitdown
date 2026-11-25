@@ -1,0 +1,2 @@
+// stack spacing and alignment
+HStack(alignment: .top, spacing: 24) { VStack(alignment: .trailing, spacing: 4) { Text("a"); Text("bb") }; Spacer(); Text("c") }.frame(width: 300)

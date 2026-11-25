@@ -1,0 +1,6 @@
+// a struct declared in the block
+struct Hello: View {
+  var who: String = "World"
+  var body: some View { Text("Hello, \(who)!") }
+}
+VStack { Hello(); Hello(who: "Ana") }

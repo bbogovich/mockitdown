@@ -1,0 +1,16 @@
+// winxp own elements: AddressBar, AllProgramsButton, BackButton, Balloon, BrandGlyph, CategoryLink, CheckBox, Clock, ComboBox, ContextMenu, DateTimePicker, DefaultButton
+VStack(alignment: .leading, spacing: 12) {
+  AddressBar("Value")
+  AllProgramsButton()
+  BackButton()
+  Balloon("Text") { Text("Content"); Button("Action") }
+  BrandGlyph()
+  CategoryLink("Label")
+  CheckBox("Label")
+  Clock()
+  ComboBox("Label")
+  ContextMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DateTimePicker("Label")
+  DefaultButton("Label")
+}
+.padding()

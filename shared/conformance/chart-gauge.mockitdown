@@ -1,0 +1,2 @@
+// chart: gauge
+GaugeChart(title: "Uptime", value: 99.2, min: 95, max: 100, unit: "%")

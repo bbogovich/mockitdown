@@ -1,0 +1,2 @@
+// errors are shown above the figure with the rest rendered
+VStack { Text("kept"); Frobnicate() }

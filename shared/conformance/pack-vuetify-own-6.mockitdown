@@ -1,0 +1,16 @@
+// vuetify own elements: VHotkey, VHover, VIcon, VIconBtn, VImg, VInfiniteScroll, VInput, VItem, VItemGroup, VKbd, VLabel, VLayout
+VStack(alignment: .leading, spacing: 12) {
+  VHotkey(["⌘", "K"])
+  VHover() { Text("Content"); Button("Action") }
+  VIcon("star")
+  VIconBtn("star")
+  VImg().frame(width: 160, height: 96)
+  VInfiniteScroll() { Text("Content"); Button("Action") }
+  VInput("Label")
+  VItem() { Text("Content"); Button("Action") }
+  VItemGroup() { Text("Content"); Button("Action") }
+  VKbd(["⌘", "K"])
+  VLabel("Content")
+  VLayout() { Text("Content"); Button("Action") }
+}
+.padding()

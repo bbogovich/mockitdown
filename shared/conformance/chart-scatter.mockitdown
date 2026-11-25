@@ -1,0 +1,2 @@
+// chart: scatter
+ScatterChart(points: [[12, 3.9], [18, 4.2], [25, 4.4], [9, 3.1]])

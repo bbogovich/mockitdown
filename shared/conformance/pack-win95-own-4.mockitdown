@@ -1,0 +1,16 @@
+// win95 own elements: PropertySheet, PushButton, RadioButtonList, ScrollBar, ScrollCorner, StartButton, StartMenu, StartMenuItem, StaticText, StatusBar, StatusBarPanel, TabControl
+VStack(alignment: .leading, spacing: 12) {
+  PropertySheet() { Text("Content"); Button("Action") }
+  PushButton("Label")
+  RadioButtonList("Label")
+  ScrollBar()
+  ScrollCorner()
+  StartButton()
+  StartMenu() { Text("Content"); Button("Action") }
+  StartMenuItem("Title")
+  StaticText("Content")
+  StatusBar() { Text("Content"); Button("Action") }
+  StatusBarPanel("Content")
+  TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+}
+.padding()

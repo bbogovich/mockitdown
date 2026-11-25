@@ -1,0 +1,16 @@
+// gtk own elements: Button, ButtonRow, Calendar, Carousel, CarouselIndicatorDots, CarouselIndicatorLines, CenterBox, CheckButton, Clamp, ClampScrollable, ColorDialogButton, ColumnView
+VStack(alignment: .leading, spacing: 12) {
+  Button("Label")
+  ButtonRow("Title")
+  Calendar()
+  Carousel() { Text("Content"); Button("Action") }
+  CarouselIndicatorDots()
+  CarouselIndicatorLines()
+  CenterBox() { Text("Content"); Button("Action") }
+  CheckButton("Label")
+  Clamp() { Text("Content"); Button("Action") }
+  ClampScrollable() { Text("Content"); Button("Action") }
+  ColorDialogButton()
+  ColumnView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+}
+.padding()

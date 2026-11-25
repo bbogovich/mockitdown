@@ -1,0 +1,16 @@
+// primer own elements: Link, LinkButton, Markdown, NavList, NavListDivider, NavListGroup, NavListGroupHeading, NavListItem, Octicon, Overlay, PageHeader, PageHeaderActions
+VStack(alignment: .leading, spacing: 12) {
+  Link("Label")
+  LinkButton("Label")
+  Markdown() { Text("Content"); Button("Action") }
+  NavList() { Text("Content"); Button("Action") }
+  NavListDivider()
+  NavListGroup("Title") { Text("First item"); Text("Second item") }
+  NavListGroupHeading("Content")
+  NavListItem("Label")
+  Octicon("star")
+  Overlay("Title") { Text("Content"); Button("Action") }
+  PageHeader() { Text("Content"); Button("Action") }
+  PageHeaderActions() { Text("Content"); Button("Action") }
+}
+.padding()

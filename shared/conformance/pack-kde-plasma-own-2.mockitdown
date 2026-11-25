@@ -1,0 +1,16 @@
+// kde-plasma own elements: CardsLayout, CheckBox, CheckDelegate, Chip, ColumnLayout, ComboBox, ContextDrawer, ContextualHelpButton, DetailsView, Dial, Dialog, DockWidget
+VStack(alignment: .leading, spacing: 12) {
+  CardsLayout() { Text("Content"); Button("Action") }
+  CheckBox("Label")
+  CheckDelegate("Title")
+  Chip("Label")
+  ColumnLayout() { Text("Content"); Button("Action") }
+  ComboBox("Label")
+  ContextDrawer("Title") { Text("Content"); Button("Action") }
+  ContextualHelpButton("Label")
+  DetailsView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Dial(60)
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DockWidget("Title") { Text("Content"); Button("Action") }
+}
+.padding()

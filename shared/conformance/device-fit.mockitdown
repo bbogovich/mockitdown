@@ -1,0 +1,2 @@
+// device fit: no fixed size (data-fit)
+VStack { Text("Device"); Spacer(); Button("OK") }

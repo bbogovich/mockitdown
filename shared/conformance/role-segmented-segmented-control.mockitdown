@@ -1,0 +1,2 @@
+// base element SegmentedControl (role segmented)
+SegmentedControl(["One", "Two", "Three"])

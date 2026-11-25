@@ -1,0 +1,16 @@
+// bootstrap own elements: Stack, Tab, TabContainer, TabContent, TabPane, Table, Tabs, Toast, ToastBody, ToastContainer, ToggleButton, ToggleButtonGroup
+VStack(alignment: .leading, spacing: 12) {
+  Stack() { Text("Content"); Button("Action") }
+  Tab("Title")
+  TabContainer() { Text("Content"); Button("Action") }
+  TabContent() { Text("Content"); Button("Action") }
+  TabPane() { Text("Content"); Button("Action") }
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Tabs() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Toast("Title") { Text("Content"); Button("Action") }
+  ToastBody() { Text("Content"); Button("Action") }
+  ToastContainer() { Text("Content"); Button("Action") }
+  ToggleButton("Label")
+  ToggleButtonGroup() { Button("Save"); Button("Share") }
+}
+.padding()

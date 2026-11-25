@@ -1,0 +1,2 @@
+// device wide (1440×900)
+VStack { Text("Device"); Spacer(); Button("OK") }

@@ -1,0 +1,16 @@
+// prime own elements: Dropdown, Editor, Fieldset, FileUpload, FileUploadItem, FloatLabel, Fluid, Galleria, Icon, IconField, Image, InlineMessage
+VStack(alignment: .leading, spacing: 12) {
+  Dropdown("Placeholder")
+  Editor("Placeholder")
+  Fieldset() { Text("Content"); Button("Action") }
+  FileUpload()
+  FileUploadItem("Title")
+  FloatLabel("Label")
+  Fluid() { Text("Content"); Button("Action") }
+  Galleria() { Text("Content"); Button("Action") }
+  Icon("star")
+  IconField("Placeholder")
+  Image().frame(width: 160, height: 96)
+  InlineMessage("Text")
+}
+.padding()

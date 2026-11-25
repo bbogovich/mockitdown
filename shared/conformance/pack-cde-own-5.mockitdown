@@ -1,0 +1,8 @@
+// cde own elements: XmText, XmTextField, XmToggleButton, XmWarningDialog
+VStack(alignment: .leading, spacing: 12) {
+  XmText("Label")
+  XmTextField("Label")
+  XmToggleButton("Label")
+  XmWarningDialog("Title") { Text("Content"); Button("Action") }
+}
+.padding()

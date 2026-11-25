@@ -1,0 +1,8 @@
+// a struct in the block replaces an imported one
+import "components/pill"
+struct StatusPill: View {
+  var text: String
+  var color: Color = .blue
+  var body: some View { Badge(text) }
+}
+StatusPill(text: "Local")

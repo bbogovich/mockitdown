@@ -1,0 +1,16 @@
+// fluent own elements: RepeatButton, RichEditBox, RichTextBlock, ScrollView, ScrollViewer, Segmented, SelectorBar, SelectorBarItem, SettingsCard, SettingsExpander, Slider, SplitButton
+VStack(alignment: .leading, spacing: 12) {
+  RepeatButton("Label")
+  RichEditBox("Header")
+  RichTextBlock("Content")
+  ScrollView() { Text("Content"); Button("Action") }
+  ScrollViewer() { Text("Content"); Button("Action") }
+  Segmented(["One", "Two", "Three"])
+  SelectorBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  SelectorBarItem("Label")
+  SettingsCard("Title")
+  SettingsExpander("Header") { Text("Content"); Button("Action") }
+  Slider("Label")
+  SplitButton("Label")
+}
+.padding()

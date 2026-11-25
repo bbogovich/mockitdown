@@ -1,0 +1,16 @@
+// macos9 own elements: Folder, GroupBox, InfoBar, ListItem, ListView, LittleArrows, MenuBar, MenuItem, MenuTitle, ModalDialog, MovableModalDialog, PasswordField
+VStack(alignment: .leading, spacing: 12) {
+  Folder("Title")
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  InfoBar("Label", "Value") { Text("Content"); Button("Action") }
+  ListItem("Title")
+  ListView() { Text("First item"); Text("Second item") }
+  LittleArrows("Label")
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuItem("Label")
+  MenuTitle("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ModalDialog("Title") { Text("Content"); Button("Action") }
+  MovableModalDialog("Title") { Text("Content"); Button("Action") }
+  PasswordField("Placeholder")
+}
+.padding()

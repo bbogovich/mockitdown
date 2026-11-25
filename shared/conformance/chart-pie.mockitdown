@@ -1,0 +1,2 @@
+// chart: pie
+PieChart(title: "Traffic", values: [48, 27, 15, 10], labels: ["Search", "Direct", "Social", "Email"])

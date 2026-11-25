@@ -1,0 +1,2 @@
+// base element HStack (role hstack)
+HStack() { Text("Content"); Button("Action") }

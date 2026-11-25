@@ -1,0 +1,2 @@
+// base element AppBar (role appbar)
+AppBar("Title") { Text("Content"); Button("Action") }

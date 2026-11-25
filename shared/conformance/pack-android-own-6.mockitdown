@@ -1,0 +1,16 @@
+// android own elements: MediumFlexibleTopAppBar, MediumFloatingActionButton, MediumTopAppBar, ModalBottomSheet, ModalDrawerSheet, ModalNavigationDrawer, MultiChoiceSegmentedButtonRow, NavigationBar, NavigationBarItem, NavigationDrawerItem, NavigationRail, NavigationRailItem
+VStack(alignment: .leading, spacing: 12) {
+  MediumFlexibleTopAppBar("Title") { Text("Content"); Button("Action") }
+  MediumFloatingActionButton("star")
+  MediumTopAppBar("Title") { Text("Content"); Button("Action") }
+  ModalBottomSheet("Title") { Text("Content"); Button("Action") }
+  ModalDrawerSheet() { Text("Content"); Button("Action") }
+  ModalNavigationDrawer() { Text("Content"); Button("Action") }
+  MultiChoiceSegmentedButtonRow(["One", "Two", "Three"])
+  NavigationBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  NavigationBarItem("Label")
+  NavigationDrawerItem("Label")
+  NavigationRail() { Text("Content"); Button("Action") }
+  NavigationRailItem("Label")
+}
+.padding()

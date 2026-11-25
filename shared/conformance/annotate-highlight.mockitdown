@@ -1,0 +1,7 @@
+// a focus ring
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com")
+  Button("Send").highlight()
+}
+.padding()
+.frame(width: 360)

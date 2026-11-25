@@ -1,0 +1,2 @@
+// base element Board (role board)
+Board() { BoardColumn("To do") { KanbanCard("Write copy") } }

@@ -1,0 +1,16 @@
+// angular-material own elements: MatChipSet, MatColumnDef, MatDateRangeInput, MatDateRangePicker, MatDatepicker, MatDialog, MatDialogActions, MatDialogContent, MatDivider, MatDrawer, MatDrawerContainer, MatDrawerContent
+VStack(alignment: .leading, spacing: 12) {
+  MatChipSet() { Text("Content"); Button("Action") }
+  MatColumnDef("Title")
+  MatDateRangeInput("Label")
+  MatDateRangePicker()
+  MatDatepicker("Label")
+  MatDialog("Title") { Text("Content"); Button("Action") }
+  MatDialogActions() { Text("Content"); Button("Action") }
+  MatDialogContent() { Text("Content"); Button("Action") }
+  MatDivider()
+  MatDrawer("Title") { Text("Content"); Button("Action") }
+  MatDrawerContainer() { Text("Content"); Button("Action") }
+  MatDrawerContent() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,2 @@
+// chrome win31
+VStack { Text("Window content"); Button("OK") }

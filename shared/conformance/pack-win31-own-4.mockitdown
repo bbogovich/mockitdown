@@ -1,0 +1,16 @@
+// win31 own elements: FileManager, GROUPBOX, Gauge, GroupBox, ICON, Icon, IndexCard, LISTBOX, LTEXT, ListBox, ListBoxItem, MDIChildWindow
+VStack(alignment: .leading, spacing: 12) {
+  FileManager() { Text("Content"); Button("Action") }
+  GROUPBOX("Title") { Text("Content"); Button("Action") }
+  Gauge(60)
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  ICON("star")
+  Icon("star")
+  IndexCard("Title", "Text")
+  LISTBOX() { Text("First item"); Text("Second item") }
+  LTEXT("Content")
+  ListBox() { Text("First item"); Text("Second item") }
+  ListBoxItem("Title")
+  MDIChildWindow("Title") { Text("Content"); Button("Action") }
+}
+.padding()

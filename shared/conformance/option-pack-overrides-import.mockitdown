@@ -1,0 +1,3 @@
+// the pack option overrides `import <Module>`
+import SwiftUI
+VStack(spacing: 8) { Text("Inbox").id("title"); Button("Compose").id("compose").ref("R-MAIL-001") }

@@ -1,0 +1,2 @@
+// AsyncImage with a URL
+AsyncImage(url: "https://example.com/a.png").frame(width: 120, height: 90)

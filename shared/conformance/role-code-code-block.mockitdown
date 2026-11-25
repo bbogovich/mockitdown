@@ -1,0 +1,2 @@
+// base element CodeBlock (role code)
+CodeBlock("let total = items.count")

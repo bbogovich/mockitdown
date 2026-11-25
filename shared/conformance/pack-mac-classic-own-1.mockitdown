@@ -1,0 +1,16 @@
+// mac-classic own elements: Alert, AppleMenu, Button, CalcKey, CautionAlert, CheckBox, DefaultButton, DeskAccessory, Desktop, DesktopIcon, Dialog, DialogWindow
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Message") { Text("Content"); Button("Action") }
+  AppleMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  Button("Label")
+  CalcKey("Label")
+  CautionAlert("Message") { Text("Content"); Button("Action") }
+  CheckBox("Label", true)
+  DefaultButton("Label")
+  DeskAccessory("Title") { Text("Content"); Button("Action") }
+  Desktop() { Text("Content"); Button("Action") }
+  DesktopIcon("Title")
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DialogWindow() { Text("Content"); Button("Action") }
+}
+.padding()

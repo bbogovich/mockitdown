@@ -1,0 +1,16 @@
+// win1 own elements: ListBoxItem, MenuBar, MenuBarItem, MenuItem, MenuSeparator, MessageBox, MonthView, MultiLineEdit, PageView, PaletteTool, PathLine, PatternPalette
+VStack(alignment: .leading, spacing: 12) {
+  ListBoxItem("Title")
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuBarItem("Label")
+  MenuItem("Label")
+  MenuSeparator()
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  MonthView()
+  MultiLineEdit("Text")
+  PageView() { Text("Content"); Button("Action") }
+  PaletteTool("Label")
+  PathLine("Content")
+  PatternPalette()
+}
+.padding()

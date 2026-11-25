@@ -1,0 +1,2 @@
+// a data: URI that is not an image
+Image("data:text/html,hi")

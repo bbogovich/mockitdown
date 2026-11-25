@@ -1,0 +1,13 @@
+// mac-classic own elements: Separator, Spreadsheet, StaticText, StopAlert, TextEdit, TextField, Tool, ToolPalette, Window
+VStack(alignment: .leading, spacing: 12) {
+  Separator()
+  Spreadsheet(columns: ["A", "B"], rows: [[1, 2], [3, 4]])
+  StaticText("Content")
+  StopAlert("Message") { Text("Content"); Button("Action") }
+  TextEdit("Text")
+  TextField("Text")
+  Tool()
+  ToolPalette() { Text("Content"); Button("Action") }
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

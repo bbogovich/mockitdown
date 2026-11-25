@@ -1,0 +1,2 @@
+// base element Sheet (role dialog)
+Sheet("Title") { Text("Content"); Button("Action") }

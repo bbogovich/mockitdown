@@ -1,0 +1,22 @@
+// A person row with trailing content; imports the pill library.
+import "pill"
+
+struct PersonRow: View {
+  var name: String
+  var role: String
+  var status: String = "Online"
+  @ViewBuilder var trailing: Content
+  var body: some View {
+    HStack(spacing: 12) {
+      Avatar(name)
+      VStack(alignment: .leading, spacing: 2) {
+        Text(name).font(.headline)
+        Text(role).font(.footnote).foregroundStyle(.secondary)
+      }
+      Spacer()
+      StatusPill(text: status)
+      trailing
+    }
+    .padding(.vertical, 6)
+  }
+}

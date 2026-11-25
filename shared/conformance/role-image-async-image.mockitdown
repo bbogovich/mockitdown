@@ -1,0 +1,2 @@
+// base element AsyncImage (role image)
+AsyncImage().frame(width: 160, height: 96)

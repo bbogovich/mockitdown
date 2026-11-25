@@ -1,0 +1,2 @@
+// base element Tabs (role tabs)
+Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }

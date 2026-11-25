@@ -1,0 +1,8 @@
+// Callout, Pointer and SelectionRect placed on a canvas
+Canvas(height: 200) {
+  StickyNote("Idea", color: .yellow).position(x: 100, y: 90)
+  SelectionRect().frame(width: 160, height: 120).position(x: 100, y: 90)
+  Pointer(.arrow).position(x: 190, y: 150)
+  Callout(1, "Selected").position(x: 260, y: 40)
+}
+.frame(width: 360)

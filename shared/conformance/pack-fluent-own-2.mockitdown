@@ -1,0 +1,16 @@
+// fluent own elements: Canvas, CheckBox, ColorPicker, ComboBox, ComboBoxItem, CommandBar, CommandBarFlyout, ContentDialog, DataGrid, DataGridTemplateColumn, DataGridTextColumn, DatePicker
+VStack(alignment: .leading, spacing: 12) {
+  Canvas() { Text("Content"); Button("Action") }
+  CheckBox("Label")
+  ColorPicker("Label").frame(width: 160, height: 96)
+  ComboBox("Header")
+  ComboBoxItem("Content")
+  CommandBar() { Button("Save"); Button("Share") }
+  CommandBarFlyout("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ContentDialog("Title") { Text("Content"); Button("Action") }
+  DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  DataGridTemplateColumn("Title")
+  DataGridTextColumn("Title")
+  DatePicker("Header")
+}
+.padding()

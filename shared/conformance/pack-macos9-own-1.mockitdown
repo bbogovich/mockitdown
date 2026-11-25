@@ -1,0 +1,16 @@
+// macos9 own elements: Alert, AppleMenu, ApplicationIcon, ApplicationMenu, AsyncArrows, Balloon, BevelButton, Button, CheckBox, ControlPanel, ControlStrip, ControlStripModule
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title") { Text("Content"); Button("Action") }
+  AppleMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ApplicationIcon("Title")
+  ApplicationMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  AsyncArrows()
+  Balloon("Text") { Text("Content"); Button("Action") }
+  BevelButton("Label")
+  Button("Label")
+  CheckBox("Label")
+  ControlPanel("Title") { Text("Content"); Button("Action") }
+  ControlStrip() { Button("Save"); Button("Share") }
+  ControlStripModule("star")
+}
+.padding()

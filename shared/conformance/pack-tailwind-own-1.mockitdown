@@ -1,0 +1,16 @@
+// tailwind own elements: Alert, AlertActions, AlertBody, AlertDescription, AlertTitle, AuthLayout, Avatar, AvatarButton, Badge, BadgeButton, Button, Checkbox
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title") { Text("Content"); Button("Action") }
+  AlertActions() { Text("Content"); Button("Action") }
+  AlertBody() { Text("Content"); Button("Action") }
+  AlertDescription("Content")
+  AlertTitle("Content")
+  AuthLayout() { Text("Content"); Button("Action") }
+  Avatar("Ana Lima")
+  AvatarButton("Ana Lima")
+  Badge("Text")
+  BadgeButton("Text")
+  Button("Label")
+  Checkbox("Label")
+}
+.padding()

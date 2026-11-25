@@ -1,0 +1,16 @@
+// avalonia own elements: RefreshVisualizer, RelativePanel, RepeatButton, ReversibleStackPanel, Run, ScrollViewer, SelectableTextBlock, Separator, Slider, SplitButton, SplitView, StackPanel
+VStack(alignment: .leading, spacing: 12) {
+  RefreshVisualizer()
+  RelativePanel() { Text("Content"); Button("Action") }
+  RepeatButton("Label")
+  ReversibleStackPanel() { Text("Content"); Button("Action") }
+  Run("Content")
+  ScrollViewer() { Text("Content"); Button("Action") }
+  SelectableTextBlock("Content")
+  Separator()
+  Slider("Label")
+  SplitButton("Label")
+  SplitView() { Text("Content"); Button("Action") }
+  StackPanel() { Text("Content"); Button("Action") }
+}
+.padding()

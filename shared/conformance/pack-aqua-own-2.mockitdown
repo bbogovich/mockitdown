@@ -1,0 +1,16 @@
+// aqua own elements: ComboBox, ContextMenu, DefaultButton, Desktop, DiskIcon, Dock, DockItem, DockSeparator, DocumentIcon, DocumentWindow, Drawer, FileCell
+VStack(alignment: .leading, spacing: 12) {
+  ComboBox("Label")
+  ContextMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  DiskIcon("Title")
+  Dock() { Button("Save"); Button("Share") }
+  DockItem("Label")
+  DockSeparator()
+  DocumentIcon("Title")
+  DocumentWindow("Title") { Text("Content"); Button("Action") }
+  Drawer("Title") { Text("Content"); Button("Action") }
+  FileCell("Title")
+}
+.padding()

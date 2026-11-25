@@ -1,0 +1,16 @@
+// nextstep own elements: NXColorWell, NXRunAlertPanel, NXSplitView, NXText, NXWorkspace, Panel, PathView, PopUpList, ProgressIndicator, PullDownList, RadioButton, RadioMatrix
+VStack(alignment: .leading, spacing: 12) {
+  NXColorWell(.blue).frame(width: 160, height: 96)
+  NXRunAlertPanel("Title") { Text("Content"); Button("Action") }
+  NXSplitView() { Text("Content"); Button("Action") }
+  NXText("Label")
+  NXWorkspace() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  Panel("Title") { Text("Content"); Button("Action") }
+  PathView() { Text("Content"); Button("Action") }
+  PopUpList("Label")
+  ProgressIndicator()
+  PullDownList("Label")
+  RadioButton("Label")
+  RadioMatrix("Label")
+}
+.padding()

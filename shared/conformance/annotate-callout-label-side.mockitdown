@@ -1,0 +1,7 @@
+// labelSide overrides the label direction
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").callout(1, "Left", alignment: .bottomTrailing, labelSide: .leading)
+  Button("Send")
+}
+.padding()
+.frame(width: 360)

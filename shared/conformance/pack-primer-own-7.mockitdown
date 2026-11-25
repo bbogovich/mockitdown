@@ -1,0 +1,16 @@
+// primer own elements: PageHeaderContextArea, PageHeaderDescription, PageHeaderLeadingAction, PageHeaderLeadingVisual, PageHeaderNavigation, PageHeaderParentLink, PageHeaderTitle, PageHeaderTitleArea, PageHeaderTrailingAction, PageHeaderTrailingVisual, PageLayout, PageLayoutContent
+VStack(alignment: .leading, spacing: 12) {
+  PageHeaderContextArea() { Text("Content"); Button("Action") }
+  PageHeaderDescription() { Text("Content"); Button("Action") }
+  PageHeaderLeadingAction() { Text("Content"); Button("Action") }
+  PageHeaderLeadingVisual() { Text("Content"); Button("Action") }
+  PageHeaderNavigation() { Text("Content"); Button("Action") }
+  PageHeaderParentLink("Label")
+  PageHeaderTitle("Content")
+  PageHeaderTitleArea() { Text("Content"); Button("Action") }
+  PageHeaderTrailingAction() { Text("Content"); Button("Action") }
+  PageHeaderTrailingVisual() { Text("Content"); Button("Action") }
+  PageLayout() { Text("Content"); Button("Action") }
+  PageLayoutContent() { Text("Content"); Button("Action") }
+}
+.padding()

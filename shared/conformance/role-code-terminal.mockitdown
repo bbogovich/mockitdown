@@ -1,0 +1,2 @@
+// base element Terminal (role code)
+Terminal("let total = items.count")

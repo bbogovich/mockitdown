@@ -1,0 +1,2 @@
+// chart: bubble
+BubbleChart(points: [[10, 40, 30], [25, 60, 80], [40, 35, 20]])

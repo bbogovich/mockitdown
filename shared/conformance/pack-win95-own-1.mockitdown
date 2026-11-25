@@ -1,0 +1,16 @@
+// win95 own elements: CascadeMenu, CheckBox, Clock, ComboBox, ContextMenu, ControlPanelItem, CopyAnimation, DateTimePicker, DefaultButton, Desktop, DesktopIcon, DialogBody
+VStack(alignment: .leading, spacing: 12) {
+  CascadeMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  CheckBox("Label")
+  Clock()
+  ComboBox("Label")
+  ContextMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ControlPanelItem("Title")
+  CopyAnimation() { Text("Content"); Button("Action") }
+  DateTimePicker("Label")
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  DesktopIcon("Title")
+  DialogBody() { Text("Content"); Button("Action") }
+}
+.padding()

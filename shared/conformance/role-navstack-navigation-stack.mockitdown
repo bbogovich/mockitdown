@@ -1,0 +1,2 @@
+// base element NavigationStack (role navstack)
+NavigationStack() { Text("Content"); Button("Action") }

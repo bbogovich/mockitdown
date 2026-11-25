@@ -1,0 +1,16 @@
+// xerox-star own elements: Heading, IconColumn, IconRow, MenuCommand, MessageLine, OnOffBox, OptionSheet, Paragraph, PopUpMenu, PropertyField, PropertySheet, ScrollBar
+VStack(alignment: .leading, spacing: 12) {
+  Heading("Content")
+  IconColumn() { Text("Content"); Button("Action") }
+  IconRow() { Text("Content"); Button("Action") }
+  MenuCommand("Label")
+  MessageLine() { Button("Save"); Button("Share") }
+  OnOffBox("Label")
+  OptionSheet("Title") { Text("Content"); Button("Action") }
+  Paragraph("Content")
+  PopUpMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  PropertyField("Label", "Value") { Text("Content"); Button("Action") }
+  PropertySheet("Title") { Text("Content"); Button("Action") }
+  ScrollBar(60)
+}
+.padding()

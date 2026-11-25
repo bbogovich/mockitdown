@@ -1,0 +1,2 @@
+// chart: treemap
+Treemap(values: [42, 23, 15, 9], labels: ["Video", "Photos", "Apps", "Docs"])

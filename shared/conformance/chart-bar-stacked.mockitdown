@@ -1,0 +1,2 @@
+// chart: bar-stacked
+BarChart(series: [[5, 6, 7], [3, 3, 4]], seriesNames: ["Crew", "Gear"], labels: ["W1", "W2", "W3"], stacked: true)

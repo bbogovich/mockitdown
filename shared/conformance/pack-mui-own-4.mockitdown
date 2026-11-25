@@ -1,0 +1,16 @@
+// mui own elements: Divider, Drawer, Fab, Fade, FilledInput, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Gauge, Grid
+VStack(alignment: .leading, spacing: 12) {
+  Divider()
+  Drawer("Title") { Text("Content"); Button("Action") }
+  Fab("star")
+  Fade() { Text("Content"); Button("Action") }
+  FilledInput("Placeholder")
+  FormControl() { Text("Content"); Button("Action") }
+  FormControlLabel("Label")
+  FormGroup() { Text("Content"); Button("Action") }
+  FormHelperText("Content")
+  FormLabel("Content")
+  Gauge(60)
+  Grid(["Name", "Status"]) { Text("Content"); Button("Action") }
+}
+.padding()

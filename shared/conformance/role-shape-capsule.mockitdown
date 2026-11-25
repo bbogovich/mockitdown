@@ -1,0 +1,2 @@
+// base element Capsule (role shape)
+Capsule().frame(width: 160, height: 96)

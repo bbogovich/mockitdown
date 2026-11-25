@@ -1,0 +1,2 @@
+// icon names of other families
+HStack { Icon("Add"); Icon("delete"); Icon("sap-icon://home") }

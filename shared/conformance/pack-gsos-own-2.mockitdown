@@ -1,0 +1,16 @@
+// gsos own elements: FinderList, FinderWindow, Folder, Frame, HardDisk, InfoBar, LineEdit, ListControl, ListItem, MenuBar, MenuItem, MenuTitle
+VStack(alignment: .leading, spacing: 12) {
+  FinderList(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  FinderWindow("Title") { Text("Content"); Button("Action") }
+  Folder("Title")
+  Frame("Title") { Text("Content"); Button("Action") }
+  HardDisk("Title")
+  InfoBar("Label", "Value") { Text("Content"); Button("Action") }
+  LineEdit("Placeholder")
+  ListControl() { Text("First item"); Text("Second item") }
+  ListItem("Title")
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuItem("Label")
+  MenuTitle("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+}
+.padding()

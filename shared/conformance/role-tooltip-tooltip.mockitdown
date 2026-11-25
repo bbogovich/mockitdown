@@ -1,0 +1,2 @@
+// base element Tooltip (role tooltip)
+Tooltip("Text") { Text("Content"); Button("Action") }

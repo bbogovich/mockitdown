@@ -1,0 +1,16 @@
+// mui own elements: Slide, Slider, Snackbar, SparkLineChart, SpeedDial, Stack, StaticDatePicker, Step, StepLabel, Stepper, SvgIcon, SwipeableDrawer
+VStack(alignment: .leading, spacing: 12) {
+  Slide() { Text("Content"); Button("Action") }
+  Slider()
+  Snackbar("Message")
+  SparkLineChart(values: [3, 5, 2, 6, 4])
+  SpeedDial("star")
+  Stack() { Text("Content"); Button("Action") }
+  StaticDatePicker()
+  Step("Label")
+  StepLabel("Label")
+  Stepper(["Cart", "Shipping", "Payment"])
+  SvgIcon("star")
+  SwipeableDrawer("Title") { Text("Content"); Button("Action") }
+}
+.padding()

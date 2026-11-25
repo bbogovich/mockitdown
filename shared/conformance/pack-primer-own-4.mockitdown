@@ -1,0 +1,16 @@
+// primer own elements: DataTable, Details, Dialog, DiffCode, DiffFile, DiffHunk, DiffLine, DiffNumber, Disclosure, Flash, FormControl, FormControlCaption
+VStack(alignment: .leading, spacing: 12) {
+  DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Details("Title") { Text("Content"); Button("Action") }
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DiffCode("Content")
+  DiffFile("Title") { Text("Content"); Button("Action") }
+  DiffHunk() { Text("Content"); Button("Action") }
+  DiffLine() { Text("Content"); Button("Action") }
+  DiffNumber("Content")
+  Disclosure("Title") { Text("Content"); Button("Action") }
+  Flash("Title")
+  FormControl() { Text("Content"); Button("Action") }
+  FormControlCaption("Content")
+}
+.padding()

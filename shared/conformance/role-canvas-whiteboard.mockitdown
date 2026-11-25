@@ -1,0 +1,2 @@
+// base element Whiteboard (role canvas)
+Whiteboard() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)

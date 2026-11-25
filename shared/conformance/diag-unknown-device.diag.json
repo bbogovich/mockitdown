@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "device",
+      "message": "unknown device 'toaster'; using desktop (known: phone, phone-landscape, tablet, tablet-portrait, desktop, wide, fit)",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

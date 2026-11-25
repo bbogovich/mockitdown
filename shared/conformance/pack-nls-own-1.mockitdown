@@ -1,0 +1,16 @@
+// nls own elements: Bug, Caption, Chord, CommandButton, CommandFeedback, CommandWord, Display, DisplayArea, Drawing, Echo, FeedbackLine, FileLink
+VStack(alignment: .leading, spacing: 12) {
+  Bug()
+  Caption("Content")
+  Chord(["⌘", "K"])
+  CommandButton("Label")
+  CommandFeedback("Title") { Button("Save"); Button("Share") }
+  CommandWord("Content")
+  Display("Title") { Text("Content"); Button("Action") }
+  DisplayArea("Title") { Text("Content"); Button("Action") }
+  Drawing() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  Echo("Content")
+  FeedbackLine("Title") { Button("Save"); Button("Share") }
+  FileLink("Label")
+}
+.padding()

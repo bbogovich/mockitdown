@@ -1,0 +1,16 @@
+// kde-plasma own elements: AbstractCard, Action, ActionButton, ActionTextField, ActionToolBar, ApplicationWindow, Avatar, Breadcrumb, BusyIndicator, Button, ButtonGroup, Card
+VStack(alignment: .leading, spacing: 12) {
+  AbstractCard("Title") { Text("Content"); Button("Action") }
+  Action("Label")
+  ActionButton("star")
+  ActionTextField("Placeholder")
+  ActionToolBar() { Button("Save"); Button("Share") }
+  ApplicationWindow() { Text("Content"); Button("Action") }
+  Avatar("Ana Lima")
+  Breadcrumb(["One", "Two", "Three"])
+  BusyIndicator("Label")
+  Button("Label")
+  ButtonGroup("Label")
+  Card("Title") { Text("Content"); Button("Action") }
+}
+.padding()

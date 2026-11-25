@@ -1,0 +1,16 @@
+// mui own elements: Switch, Tab, TabList, TabPanel, Table, TableCell, TableContainer, TablePagination, TableRow, Tabs, TextField, TextareaAutosize
+VStack(alignment: .leading, spacing: 12) {
+  Switch("Label")
+  Tab("Label")
+  TabList(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabPanel() { Text("Content"); Button("Action") }
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableCell("Content")
+  TableContainer() { Text("Content"); Button("Action") }
+  TablePagination("Summary")
+  TableRow()
+  Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TextField("Label")
+  TextareaAutosize("Placeholder")
+}
+.padding()

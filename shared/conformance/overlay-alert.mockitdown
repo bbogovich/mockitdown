@@ -1,0 +1,8 @@
+// `.alert` with actions and a message
+VStack(spacing: 8) { Text("Screen content"); Button("Open") }
+.alert("Sign out?", isPresented: true) {
+  Button("Cancel")
+  Button("Sign Out", role: .destructive)
+} message: {
+  Text("You will need your password.")
+}

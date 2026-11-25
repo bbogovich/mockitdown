@@ -1,0 +1,16 @@
+// gtk own elements: Statusbar, Switch, SwitchRow, TabBar, TabPage, TabView, TextView, Toast, ToastOverlay, ToggleButton, ToggleGroup, ToolbarView
+VStack(alignment: .leading, spacing: 12) {
+  Statusbar() { Button("Save"); Button("Share") }
+  Switch("Label")
+  SwitchRow("Title")
+  TabBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabPage("Title")
+  TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TextView("Text")
+  Toast("Title")
+  ToastOverlay() { Text("Content"); Button("Action") }
+  ToggleButton("Label")
+  ToggleGroup(["One", "Two", "Three"])
+  ToolbarView() { Text("Content"); Button("Action") }
+}
+.padding()

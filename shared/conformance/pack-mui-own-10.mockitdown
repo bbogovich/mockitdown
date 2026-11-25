@@ -1,0 +1,12 @@
+// mui own elements: TimePicker, Timeline, ToggleButton, ToggleButtonGroup, Toolbar, Tooltip, Typography, Zoom
+VStack(alignment: .leading, spacing: 12) {
+  TimePicker("Label")
+  Timeline(["Cart", "Shipping", "Payment"])
+  ToggleButton("Label")
+  ToggleButtonGroup(["One", "Two", "Three"])
+  Toolbar() { Button("Save"); Button("Share") }
+  Tooltip("Title") { Text("Content"); Button("Action") }
+  Typography("Content")
+  Zoom() { Text("Content"); Button("Action") }
+}
+.padding()

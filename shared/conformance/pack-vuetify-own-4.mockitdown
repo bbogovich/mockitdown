@@ -1,0 +1,16 @@
+// vuetify own elements: VCombobox, VConfirmEdit, VContainer, VDataIterator, VDataTable, VDataTableFooter, VDataTableServer, VDataTableVirtual, VDateInput, VDatePicker, VDefaultsProvider, VDialog
+VStack(alignment: .leading, spacing: 12) {
+  VCombobox("Label")
+  VConfirmEdit() { Text("Content"); Button("Action") }
+  VContainer() { Text("Content"); Button("Action") }
+  VDataIterator() { Text("Content"); Button("Action") }
+  VDataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  VDataTableFooter("Summary")
+  VDataTableServer(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  VDataTableVirtual(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  VDateInput("Label")
+  VDatePicker()
+  VDefaultsProvider() { Text("Content"); Button("Action") }
+  VDialog("Title") { Text("Content"); Button("Action") }
+}
+.padding()

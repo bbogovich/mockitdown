@@ -1,0 +1,16 @@
+// nextstep own elements: AlertPanel, AppIcon, Box, Browser, BrowserCell, BrowserColumn, BrowserLeaf, Button, ButtonCell, ButtonRow, ColorWell, DBTableView
+VStack(alignment: .leading, spacing: 12) {
+  AlertPanel("Title") { Text("Content"); Button("Action") }
+  AppIcon("Label")
+  Box("Title") { Text("Content"); Button("Action") }
+  Browser() { Text("Content"); Button("Action") }
+  BrowserCell("Title")
+  BrowserColumn() { Text("First item"); Text("Second item") }
+  BrowserLeaf("Title")
+  Button("Label")
+  ButtonCell("Label")
+  ButtonRow() { Button("Save"); Button("Share") }
+  ColorWell(.blue).frame(width: 160, height: 96)
+  DBTableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+}
+.padding()

@@ -1,0 +1,16 @@
+// qt own elements: TableWidget, TextBrowser, TextEdit, TimeEdit, ToolBar, ToolBox, ToolBoxItem, ToolButton, ToolTip, TreeView, TreeWidget, TreeWidgetItem
+VStack(alignment: .leading, spacing: 12) {
+  TableWidget(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TextBrowser("Text")
+  TextEdit("Text")
+  TimeEdit("09:41")
+  ToolBar() { Button("Save"); Button("Share") }
+  ToolBox() { Text("Content"); Button("Action") }
+  ToolBoxItem("Title") { Text("Content"); Button("Action") }
+  ToolButton("Label")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+  TreeWidget() { TreeItem("Folder") { TreeItem("File") } }
+  TreeWidgetItem("Label")
+}
+.padding()

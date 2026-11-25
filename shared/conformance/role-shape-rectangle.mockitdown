@@ -1,0 +1,2 @@
+// base element Rectangle (role shape)
+Rectangle().frame(width: 160, height: 96)

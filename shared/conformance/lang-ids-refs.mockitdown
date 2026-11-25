@@ -1,0 +1,2 @@
+// `.id()` and `.ref()` attributes
+VStack { Button("Save").id("save").ref("R-X-001") }

@@ -1,0 +1,16 @@
+// gsos own elements: Alert, AppleMenu, ApplicationIcon, Button, CheckBox, ControlPanel, DefaultButton, Desktop, Dialog, Disk, DocumentIcon, FinderIcon
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title") { Text("Content"); Button("Action") }
+  AppleMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ApplicationIcon("Title")
+  Button("Label")
+  CheckBox("Label")
+  ControlPanel() { Text("Content"); Button("Action") }
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  Dialog("Title") { Text("Content"); Button("Action") }
+  Disk("Title")
+  DocumentIcon("Title")
+  FinderIcon("Title")
+}
+.padding()

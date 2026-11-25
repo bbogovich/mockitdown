@@ -1,0 +1,16 @@
+// swiftui own elements: TextField, TimelineView, TipView, Toggle, Toolbar, ToolbarItem, ToolbarItemGroup, ToolbarSpacer, UnevenRoundedRectangle, VSplitView, VideoPlayer, ViewThatFits
+VStack(alignment: .leading, spacing: 12) {
+  TextField("Placeholder")
+  TimelineView() { Text("Content"); Button("Action") }
+  TipView("Title")
+  Toggle("Label")
+  Toolbar() { Button("Save"); Button("Share") }
+  ToolbarItem() { Text("Content"); Button("Action") }
+  ToolbarItemGroup() { Text("Content"); Button("Action") }
+  ToolbarSpacer()
+  UnevenRoundedRectangle().frame(width: 160, height: 96)
+  VSplitView() { Text("Content"); Button("Action") }
+  VideoPlayer("Label").frame(width: 160, height: 96)
+  ViewThatFits() { Text("Content"); Button("Action") }
+}
+.padding()

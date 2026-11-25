@@ -1,0 +1,16 @@
+// fluent own elements: AnimatedVisualPlayer, AppBarButton, AppBarElementContainer, AppBarSeparator, AppBarToggleButton, AutoSuggestBox, BitmapIcon, Border, BreadcrumbBar, Button, CalendarDatePicker, CalendarView
+VStack(alignment: .leading, spacing: 12) {
+  AnimatedVisualPlayer("Label").frame(width: 160, height: 96)
+  AppBarButton("Label")
+  AppBarElementContainer() { Text("Content"); Button("Action") }
+  AppBarSeparator()
+  AppBarToggleButton("Label")
+  AutoSuggestBox("Placeholder")
+  BitmapIcon("star")
+  Border() { Text("Content"); Button("Action") }
+  BreadcrumbBar(["One", "Two", "Three"])
+  Button("Label")
+  CalendarDatePicker("Header")
+  CalendarView()
+}
+.padding()

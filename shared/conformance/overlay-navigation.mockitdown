@@ -1,0 +1,6 @@
+// NavigationStack with title and toolbar
+NavigationStack {
+  List { Row("Wi-Fi", detail: "Home", chevron: true) }
+  .navigationTitle("Settings")
+  .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Edit") } }
+}

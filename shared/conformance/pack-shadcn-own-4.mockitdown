@@ -1,0 +1,16 @@
+// shadcn own elements: CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, ContextMenu, ContextMenuCheckboxItem, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, DataTable, DatePicker
+VStack(alignment: .leading, spacing: 12) {
+  CommandGroup("Title") { Text("First item"); Text("Second item") }
+  CommandInput("Placeholder")
+  CommandItem("Label")
+  CommandList() { Text("Content"); Button("Action") }
+  CommandSeparator()
+  ContextMenu() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  ContextMenuCheckboxItem("Label")
+  ContextMenuItem("Label")
+  ContextMenuLabel("Content")
+  ContextMenuSeparator()
+  DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  DatePicker("Label")
+}
+.padding()

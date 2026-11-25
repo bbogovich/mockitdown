@@ -1,0 +1,16 @@
+// cde own elements: Workspace, WorkspaceButton, WorkspaceSwitch, XmArrowButton, XmCascadeButton, XmComboBox, XmDialogShell, XmDrawingArea, XmErrorDialog, XmForm, XmFrame, XmInformationDialog
+VStack(alignment: .leading, spacing: 12) {
+  Workspace() { Text("Content"); Button("Action") }
+  WorkspaceButton("Label")
+  WorkspaceSwitch() { Text("Content"); Button("Action") }
+  XmArrowButton()
+  XmCascadeButton("Label")
+  XmComboBox("Label")
+  XmDialogShell("Title") { Text("Content"); Button("Action") }
+  XmDrawingArea() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  XmErrorDialog("Title") { Text("Content"); Button("Action") }
+  XmForm() { Text("Content"); Button("Action") }
+  XmFrame("Title") { Text("Content"); Button("Action") }
+  XmInformationDialog("Title") { Text("Content"); Button("Action") }
+}
+.padding()

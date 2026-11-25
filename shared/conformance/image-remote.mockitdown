@@ -1,0 +1,2 @@
+// Image with an https URL is linked
+Image("https://example.com/photo.jpg").frame(width: 120, height: 90)

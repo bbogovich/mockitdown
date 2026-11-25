@@ -1,0 +1,13 @@
+{
+  "packs": [],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "syntax",
+      "message": "unterminated string literal",
+      "line": 2,
+      "col": 6,
+      "source": ""
+    }
+  ]
+}

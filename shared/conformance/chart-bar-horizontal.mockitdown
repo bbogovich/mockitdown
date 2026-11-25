@@ -1,0 +1,2 @@
+// chart: bar-horizontal
+BarChart(title: "Tickets", values: [42, 31, 18, 12], labels: ["A", "B", "C", "D"], horizontal: true, showValues: true)

@@ -1,0 +1,3 @@
+// a second module name of the same pack (MUI)
+import MaterialUI
+Button("Material")

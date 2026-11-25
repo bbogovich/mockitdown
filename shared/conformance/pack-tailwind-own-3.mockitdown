@@ -1,0 +1,16 @@
+// tailwind own elements: DialogActions, DialogBody, DialogDescription, DialogTitle, Divider, Dropdown, DropdownButton, DropdownDescription, DropdownDivider, DropdownHeader, DropdownHeading, DropdownItem
+VStack(alignment: .leading, spacing: 12) {
+  DialogActions() { Text("Content"); Button("Action") }
+  DialogBody() { Text("Content"); Button("Action") }
+  DialogDescription("Content")
+  DialogTitle("Content")
+  Divider()
+  Dropdown("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  DropdownDescription("Content")
+  DropdownDivider()
+  DropdownHeader() { Text("Content"); Button("Action") }
+  DropdownHeading("Content")
+  DropdownItem("Label")
+}
+.padding()

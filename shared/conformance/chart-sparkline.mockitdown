@@ -1,0 +1,2 @@
+// chart: sparkline
+Sparkline([3, 5, 2, 6, 4])

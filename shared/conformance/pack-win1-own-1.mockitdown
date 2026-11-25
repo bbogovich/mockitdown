@@ -1,0 +1,16 @@
+// win1 own elements: AppointmentList, AutoCheckBox, AutoRadioButton, CText, CardStack, CheckBox, ClientArea, Clock, DefPushButton, Desktop, DialogBox, DialogIcon
+VStack(alignment: .leading, spacing: 12) {
+  AppointmentList() { Text("First item"); Text("Second item") }
+  AutoCheckBox("Label")
+  AutoRadioButton("Label")
+  CText("Content")
+  CardStack() { Text("Content"); Button("Action") }
+  CheckBox("Label")
+  ClientArea() { Text("Content"); Button("Action") }
+  Clock("Content")
+  DefPushButton("Label")
+  Desktop() { Text("Content"); Button("Action") }
+  DialogBox("Title") { Text("Content"); Button("Action") }
+  DialogIcon("star")
+}
+.padding()

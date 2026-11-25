@@ -1,0 +1,16 @@
+// nextstep own elements: Dock, DockTile, FileIcon, Form, FormCell, IconButton, ImageButton, Matrix, Menu, MenuCell, MenuItem, MiniWindow
+VStack(alignment: .leading, spacing: 12) {
+  Dock() { Text("Content"); Button("Action") }
+  DockTile("Label")
+  FileIcon("Title")
+  Form() { Text("Content"); Button("Action") }
+  FormCell("Label")
+  IconButton("star")
+  ImageButton("Label")
+  Matrix("Label")
+  Menu("Title") { Text("Content"); Button("Action") }
+  MenuCell("Label")
+  MenuItem("Label")
+  MiniWindow("Label")
+}
+.padding()

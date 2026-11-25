@@ -1,0 +1,16 @@
+// sapui5 own elements: ProductSwitch, ProductSwitchItem, ProgressIndicator, RadioButton, RadioButtonGroup, RangeSlider, RatingIndicator, ResponsivePopover, ScrollContainer, SearchField, SegmentedButton, SegmentedButtonItem
+VStack(alignment: .leading, spacing: 12) {
+  ProductSwitch() { Text("Content"); Button("Action") }
+  ProductSwitchItem("Text")
+  ProgressIndicator(60)
+  RadioButton("Label")
+  RadioButtonGroup("Label")
+  RangeSlider()
+  RatingIndicator(60)
+  ResponsivePopover("Title") { Text("Content"); Button("Action") }
+  ScrollContainer() { Text("Content"); Button("Action") }
+  SearchField("Placeholder")
+  SegmentedButton(["One", "Two", "Three"])
+  SegmentedButtonItem("Text")
+}
+.padding()

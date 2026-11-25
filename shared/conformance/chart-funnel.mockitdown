@@ -1,0 +1,2 @@
+// chart: funnel
+FunnelChart(values: [1200, 640, 310, 140], labels: ["Visited", "Started", "Verified", "Paid"])

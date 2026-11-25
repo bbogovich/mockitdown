@@ -1,0 +1,2 @@
+// base element VStack (role vstack)
+VStack() { Text("Content"); Button("Action") }

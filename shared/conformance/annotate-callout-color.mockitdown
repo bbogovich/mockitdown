@@ -1,0 +1,7 @@
+// a callout colour
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").callout(1, color: .blue)
+  Button("Send")
+}
+.padding()
+.frame(width: 360)

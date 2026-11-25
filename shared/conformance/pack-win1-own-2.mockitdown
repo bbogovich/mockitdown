@@ -1,0 +1,16 @@
+// win1 own elements: DriveBar, DriveIcon, Edit, EditText, FileList, FileName, GroupBox, IconArea, IconicWindow, IndexCard, LText, ListBox
+VStack(alignment: .leading, spacing: 12) {
+  DriveBar() { Text("Content"); Button("Action") }
+  DriveIcon("Label")
+  Edit("Text")
+  EditText("Text")
+  FileList() { Text("Content"); Button("Action") }
+  FileName("Content")
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  IconArea() { Text("Content"); Button("Action") }
+  IconicWindow("Title")
+  IndexCard("Title") { Text("Content"); Button("Action") }
+  LText("Content")
+  ListBox() { Text("First item"); Text("Second item") }
+}
+.padding()

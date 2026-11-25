@@ -1,0 +1,13 @@
+// angular-material own elements: MatTextarea, MatTimepicker, MatTonalButton, MatToolbar, MatToolbarRow, MatTooltip, MatTree, MatTreeNode, MatVerticalStepper
+VStack(alignment: .leading, spacing: 12) {
+  MatTextarea("Label")
+  MatTimepicker("Label")
+  MatTonalButton("Label")
+  MatToolbar("Title") { Text("Content"); Button("Action") }
+  MatToolbarRow() { Button("Save"); Button("Share") }
+  MatTooltip("Text") { Text("Content"); Button("Action") }
+  MatTree() { Text("Content"); Button("Action") }
+  MatTreeNode("Label")
+  MatVerticalStepper() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+}
+.padding()

@@ -1,0 +1,16 @@
+// vuetify own elements: VMessages, VNavigationDrawer, VNoSsr, VNumberInput, VOtpInput, VOverlay, VPagination, VParallax, VProgressCircular, VProgressLinear, VRadio, VRadioGroup
+VStack(alignment: .leading, spacing: 12) {
+  VMessages("Content")
+  VNavigationDrawer("Title") { Text("Content"); Button("Action") }
+  VNoSsr() { Text("Content"); Button("Action") }
+  VNumberInput("Label")
+  VOtpInput("Label")
+  VOverlay() { Text("Content"); Button("Action") }
+  VPagination()
+  VParallax().frame(width: 160, height: 96)
+  VProgressCircular()
+  VProgressLinear()
+  VRadio("Label")
+  VRadioGroup("Label")
+}
+.padding()

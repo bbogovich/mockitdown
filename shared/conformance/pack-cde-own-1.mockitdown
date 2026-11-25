@@ -1,0 +1,16 @@
+// cde own elements: DtComboBox, DtIcon, DtIconButton, DtIconGrid, DtSpinBox, DtTerm, DtWindow, FrontPanel, FrontPanelControl, FrontPanelIcon, StatusLine, SwitchControl
+VStack(alignment: .leading, spacing: 12) {
+  DtComboBox("Label")
+  DtIcon("Title")
+  DtIconButton("Label")
+  DtIconGrid() { Text("Content"); Button("Action") }
+  DtSpinBox("Label")
+  DtTerm("let total = items.count")
+  DtWindow("Title") { Text("Content"); Button("Action") }
+  FrontPanel() { Button("Save"); Button("Share") }
+  FrontPanelControl("Label")
+  FrontPanelIcon("Label")
+  StatusLine() { Button("Save"); Button("Share") }
+  SwitchControl("Label")
+}
+.padding()

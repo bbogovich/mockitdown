@@ -1,0 +1,16 @@
+// xerox-star own elements: ChoiceButton, ChoiceButtons, CommandKey, CommandKeys, Confirmation, Desktop, DesktopIcon, DocumentPage, FieldBox, FolderEntry, FolderList, Frame
+VStack(alignment: .leading, spacing: 12) {
+  ChoiceButton("Label")
+  ChoiceButtons("Label")
+  CommandKey(["⌘", "K"])
+  CommandKeys()
+  Confirmation("Title") { Text("Content"); Button("Action") }
+  Desktop() { Text("Content"); Button("Action") }
+  DesktopIcon("Title")
+  DocumentPage() { Text("Content"); Button("Action") }
+  FieldBox("Text")
+  FolderEntry("Title")
+  FolderList() { Text("First item"); Text("Second item") }
+  Frame("Title") { Text("Content"); Button("Action") }
+}
+.padding()

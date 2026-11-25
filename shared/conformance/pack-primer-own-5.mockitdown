@@ -1,0 +1,16 @@
+// primer own elements: FormControlLabel, FormControlValidation, Header, HeaderItem, HeaderLink, Heading, IconButton, InlineMessage, IssueLabel, IssueLabelToken, Kbd, Label
+VStack(alignment: .leading, spacing: 12) {
+  FormControlLabel("Content")
+  FormControlValidation("Content")
+  Header("Title") { Text("Content"); Button("Action") }
+  HeaderItem() { Text("Content"); Button("Action") }
+  HeaderLink("Label")
+  Heading("Content")
+  IconButton("star")
+  InlineMessage("Content")
+  IssueLabel("Text")
+  IssueLabelToken("Text")
+  Kbd(["⌘", "K"])
+  Label("Text")
+}
+.padding()

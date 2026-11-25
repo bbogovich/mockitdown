@@ -1,0 +1,2 @@
+// inline Markdown in Text
+Text("**Bold**, *italic*, `code` and [link](#x)")

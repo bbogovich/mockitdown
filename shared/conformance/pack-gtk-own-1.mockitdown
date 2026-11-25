@@ -1,0 +1,16 @@
+// gtk own elements: AboutDialog, ActionBar, ActionRow, AlertDialog, ApplicationWindow, Avatar, Banner, Bin, BottomSheet, Box, BoxedList, BreakpointBin
+VStack(alignment: .leading, spacing: 12) {
+  AboutDialog("Title") { Text("Content"); Button("Action") }
+  ActionBar() { Button("Save"); Button("Share") }
+  ActionRow("Title")
+  AlertDialog("Title") { Text("Content"); Button("Action") }
+  ApplicationWindow() { Text("Content"); Button("Action") }
+  Avatar("Ana Lima")
+  Banner("Title")
+  Bin() { Text("Content"); Button("Action") }
+  BottomSheet("Title") { Text("Content"); Button("Action") }
+  Box() { Text("Content"); Button("Action") }
+  BoxedList() { Text("First item"); Text("Second item") }
+  BreakpointBin() { Text("Content"); Button("Action") }
+}
+.padding()

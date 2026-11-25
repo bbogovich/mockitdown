@@ -1,0 +1,2 @@
+// base element Table (role table)
+Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])

@@ -1,0 +1,16 @@
+// vuetify own elements: VDivider, VEmptyState, VExpansionPanel, VExpansionPanelText, VExpansionPanelTitle, VExpansionPanels, VFab, VField, VFileInput, VFileUpload, VFooter, VForm
+VStack(alignment: .leading, spacing: 12) {
+  VDivider()
+  VEmptyState("Title")
+  VExpansionPanel("Title") { Text("Content"); Button("Action") }
+  VExpansionPanelText() { Text("Content"); Button("Action") }
+  VExpansionPanelTitle("Content")
+  VExpansionPanels() { Text("Content"); Button("Action") }
+  VFab("star")
+  VField("Label")
+  VFileInput("Label")
+  VFileUpload("Label")
+  VFooter() { Button("Save"); Button("Share") }
+  VForm() { Text("Content"); Button("Action") }
+}
+.padding()

@@ -1,0 +1,16 @@
+// android own elements: RadioButton, RangeSlider, RichTooltip, Scaffold, ScrollableTabRow, SearchBar, SecondaryTabRow, SecureTextField, SegmentedButton, ShortNavigationBar, ShortNavigationBarItem, SingleChoiceSegmentedButtonRow
+VStack(alignment: .leading, spacing: 12) {
+  RadioButton("Label")
+  RangeSlider()
+  RichTooltip("Text") { Text("Content"); Button("Action") }
+  Scaffold() { Text("Content"); Button("Action") }
+  ScrollableTabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  SearchBar("Placeholder")
+  SecondaryTabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  SecureTextField("Label")
+  SegmentedButton("Label")
+  ShortNavigationBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  ShortNavigationBarItem("Label")
+  SingleChoiceSegmentedButtonRow(["One", "Two", "Three"])
+}
+.padding()

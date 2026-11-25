@@ -1,0 +1,2 @@
+// caption is 'id · title'
+VStack(spacing: 8) { Text("Inbox").id("title"); Button("Compose").id("compose").ref("R-MAIL-001") }

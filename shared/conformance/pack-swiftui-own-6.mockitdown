@@ -1,0 +1,16 @@
+// swiftui own elements: SignInWithAppleButton, Slider, SpriteView, Stepper, Tab, TabSection, TabView, Table, TableColumn, TableRow, Text, TextEditor
+VStack(alignment: .leading, spacing: 12) {
+  SignInWithAppleButton()
+  Slider()
+  SpriteView("Label").frame(width: 160, height: 96)
+  Stepper("Label")
+  Tab("Label")
+  TabSection("Title") { Text("First item"); Text("Second item") }
+  TabView() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableColumn("Title")
+  TableRow()
+  Text("Content")
+  TextEditor("Text")
+}
+.padding()

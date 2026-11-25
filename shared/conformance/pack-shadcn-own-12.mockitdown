@@ -1,0 +1,16 @@
+// shadcn own elements: TableRow, Tabs, TabsContent, TabsTrigger, Textarea, Toast, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TypographyBlockquote
+VStack(alignment: .leading, spacing: 12) {
+  TableRow()
+  Tabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabsContent("Label")
+  TabsTrigger("Label")
+  Textarea("Placeholder")
+  Toast("Message")
+  Toaster("Message")
+  Toggle("Label")
+  ToggleGroup(["One", "Two", "Three"])
+  ToggleGroupItem("Title")
+  Tooltip("Text") { Text("Content"); Button("Action") }
+  TypographyBlockquote("Content")
+}
+.padding()

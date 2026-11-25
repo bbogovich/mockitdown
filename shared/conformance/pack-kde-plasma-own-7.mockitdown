@@ -1,0 +1,16 @@
+// kde-plasma own elements: PasswordField, PlaceholderMessage, PlacesItem, PlacesPanel, PlasmaPanel, Plasmoid, ProgressBar, PromptDialog, RadioButton, RadioDelegate, RangeSlider, RoundButton
+VStack(alignment: .leading, spacing: 12) {
+  PasswordField("Placeholder")
+  PlaceholderMessage("Title")
+  PlacesItem("Label")
+  PlacesPanel("Title") { Text("Content"); Button("Action") }
+  PlasmaPanel() { Button("Save"); Button("Share") }
+  Plasmoid("Title") { Text("Content"); Button("Action") }
+  ProgressBar("Label")
+  PromptDialog("Title") { Text("Content"); Button("Action") }
+  RadioButton("Label")
+  RadioDelegate("Label")
+  RangeSlider("Label")
+  RoundButton("star")
+}
+.padding()

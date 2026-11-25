@@ -1,0 +1,16 @@
+// bootstrap own elements: NavbarText, NavbarToggle, Offcanvas, Pagination, Placeholder, PlaceholderButton, Popover, ProgressBar, Ratio, Row, Spinner, SplitButton
+VStack(alignment: .leading, spacing: 12) {
+  NavbarText("Content")
+  NavbarToggle()
+  Offcanvas("Title") { Text("Content"); Button("Action") }
+  Pagination()
+  Placeholder(1).frame(width: 160, height: 96)
+  PlaceholderButton(1)
+  Popover("Title", "Message") { Text("Content"); Button("Action") }
+  ProgressBar(60)
+  Ratio() { Text("Content"); Button("Action") }
+  Row() { Text("Content"); Button("Action") }
+  Spinner()
+  SplitButton("Title") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+}
+.padding()

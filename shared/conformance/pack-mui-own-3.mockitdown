@@ -1,0 +1,16 @@
+// mui own elements: CircularProgress, Collapse, Container, DataGrid, DateCalendar, DatePicker, DateTimePicker, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+VStack(alignment: .leading, spacing: 12) {
+  CircularProgress()
+  Collapse() { Text("Content"); Button("Action") }
+  Container() { Text("Content"); Button("Action") }
+  DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  DateCalendar()
+  DatePicker("Label")
+  DateTimePicker("Label")
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DialogActions() { Text("Content"); Button("Action") }
+  DialogContent() { Text("Content"); Button("Action") }
+  DialogContentText("Content")
+  DialogTitle("Content")
+}
+.padding()

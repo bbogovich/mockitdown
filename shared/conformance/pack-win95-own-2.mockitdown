@@ -1,0 +1,16 @@
+// win95 own elements: DropDownList, DropDownMenu, FileIcon, Frame, GroupBox, IconView, ListBox, ListView, MSDOSPrompt, MenuBar, MenuBarItem, MenuSeparator
+VStack(alignment: .leading, spacing: 12) {
+  DropDownList("Label")
+  DropDownMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  FileIcon("Title")
+  Frame("Title") { Text("Content"); Button("Action") }
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  IconView() { Text("Content"); Button("Action") }
+  ListBox() { Text("First item"); Text("Second item") }
+  ListView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  MSDOSPrompt()
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuBarItem("Label")
+  MenuSeparator()
+}
+.padding()

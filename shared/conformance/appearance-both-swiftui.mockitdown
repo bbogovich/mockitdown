@@ -1,0 +1,2 @@
+// both appearances side by side in a phone frame
+VStack(spacing: 8) { Text("Appearance").font(.headline); Button("Continue"); Toggle("On", isOn: true) }

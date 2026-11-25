@@ -1,0 +1,16 @@
+// qt own elements: GroupBox, HBoxLayout, HeaderView, InputDialog, KeySequenceEdit, LCDNumber, Label, LineEdit, ListView, ListWidget, ListWidgetItem, MainWindow
+VStack(alignment: .leading, spacing: 12) {
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  HBoxLayout() { Text("Content"); Button("Action") }
+  HeaderView(["One", "Two", "Three"])
+  InputDialog("Title") { Text("Content"); Button("Action") }
+  KeySequenceEdit("Ctrl+S")
+  LCDNumber("Content")
+  Label("Title")
+  LineEdit("Text")
+  ListView() { Text("First item"); Text("Second item") }
+  ListWidget() { Text("First item"); Text("Second item") }
+  ListWidgetItem("Title")
+  MainWindow() { Text("Content"); Button("Action") }
+}
+.padding()

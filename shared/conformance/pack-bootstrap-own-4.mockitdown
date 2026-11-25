@@ -1,0 +1,16 @@
+// bootstrap own elements: FormCheck, FormControl, FormControlFeedback, FormFloating, FormGroup, FormLabel, FormRadio, FormRange, FormSelect, FormSwitch, FormText, Image
+VStack(alignment: .leading, spacing: 12) {
+  FormCheck("Label")
+  FormControl("Placeholder")
+  FormControlFeedback("Content")
+  FormFloating() { Text("Content"); Button("Action") }
+  FormGroup() { Text("Content"); Button("Action") }
+  FormLabel("Content")
+  FormRadio("Label")
+  FormRange("Label")
+  FormSelect()
+  FormSwitch("Label")
+  FormText("Content")
+  Image().frame(width: 160, height: 96)
+}
+.padding()

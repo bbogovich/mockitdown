@@ -1,0 +1,16 @@
+// qt own elements: ScrollBar, Separator, SizeGrip, Slider, SpinBox, Splitter, StackedLayout, StackedWidget, StatusBar, TabBar, TabWidget, TableView
+VStack(alignment: .leading, spacing: 12) {
+  ScrollBar(60)
+  Separator()
+  SizeGrip()
+  Slider(60)
+  SpinBox("Value")
+  Splitter() { Text("Content"); Button("Action") }
+  StackedLayout() { Text("Content"); Button("Action") }
+  StackedWidget() { Text("Content"); Button("Action") }
+  StatusBar() { Button("Save"); Button("Share") }
+  TabBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabWidget() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+}
+.padding()

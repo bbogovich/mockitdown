@@ -1,0 +1,16 @@
+// android own elements: Slider, SmallFloatingActionButton, Snackbar, SuggestionChip, Surface, Switch, Tab, TabRow, TextButton, TextField, TimeInput, TimePicker
+VStack(alignment: .leading, spacing: 12) {
+  Slider()
+  SmallFloatingActionButton("star")
+  Snackbar("Message")
+  SuggestionChip("Label")
+  Surface() { Text("Content"); Button("Action") }
+  Switch("Label")
+  Tab("Label")
+  TabRow(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TextButton("Label")
+  TextField("Label")
+  TimeInput("Label")
+  TimePicker()
+}
+.padding()

@@ -1,0 +1,16 @@
+// sapui5 own elements: ActionListItem, ActionSheet, AnchorBar, App, Avatar, AvatarGroup, Bar, Breadcrumbs, BusyIndicator, Button, Calendar, Card
+VStack(alignment: .leading, spacing: 12) {
+  ActionListItem("Title")
+  ActionSheet() { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  AnchorBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  App() { Text("Content"); Button("Action") }
+  Avatar("AL")
+  AvatarGroup() { Text("Content"); Button("Action") }
+  Bar() { Button("Save"); Button("Share") }
+  Breadcrumbs(["One", "Two", "Three"])
+  BusyIndicator("Label")
+  Button("Text")
+  Calendar()
+  Card("Title", "Subtitle") { Text("Content"); Button("Action") }
+}
+.padding()

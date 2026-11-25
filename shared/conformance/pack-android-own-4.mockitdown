@@ -1,0 +1,16 @@
+// android own elements: FilterChip, FloatingActionButton, FlowRow, HorizontalCenteredHeroCarousel, HorizontalDivider, HorizontalFloatingToolbar, HorizontalMultiBrowseCarousel, HorizontalUncontainedCarousel, Icon, IconButton, IconToggleButton, InputChip
+VStack(alignment: .leading, spacing: 12) {
+  FilterChip("Label")
+  FloatingActionButton("star")
+  FlowRow() { Text("Content"); Button("Action") }
+  HorizontalCenteredHeroCarousel() { Text("Content"); Button("Action") }
+  HorizontalDivider()
+  HorizontalFloatingToolbar() { Button("Save"); Button("Share") }
+  HorizontalMultiBrowseCarousel() { Text("Content"); Button("Action") }
+  HorizontalUncontainedCarousel() { Text("Content"); Button("Action") }
+  Icon("star")
+  IconButton("star")
+  IconToggleButton("star")
+  InputChip("Label")
+}
+.padding()

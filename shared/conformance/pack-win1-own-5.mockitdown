@@ -1,0 +1,9 @@
+// win1 own elements: TileColumn, TiledArea, ToolPalette, VScrollBar, Window
+VStack(alignment: .leading, spacing: 12) {
+  TileColumn() { Text("Content"); Button("Action") }
+  TiledArea() { Text("Content"); Button("Action") }
+  ToolPalette() { Text("Content"); Button("Action") }
+  VScrollBar(60)
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

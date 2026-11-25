@@ -1,0 +1,16 @@
+// mui own elements: Grow, IconButton, ImageList, ImageListItem, Input, InputBase, InputLabel, LineChart, LinearProgress, Link, List, ListItem
+VStack(alignment: .leading, spacing: 12) {
+  Grow() { Text("Content"); Button("Action") }
+  IconButton("star")
+  ImageList(["Name", "Status"]) { Text("Content"); Button("Action") }
+  ImageListItem().frame(width: 160, height: 96)
+  Input("Placeholder")
+  InputBase("Placeholder")
+  InputLabel("Content")
+  LineChart(values: [3, 5, 2, 6, 4])
+  LinearProgress()
+  Link("Label", "#")
+  List() { Text("First item"); Text("Second item") }
+  ListItem("Primary")
+}
+.padding()

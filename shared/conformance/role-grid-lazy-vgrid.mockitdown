@@ -1,0 +1,2 @@
+// base element LazyVGrid (role grid)
+LazyVGrid() { Text("Content"); Button("Action") }

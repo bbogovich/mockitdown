@@ -1,0 +1,16 @@
+// antd own elements: PageHeader, Pagination, Panel, Paragraph, Password, Popconfirm, Popover, ProCard, ProDescriptions, ProForm, ProFormCheckbox, ProFormDatePicker
+VStack(alignment: .leading, spacing: 12) {
+  PageHeader("Title") { Text("Content"); Button("Action") }
+  Pagination()
+  Panel("Title") { Text("Content"); Button("Action") }
+  Paragraph("Content")
+  Password("Placeholder")
+  Popconfirm("Title") { Text("Content"); Button("Action") }
+  Popover("Title") { Text("Content"); Button("Action") }
+  ProCard("Title") { Text("Content"); Button("Action") }
+  ProDescriptions("Title") { Text("First item"); Text("Second item") }
+  ProForm() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  ProFormCheckbox("Label")
+  ProFormDatePicker("Label")
+}
+.padding()

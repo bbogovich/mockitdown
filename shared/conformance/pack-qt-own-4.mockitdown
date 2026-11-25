@@ -1,0 +1,16 @@
+// qt own elements: MdiArea, MdiSubWindow, Menu, MenuBar, MessageBox, PlainTextEdit, ProgressBar, ProgressDialog, PushButton, RadioButton, RubberBand, ScrollArea
+VStack(alignment: .leading, spacing: 12) {
+  MdiArea() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  MdiSubWindow("Title") { Text("Content"); Button("Action") }
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuBar() { Button("Save"); Button("Share") }
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  PlainTextEdit("Text")
+  ProgressBar(60)
+  ProgressDialog("Title") { Text("Content"); Button("Action") }
+  PushButton("Label")
+  RadioButton("Label")
+  RubberBand()
+  ScrollArea() { Text("Content"); Button("Action") }
+}
+.padding()

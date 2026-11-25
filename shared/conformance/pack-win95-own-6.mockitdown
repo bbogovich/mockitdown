@@ -1,0 +1,7 @@
+// win95 own elements: UpDown, Window, Wizard
+VStack(alignment: .leading, spacing: 12) {
+  UpDown("Label")
+  Window("Title") { Text("Content"); Button("Action") }
+  Wizard("Title") { Text("Content"); Button("Action") }
+}
+.padding()

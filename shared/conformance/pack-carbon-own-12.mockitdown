@@ -1,0 +1,16 @@
+// carbon own elements: TextArea, TextInput, Theme, Tile, TileAboveTheFoldContent, TileBelowTheFoldContent, TileGroup, TimePicker, ToastNotification, Toggle, Toggletip, Tooltip
+VStack(alignment: .leading, spacing: 12) {
+  TextArea("Label")
+  TextInput("Label")
+  Theme() { Text("Content"); Button("Action") }
+  Tile("Title") { Text("Content"); Button("Action") }
+  TileAboveTheFoldContent() { Text("Content"); Button("Action") }
+  TileBelowTheFoldContent() { Text("Content"); Button("Action") }
+  TileGroup() { Text("Content"); Button("Action") }
+  TimePicker("Label")
+  ToastNotification("Title")
+  Toggle("Label")
+  Toggletip("Text") { Text("Content"); Button("Action") }
+  Tooltip("Text") { Text("Content"); Button("Action") }
+}
+.padding()

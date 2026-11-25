@@ -1,0 +1,14 @@
+// shadcn own elements: TypographyH1, TypographyH2, TypographyH3, TypographyH4, TypographyInlineCode, TypographyLarge, TypographyLead, TypographyMuted, TypographyP, TypographySmall
+VStack(alignment: .leading, spacing: 12) {
+  TypographyH1("Content")
+  TypographyH2("Content")
+  TypographyH3("Content")
+  TypographyH4("Content")
+  TypographyInlineCode("Content")
+  TypographyLarge("Content")
+  TypographyLead("Content")
+  TypographyMuted("Content")
+  TypographyP("Content")
+  TypographySmall("Content")
+}
+.padding()

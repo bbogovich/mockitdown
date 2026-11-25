@@ -1,0 +1,2 @@
+// a Dialog element
+Dialog("Rename") { TextField("Name"); Button("OK") }

@@ -1,0 +1,16 @@
+// prime own elements: OverlayPanel, Paginator, Panel, PanelMenu, PanelMenuPanel, Password, PasswordMeter, PickList, Popover, ProgressBar, ProgressSpinner, RadioButton
+VStack(alignment: .leading, spacing: 12) {
+  OverlayPanel("Title") { Text("Content"); Button("Action") }
+  Paginator()
+  Panel("Header") { Text("Content"); Button("Action") }
+  PanelMenu() { Text("Content"); Button("Action") }
+  PanelMenuPanel("Label") { Text("Content"); Button("Action") }
+  Password("Placeholder")
+  PasswordMeter(60)
+  PickList() { Text("Content"); Button("Action") }
+  Popover("Title") { Text("Content"); Button("Action") }
+  ProgressBar(60)
+  ProgressSpinner()
+  RadioButton("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// antd own elements: CollapsePanel, ColorPicker, Column, ConfigProvider, Content, DatePicker, Descriptions, DescriptionsItem, DirectoryTree, Divider, Dragger, Drawer
+VStack(alignment: .leading, spacing: 12) {
+  CollapsePanel("Title") { Text("Content"); Button("Action") }
+  ColorPicker()
+  Column("Title")
+  ConfigProvider() { Text("Content"); Button("Action") }
+  Content() { Text("Content"); Button("Action") }
+  DatePicker("Placeholder")
+  Descriptions("Title") { Text("First item"); Text("Second item") }
+  DescriptionsItem("Label", "Value") { Text("Content"); Button("Action") }
+  DirectoryTree() { TreeItem("Folder") { TreeItem("File") } }
+  Divider()
+  Dragger("Label")
+  Drawer("Title") { Text("Content"); Button("Action") }
+}
+.padding()

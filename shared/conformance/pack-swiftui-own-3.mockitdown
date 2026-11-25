@@ -1,0 +1,16 @@
+// swiftui own elements: GroupBox, HSplitView, HelpLink, Image, Inspector, Label, LabeledContent, LineMark, Link, List, Map, Menu
+VStack(alignment: .leading, spacing: 12) {
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  HSplitView() { Text("Content"); Button("Action") }
+  HelpLink()
+  Image().frame(width: 160, height: 96)
+  Inspector("Title") { Text("Content"); Button("Action") }
+  Label("Title")
+  LabeledContent("Label", "Value") { Text("Content"); Button("Action") }
+  LineMark(values: [3, 5, 2, 6, 4])
+  Link("Label")
+  List() { Text("First item"); Text("Second item") }
+  Map("Label").frame(width: 160, height: 96)
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+}
+.padding()

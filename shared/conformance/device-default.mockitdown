@@ -1,0 +1,2 @@
+// default_device applies when nothing names one
+VStack { Text("Device"); Spacer(); Button("OK") }

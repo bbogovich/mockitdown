@@ -1,0 +1,16 @@
+// vuetify own elements: VRangeSlider, VRating, VResponsive, VRow, VSelect, VSheet, VSkeletonLoader, VSlideGroup, VSlideGroupItem, VSlider, VSnackbar, VSnackbarQueue
+VStack(alignment: .leading, spacing: 12) {
+  VRangeSlider("Label")
+  VRating(60)
+  VResponsive() { Text("Content"); Button("Action") }
+  VRow() { Text("Content"); Button("Action") }
+  VSelect("Label")
+  VSheet() { Text("Content"); Button("Action") }
+  VSkeletonLoader().frame(width: 160, height: 96)
+  VSlideGroup() { Text("Content"); Button("Action") }
+  VSlideGroupItem() { Text("Content"); Button("Action") }
+  VSlider("Label")
+  VSnackbar("Message")
+  VSnackbarQueue("Message")
+}
+.padding()

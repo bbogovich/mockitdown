@@ -1,0 +1,2 @@
+// HTML is escaped
+Text("<b>not bold</b> & \"quoted\"")

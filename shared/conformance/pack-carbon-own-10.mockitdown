@@ -1,0 +1,16 @@
+// carbon own elements: StructuredListWrapper, Switch, Switcher, SwitcherDivider, SwitcherItem, Tab, TabList, TabPanel, Table, TableBatchAction, TableBatchActions, TableCell
+VStack(alignment: .leading, spacing: 12) {
+  StructuredListWrapper(["Name", "Status"], columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Switch("Text")
+  Switcher() { Text("Content"); Button("Action") }
+  SwitcherDivider()
+  SwitcherItem("Label")
+  Tab("Label")
+  TabList(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabPanel() { Text("Content"); Button("Action") }
+  Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TableBatchAction("Label")
+  TableBatchActions("Title") { Button("Save"); Button("Share") }
+  TableCell("Content")
+}
+.padding()

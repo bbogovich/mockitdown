@@ -1,0 +1,7 @@
+// a callout with a label
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").callout(1, "Recipient")
+  Button("Send")
+}
+.padding()
+.frame(width: 360)

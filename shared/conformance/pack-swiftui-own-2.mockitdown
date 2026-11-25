@@ -1,0 +1,16 @@
+// swiftui own elements: ConfirmationDialog, ContainerRelativeShape, ContentUnavailableView, ControlGroup, DatePicker, DisclosureGroup, EditButton, EmptyView, Form, Gauge, GeometryReader, GlassEffectContainer
+VStack(alignment: .leading, spacing: 12) {
+  ConfirmationDialog("Title") { Text("Content"); Button("Action") }
+  ContainerRelativeShape().frame(width: 160, height: 96)
+  ContentUnavailableView("Title") { Text("Content"); Button("Action") }
+  ControlGroup() { Button("Save"); Button("Share") }
+  DatePicker("Label")
+  DisclosureGroup("Title") { Text("Content"); Button("Action") }
+  EditButton()
+  EmptyView() { Text("Content"); Button("Action") }
+  Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  Gauge(60)
+  GeometryReader() { Text("Content"); Button("Action") }
+  GlassEffectContainer() { Text("Content"); Button("Action") }
+}
+.padding()

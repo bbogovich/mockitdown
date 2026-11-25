@@ -1,0 +1,2 @@
+// base element Canvas (role canvas)
+Canvas() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)

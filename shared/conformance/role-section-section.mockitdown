@@ -1,0 +1,2 @@
+// base element Section (role section)
+Section("Title") { Text("First item"); Text("Second item") }

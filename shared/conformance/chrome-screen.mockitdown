@@ -1,0 +1,3 @@
+// chrome from @Screen(chrome:)
+@Screen(chrome: "macos", title: "From source")
+VStack { Text("Window content"); Button("OK") }

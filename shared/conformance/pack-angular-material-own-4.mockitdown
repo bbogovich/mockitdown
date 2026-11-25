@@ -1,0 +1,16 @@
+// angular-material own elements: MatExpansionPanel, MatExtendedFab, MatFab, MatFlatButton, MatFormField, MatGridList, MatGridTile, MatHeaderCell, MatHorizontalStepper, MatIcon, MatIconButton, MatInput
+VStack(alignment: .leading, spacing: 12) {
+  MatExpansionPanel("Title") { Text("Content"); Button("Action") }
+  MatExtendedFab("Label")
+  MatFab("star")
+  MatFlatButton("Label")
+  MatFormField("Label")
+  MatGridList(["Name", "Status"]) { Text("Content"); Button("Action") }
+  MatGridTile("Label").frame(width: 160, height: 96)
+  MatHeaderCell("Title")
+  MatHorizontalStepper() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  MatIcon("star")
+  MatIconButton("star")
+  MatInput("Label")
+}
+.padding()

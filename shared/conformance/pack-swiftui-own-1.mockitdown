@@ -1,0 +1,16 @@
+// swiftui own elements: ActionSheet, Alert, AnyView, AreaMark, AsyncImage, BarMark, Button, Canvas, Card, Chart, ColorPicker, ConcentricRectangle
+VStack(alignment: .leading, spacing: 12) {
+  ActionSheet("Title") { Text("Content"); Button("Action") }
+  Alert("Title") { Text("Content"); Button("Action") }
+  AnyView() { Text("Content"); Button("Action") }
+  AreaMark(values: [3, 5, 2, 6, 4])
+  AsyncImage().frame(width: 160, height: 96)
+  BarMark(values: [3, 5, 2, 6, 4])
+  Button("Label")
+  Canvas("Label").frame(width: 160, height: 96)
+  Card("Title") { Text("Content"); Button("Action") }
+  Chart(values: [3, 5, 2, 6, 4])
+  ColorPicker("Label") { Text("Content"); Button("Action") }
+  ConcentricRectangle().frame(width: 160, height: 96)
+}
+.padding()

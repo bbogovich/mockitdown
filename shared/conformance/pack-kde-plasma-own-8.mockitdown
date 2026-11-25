@@ -1,0 +1,16 @@
+// kde-plasma own elements: RowLayout, ScrollView, ScrollablePage, SearchField, SelectableLabel, Separator, Slider, SpinBox, SplitView, Splitter, StatusBar, SubtitleDelegate
+VStack(alignment: .leading, spacing: 12) {
+  RowLayout() { Text("Content"); Button("Action") }
+  ScrollView() { Text("Content"); Button("Action") }
+  ScrollablePage("Title") { Text("Content"); Button("Action") }
+  SearchField()
+  SelectableLabel("Content")
+  Separator()
+  Slider("Label")
+  SpinBox("Value")
+  SplitView() { Text("Content"); Button("Action") }
+  Splitter() { Text("Content"); Button("Action") }
+  StatusBar() { Button("Save"); Button("Share") }
+  SubtitleDelegate("Title")
+}
+.padding()

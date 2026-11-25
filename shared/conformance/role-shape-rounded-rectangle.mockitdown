@@ -1,0 +1,2 @@
+// base element RoundedRectangle (role shape)
+RoundedRectangle().frame(width: 160, height: 96)

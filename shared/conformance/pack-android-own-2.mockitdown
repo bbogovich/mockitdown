@@ -1,0 +1,16 @@
+// android own elements: Checkbox, CircularProgressIndicator, CircularWavyProgressIndicator, Column, ConnectedButtonGroup, DatePicker, DatePickerDialog, DatePickerField, DateRangePicker, Dialog, DismissibleNavigationDrawer, DockedSearchBar
+VStack(alignment: .leading, spacing: 12) {
+  Checkbox("Label")
+  CircularProgressIndicator()
+  CircularWavyProgressIndicator()
+  Column() { Text("Content"); Button("Action") }
+  ConnectedButtonGroup() { Text("Content"); Button("Action") }
+  DatePicker()
+  DatePickerDialog("Title") { Text("Content"); Button("Action") }
+  DatePickerField("Label")
+  DateRangePicker()
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DismissibleNavigationDrawer() { Text("Content"); Button("Action") }
+  DockedSearchBar("Placeholder")
+}
+.padding()

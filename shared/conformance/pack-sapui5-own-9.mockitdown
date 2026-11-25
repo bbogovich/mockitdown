@@ -1,0 +1,16 @@
+// sapui5 own elements: Select, Shell, ShellBar, SideNavigation, SimpleForm, Slider, SplitApp, SplitContainer, StandardListItem, StepInput, Switch, TabContainer
+VStack(alignment: .leading, spacing: 12) {
+  Select("Label")
+  Shell() { Text("Content"); Button("Action") }
+  ShellBar("Title") { Text("Content"); Button("Action") }
+  SideNavigation("Title") { Text("Content"); Button("Action") }
+  SimpleForm("Title") { TextField("Name"); Toggle("Notifications", isOn: true) }
+  Slider()
+  SplitApp() { Text("Content"); Button("Action") }
+  SplitContainer() { Text("Content"); Button("Action") }
+  StandardListItem("Title")
+  StepInput("Label")
+  Switch("Label")
+  TabContainer(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+}
+.padding()

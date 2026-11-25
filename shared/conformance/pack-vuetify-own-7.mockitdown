@@ -1,0 +1,16 @@
+// vuetify own elements: VLazy, VList, VListGroup, VListImg, VListItem, VListItemAction, VListItemSubtitle, VListItemTitle, VListSubheader, VLocaleProvider, VMain, VMenu
+VStack(alignment: .leading, spacing: 12) {
+  VLazy() { Text("Content"); Button("Action") }
+  VList() { Text("First item"); Text("Second item") }
+  VListGroup("Label")
+  VListImg().frame(width: 160, height: 96)
+  VListItem("Title")
+  VListItemAction() { Text("Content"); Button("Action") }
+  VListItemSubtitle("Content")
+  VListItemTitle("Content")
+  VListSubheader("Content")
+  VLocaleProvider() { Text("Content"); Button("Action") }
+  VMain() { Text("Content"); Button("Action") }
+  VMenu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+}
+.padding()

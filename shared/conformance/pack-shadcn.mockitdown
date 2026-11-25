@@ -1,0 +1,15 @@
+// a small settings screen in the shadcn pack
+@Screen(title: "Settings")
+VStack(alignment: .leading, spacing: 12) {
+  Text("Account").font(.title2)
+  TextField("Name", text: "Ana Lima")
+  Toggle("Notifications", isOn: true)
+  Checkbox("Weekly digest", checked: true)
+  ProgressView("Sync", value: 0.6)
+  HStack {
+    Button("Cancel")
+    Spacer()
+    Button("Save", role: .primary)
+  }
+}
+.padding()

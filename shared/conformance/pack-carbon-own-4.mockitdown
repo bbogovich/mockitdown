@@ -1,0 +1,16 @@
+// carbon own elements: FilterableMultiSelect, FlexGrid, Form, FormGroup, FormItem, FormLabel, GaugeChart, Grid, GroupedBarChart, Header, HeaderGlobalAction, HeaderGlobalBar
+VStack(alignment: .leading, spacing: 12) {
+  FilterableMultiSelect("Label")
+  FlexGrid() { Text("Content"); Button("Action") }
+  Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormGroup("Title") { Text("First item"); Text("Second item") }
+  FormItem() { Text("Content"); Button("Action") }
+  FormLabel("Content")
+  GaugeChart(values: [3, 5, 2, 6, 4])
+  Grid(["Name", "Status"]) { Text("Content"); Button("Action") }
+  GroupedBarChart(values: [3, 5, 2, 6, 4])
+  Header("Subtitle") { Text("Content"); Button("Action") }
+  HeaderGlobalAction("star")
+  HeaderGlobalBar() { Button("Save"); Button("Share") }
+}
+.padding()

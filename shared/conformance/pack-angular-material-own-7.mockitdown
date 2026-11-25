@@ -1,0 +1,16 @@
+// angular-material own elements: MatSnackBar, MatSortHeader, MatSpinner, MatStep, MatStepper, MatStepperHeader, MatStrokedButton, MatTab, MatTabGroup, MatTabLink, MatTabNavBar, MatTable
+VStack(alignment: .leading, spacing: 12) {
+  MatSnackBar("Message")
+  MatSortHeader("Title")
+  MatSpinner()
+  MatStep("Label")
+  MatStepper() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  MatStepperHeader(["Cart", "Shipping", "Payment"])
+  MatStrokedButton("Label")
+  MatTab("Label")
+  MatTabGroup() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  MatTabLink("Label")
+  MatTabNavBar(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  MatTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+}
+.padding()

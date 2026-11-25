@@ -1,0 +1,7 @@
+// lisa own elements: ToolWindow, Window, Worksheet
+VStack(alignment: .leading, spacing: 12) {
+  ToolWindow("Title") { Text("Content"); Button("Action") }
+  Window("Title") { Text("Content"); Button("Action") }
+  Worksheet(columns: ["A", "B"], rows: [[1, 2], [3, 4]])
+}
+.padding()

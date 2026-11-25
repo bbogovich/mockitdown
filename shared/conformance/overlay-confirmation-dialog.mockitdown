@@ -1,0 +1,6 @@
+// `.confirmationDialog`
+VStack(spacing: 8) { Text("Screen content"); Button("Open") }
+.confirmationDialog("Delete photo?", isPresented: true) {
+  Button("Delete", role: .destructive)
+  Button("Cancel")
+}

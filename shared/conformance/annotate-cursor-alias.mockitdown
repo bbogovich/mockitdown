@@ -1,0 +1,7 @@
+// `.cursor` is an alias of `.pointer`
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com")
+  Button("Send").cursor(.ibeam)
+}
+.padding()
+.frame(width: 360)

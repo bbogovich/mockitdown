@@ -1,0 +1,16 @@
+// win31 own elements: AUTOCHECKBOX, AUTORADIOBUTTON, ApplicationWindow, AutoCheckBox, AutoRadioButton, Button, CHECKBOX, COMBOBOX, CTEXT, CalcKey, Calculator, CardStack
+VStack(alignment: .leading, spacing: 12) {
+  AUTOCHECKBOX("Label")
+  AUTORADIOBUTTON("Label")
+  ApplicationWindow("Title") { Text("Content"); Button("Action") }
+  AutoCheckBox("Label")
+  AutoRadioButton("Label")
+  Button("Label")
+  CHECKBOX("Label")
+  COMBOBOX("Label")
+  CTEXT("Content")
+  CalcKey("Label")
+  Calculator() { Text("Content"); Button("Action") }
+  CardStack() { Text("Content"); Button("Action") }
+}
+.padding()

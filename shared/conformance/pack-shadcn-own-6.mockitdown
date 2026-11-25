@@ -1,0 +1,16 @@
+// shadcn own elements: DropdownMenuSub, Empty, Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet, Form, FormDescription, FormItem
+VStack(alignment: .leading, spacing: 12) {
+  DropdownMenuSub("Label")
+  Empty() { Text("Content"); Button("Action") }
+  Field() { Text("Content"); Button("Action") }
+  FieldDescription("Content")
+  FieldGroup() { Text("Content"); Button("Action") }
+  FieldLabel("Content")
+  FieldLegend("Content")
+  FieldSeparator("Label")
+  FieldSet() { Text("Content"); Button("Action") }
+  Form() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormDescription("Content")
+  FormItem() { Text("Content"); Button("Action") }
+}
+.padding()

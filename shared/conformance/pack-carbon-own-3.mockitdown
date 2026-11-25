@@ -1,0 +1,16 @@
+// carbon own elements: DatePicker, DatePickerInput, DefinitionTooltip, DismissibleTag, DonutChart, Dropdown, ExpandableSearch, ExpandableTile, FileUploader, FileUploaderButton, FileUploaderDropContainer, FileUploaderItem
+VStack(alignment: .leading, spacing: 12) {
+  DatePicker("Label")
+  DatePickerInput("Label")
+  DefinitionTooltip("Text") { Text("Content"); Button("Action") }
+  DismissibleTag("Label")
+  DonutChart(values: [3, 5, 2, 6, 4])
+  Dropdown("Label")
+  ExpandableSearch("Placeholder")
+  ExpandableTile("Title") { Text("Content"); Button("Action") }
+  FileUploader("Title") { Text("Content"); Button("Action") }
+  FileUploaderButton("Label")
+  FileUploaderDropContainer("Label")
+  FileUploaderItem("Label")
+}
+.padding()

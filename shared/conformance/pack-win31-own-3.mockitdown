@@ -1,0 +1,16 @@
+// win31 own elements: DialogBox, Directory, DirectoryTree, DirectoryWindow, Drive, DriveBar, DropDownList, EDITTEXT, Edit, EditText, FileItem, FileList
+VStack(alignment: .leading, spacing: 12) {
+  DialogBox("Title") { Text("Content"); Button("Action") }
+  Directory("Label")
+  DirectoryTree() { TreeItem("Folder") { TreeItem("File") } }
+  DirectoryWindow("Title") { Text("Content"); Button("Action") }
+  Drive("Label")
+  DriveBar() { Button("Save"); Button("Share") }
+  DropDownList("Label")
+  EDITTEXT("Text")
+  Edit("Text")
+  EditText("Text")
+  FileItem("Title")
+  FileList() { Text("First item"); Text("Second item") }
+}
+.padding()

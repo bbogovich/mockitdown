@@ -1,0 +1,16 @@
+// mui own elements: NativeSelect, OutlinedInput, Pagination, Paper, PieChart, Placeholder, Popover, Radio, RadioGroup, Rating, Select, Skeleton
+VStack(alignment: .leading, spacing: 12) {
+  NativeSelect("Label")
+  OutlinedInput("Placeholder")
+  Pagination()
+  Paper() { Text("Content"); Button("Action") }
+  PieChart(values: [3, 5, 2, 6, 4])
+  Placeholder("Label").frame(width: 160, height: 96)
+  Popover("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  Radio("Label")
+  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+  Rating(60)
+  Select("Label")
+  Skeleton().frame(width: 160, height: 96)
+}
+.padding()

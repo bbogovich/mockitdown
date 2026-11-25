@@ -1,0 +1,16 @@
+// nextstep own elements: ReturnButton, Ruler, ScrollView, SecureTextField, Separator, Shelf, Slider, SplitView, SubmenuItem, Switch, TableView, Terminal
+VStack(alignment: .leading, spacing: 12) {
+  ReturnButton("Label")
+  Ruler() { Button("Save"); Button("Share") }
+  ScrollView() { Text("Content"); Button("Action") }
+  SecureTextField("Label")
+  Separator()
+  Shelf() { Text("Content"); Button("Action") }
+  Slider("Label")
+  SplitView() { Text("Content"); Button("Action") }
+  SubmenuItem("Label")
+  Switch("Label")
+  TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Terminal("let total = items.count")
+}
+.padding()

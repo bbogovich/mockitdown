@@ -1,0 +1,16 @@
+// mui own elements: BottomNavigationAction, Box, Breadcrumbs, Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Chip
+VStack(alignment: .leading, spacing: 12) {
+  BottomNavigationAction("Label")
+  Box() { Text("Content"); Button("Action") }
+  Breadcrumbs(["One", "Two", "Three"])
+  Button("Label")
+  ButtonGroup() { Button("Save"); Button("Share") }
+  Card("Title") { Text("Content"); Button("Action") }
+  CardActions() { Text("Content"); Button("Action") }
+  CardContent() { Text("Content"); Button("Action") }
+  CardHeader("Title") { Text("Content"); Button("Action") }
+  CardMedia().frame(width: 160, height: 96)
+  Checkbox("Label")
+  Chip("Label")
+}
+.padding()

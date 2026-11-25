@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "pack",
+      "message": "unknown pack 'no-such-pack'; known packs: android, angular-material, antd, aqua, avalonia, base, bootstrap, carbon, cde, fluent, gsos, gtk, hologram, kde-plasma, lcars, lisa, mac-classic, macos9, mui, nextstep, nls, phosphor, prime, primer, qt, sapui5, shadcn, sketch, swiftui, tailwind, vista, vuetify, win1, win2, win31, win95, winxp, xerox-star",
+      "line": 1,
+      "col": 1,
+      "source": ""
+    }
+  ]
+}

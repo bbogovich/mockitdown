@@ -1,0 +1,16 @@
+// tailwind own elements: Heading, Hero, HeroHeading, InlineAlert, Input, InputGroup, Kbd, Label, Lead, Legend, Link, Listbox
+VStack(alignment: .leading, spacing: 12) {
+  Heading("Content")
+  Hero() { Text("Content"); Button("Action") }
+  HeroHeading("Content")
+  InlineAlert("Title")
+  Input("Placeholder")
+  InputGroup("Placeholder")
+  Kbd(["⌘", "K"])
+  Label("Title")
+  Lead("Content")
+  Legend("Content")
+  Link("Label")
+  Listbox("Placeholder")
+}
+.padding()

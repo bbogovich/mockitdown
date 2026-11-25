@@ -1,0 +1,2 @@
+// width and height override the device size
+VStack { Text("Device"); Spacer(); Button("OK") }

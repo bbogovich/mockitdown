@@ -1,0 +1,16 @@
+// vuetify own elements: VBannerActions, VBannerText, VBottomNavigation, VBottomSheet, VBreadcrumbs, VBreadcrumbsItem, VBtn, VBtnGroup, VBtnToggle, VCard, VCardActions, VCardItem
+VStack(alignment: .leading, spacing: 12) {
+  VBannerActions() { Text("Content"); Button("Action") }
+  VBannerText("Content")
+  VBottomNavigation() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  VBottomSheet("Title") { Text("Content"); Button("Action") }
+  VBreadcrumbs(["One", "Two", "Three"])
+  VBreadcrumbsItem("Label")
+  VBtn("Label")
+  VBtnGroup() { Button("Save"); Button("Share") }
+  VBtnToggle() { Button("Save"); Button("Share") }
+  VCard("Title") { Text("Content"); Button("Action") }
+  VCardActions() { Text("Content"); Button("Action") }
+  VCardItem() { Text("Content"); Button("Action") }
+}
+.padding()

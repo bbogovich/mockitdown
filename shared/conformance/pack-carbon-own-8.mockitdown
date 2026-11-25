@@ -1,0 +1,16 @@
+// carbon own elements: RadioButtonGroup, RadioTile, ScatterChart, Search, Select, SelectItem, SelectableTag, SelectableTile, SideNav, SideNavDivider, SideNavItems, SideNavLink
+VStack(alignment: .leading, spacing: 12) {
+  RadioButtonGroup("Label")
+  RadioTile("Title") { Text("Content"); Button("Action") }
+  ScatterChart(values: [3, 5, 2, 6, 4])
+  Search("Placeholder")
+  Select("Label")
+  SelectItem("Text")
+  SelectableTag("Label")
+  SelectableTile("Title") { Text("Content"); Button("Action") }
+  SideNav("Title") { Text("Content"); Button("Action") }
+  SideNavDivider()
+  SideNavItems() { Text("Content"); Button("Action") }
+  SideNavLink("Label")
+}
+.padding()

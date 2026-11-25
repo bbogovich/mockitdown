@@ -1,0 +1,2 @@
+// a protocol-relative URL is linked
+Image("//cdn.example.com/a.png").frame(width: 120, height: 90)

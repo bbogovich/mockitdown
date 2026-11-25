@@ -1,0 +1,14 @@
+// android own elements: TimePickerDialog, ToggleButton, Tooltip, TooltipBox, TopAppBar, TopSearchBar, TriStateCheckbox, VerticalDivider, VerticalSlider, WideNavigationRail
+VStack(alignment: .leading, spacing: 12) {
+  TimePickerDialog("Title") { Text("Content"); Button("Action") }
+  ToggleButton("Label")
+  Tooltip("Text") { Text("Content"); Button("Action") }
+  TooltipBox("Text") { Text("Content"); Button("Action") }
+  TopAppBar("Title") { Text("Content"); Button("Action") }
+  TopSearchBar("Placeholder")
+  TriStateCheckbox("Label")
+  VerticalDivider()
+  VerticalSlider()
+  WideNavigationRail() { Text("Content"); Button("Action") }
+}
+.padding()

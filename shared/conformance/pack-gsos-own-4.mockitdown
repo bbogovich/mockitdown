@@ -1,0 +1,6 @@
+// gsos own elements: TrashIcon, Window
+VStack(alignment: .leading, spacing: 12) {
+  TrashIcon()
+  Window("Title") { Text("Content"); Button("Action") }
+}
+.padding()

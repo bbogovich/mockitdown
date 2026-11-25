@@ -1,0 +1,16 @@
+{
+  "packs": [
+    "base",
+    "swiftui"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "pack",
+      "message": "import FluentUI selects pack 'fluent', but 'swiftui' is already selected; the first import wins",
+      "line": 3,
+      "col": 1,
+      "source": ""
+    }
+  ]
+}

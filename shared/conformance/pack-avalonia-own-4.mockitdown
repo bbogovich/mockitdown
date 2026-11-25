@@ -1,0 +1,16 @@
+// avalonia own elements: Image, ItemsControl, ItemsRepeater, Label, LayoutTransformControl, ListBox, ListBoxItem, MaskedTextBox, Menu, MenuBarItem, MenuFlyout, MenuItem
+VStack(alignment: .leading, spacing: 12) {
+  Image().frame(width: 160, height: 96)
+  ItemsControl() { Text("Content"); Button("Action") }
+  ItemsRepeater() { Text("Content"); Button("Action") }
+  Label("Content")
+  LayoutTransformControl() { Text("Content"); Button("Action") }
+  ListBox() { Text("First item"); Text("Second item") }
+  ListBoxItem("Title")
+  MaskedTextBox("Text")
+  Menu() { Button("Save"); Button("Share") }
+  MenuBarItem("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuFlyout("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuItem("Label")
+}
+.padding()

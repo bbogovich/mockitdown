@@ -1,0 +1,2 @@
+// `.badge(n)` on a row
+List { Row("Inbox", systemImage: "tray").badge(3) }

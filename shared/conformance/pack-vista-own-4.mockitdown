@@ -1,0 +1,16 @@
+// vista own elements: MenuBarItem, MonthCalendar, MultilineTextBox, NavigationBar, NavigationPane, NotesGadget, NotificationArea, OptionButton, PasswordBox, PowerButton, PowerMenuButton, ProgressBar
+VStack(alignment: .leading, spacing: 12) {
+  MenuBarItem("Label")
+  MonthCalendar()
+  MultilineTextBox("Text")
+  NavigationBar() { Text("Content"); Button("Action") }
+  NavigationPane("Title") { Text("Content"); Button("Action") }
+  NotesGadget("Text")
+  NotificationArea() { Text("Content"); Button("Action") }
+  OptionButton("Label")
+  PasswordBox("Placeholder")
+  PowerButton("Label")
+  PowerMenuButton("Label")
+  ProgressBar("Label")
+}
+.padding()

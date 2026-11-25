@@ -1,0 +1,7 @@
+// a numbered callout on the default corner
+VStack(alignment: .leading, spacing: 12) {
+  TextField("To", text: "ana@example.com").callout(1)
+  Button("Send")
+}
+.padding()
+.frame(width: 360)

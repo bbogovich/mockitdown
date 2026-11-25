@@ -1,0 +1,16 @@
+// win2 own elements: EditText, FileList, FileName, GroupBox, IconArea, IconicWindow, LText, ListBox, ListBoxItem, MenuBar, MenuBarItem, MenuItem
+VStack(alignment: .leading, spacing: 12) {
+  EditText("Text")
+  FileList() { Text("Content"); Button("Action") }
+  FileName("Content")
+  GroupBox("Title") { Text("Content"); Button("Action") }
+  IconArea() { Text("Content"); Button("Action") }
+  IconicWindow("Title")
+  LText("Content")
+  ListBox() { Text("First item"); Text("Second item") }
+  ListBoxItem("Title")
+  MenuBar() { Button("Save"); Button("Share") }
+  MenuBarItem("Label")
+  MenuItem("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// gtk own elements: NavigationPage, NavigationSidebar, NavigationSplitView, NavigationView, Overlay, OverlaySplitView, Paned, PasswordEntry, PasswordEntryRow, PathBar, Picture, Popover
+VStack(alignment: .leading, spacing: 12) {
+  NavigationPage("Title") { Text("Content"); Button("Action") }
+  NavigationSidebar("Title") { Text("Content"); Button("Action") }
+  NavigationSplitView() { Text("Content"); Button("Action") }
+  NavigationView() { Text("Content"); Button("Action") }
+  Overlay() { Text("Content"); Button("Action") }
+  OverlaySplitView() { Text("Content"); Button("Action") }
+  Paned() { Text("Content"); Button("Action") }
+  PasswordEntry("Placeholder")
+  PasswordEntryRow("Title")
+  PathBar(["One", "Two", "Three"])
+  Picture().frame(width: 160, height: 96)
+  Popover("Title") { Text("Content"); Button("Action") }
+}
+.padding()

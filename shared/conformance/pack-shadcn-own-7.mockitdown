@@ -1,0 +1,16 @@
+// shadcn own elements: FormLabel, FormMessage, HoverCard, Input, InputGroup, InputOTP, Item, Kbd, KbdGroup, Label, Menubar, MenubarCheckboxItem
+VStack(alignment: .leading, spacing: 12) {
+  FormLabel("Content")
+  FormMessage("Content")
+  HoverCard("Title") { Text("Content"); Button("Action") }
+  Input("Placeholder")
+  InputGroup("Placeholder")
+  InputOTP(["One", "Two", "Three"])
+  Item("Title")
+  Kbd("Content")
+  KbdGroup() { Text("Content"); Button("Action") }
+  Label("Title")
+  Menubar() { Button("Save"); Button("Share") }
+  MenubarCheckboxItem("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// tailwind own elements: SidebarItem, SidebarLabel, SidebarLayout, SidebarSection, SidebarSpacer, StackedLayout, Stat, Strong, Subheading, Switch, SwitchField, SwitchGroup
+VStack(alignment: .leading, spacing: 12) {
+  SidebarItem("Label")
+  SidebarLabel("Content")
+  SidebarLayout() { Text("Content"); Button("Action") }
+  SidebarSection() { Text("Content"); Button("Action") }
+  SidebarSpacer()
+  StackedLayout() { Text("Content"); Button("Action") }
+  Stat("Label", 60)
+  Strong("Content")
+  Subheading("Content")
+  Switch("Label")
+  SwitchField("Label")
+  SwitchGroup() { Text("Content"); Button("Action") }
+}
+.padding()

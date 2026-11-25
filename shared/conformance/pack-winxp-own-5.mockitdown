@@ -1,0 +1,16 @@
+// winxp own elements: TaskLink, TaskPane, TaskPaneSection, Taskbar, TaskbarButton, TextBox, ToolBar, ToolBarButton, ToolTip, TrackBar, TrayIcon, TreeView
+VStack(alignment: .leading, spacing: 12) {
+  TaskLink("Label")
+  TaskPane() { Text("Content"); Button("Action") }
+  TaskPaneSection("Title") { Text("Content"); Button("Action") }
+  Taskbar() { Text("Content"); Button("Action") }
+  TaskbarButton("Label")
+  TextBox("Placeholder")
+  ToolBar() { Button("Save"); Button("Share") }
+  ToolBarButton("Label")
+  ToolTip("Text") { Text("Content"); Button("Action") }
+  TrackBar()
+  TrayIcon("star")
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+}
+.padding()

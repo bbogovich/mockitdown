@@ -1,0 +1,2 @@
+// font styles
+VStack(alignment: .leading) { Text("Title").font(.title); Text("Headline").font(.headline); Text("Caption").font(.caption).foregroundStyle(.secondary) }

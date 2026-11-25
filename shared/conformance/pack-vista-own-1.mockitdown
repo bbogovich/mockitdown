@@ -1,0 +1,16 @@
+// vista own elements: AllProgramsButton, BackButton, Balloon, BrandGlyph, BreadcrumbBar, CategoryLink, CheckBox, Clock, ClockGadget, ComboBox, CommandBar, CommandButton
+VStack(alignment: .leading, spacing: 12) {
+  AllProgramsButton()
+  BackButton("Label")
+  Balloon("Text") { Text("Content"); Button("Action") }
+  BrandGlyph()
+  BreadcrumbBar(["One", "Two", "Three"])
+  CategoryLink("Label")
+  CheckBox("Label")
+  Clock()
+  ClockGadget("Content")
+  ComboBox("Label")
+  CommandBar() { Button("Save"); Button("Share") }
+  CommandButton("Label")
+}
+.padding()

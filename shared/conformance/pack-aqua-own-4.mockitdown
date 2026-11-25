@@ -1,0 +1,16 @@
+// aqua own elements: MenuTitle, MetalWindow, OutlineItem, OutlineView, Panel, PopUpButton, PreferenceIcon, ProgressBar, ProgressIndicator, PullDownButton, PushButton, RadioButton
+VStack(alignment: .leading, spacing: 12) {
+  MenuTitle("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MetalWindow("Title") { Text("Content"); Button("Action") }
+  OutlineItem("Title")
+  OutlineView() { TreeItem("Folder") { TreeItem("File") } }
+  Panel("Title") { Text("Content"); Button("Action") }
+  PopUpButton("Label")
+  PreferenceIcon("Title")
+  ProgressBar("Label")
+  ProgressIndicator("Label")
+  PullDownButton("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  PushButton("Label")
+  RadioButton("Label")
+}
+.padding()

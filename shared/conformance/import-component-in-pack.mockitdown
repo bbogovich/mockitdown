@@ -1,0 +1,4 @@
+// an imported component rendered in another pack
+import Bootstrap
+import "components/pill"
+StatusPill(text: "Degraded", color: .orange)

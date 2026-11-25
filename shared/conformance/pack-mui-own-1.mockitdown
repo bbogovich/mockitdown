@@ -1,0 +1,16 @@
+// mui own elements: Accordion, AccordionDetails, Alert, AlertTitle, AppBar, Autocomplete, Avatar, AvatarGroup, Backdrop, Badge, BarChart, BottomNavigation
+VStack(alignment: .leading, spacing: 12) {
+  Accordion("Title") { Text("Content"); Button("Action") }
+  AccordionDetails() { Text("Content"); Button("Action") }
+  Alert("Message")
+  AlertTitle("Content")
+  AppBar("Title") { Text("Content"); Button("Action") }
+  Autocomplete("Label")
+  Avatar("Ana Lima")
+  AvatarGroup() { Text("Content"); Button("Action") }
+  Backdrop() { Text("Content"); Button("Action") }
+  Badge("Content")
+  BarChart(values: [3, 5, 2, 6, 4])
+  BottomNavigation() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+}
+.padding()

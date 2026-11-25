@@ -1,0 +1,2 @@
+// base element Skeleton (role skeleton)
+Skeleton().frame(width: 160, height: 96)

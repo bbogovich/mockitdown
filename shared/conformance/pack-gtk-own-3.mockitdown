@@ -1,0 +1,16 @@
+// gtk own elements: ColumnViewColumn, ComboRow, Dialog, DropDown, EditableLabel, Entry, EntryRow, ExpanderRow, FlowBox, FlowBoxChild, FontDialogButton, Frame
+VStack(alignment: .leading, spacing: 12) {
+  ColumnViewColumn("Title")
+  ComboRow("Title")
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DropDown("Label")
+  EditableLabel("Text")
+  Entry("Placeholder")
+  EntryRow("Title")
+  ExpanderRow("Title") { Text("Content"); Button("Action") }
+  FlowBox() { Text("Content"); Button("Action") }
+  FlowBoxChild() { Text("Content"); Button("Action") }
+  FontDialogButton("Label")
+  Frame("Title") { Text("Content"); Button("Action") }
+}
+.padding()

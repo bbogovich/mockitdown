@@ -1,0 +1,2 @@
+// `.overlay` with alignment
+Color(.blue).frame(width: 200, height: 100).overlay(alignment: .topTrailing) { Badge("New") }

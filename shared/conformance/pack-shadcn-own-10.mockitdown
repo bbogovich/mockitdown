@@ -1,0 +1,16 @@
+// shadcn own elements: Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub
+VStack(alignment: .leading, spacing: 12) {
+  Sidebar("Title") { Text("Content"); Button("Action") }
+  SidebarContent() { Text("Content"); Button("Action") }
+  SidebarFooter() { Text("Content"); Button("Action") }
+  SidebarGroup("Title") { Text("First item"); Text("Second item") }
+  SidebarGroupLabel("Content")
+  SidebarHeader() { Text("Content"); Button("Action") }
+  SidebarInset() { Text("Content"); Button("Action") }
+  SidebarMenu() { Text("Content"); Button("Action") }
+  SidebarMenuBadge("Text")
+  SidebarMenuButton("Label")
+  SidebarMenuItem("Label")
+  SidebarMenuSub() { Text("Content"); Button("Action") }
+}
+.padding()

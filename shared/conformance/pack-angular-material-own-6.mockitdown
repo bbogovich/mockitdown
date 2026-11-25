@@ -1,0 +1,16 @@
+// angular-material own elements: MatProgressSpinner, MatRadioButton, MatRadioGroup, MatRaisedButton, MatRow, MatSelect, MatSelectionList, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSlideToggle, MatSlider
+VStack(alignment: .leading, spacing: 12) {
+  MatProgressSpinner()
+  MatRadioButton("Label")
+  MatRadioGroup("Label")
+  MatRaisedButton("Label")
+  MatRow()
+  MatSelect("Label")
+  MatSelectionList() { Text("First item"); Text("Second item") }
+  MatSidenav("Title") { Text("Content"); Button("Action") }
+  MatSidenavContainer() { Text("Content"); Button("Action") }
+  MatSidenavContent() { Text("Content"); Button("Action") }
+  MatSlideToggle("Label")
+  MatSlider()
+}
+.padding()

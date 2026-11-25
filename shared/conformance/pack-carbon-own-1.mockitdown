@@ -1,0 +1,16 @@
+// carbon own elements: Accordion, AccordionItem, ActionableNotification, AreaChart, AspectRatio, Breadcrumb, BreadcrumbItem, BubbleChart, Button, ButtonSet, Checkbox, CheckboxGroup
+VStack(alignment: .leading, spacing: 12) {
+  Accordion() { Text("Content"); Button("Action") }
+  AccordionItem("Title") { Text("Content"); Button("Action") }
+  ActionableNotification("Title")
+  AreaChart(values: [3, 5, 2, 6, 4])
+  AspectRatio() { Text("Content"); Button("Action") }
+  Breadcrumb(["One", "Two", "Three"])
+  BreadcrumbItem("Label", "#")
+  BubbleChart(values: [3, 5, 2, 6, 4])
+  Button("Label")
+  ButtonSet() { Button("Save"); Button("Share") }
+  Checkbox("Label")
+  CheckboxGroup("Label")
+}
+.padding()

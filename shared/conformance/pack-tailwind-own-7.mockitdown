@@ -1,0 +1,16 @@
+// tailwind own elements: PricingTier, Radio, RadioField, RadioGroup, SectionHeading, Select, Sidebar, SidebarBody, SidebarDivider, SidebarFooter, SidebarHeader, SidebarHeading
+VStack(alignment: .leading, spacing: 12) {
+  PricingTier("Title") { Text("Content"); Button("Action") }
+  Radio("Label")
+  RadioField("Label")
+  RadioGroup("Label") { Radio("First", selected: true); Radio("Second") }
+  SectionHeading("Content")
+  Select("Placeholder")
+  Sidebar() { Text("Content"); Button("Action") }
+  SidebarBody() { Text("Content"); Button("Action") }
+  SidebarDivider()
+  SidebarFooter() { Text("Content"); Button("Action") }
+  SidebarHeader() { Text("Content"); Button("Action") }
+  SidebarHeading("Content")
+}
+.padding()

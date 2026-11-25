@@ -1,0 +1,13 @@
+{
+  "packs": [],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "syntax",
+      "message": "expected ',' or ')' in an argument list",
+      "line": 3,
+      "col": 1,
+      "source": ""
+    }
+  ]
+}

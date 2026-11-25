@@ -1,0 +1,16 @@
+// kde-plasma own elements: SwipeListItem, Switch, SwitchDelegate, SystemMonitorSensor, TabBar, TabButton, TabWidget, TableView, TextArea, TextField, ToolBar, ToolButton
+VStack(alignment: .leading, spacing: 12) {
+  SwipeListItem("Title")
+  Switch("Label")
+  SwitchDelegate("Label")
+  SystemMonitorSensor("Label", 60)
+  TabBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabButton("Label")
+  TabWidget() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TableView(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  TextArea("Text")
+  TextField("Placeholder")
+  ToolBar() { Button("Save"); Button("Share") }
+  ToolButton("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// kde-plasma own elements: MenuBarItem, MenuDialog, MenuItem, MenuSeparator, MessageBox, NavigationTabBar, NavigationTabButton, Notification, OverlayDrawer, OverlaySheet, Page, PageRow
+VStack(alignment: .leading, spacing: 12) {
+  MenuBarItem("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  MenuDialog("Title") { Text("Content"); Button("Action") }
+  MenuItem("Label")
+  MenuSeparator()
+  MessageBox("Title") { Text("Content"); Button("Action") }
+  NavigationTabBar() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  NavigationTabButton("Label")
+  Notification("Message")
+  OverlayDrawer("Title") { Text("Content"); Button("Action") }
+  OverlaySheet("Title") { Text("Content"); Button("Action") }
+  Page("Title") { Text("Content"); Button("Action") }
+  PageRow() { Text("Content"); Button("Action") }
+}
+.padding()

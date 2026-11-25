@@ -1,0 +1,2 @@
+// chrome browser
+VStack { Text("Window content"); Button("OK") }

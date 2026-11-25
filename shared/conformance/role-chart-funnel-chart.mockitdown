@@ -1,0 +1,2 @@
+// base element FunnelChart (role chart)
+FunnelChart(values: [3, 5, 2, 6, 4])

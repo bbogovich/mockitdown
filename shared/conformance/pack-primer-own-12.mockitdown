@@ -1,0 +1,12 @@
+// primer own elements: TreeView, TreeViewItem, TreeViewSubTree, Truncate, UnderlineNav, UnderlineNavItem, UnderlinePanels, UnderlinePanelsTab
+VStack(alignment: .leading, spacing: 12) {
+  TreeView() { TreeItem("Folder") { TreeItem("File") } }
+  TreeViewItem("Label")
+  TreeViewSubTree() { Text("Content"); Button("Action") }
+  Truncate("Content")
+  UnderlineNav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  UnderlineNavItem("Label")
+  UnderlinePanels(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  UnderlinePanelsTab("Label")
+}
+.padding()

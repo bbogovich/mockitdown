@@ -1,0 +1,6 @@
+// a callout inside a dialog is emitted after the dialog's layer
+VStack { Text("Behind") }
+.alert("Delete?", isPresented: true) {
+  Button("Cancel")
+  Button("Delete", role: .destructive).callout(1)
+}

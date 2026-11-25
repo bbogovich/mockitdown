@@ -1,0 +1,2 @@
+// padding, frame, background, border, corner radius
+Text("Box").padding(12).frame(width: 160, height: 60).background(.surface).border(.separator).cornerRadius(8)

@@ -1,0 +1,2 @@
+// chrome gnome
+VStack { Text("Window content"); Button("OK") }

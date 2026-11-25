@@ -1,0 +1,2 @@
+// base element ScrollView (role scroll)
+ScrollView() { Text("Content"); Button("Action") }

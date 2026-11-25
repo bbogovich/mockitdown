@@ -1,0 +1,2 @@
+// a local image with no asset paths
+Image("photo.png").frame(width: 80, height: 60)

@@ -1,0 +1,16 @@
+// bootstrap own elements: InputGroup, InputGroupText, ListGroup, ListGroupItem, Modal, Nav, NavDropdown, NavItem, NavLink, Navbar, NavbarBrand, NavbarCollapse
+VStack(alignment: .leading, spacing: 12) {
+  InputGroup() { Text("Content"); Button("Action") }
+  InputGroupText("Content")
+  ListGroup() { Text("First item"); Text("Second item") }
+  ListGroupItem("Title")
+  Modal("Title") { Text("Content"); Button("Action") }
+  Nav(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  NavDropdown("Title") { Button("Open"); Button("Save"); Divider(); Button("Close") }
+  NavItem("Label")
+  NavLink("Label")
+  Navbar("Brand") { Text("Content"); Button("Action") }
+  NavbarBrand("Content")
+  NavbarCollapse() { Text("Content"); Button("Action") }
+}
+.padding()

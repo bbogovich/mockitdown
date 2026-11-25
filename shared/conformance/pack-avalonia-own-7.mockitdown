@@ -1,0 +1,16 @@
+// avalonia own elements: SymbolIcon, TabControl, TabItem, TabStrip, TabStripItem, TextBlock, TextBox, TextEditor, TimePicker, TitleBar, ToggleButton, ToggleSplitButton
+VStack(alignment: .leading, spacing: 12) {
+  SymbolIcon("star")
+  TabControl() { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabItem("Label")
+  TabStrip(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  TabStripItem("Label")
+  TextBlock("Content")
+  TextBox("Text")
+  TextEditor("let total = items.count")
+  TimePicker("Label")
+  TitleBar("Title") { Text("Content"); Button("Action") }
+  ToggleButton("Label")
+  ToggleSplitButton("Label")
+}
+.padding()

@@ -1,0 +1,16 @@
+// avalonia own elements: DatePicker, Decorator, Dialog, DockPanel, DropDownButton, Ellipse, Expander, Flyout, Grid, GridSplitter, HeaderedContentControl, HyperlinkButton
+VStack(alignment: .leading, spacing: 12) {
+  DatePicker("Label")
+  Decorator() { Text("Content"); Button("Action") }
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DockPanel() { Text("Content"); Button("Action") }
+  DropDownButton("Label")
+  Ellipse().frame(width: 160, height: 96)
+  Expander("Header") { Text("Content"); Button("Action") }
+  Flyout("Title") { Text("Content"); Button("Action") }
+  Grid() { Text("Content"); Button("Action") }
+  GridSplitter()
+  HeaderedContentControl("Header") { Text("First item"); Text("Second item") }
+  HyperlinkButton("Label")
+}
+.padding()

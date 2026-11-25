@@ -1,0 +1,2 @@
+// base element Placeholder (role placeholder)
+Placeholder("Label").frame(width: 160, height: 96)

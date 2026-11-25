@@ -1,0 +1,3 @@
+// `import <Module>` selects the pack (Fluent → fluent)
+import FluentUI
+VStack { Text("Fluent by import"); Button("OK") }

@@ -1,0 +1,3 @@
+// `.sheet` presented over the screen
+VStack(spacing: 8) { Text("Screen content"); Button("Open") }
+.sheet(isPresented: true) { VStack { Text("Sheet"); Button("Done") } }

@@ -1,0 +1,16 @@
+// qt own elements: Dial, Dialog, DialogButtonBox, DockWidget, DoubleSpinBox, FileDialog, FontComboBox, FontDialog, FormLayout, FormRow, Frame, GridLayout
+VStack(alignment: .leading, spacing: 12) {
+  Dial(60)
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DialogButtonBox() { Text("Content"); Button("Action") }
+  DockWidget("Title") { Text("Content"); Button("Action") }
+  DoubleSpinBox("Value")
+  FileDialog("Title") { Text("Content"); Button("Action") }
+  FontComboBox("Label")
+  FontDialog("Title") { Text("Content"); Button("Action") }
+  FormLayout() { TextField("Name"); Toggle("Notifications", isOn: true) }
+  FormRow("Label") { Text("Content"); Button("Action") }
+  Frame() { Text("Content"); Button("Action") }
+  GridLayout() { Text("Content"); Button("Action") }
+}
+.padding()

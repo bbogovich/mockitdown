@@ -17,6 +17,8 @@ Structure (classes are the stable styling contract)::
 
 from __future__ import annotations
 
+import hashlib
+
 from ..diagnostics import Diagnostics
 from ..model import Screen, walk
 from ..options import DEVICES, RenderOptions
@@ -44,7 +46,8 @@ def _resolve_device(screen: Screen, opts: RenderOptions, diags: Diagnostics) -> 
     return device, size
 
 
-def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags: Diagnostics) -> str:
+def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags: Diagnostics,
+                  source: str = "") -> str:
     pack = screen.pack
     device, size = _resolve_device(screen, opts, diags)
     appearance = opts.appearance or (str(screen.meta["appearance"]) if screen.meta.get("appearance") else None) \
@@ -64,8 +67,7 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     window = opts.window or (str(screen.meta["window"]) if screen.meta.get("window") else None)
     window_attr = f' data-window="{esc(window)}"' if window else ""
 
-    import hashlib
-    renderer.anchor_prefix = hashlib.sha1(repr(screen.views).encode()).hexdigest()[:6]
+    renderer.anchor_prefix = anchor_prefix(pack.id, source)
     body = renderer.views(screen.views)
     overlays = "".join(renderer.overlays)
     screen_html = f'<div class="mkd-screen">{body}{overlays}</div>'
@@ -89,6 +91,12 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     return (f'<div class="mkd-figure mkd-pack-{esc(pack.id)}" role="figure"{aria} data-pack="{esc(pack.id)}" '
             f'data-device="{esc(device)}" data-appearance="{esc(appearance)}">'
             f'<div class="mkd-stage" data-count="{len(cells)}">{"".join(cells)}</div>{caption}{table}</div>')
+
+
+def anchor_prefix(pack_id: str, source: str) -> str:
+    """The figure's CSS anchor prefix (R-ANN-003): the first six hex digits of the SHA-1 of the pack id,
+    a line feed and the block source, as UTF-8 — portable, so every variant names anchors alike."""
+    return hashlib.sha1(f"{pack_id}\n{source}".encode("utf-8")).hexdigest()[:6]
 
 
 def elements_table(screen: Screen) -> str:

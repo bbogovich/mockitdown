@@ -1,0 +1,3 @@
+// show_warnings puts warnings above the figure
+import NoSuchKit
+Text("x")

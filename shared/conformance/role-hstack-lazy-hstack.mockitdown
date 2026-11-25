@@ -1,0 +1,2 @@
+// base element LazyHStack (role hstack)
+LazyHStack() { Text("Content"); Button("Action") }

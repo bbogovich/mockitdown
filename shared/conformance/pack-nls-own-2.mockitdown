@@ -1,0 +1,16 @@
+// nls own elements: Heading, Marker, Node, Outline, PartnerBug, Register, RouteMap, Rule, Screen, SplitScreen, Statement, StatementFile
+VStack(alignment: .leading, spacing: 12) {
+  Heading("Content")
+  Marker("Content")
+  Node("Content")
+  Outline() { TreeItem("Folder") { TreeItem("File") } }
+  PartnerBug()
+  Register("Content")
+  RouteMap().frame(width: 160, height: 96)
+  Rule("Label")
+  Screen("Title") { Text("Content"); Button("Action") }
+  SplitScreen() { Text("Content"); Button("Action") }
+  Statement("Label")
+  StatementFile() { TreeItem("Folder") { TreeItem("File") } }
+}
+.padding()

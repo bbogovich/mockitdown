@@ -1,0 +1,16 @@
+// lisa own elements: RadioButton, RadioGroup, Ruler, ScrollBar, Separator, Spreadsheet, StaticText, StationeryPad, StopAlert, TextField, Tool, ToolPalette
+VStack(alignment: .leading, spacing: 12) {
+  RadioButton("Label", true)
+  RadioGroup("Label")
+  Ruler()
+  ScrollBar()
+  Separator()
+  Spreadsheet(columns: ["A", "B"], rows: [[1, 2], [3, 4]])
+  StaticText("Content")
+  StationeryPad("Title")
+  StopAlert("Message") { Text("Content"); Button("Action") }
+  TextField("Text")
+  Tool()
+  ToolPalette() { Text("Content"); Button("Action") }
+}
+.padding()

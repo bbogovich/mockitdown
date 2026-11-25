@@ -1,0 +1,16 @@
+// antd own elements: Icon, Image, Input, InputNumber, InputOTP, InputPassword, InputSearch, Kbd, Layout, LayoutHeader, LightFilter, List
+VStack(alignment: .leading, spacing: 12) {
+  Icon("star")
+  Image().frame(width: 160, height: 96)
+  Input("Placeholder")
+  InputNumber("Placeholder")
+  InputOTP(["One", "Two", "Three"])
+  InputPassword("Placeholder")
+  InputSearch("Placeholder")
+  Kbd(["⌘", "K"])
+  Layout() { Text("Content"); Button("Action") }
+  LayoutHeader("Title") { Text("Content"); Button("Action") }
+  LightFilter() { Text("Content"); Button("Action") }
+  List() { Text("First item"); Text("Second item") }
+}
+.padding()

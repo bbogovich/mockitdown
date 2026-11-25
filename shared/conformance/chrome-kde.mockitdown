@@ -1,0 +1,2 @@
+// chrome kde
+VStack { Text("Window content"); Button("OK") }

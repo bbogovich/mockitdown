@@ -1,0 +1,16 @@
+// primer own elements: Terminal, Text, TextInput, TextInputWithTokens, Textarea, Timeline, TimelineBreak, TimelineComment, TimelineItem, ToggleSwitch, Token, Tooltip
+VStack(alignment: .leading, spacing: 12) {
+  Terminal("let total = items.count")
+  Text("Content")
+  TextInput("Placeholder")
+  TextInputWithTokens("Placeholder")
+  Textarea("Placeholder")
+  Timeline() { TimelineItem("Created"); TimelineItem("Shipped") }
+  TimelineBreak()
+  TimelineComment("Title") { Text("Content"); Button("Action") }
+  TimelineItem("Title")
+  ToggleSwitch("Label")
+  Token("Text")
+  Tooltip("Text") { Text("Content"); Button("Action") }
+}
+.padding()

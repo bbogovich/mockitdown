@@ -1,0 +1,16 @@
+// macos9 own elements: DefaultButton, Desktop, Dialog, DisclosureTriangle, Disk, DocumentIcon, DocumentWindow, EditText, Finder, FinderIcon, FinderList, FloatingWindow
+VStack(alignment: .leading, spacing: 12) {
+  DefaultButton("Label")
+  Desktop() { Text("Content"); Button("Action") }.frame(width: 160, height: 96)
+  Dialog("Title") { Text("Content"); Button("Action") }
+  DisclosureTriangle("Title") { Text("Content"); Button("Action") }
+  Disk("Title")
+  DocumentIcon("Title")
+  DocumentWindow("Title") { Text("Content"); Button("Action") }
+  EditText("Placeholder")
+  Finder("Title") { Text("Content"); Button("Action") }
+  FinderIcon("Title")
+  FinderList(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  FloatingWindow("Title") { Text("Content"); Button("Action") }
+}
+.padding()
