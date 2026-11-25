@@ -124,6 +124,11 @@ def _edges(value: object) -> set[str]:
     return edges
 
 
+def _is_circle(view: View | None) -> bool:
+    """A ``Circle`` shape view: drawn inside its frame, so its stroke and shadow follow the circle (R-REND-014)."""
+    return view is not None and view.role == "shape" and view.attr("shape") == "circle"
+
+
 class StyleBuilder:
     """Collects inline style, data attributes and extra classes for one view's modifiers."""
 
@@ -340,7 +345,10 @@ class StyleBuilder:
         c = css_color(m.arg()) or "currentColor"
         w = u(m.kwargs.get("lineWidth", 1)) or "1px"
         style["--mkd-shape-fill"] = "transparent"
-        style["border"] = f"{w} solid {c}"
+        if _is_circle(view):  # R-REND-014.C1, C4: drawn on the circle inside the frame, not on the frame
+            style["--mkd-shape-stroke"] = f"{w} solid {c}"
+        else:
+            style["border"] = f"{w} solid {c}"
 
     def _m_opacity(self, m, style, data, classes, pad, view):
         v = m.arg()
@@ -354,13 +362,17 @@ class StyleBuilder:
 
     def _shape_radius(self, shape: View, style: dict[str, str]) -> None:
         kind = shape.attr("shape", default="")
-        if kind in ("circle", "capsule", "ellipse"):
+        if kind == "ellipse":  # R-REND-014.C2: a true ellipse, never a capsule
+            style["border-radius"] = "50%"
+        elif kind in ("circle", "capsule"):
             style["border-radius"] = "9999px"
         elif (length := u(shape.attr("cornerRadius"))) is not None:
             style["border-radius"] = length
 
     def _enum_radius(self, e: EnumValue, style: dict[str, str]) -> None:
-        if e.name in ("circle", "capsule", "ellipse"):
+        if e.name == "ellipse":  # R-REND-014.C2
+            style["border-radius"] = "50%"
+        elif e.name in ("circle", "capsule"):
             style["border-radius"] = "9999px"
         elif e.name in ("rect", "roundedRectangle") and (length := u(e.kw("cornerRadius"))) is not None:
             style["border-radius"] = length
@@ -378,7 +390,10 @@ class StyleBuilder:
         length = u(r) or u(8)
         c = css_color(m.kwargs.get("color")) or "rgb(0 0 0 / 0.18)"
         y = u(m.kwargs.get("y", 2)) or "0"
-        style["box-shadow"] = f"0 {y} {length} {c}"
+        if _is_circle(view):  # R-REND-014.C4: the shadow follows the circle drawn inside the frame
+            style["filter"] = f"drop-shadow(0 {y} {length} {c})"
+        else:
+            style["box-shadow"] = f"0 {y} {length} {c}"
 
     def _m_border(self, m, style, data, classes, pad, view):
         c = css_color(m.arg()) or "var(--mkd-border)"

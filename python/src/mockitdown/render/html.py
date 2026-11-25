@@ -655,6 +655,8 @@ class Renderer:
         )
         if kind == "combo" and spec.line_series < 0 and len(series) > 1:
             spec.line_series = len(series) - 1
+        if not charts.has_data(spec):  # R-REND-012.C7: drawn as axes or an outline, never silently empty
+            self.diags.warning(f"{v.name} has no data", v.loc, "chart")
         title = self.text_or_slot(v, "title")
         subtitle = self.text_or_slot(v, "subtitle", "description")
         style = {}

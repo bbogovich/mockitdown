@@ -74,8 +74,12 @@
 
 /* ---------- shapes ---------- */
 .mkd-pack-sketch .mkd-shape { --mkd-shape-fill: transparent; border: 2px solid var(--mkd-pencil); border-radius: var(--mkd-wob-1); background-image: var(--mkd-hatch-fill); }
-.mkd-pack-sketch .mkd-shape[data-shape="circle"],
-.mkd-pack-sketch .mkd-shape[data-shape="ellipse"] { border-radius: var(--mkd-wob-4); }
+/* R-REND-014.C4: the pencil restyles stroke and fill only; the geometry of circle, ellipse and capsule stays the
+   base pack's (a circle's stroke and hatching are drawn on the circle inside its frame). */
+.mkd-pack-sketch .mkd-shape[data-shape="capsule"] { border-radius: 9999px; }
+.mkd-pack-sketch .mkd-shape[data-shape="ellipse"] { border-radius: 50%; }
+.mkd-pack-sketch .mkd-shape[data-shape="circle"] { --mkd-shape-stroke: 2px solid var(--mkd-pencil); border: 0; background-image: none; }
+.mkd-pack-sketch .mkd-shape[data-shape="circle"]::before { background-image: var(--mkd-hatch-fill); }
 .mkd-pack-sketch .mkd-shape[data-shape="rectangle"] { border-radius: 3px 6px 2px 5px; }
 
 /* ---------- media: crossed boxes ---------- */

@@ -2,7 +2,7 @@
 // the page's `window.packGallery` hooks to select a pack and to render every mockup of it at once.
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
-import { inspectMockups, mountMockups } from "./geometry.mjs";
+import { inspectMockups, inspectShapes, mountMockups } from "./geometry.mjs";
 
 const INDEX = JSON.parse(readFileSync(new URL("../../../shared/reference/index.json", import.meta.url), "utf8"));
 const PACKS = INDEX.groups.flatMap((g) => g.packs);
@@ -230,5 +230,51 @@ test("R-REND-013 TC-2: MessageBubble with a 40-word text wraps inside the bubble
     return out;
   }));
   expect(problems).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+// R-REND-014 TC-1 (C1–C4, V1): circle, ellipse, capsule and rounded rectangle in a 160 × 96 frame, and a
+// frameless circle in a 200 × 80 row, in every shipped pack.
+test("R-REND-014 TC-1: shapes keep their frame; a circle is a centred circle, an ellipse never a capsule", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page);
+  const SHAPES = [
+    ["circle", "Circle().frame(width: 160, height: 96)", "160×96"],
+    ["ellipse", "Ellipse().frame(width: 160, height: 96)", "160×96"],
+    ["capsule", "Capsule().frame(width: 160, height: 96)", "160×96"],
+    ["rounded", "RoundedRectangle(cornerRadius: 12).frame(width: 160, height: 96)", "160×96"],
+    ["stroked circle", "Circle().stroke(Color.red, lineWidth: 2).frame(width: 160, height: 96)", "160×96"],
+  ];
+  const mockups = PACKS.flatMap((id) => SHAPES.map(([what, code]) => ({ code, label: `${id} ${what}`, attrs: { pack: id, device: "fit", caption: "false" } })));
+  await page.evaluate(mountMockups, { id: "shapes", width: 900, mockups });
+  await page.$$eval("#shapes mockitdown-mockup", (els, frames) => els.forEach((m, i) => { m.dataset.frame = frames[i % frames.length]; }),
+    SHAPES.map((s) => s[2]));
+  expect(await page.evaluate(inspectShapes, { selector: "#shapes mockitdown-mockup" })).toEqual([]);
+  // C3: a circle without a frame fills the shorter side of the space offered.
+  const free = await page.evaluate(async (packs) => {
+    const host = document.createElement("div");
+    host.id = "free-circle";
+    document.body.append(host);
+    const out = [];
+    for (const pack of packs) {
+      const el = document.createElement("mockitdown-mockup");
+      el.setAttribute("pack", pack);
+      el.setAttribute("device", "fit");
+      el.setAttribute("caption", "false");
+      el.code = "HStack { Circle() }.frame(width: 200, height: 80)";
+      host.append(el);
+      await el.rendered;
+      const shape = el.shadowRoot.querySelector(".mkd-shape");
+      const stack = el.shadowRoot.querySelector(".mkd-hstack").getBoundingClientRect();
+      const before = getComputedStyle(shape, "::before");
+      const d = Math.min(stack.width, stack.height);
+      if (Math.abs(parseFloat(before.width) - d) > 1.5 || Math.abs(parseFloat(before.height) - d) > 1.5) {
+        out.push(`${pack}: frameless circle ${before.width}×${before.height} in a ${stack.width}×${stack.height} row`);
+      }
+    }
+    host.remove();
+    return out;
+  }, PACKS);
+  expect(free).toEqual([]);
   expect(errors).toEqual([]);
 });

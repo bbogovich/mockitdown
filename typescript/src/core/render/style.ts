@@ -139,16 +139,23 @@ export type DataMap = Map<string, unknown>;
 type Handler = (b: StyleBuilder, m: Modifier, style: StyleMap, data: DataMap, classes: string[], pad: Map<string, string>,
   view: View) => void;
 
+/** A `Circle` shape view: drawn inside its frame, so its stroke and shadow follow the circle (R-REND-014). */
+function isCircle(view: View | null | undefined): boolean {
+  return !!view && view.role === "shape" && view.attr("shape") === "circle";
+}
+
 function shapeRadius(shape: View, style: StyleMap): void {
   const kind = shape.attr("shape", "");
   let length: string | null;
-  if (kind === "circle" || kind === "capsule" || kind === "ellipse") style.set("border-radius", "9999px");
+  if (kind === "ellipse") style.set("border-radius", "50%"); // R-REND-014.C2: a true ellipse, never a capsule
+  else if (kind === "circle" || kind === "capsule") style.set("border-radius", "9999px");
   else if ((length = u(shape.attr("cornerRadius"))) !== null) style.set("border-radius", length);
 }
 
 function enumRadius(e: EnumValue, style: StyleMap): void {
   let length: string | null;
-  if (["circle", "capsule", "ellipse"].includes(e.name)) style.set("border-radius", "9999px");
+  if (e.name === "ellipse") style.set("border-radius", "50%"); // R-REND-014.C2
+  else if (["circle", "capsule"].includes(e.name)) style.set("border-radius", "9999px");
   else if ((e.name === "rect" || e.name === "roundedRectangle") && (length = u(e.kw("cornerRadius"))) !== null) {
     style.set("border-radius", length);
   }
@@ -344,11 +351,13 @@ const HANDLERS: Record<string, Handler> = {
     const c = cssColor(m.arg());
     if (c) style.set("--mkd-shape-fill", c);
   },
-  stroke(_b, m, style) {
+  stroke(_b, m, style, _data, _classes, _pad, view) {
     const c = cssColor(m.arg()) || "currentColor";
     const w = u(m.kwargs.get("lineWidth", 1)) || "1px";
     style.set("--mkd-shape-fill", "transparent");
-    style.set("border", `${w} solid ${c}`);
+    // R-REND-014.C1, C4: drawn on the circle inside the frame, not on the frame
+    if (isCircle(view)) style.set("--mkd-shape-stroke", `${w} solid ${c}`);
+    else style.set("border", `${w} solid ${c}`);
   },
   opacity(_b, m, style) {
     const v = m.arg();
@@ -367,12 +376,14 @@ const HANDLERS: Record<string, Handler> = {
     else if (v instanceof EnumValue) enumRadius(v, style);
     style.set("overflow", "hidden");
   },
-  shadow(_b, m, style) {
+  shadow(_b, m, style, _data, _classes, _pad, view) {
     const r = m.kwargs.get("radius", m.arg(0, 8));
     const length = u(r) || u(8)!;
     const c = cssColor(m.kwargs.get("color")) || "rgb(0 0 0 / 0.18)";
     const y = u(m.kwargs.get("y", 2)) || "0";
-    style.set("box-shadow", `0 ${y} ${length} ${c}`);
+    // R-REND-014.C4: the shadow follows the circle drawn inside the frame
+    if (isCircle(view)) style.set("filter", `drop-shadow(0 ${y} ${length} ${c})`);
+    else style.set("box-shadow", `0 ${y} ${length} ${c}`);
   },
   border(_b, m, style) {
     const c = cssColor(m.arg()) || "var(--mkd-border)";

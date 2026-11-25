@@ -1,0 +1,2 @@
+// a Capsule in a wide frame
+Capsule().frame(width: 160, height: 96)

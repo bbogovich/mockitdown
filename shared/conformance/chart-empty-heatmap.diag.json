@@ -1,0 +1,15 @@
+{
+  "packs": [
+    "base"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "chart",
+      "message": "Heatmap has no data",
+      "line": 2,
+      "col": 8,
+      "source": ""
+    }
+  ]
+}

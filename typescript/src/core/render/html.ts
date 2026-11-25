@@ -14,7 +14,7 @@ import { CallValue, EnumValue, Thunk, View, ViewList } from "../model.js";
 import type { Pack } from "../packs/registry.js";
 import { pyFormatG, pyMax, pyMin, pyRoundTo } from "../pyformat.js";
 import { intStr, isList, isSeq, isTuple, PyDict, pyBool, pyEq, pyRepr, pyStr, PyFloat } from "../values.js";
-import { chartSpec, renderChart } from "./charts.js";
+import { chartHasData, chartSpec, renderChart } from "./charts.js";
 import { cssColor, fontStyle, StyleBuilder, styleAttr, u, type DataMap, type StyleMap } from "./style.js";
 import {
   bool, colName, cursorSvg, DATE_MIN, dateKey, decorate, esc, fmt, formatDate, fx, highlight, hour, initials, int, isIn,
@@ -741,6 +741,8 @@ const ROLES: Record<string, RoleFn> = {
       line_series: kind === "combo" ? int(num(at(v, "lineSeries"), -1)!) : -1,
     });
     if (kind === "combo" && spec.line_series < 0 && series.length > 1) spec.line_series = series.length - 1;
+    // R-REND-012.C7: drawn as axes or an outline, never silently empty
+    if (!chartHasData(spec)) this.diags.warning(`${v.name} has no data`, v.loc, "chart");
     const title = this.textOrSlot(v, "title");
     const subtitle = this.textOrSlot(v, "subtitle", "description");
     const style: Record<string, string> = {};

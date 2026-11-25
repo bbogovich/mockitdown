@@ -118,7 +118,76 @@ function svg(spec: ChartSpec, body: string): string {
     + `aria-hidden="true" preserveAspectRatio="xMidYMid meet">${body}</svg>`;
 }
 
+function first(spec: ChartSpec): number[] {
+  return spec.series.length ? spec.series[0] : [];
+}
+
+/** Scatter and bubble points: `points:`, else (index, value, size = value, series) from the values (R-REND-012.C6). */
+function valuePoints(spec: ChartSpec): number[][] {
+  const pts = spec.points.filter((p) => p.length >= 2);
+  if (pts.length) return pts;
+  return spec.series.flatMap((s, si) => s.map((v, i) => [i, v, v, si]));
+}
+
+/** Heatmap rows: `matrix:`, else one row of cells per series (R-REND-012.C6). */
+function valueMatrix(spec: ChartSpec): number[][] {
+  const m = spec.matrix.filter((r) => r.length);
+  return m.length ? m : spec.series.filter((s) => s.length).map((s) => [...s]);
+}
+
+/**
+ * Candlestick rows [open, high, low, close] and their labels: `points:`, else one candle per value after the
+ * first — open the previous value, close the value, high and low 10% of the value range beyond them (C6).
+ */
+function valueCandles(spec: ChartSpec): [number[][], string[]] {
+  const rows = spec.points.filter((r) => r.length >= 4);
+  if (rows.length) return [rows, spec.labels];
+  const vals = first(spec);
+  const span = vals.length ? maxOf(vals) - minOf(vals) : 0.0;
+  const out: number[][] = [];
+  for (let i = 1; i < vals.length; i++) {
+    const o = vals[i - 1];
+    const c = vals[i];
+    out.push([o, pyMax(o, c) + span * 0.1, pyMin(o, c) - span * 0.1, c]);
+  }
+  return [out, spec.labels.slice(1)];
+}
+
+/** Whether the chart has data it can draw marks from (R-REND-012.C7); a gauge always has its value. */
+export function chartHasData(spec: ChartSpec): boolean {
+  const k = spec.kind;
+  if (k === "gauge") return true;
+  if (k === "scatter" || k === "bubble") return valuePoints(spec).length > 0;
+  if (k === "candlestick") return valueCandles(spec)[0].length > 0;
+  if (k === "heatmap") return valueMatrix(spec).length > 0;
+  if (["pie", "donut", "doughnut", "treemap"].includes(k)) return first(spec).some((v) => v > 0);
+  if (k === "sparkline" || k === "funnel") return first(spec).length > 0;
+  return spec.series.some((s) => s.length > 0);
+}
+
+/** A chart without data (R-REND-012.C7): its axes, or the outline of the area its marks would fill. */
+function empty(spec: ChartSpec): string {
+  const k = spec.kind;
+  const w = spec.width;
+  const h = spec.height;
+  if (k === "pie" || k === "donut" || k === "doughnut") {
+    const r = h / 2 - 6;
+    let body = `<circle class="mkd-chart__axis" cx="${f1(h / 2)}" cy="${f1(h / 2)}" r="${f1(r)}" fill="none"/>`;
+    if (k !== "pie") body += `<circle class="mkd-chart__axis" cx="${f1(h / 2)}" cy="${f1(h / 2)}" r="${f1(r * 0.58)}" fill="none"/>`;
+    return svg(spec, body);
+  }
+  if (k === "sparkline") return svg(spec, `<line class="mkd-chart__axis" x1="2" y1="${pyFormatG(h - 1)}" x2="${pyFormatG(w - 2)}" y2="${pyFormatG(h - 1)}"/>`);
+  if (k === "heatmap" || k === "funnel" || k === "treemap") {
+    return svg(spec, `<rect class="mkd-chart__axis" x="0.5" y="0.5" width="${pyFormatG(w - 1)}" height="${pyFormatG(h - 1)}" `
+      + `rx="3" fill="none"/>`);
+  }
+  const [x0, y0, x1, y1] = frame(spec);
+  return svg(spec, axes(spec, new Plot(x0, y0, x1, y1, 0.0, 1.0)));
+}
+
 export function renderChart(spec: ChartSpec): string {
+  if (["scatter", "bubble", "candlestick", "heatmap", "pie", "donut", "doughnut", "treemap", "sparkline", "funnel"].includes(spec.kind)
+    && !chartHasData(spec)) return empty(spec);
   const fns: Record<string, (s: ChartSpec) => string> = {
     bar: bars, histogram: bars, column: bars, line: lines, area: lines, sparkline: spark,
     pie, donut: pie, doughnut: pie, scatter, bubble: scatter, radar, heatmap, funnel, treemap, gauge,
@@ -315,8 +384,7 @@ function lines(spec: ChartSpec): string {
 }
 
 function spark(spec: ChartSpec): string {
-  const s = spec.series.length ? spec.series[0] : [];
-  if (!s.length) return "";
+  const s = first(spec);
   let lo = minOf(s);
   const hi = maxOf(s);
   if (spec.from_zero) lo = pyMin(0.0, lo);
@@ -380,8 +448,7 @@ function pie(spec: ChartSpec): string {
 }
 
 function scatter(spec: ChartSpec): string {
-  const pts = spec.points.filter((p) => p.length >= 2);
-  if (!pts.length) return svg(spec, "");
+  const pts = valuePoints(spec);
   const xs = pts.map((p) => p[0]);
   const ys = pts.map((p) => p[1]);
   const xt = niceTicks(minOf(xs), maxOf(xs));
@@ -391,10 +458,11 @@ function scatter(spec: ChartSpec): string {
   const out = [axes(spec, plot)];
   const sx = (v: number): number => x0 + (v - xt[0]) / ((xt[xt.length - 1] - xt[0]) || 1) * (x1 - x0);
   for (const t of xt) out.push(text(sx(t), y1 + 13, fmt(t)));
-  const sizes = pts.filter((p) => p.length > 2).map((p) => p[2]);
+  const sizes = pts.filter((p) => p.length > 2).map((p) => pyMax(0.0, p[2]));
   const smax = (sizes.length ? maxOf(sizes) : 1) || 1;
   for (const p of pts) {
-    const r = spec.kind === "scatter" || p.length < 3 ? 3.2 : 3 + 14 * Math.sqrt(p[2] / smax);
+    // a bubble's area is proportional to its size (R-REND-012.C6)
+    const r = spec.kind === "scatter" || p.length < 3 ? 3.2 : 17 * Math.sqrt(pyMax(0.0, p[2]) / smax);
     const group = p.length > 3 ? Math.trunc(p[3]) : 0;
     out.push(`<circle class="mkd-chart__dot" cx="${f1(sx(p[0]))}" cy="${f1(plot.y(p[1]))}" r="${f1(r)}" `
       + `style="fill:${color(group)};--mkd-series:${color(group)}"/>`);
@@ -438,10 +506,9 @@ function radar(spec: ChartSpec): string {
 }
 
 function heatmap(spec: ChartSpec): string {
-  const m = spec.matrix;
+  const m = valueMatrix(spec);
   const rows = m.length;
   const cols = rows ? maxOf(m.map((r) => r.length)) : 0;
-  if (!rows || !cols) return svg(spec, "");
   const vals = m.flat();
   const lo = minOf(vals);
   const hi = maxOf(vals);
@@ -466,8 +533,7 @@ function heatmap(spec: ChartSpec): string {
 }
 
 function funnel(spec: ChartSpec): string {
-  const vals = spec.series.length ? spec.series[0] : [];
-  if (!vals.length) return svg(spec, "");
+  const vals = first(spec);
   const top = maxOf(vals) || 1;
   const h = (spec.height - 4) / vals.length;
   const cx = spec.width * 0.42;
@@ -552,8 +618,7 @@ function gauge(spec: ChartSpec): string {
 }
 
 function candles(spec: ChartSpec): string {
-  const rows = spec.points.filter((r) => r.length >= 4);
-  if (!rows.length) return svg(spec, "");
+  const [rows, labels] = valueCandles(spec);
   const ticks = niceTicks(minOf(rows.map((r) => r[2])), maxOf(rows.map((r) => r[1])));
   const [x0, y0, x1, y1] = frame(spec);
   const plot = new Plot(x0, y0, x1, y1, ticks[0], ticks[ticks.length - 1]);
@@ -566,9 +631,9 @@ function candles(spec: ChartSpec): string {
     out.push(`<line x1="${f1(x)}" y1="${f1(plot.y(h))}" x2="${f1(x)}" y2="${f1(plot.y(low))}" style="stroke:${col}"/>`);
     const top = plot.y(pyMax(o, c));
     const bot = plot.y(pyMin(o, c));
-    out.push(`<rect x="${f1(x - band * 0.3)}" y="${f1(top)}" width="${f1(band * 0.6)}" height="${f1(pyMax(bot - top, 1))}" `
-      + `style="fill:${col}"/>`);
-    if (i < spec.labels.length && i % Math.max(1, Math.ceil(rows.length / 8)) === 0) out.push(text(x, y1 + 13, spec.labels[i]));
+    out.push(`<rect class="mkd-chart__candle" x="${f1(x - band * 0.3)}" y="${f1(top)}" width="${f1(band * 0.6)}" `
+      + `height="${f1(pyMax(bot - top, 1))}" style="fill:${col}"/>`);
+    if (i < labels.length && i % Math.max(1, Math.ceil(rows.length / 8)) === 0) out.push(text(x, y1 + 13, labels[i]));
   });
   return svg(spec, out.join(""));
 }

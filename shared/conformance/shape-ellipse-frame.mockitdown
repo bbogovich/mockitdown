@@ -1,0 +1,2 @@
+// an Ellipse in a wide frame
+Ellipse().fill(Color.blue).frame(width: 160, height: 96)

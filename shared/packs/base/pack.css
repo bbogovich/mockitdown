@@ -142,8 +142,13 @@
 .mkd-frame .mkd-hstack > .mkd-divider, .mkd-frame .mkd-toolbar > .mkd-divider, .mkd-frame .mkd-appbar__actions > .mkd-divider { width: 1px; height: auto; min-height: 20px; }
 .mkd-frame .mkd-divider__label { padding: 0 10px; background: var(--mkd-bg); color: var(--mkd-fg-3); font-size: 12px; }
 .mkd-frame .mkd-shape { background: var(--mkd-shape-fill, var(--mkd-fg)); min-width: 8px; min-height: 8px; align-self: stretch; flex: 1 1 auto; }
-.mkd-frame .mkd-shape:where([data-shape="circle"], [data-shape="ellipse"], [data-shape="capsule"]) { border-radius: 9999px; }
-.mkd-frame .mkd-shape:where([data-shape="circle"]) { aspect-ratio: 1; }
+/* Shape framing (R-REND-014): a Capsule's radius is half its shorter side, an Ellipse a true ellipse filling its
+   frame, and a Circle keeps its frame for layout while drawing a circle of diameter min(w, h) centred in it (its
+   fill, stroke and shadow on that circle). Packs restyle only fill, stroke and shadow (C4). */
+.mkd-frame .mkd-shape:where([data-shape="capsule"]) { border-radius: 9999px; }
+.mkd-frame .mkd-shape:where([data-shape="ellipse"]) { border-radius: 50%; }
+.mkd-frame .mkd-shape:where([data-shape="circle"]) { aspect-ratio: 1; container-type: size; display: grid; place-items: center; background: none; }
+.mkd-frame .mkd-shape:where([data-shape="circle"])::before { content: ""; width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); box-sizing: border-box; border-radius: 50%; background: var(--mkd-shape-fill, var(--mkd-fg)); border: var(--mkd-shape-stroke, none); }
 .mkd-frame .mkd-shape:where([data-shape="rounded"]) { border-radius: 10px; }
 .mkd-frame .mkd-color { align-self: stretch; flex: 1 1 auto; min-height: 8px; }
 .mkd-frame :where(.mkd-vstack, .mkd-scroll, .mkd-card__body, .mkd-form, .mkd-navstack__content, .mkd-screen) > [data-fill~="x"][data-fill] { align-self: stretch; }

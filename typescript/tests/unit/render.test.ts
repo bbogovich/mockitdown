@@ -130,3 +130,79 @@ describe("positional arguments and presentations alone (R-PACK-011.C3, R-DEV-008
     assert.match(html, /<span class="mkd-tooltip__bubble" data-placement="top" role="tooltip"><span class="mkd-tooltip__arrow"><\/span>/);
   });
 });
+
+// R-REND-014 TC-1: shape framing (the geometry is measured in the browser, gallery.spec.mjs).
+describe("shape framing (R-REND-014)", () => {
+  const shape = (src: string): string => {
+    const r = core.render(src, { device: "fit" });
+    assert.deepEqual(r.diagnostics, []);
+    const m = /<div class="mkd-shape"[^>]*>/.exec(r.html);
+    assert.ok(m, r.html);
+    return m![0];
+  };
+
+  it("a Circle keeps its frame for layout (C1)", () => {
+    const tag = shape("Circle().frame(width: 160, height: 96)");
+    assert.match(tag, /data-shape="circle"/);
+    assert.match(tag, /width:calc\(160 \* var\(--u\)\)/);
+    assert.match(tag, /height:calc\(96 \* var\(--u\)\)/);
+  });
+
+  it("a Circle's stroke and shadow follow the circle, not the frame (C1, C4)", () => {
+    const tag = shape("Circle().stroke(Color.red, lineWidth: 2).shadow(radius: 4).frame(width: 160, height: 96)");
+    assert.match(tag, /--mkd-shape-stroke:calc\(2 \* var\(--u\)\) solid var\(--mkd-color-red\)/);
+    assert.match(tag, /filter:drop-shadow\(/);
+    assert.doesNotMatch(tag, /;border:|box-shadow/);
+  });
+
+  it("an Ellipse background is a true ellipse, a Capsule's a capsule (C2)", () => {
+    assert.match(core.render('Text("A").background(Color.blue, in: Ellipse())', { device: "fit" }).html, /border-radius:50%/);
+    assert.match(core.render('Text("A").background(Color.blue, in: Capsule())', { device: "fit" }).html, /border-radius:9999px/);
+  });
+});
+
+// R-REND-012 TC-3: every kind draws marks from values; a chart without data warns.
+describe("charts from values (R-REND-012.C6, C7)", () => {
+  const KINDS: Record<string, string> = {
+    BarChart: "bar", Histogram: "histogram", LineChart: "line", AreaChart: "area", ComboChart: "combo",
+    Sparkline: "sparkline", PieChart: "pie", DonutChart: "donut", ScatterChart: "scatter", BubbleChart: "bubble",
+    RadarChart: "radar", Heatmap: "heatmap", FunnelChart: "funnel", Treemap: "treemap", GaugeChart: "gauge",
+    CandlestickChart: "candlestick",
+  };
+  const MARK = /<(circle|rect|path|polygon|polyline)\b(?![^>]*class="mkd-chart__(?:grid|axis|track)")[^>]*>/;
+  const svg = (html: string): string => /<svg class="mkd-chart__svg".*?<\/svg>/.exec(html)?.[0] ?? "";
+
+  it("every kind draws at least one mark from values: [3, 5, 2, 6, 4] (C6)", () => {
+    for (const [element, kind] of Object.entries(KINDS)) {
+      const r = core.render(`${element}(values: [3, 5, 2, 6, 4])`, { device: "fit" });
+      assert.match(r.html, new RegExp(`data-kind="${kind}"`), element);
+      assert.match(svg(r.html), MARK, element);
+      assert.deepEqual(r.diagnostics.filter((d) => d.code === "chart"), [], element);
+    }
+  });
+
+  it("scatter, bubble, heatmap and candlestick derive their marks (C6)", () => {
+    const dots = svg(core.render("ScatterChart(values: [3, 5, 2, 6, 4])", { device: "fit" }).html).match(/class="mkd-chart__dot"/g);
+    assert.equal(dots?.length, 5);
+    const radii = [...svg(core.render("BubbleChart(values: [1, 4])", { device: "fit" }).html)
+      .matchAll(/class="mkd-chart__dot"[^>]* r="([\d.]+)"/g)].map((m) => Number(m[1]));
+    assert.equal(radii.length, 2);
+    assert.ok(Math.abs(radii[1] / radii[0] - 2) < 0.05, `bubble radii ${radii}`);
+    const cells = [...svg(core.render("Heatmap(values: [3, 5, 2, 6, 4])", { device: "fit" }).html)
+      .matchAll(/<rect x="[\d.]+" y="([\d.]+)"/g)].map((m) => m[1]);
+    assert.equal(cells.length, 5);
+    assert.equal(new Set(cells).size, 1);
+    const candles = svg(core.render("CandlestickChart(values: [3, 5, 2, 6, 4])", { device: "fit" }).html);
+    assert.equal(candles.match(/class="mkd-chart__candle"/g)?.length, 4);
+  });
+
+  it("a chart without data warns with code chart and draws its axes or outline (C7)", () => {
+    for (const element of Object.keys(KINDS)) {
+      if (element === "GaugeChart") continue; // a gauge always has a value (its minimum by default)
+      const r = core.render(`${element}()`, { device: "fit" });
+      assert.ok(r.diagnostics.some((d) => d.code === "chart" && d.message === `${element} has no data`), element);
+      assert.match(svg(r.html), /class="mkd-chart__(axis|grid)"/, element);
+    }
+    assert.deepEqual(core.render("GaugeChart()", { device: "fit" }).diagnostics.filter((d) => d.code === "chart"), []);
+  });
+});

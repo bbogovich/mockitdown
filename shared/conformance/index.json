@@ -2133,6 +2133,38 @@
       "area": "chart"
     },
     {
+      "name": "chart-candlestick-values",
+      "area": "chart"
+    },
+    {
+      "name": "chart-bubble-series",
+      "area": "chart"
+    },
+    {
+      "name": "chart-heatmap-series",
+      "area": "chart"
+    },
+    {
+      "name": "chart-empty-bar",
+      "area": "chart"
+    },
+    {
+      "name": "chart-empty-pie",
+      "area": "chart"
+    },
+    {
+      "name": "chart-empty-scatter",
+      "area": "chart"
+    },
+    {
+      "name": "chart-empty-heatmap",
+      "area": "chart"
+    },
+    {
+      "name": "chart-empty-sparkline",
+      "area": "chart"
+    },
+    {
       "name": "chart-kind",
       "area": "chart"
     },
@@ -2143,6 +2175,26 @@
     {
       "name": "chart-dark-mui",
       "area": "chart"
+    },
+    {
+      "name": "shape-circle-frame",
+      "area": "shape"
+    },
+    {
+      "name": "shape-ellipse-frame",
+      "area": "shape"
+    },
+    {
+      "name": "shape-capsule-frame",
+      "area": "shape"
+    },
+    {
+      "name": "shape-circle-stroke",
+      "area": "shape"
+    },
+    {
+      "name": "shape-in-ellipse",
+      "area": "shape"
     },
     {
       "name": "image-data-uri",

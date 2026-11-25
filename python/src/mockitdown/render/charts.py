@@ -101,8 +101,78 @@ def _svg(spec: ChartSpec, body: str) -> str:
             f'aria-hidden="true" preserveAspectRatio="xMidYMid meet">{body}</svg>')
 
 
+def _first(spec: ChartSpec) -> list[float]:
+    return spec.series[0] if spec.series else []
+
+
+def _value_points(spec: ChartSpec) -> list[list[float]]:
+    """Scatter and bubble points: ``points:``, else (index, value, size = value, series) from the values (R-REND-012.C6)."""
+    pts = [p for p in spec.points if len(p) >= 2]
+    if pts:
+        return pts
+    return [[float(i), v, v, float(si)] for si, s in enumerate(spec.series) for i, v in enumerate(s)]
+
+
+def _value_matrix(spec: ChartSpec) -> list[list[float]]:
+    """Heatmap rows: ``matrix:``, else one row of cells per series (R-REND-012.C6)."""
+    m = [r for r in spec.matrix if r]
+    return m or [list(s) for s in spec.series if s]
+
+
+def _value_candles(spec: ChartSpec) -> tuple[list[list[float]], list[str]]:
+    """Candlestick rows [open, high, low, close] and their labels: ``points:``, else one candle per value after the
+    first — open the previous value, close the value, high and low 10% of the value range beyond them (C6)."""
+    rows = [r for r in spec.points if len(r) >= 4]
+    if rows:
+        return rows, spec.labels
+    vals = _first(spec)
+    span = (max(vals) - min(vals)) if vals else 0.0
+    rows = [[o, max(o, c) + span * 0.1, min(o, c) - span * 0.1, c] for o, c in zip(vals, vals[1:])]
+    return rows, spec.labels[1:]
+
+
+def has_data(spec: ChartSpec) -> bool:
+    """Whether the chart has data it can draw marks from (R-REND-012.C7); a gauge always has its value."""
+    k = spec.kind
+    if k == "gauge":
+        return True
+    if k in ("scatter", "bubble"):
+        return bool(_value_points(spec))
+    if k == "candlestick":
+        return bool(_value_candles(spec)[0])
+    if k == "heatmap":
+        return bool(_value_matrix(spec))
+    if k in ("pie", "donut", "doughnut", "treemap"):
+        return any(v > 0 for v in _first(spec))
+    if k in ("sparkline", "funnel"):
+        return bool(_first(spec))
+    return any(spec.series)
+
+
+def _empty(spec: ChartSpec) -> str:
+    """A chart without data (R-REND-012.C7): its axes, or the outline of the area its marks would fill."""
+    k = spec.kind
+    w, h = spec.width, spec.height
+    if k in ("pie", "donut", "doughnut"):
+        r = h / 2 - 6
+        body = f'<circle class="mkd-chart__axis" cx="{h / 2:.1f}" cy="{h / 2:.1f}" r="{r:.1f}" fill="none"/>'
+        if k != "pie":
+            body += f'<circle class="mkd-chart__axis" cx="{h / 2:.1f}" cy="{h / 2:.1f}" r="{r * 0.58:.1f}" fill="none"/>'
+        return _svg(spec, body)
+    if k == "sparkline":
+        return _svg(spec, f'<line class="mkd-chart__axis" x1="2" y1="{h - 1:g}" x2="{w - 2:g}" y2="{h - 1:g}"/>')
+    if k in ("heatmap", "funnel", "treemap"):
+        return _svg(spec, f'<rect class="mkd-chart__axis" x="0.5" y="0.5" width="{w - 1:g}" height="{h - 1:g}" '
+                          f'rx="3" fill="none"/>')
+    x0, y0, x1, y1 = _frame(spec)
+    return _svg(spec, _axes(spec, _Plot(x0, y0, x1, y1, 0.0, 1.0)))
+
+
 def render(spec: ChartSpec) -> str:
     k = spec.kind
+    if k in ("scatter", "bubble", "candlestick", "heatmap", "pie", "donut", "doughnut", "treemap", "sparkline",
+             "funnel") and not has_data(spec):
+        return _empty(spec)
     fn = {
         "bar": _bars, "histogram": _bars, "column": _bars, "line": _lines, "area": _lines, "sparkline": _spark,
         "pie": _pie, "donut": _pie, "doughnut": _pie, "scatter": _scatter, "bubble": _scatter, "radar": _radar,
@@ -277,9 +347,7 @@ def _lines(spec: ChartSpec) -> str:
 
 
 def _spark(spec: ChartSpec) -> str:
-    s = spec.series[0] if spec.series else []
-    if not s:
-        return ""
+    s = _first(spec)
     lo, hi = min(s), max(s)
     if spec.from_zero:
         lo = min(0.0, lo)
@@ -335,9 +403,7 @@ def _pie(spec: ChartSpec) -> str:
 
 
 def _scatter(spec: ChartSpec) -> str:
-    pts = [p for p in spec.points if len(p) >= 2]
-    if not pts:
-        return _svg(spec, "")
+    pts = _value_points(spec)
     xs, ys = [p[0] for p in pts], [p[1] for p in pts]
     xt, yt = nice_ticks(min(xs), max(xs)), nice_ticks(min(ys), max(ys))
     x0, y0, x1, y1 = _frame(spec)
@@ -346,9 +412,10 @@ def _scatter(spec: ChartSpec) -> str:
     sx = lambda v: x0 + (v - xt[0]) / ((xt[-1] - xt[0]) or 1) * (x1 - x0)  # noqa: E731
     for t in xt:
         out.append(_text(sx(t), y1 + 13, _fmt(t)))
-    smax = max((p[2] for p in pts if len(p) > 2), default=1) or 1
+    smax = max((max(0.0, p[2]) for p in pts if len(p) > 2), default=1) or 1
     for p in pts:
-        r = 3.2 if spec.kind == "scatter" or len(p) < 3 else 3 + 14 * math.sqrt(p[2] / smax)
+        # a bubble's area is proportional to its size (R-REND-012.C6)
+        r = 3.2 if spec.kind == "scatter" or len(p) < 3 else 17 * math.sqrt(max(0.0, p[2]) / smax)
         group = int(p[3]) if len(p) > 3 else 0
         out.append(f'<circle class="mkd-chart__dot" cx="{sx(p[0]):.1f}" cy="{plot.y(p[1]):.1f}" r="{r:.1f}" '
                    f'style="fill:{color(group)};--mkd-series:{color(group)}"/>')
@@ -384,10 +451,8 @@ def _radar(spec: ChartSpec) -> str:
 
 
 def _heatmap(spec: ChartSpec) -> str:
-    m = spec.matrix
+    m = _value_matrix(spec)
     rows, cols = len(m), max((len(r) for r in m), default=0)
-    if not rows or not cols:
-        return _svg(spec, "")
     vals = [v for r in m for v in r]
     lo, hi = min(vals), max(vals)
     left = 8 + min(70, 6 * max((len(y) for y in spec.y_labels), default=0)) if spec.y_labels else 6
@@ -412,9 +477,7 @@ def _heatmap(spec: ChartSpec) -> str:
 
 
 def _funnel(spec: ChartSpec) -> str:
-    vals = spec.series[0] if spec.series else []
-    if not vals:
-        return _svg(spec, "")
+    vals = _first(spec)
     top = max(vals) or 1
     h = (spec.height - 4) / len(vals)
     cx = spec.width * 0.42
@@ -486,9 +549,7 @@ def _gauge(spec: ChartSpec) -> str:
 
 
 def _candles(spec: ChartSpec) -> str:
-    rows = [r for r in spec.points if len(r) >= 4]
-    if not rows:
-        return _svg(spec, "")
+    rows, labels = _value_candles(spec)
     ticks = nice_ticks(min(r[2] for r in rows), max(r[1] for r in rows))
     x0, y0, x1, y1 = _frame(spec)
     plot = _Plot(x0, y0, x1, y1, ticks[0], ticks[-1])
@@ -500,8 +561,8 @@ def _candles(spec: ChartSpec) -> str:
         col = "var(--mkd-success)" if up else "var(--mkd-danger)"
         out.append(f'<line x1="{x:.1f}" y1="{plot.y(h):.1f}" x2="{x:.1f}" y2="{plot.y(low):.1f}" style="stroke:{col}"/>')
         top, bot = plot.y(max(o, c)), plot.y(min(o, c))
-        out.append(f'<rect x="{x - band * .3:.1f}" y="{top:.1f}" width="{band * .6:.1f}" height="{max(bot - top, 1):.1f}" '
-                   f'style="fill:{col}"/>')
-        if i < len(spec.labels) and i % max(1, math.ceil(len(rows) / 8)) == 0:
-            out.append(_text(x, y1 + 13, spec.labels[i]))
+        out.append(f'<rect class="mkd-chart__candle" x="{x - band * .3:.1f}" y="{top:.1f}" width="{band * .6:.1f}" '
+                   f'height="{max(bot - top, 1):.1f}" style="fill:{col}"/>')
+        if i < len(labels) and i % max(1, math.ceil(len(rows) / 8)) == 0:
+            out.append(_text(x, y1 + 13, labels[i]))
     return _svg(spec, "".join(out))

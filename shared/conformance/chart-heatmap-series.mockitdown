@@ -1,0 +1,2 @@
+// chart: heatmap-series
+Heatmap(series: [[3, 5, 2], [4, 1, 6]], labels: ["x", "y", "z"])

@@ -24,7 +24,7 @@ interface Expected {
 }
 
 /** Diagnostic codes only the renderer reports (assets, icons, device, chrome, appearance, roles). */
-const RENDER_STAGE = new Set(["appearance", "asset", "chrome", "device", "icon", "role"]);
+const RENDER_STAGE = new Set(["appearance", "asset", "chart", "chrome", "device", "icon", "role"]);
 
 const cases = (JSON.parse(readFileSync(join(CONF, "index.json"), "utf8")) as { cases: { name: string; area: string }[] }).cases;
 const render = core.render;

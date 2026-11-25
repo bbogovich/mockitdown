@@ -1,0 +1,2 @@
+// chart: candlestick-values
+CandlestickChart(values: [3, 5, 2, 6, 4], labels: ["a", "b", "c", "d", "e"])

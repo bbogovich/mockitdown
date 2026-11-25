@@ -27,7 +27,7 @@ that file's resolved path as their source, so the corpus has none (the generator
 
 Areas (the name prefix): role-* (every base element, by render role), pack-* (every shipped pack,
 plus its own elements in chunks), appearance-*, device-*, chrome-*, option-*, import-*,
-annotate-*, overlay-*, chart-*, image-*, lang-*, diag-*.
+annotate-*, overlay-*, chart-*, shape-*, image-*, lang-*, diag-*.
 """
 
 from __future__ import annotations
@@ -394,16 +394,39 @@ def chart_cases() -> list[Case]:
         ("candlestick", 'CandlestickChart(points: [[100, 108, 98, 106], [106, 110, 101, 103], [103, 104, 95, 97]], '
                         'labels: ["Mon", "Tue", "Wed"])'),
         ("sparkline", 'Sparkline([3, 5, 2, 6, 4])'),
+        ("candlestick-values", 'CandlestickChart(values: [3, 5, 2, 6, 4], labels: ["a", "b", "c", "d", "e"])'),
+        ("bubble-series", 'BubbleChart(series: [[3, 5, 2], [4, 1, 6]], seriesNames: ["A", "B"])'),
+        ("heatmap-series", 'Heatmap(series: [[3, 5, 2], [4, 1, 6]], labels: ["x", "y", "z"])'),
+        ("empty-bar", 'BarChart()'),
+        ("empty-pie", 'DonutChart(values: [])'),
+        ("empty-scatter", 'ScatterChart()'),
+        ("empty-heatmap", 'Heatmap()'),
+        ("empty-sparkline", 'Sparkline()'),
         ("kind", 'Chart(kind: .line, values: [3, 5, 2, 6, 4])'),
         ("marks", 'Chart {\n  BarMark(x: .value("Day", "Mon"), y: .value("Steps", 6200))\n'
                   '  BarMark(x: .value("Day", "Tue"), y: .value("Steps", 8400))\n'
                   '  BarMark(x: .value("Day", "Wed"), y: .value("Steps", 7100))\n}'),
     ]
-    out = [Case(f"chart-{n}", f"chart: {n}", src, {"device": "fit", "pack": "swiftui"} if n == "marks" else {"device": "fit"})
+    out = [Case(f"chart-{n}", f"chart: {n}", src, {"device": "fit", "pack": "swiftui"} if n == "marks" else {"device": "fit"},
+                diagnostics=n.startswith("empty-"))  # R-REND-012.C7: a chart without data warns
            for n, src in specs]
     out.append(Case("chart-dark-mui", "chart colours in a pack, dark", specs[0][1],
                     {"device": "fit", "pack": "mui", "appearance": "dark"}))
     return out
+
+
+def shape_cases() -> list[Case]:
+    """Shape framing (R-REND-014): circle, ellipse and capsule in a wide frame; stroke and shadow on a circle."""
+    return [
+        Case("shape-circle-frame", "a Circle in a wide frame", 'Circle().frame(width: 160, height: 96)', {"device": "fit"}),
+        Case("shape-ellipse-frame", "an Ellipse in a wide frame", 'Ellipse().fill(Color.blue).frame(width: 160, height: 96)',
+             {"device": "fit"}),
+        Case("shape-capsule-frame", "a Capsule in a wide frame", 'Capsule().frame(width: 160, height: 96)', {"device": "fit"}),
+        Case("shape-circle-stroke", "a stroked, shadowed Circle",
+             'Circle().stroke(Color.red, lineWidth: 2).shadow(radius: 4).frame(width: 80, height: 40)', {"device": "fit"}),
+        Case("shape-in-ellipse", "a background in an Ellipse", 'Text("Tag").padding().background(Color.yellow, in: Ellipse())',
+             {"device": "fit"}),
+    ]
 
 
 def image_cases() -> list[Case]:
@@ -488,7 +511,7 @@ def diag_cases() -> list[Case]:
 def build_cases() -> list[Case]:
     cases = (role_cases() + pack_cases() + appearance_cases() + device_cases() + chrome_cases()
              + option_cases() + import_cases() + annotate_cases() + overlay_cases() + chart_cases()
-             + image_cases() + lang_cases() + diag_cases())
+             + shape_cases() + image_cases() + lang_cases() + diag_cases())
     names = [c.name for c in cases]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:

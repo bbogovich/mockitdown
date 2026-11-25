@@ -148,3 +148,43 @@ export async function mountMockups({ id, width, mockups }) {
   await Promise.all([...host.querySelectorAll("mockitdown-mockup")].map((m) => m.rendered));
   return host.children.length;
 }
+
+/**
+ * R-REND-014 (TC-1) over the `mockitdown-mockup` elements matching `selector`: each holds one shape whose
+ * expected frame is in the mockup's `data-frame` ("w×h"). A circle keeps the frame and draws a square
+ * min(w, h) disc centred in it; an ellipse has 50% radii; a capsule's radius is half its shorter side.
+ */
+export function inspectShapes({ selector }) {
+  const TOL = 1.5;
+  const problems = [];
+  for (const m of document.querySelectorAll(selector)) {
+    const label = m.dataset.label;
+    const shape = m.shadowRoot?.querySelector(".mkd-shape");
+    if (!shape) { problems.push(`${label}: no shape`); continue; }
+    const [w, h] = m.dataset.frame.split("×").map(Number);
+    const r = shape.getBoundingClientRect();
+    const scale = r.width / w; // the frame unit (--u) may differ from 1 px
+    if (Math.abs(r.height - h * scale) > TOL) problems.push(`${label}: box ${Math.round(r.width)}×${Math.round(r.height)} is not ${w}×${h}`);
+    const cs = getComputedStyle(shape);
+    const kind = shape.dataset.shape;
+    if (kind === "circle") {
+      const before = getComputedStyle(shape, "::before");
+      const bw = parseFloat(before.width);
+      const bh = parseFloat(before.height);
+      const d = Math.min(r.width, r.height);
+      if (Math.abs(bw - d) > TOL || Math.abs(bh - d) > TOL) problems.push(`${label}: circle ${bw}×${bh}, expected ${d}×${d}`);
+      if (before.borderTopLeftRadius !== "50%") problems.push(`${label}: circle radius ${before.borderTopLeftRadius}`);
+      if (cs.justifyItems !== "center" || cs.alignItems !== "center") problems.push(`${label}: circle not centred in its frame`);
+      if (cs.backgroundColor !== "rgba(0, 0, 0, 0)" || cs.backgroundImage !== "none") problems.push(`${label}: the frame of the circle is painted`);
+    } else if (kind === "ellipse") {
+      if (cs.borderTopLeftRadius !== "50%" || cs.borderBottomRightRadius !== "50%") problems.push(`${label}: ellipse radius ${cs.borderTopLeftRadius}`);
+    } else if (kind === "capsule") {
+      // a radius at least half the shorter side is drawn as exactly half of it (CSS clamps overlapping radii)
+      const radius = parseFloat(cs.borderTopLeftRadius);
+      if (!(radius >= Math.min(r.width, r.height) / 2 - TOL)) problems.push(`${label}: capsule radius ${cs.borderTopLeftRadius}`);
+    } else if (kind === "rounded") {
+      if (Math.abs(parseFloat(cs.borderTopLeftRadius) - 12 * scale) > TOL) problems.push(`${label}: corner radius ${cs.borderTopLeftRadius}`);
+    }
+  }
+  return problems;
+}

@@ -1,0 +1,2 @@
+// a Circle in a wide frame
+Circle().frame(width: 160, height: 96)

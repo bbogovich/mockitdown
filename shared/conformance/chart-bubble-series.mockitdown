@@ -1,0 +1,2 @@
+// chart: bubble-series
+BubbleChart(series: [[3, 5, 2], [4, 1, 6]], seriesNames: ["A", "B"])
