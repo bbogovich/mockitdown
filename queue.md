@@ -31,12 +31,12 @@ entries:
   - seq: 4
     issue: 4
     action: implement
-    state: in-progress
+    state: done
     run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started: 2026-11-25T17:54:03Z
-    finished:
+    finished: 2026-11-25T18:15:43Z
   - seq: 5
     issue: 5
     action: implement
