@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Not started (93)
+## Not started (91)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -98,11 +98,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 | R-REND-012 | Charts | — | 0.3.0 |  |  |
 | R-WEB-002 | The mockitdown-mockup element | — | 0.6.0 |  |  |
-| R-WEB-003 | Development server | — | 0.6.0 |  |  |
 | R-WEB-004 | Pack gallery test page | — | 0.6.0 |  |  |
-| R-WEB-005 | Web test suites | — | 0.6.0 |  |  |
 
-## Implemented (6)
+## Implemented (8)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -112,3 +110,5 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
+| [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |

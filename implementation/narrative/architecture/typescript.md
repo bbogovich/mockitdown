@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.5
+impl_version: 0.3.6
 status: draft
 updated: 2026-11-25
 page_id: IMPL.TS
@@ -43,7 +43,8 @@ module for module, held to the Python output by the conformance corpus.
 | `core/pyformat.ts` | (Python itself) | `pyFixed` (`%.Nf`), `pyFormatG` (`%g`), `pyRound`, `pyRoundTo`, `parsePyFloat`, `pyMod`, `pyMin`/`pyMax` |
 | `core/sha1.ts` | `hashlib.sha1` | synchronous SHA-1 of UTF-8 text, for the anchor prefix |
 | `core/api.ts` | `api.py` | `render`, `check`, `RenderResult`, `errorHtml`, `evaluate`, `stylesheet` |
-| `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core; will define the custom elements) |
+| `elements/assets.ts` | — | `loadAssetsFromUrl(base)`: the browser asset loader (A-WEB-2.P2), see [Web development](web-dev.md) |
+| `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core and `loadAssetsFromUrl`; will define the custom elements) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
 
 ## How the shared assets reach the core
@@ -55,7 +56,7 @@ sources). The build copies the assets; a host hands them over once.
 flowchart LR
   S["shared/<br/>packs, css, icons, language"] -->|"npm run build<br/>scripts/copy-shared.mjs"| D["dist/shared/<br/>packs/&lt;id&gt;/pack.json, pack.css<br/>page.css, icons.json, vocabulary.json<br/>manifest.json"]
   D -->|"mockitdown/node<br/>loadSharedAssets() (node:fs)"| L["loadAssets(assets)"]
-  D -->|"custom elements (issue #5)<br/>fetch manifest + files"| L
+  D -->|"browser: loadAssetsFromUrl(base)<br/>fetch manifest + files"| L
   L --> V["vocabulary.ts"]
   L --> R["PackRegistry.setBuiltin"]
   L --> P["page.css, icons"]
@@ -143,6 +144,7 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | `evaluate(source, options)` | `core/api.ts` | `{screen, diagnostics}`; `screen` null on a syntax error |
 | `stylesheet(packIds?, {minify})` | `core/api.ts` | byte-equal to Python's `stylesheet()` |
 | `loadAssets({vocabulary, packs, pageCss, icons})` | `core/assets.ts` | must run before `evaluate` |
+| `loadAssetsFromUrl(base?, {fetch})` | `elements/assets.ts` | fetches `dist/shared/` (default: beside the module) and calls `loadAssets`; resolves to the manifest |
 | `registerPack(json, css)` | `core/packs/registry.ts` | returns the pack id |
 | `registerComponents(name, source)` | `core/components.ts` | name is a path, e.g. `components/pill.mockitdown` |
 | `renderOptions(...overrides)` | `core/options.ts` | defaults + overrides, ignoring unknown keys and null |
@@ -166,3 +168,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 |---|---|---|
 | 0.3.4 | 2026-11-25 | Page written: package, core modules, assets as data, imports, registry (#3) |
 | 0.3.5 | 2026-11-25 | Renderer, styles, charts, chrome, icons, assets by base URL, number formatting; `render`, `check` (#4) |
+| 0.3.6 | 2026-11-25 | `elements/assets.ts`: `loadAssetsFromUrl`, the browser asset loader (#5) |

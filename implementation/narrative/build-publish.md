@@ -1,6 +1,6 @@
 ---
 title: Build and publish
-impl_version: 0.1.0
+impl_version: 0.3.6
 status: draft
 updated: 2026-11-25
 page_id: IMPL.BUILD
@@ -107,6 +107,13 @@ section, and deploys them with `actions/deploy-pages`.
 version, runs the tests, builds the sdist and wheel (`python/dist/`) and publishes them through PyPI
 Trusted Publishing (R-REPO-003.C4).
 
+## Continuous integration
+
+`.github/workflows/ci.yml` (on `main` only; the `docs` branch has no code to test) runs on every push
+and pull request: a `python` job (the suite with the real Zensical build) and a `typescript` job
+(Node 22, `npm ci`, Playwright's Chromium, `npm test`) — R-WEB-005.C3, C5. It publishes nothing; see
+[Web development](architecture/web-dev.md#ci).
+
 
 ---
 
@@ -124,3 +131,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.0 | 2026-11-24 | Header tabs, generated Reference pages, root redirects to Demo |
 | 0.1.1 | 2026-11-24 | Docs site back on inline CSS |
 | 0.3.2 | 2026-11-25 | Python variant moved to python/, shared assets in shared/: setup, package data, example site, Reference JSON, workflows (#1) |
+| 0.3.6 | 2026-11-25 | Continuous integration: ci.yml runs both variants' suites (#5) |

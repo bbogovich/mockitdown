@@ -1,6 +1,6 @@
 ---
 title: Testing
-impl_version: 0.1.0
+impl_version: 0.3.6
 status: draft
 updated: 2026-11-25
 page_id: IMPL.TEST
@@ -21,8 +21,12 @@ The TypeScript tests use `node:test` (ADR-20) and run against `dist/` (Node 22+)
 
 ```sh
 cd typescript
-npm install && npm test      # build, compile tests/ to test-build/, node --test test-build/unit/
+npm install && npx playwright install chromium   # once
+npm test      # build, compile tests/ to test-build/, node --test test-build/unit/, Playwright (Chromium)
 ```
+
+The browser tests (`tests/browser/*.spec.mjs`) start the development server themselves; see
+[Web development](architecture/web-dev.md).
 
 `tests/types/node-shim.d.ts` declares the few Node APIs the tests use (ADR-20 allows no `@types/node`).
 Module paths below are relative to `python/` for IT-1 … IT-8. `tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
@@ -43,6 +47,8 @@ errors) and `diags(src, **options)`.
 | IT-9 | `typescript/tests/unit/{values,syntax,evaluate,packs,package,core}.test.ts` | the TypeScript core (`node:test`, against `dist/`): Python value semantics (float repr, `%g`, string repr, dict keys, JSON ints/floats), lexing and parsing with code-point columns and Python-worded errors, evaluation (arithmetic, collections, structs, `ForEach`, pack selection, diagnostics), imports through `registerComponents` and `import_resolver`, an application pack extending `mui` selected by module and styled, the package manifest and `dist/shared/`, no DOM/network/file access in `src/core/` | R-WEB-001.TC-2, R-WEB-001.TC-3, A-WEB-1.K1 |
 | IT-10 | `typescript/tests/unit/conformance.test.ts` | the conformance corpus in TypeScript: every case parses (or fails with its syntax error), its evaluation reproduces the pack lineage and the evaluation-stage diagnostics, and `render` returns exactly `<name>.html` and all of `<name>.diag.json` — 572 cases, none todo | R-WEB-001.TC-1, R-REPO-004.C5, R-REPO-004.C7 |
 | IT-11 | `typescript/tests/unit/render.test.ts` | the TypeScript render API: `RenderResult` (html, diagnostics, packs, screen), the error box, `show_warnings`, `source`, `check`; images by `asset_base`, not found without one, remote and `data:image` passed through; `stylesheet` with ancestors once; the anchor prefix's SHA-1 (test vectors and a non-ASCII source); icon name resolution; Python `%.Nf`, `%g` and `round` ties to even | R-WEB-001.TC-4, R-ANN-003.C5 |
+| IT-12 | `typescript/tests/unit/serve.test.ts` | the development server on a free port: the index links every page of `pages/`, pages/modules/pack CSS/JSON/`.mockitdown` with their content types, 404 for paths outside the served folders (`/../package.json`, encoded `..`, backslash, NUL), 405 for other methods; `loadAssetsFromUrl` over HTTP (one load per base, a failed load rejected with URL and status, then retried) | R-WEB-003.TC-1, A-WEB-2.K2 |
+| IT-13 | `typescript/tests/browser/core.spec.mjs` (Playwright, Chromium) | the index links `pages/core.html`; the page loads `dist/shared/` like a browser host, renders a SwiftUI mockup styled by its pack stylesheet with icons, no failed request, page error or diagnostic; a syntax error is reported and a fix renders in MUI | R-WEB-005.TC-1 |
 
 ## The example site as fixture
 
@@ -73,3 +79,4 @@ test suite then covers it without new test code.
 | 0.3.3 | 2026-11-25 | IT-8 conformance corpus (#2) |
 | 0.3.4 | 2026-11-25 | IT-9 TypeScript unit tests, IT-10 TypeScript conformance harness (#3) |
 | 0.3.5 | 2026-11-25 | IT-10 compares every rendered case; IT-11 TypeScript render API (#4) |
+| 0.3.6 | 2026-11-25 | IT-12 development server and asset loader, IT-13 Playwright smoke test; CI (#5) |
