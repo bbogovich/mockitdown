@@ -2,8 +2,8 @@
 id: R-PACK-015
 title: SwiftUI presentations and navigation
 status: active
-version: 0.8.2
-rev: 1
+version: 0.8.5
+rev: 2
 page: PACK.1
 slot: reqs
 order: 999
@@ -11,8 +11,8 @@ source: [SRC-9]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-DEV-008, R-PACK-013]
-hash: acd8cb089ff6
-refs: [R-DEV-008, R-DEV-010]
+hash: ae7a404471c2
+refs: [R-DEV-008, R-DEV-010, R-PACK-013]
 ---
 
 C1: An `Alert` in the `swiftui` pack MUST render as the iOS 26 alert: a centred Liquid Glass card about 300 points wide with large corner radius (`--mkd-radius-alert`, 34 points), bold centred title, centred message, and its actions as capsule buttons — side by side for two, stacked for more — a `.cancel` role in the neutral style and a `.destructive` role in red.
@@ -23,4 +23,4 @@ C5: A `Tab` alone MUST render as one item of a tab bar (icon over label, selecte
 C6: A `TabView` MUST render its selected tab's content above a floating Liquid Glass capsule tab bar with icon-over-label items and a highlight pill on the selected item, and the content MUST NOT extend under the bar at `fit`; `.page` MUST render the content with page indicator dots below it and no tab bar; `.sidebarAdaptable` MUST render as `.automatic` on a phone and as a sidebar list of the tabs on tablet and desktop; `.tabBarOnly` as `.automatic`.
 C7: A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; `.balanced` MUST share the width between the columns and `.prominentDetail` MUST keep the detail at full width with the sidebar over it; with `macos` chrome it MUST follow R-DEV-010.C3.
 C8: At `fit` with no device, `NavigationSplitView` MUST render at least 640 × 360 points so that its columns are visible.
-V1: `NavigationSplitView { List { Label("Inbox", systemImage: "tray") } .navigationTitle("Mail") } detail: { Text("Select a message") }` renders a sidebar column with the title Mail and an Inbox row beside a detail column.
+V1: Each element above renders from its declared sample (R-PACK-013.C4); `NavigationSplitView { List { Label("Inbox", systemImage: "tray") } .navigationTitle("Mail") } detail: { Text("Select a message") }` renders a sidebar column with the title Mail and an Inbox row beside a detail column.

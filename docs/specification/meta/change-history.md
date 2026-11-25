@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.5 | 2026-11-25 | `PACK.1` | R-PACK-012/014/015 clarified against R-PACK-013 as built in #10 |
 | 0.8.4 | 2026-11-25 | `PACK.1` | R-PACK-013 as built: declared samples of elements with variants, inheritance, generic sample content (#10) |
 | 0.8.3 | 2026-11-25 | `DIAG.1`, `REND.1`, `REND.2` | as built in #9: shape framing (R-REND-014.C5, C6), charts from series, gauge and bubble areas (R-REND-012.C8-C10), diagnostic code chart (R-DIAG-003) |
 | 0.8.2 | 2026-11-25 | `PACK.1` | R-PACK-014/015 re-based on R-REND-013 and R-DEV-008 as built in #8 |
