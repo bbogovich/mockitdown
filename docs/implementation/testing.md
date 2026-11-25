@@ -31,6 +31,7 @@ errors) and `diags(src, **options)`.
 | IT-5 | `tests/test_examples.py` `ZensicalBuildTests` | builds the example site with `zensical build --clean` (skipped when Zensical is not installed; set `ZENSICAL` to its path) | F-14.AC2, R-MDX-001.C3 |
 | IT-6 | `tests/test_layout.py` | repository layout from `git ls-files`: only the variant folders and cross-variant files at the root, no `pack.json`/`pack.css` outside `shared/packs`, root README links `python/README.md` (skipped outside a git checkout) | R-REPO-001.TC-1, R-REPO-002.TC-2, R-REPO-001.C5 |
 | IT-7 | `tests/test_shared.py` | the package copy of `shared/` is identical (and a stale copy is detected); a wheel built with `pip wheel` holds every pack file, `page.css`, `icons.json`, `vocabulary.json` and the `LICENSE`; `shared/reference/` has a well-formed file per listed pack | R-REPO-002.TC-1, R-REPO-003.TC-1, R-REPO-003.TC-3 |
+| IT-8 | `tests/test_conformance.py` | the conformance corpus (see [Conformance corpus](conformance.md)): every case renders to its expected HTML and `.diag.json`; `gen_conformance.py --check` passes and fails on a changed expected file; coverage of every base role, every pack, light/dark and every device; option keys and types | R-REPO-004.TC-1, R-REPO-004.TC-2, R-REPO-004.TC-3 |
 
 ## The example site as fixture
 
@@ -58,3 +59,4 @@ test suite then covers it without new test code.
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | ZensicalBuildTests and CssInjectionTests now cover CSS delivery |
 | 0.3.2 | 2026-11-25 | Run from python/; IT-6 layout and IT-7 shared-asset tests (#1) |
+| 0.3.3 | 2026-11-25 | IT-8 conformance corpus (#2) |

@@ -55,7 +55,7 @@ M-VIEW-3 | model | active | 0.2.0 r0 | MODEL.1 | Screen
 M-VIEW-4 | model | active | 0.2.0 r0 | MODEL.1 | Value
 R-ANN-001 | requirements | active | 0.3.0 r0 | ANN.1 | Numbered callouts
 R-ANN-002 | requirements | active | 0.3.0 r0 | ANN.1 | Pointers, selections, highlights and taps
-R-ANN-003 | requirements | active | 0.3.0 r0 | ANN.1 | Overlay placement and free positioning
+R-ANN-003 | requirements | active | 0.6.2 r1 | ANN.1 | Overlay placement and free positioning
 R-ANN-004 | requirements | active | 0.3.0 r0 | ANN.1 | Callout references in prose
 R-API-001 | requirements | active | 0.2.0 r0 | API.1 | render
 R-API-002 | requirements | active | 0.2.0 r0 | API.1 | check, evaluate and stylesheet
@@ -146,7 +146,7 @@ R-REND-012 | requirements | active | 0.3.0 r0 | REND.2 | Charts
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
-R-REPO-004 | requirements | active | 0.6.0 r0 | REPO.1 | Conformance corpus
+R-REPO-004 | requirements | active | 0.6.2 r1 | REPO.1 | Conformance corpus
 R-WEB-001 | requirements | active | 0.6.0 r0 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.6.0 r0 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.0 r0 | WEB.2 | Development server

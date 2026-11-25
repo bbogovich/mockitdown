@@ -1,7 +1,7 @@
 ---
 id: TC-2
 title: Corpus is current
-verifies: [C4]
+verifies: [C4, C14]
 ---
 
 Automated: `python tools/gen_conformance.py --check` runs in the Python test suite.

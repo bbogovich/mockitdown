@@ -4,13 +4,12 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Not started (96)
+## Not started (94)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-001 | Numbered callouts | — | 0.3.0 |  |  |
 | R-ANN-002 | Pointers, selections, highlights and taps | — | 0.3.0 |  |  |
-| R-ANN-003 | Overlay placement and free positioning | — | 0.3.0 |  |  |
 | R-ANN-004 | Callout references in prose | — | 0.3.0 |  |  |
 | R-API-001 | render | — | 0.2.0 |  |  |
 | R-API-002 | check, evaluate and stylesheet | — | 0.2.0 |  |  |
@@ -98,17 +97,18 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 | R-REND-012 | Charts | — | 0.3.0 |  |  |
-| R-REPO-004 | Conformance corpus | — | 0.6.0 |  |  |
 | R-WEB-001 | TypeScript package and core | — | 0.6.0 |  |  |
 | R-WEB-002 | The mockitdown-mockup element | — | 0.6.0 |  |  |
 | R-WEB-003 | Development server | — | 0.6.0 |  |  |
 | R-WEB-004 | Pack gallery test page | — | 0.6.0 |  |  |
 | R-WEB-005 | Web test suites | — | 0.6.0 |  |  |
 
-## Implemented (3)
+## Implemented (5)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
+| [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
 | [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
 | [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
+| [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |

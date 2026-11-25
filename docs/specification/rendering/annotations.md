@@ -1,8 +1,8 @@
 ---
 title: Annotations and overlays
-spec_version: 0.3.0
+spec_version: 0.6.2
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: ANN.1
 ---
 
@@ -59,6 +59,9 @@ Workflow illustrations show what the user does: where the pointer is, what is dr
 
 Lists, cards and scroll areas clip their content, which would cut off a callout sitting on a corner. Anchor positioning draws the marks in an unclipped layer tied to the element; the inline copy keeps older browsers working.
 
+The anchor prefix is derived from the pack and the source text alone, so every variant names anchors
+alike (ADR-18) and two different figures on one page do not collide.
+
 **Decisions.** ADR-15
 
 | | Statement |
@@ -67,6 +70,7 @@ Lists, cards and scroll areas clip their content, which would cut off a callout 
 | C2 | The renderer MUST name the decorated element as a CSS anchor (unique within the page) and draw its marks twice: in a screen-level layer positioned with CSS anchor positioning, and in a layer inside the element used only where anchor positioning is unsupported. |
 | C3 | Marks created inside a modal dialog MUST be emitted after the dialog's layer, so their anchors precede them. |
 | C4 | `.position(x:y:)` MUST place the view's centre at (x, y) points in its nearest positioned container (canvas, z-stack, screen); `.position` without coordinates MUST warn and be ignored; `.rotationEffect(.degrees(n))` MUST rotate the view; `.zIndex(n)` MUST order overlapping views; canvas, z-stack, card and presented containers MUST isolate the stacking of their children. |
+| C5 | The anchor name MUST be `--mkd-<p>-<n>`, `<p>` being the first six hexadecimal digits of the SHA-1 of the pack id, a line feed and the block source (UTF-8), and `<n>` counting the figure's decorated elements from 1 in render order. |
 | V1 | A callout on a row inside a clipped list is fully visible in a browser with anchor positioning. |
 
 ---
@@ -88,4 +92,6 @@ Prose and picture refer to each other with the same numbered circle, so a reader
 
 | Version | Date | Change |
 |---|---|---|
+| 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |
+| 0.3.0 | 2026-11-24 | Page created |
 | 0.3.0 | 2026-11-24 | Page created |

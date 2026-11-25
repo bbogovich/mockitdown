@@ -1,1 +1,22 @@
 The corpus is the definition of "the same rendering" (ADR-18). It is regenerated deliberately, never to make a failing TypeScript test pass.
+
+The cases are many and small, so a port can make them pass one area at a time. Areas, by name prefix:
+`role-<role>-<element>` (every base element, from its Reference sample), `pack-<id>` (every shipped pack,
+hidden ones included) and `pack-<id>-own-<n>` (each listed pack's own elements, twelve per case),
+`appearance-`, `device-`, `chrome-`, `option-`, `import-`, `annotate-`, `overlay-`, `chart-`, `image-`,
+`lang-` and `diag-`.
+
+A case, for example `annotate-callout-label`:
+
+```text
+annotate-callout-label.mockitdown   // a callout with a label …
+annotate-callout-label.json         {"device": "fit"}
+annotate-callout-label.html         <div class="mkd-figure …">…</div>⏎
+annotate-callout-label.diag.json    {"packs": ["base"], "diagnostics": []}
+```
+
+The harness is fixed so that nothing in the output depends on the machine: there is no source path
+(diagnostics in the block read `line L:C`), images come from `data:` or remote URLs, and imports are
+found through the one search path `.` — the corpus directory — so a missing import reports
+`(searched .)`. A diagnostic inside an imported file would carry that file's resolved path, so the
+corpus has none. Regenerate with `cd python && ../.venv/bin/python tools/gen_conformance.py`.

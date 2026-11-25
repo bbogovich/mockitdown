@@ -120,6 +120,27 @@ Automated by `python/tests/test_shared.py` (`ReferenceJsonTests`): `index.json` 
 
 The corpus is the definition of "the same rendering" (ADR-18). It is regenerated deliberately, never to make a failing TypeScript test pass.
 
+The cases are many and small, so a port can make them pass one area at a time. Areas, by name prefix:
+`role-<role>-<element>` (every base element, from its Reference sample), `pack-<id>` (every shipped pack,
+hidden ones included) and `pack-<id>-own-<n>` (each listed pack's own elements, twelve per case),
+`appearance-`, `device-`, `chrome-`, `option-`, `import-`, `annotate-`, `overlay-`, `chart-`, `image-`,
+`lang-` and `diag-`.
+
+A case, for example `annotate-callout-label`:
+
+```text
+annotate-callout-label.mockitdown   // a callout with a label …
+annotate-callout-label.json         {"device": "fit"}
+annotate-callout-label.html         <div class="mkd-figure …">…</div>⏎
+annotate-callout-label.diag.json    {"packs": ["base"], "diagnostics": []}
+```
+
+The harness is fixed so that nothing in the output depends on the machine: there is no source path
+(diagnostics in the block read `line L:C`), images come from `data:` or remote URLs, and imports are
+found through the one search path `.` — the corpus directory — so a missing import reports
+`(searched .)`. A diagnostic inside an imported file would carry that file's resolved path, so the
+corpus has none. Regenerate with `cd python && ../.venv/bin/python tools/gen_conformance.py`.
+
 **R-REPO-004.TC-1 — Python matches the corpus**
 
 Automated by `python/tests/test_conformance.py`.
@@ -127,6 +148,10 @@ Automated by `python/tests/test_conformance.py`.
 **R-REPO-004.TC-2 — Corpus is current**
 
 Automated: `python tools/gen_conformance.py --check` runs in the Python test suite.
+
+**R-REPO-004.TC-3 — Corpus covers the required areas**
+
+Automated by `test_coverage`, `test_layout` and `test_options_are_known` in `python/tests/test_conformance.py`.
 
 **Realizes.** F-16
 
@@ -137,4 +162,13 @@ Automated: `python tools/gen_conformance.py --check` runs in the Python test sui
 | C3 | The expected HTML MUST be produced by the Python renderer, by `python/tools/gen_conformance.py`. |
 | C4 | `gen_conformance.py --check` MUST fail when an expected file differs from what the Python renderer now produces. |
 | C5 | Each variant's test suite MUST render every case and fail on any difference from the expected HTML. |
+| C6 | Each `<name>.json` MUST be a JSON object holding only render options — `pack`, `default_pack`, `device`, `default_device`, `appearance`, `default_appearance`, `chrome`, `title`, `id`, `window`, `url` (strings), `width`, `height` (integers), `caption`, `elements`, `source`, `show_warnings` (booleans) — with every absent key taking its default. |
+| C7 | Each case MUST have `<name>.diag.json`, an object `{"packs": [id, …], "diagnostics": [{"severity", "code", "message", "line", "col", "source"}, …]}` holding the render's pack lineage and its diagnostics in order, and each variant's test suite MUST fail when its result differs from it. |
+| C8 | `<name>.html` MUST be the rendered HTML followed by one line feed. |
+| C9 | A case MUST be rendered with no source path, no asset or pack search paths and the single import search path `.` resolved against `shared/conformance/`; component files the cases import MUST lie under `shared/conformance/components/`. |
+| C10 | An expected file MUST NOT contain a path of the machine that generated it; `gen_conformance.py` MUST refuse a case whose output does. |
+| C11 | `shared/conformance/index.json` MUST list every case in generation order as `{"cases": [{"name", "area"}, …]}`, the area being the case name up to its first hyphen. |
+| C12 | Each case source MUST begin with a `//` comment line saying what the case exercises. |
+| C13 | Every case outside the `diag` area MUST render without a diagnostic, and every `diag` case MUST report at least one; `gen_conformance.py` MUST refuse a case that breaks this. |
+| C14 | `gen_conformance.py --check` MUST also fail when a corpus file is missing or a file in `shared/conformance/` belongs to no case. |
 | V1 | Changing one expected file makes both test suites fail. |

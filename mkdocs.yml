@@ -123,6 +123,7 @@ nav:
           - Command line: implementation/architecture/cli.md
       - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md
+      - Conformance corpus: implementation/conformance.md
       - Requirements status: implementation/requirements-status.md
       - Pack authoring guide: implementation/pack-authoring.md
       - Build and publish: implementation/build-publish.md

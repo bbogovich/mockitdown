@@ -14,13 +14,16 @@ R-DEV-005, R-ASSET-004.
 
 ## Figure assembly — `render/__init__.py`, `render/chrome.py`
 
-`render_screen(screen, renderer, options, diagnostics)`:
+`render_screen(screen, renderer, options, diagnostics, source)`:
 
 1. `_resolve_device` — option `device` → `@Screen(device:)` → pack default; `fit`; `width`/`height`
    overrides; pack `sizes` then `options.DEVICES`.
 2. Appearance (option → `@Screen` → `default_appearance`), chrome (option unless `auto` →
    `@Screen` → `pack.chrome_for(device)`), title, id, url.
-3. `renderer.views(screen.views)` renders the body once; `renderer.overlays` collects the
+3. `anchor_prefix(pack.id, source)` sets the figure's CSS anchor prefix: the first six hex digits of
+   the SHA-1 of `"<pack id>\n<source>"` (R-ANN-003.C5). It used to hash `repr(screen.views)`, which
+   no other variant can reproduce and which carried file paths through import locations.
+   `renderer.views(screen.views)` renders the body once; `renderer.overlays` collects the
    presentation layers; `chrome.top`/`chrome.bottom` wrap the screen.
 4. One `mkd-cell`/`mkd-frame` per appearance (`both` → light and dark from the same HTML), the
    caption and `elements_table` (walks `model.walk` for `.id()` modifiers).
@@ -67,3 +70,4 @@ method reads attributes leniently (several framework spellings) and emits fixed 
 | Version | Date | Change |
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
+| 0.3.3 | 2026-11-25 | Portable anchor prefix from pack id and source (#2) |
