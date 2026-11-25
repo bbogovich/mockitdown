@@ -1,5 +1,6 @@
 // The few Node APIs `mockitdown/node` uses. ADR-20 allows no @types/node; these declarations are
-// all the loader needs, and the core (src/core/) never sees them.
+// all the loader needs, and the core (src/core/) never sees them. `URL` comes from the DOM library,
+// which the custom elements (src/elements/) need.
 declare module "node:fs" {
   export function readFileSync(path: string | URL, encoding: "utf8" | "utf-8"): string;
   export function readdirSync(path: string | URL): string[];
@@ -16,10 +17,4 @@ declare module "node:path" {
 }
 interface ImportMeta {
   readonly url: string;
-}
-declare class URL {
-  constructor(url: string, base?: string | URL);
-  readonly href: string;
-  readonly pathname: string;
-  toString(): string;
 }

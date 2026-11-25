@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mockup element</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 1.5rem; max-width: 72rem; }
+    section { margin: 2rem 0; }
+    .row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+    .row > * { flex: 1 1 20rem; }
+    textarea { width: 100%; min-height: 8rem; font: 13px/1.4 ui-monospace, monospace; }
+    code { background: #f2f2f5; padding: 0 .25em; border-radius: 3px; }
+    #log { font: 12px/1.4 ui-monospace, monospace; color: #b00020; white-space: pre-wrap; }
+    #fixture:empty { display: none; }
+  </style>
+  <script type="module" src="../dist/mockitdown.js"></script>
+</head>
+<body>
+  <h1>Mockup element</h1>
+  <p>
+    <code>&lt;mockitdown-mockup&gt;</code> renders the code in its
+    <code>&lt;script type="text/mockitdown"&gt;</code> child into a shadow root, with the stylesheet of
+    the packs it uses. Attributes are the Markdown fence's (<code>pack</code>, <code>device</code>,
+    <code>appearance</code>, <code>chrome</code>, <code>title</code>, <code>id</code>, <code>url</code>,
+    <code>width</code>, <code>height</code>, <code>caption</code>, <code>elements</code>,
+    <code>source</code>, <code>window</code>) plus <code>import-base</code> and <code>asset-base</code>.
+    The script may contain <code>&lt;</code>, <code>&gt;</code> and <code>&amp;</code> as they are; the one
+    thing it cannot contain is <code>&lt;/script</code> — set such code with the <code>code</code> property.
+  </p>
+
+  <main>
+    <section>
+      <h2>Markup characters, verbatim</h2>
+      <mockitdown-mockup device="fit" title="Characters">
+        <script type="text/mockitdown">
+          import SwiftUI
+          VStack(spacing: 8) {
+            Text("a < b && c > d")
+            Button("<Save & Close>") {}
+          }
+        </script>
+      </mockitdown-mockup>
+    </section>
+
+    <section>
+      <h2>Switch the pack</h2>
+      <p>
+        <label>pack
+          <select id="pack">
+            <option>base</option><option selected>mui</option><option>swiftui</option>
+            <option>bootstrap</option><option>fluent</option><option>android</option>
+          </select>
+        </label>
+        <label><input id="dark" type="checkbox"> dark</label>
+      </p>
+      <mockitdown-mockup id="switch" pack="mui" device="fit" caption="false">
+        <script type="text/mockitdown">
+          VStack(alignment: .leading, spacing: 12) {
+            Text("Sign in").font(.title)
+            TextField("Email")
+            SecureField("Password")
+            Toggle("Remember me", isOn: true)
+            HStack { Button("Cancel") {}; Button("Sign in") {}.buttonStyle(.borderedProminent) }
+          }
+          .padding()
+        </script>
+      </mockitdown-mockup>
+    </section>
+
+    <section>
+      <h2>Edit the code</h2>
+      <div class="row">
+        <div>
+          <textarea id="editor" spellcheck="false"></textarea>
+          <div id="log"></div>
+        </div>
+        <mockitdown-mockup id="edited" device="phone" pack="swiftui">
+          <script type="text/mockitdown">
+            NavigationStack {
+              List {
+                Text("Inbox")
+                Text("Archive")
+              }
+              .navigationTitle("Mail")
+            }
+          </script>
+        </mockitdown-mockup>
+      </div>
+    </section>
+
+    <section>
+      <h2>Imports from <code>import-base</code></h2>
+      <mockitdown-mockup device="fit" import-base="../shared/conformance/" caption="false">
+        <script type="text/mockitdown">
+          import "components/pill"
+          HStack(spacing: 8) { StatusPill(text: "Online"); StatusPill(text: "Offline", color: .red) }
+        </script>
+      </mockitdown-mockup>
+    </section>
+
+    <section>
+      <h2>Diagnostics</h2>
+      <p>An error box replaces the figure, and a <code>mockitdown-diagnostics</code> event bubbles to the page.</p>
+      <mockitdown-mockup device="fit" width="wide">
+        <script type="text/mockitdown">
+          VStack { Text("never closed"
+        </script>
+      </mockitdown-mockup>
+    </section>
+  </main>
+
+  <!-- The browser tests (tests/browser/mockup.spec.mjs) mount their own elements here. -->
+  <div id="fixture"></div>
+
+  <script type="module">
+    import "../dist/mockitdown.js";
+
+    const $ = (id) => document.getElementById(id);
+    const edited = $("edited");
+    $("editor").value = edited.code;
+    $("editor").addEventListener("input", () => { edited.code = $("editor").value; });
+    edited.addEventListener("mockitdown-diagnostics", (e) => {
+      $("log").textContent = e.detail.diagnostics.map(String).join("\n");
+    });
+    // A clean render clears the log.
+    const observe = async () => { await edited.rendered; if (!edited.diagnostics.length) $("log").textContent = ""; };
+    $("editor").addEventListener("input", observe);
+
+    $("pack").addEventListener("change", () => $("switch").setAttribute("pack", $("pack").value));
+    $("dark").addEventListener("change", () => $("switch").setAttribute("appearance", $("dark").checked ? "dark" : "light"));
+
+    await customElements.whenDefined("mockitdown-mockup");
+    await Promise.all([...document.querySelectorAll("main mockitdown-mockup")].map((m) => m.rendered));
+    window.mockitdownDemo = "rendered";
+  </script>
+</body>
+</html>
