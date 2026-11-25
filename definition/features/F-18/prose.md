@@ -5,3 +5,5 @@
 **Meaningful samples (SRC-9).** Generic samples (`Picker("Label")` without options, a lone `Tab`)
 said nothing about the element. Packs can name a sample per element; the gallery lays out variants
 so each is seen whole; multi-platform packs show an example application per platform.
+
+**Tabs and complex examples (SRC-10).** A pack has around a hundred element cards; the examples sat below all of them. Elements and examples now have their own tabs, and the examples grow to complex application layouts.

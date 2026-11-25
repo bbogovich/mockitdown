@@ -69,6 +69,8 @@ repository's shared assets (SRC-8). Authoring and documentation-site rendering a
 said nothing about the element. Packs can name a sample per element; the gallery lays out variants
 so each is seen whole; multi-platform packs show an example application per platform.
 
+**Tabs and complex examples (SRC-10).** A pack has around a hundred element cards; the examples sat below all of them. Elements and examples now have their own tabs, and the examples grow to complex application layouts.
+
 **F-18.UC-1 — Review a pack in the browser**
 
 **Actor:** developer or reviewer.

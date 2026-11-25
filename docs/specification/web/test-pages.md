@@ -69,6 +69,8 @@ Open it with `cd typescript && npm run serve`, then `http://127.0.0.1:8173/pages
 
 **Natural size and per-platform examples (SRC-9).** Cards scroll sideways rather than squeeze their mockups (SRC-9#scroll); multi-platform packs add example applications per platform; the browser tests check geometry, not only the absence of diagnostics.
 
+**Tabs (SRC-10).** Elements and examples are separate tabs so the examples are one click away; six complex layouts join the six simple patterns.
+
 **R-WEB-004.TC-1 — Every pack renders**
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
@@ -88,6 +90,14 @@ Automated by `typescript/tests/browser/gallery.spec.mjs`: opening `packs.html#pa
 **R-WEB-004.TC-5 — SwiftUI per-platform examples**
 
 `gallery.spec.mjs`: at `#pack=swiftui` the examples include patterns with device phone, tablet and desktop, the desktop one showing a menu bar with an open menu; patterns with `packs` are not shown for other packs; `patterns.test.ts` and `test_patterns.py` render each pack-specific pattern in its packs without an error diagnostic.
+
+**R-WEB-004.TC-6 — Elements and Examples tabs**
+
+`gallery.spec.mjs`: default tab Elements; `#pack=carbon&tab=examples` opens Examples with the first example in the viewport and no element card visible; switching pack keeps the tab; the index links scroll to each example; `packGallery.tab()` resolves.
+
+**R-WEB-004.TC-7 — Complex layout examples render everywhere**
+
+`patterns.test.ts` and `test_patterns.py`: each of the twelve core patterns renders in every shipped pack without an error diagnostic; the gallery geometry checks (TC-4) apply to them at their device size.
 
 **R-WEB-004.TC-M1 — Manual review**
 
@@ -112,6 +122,11 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 | C13 | Each element card MUST show its sample and its variants sample at their natural `fit` size (R-DEV-008.C1); a mockup wider than its card MUST scroll horizontally within the card rather than be squeezed or scaled. |
 | C14 | An entry of `shared/patterns/index.json` MAY carry `packs` (pack ids; the pattern is shown only for those packs and MAY import their module), `device`, `chrome`, `menubar` and `app`; for `swiftui` the gallery MUST show at least an iPhone app (TabView with a NavigationStack list and detail), an iPad app (three-column NavigationSplitView) and a Mac app (NavigationSplitView with toolbar, `.commands` and `menubar` naming an open menu). |
 | C15 | The browser tests MUST fail, for any pack, when two captioned variant cells of an element card intersect, when a `fit` frame is narrower than its content's scroll width, or when a presentation surface of an element sample is smaller than 200 × 80 points (a toast: than its text). |
+| C16 | The main area MUST show the selected pack's facts above two tabs, Elements and Examples, with exactly one tab's content shown; Elements (the element cards and the name filter) MUST be the default. |
+| C17 | The selected tab MUST be reflected in the fragment as `#pack=<id>&tab=elements&#124;examples`, kept when another pack is selected, and restored on reload; an unknown tab MUST select Elements. |
+| C18 | `window.packGallery` MUST also offer `tab(name)`, which selects a tab and resolves when its content is shown; `renderAll()` MUST render both tabs' mockups. |
+| C19 | `shared/patterns/` MUST hold, in addition to the six patterns of C3, at least these complex layouts in the core vocabulary: a three-pane mail client (folder sidebar, message list, reading pane), an admin console (sidebar navigation, header with search and avatar, KPI cards, chart and table), a kanban board (columns of cards), a chat application (conversation list, message thread with bubbles, composer), a product page (gallery, details, options, purchase panel, reviews) and a calendar or scheduler (week grid with events and a side panel). |
+| C20 | The Examples tab MUST list the examples in the order of `shared/patterns/index.json`, with an in-tab index linking to each example. |
 | V1 | The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing. |
 
 ---

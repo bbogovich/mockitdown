@@ -17,3 +17,5 @@ The appearance choice applies to every mockup and is remembered in `localStorage
 Open it with `cd typescript && npm run serve`, then `http://127.0.0.1:8173/pages/packs.html`.
 
 **Natural size and per-platform examples (SRC-9).** Cards scroll sideways rather than squeeze their mockups (SRC-9#scroll); multi-platform packs add example applications per platform; the browser tests check geometry, not only the absence of diagnostics.
+
+**Tabs (SRC-10).** Elements and examples are separate tabs so the examples are one click away; six complex layouts join the six simple patterns.
