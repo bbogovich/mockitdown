@@ -67,6 +67,11 @@ export interface RenderOptions {
   show_warnings: boolean;
   /** Loads component files the registered components do not hold (TypeScript only). */
   import_resolver: ImportResolver | null;
+  /**
+   * Base URL local image paths resolve against (TypeScript only, R-WEB-001.C7): `Image("team.jpg")`
+   * becomes `<asset_base>/team.jpg`. Without one a local path is reported as not found.
+   */
+  asset_base: string | null;
 }
 
 export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
@@ -90,6 +95,7 @@ export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
   source_path: null,
   show_warnings: false,
   import_resolver: null,
+  asset_base: null,
 });
 
 /**

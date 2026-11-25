@@ -17,6 +17,8 @@
  * `0...3` is a list of four integers and `0.0...1.0` a pair of bounds, and `str(1.0)` is `"1.0"`.
  */
 
+import { pyFormatG } from "./pyformat.js";
+
 /** A Python `float`. */
 export class PyFloat {
   readonly value: number;
@@ -243,22 +245,9 @@ export function floatRepr(x: number): string {
   return (neg ? "-" : "") + body;
 }
 
-/** Python's `format(x, "g")` (six significant digits, trailing zeros removed). */
+/** Python's `format(x, "g")` (six significant digits, trailing zeros removed; exact ties to even). */
 export function formatG(x: number, precision = 6): string {
-  if (Number.isNaN(x)) return "nan";
-  if (!Number.isFinite(x)) return x > 0 ? "inf" : "-inf";
-  if (x === 0) return Object.is(x, -0) ? "-0" : "0";
-  const p = precision === 0 ? 1 : precision;
-  const [mant, expText] = x.toExponential(p - 1).split("e");
-  const exp = Number(expText);
-  if (exp < -4 || exp >= p) {
-    let m = mant;
-    if (m.includes(".")) m = m.replace(/0+$/, "").replace(/\.$/, "");
-    return m + "e" + (exp < 0 ? "-" : "+") + String(Math.abs(exp)).padStart(2, "0");
-  }
-  let fixed = x.toFixed(Math.max(0, p - 1 - exp));
-  if (fixed.includes(".")) fixed = fixed.replace(/0+$/, "").replace(/\.$/, "");
-  return fixed;
+  return pyFormatG(x, precision);
 }
 
 /** `str(int)`. */

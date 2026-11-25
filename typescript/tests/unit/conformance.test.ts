@@ -8,7 +8,7 @@
 //              reproduces <name>.diag.json: the pack lineage and every diagnostic that arises before
 //              rendering, in order (severity, code, message, line, col, source).
 //   renders    render() returns exactly <name>.html minus its final line feed, and all of
-//              <name>.diag.json. Until the core exports render (issue #4) these are todo.
+//              <name>.diag.json (R-WEB-001.C8).
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -27,9 +27,7 @@ interface Expected {
 const RENDER_STAGE = new Set(["appearance", "asset", "chrome", "device", "icon", "role"]);
 
 const cases = (JSON.parse(readFileSync(join(CONF, "index.json"), "utf8")) as { cases: { name: string; area: string }[] }).cases;
-const render = (core as unknown as Record<string, unknown>).render as
-  | ((src: string, opts: object) => { html: string; packs: string[]; diagnostics: { toJSON(): object }[] })
-  | undefined;
+const render = core.render;
 
 function load(name: string): { source: string; options: Record<string, unknown>; expected: Expected; html: string } {
   const read = (ext: string): string => readFileSync(join(CONF, name + ext), "utf8");
@@ -67,8 +65,7 @@ for (const area of areas) {
         const want = expected.diagnostics.filter((d) => !RENDER_STAGE.has(d.code));
         assert.deepEqual(got, want, "evaluation-stage diagnostics");
       });
-      it(`${c.name} renders`, render ? {} : { todo: "render() arrives with issue #4 (R-WEB-001.C8)" }, () => {
-        if (!render) return;
+      it(`${c.name} renders`, () => {
         const { source, options, expected, html } = load(c.name);
         const result = render(source, options);
         assert.equal(result.html + "\n", html, "HTML (R-WEB-001.C8)");

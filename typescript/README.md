@@ -5,8 +5,9 @@ styled after real UI frameworks, in the browser and in Node. It shares the langu
 page stylesheet with the [Python variant](../python/README.md) through the repository's `shared/`
 folder, and it is held to the Python output by the conformance corpus in `shared/conformance/`.
 
-**Status:** in progress. The core's language, evaluation, packs, diagnostics, options and stylesheet are
-ported; the HTML renderer (`render`, `check`) and the `mockitdown-` web components follow.
+**Status:** in progress. The core is ported — language, evaluation, packs, diagnostics, options,
+stylesheet and the HTML renderer (`render`, `check`), byte-identical to Python on every conformance
+case; the `mockitdown-` web components follow.
 
 ## Package
 
@@ -22,12 +23,14 @@ The core (`src/core/`) touches no DOM, network or file system: the shared assets
 once, through `loadAssets`.
 
 ```js
-import { loadSharedAssets, evaluate, registerPack, registerComponents, stylesheet } from "mockitdown/node";
+import { loadSharedAssets, render, check, registerComponents, stylesheet } from "mockitdown/node";
 
 loadSharedAssets();                                   // the built-in packs from dist/shared/
 registerComponents("components/pill.mockitdown", pillSource);
-const { screen, diagnostics } = evaluate('import "components/pill"\nStatusPill(text: "Online")');
-const css = stylesheet(screen.pack.lineage().map((p) => p.id));
+const result = render('import "components/pill"\nStatusPill(text: "Online")', { device: "phone" });
+result.html;                                          // the figure (error box first if there are errors)
+result.diagnostics;                                   // Diagnostic[] (also: check(source, options))
+const css = stylesheet(result.packs);                 // CSS for the pack lineage, page.css included
 ```
 
 In a browser, fetch `dist/shared/manifest.json` and the files it lists and pass them to `loadAssets`
@@ -36,7 +39,8 @@ In a browser, fetch `dist/shared/manifest.json` and the files it lists and pass 
 Options use the Python `RenderOptions` field names (`pack`, `default_pack`, `device`, `appearance`,
 `width`, `height`, `chrome`, `title`, `id`, `caption`, `elements`, `source`, `window`, `url`,
 `import_paths`, `source_path`, `show_warnings`), plus `import_resolver`, a function returning a
-component file's text for a candidate path.
+component file's text for a candidate path, and `asset_base`, the URL local image paths resolve
+against (images are never embedded; without it a local path is reported as not found).
 
 ## Development
 
