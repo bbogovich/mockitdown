@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.8.1
+spec_version: 0.8.3
 status: draft
 updated: 2026-11-25
 page_id: REND.2
@@ -312,9 +312,11 @@ Dashboards are among the most common mockup subjects. The chart engine draws the
 
 **Charts never empty (SRC-9).** Scatter, bubble, heatmap and candlestick charts drew nothing when given the one-dimensional `values:` that every other kind accepts; they now derive their marks from it.
 
+As built, a chart with no data draws the axes of a cartesian chart (bar, line, area, combo, scatter, bubble, candlestick), the outline circle of a pie or donut, the baseline of a sparkline, the frame of a heatmap, funnel or treemap, and the empty grid of a radar chart. A candlestick chart derived from values labels each candle with the label of its closing value.
+
 **R-REND-012.TC-3 — Every kind draws marks from values**
 
-Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 4]` yields an SVG with at least one mark (`circle`, `rect` or `path` besides axes); a chart with no data emits the `chart` warning.
+Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 4]` yields an SVG with at least one mark (`circle`, `rect`, `path`, `polygon` or `polyline` besides grid lines, axes and the gauge track); a chart with no data emits the `chart` warning (a gauge without a value does not); a bubble four times the size of another has twice its radius; the conformance cases `chart-bubble-series` and `chart-heatmap-series` cover `series:` (C8).
 
 **Realizes.** F-8
 
@@ -327,6 +329,9 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | C5 | The chart MUST be drawn in a fixed logical canvas (`chartWidth`, `chartHeight`; default 360 × 200) that scales uniformly with its container. |
 | C6 | Given only `values:`, a scatter chart MUST plot the points (index, value), a bubble chart the same points with areas proportional to the values, a heatmap one row of cells shaded by value, and a candlestick chart one candle per value after the first (open = the previous value, close = the value, high and low 10% of the value range beyond them). |
 | C7 | A chart with no usable data MUST draw its axes or outline and warn "<Element> has no data" with code `chart`; it MUST NOT render an empty SVG silently. |
+| C8 | Given `series:` instead of `values:`, a scatter or bubble chart MUST plot each series as in C6 in its own colour, and a heatmap MUST draw one row of cells per series. |
+| C9 | A gauge chart without `value:` MUST draw its minimum and MUST NOT be treated as a chart with no data; a pie, donut or treemap whose values are all zero or negative has no usable data. |
+| C10 | A bubble's area MUST be proportional to its size (the third element of a point, or the value under C6). |
 | V1 | `BarChart(values: [1, 2], labels: ["a", "b"])` renders an SVG with two bars and the labels a and b. |
 | V2 | `PieChart(values: [3, 1])` renders two slices whose angles are 270° and 90°. |
 
@@ -334,11 +339,13 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
 | 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
 | 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |

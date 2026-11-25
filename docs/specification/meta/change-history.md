@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.3 | 2026-11-25 | `DIAG.1`, `REND.1`, `REND.2` | as built in #9: shape framing (R-REND-014.C5, C6), charts from series, gauge and bubble areas (R-REND-012.C8-C10), diagnostic code chart (R-DIAG-003) |
 | 0.8.2 | 2026-11-25 | `PACK.1` | R-PACK-014/015 re-based on R-REND-013 and R-DEV-008 as built in #8 |
 | 0.8.1 | 2026-11-25 | `PACK.1`, `REND.1`, `REND.2` | As built (#8): fit frames, presentations and toasts (R-DEV-008 C6–C10, V1), deliberate row overlaps (R-REND-013.C5), positional arguments take their parameter's alias (R-PACK-011.C3) |
 | 0.8.0 | 2026-11-25 | `WEB.2` | SRC-10: gallery tabs and complex layout examples (R-WEB-004) |

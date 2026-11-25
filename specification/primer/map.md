@@ -87,7 +87,7 @@ R-DEV-009 | requirements | active | 0.7.0 r0 | REND.2 | The macOS menu bar
 R-DEV-010 | requirements | active | 0.7.0 r0 | REND.2 | Multi-platform chrome for SwiftUI
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
 R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
-R-DIAG-003 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic codes
+R-DIAG-003 | requirements | active | 0.8.3 r1 | DIAG.1 | Diagnostic codes
 R-DIAG-004 | requirements | active | 0.2.0 r0 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EVAL-001 | requirements | active | 0.2.0 r0 | LANG.2 | Evaluation always completes
@@ -148,9 +148,9 @@ R-REND-008 | requirements | active | 0.2.0 r0 | REND.1 | Unknown elements and ro
 R-REND-009 | requirements | active | 0.2.0 r0 | REND.1 | Presentations and navigation composition
 R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and source disclosure
 R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
-R-REND-012 | requirements | active | 0.7.0 r1 | REND.2 | Charts
+R-REND-012 | requirements | active | 0.8.3 r2 | REND.2 | Charts
 R-REND-013 | requirements | active | 0.8.1 r1 | REND.1 | Rows without overlap
-R-REND-014 | requirements | active | 0.7.0 r0 | REND.1 | Shape framing
+R-REND-014 | requirements | active | 0.8.3 r1 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move

@@ -10,7 +10,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 |---|---|---|---|---|---|
 | [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
 
-## Not started (94)
+## Not started (91)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -46,7 +46,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-010 | Multi-platform chrome for SwiftUI | — | 0.7.0 |  |  |
 | R-DIAG-001 | Diagnostic content | — | 0.2.0 |  |  |
 | R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
-| R-DIAG-003 | Diagnostic codes | — | 0.2.0 |  |  |
 | R-DIAG-004 | The error box | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
 | R-EVAL-001 | Evaluation always completes | — | 0.2.0 |  |  |
@@ -93,8 +92,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-010 | Hidden packs | — | 0.3.0 |  |  |
 | R-PACK-012 | Pack reference gallery and site sections | — | 0.5.0 |  |  |
 | R-PACK-013 | Element samples | — | 0.7.0 |  |  |
-| R-PACK-014 | SwiftUI control styles | — | 0.7.0 |  |  |
-| R-PACK-015 | SwiftUI presentations and navigation | — | 0.7.0 |  |  |
+| R-PACK-014 | SwiftUI control styles | — | 0.8.2 |  |  |
+| R-PACK-015 | SwiftUI presentations and navigation | — | 0.8.2 |  |  |
 | R-REND-001 | Figure structure | — | 0.2.0 |  |  |
 | R-REND-002 | Role markup | — | 0.2.0 |  |  |
 | R-REND-003 | Attributes on the markup | — | 0.2.0 |  |  |
@@ -106,17 +105,18 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-009 | Presentations and navigation composition | — | 0.2.0 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
-| R-REND-012 | Charts | — | 0.7.0 |  |  |
-| R-REND-014 | Shape framing | — | 0.7.0 |  |  |
 
-## Implemented (12)
+## Implemented (15)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
 | [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-REND-014](../ledger/R-REND-014.md) | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
 | [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |

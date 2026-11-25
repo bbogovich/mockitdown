@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.9
+impl_version: 0.3.10
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REND
@@ -10,7 +10,7 @@ page_id: IMPL.REND
 
 Realizes **A-REND-1** (HTML renderer), **A-REND-2** (figure assembly and chrome) and **A-REND-3**
 (style builder); requirements R-REND-001 – R-REND-010, R-APP-001, R-APP-003, R-DEV-001, R-DEV-002,
-R-DEV-005, R-DEV-008, R-REND-013, R-ASSET-004.
+R-DEV-005, R-DEV-008, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
 
 ## Figure assembly — `render/__init__.py`, `render/chrome.py`
 
@@ -87,6 +87,47 @@ R-DEV-008 and R-REND-013 are almost entirely CSS; the renderer's part is the too
 Debugging: in the gallery, `inspectMockups` of `typescript/tests/browser/geometry.mjs` can be pasted
 into the console (it is self-contained) and returns the geometry problems of the open pack.
 
+## Shapes — `r_shape`, `shared/packs/base/pack.css`
+
+R-REND-014. `r_shape` emits one `.mkd-shape` with `data-shape` (`rectangle`, `rounded`, `circle`,
+`ellipse`, `capsule`); `.frame()` sizes that element, so the frame is laid out at w × h (C1).
+
+- **Circle (C1, C3).** `.mkd-shape[data-shape="circle"]` is a size container (`container-type: size`,
+  `display: grid; place-items: center`, no background, `aspect-ratio: 1` when nothing sizes it). Its
+  `::before` is the circle: `min(100cqw, 100cqh)` square, `border-radius: 50%`, background
+  `--mkd-shape-fill`, border `--mkd-shape-stroke`.
+- **Stroke and shadow on a circle (C5).** `_m_stroke` sets `--mkd-shape-stroke` instead of `border`,
+  and `_m_shadow` sets `filter: drop-shadow(…)` instead of `box-shadow`, when the view is a circle
+  (`_is_circle`); the drop shadow follows the painted disc because the frame is transparent.
+- **Ellipse and capsule (C2, C6).** Ellipse `border-radius: 50%`; capsule `9999px` (the browser
+  scales overlapping radii down to half the shorter side). `_shape_radius` / `_enum_radius` give
+  `.background(_, in: Ellipse())` and `.clipShape(Ellipse())` 50 %.
+- **Packs (C4).** No pack sets geometry on circle, ellipse or capsule. Sketch keeps its pencil look by
+  setting `--mkd-shape-stroke` and hatching the circle's `::before`.
+
+Debugging: `inspectShapes` in `typescript/tests/browser/geometry.mjs` reads the `::before` size of
+each circle (`getComputedStyle(shape, "::before")`) and the radii of the other shapes.
+
+## Charts — `render/charts.py`
+
+R-REND-012. `r_chart` collects a `ChartSpec` (series, labels, points, matrix, options) and
+`charts.render(spec)` dispatches on the kind. Derivation from `values:` (C6, C8) is in the helpers
+the kinds share:
+
+| Helper | Gives |
+|---|---|
+| `_value_points` | `points:`, else `[index, value, value, series]` for every value of every series (scatter, bubble) |
+| `_value_matrix` | `matrix:`, else one row per non-empty series (heatmap) |
+| `_value_candles` | `points:` rows of four, else `[prev, max + 10 % range, min − 10 % range, value]` per value after the first, labels shifted by one |
+| `has_data` | whether marks can be drawn (C7, C9): a gauge always; pie, donut and treemap need a positive value |
+| `_empty` | a chart without data: the axes, the pie/donut outline circles, the sparkline baseline or the heatmap/funnel/treemap frame |
+
+`render` calls `_empty` for the kinds whose drawing needs data (scatter, bubble, candlestick,
+heatmap, pie, donut, treemap, sparkline, funnel); bar, line, area, combo and radar already draw their
+axes or grid with no data. `r_chart` warns `"<Element> has no data"` with code `chart` when
+`has_data` is false. A bubble's radius is `17 * sqrt(size / max size)`, so areas are proportional
+(C10). Candle bodies carry `class="mkd-chart__candle"`.
+
 ## Style builder — `render/style.py`
 
 `StyleBuilder.build(view)` runs one `_m_<modifier>` handler per recorded modifier and returns
@@ -109,3 +150,4 @@ into the console (it is self-contained) and returns the geometry problems of the
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.3 | 2026-11-25 | Portable anchor prefix from pack id and source (#2) |
 | 0.3.9 | 2026-11-25 | Fit frames at natural width, presentations in flow, tooltip anchor/arrow, rows without overlap, message bubbles (#8) |
+| 0.3.10 | 2026-11-25 | Shapes (circle inside its frame, true ellipse) and charts drawn from values, no-data warning (#9) |

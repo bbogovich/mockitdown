@@ -1,6 +1,6 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.8.1
+spec_version: 0.8.3
 status: draft
 updated: 2026-11-25
 page_id: REND.1
@@ -264,9 +264,11 @@ Render `MessageBubble` with a long text in every pack: the text's box is inside 
 
 SwiftUI fits a circle into its frame and draws an ellipse as an ellipse; neither is ever a capsule (SRC-9, SRC-9#ellipse). The base stylesheet gave circle, ellipse and capsule the same 9999-pixel radius, so every pack drew both as capsules.
 
+As built, the circle's frame is laid out at its full size and the circle itself is drawn inside it, centred, at the shorter side; a stroke or shadow on a circle therefore follows the circle (C5), and the pencil-drawn Sketch pack draws its stroke and hatching on that circle instead of wobbling the outline. A `Capsule` keeps a very large corner radius, which the browser reduces to exactly half the shorter side. `.clipShape(Circle())` on content that is not square still clips to a capsule; R-REND-014 does not cover it.
+
 **R-REND-014.TC-1 — Circle in a wide frame**
 
-Python and TypeScript render tests plus a browser box check: V1 in every shipped pack (computed `border-radius` of the ellipse is 50%, the circle's box square), and the ellipse, capsule and rounded rectangle cases.
+Python and TypeScript render tests plus a browser box check: V1 in every shipped pack (computed `border-radius` of the ellipse is 50%, the circle's box square), and the ellipse, capsule and rounded rectangle cases; a stroked circle keeps its stroke on the circle (C5), and an ellipse given to `.background(_, in:)` has 50% radii (C6).
 
 **Realizes.** F-8
 
@@ -276,6 +278,8 @@ Python and TypeScript render tests plus a browser box check: V1 in every shipped
 | C2 | An `Ellipse` MUST fill its frame as a true ellipse (radii half its width and half its height, `border-radius: 50%`), never a capsule, in every pack; a `Capsule` MUST have corner radius half its shorter side; a `RoundedRectangle` MUST use its `cornerRadius`. |
 | C3 | A `Circle` without a frame MUST fill the shorter side of the space offered, as a circle. |
 | C4 | Packs MUST NOT override the geometry of C1–C3; a pack MAY restyle only fill, stroke and shadow. |
+| C5 | A `Circle`'s `.stroke()` and `.shadow()` MUST be drawn on the circle of C1, not on its frame. |
+| C6 | A shape given to `.background(_, in:)` or `.clipShape()` MUST follow C2: `Ellipse` with radii half the width and half the height, `Capsule` with radius half the shorter side. |
 | V1 | In every shipped pack, `Circle().frame(width: 160, height: 96)` renders a 96 × 96 circle centred in a 160 × 96 box, and `Ellipse().frame(width: 160, height: 96)` has border radii of 80 × 48 points (no straight edge). |
 
 ## Annotated example
@@ -319,10 +323,10 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
-| 0.7.0 | 2026-11-25 | New R-REND-014: Shape framing |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |
-| 0.7.0 | 2026-11-25 | New R-REND-014: Shape framing |
+| 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -1,8 +1,8 @@
 ---
 title: "Diagnostics"
-spec_version: 0.2.0
+spec_version: 0.8.3
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: DIAG.1
 ---
 
@@ -50,7 +50,7 @@ Codes let tools filter diagnostics (`check --json`) without parsing messages. Th
 
 | | Statement |
 |---|---|
-| C1 | Diagnostics MUST use these codes: `syntax` (lexing or parsing), `empty` (no views), `directive` (unknown directive), `pack` (pack selection or loading), `import` (component files), `unknown` (unknown element, view or name), `view` (an expression that is not a view), `foreach`, `recursion`, `argument` (struct arguments), `struct` (struct without body), `modifier` (unknown modifier, invalid class name), `value` (value evaluation), `role` (pack element with an unknown role), `icon`, `asset`, `device`, `appearance`, `chrome` and `fence` (fence attributes). |
+| C1 | Diagnostics MUST use these codes: `syntax` (lexing or parsing), `empty` (no views), `directive` (unknown directive), `pack` (pack selection or loading), `import` (component files), `unknown` (unknown element, view or name), `view` (an expression that is not a view), `foreach`, `recursion`, `argument` (struct arguments), `struct` (struct without body), `modifier` (unknown modifier, invalid class name), `value` (value evaluation), `role` (pack element with an unknown role), `icon`, `asset`, `device`, `appearance`, `chrome`, `chart` (a chart with no data) and `fence` (fence attributes). |
 | C2 | Adding a code MUST be a change to this specification. |
 | V1 | Every diagnostic produced by the test suite has one of the listed codes. |
 
@@ -127,4 +127,6 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_syntax_error_rende
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.3 | 2026-11-25 | as built (#9): diagnostic code chart (a chart with no data, R-REND-012.C7) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

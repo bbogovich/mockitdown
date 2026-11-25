@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.3
+impl_version: 0.3.10
 status: draft
 updated: 2026-11-25
 page_id: IMPL.CONF
@@ -52,7 +52,8 @@ repository path.
 | `import-` | 8 | `import <Module>`, component files, nested imports, inline structs |
 | `annotate-` | 21 | callouts, pointers, marquee, highlight, tap, free marks, position, in dialog |
 | `overlay-` | 9 | alert, sheet, confirmation dialog, overlay, badge, toast, dialog, FAB, navigation |
-| `chart-` | 22 | every chart kind and data form, `Chart {}` marks, a dark pack |
+| `chart-` | 30 | every chart kind and data form, `Chart {}` marks, a dark pack, candlesticks from values, bubble and heatmap from `series:`, charts without data (with the `chart` warning) |
+| `shape-` | 5 | circle, ellipse and capsule in a 160 × 96 frame; a stroked, shadowed circle; a background in an ellipse |
 | `image-` | 9 | data URI, remote, protocol-relative, placeholder, icons, avatar, modifiers |
 | `lang-` | 10 | let/if, ForEach, inline Markdown, fonts, layout modifiers, colours, escaping |
 | `diag-` | 17 | syntax errors, unknown element/module/pack/device/chrome/appearance/icon, imports, images, shown warnings |
@@ -88,3 +89,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | Version | Date | Change |
 |---|---|---|
 | 0.3.3 | 2026-11-25 | Page written (#2) |
+| 0.3.10 | 2026-11-25 | `shape-` area; chart cases from values and without data (#9) |
