@@ -1,0 +1,69 @@
+---
+version: 1
+entries:
+  - seq: 1
+    issue: 1
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 2
+    issue: 2
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 3
+    issue: 3
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 4
+    issue: 4
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 5
+    issue: 5
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 6
+    issue: 6
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+  - seq: 7
+    issue: 7
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-25T16:09:32Z
+    queued-by: agent:vibe-change
+    started:
+    finished:
+---
+
+Written only by the issue client. See R-ISSUE-015.
