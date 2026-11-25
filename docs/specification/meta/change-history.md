@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.6.4 | 2026-11-25 | `ARCH.3`, `WEB.1` | as built (#4): R-WEB-001 C14 asset_base, C15 local image without a base, C16 RenderResult and check, TC-4; A-WEB-1 renderer modules |
 | 0.6.3 | 2026-11-25 | `ARCH.3`, `WEB.1` | As built for the TypeScript core, part 1 (#3): R-WEB-001 C8 compares <name>.diag.json, C10–C13 (imports without paths, imported diagnostics' source, Python option names, dist/shared/manifest.json); A-WEB-1 stylesheet signature, evaluate and loadAssets |
 | 0.6.2 | 2026-11-25 | `ANN.1`, `REPO.1` | R-REPO-004 and R-ANN-003 as built: conformance corpus options, results and harness; portable anchor prefix (#2) |
 | 0.6.1 | 2026-11-25 | `ARCH.3`, `REPO.1` | As built for #1: vocabulary.json neutral_modules; shape of shared/reference JSON and index.json; LICENSE in the Python wheel and sdist |

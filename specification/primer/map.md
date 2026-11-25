@@ -20,7 +20,7 @@ A-REPO-1 | architecture | active | 0.6.1 r1 | ARCH.3 | Shared asset tree
 A-STYLE-1 | architecture | active | 0.2.0 r0 | ARCH.2 | Stylesheet assembly
 A-SYN-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Lexer
 A-SYN-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Parser and syntax tree
-A-WEB-1 | architecture | active | 0.6.3 r1 | ARCH.3 | TypeScript core
+A-WEB-1 | architecture | active | 0.6.4 r2 | ARCH.3 | TypeScript core
 A-WEB-2 | architecture | active | 0.6.0 r0 | ARCH.3 | Mockup element
 A-WEB-3 | architecture | active | 0.6.0 r0 | ARCH.3 | Development server and test pages
 ADR-1 | decisions | active | 0.2.0 r0 | ADR.1 | HTML and CSS is the only renderer; the SVG renderer is retired
@@ -147,7 +147,7 @@ R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.6.2 r1 | REPO.1 | Conformance corpus
-R-WEB-001 | requirements | active | 0.6.3 r1 | WEB.1 | TypeScript package and core
+R-WEB-001 | requirements | active | 0.6.4 r2 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.6.0 r0 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.0 r0 | WEB.2 | Development server
 R-WEB-004 | requirements | active | 0.6.0 r0 | WEB.2 | Pack gallery test page

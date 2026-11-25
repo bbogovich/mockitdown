@@ -2,12 +2,12 @@
 id: A-WEB-1
 title: TypeScript core
 status: active
-version: 0.6.3
-rev: 1
+version: 0.6.4
+rev: 2
 page: ARCH.3
 slot: elements
 order: 2
-hash: b7b87dca1506
+hash: 0c408e3392df
 level: module
 refs: [A-REPO-1]
 ---

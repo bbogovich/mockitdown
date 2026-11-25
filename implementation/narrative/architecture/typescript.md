@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.4
+impl_version: 0.3.5
 status: draft
 updated: 2026-11-25
 page_id: IMPL.TS
@@ -8,8 +8,9 @@ page_id: IMPL.TS
 
 # TypeScript core
 
-Realizes **A-WEB-1** under ADR-18 and ADR-20; implements R-WEB-001 (part 1 of 2: the package,
-language, evaluation, packs, diagnostics, options and stylesheet; the renderer follows in issue #4).
+Realizes **A-WEB-1** under ADR-18 and ADR-20; implements R-WEB-001: the package, language,
+evaluation, packs, diagnostics, options, stylesheet (#3) and the renderer with `render` and `check`
+(#4). Every case of the conformance corpus renders byte for byte as in Python (R-WEB-001.C8).
 
 `typescript/` is the npm package `mockitdown` (MIT, ES modules, no runtime dependencies,
 development dependencies `typescript` and `@playwright/test` only). It ports the Python core
@@ -31,7 +32,17 @@ module for module, held to the Python output by the conformance corpus.
 | `core/vocabulary.ts` | `vocabulary.py` | `RENDERED`, `IGNORED`, `NEUTRAL_MODULES` (filled from `vocabulary.json`) |
 | `core/styles.ts` | `styles.py` | `scalePx`, `tokenCss`, `packCss`, `minifyCss`, `buildStylesheet` |
 | `core/assets.ts` | — | `loadAssets`: the shared assets handed to the core as data |
-| `core/api.ts` | `api.py` | `evaluate`, `stylesheet` (`render`, `check` in issue #4) |
+| `core/render/html.ts` | `render/html.py` | `Renderer`: one function per role in `ROLES`, decorations, overlays, presentations |
+| `core/render/util.ts` | `render/html.py` (module functions) | `esc`, `textHtml`, `fmt`/`num`/`name`/`bool`, dates and `calendar`, code highlighting, cursors, map art |
+| `core/render/style.ts` | `render/style.py` | `StyleBuilder` (modifiers → style, data, classes), `cssColor`, `u`, `fontStyle` |
+| `core/render/charts.ts` | `render/charts.py` | `ChartSpec`, `renderChart`, `niceTicks` |
+| `core/render/chrome.ts` | `render/chrome.py` | `CHROME_KINDS`, `top`, `bottom` |
+| `core/render/index.ts` | `render/__init__.py` | `renderScreen`, `anchorPrefix`, `elementsTable` |
+| `core/icons.ts` | `icons.py` | `normalize`, `resolveIcon`, `iconSvg` over the shared `icons.json` |
+| `core/asset-resolver.ts` | `assets.py` | `AssetResolver`: images by `asset_base` URL, never embedded (R-WEB-001.C7, C14, C15) |
+| `core/pyformat.ts` | (Python itself) | `pyFixed` (`%.Nf`), `pyFormatG` (`%g`), `pyRound`, `pyRoundTo`, `parsePyFloat`, `pyMod`, `pyMin`/`pyMax` |
+| `core/sha1.ts` | `hashlib.sha1` | synchronous SHA-1 of UTF-8 text, for the anchor prefix |
+| `core/api.ts` | `api.py` | `render`, `check`, `RenderResult`, `errorHtml`, `evaluate`, `stylesheet` |
 | `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core; will define the custom elements) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
 
@@ -72,6 +83,14 @@ The evaluator computes with Python values, because the Python variant is the ref
   Python's `str.title()`.
 - **messages.** Names in messages are quoted with Python's `repr` (`strRepr`), so every diagnostic
   is worded byte for byte as in the Python variant.
+- **number formatting.** Python rounds the exact binary value of a float, ties to even
+  (`f"{0.125:.2f}"` is `0.12`, `round(2.675, 2)` is `2.67`); `toFixed` and `toExponential` round
+  ties away from zero. `pyformat.ts` expands a double to its exact decimal digits (BigInt) and
+  rounds those, for `%.Nf`, `%g` and `round`; a differential run over 3,000 values matched Python.
+- **truthiness and `or`.** The renderer's `x or y`, `x in (None, False, "")` and `if x:` follow
+  Python (`pyBool`, `isIn`, `or`, `or0`): `0` is in `(False,)`, an empty dict is false, `NaN` is true.
+- **regular expressions.** Python's `\w`, `\s`, `\d` and `.` are Unicode-aware and `.` excludes only
+  `\n`; the ported patterns spell them out (`PY_W`, `PY_WS`, `\p{Nd}`, `[^\n]`).
 
 ## Imports
 
@@ -81,6 +100,30 @@ entry, each as written and then with `.mockitdown`. A candidate's text comes fro
 components (`registerComponents`), else from the `import_resolver` option. With no source path and
 no search paths the path is tried as written (R-WEB-001.C10). A component's diagnostics carry its
 normalised path as source (C11). Parses are cached by path and text.
+
+## Rendering
+
+`render(source, options)` evaluates, then `renderScreen` assembles the figure exactly as the Python
+`render_screen`: device and size, appearance, chrome, title and caption, the anchor prefix, the views
+through `Renderer`, overlays, the Elements table and the error box in front (`errorHtml`).
+
+```mermaid
+flowchart LR
+  S["source + options"] --> E["evaluate()<br/>Screen + Diagnostics"]
+  E --> RS["renderScreen()<br/>device, appearance, chrome"]
+  RS --> R["Renderer.views()<br/>ROLES[role]"]
+  R --> ST["StyleBuilder<br/>modifiers → style/data"]
+  R --> C["renderChart()"]
+  R --> I["iconSvg()"]
+  R --> A["AssetResolver<br/>asset_base"]
+  RS --> CH["chrome top/bottom"]
+  RS --> H["RenderResult<br/>html, diagnostics, packs, screen"]
+```
+
+A role is looked up in `ROLES` by name (`-` → `_`), as Python's `getattr(self, "r_" + role)`; an
+unknown role reports `role` and renders `mkd-unknown`. Images: remote and `data:image/…` pass
+through, other schemes and data URIs are refused, a local path is joined to `asset_base`, and without
+one is reported as not found with the Python wording (R-WEB-001.C14, C15).
 
 ## Pack registry
 
@@ -95,6 +138,8 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 
 | Symbol | Where | Notes |
 |---|---|---|
+| `render(source, options)` | `core/api.ts` | `RenderResult` `{html, diagnostics, packs, screen, errors, ok}` |
+| `check(source, options)` | `core/api.ts` | the diagnostics of `render` |
 | `evaluate(source, options)` | `core/api.ts` | `{screen, diagnostics}`; `screen` null on a syntax error |
 | `stylesheet(packIds?, {minify})` | `core/api.ts` | byte-equal to Python's `stylesheet()` |
 | `loadAssets({vocabulary, packs, pageCss, icons})` | `core/assets.ts` | must run before `evaluate` |
@@ -103,14 +148,6 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | `renderOptions(...overrides)` | `core/options.ts` | defaults + overrides, ignoring unknown keys and null |
 | `values.*` | `core/values.ts` | `PyFloat`, `PyDict`, `tuple`, `pyRepr`, `pyStr`, `pyEq`, `formatG`, `floatRepr` |
 
-## Not yet ported (issue #4)
-
-`render/` (`html.py`, `style.py`, `charts.py`, `chrome.py`, `render/__init__.py`), `icons.py`,
-`assets.py` (asset base URL instead of embedding, R-WEB-001.C7), the error box (`error_html`), and
-`render`/`check`. The figure's anchor prefix is the first six hex digits of
-`sha1("<pack id>\n<source>")` (R-ANN-003.C5): the core needs a synchronous SHA-1, since
-`crypto.subtle` is asynchronous and the core must not depend on Node's `crypto`.
-
 ## Debugging
 
 - `node -e 'const m = await import("./dist/node.js"); m.loadSharedAssets(); console.log(m.evaluate(src).diagnostics.items.map(String))'`
@@ -118,9 +155,14 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 - To compare with Python, dump both evaluations of a source (views, attributes as tagged values,
   diagnostics) and diff them; during issue #3 all 572 corpus cases and the full stylesheet were
   identical.
+- A failing conformance case: render it in both variants and print the first differing offset with
+  some context on each side; differences have come from number formatting, `or` on numbers and
+  Unicode classes in regular expressions.
+- `render(src, {device: "fit", show_warnings: true}).html` shows icon and asset warnings in the box.
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
 | 0.3.4 | 2026-11-25 | Page written: package, core modules, assets as data, imports, registry (#3) |
+| 0.3.5 | 2026-11-25 | Renderer, styles, charts, chrome, icons, assets by base URL, number formatting; `render`, `check` (#4) |

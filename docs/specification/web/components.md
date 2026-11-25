@@ -40,6 +40,10 @@ Options keep the Python field names (`default_pack`, `show_warnings`, `import_pa
 
 The corpus's `<name>.diag.json` (R-REPO-004.C7) is part of the expected result: the harness compares the pack lineage and every diagnostic, in order, as the Python suite does.
 
+Images are never embedded (C7): a local path such as `Image("team.jpg")` becomes the `asset_base` URL joined with the path (C14), for the browser to load. With no `asset_base` there is nowhere to look, and the result is the one the Python renderer gives when none of its asset paths holds the file — the same warning and the photo placeholder (C15) — so the conformance case for a missing image holds in both variants.
+
+`render` returns what the Python `render` returns (C16): the HTML (the error box first when there are errors, or warnings with `show_warnings`), every diagnostic, the pack lineage for `stylesheet`, and the evaluated screen.
+
 **R-WEB-001.TC-1 — Conformance corpus in TypeScript**
 
 Automated by `typescript/tests/unit/conformance.test.ts` (node:test).
@@ -51,6 +55,10 @@ Automated by `typescript/tests/unit/package.test.ts`: `package.json` has no `dep
 **R-WEB-001.TC-3 — Application pack**
 
 Automated by `typescript/tests/unit/packs.test.ts`: a pack registered with `registerPack` that extends `mui` is selected by its module name and its tokens appear in `stylesheet`.
+
+**R-WEB-001.TC-4 — Render API and images by base URL**
+
+Automated by `typescript/tests/unit/render.test.ts`: `render` returns html, diagnostics, packs and screen; the error box, `show_warnings` and `source`; `check`; a local image resolved against `asset_base`, reported as not found without one, remote and `data:image` references passed through; `stylesheet` with ancestors once; the anchor prefix's SHA-1; icon names; Python number formatting.
 
 **Realizes.** F-16, F-17
 
@@ -69,6 +77,9 @@ Automated by `typescript/tests/unit/packs.test.ts`: a pack registered with `regi
 | C11 | A diagnostic located in an imported component file MUST name that file's normalised path (the registered or resolved candidate, e.g. `components/pill.mockitdown`) as its source. |
 | C12 | The render options MUST use the field names of the Python `RenderOptions` for the options both variants share, so that a conformance case's `<name>.json` applies unchanged. |
 | C13 | `npm run build` MUST write `dist/shared/manifest.json`, an object `{"packs": [id, …], "files": [path, …]}` listing the built-in pack ids and the files under `dist/shared/`. |
+| C14 | The render options MUST name the asset base URL `asset_base`; a local image path MUST resolve to that URL joined with the path. |
+| C15 | When the render options name no asset base URL, a local image path MUST be reported as the Python renderer reports an image no asset path holds (`asset '<path>' not found (searched (no asset paths))`, code `asset`) and render as the image placeholder. |
+| C16 | `render` MUST return an object with `html`, `diagnostics`, `packs` (the pack lineage, root first, empty after a syntax error) and `screen`, as the Python `RenderResult`, and `check` MUST return the diagnostics of `render`. |
 | V1 | `node --test` runs the conformance cases against `dist/` and fails on any difference. |
 
 ---
