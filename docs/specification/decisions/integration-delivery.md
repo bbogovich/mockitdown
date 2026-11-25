@@ -1,8 +1,8 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.4.0
+spec_version: 0.6.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: ADR.2
 ---
 
@@ -193,12 +193,81 @@ replaced by site assets or by design (ADR-3).
 | O1 | rejected: bundling period fonts or bitmaps — licensing and offline-build constraints (ADR-5). |
 | C1 | Fidelity is limited by the fonts installed on the reader's machine. |
 
+---
+
+#### ADR-17 — One repository for both variants, with shared assets
+
+Two variants rendering the same packs must not drift apart; keeping the assets once and copying them at build time makes drift a test failure rather than a merge problem (SRC-8).
+
+**Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
+
+| | Statement |
+|---|---|
+| D1 | The Python and TypeScript variants live in one repository, in `python/` and `typescript/`, with the assets both publish in `shared/`. |
+| D2 | `shared/` is the only place a pack definition, pack stylesheet, page stylesheet, icon glyph, modifier vocabulary, reference sample, design pattern or conformance case is written; each variant's build copies what it publishes. |
+| D3 | The Python package keeps its name, version line, public API and command line; only its location in the repository changes. |
+| O1 | rejected: two repositories with a shared Git submodule or a published asset package — two release lines and a third artefact for one set of files. |
+| O2 | rejected: symbolic links from the Python package into `shared/` — they break on Windows checkouts and in sdists. |
+| C1 | A pack change is one commit that both test suites verify. |
+| C2 | Release workflows, Pages workflows and documentation paths move with the code. |
+
+---
+
+#### ADR-18 — The web variant is a TypeScript port held to the Python output
+
+A port duplicates logic, so a shared corpus of mockups and expected HTML decides what "the same" means and catches any difference automatically.
+
+**Constrains.** R-WEB-001, R-REPO-004
+
+| | Statement |
+|---|---|
+| D1 | The web variant re-implements the lexer, parser, evaluator, renderer, style builder and chart renderer in TypeScript, module for module after the Python core. |
+| D2 | The Python variant is the reference: for every case of the conformance corpus the TypeScript renderer MUST produce the HTML the Python renderer produces. |
+| D3 | The TypeScript core runs in browsers and in Node without DOM access, producing an HTML string; only the custom elements touch the DOM. |
+| O1 | rejected: running the Python library in the browser (Pyodide/WebAssembly) — a multi-megabyte runtime for a component meant to be light. |
+| O2 | rejected: a rendering server — the web variant has no backend (SRC-8). |
+| C1 | Every change to rendering in one variant is made in both, in the same issue, with a conformance case. |
+
+---
+
+#### ADR-19 — The mockup element carries its code in a script child
+
+Chosen by the developer (SRC-8#clar-script). A script element with an unknown type is never executed and its text is delivered verbatim.
+
+**Constrains.** R-WEB-002
+
+| | Statement |
+|---|---|
+| D1 | A `mockitdown-mockup` element takes its code from its only child, a `<script type="text/mockitdown">` element, whose text the HTML parser leaves untouched. |
+| O1 | rejected: a CDATA child (the request's first form) — in an HTML document the parser turns `<![CDATA[` into a bogus comment that ends at the first `>` and parses the rest as markup, corrupting code that contains `>`, `<Name` or `&…;`. |
+| O2 | rejected: plain text content — the author would have to escape `<` and `&`. |
+| C1 | The only sequence the code cannot contain is `</script`; the element documents this. |
+
+---
+
+#### ADR-20 — Web development dependencies: typescript and Playwright only
+
+Chosen by the developer (SRC-8#clar-deps), following the rule that third-party dependencies are avoided unless building the feature would be prohibitively expensive. Playwright: licence Apache-2.0, maintained by Microsoft with monthly releases, development only.
+
+**Constrains.** R-WEB-001, R-WEB-003, R-WEB-005
+
+| | Statement |
+|---|---|
+| D1 | The TypeScript project's only development dependencies are `typescript` (compiler) and `@playwright/test` (browser tests); it has no runtime dependencies. |
+| D2 | Unit tests use `node:test`; the development server uses `node:http` and `node:fs`. |
+| O1 | rejected: Express or another web server package — a static file server is a few dozen lines on `node:http` (SRC-8). |
+| O2 | rejected: a bundler (esbuild, Vite, Rollup) — `tsc` emits ES modules browsers load directly. |
+| O3 | rejected: a hand-written Chrome DevTools-protocol driver — code to maintain where Playwright is stable (Apache-2.0, Microsoft). |
+| C1 | `npm install` fetches two packages and their own dependencies; `npx playwright install chromium` fetches the test browser. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets; New ADR-19: The mockup element carries its code in a script child |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |

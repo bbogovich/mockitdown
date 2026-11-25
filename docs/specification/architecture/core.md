@@ -26,9 +26,13 @@ flowchart LR
   A_REND_1["HTML renderer<br/><small>A-REND-1 · module</small>"]
   A_REND_2["Figure assembly and chrome<br/><small>A-REND-2 · module</small>"]
   A_REND_3["Style builder<br/><small>A-REND-3 · module</small>"]
+  A_REPO_1["Shared asset tree<br/><small>A-REPO-1 · module</small>"]
   A_STYLE_1["Stylesheet assembly<br/><small>A-STYLE-1 · module</small>"]
   A_SYN_1["Lexer<br/><small>A-SYN-1 · module</small>"]
   A_SYN_2["Parser and syntax tree<br/><small>A-SYN-2 · module</small>"]
+  A_WEB_1["TypeScript core<br/><small>A-WEB-1 · module</small>"]
+  A_WEB_2["Mockup element<br/><small>A-WEB-2 · module</small>"]
+  A_WEB_3["Development server and test pages<br/><small>A-WEB-3 · module</small>"]
   A_API_1 -->|"parse the source"| A_SYN_2
   A_API_1 -->|"evaluate the module into a screen"| A_EVAL_1
   A_API_1 -->|"assemble the figure"| A_REND_2
@@ -59,6 +63,10 @@ flowchart LR
   A_SYN_1 -->|"raise located syntax errors"| A_DIAG_1
   A_SYN_2 -->|"tokens, and re-lexing of interpolations"| A_SYN_1
   A_SYN_2 -->|"raise located syntax errors"| A_DIAG_1
+  A_WEB_1 -->|"the packs, icons, vocabulary and page st"| A_REPO_1
+  A_WEB_2 -->|"render the code and build the stylesheet"| A_WEB_1
+  A_WEB_3 -->|"every mockup on a test page"| A_WEB_2
+  A_WEB_3 -->|"reference samples and design patterns"| A_REPO_1
 ```
 
 #### A-API-1 — Library API

@@ -16,9 +16,13 @@ A-PACK-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Built-in packs
 A-REND-1 | architecture | active | 0.2.0 r0 | ARCH.2 | HTML renderer
 A-REND-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Figure assembly and chrome
 A-REND-3 | architecture | active | 0.2.0 r0 | ARCH.2 | Style builder
+A-REPO-1 | architecture | active | 0.6.0 r0 | ARCH.3 | Shared asset tree
 A-STYLE-1 | architecture | active | 0.2.0 r0 | ARCH.2 | Stylesheet assembly
 A-SYN-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Lexer
 A-SYN-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Parser and syntax tree
+A-WEB-1 | architecture | active | 0.6.0 r0 | ARCH.3 | TypeScript core
+A-WEB-2 | architecture | active | 0.6.0 r0 | ARCH.3 | Mockup element
+A-WEB-3 | architecture | active | 0.6.0 r0 | ARCH.3 | Development server and test pages
 ADR-1 | decisions | active | 0.2.0 r0 | ADR.1 | HTML and CSS is the only renderer; the SVG renderer is retired
 ADR-10 | decisions | active | 0.2.0 r0 | ADR.2 | Custom components are structs, imported from files by path
 ADR-11 | decisions | active | 0.2.0 r0 | ADR.2 | An original icon set with framework name aliases
@@ -27,7 +31,11 @@ ADR-13 | decisions | active | 0.4.0 r1 | ADR.2 | The shipped packs
 ADR-14 | decisions | active | 0.2.0 r0 | ADR.2 | Documentation sites build with Zensical
 ADR-15 | decisions | active | 0.3.0 r0 | ADR.1 | Annotation marks use CSS anchor positioning with an inline fallback
 ADR-16 | decisions | active | 0.3.0 r0 | ADR.2 | Retro and easter-egg packs are original homages
+ADR-17 | decisions | active | 0.6.0 r0 | ADR.2 | One repository for both variants, with shared assets
+ADR-18 | decisions | active | 0.6.0 r0 | ADR.2 | The web variant is a TypeScript port held to the Python output
+ADR-19 | decisions | active | 0.6.0 r0 | ADR.2 | The mockup element carries its code in a script child
 ADR-2 | decisions | active | 0.2.0 r0 | ADR.1 | The notation is a declarative subset of Swift and SwiftUI
+ADR-20 | decisions | active | 0.6.0 r0 | ADR.2 | Web development dependencies: typescript and Playwright only
 ADR-3 | decisions | active | 0.2.0 r0 | ADR.1 | Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
 ADR-4 | decisions | active | 0.2.0 r0 | ADR.1 | Packs are data mapped onto a fixed set of render roles
 ADR-5 | decisions | active | 0.2.0 r0 | ADR.1 | Static CSS replicas, no framework runtime, no scripts, no network
@@ -135,3 +143,12 @@ R-REND-009 | requirements | active | 0.2.0 r0 | REND.1 | Presentations and navig
 R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and source disclosure
 R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
 R-REND-012 | requirements | active | 0.3.0 r0 | REND.2 | Charts
+R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
+R-REPO-002 | requirements | active | 0.6.0 r0 | REPO.1 | Shared assets are the single source
+R-REPO-003 | requirements | active | 0.6.0 r0 | REPO.1 | The Python variant after the move
+R-REPO-004 | requirements | active | 0.6.0 r0 | REPO.1 | Conformance corpus
+R-WEB-001 | requirements | active | 0.6.0 r0 | WEB.1 | TypeScript package and core
+R-WEB-002 | requirements | active | 0.6.0 r0 | WEB.1 | The mockitdown-mockup element
+R-WEB-003 | requirements | active | 0.6.0 r0 | WEB.2 | Development server
+R-WEB-004 | requirements | active | 0.6.0 r0 | WEB.2 | Pack gallery test page
+R-WEB-005 | requirements | active | 0.6.0 r0 | WEB.2 | Web test suites

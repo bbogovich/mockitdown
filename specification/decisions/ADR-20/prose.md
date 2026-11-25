@@ -1,0 +1,1 @@
+Chosen by the developer (SRC-8#clar-deps), following the rule that third-party dependencies are avoided unless building the feature would be prohibitively expensive. Playwright: licence Apache-2.0, maintained by Microsoft with monthly releases, development only.

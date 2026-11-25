@@ -67,6 +67,7 @@ nav:
       - Problem, users and scope: definition/overview.md
       - "Features: authoring": definition/features/authoring.md
       - "Features: rendering and integration": definition/features/rendering.md
+      - "Features: web components and design tools": definition/features/web.md
       - Sources: definition/sources.md
       - Glossary: definition/glossary.md
       - Change history: definition/meta/change-history.md
@@ -94,9 +95,14 @@ nav:
           - Command line: specification/integration/cli.md
           - Library API: specification/integration/api.md
       - Diagnostics: specification/diagnostics.md
+      - Web components:
+          - Variants and shared assets: specification/variants.md
+          - Web components: specification/web/components.md
+          - Test pages and tests: specification/web/test-pages.md
       - Architecture:
           - Core modules: specification/architecture/core.md
           - Output and integration modules: specification/architecture/output.md
+          - Web variant modules: specification/architecture/web.md
           - Model: specification/model.md
       - Decisions:
           - Notation and rendering: specification/decisions/notation-rendering.md
