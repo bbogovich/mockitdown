@@ -121,6 +121,7 @@ nav:
           - Styles and assets: implementation/architecture/styles-assets.md
           - Markdown integration: implementation/architecture/markdown.md
           - Command line: implementation/architecture/cli.md
+          - TypeScript core: implementation/architecture/typescript.md
       - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md
       - Conformance corpus: implementation/conformance.md

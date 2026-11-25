@@ -50,6 +50,9 @@ python/src/mockitdown/
   cli.py           argparse CLI                                     A-CLI-1
 ```
 
+The TypeScript variant (`typescript/src/core/`, A-WEB-1) mirrors this layout module for module and is
+held to the same output by the conformance corpus; see [TypeScript core](typescript.md).
+
 ## Data flow of one block
 
 ```mermaid
@@ -112,3 +115,4 @@ output holds the figures and consumes the collected packs (R-MDX-004). Each fix 
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | Deviations #1–#3 and #5 fixed |
 | 0.3.2 | 2026-11-25 | Package path python/src/mockitdown; copies of shared/ marked (#1) |
+| 0.3.4 | 2026-11-25 | Pointer to the TypeScript core (#3) |

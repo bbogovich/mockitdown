@@ -4,7 +4,13 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Not started (94)
+## Partly implemented (1)
+
+| Requirement | Title | Implemented | Specification | Date | Issue |
+|---|---|---|---|---|---|
+| [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.3 | 0.6.3 | 2026-11-25 | #3 |
+
+## Not started (93)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -97,7 +103,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 | R-REND-012 | Charts | — | 0.3.0 |  |  |
-| R-WEB-001 | TypeScript package and core | — | 0.6.0 |  |  |
 | R-WEB-002 | The mockitdown-mockup element | — | 0.6.0 |  |  |
 | R-WEB-003 | Development server | — | 0.6.0 |  |  |
 | R-WEB-004 | Pack gallery test page | — | 0.6.0 |  |  |

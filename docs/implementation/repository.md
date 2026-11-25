@@ -20,7 +20,13 @@ mockitdown/                    (main branch)
     tests/                     unittest suite (IT-1 … IT-7)
     tools/                     gen_reference.py, gen_catalogue.py, sync_shared.py, snapshot.py
     examples/site/             the example site (Zensical), also the end-to-end fixture
-  typescript/                  the npm web components (from issue #3)
+  typescript/                  the TypeScript variant (npm `mockitdown`), see TypeScript core
+    package.json, package-lock.json, tsconfig.json, tsconfig.test.json
+    src/core/                  the core: syntax/, evaluate, packs/, diagnostics, options, styles …
+    src/mockitdown.ts          package entry; src/node.ts the Node loader (mockitdown/node)
+    scripts/copy-shared.mjs    copies shared/ into dist/shared/ (+ manifest.json) and the LICENSE
+    tests/unit/                node:test suites (IT-9, IT-10), compiled to test-build/
+    dist/, test-build/, node_modules/, LICENSE   build output and copies, ignored by git
   shared/                      the single source of what both variants publish
     packs/<id>/pack.json, pack.css
     css/page.css
@@ -91,3 +97,4 @@ that renders without a diagnostic; `variants_sample` (own elements with variants
 | Version | Date | Change |
 |---|---|---|
 | 0.3.2 | 2026-11-25 | Page written: python/, shared/, build-time copy, reference JSON (#1) |
+| 0.3.4 | 2026-11-25 | typescript/ layout: package, core, copy-shared script, tests (#3) |

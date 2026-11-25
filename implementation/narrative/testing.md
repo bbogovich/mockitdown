@@ -8,7 +8,7 @@ page_id: IMPL.TEST
 
 # Testing
 
-Tests use the standard library's `unittest` (no test dependency). Run them from `python/`, with
+Python tests use the standard library's `unittest` (no test dependency). Run them from `python/`, with
 the virtual environment at the repository root:
 
 ```sh
@@ -17,7 +17,15 @@ cd python
 ZENSICAL=$PWD/../.venv/bin/zensical ../.venv/bin/python -m unittest discover -s tests -t .   # with IT-5
 ```
 
-The module paths below are relative to `python/`. `tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
+The TypeScript tests use `node:test` (ADR-20) and run against `dist/` (Node 22+):
+
+```sh
+cd typescript
+npm install && npm test      # build, compile tests/ to test-build/, node --test test-build/unit/
+```
+
+`tests/types/node-shim.d.ts` declares the few Node APIs the tests use (ADR-20 allows no `@types/node`).
+Module paths below are relative to `python/` for IT-1 … IT-8. `tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
 errors) and `diags(src, **options)`.
 
 ## Test catalogue
@@ -32,6 +40,8 @@ errors) and `diags(src, **options)`.
 | IT-6 | `tests/test_layout.py` | repository layout from `git ls-files`: only the variant folders and cross-variant files at the root, no `pack.json`/`pack.css` outside `shared/packs`, root README links `python/README.md` (skipped outside a git checkout) | R-REPO-001.TC-1, R-REPO-002.TC-2, R-REPO-001.C5 |
 | IT-7 | `tests/test_shared.py` | the package copy of `shared/` is identical (and a stale copy is detected); a wheel built with `pip wheel` holds every pack file, `page.css`, `icons.json`, `vocabulary.json` and the `LICENSE`; `shared/reference/` has a well-formed file per listed pack | R-REPO-002.TC-1, R-REPO-003.TC-1, R-REPO-003.TC-3 |
 | IT-8 | `tests/test_conformance.py` | the conformance corpus (see [Conformance corpus](conformance.md)): every case renders to its expected HTML and `.diag.json`; `gen_conformance.py --check` passes and fails on a changed expected file; coverage of every base role, every pack, light/dark and every device; option keys and types | R-REPO-004.TC-1, R-REPO-004.TC-2, R-REPO-004.TC-3 |
+| IT-9 | `typescript/tests/unit/{values,syntax,evaluate,packs,package,core}.test.ts` | the TypeScript core (`node:test`, against `dist/`): Python value semantics (float repr, `%g`, string repr, dict keys, JSON ints/floats), lexing and parsing with code-point columns and Python-worded errors, evaluation (arithmetic, collections, structs, `ForEach`, pack selection, diagnostics), imports through `registerComponents` and `import_resolver`, an application pack extending `mui` selected by module and styled, the package manifest and `dist/shared/`, no DOM/network/file access in `src/core/` | R-WEB-001.TC-2, R-WEB-001.TC-3, A-WEB-1.K1 |
+| IT-10 | `typescript/tests/unit/conformance.test.ts` | the conformance corpus in TypeScript: every case parses (or fails with its syntax error) and its evaluation reproduces the pack lineage and the evaluation-stage diagnostics of `<name>.diag.json`; the byte-exact `render` comparison is a todo per case until `render` exists (issue #4), then runs by itself | R-WEB-001.TC-1 (partial), R-REPO-004.C5, R-REPO-004.C7 |
 
 ## The example site as fixture
 
@@ -60,3 +70,4 @@ test suite then covers it without new test code.
 | 0.1.1 | 2026-11-24 | ZensicalBuildTests and CssInjectionTests now cover CSS delivery |
 | 0.3.2 | 2026-11-25 | Run from python/; IT-6 layout and IT-7 shared-asset tests (#1) |
 | 0.3.3 | 2026-11-25 | IT-8 conformance corpus (#2) |
+| 0.3.4 | 2026-11-25 | IT-9 TypeScript unit tests, IT-10 TypeScript conformance harness (#3) |

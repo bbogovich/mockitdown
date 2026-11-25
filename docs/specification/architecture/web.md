@@ -28,11 +28,13 @@ The single source of everything both variants publish (ADR-17).
 
 The port of the Python core (ADR-18): lexer, parser, evaluator, renderer, style builder, charts, icons, assets and diagnostics.
 
+`stylesheet` takes the pack ids and `{minify}` as the Python `stylesheet(packs, minify=)` does; appearance is chosen per frame by the CSS, not by the stylesheet. `loadAssets` is how the shared assets reach the core as data (K1): `mockitdown/node` and the custom elements call it once.
+
 **Level.** module
 
 | | Statement |
 |---|---|
-| P1 | provides: `render(source, options)`, `check(source, options)`, `stylesheet(packIds, appearance)`, `registerPack(json, css)`, `registerComponents(name, source)` and the pack registry (`typescript/src/core/`) |
+| P1 | provides: `render(source, options)`, `check(source, options)`, `evaluate(source, options)`, `stylesheet(packIds, {minify})`, `loadAssets(assets)`, `registerPack(json, css)`, `registerComponents(name, source)` and the pack registry (`typescript/src/core/`) |
 | U1 | uses A-REPO-1 — the packs, icons, vocabulary and page stylesheet, copied into the package at build |
 | K1 | The TypeScript core MUST NOT access the DOM, the network or the file system; assets reach it as data. |
 
