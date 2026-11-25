@@ -736,3 +736,6 @@
 .mkd-pack-macos9 .mkd-card__body > .mkd-tabs { flex: 1 1 auto; }
 .mkd-pack-macos9 .mkd-toolbar > .mkd-select { flex: none; }
 .mkd-pack-macos9 .mkd-hstack > .mkd-select { flex: none; }
+
+/* This pack draws its own tooltip arrow (::after), so the base arrow is hidden. */
+.mkd-pack-macos9 .mkd-tooltip__arrow { display: none; }

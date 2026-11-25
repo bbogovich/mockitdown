@@ -30,7 +30,7 @@
     repeating-linear-gradient(to bottom, transparent 0 2px, var(--mkd-ph-scan) 2px 3px),
     radial-gradient(ellipse at 50% 50%, transparent 62%, var(--mkd-ph-vignette) 100%);
 }
-.mkd-pack-phosphor .mkd-frame[data-fit="true"] .mkd-screen { padding: 14px; }
+.mkd-pack-phosphor .mkd-frame[data-fit="true"] .mkd-screen { --mkd-fit-padding: 14px; }
 .mkd-pack-phosphor .mkd-frame .mkd-screen > :is(.mkd-card[data-el="Console"], .mkd-card[data-el="Screen"], .mkd-deco:has(> .mkd-card:is([data-el="Console"], [data-el="Screen"]))) { flex: 1 1 auto; margin: 14px; }
 .mkd-pack-phosphor .mkd-frame[data-fit="true"] .mkd-screen > :is(.mkd-card, .mkd-deco) { margin: 0; }
 .mkd-pack-phosphor .mkd-frame .mkd-deco > .mkd-card:is([data-el="Console"], [data-el="Screen"]) { margin: 0; height: 100%; }

@@ -705,3 +705,6 @@
 .mkd-pack-shadcn .mkd-table td[data-align="trailing"] { text-align: right; }
 .mkd-pack-shadcn .mkd-table th[data-align="center"],
 .mkd-pack-shadcn .mkd-table td[data-align="center"] { text-align: center; }
+
+/* This pack draws its own tooltip arrow (::after), so the base arrow is hidden. */
+.mkd-pack-shadcn .mkd-tooltip__arrow { display: none; }

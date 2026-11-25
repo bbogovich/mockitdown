@@ -21,7 +21,7 @@
     linear-gradient(90deg, var(--mkd-ho-line-faint) 1px, transparent 1px) 0 0 / 48px 48px,
     radial-gradient(ellipse at 50% 40%, var(--mkd-ho-ground-2) 0%, var(--mkd-ho-ground) 75%);
 }
-.mkd-pack-hologram .mkd-frame[data-fit="true"] .mkd-screen { padding: 14px; }
+.mkd-pack-hologram .mkd-frame[data-fit="true"] .mkd-screen { --mkd-fit-padding: 14px; }
 .mkd-pack-hologram .mkd-frame .mkd-screen > .mkd-card:is([data-el="HUDFrame"], [data-el="Panel"]) { flex: 1 1 auto; margin: 14px; }
 .mkd-pack-hologram .mkd-frame[data-fit="true"] .mkd-screen > .mkd-card { margin: 0; }
 .mkd-pack-hologram .mkd-icon { stroke-width: var(--mkd-icon-stroke); }

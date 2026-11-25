@@ -347,6 +347,8 @@
 .mkd-pack-bootstrap .mkd-field[data-variant="floating"]:where([data-filled="true"]) .mkd-field__label,
 .mkd-pack-bootstrap .mkd-field[data-variant="floating"]:where([data-state="focused"]) .mkd-field__label { transform: scale(.85) translate(2px, -8px); }
 .mkd-pack-bootstrap .mkd-field[data-variant="floating"][data-filled="false"]:not([data-state="focused"]) .mkd-field__input { color: transparent; }
+/* The floating label is positioned, so it cannot size the field: keep the field at least as wide as a real one (R-DEV-008.C1). */
+.mkd-pack-bootstrap .mkd-field[data-variant="floating"] { min-width: 200px; }
 
 /* InputGroup: joined add-ons and controls */
 .mkd-pack-bootstrap .mkd-hstack[data-el="InputGroup"] { gap: 0; align-items: stretch; align-self: stretch; flex-wrap: nowrap; }
@@ -967,3 +969,6 @@
 .mkd-pack-bootstrap .mkd-dropzone { border-color: var(--mkd-border); border-radius: 8px; background: var(--mkd-surface-2); }
 .mkd-pack-bootstrap .mkd-chrome--browser { background: var(--mkd-chrome-bg); }
 .mkd-pack-bootstrap .mkd-tabs:not([data-variant="tabs"]) > .mkd-tabs__bar > .mkd-tabs__tab { border: 0; }
+
+/* This pack draws its own tooltip arrow (::after), so the base arrow is hidden. */
+.mkd-pack-bootstrap .mkd-tooltip__arrow { display: none; }

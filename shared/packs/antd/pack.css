@@ -971,3 +971,6 @@
 .mkd-pack-antd .mkd-swatches[data-el="ColorPicker"] .mkd-swatches__items { gap: 4px; }
 .mkd-pack-antd .mkd-swatches[data-el="ColorPicker"] .mkd-swatches__swatch { width: 24px; height: 24px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); outline: 0; }
 .mkd-pack-antd .mkd-swatches[data-el="ColorPicker"] .mkd-swatches__label { order: 2; padding: 0 4px; font-size: 14px; color: var(--mkd-fg); }
+
+/* This pack draws its own tooltip arrow (::after), so the base arrow is hidden. */
+.mkd-pack-antd .mkd-tooltip__arrow { display: none; }

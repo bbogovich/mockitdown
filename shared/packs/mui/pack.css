@@ -541,6 +541,8 @@
 .mkd-pack-mui .mkd-sidebar .mkd-section .mkd-section__header { padding: 0 16px; min-height: 48px; font-size: 14px; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--mkd-fg-2); }
 .mkd-pack-mui .mkd-sidebar .mkd-list { background: transparent; padding: 0; }
 .mkd-pack-mui .mkd-sidebar[data-variant="temporary"] { position: absolute; z-index: 40; top: 0; left: 0; bottom: 0; background: var(--mkd-paper-16); border-right: 0; box-shadow: var(--mkd-e16), 0 0 0 4000px var(--mkd-scrim); --mui-notch: var(--mkd-paper-16); }
+/* At fit the open temporary drawer is laid out in flow, so that the frame holds it (R-DEV-008.C2). */
+.mkd-pack-mui .mkd-frame[data-fit="true"] .mkd-sidebar[data-variant="temporary"] { position: relative; min-height: 240px; }
 .mkd-pack-mui .mkd-sidebar[data-placement="right"] { left: auto; right: 0; }
 .mkd-pack-mui .mkd-sidebar[data-variant="rail"] { flex-basis: 72px; width: 72px; }
 .mkd-pack-mui .mkd-navitem__row { min-height: 48px; padding: 8px 16px; gap: 32px; border-radius: 0; color: var(--mkd-fg); font-size: 16px; }

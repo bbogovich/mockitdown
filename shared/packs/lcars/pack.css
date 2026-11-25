@@ -15,7 +15,7 @@
   font-variant-numeric: tabular-nums;
 }
 .mkd-pack-lcars .mkd-frame .mkd-screen > .mkd-card:is([data-el="ConsoleFrame"], [data-el="Frame"]) { flex: 1 1 auto; margin: 10px; }
-.mkd-pack-lcars .mkd-frame[data-fit="true"] .mkd-screen { padding: 12px; }
+.mkd-pack-lcars .mkd-frame[data-fit="true"] .mkd-screen { --mkd-fit-padding: 12px; }
 .mkd-pack-lcars .mkd-frame[data-fit="true"] .mkd-screen > .mkd-card:is([data-el="ConsoleFrame"], [data-el="Frame"]) { margin: 0; }
 .mkd-pack-lcars .mkd-text:where([data-font="display"], [data-font="largeTitle"], [data-font="title"]) { color: var(--mkd-lc-orange); letter-spacing: .03em; line-height: 1; }
 .mkd-pack-lcars .mkd-text:where([data-font="title2"], [data-font="title3"]) { color: var(--mkd-lc-orange); line-height: 1.05; }

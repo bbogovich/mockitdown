@@ -67,6 +67,10 @@
 .mkd-pack-sketch .mkd-divider[data-el="Arrow"][data-variant="down"]::after { right: auto; left: 50%; top: auto; bottom: -2px; transform: translateX(-50%) rotate(135deg); }
 .mkd-pack-sketch .mkd-divider[data-el="Arrow"][data-variant="up"]::after { right: auto; left: 50%; top: -2px; transform: translateX(-50%) rotate(-45deg); }
 .mkd-pack-sketch .mkd-divider[data-el="Arrow"]:where([data-variant="down"], [data-variant="up"]) .mkd-divider__label { bottom: auto; top: 50%; left: 10px; translate: 0 -50%; }
+/* A vertical arrow keeps its label in flow beside the line, so that the arrow is as wide as it is drawn (R-DEV-008.C1). */
+.mkd-pack-sketch .mkd-divider[data-el="Arrow"]:where([data-variant="down"], [data-variant="up"]):has(.mkd-divider__label) { display: flex; align-items: center; width: auto; background: none; border-left: 2px solid var(--mkd-pencil); }
+.mkd-pack-sketch .mkd-divider[data-el="Arrow"]:where([data-variant="down"], [data-variant="up"]):has(.mkd-divider__label)::after { left: -1px; }
+.mkd-pack-sketch .mkd-divider[data-el="Arrow"]:where([data-variant="down"], [data-variant="up"]) > .mkd-divider__label { position: static; translate: none; margin-left: 10px; }
 
 /* ---------- shapes ---------- */
 .mkd-pack-sketch .mkd-shape { --mkd-shape-fill: transparent; border: 2px solid var(--mkd-pencil); border-radius: var(--mkd-wob-1); background-image: var(--mkd-hatch-fill); }

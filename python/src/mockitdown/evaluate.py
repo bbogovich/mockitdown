@@ -408,16 +408,19 @@ class Evaluator:
         attrs: dict[str, object] = el.default_attrs
         extra: list[object] = []
         positional: list[object] = []
+        renames = dict(el.attrs)
         for arg in call.args:
             val = self.value(arg.value, env)
             if arg.label is None:
                 positional.append(val)
             else:
-                label = dict(el.attrs).get(arg.label) or self.pack.attrs.get(arg.label, arg.label)
+                label = renames.get(arg.label) or self.pack.attrs.get(arg.label, arg.label)
                 attrs[label] = val
         for i, val in enumerate(positional):
             if i < len(el.params):
-                attrs[el.params[i]] = val
+                # A positional argument takes its parameter's name through the same renames as a labelled one.
+                param = el.params[i]
+                attrs[renames.get(param) or self.pack.attrs.get(param, param)] = val
             else:
                 extra.append(val)
         view = View(name, el.role, el, attrs, extra, loc=call.loc)

@@ -737,3 +737,6 @@
 .mkd-pack-prime .mkd-kbd__key { border-radius: 4px; border-color: var(--mkd-border); background: var(--mkd-surface-3); color: var(--mkd-fg-2); }
 .mkd-pack-prime .mkd-form { gap: 17.5px; padding: 0; }
 .mkd-pack-prime .mkd-form__actions { justify-content: flex-start; }
+
+/* This pack draws its own tooltip arrow (::after), so the base arrow is hidden. */
+.mkd-pack-prime .mkd-tooltip__arrow { display: none; }

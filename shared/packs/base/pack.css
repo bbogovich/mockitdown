@@ -32,7 +32,7 @@
   overflow: hidden;
   background: var(--mkd-bg);
 }
-.mkd-frame[data-fit="true"] .mkd-screen { overflow: visible; padding: 16px; }
+.mkd-frame[data-fit="true"] .mkd-screen { overflow: visible; padding: var(--mkd-fit-padding, 16px); }
 .mkd-frame .mkd-screen > :where(.mkd-navstack, .mkd-tabs, .mkd-split, .mkd-scroll, .mkd-form, .mkd-list) { flex: 1 1 auto; min-height: 0; }
 .mkd-frame .mkd-screen > [data-fill~="y"][data-fill] { flex: 1 1 auto; }
 
@@ -81,7 +81,7 @@
 }
 .mkd-frame :where([data-scale="small"]) .mkd-icon { width: 14px; height: 14px; }
 .mkd-frame :where([data-scale="large"]) .mkd-icon { width: 24px; height: 24px; }
-.mkd-frame .mkd-text { display: block; min-width: 0; }
+.mkd-frame .mkd-text { display: block; min-width: 0; overflow-wrap: break-word; }
 .mkd-frame .mkd-hstack > .mkd-text { display: inline-block; }
 .mkd-frame :where([data-font="display"]) { font-size: var(--mkd-fs-display); font-weight: var(--mkd-fw-display); line-height: 1.12; }
 .mkd-frame :where([data-font="largeTitle"]) { font-size: var(--mkd-fs-largeTitle); font-weight: var(--mkd-fw-largeTitle); line-height: 1.15; }
@@ -134,6 +134,10 @@
 .mkd-frame .mkd-scroll:where([data-axis="horizontal"]) { flex-direction: row; flex: none; }
 .mkd-frame .mkd-scroll:where([data-axis="horizontal"]) > * { flex: none; }
 .mkd-frame .mkd-spacer { flex: 1 1 0; min-width: 0; min-height: 0; }
+/* Rows without overlap (R-REND-013.C1, C3): in a row, a child that is not text, a spacer or a filler is never
+   laid out narrower than its min-content width; text wraps (or truncates with .lineLimit(1)) in its own box. */
+.mkd-frame :is(.mkd-hstack, .mkd-toolbar, .mkd-labeled) > :not(.mkd-text, .mkd-spacer, [data-fill~="x"]) { min-width: min-content; }
+.mkd-frame :is(.mkd-toggle__text, .mkd-labeled > .mkd-text, .mkd-checkbox, .mkd-radio) { overflow-wrap: break-word; }
 .mkd-frame .mkd-divider { flex: none; align-self: stretch; height: 1px; background: var(--mkd-divider); display: flex; align-items: center; justify-content: center; }
 .mkd-frame .mkd-hstack > .mkd-divider, .mkd-frame .mkd-toolbar > .mkd-divider, .mkd-frame .mkd-appbar__actions > .mkd-divider { width: 1px; height: auto; min-height: 20px; }
 .mkd-frame .mkd-divider__label { padding: 0 10px; background: var(--mkd-bg); color: var(--mkd-fg-3); font-size: 12px; }
@@ -461,7 +465,7 @@
 .mkd-frame .mkd-sidebar__items { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; min-height: 0; }
 .mkd-frame .mkd-sidebar__footer { display: flex; flex-direction: column; gap: 2px; padding-top: 8px; border-top: 1px solid var(--mkd-divider); }
 .mkd-frame .mkd-sidebar :where(.mkd-section) .mkd-section__header { padding: 12px 10px 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--mkd-fg-3); }
-.mkd-frame .mkd-sidebar:where([data-variant="rail"], [data-variant="compact"]) { flex-basis: 72px; align-items: center; }
+.mkd-frame .mkd-sidebar:where([data-variant="rail"], [data-variant="compact"]) { flex-basis: 72px; align-items: center; overflow: hidden; }
 .mkd-frame .mkd-sidebar:where([data-variant="rail"], [data-variant="compact"]) .mkd-navitem__row { flex-direction: column; gap: 2px; padding: 6px 4px; font-size: 11px; }
 .mkd-frame .mkd-navitem { display: flex; flex-direction: column; }
 .mkd-frame .mkd-navitem__row { display: flex; align-items: center; gap: 10px; min-height: 34px; padding: 0 10px; border-radius: var(--mkd-radius-m); color: var(--mkd-fg); }
@@ -617,6 +621,33 @@
 .mkd-frame .mkd-presented:where([data-kind="popover"]) { min-width: 240px; border-radius: var(--mkd-radius-l); padding: 12px; }
 .mkd-frame .mkd-presented > :where(.mkd-navstack, .mkd-list, .mkd-form) { flex: 1 1 auto; min-height: 0; }
 .mkd-frame .mkd-presented__grabber { flex: none; width: 36px; height: 5px; margin: 6px auto 0; border-radius: 3px; background: var(--mkd-fg-3); opacity: .5; }
+/* A sheet written on its own has the grabber of a presented sheet (R-DEV-008.C3, C4); a pack replaces it by its own ::before. */
+.mkd-frame :where(.mkd-layer[data-kind="sheet"] > .mkd-dialog)::before { content: ""; flex: none; align-self: center; width: 36px; height: 5px; border-radius: 3px; background: var(--mkd-fg-3); opacity: .5; }
+
+/* Fit frames (R-DEV-008.C2–C6): a presentation layer is laid out in flow, over the screen's content in one
+   grid area, so that the frame is at least the presented surface plus the layer's padding; the scrim then
+   covers the whole screen (the layer is not positioned, so the screen is the scrim's containing block). */
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) { display: grid; grid-template-columns: auto; grid-template-rows: repeat(8, auto); align-content: start; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > * { grid-column: 1; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(1) { grid-row: 1; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(2) { grid-row: 2; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(3) { grid-row: 3; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(4) { grid-row: 4; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(5) { grid-row: 5; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(6) { grid-row: 6; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :nth-child(7) { grid-row: 7; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > :not(.mkd-layer) { align-self: start; }
+.mkd-frame[data-fit="true"] .mkd-screen:has(> .mkd-layer) > .mkd-layer { position: static; inset: auto; grid-row: 1 / -1; min-width: 0; }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer > .mkd-dialog { min-width: 240px; min-height: 80px; max-height: none; }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer:is([data-kind="sheet"], [data-kind="action-sheet"]) { padding-top: 48px; }
+/* A sheet reaches the frame's sides and bottom: its layer bleeds over the fit screen's padding (--mkd-fit-padding, 16px). */
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer[data-kind="sheet"] { margin: 0 calc(-1 * var(--mkd-fit-padding, 16px)) calc(-1 * var(--mkd-fit-padding, 16px)); }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer[data-kind="sheet"] > :is(.mkd-dialog, .mkd-presented) { min-width: 320px; min-height: 240px; height: auto; max-height: none; }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer:is([data-kind="cover"], [data-kind="inspector"], [data-kind="drawer"]) > :is(.mkd-dialog, .mkd-presented) { min-height: 240px; height: auto; }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer[data-kind="cover"] > .mkd-presented { min-width: 320px; }
+.mkd-frame[data-fit="true"] .mkd-screen > .mkd-layer:where([data-kind="toast"]) > .mkd-toast { max-width: 560px; }
+/* An open menu or picker written on its own shows its popup in flow at fit, so that the frame holds it (R-DEV-008.C1). */
+.mkd-frame[data-fit="true"] :where(.mkd-screen, .mkd-vstack) > :is(.mkd-menu, .mkd-select) > :is(.mkd-menu__popup, .mkd-select__popup) { position: static; }
 
 .mkd-frame .mkd-menu { position: relative; display: inline-flex; flex-direction: column; flex: none; }
 .mkd-frame .mkd-menu:where([data-standalone="true"]) .mkd-menu__popup { position: static; margin: 0; }
@@ -641,7 +672,22 @@
 .mkd-frame .mkd-tooltip__bubble:where([data-placement="bottom"]) { bottom: auto; top: 100%; margin: 8px 0 0; }
 .mkd-frame .mkd-tooltip__bubble:where([data-placement="trailing"], [data-placement="right"]) { left: 100%; bottom: auto; top: 50%; transform: translateY(-50%); margin: 0 0 0 8px; }
 .mkd-frame .mkd-tooltip__title { font-weight: 600; }
-.mkd-frame .mkd-toast { display: flex; align-items: center; gap: 12px; min-width: 280px; max-width: 560px; padding: 10px 14px; border-radius: var(--mkd-radius-m); background: var(--mkd-fg); color: var(--mkd-bg); box-shadow: var(--mkd-shadow-3); pointer-events: auto; }
+.mkd-frame .mkd-tooltip__anchor { display: inline-flex; align-items: center; gap: 8px; }
+.mkd-frame .mkd-tooltip__arrow { position: absolute; z-index: -1; left: calc(50% - 4px); top: calc(100% - 4px); width: 8px; height: 8px; background: inherit; border-radius: 1px; transform: rotate(45deg); }
+.mkd-frame .mkd-tooltip__bubble:where([data-placement="bottom"]) > .mkd-tooltip__arrow { top: -4px; }
+.mkd-frame .mkd-tooltip__bubble:where([data-placement="trailing"], [data-placement="right"]) > .mkd-tooltip__arrow { left: -4px; top: calc(50% - 4px); }
+.mkd-frame .mkd-tooltip__bubble:where([data-placement="leading"], [data-placement="left"]) > .mkd-tooltip__arrow { left: calc(100% - 4px); top: calc(50% - 4px); }
+/* At fit the bubble is laid out beside its anchor, so the frame holds both (R-DEV-008.C5). */
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip { display: inline-grid; justify-items: center; align-items: center; gap: 8px; }
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip > .mkd-tooltip__bubble { position: relative; z-index: 1; inset: auto; transform: none; margin: 0; grid-row: 1; grid-column: 1; }
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip > .mkd-tooltip__anchor { grid-row: 2; grid-column: 1; }
+.mkd-frame[data-fit="true"] .mkd-tooltip:has(> .mkd-tooltip__bubble[data-placement="bottom"]) > .mkd-tooltip__anchor { grid-row: 1; }
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip > .mkd-tooltip__bubble[data-placement="bottom"] { grid-row: 2; }
+.mkd-frame[data-fit="true"] .mkd-tooltip:has(> .mkd-tooltip__bubble:is([data-placement="trailing"], [data-placement="right"])) > .mkd-tooltip__anchor { grid-row: 1; grid-column: 1; }
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip > .mkd-tooltip__bubble:is([data-placement="trailing"], [data-placement="right"]) { grid-row: 1; grid-column: 2; }
+.mkd-frame[data-fit="true"] .mkd-tooltip:has(> .mkd-tooltip__bubble:is([data-placement="leading"], [data-placement="left"])) > .mkd-tooltip__anchor { grid-row: 1; grid-column: 2; }
+.mkd-frame[data-fit="true"] .mkd-screen .mkd-tooltip > .mkd-tooltip__bubble:is([data-placement="leading"], [data-placement="left"]) { grid-row: 1; grid-column: 1; }
+.mkd-frame .mkd-toast { display: flex; align-items: center; gap: 12px; min-width: 0; max-width: 560px; padding: 10px 14px; border-radius: var(--mkd-radius-m); background: var(--mkd-fg); color: var(--mkd-bg); box-shadow: var(--mkd-shadow-3); pointer-events: auto; }
 .mkd-frame .mkd-toast__text { flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; }
 .mkd-frame .mkd-toast__description { opacity: .8; font-size: 13px; }
 .mkd-frame .mkd-toast__action { color: var(--mkd-accent-soft); font-weight: 600; text-transform: uppercase; font-size: 13px; }
@@ -753,10 +799,12 @@
 
 .mkd-frame .mkd-message { display: flex; align-items: flex-end; gap: 8px; align-self: stretch; }
 .mkd-frame .mkd-message[data-from="me"] { flex-direction: row-reverse; }
+/* At fit a message has a conversation's width, so that its 75% bubble holds the text (R-REND-013.C4). */
+.mkd-frame[data-fit="true"] .mkd-message { min-width: 300px; }
 .mkd-frame .mkd-message__stack { display: flex; flex-direction: column; gap: 3px; max-width: 75%; min-width: 0; }
 .mkd-frame .mkd-message[data-from="me"] .mkd-message__stack { align-items: flex-end; }
 .mkd-frame .mkd-message__author { padding: 0 12px; font-size: 11px; color: var(--mkd-fg-2); }
-.mkd-frame .mkd-message__bubble { padding: 8px 12px; border-radius: 18px; background: var(--mkd-surface-3); color: var(--mkd-fg); line-height: 1.35; }
+.mkd-frame .mkd-message__bubble { min-width: 0; overflow-wrap: break-word; padding: 8px 12px; border-radius: 18px; background: var(--mkd-surface-3); color: var(--mkd-fg); line-height: 1.35; }
 .mkd-frame .mkd-message[data-from="me"] .mkd-message__bubble { background: var(--mkd-accent); color: var(--mkd-on-accent); }
 .mkd-frame .mkd-message__image { display: block; max-width: 220px; border-radius: 12px; margin: -4px -8px 6px; }
 .mkd-frame .mkd-message__time { padding: 0 10px; font-size: 10px; color: var(--mkd-fg-3); }

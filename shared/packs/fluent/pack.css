@@ -708,3 +708,6 @@
 
 /* A view with .frame(maxHeight: .infinity) fills a NavigationView / SplitView column (base gives stacks flex: none there) */
 .mkd-pack-fluent .mkd-split__col > [data-fill~="y"] { flex: 1 1 0; min-height: 0; }
+
+/* The TeachingTip draws its own tail, so the base arrow is hidden there. */
+.mkd-pack-fluent .mkd-tooltip[data-el="TeachingTip"] .mkd-tooltip__arrow { display: none; }

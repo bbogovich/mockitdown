@@ -892,3 +892,6 @@
 .mkd-pack-winxp .mkd-link[data-el="CategoryLink"] .mkd-link__icon { display: inline-flex; color: var(--mkd-accent); }
 .mkd-pack-winxp .mkd-link[data-el="CategoryLink"] .mkd-icon { width: 34px; height: 34px; stroke-width: 1.3; fill: color-mix(in srgb, currentColor 16%, transparent); }
 .mkd-pack-winxp .mkd-link[data-el="CategoryLink"][data-state="hover"] { text-decoration: underline; }
+
+/* The Balloon draws its own tail, so the base arrow is hidden there. */
+.mkd-pack-winxp .mkd-tooltip[data-el="Balloon"] .mkd-tooltip__arrow { display: none; }

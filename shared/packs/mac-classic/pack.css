@@ -25,7 +25,7 @@
   line-height: 1.34;
 }
 .mkd-pack-mac-classic .mkd-frame[data-fit="true"] { border-radius: 0; box-shadow: 1px 1px 0 var(--mkd-ink); border-color: var(--mkd-ink); }
-.mkd-pack-mac-classic .mkd-frame[data-fit="true"] .mkd-screen { padding: 14px; }
+.mkd-pack-mac-classic .mkd-frame[data-fit="true"] .mkd-screen { --mkd-fit-padding: 14px; }
 .mkd-pack-mac-classic .mkd-screen { background: var(--mkd-paper); }
 .mkd-pack-mac-classic .mkd-screen:has(> .mkd-zstack[data-el="Desktop"]),
 .mkd-pack-mac-classic .mkd-screen:has(> .mkd-toolbar[data-el="MenuBar"]) { background: var(--mkd-desktop); }
@@ -801,6 +801,8 @@
   background: var(--mkd-ink);
   align-self: flex-start;
 }
+/* A palette cell is one tool wide: wider content is clipped to the cell (R-DEV-008.C1). */
+.mkd-pack-mac-classic .mkd-grid:is([data-el="ToolPalette"], [data-el="DrawPalette"]) > * { min-width: 0; overflow: hidden; }
 .mkd-pack-mac-classic .mkd-grid[data-el="DrawPalette"] { grid-template-columns: 26px !important; }
 .mkd-pack-mac-classic .mkd-button[data-el="Tool"] {
   --t-ink: var(--mkd-ink);

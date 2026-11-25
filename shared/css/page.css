@@ -26,7 +26,9 @@
 .mkd-stage[data-count="1"] .mkd-cell { max-width: 100%; }
 /* Fit-sized frames have no device width to scale against: size cells by content and wrap. */
 .mkd-stage:has(.mkd-frame[data-fit="true"]) { flex-wrap: wrap; }
-.mkd-cell:has(> .mkd-frame[data-fit="true"]) { container-type: normal; flex: 0 1 auto; max-width: 100%; overflow-x: auto; }
+/* A fit frame keeps its natural size; a narrower page scrolls the cell sideways (R-DEV-008.C1).
+   `safe` keeps the frame's start reachable when it is wider than the cell. */
+.mkd-cell:has(> .mkd-frame[data-fit="true"]) { container-type: normal; flex: 0 1 auto; max-width: 100%; overflow-x: auto; align-items: safe center; }
 .mkd-cell__label {
   font: 600 12px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
   letter-spacing: .04em;
@@ -52,7 +54,6 @@
 .mkd-frame[data-fit="true"] {
   --u: 1px;
   width: max-content;
-  max-width: 100%;
   height: auto;
 }
 

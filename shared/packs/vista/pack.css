@@ -897,3 +897,6 @@
 .mkd-pack-vista .mkd-button[data-variant="expando"] .mkd-button__icon { align-items: center; justify-content: center; width: 19px; height: 19px; border: 1px solid #8f9aa6; border-radius: 50%; background: var(--mkd-btn-bg); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.6); }
 .mkd-pack-vista .mkd-button[data-variant="expando"] .mkd-icon { width: 10px; height: 10px; stroke-width: 3; color: var(--mkd-fg-2); }
 .mkd-pack-vista .mkd-vstack[data-el="DialogBody"] > .mkd-alert[data-el="ConsentBanner"]:first-child { flex: none; align-self: stretch; margin: -10px -12px 0; }
+
+/* The Balloon draws its own tail, so the base arrow is hidden there. */
+.mkd-pack-vista .mkd-tooltip[data-el="Balloon"] .mkd-tooltip__arrow { display: none; }

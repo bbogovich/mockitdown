@@ -46,6 +46,9 @@ PH = ' data-placeholder="true"'
 SEL = ' data-sel="true"'
 HL = ' data-hl="true"'
 PRESENTATIONS = ("alert", "sheet", "confirmationDialog", "fullScreenCover", "popover", "inspector")
+#: The anchor of a tooltip written without content (R-DEV-008.C5).
+TOOLTIP_PLACEHOLDER = ('<span class="mkd-button" data-placeholder="true" role="button">'
+                       '<span class="mkd-button__label">Button</span></span>')
 
 
 def esc(s: object) -> str:
@@ -1705,10 +1708,14 @@ class Renderer:
         open_ = _bool(v.attr("open", "isOpen"), True)
         placement = _name(v.attr("placement")) or "top"
         bubble = (f'<span class="mkd-tooltip__bubble" data-placement="{esc(placement)}" role="tooltip">'
+                  '<span class="mkd-tooltip__arrow"></span>'
                   f'<span class="mkd-tooltip__title">{text}</span>'
                   + (f'<span class="mkd-tooltip__message">{message}</span>' if message else "")
                   + self.slot(v, "actions") + "</span>") if open_ else ""
-        return self.open(v, "tooltip", "span") + self.views(v.children) + bubble + "</span>"
+        # The anchor: the content, or a placeholder button when there is none (R-DEV-008.C5).
+        anchor = self.views(v.children) or TOOLTIP_PLACEHOLDER
+        return (self.open(v, "tooltip", "span") + f'<span class="mkd-tooltip__anchor">{anchor}</span>'
+                + bubble + "</span>")
 
     def r_toast(self, v: View) -> str:
         msg = self.text_or_slot(v, "message", "text", "title")

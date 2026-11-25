@@ -434,7 +434,8 @@ export class Evaluator {
       else attrs.set(this.labelFor(el, arg.label), val);
     }
     positional.forEach((val, i) => {
-      if (i < el.params.length) attrs.set(el.params[i], val);
+      // A positional argument takes its parameter's name through the same renames as a labelled one.
+      if (i < el.params.length) attrs.set(this.labelFor(el, el.params[i]), val);
       else extra.push(val);
     });
     const view = new View(name, el.role, { element: el, attrs, extra_args: extra, loc: call.loc });

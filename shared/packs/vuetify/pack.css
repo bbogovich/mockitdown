@@ -627,6 +627,8 @@
 .mkd-pack-vuetify .mkd-sidebar .mkd-section__body { gap: 4px; }
 .mkd-pack-vuetify .mkd-sidebar .mkd-list { background: transparent; padding: 8px; }
 .mkd-pack-vuetify .mkd-sidebar[data-variant="temporary"] { position: absolute; z-index: 40; top: 0; left: 0; bottom: 0; border-right: 0; box-shadow: var(--mkd-e16), 0 0 0 4000px var(--mkd-scrim); }
+/* At fit the open temporary drawer is laid out in flow, so that the frame holds it (R-DEV-008.C2). */
+.mkd-pack-vuetify .mkd-frame[data-fit="true"] .mkd-sidebar[data-variant="temporary"] { position: relative; min-height: 240px; }
 .mkd-pack-vuetify .mkd-sidebar[data-variant="rail"] { flex-basis: 56px; width: 56px; }
 .mkd-pack-vuetify .mkd-sidebar[data-variant="rail"] .mkd-navitem__label { display: none; }
 .mkd-pack-vuetify .mkd-sidebar[data-variant="rail"] .mkd-navitem__row { padding: 8px; justify-content: center; }

@@ -32,6 +32,9 @@ const PH = ' data-placeholder="true"';
 const SEL = ' data-sel="true"';
 const HL = ' data-hl="true"';
 const PRESENTATIONS = ["alert", "sheet", "confirmationDialog", "fullScreenCover", "popover", "inspector"];
+/** The anchor of a tooltip written without content (R-DEV-008.C5). */
+const TOOLTIP_PLACEHOLDER = '<span class="mkd-button" data-placeholder="true" role="button">'
+  + '<span class="mkd-button__label">Button</span></span>';
 const DECORATIONS = ["callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"];
 const OPTION_ROLES = ["text", "label", "button", "listitem", "menuitem", "tab", "radio"];
 
@@ -1572,10 +1575,13 @@ const ROLES: Record<string, RoleFn> = {
     const open = bool(at(v, "open", "isOpen"), true);
     const placement = name(at(v, "placement")) || "top";
     const bubble = open ? `<span class="mkd-tooltip__bubble" data-placement="${esc(placement)}" role="tooltip">`
+      + '<span class="mkd-tooltip__arrow"></span>'
       + `<span class="mkd-tooltip__title">${text}</span>`
       + (message ? `<span class="mkd-tooltip__message">${message}</span>` : "")
       + this.slot(v, "actions") + "</span>" : "";
-    return this.open(v, "tooltip", "span") + this.views(v.children) + bubble + "</span>";
+    // The anchor: the content, or a placeholder button when there is none (R-DEV-008.C5).
+    const anchor = this.views(v.children) || TOOLTIP_PLACEHOLDER;
+    return this.open(v, "tooltip", "span") + `<span class="mkd-tooltip__anchor">${anchor}</span>` + bubble + "</span>";
   },
   toast(v) {
     const msg = this.textOrSlot(v, "message", "text", "title");

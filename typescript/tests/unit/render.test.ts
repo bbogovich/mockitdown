@@ -115,3 +115,18 @@ describe("Python number formatting", () => {
     assert.equal(pyFormatG(2.5), "2.5");
   });
 });
+
+describe("positional arguments and presentations alone (R-PACK-011.C3, R-DEV-008.C5)", () => {
+  it("a positional argument takes its parameter's alias (R-PACK-011 TC-1)", () => {
+    const positional = core.render('Dialog("Edit") { Text("x") }', { pack: "prime", device: "fit" }).html;
+    const labelled = core.render('Dialog(header: "Edit") { Text("x") }', { pack: "prime", device: "fit" }).html;
+    assert.equal(positional, labelled);
+    assert.match(positional, /<span class="mkd-dialog__title">Edit<\/span>/);
+  });
+
+  it("a tooltip without content anchors a placeholder button, with an arrow in its bubble", () => {
+    const html = core.render('Tooltip("Copied")', { pack: "base", device: "fit" }).html;
+    assert.match(html, /<span class="mkd-tooltip__anchor"><span class="mkd-button" data-placeholder="true" role="button">/);
+    assert.match(html, /<span class="mkd-tooltip__bubble" data-placement="top" role="tooltip"><span class="mkd-tooltip__arrow"><\/span>/);
+  });
+});
