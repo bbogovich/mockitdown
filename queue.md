@@ -13,11 +13,11 @@ entries:
   - seq: 2
     issue: 2
     action: implement
-    state: waiting
+    state: in-progress
     run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
-    started:
+    started: 2026-11-25T16:44:21Z
     finished:
   - seq: 3
     issue: 3
