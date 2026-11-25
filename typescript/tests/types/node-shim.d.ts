@@ -15,6 +15,7 @@ declare module "node:test" {
   export function it(name: string, fn: Fn): Promise<void>;
   export function it(name: string, options: Options, fn?: Fn): Promise<void>;
   export function before(fn: () => void | Promise<void>): void;
+  export function after(fn: () => void | Promise<void>): void;
   export default test;
 }
 declare module "node:assert/strict" {
@@ -28,6 +29,7 @@ declare module "node:assert/strict" {
     doesNotMatch(value: string, re: RegExp, message?: string): void;
     throws(fn: () => unknown, expected?: RegExp | Function | object, message?: string): void;
     fail(message?: string): never;
+    rejects(p: Promise<unknown>, expected?: RegExp | Function | object, message?: string): Promise<void>;
   }
   const assert: Assert;
   export default assert;
@@ -37,6 +39,23 @@ declare module "node:fs" {
   export function readdirSync(path: string | URL): string[];
   export function existsSync(path: string | URL): boolean;
   export function statSync(path: string | URL): { isDirectory(): boolean; isFile(): boolean };
+}
+declare module "node:http" {
+  interface IncomingMessage {
+    statusCode?: number;
+    headers: Record<string, string | string[] | undefined>;
+    setEncoding(encoding: "utf8"): void;
+    on(event: "data", fn: (chunk: string) => void): this;
+    on(event: "end", fn: () => void): this;
+  }
+  interface ClientRequest {
+    on(event: "error", fn: (err: Error) => void): this;
+    end(): void;
+  }
+  export function request(
+    options: { host: string; port: number; path: string; method: string },
+    callback: (res: IncomingMessage) => void,
+  ): ClientRequest;
 }
 declare module "node:url" {
   export function fileURLToPath(url: string | URL): string;

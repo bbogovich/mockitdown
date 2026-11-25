@@ -33,7 +33,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/copy-shared.mjs",
     "build:tests": "tsc -p tsconfig.test.json",
-    "test": "npm run build && npm run build:tests && node --test \"test-build/unit/*.test.js\""
+    "serve": "npm run build && node scripts/serve.mjs",
+    "test:unit": "node --test \"test-build/unit/*.test.js\"",
+    "test:browser": "playwright test --project=chromium",
+    "test": "npm run build && npm run build:tests && npm run test:unit && npm run test:browser"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

@@ -33,8 +33,16 @@ result.diagnostics;                                   // Diagnostic[] (also: che
 const css = stylesheet(result.packs);                 // CSS for the pack lineage, page.css included
 ```
 
-In a browser, fetch `dist/shared/manifest.json` and the files it lists and pass them to `loadAssets`
-(the custom elements will do this for you).
+In a browser, `loadAssetsFromUrl(base)` (from the package entry) fetches `manifest.json` and the files
+it lists from `base` — by default the package's own `dist/shared/` — and passes them to `loadAssets`
+once (the custom elements will do this for you):
+
+```js
+import { loadAssetsFromUrl, render, stylesheet } from "./dist/mockitdown.js";
+
+await loadAssetsFromUrl();                            // or loadAssetsFromUrl("/assets/mockitdown/")
+const { html, packs } = render(source, {});
+```
 
 Options use the Python `RenderOptions` field names (`pack`, `default_pack`, `device`, `appearance`,
 `width`, `height`, `chrome`, `title`, `id`, `caption`, `elements`, `source`, `window`, `url`,
@@ -50,8 +58,15 @@ Node 22 or later.
 cd typescript
 npm install
 npm run build        # tsc → dist/ (ES modules + .d.ts), then scripts/copy-shared.mjs → dist/shared/
-npm test             # build, compile tests/ → test-build/, node --test
+npm run serve        # build, then serve the test pages on http://127.0.0.1:8173/ (PORT=… to change)
+npx playwright install chromium                     # once: the test browser
+npm test             # build, compile tests/ → test-build/, node --test, then Playwright (Chromium)
+npx playwright test --project=firefox               # or webkit, after `npx playwright install firefox`
 ```
+
+`scripts/serve.mjs` is a static server on `node:http`: `/` lists every page in `pages/`, and
+`/pages/`, `/dist/` and `/shared/` serve `typescript/pages/`, `typescript/dist/` and the repository's
+`shared/`; anything else is 404. The browser tests (`tests/browser/*.spec.mjs`) start it themselves.
 
 `node scripts/copy-shared.mjs --check` reports a stale `dist/shared/`. The unit tests (`tests/unit/`,
 `node:test`) run against `dist/`; `conformance.test.ts` walks every case of `shared/conformance/`.

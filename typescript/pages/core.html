@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Core render</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 1.5rem; }
+    textarea { width: 100%; min-height: 9rem; font: 13px/1.4 ui-monospace, monospace; }
+    #status { color: #666; }
+    #status[data-state="error"] { color: #b00020; }
+  </style>
+</head>
+<body>
+  <!-- The core API in a page, without the custom elements: load the shared assets from dist/shared/
+       with loadAssetsFromUrl, render the source, put the stylesheet and the HTML into the page.
+       The browser smoke test (tests/browser/core.spec.mjs) drives this page. -->
+  <h1>Core render</h1>
+  <p id="status" data-state="loading">loading assets…</p>
+  <textarea id="source" spellcheck="false">import SwiftUI
+
+NavigationStack {
+  List {
+    Text("Inbox")
+    Text("Archive")
+  }
+  .navigationTitle("Mail")
+}</textarea>
+  <p><button id="render" type="button">Render</button></p>
+  <style id="mockup-style"></style>
+  <div id="mockup"></div>
+  <script type="module">
+    import { loadAssetsFromUrl, render, stylesheet } from "../dist/mockitdown.js";
+
+    const $ = (id) => document.getElementById(id);
+    function show() {
+      const result = render($("source").value, {});
+      $("mockup-style").textContent = stylesheet(result.packs);
+      $("mockup").innerHTML = result.html;
+      const errors = result.diagnostics.filter((d) => d.severity === "error");
+      $("status").dataset.state = errors.length ? "error" : "rendered";
+      $("status").textContent = `packs: ${result.packs.join(" → ")} · diagnostics: ${result.diagnostics.length}`;
+      window.mockitdownResult = { packs: result.packs, diagnostics: result.diagnostics.map((d) => d.toJSON()) };
+    }
+    try {
+      const manifest = await loadAssetsFromUrl("../dist/shared/");
+      window.mockitdownManifest = manifest;
+      $("render").addEventListener("click", show);
+      show();
+    } catch (err) {
+      $("status").dataset.state = "error";
+      $("status").textContent = String(err);
+    }
+  </script>
+</body>
+</html>
