@@ -1,0 +1,10 @@
+{
+ "patterns": [
+  {"id": "sign-in", "title": "Sign-in form", "file": "sign-in.mockitdown"},
+  {"id": "list-detail", "title": "List and detail", "file": "list-detail.mockitdown"},
+  {"id": "settings", "title": "Settings", "file": "settings.mockitdown"},
+  {"id": "dashboard", "title": "Dashboard with charts", "file": "dashboard.mockitdown"},
+  {"id": "data-table", "title": "Data table with toolbar and filters", "file": "data-table.mockitdown"},
+  {"id": "wizard", "title": "Wizard (multi-step form)", "file": "wizard.mockitdown"}
+ ]
+}

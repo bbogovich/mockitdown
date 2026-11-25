@@ -1,0 +1,32 @@
+// Data table: a toolbar with search and actions, filter chips, the table and pagination.
+VStack(alignment: .leading, spacing: 12) {
+  HStack {
+    Text("Customers").font(.title2)
+    Spacer()
+    Button("Export", systemImage: "square.and.arrow.up")
+    Button("Add customer", systemImage: "plus").buttonStyle(.borderedProminent)
+  }
+  Toolbar {
+    SearchField("Search customers")
+    Picker("Status", selection: "All") { Text("All"); Text("Active"); Text("Away") }
+    Picker("Plan", selection: "Any plan") { Text("Any plan"); Text("Team"); Text("Enterprise") }
+    Spacer()
+    Menu("Columns") { Button("Name"); Button("Status"); Button("Plan"); Button("Joined") }
+  }
+  HStack(spacing: 8) {
+    Chip("Status: Active")
+    Chip("Plan: Team")
+    Link("Clear filters")
+  }
+  Table(columns: ["Name", "Email", "Status", "Plan", "Joined"],
+        rows: [["Ana Lima", "ana@example.com", "Active", "Team", "2026-01-12"],
+               ["Ben Okafor", "ben@example.com", "Active", "Team", "2026-02-03"],
+               ["Chen Wu", "chen@example.com", "Active", "Team", "2026-03-21"],
+               ["Dana Park", "dana@example.com", "Active", "Team", "2026-05-08"]])
+  HStack {
+    Text("4 of 128 customers").foregroundStyle(.secondary)
+    Spacer()
+    Pagination()
+  }
+}
+.padding()

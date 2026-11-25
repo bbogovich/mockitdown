@@ -68,6 +68,12 @@ npx playwright test --project=firefox               # or webkit, after `npx play
 `/pages/`, `/dist/` and `/shared/` serve `typescript/pages/`, `typescript/dist/` and the repository's
 `shared/`; anything else is 404. The browser tests (`tests/browser/*.spec.mjs`) start it themselves.
 
+Test pages: `pages/core.html` (the core API), `pages/mockup.html` (the `mockitdown-mockup` element) and
+`pages/packs.html`, the pack gallery — every pack of `shared/reference/index.json` in a side panel, the
+selected pack's elements (`shared/reference/<pack>.json`) and the design patterns of `shared/patterns/`
+rendered in it, with `#pack=<id>` deep links, light/dark appearance and an element-name filter. Mockups
+are created as they scroll into view; `window.packGallery.renderAll()` renders a whole pack at once.
+
 `node scripts/copy-shared.mjs --check` reports a stale `dist/shared/`. The unit tests (`tests/unit/`,
 `node:test`) run against `dist/`; `conformance.test.ts` walks every case of `shared/conformance/`.
 

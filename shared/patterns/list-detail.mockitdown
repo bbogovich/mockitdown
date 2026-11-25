@@ -1,0 +1,34 @@
+// List and detail: a sidebar of folders, a list of messages and the selected message.
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Starred", systemImage: "star")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }
+  .navigationTitle("Mail")
+} content: {
+  List {
+    Row("Ana Lima", subtitle: "Quarterly review", detail: "09:41", avatar: "Ana Lima")
+    Row("Ben Okafor", subtitle: "Build is green again", detail: "Yesterday", avatar: "Ben Okafor")
+    Row("Chen Wu", subtitle: "Research notes", detail: "Mon", avatar: "Chen Wu")
+  }
+  .navigationTitle("Inbox")
+} detail: {
+  VStack(alignment: .leading, spacing: 12) {
+    HStack {
+      Avatar("Ana Lima")
+      VStack(alignment: .leading) {
+        Text("Quarterly review").font(.headline)
+        Text("Ana Lima · 09:41").foregroundStyle(.secondary)
+      }
+      Spacer()
+      Button("Reply", systemImage: "arrowshape.turn.up.left")
+    }
+    Divider()
+    Text("Hi team, the numbers for the quarter are in. **Revenue** is up and churn is down.")
+    Text("Let's go through them on Thursday.")
+    Spacer()
+  }
+  .padding()
+}

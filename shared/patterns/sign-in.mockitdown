@@ -1,0 +1,27 @@
+// Sign-in form: a centred card with credentials, a remember toggle, the primary action and
+// alternatives. Core vocabulary only, so it renders in every pack (R-WEB-004.C4).
+VStack(spacing: 16) {
+  Spacer()
+  Card("Sign in") {
+    VStack(alignment: .leading, spacing: 12) {
+      Text("Welcome back. Use your work account.").foregroundStyle(.secondary)
+      TextField("Email", text: "ana.lima@example.com")
+      SecureField("Password")
+      HStack {
+        Toggle("Remember me", isOn: true)
+        Spacer()
+        Link("Forgot password?")
+      }
+      Button("Sign in").buttonStyle(.borderedProminent)
+      Divider()
+      Button("Continue with single sign-on", systemImage: "key")
+      HStack {
+        Text("No account?").foregroundStyle(.secondary)
+        Link("Create one")
+      }
+    }
+  }
+  .frame(maxWidth: 360)
+  Spacer()
+}
+.padding()

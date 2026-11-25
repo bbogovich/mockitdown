@@ -1,0 +1,23 @@
+// Settings: grouped sections of fields, switches, a choice, a slider and a destructive action.
+NavigationStack {
+  Form {
+    Section("Account") {
+      TextField("Name", text: "Ana Lima")
+      TextField("Email", text: "ana.lima@example.com")
+      Picker("Language", selection: "English") { Text("English"); Text("Deutsch"); Text("Français") }
+    }
+    Section("Notifications") {
+      Toggle("Email notifications", isOn: true)
+      Toggle("Weekly digest", isOn: false)
+      Stepper("Reminders per day", value: 3)
+    }
+    Section("Appearance") {
+      SegmentedControl(["Light", "Dark", "Automatic"], selection: "Automatic")
+      Slider(value: 0.4)
+    }
+    Section("Danger zone") {
+      Button("Delete account").foregroundStyle(.red)
+    }
+  }
+  .navigationTitle("Settings")
+}
