@@ -2,7 +2,7 @@
 title: Packs
 impl_version: 0.1.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: IMPL.PACKS
 ---
 
@@ -31,8 +31,10 @@ R-PACK-009.
 | `base/` | the core vocabulary (90 elements), base tokens, generic modifier maps, the structural CSS of every role (`pack.css`, ~650 lines) |
 | `swiftui/`, `fluent/`, `mui/`, `angular-material/`, `sapui5/`, `bootstrap/`, `shadcn/` | framework packs (R-PACK-008), each `extends` base |
 
-Packs are package data (`pyproject.toml` `[tool.setuptools.package-data]`:
-`packs/*/pack.json`, `packs/*/pack.css`).
+The packs are written only in `shared/packs/<id>/` (R-REPO-002.C1). The Python build copies them
+into `python/src/mockitdown/packs/<id>/`, where `BUILTIN_DIR` finds them, and ships them as package
+data (`python/pyproject.toml` `[tool.setuptools.package-data]`: `packs/*/pack.json`,
+`packs/*/pack.css`). Edit `shared/`, then reinstall or run `python/tools/sync_shared.py`.
 
 ## The contract tests — `tests/test_packs.py`
 
@@ -54,3 +56,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 | Version | Date | Change |
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
+| 0.3.2 | 2026-11-25 | Packs live in shared/packs and are copied into the package at build (#1) |

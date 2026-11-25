@@ -2,7 +2,7 @@
 title: Pack authoring guide
 impl_version: 0.1.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: IMPL.PACKAUTH
 ---
 
@@ -20,7 +20,7 @@ packs/acme/
   pack.css
 ```
 
-Built-in packs live in `src/mockitdown/packs/<id>/`; a site pack lives in any directory listed in
+Built-in packs live in `shared/packs/<id>/` (copied into the Python package at build time); a site pack lives in any directory listed in
 the extension's `pack_paths` (or `-P` on the CLI).
 
 ## 2. Describe the framework in `pack.json`
@@ -77,7 +77,7 @@ mockitdown check examples/*.mockitdown -P packs   # your examples
 python -m unittest tests.test_packs               # built-in packs: the contract
 ```
 
-For a built-in pack, add a page to `examples/site/docs/packs/` with simple controls, forms, lists,
+For a built-in pack, add a page to `python/examples/site/docs/packs/` with simple controls, forms, lists,
 navigation and at least one complete screen following the framework's common patterns, in light and
 dark (`appearance="both"`), and add it to the example site's navigation. Then generate the pack's
 element catalogue into the specification's [Pack catalogue](../specification/packs/catalogue.md).
@@ -97,3 +97,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 | Version | Date | Change |
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
+| 0.3.2 | 2026-11-25 | Built-in packs in shared/packs (#1) |

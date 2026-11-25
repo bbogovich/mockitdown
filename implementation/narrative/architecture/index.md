@@ -2,7 +2,7 @@
 title: Architecture overview
 impl_version: 0.1.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: IMPL.ARCH
 ---
 
@@ -14,8 +14,12 @@ collector instead of raising (A-DIAG-1); only a syntax error stops the pipeline.
 
 ## Package layout
 
+The package is `python/src/mockitdown/`. Files marked *(copy)* are written at build time from
+`shared/` (R-REPO-002) and are not tracked under `python/`; see
+[Repository layout and shared assets](../repository.md).
+
 ```text
-src/mockitdown/
+python/src/mockitdown/
   __init__.py      public API re-exports, makeExtension            A-API-1
   api.py           render, check, evaluate, stylesheet, error box  A-API-1
   options.py       RenderOptions, DEVICES, FENCE_OPTIONS            A-OPT-1
@@ -26,19 +30,21 @@ src/mockitdown/
     ast.py         syntax-tree node types                           A-SYN-2
   evaluate.py      Evaluator: packs, imports, structs, values      A-EVAL-1
   vocabulary.py    RENDERED / IGNORED modifiers, neutral modules   A-EVAL-1
+  vocabulary.json  (copy) shared/language/vocabulary.json          A-REPO-1
   model.py         View, Modifier, Screen, value types             (M-VIEW-*)
   packs/
     __init__.py    PackRegistry, Pack, ElementDef                  A-PACK-1
-    <id>/pack.json, pack.css                                       A-PACK-2
+    <id>/pack.json, pack.css  (copy) shared/packs/<id>/            A-PACK-2
   render/
     __init__.py    render_screen: figure, frames, Elements table   A-REND-2
     chrome.py      device chrome markup                            A-REND-2
     html.py        Renderer: one r_<role> method per role          A-REND-1
     style.py       StyleBuilder: modifiers → CSS, colours, fonts   A-REND-3
   styles.py        stylesheet assembly, px scaling, token rules    A-STYLE-1
-  page.css         figure, frame unit, isolation, error box        A-STYLE-1
+  page.css         (copy) shared/css/page.css: figure, frame unit   A-STYLE-1
   assets.py        AssetResolver                                    A-ASSET-1
-  icons.py         glyphs, aliases, resolution, SVG                A-ASSET-2
+  icons.py         resolution, SVG; loads icons.json               A-ASSET-2
+  icons.json       (copy) shared/icons/icons.json: glyphs, aliases  A-REPO-1
   extension.py     Python-Markdown extension, CSS postprocessor    A-MDX-1
   fence.py         superfences format/validate                      A-MDX-2
   cli.py           argparse CLI                                     A-CLI-1
@@ -105,3 +111,4 @@ output holds the figures and consumes the collected packs (R-MDX-004). Each fix 
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | Deviations #1–#3 and #5 fixed |
+| 0.3.2 | 2026-11-25 | Package path python/src/mockitdown; copies of shared/ marked (#1) |

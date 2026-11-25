@@ -44,7 +44,7 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.details
   # mockitdown renders the live mockups on the specification pages. It is installed from the
-  # main repository (pip install -e ../mockitdown). Paths are relative to this directory.
+  # main repository (pip install -e ../mockitdown/python). Paths are relative to this directory.
   - mockitdown:
       default_pack: base
       default_appearance: auto
@@ -121,7 +121,9 @@ nav:
           - Styles and assets: implementation/architecture/styles-assets.md
           - Markdown integration: implementation/architecture/markdown.md
           - Command line: implementation/architecture/cli.md
+      - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md
+      - Requirements status: implementation/requirements-status.md
       - Pack authoring guide: implementation/pack-authoring.md
       - Build and publish: implementation/build-publish.md
   - Reference: https://bbogovich.github.io/mockitdown/demos/reference/

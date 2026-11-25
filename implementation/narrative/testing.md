@@ -2,20 +2,22 @@
 title: Testing
 impl_version: 0.1.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: IMPL.TEST
 ---
 
 # Testing
 
-Tests use the standard library's `unittest` (no test dependency). Run them from the repository
-root:
+Tests use the standard library's `unittest` (no test dependency). Run them from `python/`, with
+the virtual environment at the repository root:
 
 ```sh
-.venv/bin/python -m unittest discover -s tests -t .
+cd python
+../.venv/bin/python -m unittest discover -s tests -t .
+ZENSICAL=$PWD/../.venv/bin/zensical ../.venv/bin/python -m unittest discover -s tests -t .   # with IT-5
 ```
 
-`tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
+The module paths below are relative to `python/`. `tests/helpers.py` puts `src/` on `sys.path` and provides `html(src, **options)` (asserts no
 errors) and `diags(src, **options)`.
 
 ## Test catalogue
@@ -27,10 +29,12 @@ errors) and `diags(src, **options)`.
 | IT-3 | `tests/test_packs.py` | the pack contract for every pack (built-in and future): roles, scoped CSS, no appearance branching, light/dark tokens, unique modules, every element renders, full stylesheet | R-PACK-004.TC-1, R-PACK-005.TC-1, R-PACK-006.TC-1, R-PACK-007.TC-1 |
 | IT-4 | `tests/test_examples.py` `ExampleSiteTests` | end to end through Python-Markdown: every page of `examples/site/docs` converts with **no** mockitdown error or warning, renders one figure per fence, and carries the `<style data-mockitdown>` element | F-14, R-MDX-001, R-MDX-004 |
 | IT-5 | `tests/test_examples.py` `ZensicalBuildTests` | builds the example site with `zensical build --clean` (skipped when Zensical is not installed; set `ZENSICAL` to its path) | F-14.AC2, R-MDX-001.C3 |
+| IT-6 | `tests/test_layout.py` | repository layout from `git ls-files`: only the variant folders and cross-variant files at the root, no `pack.json`/`pack.css` outside `shared/packs`, root README links `python/README.md` (skipped outside a git checkout) | R-REPO-001.TC-1, R-REPO-002.TC-2, R-REPO-001.C5 |
+| IT-7 | `tests/test_shared.py` | the package copy of `shared/` is identical (and a stale copy is detected); a wheel built with `pip wheel` holds every pack file, `page.css`, `icons.json`, `vocabulary.json` and the `LICENSE`; `shared/reference/` has a well-formed file per listed pack | R-REPO-002.TC-1, R-REPO-003.TC-1, R-REPO-003.TC-3 |
 
 ## The example site as fixture
 
-`examples/site/` is both the demo and the end-to-end test (F-14): one page per pack, a language
+`python/examples/site/` is both the demo and the end-to-end test (F-14): one page per pack, a language
 tour, a custom-components page with an imported library (`docs/mockups/shared/kpi.mockitdown`) and
 images under `docs/assets/images/`. Its `mkdocs.yml` sets `strict: true`, so a broken example also
 fails the site build. When adding a pack or a feature, add an example to the relevant page: the
@@ -53,3 +57,4 @@ test suite then covers it without new test code.
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | ZensicalBuildTests and CssInjectionTests now cover CSS delivery |
+| 0.3.2 | 2026-11-25 | Run from python/; IT-6 layout and IT-7 shared-asset tests (#1) |

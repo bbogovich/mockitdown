@@ -2,7 +2,7 @@
 title: Evaluation
 impl_version: 0.1.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: IMPL.EVAL
 ---
 
@@ -57,7 +57,9 @@ Closures are captured as `Thunk(closure, env)` and run only where views are expe
 ## Vocabulary — `vocabulary.py`
 
 `RENDERED` (modifiers the renderer interprets), `IGNORED` (behaviour-only SwiftUI modifiers) and
-`NEUTRAL_MODULES` (imports that select no pack). Adding a rendered modifier requires a style
+`NEUTRAL_MODULES` (imports that select no pack), frozensets loaded from the packaged
+`vocabulary.json` (`rendered`, `ignored`, `neutral_modules`), a copy of
+`shared/language/vocabulary.json` (R-REPO-002.C4). Adding a rendered modifier requires a style
 builder or renderer handler and a specification change (R-EVAL-009.C4).
 
 ## Known debt
@@ -74,3 +76,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | Debt #1, #2 fixed |
+| 0.3.2 | 2026-11-25 | Vocabulary loaded from shared/language/vocabulary.json (#1) |

@@ -19,7 +19,7 @@ The single source of everything both variants publish (ADR-17).
 
 | | Statement |
 |---|---|
-| P1 | provides: the shared asset tree `shared/` — `packs/<id>/pack.json` and `pack.css`, `css/page.css`, `icons/icons.json`, `language/vocabulary.json`, `images/`, `patterns/*.mockitdown`, `reference/<pack>.json`, `conformance/` |
+| P1 | provides: the shared asset tree `shared/` — `packs/<id>/pack.json` and `pack.css`, `css/page.css`, `icons/icons.json`, `language/vocabulary.json`, `images/`, `patterns/*.mockitdown`, `reference/<pack>.json` and `reference/index.json`, `conformance/` |
 | K1 | The shared asset tree MUST hold data and stylesheets only; it MUST NOT hold code of either variant. |
 
 ---

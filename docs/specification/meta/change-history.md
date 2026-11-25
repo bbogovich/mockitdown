@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.6.1 | 2026-11-25 | `ARCH.3`, `REPO.1` | As built for #1: vocabulary.json neutral_modules; shape of shared/reference JSON and index.json; LICENSE in the Python wheel and sdist |
 | 0.6.0 | 2026-11-25 | `ADR.2`, `ARCH.3`, `REPO.1`, `WEB.1`, `WEB.2` | Variants and shared assets (R-REPO-001–004), TypeScript core and mockitdown-mockup (R-WEB-001–002), dev server, pack gallery and test suites (R-WEB-003–005); ADR-17–20; A-REPO-1, A-WEB-1–3 (SRC-8) |
 | 0.5.0 | 2026-11-24 | `PACK.1` | R-PACK-008 ships vuetify, prime and sketch; R-PACK-012 Wireframe menu group; catalogue regenerated |
 | 0.4.1 | 2026-11-24 | `PACK.1` | R-PACK-012: packs grouped as desktop, web, mobile; sticky header tabs; catalogue reordered |

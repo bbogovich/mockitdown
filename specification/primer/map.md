@@ -16,7 +16,7 @@ A-PACK-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Built-in packs
 A-REND-1 | architecture | active | 0.2.0 r0 | ARCH.2 | HTML renderer
 A-REND-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Figure assembly and chrome
 A-REND-3 | architecture | active | 0.2.0 r0 | ARCH.2 | Style builder
-A-REPO-1 | architecture | active | 0.6.0 r0 | ARCH.3 | Shared asset tree
+A-REPO-1 | architecture | active | 0.6.1 r1 | ARCH.3 | Shared asset tree
 A-STYLE-1 | architecture | active | 0.2.0 r0 | ARCH.2 | Stylesheet assembly
 A-SYN-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Lexer
 A-SYN-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Parser and syntax tree
@@ -144,8 +144,8 @@ R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and sour
 R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
 R-REND-012 | requirements | active | 0.3.0 r0 | REND.2 | Charts
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
-R-REPO-002 | requirements | active | 0.6.0 r0 | REPO.1 | Shared assets are the single source
-R-REPO-003 | requirements | active | 0.6.0 r0 | REPO.1 | The Python variant after the move
+R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source
+R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.6.0 r0 | REPO.1 | Conformance corpus
 R-WEB-001 | requirements | active | 0.6.0 r0 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.6.0 r0 | WEB.1 | The mockitdown-mockup element
