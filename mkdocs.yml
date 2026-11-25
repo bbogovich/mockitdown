@@ -123,6 +123,7 @@ nav:
           - Command line: implementation/architecture/cli.md
           - TypeScript core: implementation/architecture/typescript.md
           - Web development: implementation/architecture/web-dev.md
+          - The mockup element: implementation/architecture/elements.md
       - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md
       - Conformance corpus: implementation/conformance.md

@@ -4,4 +4,4 @@ title: Re-render on change
 verifies: [C5]
 ---
 
-Automated by `typescript/tests/browser/mockup.spec.ts`: changing `pack` and then the script text updates the rendering; `rendered` resolves after each.
+Automated by `typescript/tests/browser/mockup.spec.mjs`: changing `pack` and then the script text updates the rendering; `rendered` resolves after each.

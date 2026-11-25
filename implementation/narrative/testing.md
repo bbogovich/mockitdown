@@ -1,6 +1,6 @@
 ---
 title: Testing
-impl_version: 0.3.6
+impl_version: 0.3.7
 status: draft
 updated: 2026-11-25
 page_id: IMPL.TEST
@@ -49,6 +49,7 @@ errors) and `diags(src, **options)`.
 | IT-11 | `typescript/tests/unit/render.test.ts` | the TypeScript render API: `RenderResult` (html, diagnostics, packs, screen), the error box, `show_warnings`, `source`, `check`; images by `asset_base`, not found without one, remote and `data:image` passed through; `stylesheet` with ancestors once; the anchor prefix's SHA-1 (test vectors and a non-ASCII source); icon name resolution; Python `%.Nf`, `%g` and `round` ties to even | R-WEB-001.TC-4, R-ANN-003.C5 |
 | IT-12 | `typescript/tests/unit/serve.test.ts` | the development server on a free port: the index links every page of `pages/`, pages/modules/pack CSS/JSON/`.mockitdown` with their content types, 404 for paths outside the served folders (`/../package.json`, encoded `..`, backslash, NUL), 405 for other methods; `loadAssetsFromUrl` over HTTP (one load per base, a failed load rejected with URL and status, then retried) | R-WEB-003.TC-1, A-WEB-2.K2 |
 | IT-13 | `typescript/tests/browser/core.spec.mjs` (Playwright, Chromium) | the index links `pages/core.html`; the page loads `dist/shared/` like a browser host, renders a SwiftUI mockup styled by its pack stylesheet with icons, no failed request, page error or diagnostic; a syntax error is reported and a fix renders in MUI | R-WEB-005.TC-1 |
+| IT-14 | `typescript/tests/browser/mockup.spec.mjs` (Playwright, Chromium), `typescript/tests/unit/elements.test.ts` | the `mockitdown-mockup` element on `pages/mockup.html`: defined by the entry, tags `mockitdown-`; a script child with `<`, `>`, `&` renders verbatim and its shadow HTML equals the Python output (fixture) and `render()`; five conformance cases (incl. an import from `import-base`) equal `<name>.html`; re-render on `pack`, script text and `code` (also creating the script child), `rendered` after each; one invalid + one valid element: two error boxes (render + fence) in the first, one composed event, the second renders; a throwing listener does not stop another element; empty boolean attributes, ignored foreign attributes; `asset-base`; a failed asset load gives each element an `element` error; the demo page renders. Unit: `scriptCode` dedent rules, `shadowCss` rewrites, the entry imports in Node | R-WEB-002.TC-1, R-WEB-002.TC-2, R-WEB-002.TC-3, A-WEB-2.K3, A-WEB-2.K5 |
 
 ## The example site as fixture
 
@@ -80,3 +81,4 @@ test suite then covers it without new test code.
 | 0.3.4 | 2026-11-25 | IT-9 TypeScript unit tests, IT-10 TypeScript conformance harness (#3) |
 | 0.3.5 | 2026-11-25 | IT-10 compares every rendered case; IT-11 TypeScript render API (#4) |
 | 0.3.6 | 2026-11-25 | IT-12 development server and asset loader, IT-13 Playwright smoke test; CI (#5) |
+| 0.3.7 | 2026-11-25 | IT-14 the mockup element (#6) |

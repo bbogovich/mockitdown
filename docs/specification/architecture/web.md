@@ -51,15 +51,28 @@ nothing itself (A-WEB-1.K1), so whoever hosts it fetches `dist/shared/` once. Th
 before their first render; a page using the core API directly calls it itself
 (`typescript/pages/core.html`). It resolves to the manifest.
 
+The element (`src/elements/mockup.ts`) keeps the core synchronous: it awaits the shared assets once
+(`loadAssetsFromUrl()`, unless a page already loaded them), then renders. The core resolves
+`import "path"` through a synchronous resolver, so the element answers from a per-page cache of
+fetched files and records what the core asked for and did not find; it fetches those URLs (relative to
+`import-base`) and renders again, until a render asks for nothing new — nested imports take one more
+round per level. Every element shares one constructed stylesheet per pack set; the token rules that
+look at the page's `body` are rewritten to `:host` so that `appearance="auto"` still follows the
+browser's colour scheme inside the shadow root.
+
 **Level.** module
 
 | | Statement |
 |---|---|
-| P1 | provides: the custom element `mockitdown-mockup` (`typescript/src/elements/mockup.ts`) and the package entry `dist/mockitdown.js`, which defines it |
+| P1 | provides: the custom element `mockitdown-mockup` (`MockupElement`, `typescript/src/elements/mockup.ts`) and the package entry `dist/mockitdown.js`, which defines it with `defineElements()` where the host has `customElements` and exports `MockupElement`, `ELEMENT_TAGS`, `scriptCode` and `shadowCss` |
 | P2 | provides: `loadAssetsFromUrl(base, {fetch})` (`typescript/src/elements/assets.ts`, exported by the package entry), which fetches `manifest.json` and the files it lists from `base` (default: the package's `dist/shared/`) and loads them into the core with `loadAssets` |
 | U1 | uses A-WEB-1 — render the code and build the stylesheet |
 | K1 | The mockup element MUST render into its own shadow root so page styles and pack styles do not leak into each other. |
 | K2 | `loadAssetsFromUrl` MUST share one load among calls with the same base, MUST forget a failed load so it can be retried, and MUST reject naming the URL and HTTP status of a file it cannot fetch. |
+| K3 | The mockup element MUST resolve `import "path"` by rendering, fetching every candidate path the core asked for and did not have from the import base URL, and rendering again until the core asks for nothing new; fetched files MUST be cached by URL for the page, and a failed fetch MUST count as not found. |
+| K4 | The mockup elements MUST share one constructed `CSSStyleSheet` per pack set through `adoptedStyleSheets`, and MUST fall back to a `<style>` element in the shadow root where constructed sheets are missing. |
+| K5 | The mockup element MUST rewrite the stylesheet's page-scoped appearance selectors (`body:not([data-md-color-scheme])` to `:host`, `[data-md-color-scheme="slate"]` to `:host-context(…)`) so that appearance `auto` follows the page from inside a shadow root. |
+| K6 | The mockup element MUST coalesce the changes made in one task into one render and MUST discard a render that a newer change overtook while it awaited assets or imports. |
 
 ---
 
