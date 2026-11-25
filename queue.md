@@ -67,8 +67,8 @@ entries:
   - seq: 8
     issue: 8
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -76,8 +76,8 @@ entries:
   - seq: 9
     issue: 9
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -85,8 +85,8 @@ entries:
   - seq: 10
     issue: 10
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -94,8 +94,8 @@ entries:
   - seq: 11
     issue: 11
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -103,8 +103,8 @@ entries:
   - seq: 12
     issue: 12
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -112,8 +112,8 @@ entries:
   - seq: 13
     issue: 13
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -121,8 +121,8 @@ entries:
   - seq: 14
     issue: 14
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -130,8 +130,8 @@ entries:
   - seq: 15
     issue: 15
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:48:26Z
     queued-by: agent:claude
     started:
@@ -139,8 +139,8 @@ entries:
   - seq: 16
     issue: 16
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-175414
     queued: 2026-11-25T22:54:05Z
     queued-by: agent:claude
     started:
