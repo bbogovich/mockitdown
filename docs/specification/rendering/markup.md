@@ -1,6 +1,6 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.7.0
+spec_version: 0.8.1
 status: draft
 updated: 2026-11-25
 page_id: REND.1
@@ -232,9 +232,16 @@ Retro systems each drew their own window frame; a generic frame whose parts a pa
 A real screen never paints siblings over each other (SRC-9): when a row runs out of room SwiftUI
 wraps or truncates its text, and the controls keep their size.
 
+**As built.** In an `HStack`, toolbar or labelled row every child but text, spacers and fillers
+(`maxWidth: .infinity`) keeps `min-width: min-content`; text is `overflow-wrap: break-word`, so it wraps
+at word boundaries first and breaks a long word only when it must. At `fit` a `MessageBubble` takes a
+conversation's width (300 points) so that its 75 % bubble holds a short text on one line and wraps a
+long one. Segments of a control group that share a border, and avatar stacks, overlap by a negative
+margin on purpose; the geometry test leaves those pairs out.
+
 **R-REND-013.TC-1 — No overlapping siblings**
 
-Browser test over every pack's element samples and variants (gallery `renderAll`): for each row container, child bounding boxes pairwise do not intersect (1-pixel tolerance); repeated inside a `device=phone` frame.
+Browser test over every pack's element samples and variants (gallery `renderAll`): for each row container, child bounding boxes pairwise do not intersect (1-pixel tolerance); repeated inside a `device=phone` frame. A pair whose second child has a negative leading margin (C5) is left out. (`typescript/tests/browser/geometry.mjs`.)
 
 **R-REND-013.TC-2 — Message bubble wraps**
 
@@ -249,6 +256,7 @@ Render `MessageBubble` with a long text in every pack: the text's box is inside 
 | C3 | A labelled control (toggle, picker, stepper, slider, date picker, gauge with label) MUST keep its label and its control in separate, non-overlapping boxes at any width the frame allows. |
 | C4 | A message bubble MUST wrap its text inside the bubble, the bubble no wider than 75% of its container and no wider than its text needs. |
 | V1 | In every shipped pack, the browser test finds no two intersecting boxes among a row's children for each element sample and variant (at the natural `fit` width and inside a 320-point phone frame), and `MessageBubble` with a 40-word text keeps every line inside the bubble. |
+| C5 | A pack MAY overlap adjacent children of a row on purpose with a negative leading margin (the joined segments of a control group, stacked avatars); such an overlap is not one that C1–C3 forbid. |
 
 ---
 
@@ -311,8 +319,10 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
-| 0.7.0 | 2026-11-25 | New R-REND-013: Rows without overlap; New R-REND-014: Shape framing |
+| 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
+| 0.7.0 | 2026-11-25 | New R-REND-014: Shape framing |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.7.0 | 2026-11-25 | New R-REND-014: Shape framing |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |

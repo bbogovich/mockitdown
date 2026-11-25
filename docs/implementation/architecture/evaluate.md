@@ -1,6 +1,6 @@
 ---
 title: Evaluation
-impl_version: 0.1.0
+impl_version: 0.3.9
 status: draft
 updated: 2026-11-25
 page_id: IMPL.EVAL
@@ -45,7 +45,9 @@ Closures are captured as `Thunk(closure, env)` and run only where views are expe
 
 - `_element_view` builds a `View` (M-VIEW-1) from the element's `default_attrs`, labelled
   arguments, positional `params`, trailing closures (children and slots) and closure/view-valued
-  arguments (slots); action closures are dropped (R-EVAL-004).
+  arguments (slots); action closures are dropped (R-EVAL-004). Labels and the parameter name of a
+  positional argument go through the same `attrs` maps, element first, then pack (R-PACK-011.C1,
+  C3; `labelFor` in `evaluate.ts`).
 - `_instantiate` binds struct arguments as in R-EVAL-005, guards depth with `MAX_DEPTH = 48`, and
   tags root views with `component`.
 - `_for_each` normalises the data (count, list, dict items, string), truncates at
@@ -77,3 +79,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.1.1 | 2026-11-24 | Debt #1, #2 fixed |
 | 0.3.2 | 2026-11-25 | Vocabulary loaded from shared/language/vocabulary.json (#1) |
+| 0.3.9 | 2026-11-25 | Positional arguments take their parameter's `attrs` alias (R-PACK-011.C3, #8) |

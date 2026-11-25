@@ -4,7 +4,13 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Not started (89)
+## Partly implemented (1)
+
+| Requirement | Title | Implemented | Specification | Date | Issue |
+|---|---|---|---|---|---|
+| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
+
+## Not started (94)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -36,6 +42,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-005 | Device chrome | — | 0.2.0 |  |  |
 | R-DEV-006 | Isolation from the host page | — | 0.2.0 |  |  |
 | R-DEV-007 | Additional chrome kinds | — | 0.3.0 |  |  |
+| R-DEV-009 | The macOS menu bar | — | 0.7.0 |  |  |
+| R-DEV-010 | Multi-platform chrome for SwiftUI | — | 0.7.0 |  |  |
 | R-DIAG-001 | Diagnostic content | — | 0.2.0 |  |  |
 | R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
 | R-DIAG-003 | Diagnostic codes | — | 0.2.0 |  |  |
@@ -83,8 +91,10 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-008 | Shipped packs | — | 0.5.0 |  |  |
 | R-PACK-009 | The core vocabulary | — | 0.2.0 |  |  |
 | R-PACK-010 | Hidden packs | — | 0.3.0 |  |  |
-| R-PACK-011 | Argument aliases | — | 0.3.0 |  |  |
 | R-PACK-012 | Pack reference gallery and site sections | — | 0.5.0 |  |  |
+| R-PACK-013 | Element samples | — | 0.7.0 |  |  |
+| R-PACK-014 | SwiftUI control styles | — | 0.7.0 |  |  |
+| R-PACK-015 | SwiftUI presentations and navigation | — | 0.7.0 |  |  |
 | R-REND-001 | Figure structure | — | 0.2.0 |  |  |
 | R-REND-002 | Role markup | — | 0.2.0 |  |  |
 | R-REND-003 | Attributes on the markup | — | 0.2.0 |  |  |
@@ -96,13 +106,17 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-009 | Presentations and navigation composition | — | 0.2.0 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
-| R-REND-012 | Charts | — | 0.3.0 |  |  |
+| R-REND-012 | Charts | — | 0.7.0 |  |  |
+| R-REND-014 | Shape framing | — | 0.7.0 |  |  |
 
-## Implemented (10)
+## Implemented (12)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
+| [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
 | [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
@@ -110,5 +124,4 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
 | [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.6.7 | 0.6.7 | 2026-11-25 | #7 |
 | [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
-| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.6.7 | 0.6.7 | 2026-11-25 | #7 |
 | [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |

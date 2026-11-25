@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.7.0
+spec_version: 0.8.1
 status: draft
 updated: 2026-11-25
 page_id: REND.2
@@ -175,9 +175,20 @@ its own — collapsed to a small square (SRC-9#images, SRC-9#scroll).
 **What changes.** A `fit` frame is exactly as large as its content, presentations included; when the
 page column is narrower, the reader scrolls sideways instead of seeing a squeezed picture.
 
+**As built.** At `fit` the screen that holds a presentation layer becomes a one-column grid: its
+content takes the first rows and every layer spans all of them, so the grid — and the frame — is as
+large as the larger of the two. The layer is not positioned there, which makes the screen the scrim's
+containing block, so the scrim covers the whole screen. A sheet bleeds over the fit screen's padding
+(the `--mkd-fit-padding` token, 16 points unless a pack sets it) to reach the frame's edges. A
+tooltip's bubble is laid out beside its anchor in a small grid at `fit` (above it for `top`, below for
+`bottom`, after it for `trailing`); elsewhere it stays positioned over the content. The arrow is an
+element of the bubble (`mkd-tooltip__arrow`); a pack that draws its own (`::after`) hides it. Toasts
+keep a pack's framework width where it has one (Material snackbars' 288 or 344 points, Bootstrap's
+350) — never narrower than the text.
+
 **R-DEV-008.TC-1 — Fit frames keep their width and hold presentations**
 
-Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth.
+Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth. Every element sample and variant of the gallery (R-WEB-004 TC-4) is checked the same way, open menus and pickers included. (`python/tests/test_fit.py`, `typescript/tests/browser/gallery.spec.mjs`.)
 
 **R-DEV-008.TC-2 — Sheet and tooltip at fit**
 
@@ -192,8 +203,12 @@ Browser test: a lone `Sheet` at `fit` is ≥ 240 points tall with a grabber and 
 | C3 | An element whose role presents a surface (dialog, alert, sheet, popover, toast, tooltip), written on its own rather than as a presentation modifier, MUST render the same surface as its presented form, with title, content and actions. |
 | C4 | At device `fit`, a sheet MUST be drawn at least 240 points tall with its grabber, its content, and a band of dimmed backdrop at least 48 points tall above it. |
 | C5 | A tooltip MUST render its anchor (the element's content, or a placeholder button when it has none) with the tooltip bubble beside it, the bubble's arrow pointing at the anchor, neither clipped by the frame. |
-| C6 | A toast MUST be drawn at its text's natural width (up to the frame's width) and at least one line tall. |
-| V1 | In every shipped pack, `Alert("Title") { Text("Content"); Button("Action") }` at `fit` renders a dialog at least 200 × 80 points containing the title and the action; a `fit` HStack of eight `Toggle("Label")` in a 300-pixel host keeps its natural width and the host scrolls. |
+| C6 | A toast MUST be drawn at least as wide as its text's natural width (up to the frame's width) and at least one line tall. |
+| C7 | At device `fit`, an open menu or picker written directly in the screen or in a vertical stack MUST lay out its popup in flow, so that the frame holds it. |
+| C8 | At device `fit`, a dialog surface MUST be at least 240 points wide and 80 points tall. |
+| C9 | At device `fit`, a sheet MUST reach the frame's sides and bottom. |
+| C10 | A toast in a pack that sets no toast width MUST be drawn at its text's natural width; a pack MAY keep its framework's minimum or fixed toast width. |
+| V1 | In every shipped pack whose `Alert` presents a dialog (a pack's own `Alert` that is its framework's inline banner, as in antd, bootstrap, mui and shadcn, is an `alert` role and exempt), `Alert("Title") { Text("Content"); Button("Action") }` at `fit` renders a dialog at least 200 × 80 points containing the title and the action; a `fit` HStack of eight `Toggle("Label")` in a 300-pixel host keeps its natural width and the host scrolls. |
 
 ---
 
@@ -319,10 +334,12 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
-| 0.7.0 | 2026-11-25 | New R-DEV-008: Fit frames: natural width and presentations; New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
+| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

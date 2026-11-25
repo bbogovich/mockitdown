@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.7.0
+spec_version: 0.8.1
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -227,11 +227,21 @@ Easter-egg packs reward readers of the documentation without cluttering the list
 
 Frameworks spell the same idea differently (`PlaceholderText`, `placeholder`, `hint`); aliases let each pack accept its own framework's names.
 
+**As built (issue #8).** A pack's `params` name a framework's own argument (`Dialog(header:)` in
+PrimeVue, `Toast(summary:)`), and its `attrs` map that name onto the attribute the render role reads.
+Until 0.8.1 the map was applied to labelled arguments only, so `Dialog("Edit")` in `prime` lost its
+title; 26 elements in eight packs were affected.
+
+**R-PACK-011.TC-1 — Positional arguments take the parameter's alias**
+
+Python (`test_fit.py`) and TypeScript (`render.test.ts`): in `prime`, whose `Dialog` has the parameter `header` mapped to `title`, `Dialog("Edit")` and `Dialog(header: "Edit")` render the same HTML, a dialog titled Edit.
+
 | | Statement |
 |---|---|
 | C1 | A pack MAY map argument labels onto attribute names with `attrs` (pack-wide) and an element MAY do so with its own `attrs`; the evaluator MUST apply the element map, then the pack map, to labelled arguments and to labelled trailing closures. |
 | C2 | A colour value naming no known colour MUST resolve to the pack token of the same name in kebab case (`.primaryContainer` → `var(--mkd-primary-container)`). |
 | V1 | In a pack mapping `placeholderText` to `placeholder`, `TextBox(placeholderText: "x")` shows the placeholder x. |
+| C3 | The evaluator MUST apply the same maps to the parameter name that receives a positional argument, so that a positional argument and the same argument labelled with its parameter's name set the same attribute. |
 
 ---
 
@@ -500,14 +510,16 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |
 | 0.7.0 | 2026-11-25 | New R-PACK-014: SwiftUI control styles; New R-PACK-013: Element samples; New R-PACK-015: SwiftUI presentations and navigation |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
-| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.7.0 | 2026-11-25 | New R-PACK-014: SwiftUI control styles; New R-PACK-013: Element samples; New R-PACK-015: SwiftUI presentations and navigation |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
-| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs; New R-PACK-011: Argument aliases |
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |

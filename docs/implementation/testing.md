@@ -1,6 +1,6 @@
 ---
 title: Testing
-impl_version: 0.3.8
+impl_version: 0.3.9
 status: draft
 updated: 2026-11-25
 page_id: IMPL.TEST
@@ -51,6 +51,7 @@ errors) and `diags(src, **options)`.
 | IT-13 | `typescript/tests/browser/core.spec.mjs` (Playwright, Chromium) | the index links `pages/core.html`; the page loads `dist/shared/` like a browser host, renders a SwiftUI mockup styled by its pack stylesheet with icons, no failed request, page error or diagnostic; a syntax error is reported and a fix renders in MUI | R-WEB-005.TC-1 |
 | IT-14 | `typescript/tests/browser/mockup.spec.mjs` (Playwright, Chromium), `typescript/tests/unit/elements.test.ts` | the `mockitdown-mockup` element on `pages/mockup.html`: defined by the entry, tags `mockitdown-`; a script child with `<`, `>`, `&` renders verbatim and its shadow HTML equals the Python output (fixture) and `render()`; five conformance cases (incl. an import from `import-base`) equal `<name>.html`; re-render on `pack`, script text and `code` (also creating the script child), `rendered` after each; one invalid + one valid element: two error boxes (render + fence) in the first, one composed event, the second renders; a throwing listener does not stop another element; empty boolean attributes, ignored foreign attributes; `asset-base`; a failed asset load gives each element an `element` error; the demo page renders. Unit: `scriptCode` dedent rules, `shadowCss` rewrites, the entry imports in Node | R-WEB-002.TC-1, R-WEB-002.TC-2, R-WEB-002.TC-3, A-WEB-2.K3, A-WEB-2.K5 |
 | IT-15 | `typescript/tests/browser/gallery.spec.mjs` (Playwright, Chromium), `typescript/tests/unit/patterns.test.ts`, `python/tests/test_patterns.py` | the pack gallery `pages/packs.html`: the side panel equals `shared/reference/index.json` (groups, order); every pack (four parallel chunks) through `packGallery.select` + `renderAll()`: the element names of `<pack>.json` in order, one mockup per sample and variants sample plus one per pattern, none empty or zero-sized, no error diagnostic, no page error; an element card's name, role, arguments, defaults, variants, doc and two mockups; `#pack=carbon` deep link, `#pack=mui` on click, reload, Back; dark appearance on every mockup; the name filter and its count; the menu under 720 px; a missing or unknown fragment selects the first pack. Unit (both variants): the six required patterns are listed and each renders in every shipped pack (light and dark in TypeScript) with no error and a figure; in `base` with no diagnostic at all | R-WEB-004.TC-1, R-WEB-004.TC-2, R-WEB-004.TC-3 |
+| IT-16 | `typescript/tests/browser/gallery.spec.mjs` + `geometry.mjs` (Playwright, Chromium), `python/tests/test_fit.py`, `typescript/tests/unit/render.test.ts` | geometry of every pack's element samples and variants after `renderAll()` (four chunks): fit frames as wide as their content, wide cards scrolling, no intersecting row children (a negative leading margin exempt), presentation surfaces ≥ 200 × 80 inside the frame, toasts holding their text, sheets ≥ 240 tall with grabber and 48 points of backdrop, tooltips unclipped with the arrow towards the anchor; the rows again in a 320-point phone frame; Alert, Dialog, Sheet, Popover, Toast, Tooltip, ConfirmationDialog (and a content-less Tooltip) alone at fit in every pack; eight captioned toggles in a 300 px host; a 40-word and a one-word `MessageBubble` inside its bubble, ≤ 75 % of its container. Python and TypeScript unit: the presenting elements render their layer, the tooltip anchor, placeholder and arrow; a positional argument takes its parameter's alias | R-WEB-004.TC-4, R-DEV-008.TC-1, R-DEV-008.TC-2, R-REND-013.TC-1, R-REND-013.TC-2, R-PACK-011.TC-1 |
 
 ## The example site as fixture
 
@@ -84,3 +85,4 @@ test suite then covers it without new test code.
 | 0.3.6 | 2026-11-25 | IT-12 development server and asset loader, IT-13 Playwright smoke test; CI (#5) |
 | 0.3.7 | 2026-11-25 | IT-14 the mockup element (#6) |
 | 0.3.8 | 2026-11-25 | IT-15 the pack gallery and the design patterns (#7) |
+| 0.3.9 | 2026-11-25 | IT-16 geometry of fit frames, presentations, rows and bubbles (#8) |

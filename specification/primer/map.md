@@ -82,7 +82,7 @@ R-DEV-004 | requirements | active | 0.2.0 r0 | REND.2 | Length rewriting
 R-DEV-005 | requirements | active | 0.2.0 r0 | REND.2 | Device chrome
 R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host page
 R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
-R-DEV-008 | requirements | active | 0.7.0 r0 | REND.2 | Fit frames: natural width and presentations
+R-DEV-008 | requirements | active | 0.8.1 r1 | REND.2 | Fit frames: natural width and presentations
 R-DEV-009 | requirements | active | 0.7.0 r0 | REND.2 | The macOS menu bar
 R-DEV-010 | requirements | active | 0.7.0 r0 | REND.2 | Multi-platform chrome for SwiftUI
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
@@ -132,7 +132,7 @@ R-PACK-007 | requirements | active | 0.2.0 r0 | PACK.1 | Pack stylesheet rules
 R-PACK-008 | requirements | active | 0.5.0 r4 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.2.0 r0 | PACK.1 | The core vocabulary
 R-PACK-010 | requirements | active | 0.3.0 r0 | PACK.1 | Hidden packs
-R-PACK-011 | requirements | active | 0.3.0 r0 | PACK.1 | Argument aliases
+R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
 R-PACK-012 | requirements | active | 0.5.0 r2 | PACK.1 | Pack reference gallery and site sections
 R-PACK-013 | requirements | active | 0.7.0 r0 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.7.0 r0 | PACK.1 | SwiftUI control styles
@@ -149,7 +149,7 @@ R-REND-009 | requirements | active | 0.2.0 r0 | REND.1 | Presentations and navig
 R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and source disclosure
 R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
 R-REND-012 | requirements | active | 0.7.0 r1 | REND.2 | Charts
-R-REND-013 | requirements | active | 0.7.0 r0 | REND.1 | Rows without overlap
+R-REND-013 | requirements | active | 0.8.1 r1 | REND.1 | Rows without overlap
 R-REND-014 | requirements | active | 0.7.0 r0 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source

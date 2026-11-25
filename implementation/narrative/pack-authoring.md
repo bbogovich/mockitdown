@@ -1,6 +1,6 @@
 ---
 title: Pack authoring guide
-impl_version: 0.1.0
+impl_version: 0.3.9
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKAUTH
@@ -69,6 +69,12 @@ echo 'import AcmeUI
 InfoBar("Saved", severity: .success)' | mockitdown render - -P packs --device fit
 ```
 
+At `fit`, set the screen's padding with the token `--mkd-fit-padding` (not `padding`), so that sheets
+bleed to the frame's edges (R-DEV-008.C9). Never give a row child `min-width: 0` to make it fit, and
+never position a popup, drawer or label absolutely without leaving it room at `fit`: the gallery's
+geometry tests (IT-16) fail on a squeezed control or a frame narrower than its content. A tooltip
+arrow drawn as `::after` hides the base `.mkd-tooltip__arrow`.
+
 ## 4. Check it
 
 ```sh
@@ -98,3 +104,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.2 | 2026-11-25 | Built-in packs in shared/packs (#1) |
+| 0.3.9 | 2026-11-25 | Fit padding token, rows and popups at fit, tooltip arrows (#8) |

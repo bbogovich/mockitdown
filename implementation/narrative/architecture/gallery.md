@@ -1,6 +1,6 @@
 ---
 title: The pack gallery
-impl_version: 0.3.8
+impl_version: 0.3.9
 status: draft
 updated: 2026-11-25
 page_id: IMPL.GALLERY
@@ -84,6 +84,18 @@ renders as it scrolls.
 zero-sized (the check that caught a collapsed stage layout); `errors` lists every diagnostic of
 severity `error` as `<label>: <diagnostic>`.
 
+## Variants seen whole
+
+Element samples and variants render at `device="fit"` (C9) and keep their natural size (C13,
+R-DEV-008.C1): the mockup is as wide as the stage, the figure cell inside its shadow root scrolls
+sideways when the frame is wider. TC-4 (C15) measures this after `renderAll()` with
+`inspectMockups` from `tests/browser/geometry.mjs`: each fit frame's `scrollWidth` within its
+`clientWidth`, a wider-than-card mockup scrolling, no intersecting children in any row (stacks,
+toolbars, labelled rows, toggles; R-REND-013), presentation surfaces at least 200 × 80 and inside
+the frame, toasts holding their text, sheets 240 tall with a grabber and 48 points of backdrop, and
+tooltip bubbles unclipped with the arrow towards the anchor. The same rows are checked again with
+every sample mounted in a 320-point phone frame (`mountMockups`).
+
 ## Appearance, filter, narrow windows
 
 - The appearance select sets `data-appearance` on `<html>` (page colours) and the `appearance`
@@ -119,3 +131,4 @@ suites. A pattern that needs a pack-specific element does not belong here.
 | Version | Date | Change |
 |---|---|---|
 | 0.3.8 | 2026-11-25 | Page written: pack gallery, design patterns, IT-15 (#7) |
+| 0.3.9 | 2026-11-25 | Variants seen whole: natural fit width, horizontal scroll, TC-4 geometry tests (#8) |
