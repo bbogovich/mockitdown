@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.1
+spec_version: 0.8.2
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -326,7 +326,7 @@ TC-M: open the gallery at `#pack=swiftui`, compare each card with the same contr
 | C5 | `List` MUST render `.insetGrouped` as rounded sections inset 16 points on the grouped background, `.grouped` as full-width sections on the grouped background, `.inset` as rounded inset rows on the plain background, `.plain` as full-width rows with separators inset 16 points, `.sidebar` as a source list (section headers, rows with icons, the selected row an accent-tinted rounded highlight; translucent on macOS), and `.bordered` (macOS) as a bordered box with alternating row backgrounds. |
 | C6 | `Picker` MUST render its options from its children (`Text`, or any view with `.tag`) and mark the `selection:` (default: the first); `.menu`/`.automatic` as the label leading and the selected option with an up-down chevron in the accent colour trailing; `.segmented` as a segmented control of the options; `.inline` as rows with a checkmark on the selected; `.radioGroup` (macOS) as radio buttons; `.wheel` as a wheel with the selection band; `.navigationLink` as a row with the label, the selected option in secondary colour and a chevron; `.palette` as a row of the options with the selected one highlighted. A picker with no options MUST show its label and an empty value, never an empty box. |
 | C7 | `Toggle` MUST render `.automatic`/`.switch` as the label leading and a 51 × 31 switch trailing (green when on), `.button` as a capsule button tinted when on, and `.checkbox` (macOS) as a checkbox followed by the label. |
-| C8 | `Button` variants MUST each keep their natural width (R-REND-013); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent). |
+| C8 | `Button` variants MUST each keep their natural width (R-REND-013; the joined capsules of C1 are a deliberate overlap under R-REND-013.C5); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent). |
 | V1 | Each variant of each element above renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes. |
 
 ---
@@ -357,7 +357,7 @@ TC-M: compare the gallery cards with Apple's iOS 26 and macOS 26 HIG screenshots
 | C1 | An `Alert` in the `swiftui` pack MUST render as the iOS 26 alert: a centred Liquid Glass card about 300 points wide with large corner radius (`--mkd-radius-alert`, 34 points), bold centred title, centred message, and its actions as capsule buttons — side by side for two, stacked for more — a `.cancel` role in the neutral style and a `.destructive` role in red. |
 | C2 | A `ConfirmationDialog` MUST render on a phone as an action sheet at the bottom — a Liquid Glass panel with the title in secondary small type, one row per action, the `.cancel` action set apart below — and with `macos` or `ipados` chrome as an alert-style dialog. |
 | C3 | A `Popover` MUST render as a rounded Liquid Glass bubble with an arrow pointing at its anchor; alone, the arrow points up at a placeholder anchor above it. |
-| C4 | A `Sheet` MUST render from the bottom with rounded top corners, a grabber, its content and the dimmed screen above it (R-DEV-008.C4). |
+| C4 | A `Sheet` MUST render from the bottom with rounded top corners, a grabber, its content and the dimmed screen above it (R-DEV-008.C4, C9). |
 | C5 | A `Tab` alone MUST render as one item of a tab bar (icon over label, selected tint) inside the tab bar capsule; inside a `TabView` it is one of its tabs. |
 | C6 | A `TabView` MUST render its selected tab's content above a floating Liquid Glass capsule tab bar with icon-over-label items and a highlight pill on the selected item, and the content MUST NOT extend under the bar at `fit`; `.page` MUST render the content with page indicator dots below it and no tab bar; `.sidebarAdaptable` MUST render as `.automatic` on a phone and as a sidebar list of the tabs on tablet and desktop; `.tabBarOnly` as `.automatic`. |
 | C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; `.balanced` MUST share the width between the columns and `.prominentDetail` MUST keep the detail at full width with the sidebar over it; with `macos` chrome it MUST follow R-DEV-010.C3. |
@@ -510,14 +510,16 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |
 | 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |
-| 0.7.0 | 2026-11-25 | New R-PACK-014: SwiftUI control styles; New R-PACK-013: Element samples; New R-PACK-015: SwiftUI presentations and navigation |
+| 0.7.0 | 2026-11-25 | New R-PACK-013: Element samples |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
-| 0.7.0 | 2026-11-25 | New R-PACK-014: SwiftUI control styles; New R-PACK-013: Element samples; New R-PACK-015: SwiftUI presentations and navigation |
+| 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |
+| 0.7.0 | 2026-11-25 | New R-PACK-013: Element samples |
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |

@@ -2,8 +2,8 @@
 id: R-PACK-014
 title: SwiftUI control styles
 status: active
-version: 0.7.0
-rev: 0
+version: 0.8.2
+rev: 1
 page: PACK.1
 slot: reqs
 order: 999
@@ -11,7 +11,8 @@ source: [SRC-9]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-REND-013, R-PACK-013]
-hash: c4ada03fac5e
+hash: dba7c33e12cd
+refs: [R-REND-013]
 ---
 
 C1: `ControlGroup` in the `swiftui` pack MUST render `.automatic` as a joined Liquid Glass capsule of its buttons, `.navigation` as a joined capsule of icon-only buttons, `.palette` as a row of borderless icon buttons, and `.compactMenu` and `.menu` as one button (the group's label or an ellipsis glyph; `.menu` with a trailing chevron) that stands for a menu.
@@ -21,5 +22,5 @@ C4: `Gauge` MUST default to `.automatic` (a linear track with the value filled a
 C5: `List` MUST render `.insetGrouped` as rounded sections inset 16 points on the grouped background, `.grouped` as full-width sections on the grouped background, `.inset` as rounded inset rows on the plain background, `.plain` as full-width rows with separators inset 16 points, `.sidebar` as a source list (section headers, rows with icons, the selected row an accent-tinted rounded highlight; translucent on macOS), and `.bordered` (macOS) as a bordered box with alternating row backgrounds.
 C6: `Picker` MUST render its options from its children (`Text`, or any view with `.tag`) and mark the `selection:` (default: the first); `.menu`/`.automatic` as the label leading and the selected option with an up-down chevron in the accent colour trailing; `.segmented` as a segmented control of the options; `.inline` as rows with a checkmark on the selected; `.radioGroup` (macOS) as radio buttons; `.wheel` as a wheel with the selection band; `.navigationLink` as a row with the label, the selected option in secondary colour and a chevron; `.palette` as a row of the options with the selected one highlighted. A picker with no options MUST show its label and an empty value, never an empty box.
 C7: `Toggle` MUST render `.automatic`/`.switch` as the label leading and a 51 × 31 switch trailing (green when on), `.button` as a capsule button tinted when on, and `.checkbox` (macOS) as a checkbox followed by the label.
-C8: `Button` variants MUST each keep their natural width (R-REND-013); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent).
+C8: `Button` variants MUST each keep their natural width (R-REND-013; the joined capsules of C1 are a deliberate overlap under R-REND-013.C5); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent).
 V1: Each variant of each element above renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes.
