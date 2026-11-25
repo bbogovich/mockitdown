@@ -4,8 +4,8 @@ entries:
   - seq: 1
     issue: 1
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -13,8 +13,8 @@ entries:
   - seq: 2
     issue: 2
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -22,8 +22,8 @@ entries:
   - seq: 3
     issue: 3
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -31,8 +31,8 @@ entries:
   - seq: 4
     issue: 4
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -40,8 +40,8 @@ entries:
   - seq: 5
     issue: 5
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -49,8 +49,8 @@ entries:
   - seq: 6
     issue: 6
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
@@ -58,8 +58,8 @@ entries:
   - seq: 7
     issue: 7
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261125-113106
     queued: 2026-11-25T16:09:32Z
     queued-by: agent:vibe-change
     started:
