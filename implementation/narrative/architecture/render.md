@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.13
+impl_version: 0.3.14
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REND
@@ -10,7 +10,7 @@ page_id: IMPL.REND
 
 Realizes **A-REND-1** (HTML renderer), **A-REND-2** (figure assembly and chrome) and **A-REND-3**
 (style builder); requirements R-REND-001 – R-REND-010, R-APP-001, R-APP-003, R-DEV-001, R-DEV-002,
-R-DEV-005, R-DEV-008, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
+R-DEV-005, R-DEV-008, R-DEV-010, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
 
 ## Figure assembly — `render/__init__.py`, `render/chrome.py`
 
@@ -29,6 +29,35 @@ R-DEV-005, R-DEV-008, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
    caption and `elements_table` (walks `model.walk` for `.id()` modifiers).
 
 `chrome.CHROME_KINDS` lists the kinds; each kind is a fixed markup snippet with built-in icons.
+
+### Platform chrome (R-DEV-010)
+
+- `windowed` (option → `@Screen(windowed:)` via `parse_bool`, default off): with `ipados` chrome the
+  frame carries `data-windowed="true"` and `chrome.top` adds `.mkd-chrome--lights` (the app window's
+  traffic lights) after the status bar; with any other chrome it is ignored with the warning
+  "windowed needs iPadOS chrome; ignored" (code `chrome`, C10).
+- `titlebar_mode(views, renderer)` (only with `macos` chrome) puts `data-titlebar` on the frame:
+  `unified` when the first top-level view is a `NavigationSplitView`, a `.sidebarAdaptable` `TabView`
+  or a `NavigationStack` whose content has `.navigationTitle`/`.toolbar` (found as `r_navstack` finds
+  them, `_find_mod`), so the content draws the toolbar row and CSS floats the lights over it (C7);
+  `toolbar` when another root carries `.navigationTitle`/`.toolbar` — `_title_toolbar` renders the
+  title and the leading and trailing items (`_toolbar_items`) **before** the body, in document order,
+  and `chrome.top(..., toolbar=…)` draws them in the title bar (C13); otherwise nothing (a centred
+  window title).
+- `chrome.bottom("ipados")` draws the home indicator (C1).
+- The macOS menu bar (R-DEV-009, #14) goes before `chrome.top` in `frame_inner`: the slot is marked
+  in the code; the window rules (radius, shadow) are on the frame, so a menu bar will need the window
+  drawn below it inside the frame (R-DEV-009.C9).
+
+```mermaid
+flowchart LR
+  O["options.windowed / @Screen(windowed:)"] --> W{"chrome == ipados?"}
+  W -- yes --> WA["data-windowed + .mkd-chrome--lights"]
+  W -- no --> WW["warning: chrome"]
+  C["chrome == macos"] --> T["titlebar_mode(root)"]
+  T -- unified --> U["data-titlebar=unified<br/>root draws the toolbar row"]
+  T -- toolbar --> TB["_title_toolbar → chrome.top(toolbar=…)"]
+```
 
 ## Renderer — `render/html.py`
 
@@ -163,7 +192,9 @@ Both renderers, for every pack:
 - `_collect_presentations`: a `.popover` presentation draws `.mkd-presented__arrow`.
 - `r_split`: unlabelled children are sidebar (first), detail (last), content (a middle second); a
   column that is not a `NavigationStack` gets `.mkd-split__header` with its `.navigationTitle`
-  (`_find_mod`).
+  (`.mkd-split__title`) and its `.toolbar` items (`.mkd-split__toolbar`, R-DEV-010.C12) (`_find_mod`).
+  The split view ends with `.mkd-split__toggle` (the `sidebar.left` icon, role button): base hides it,
+  the SwiftUI pack shows it with `macos` and `ipados` chrome (R-DEV-010.C3, C6).
 - `r_tab` (a `Tab` outside a `TabView`): a `tabs` root with `data-standalone="true"`, the placement of
   the pack's `TabView` default (`bottom` in base and SwiftUI), and one selected `.mkd-tabs__tab`.
 
@@ -192,3 +223,4 @@ Both renderers, for every pack:
 | 0.3.10 | 2026-11-25 | Shapes (circle inside its frame, true ellipse) and charts drawn from values, no-data warning (#9) |
 | 0.3.12 | 2026-11-25 | SwiftUI control markup: pickers, date pickers, gauges, control group menus, list selection (#11) |
 | 0.3.13 | 2026-11-25 | Presentations and navigation: alert actions from Button children, popover anchor and arrow, split view columns and titles, lone tabs (#12) |
+| 0.3.14 | 2026-11-25 | Platform chrome: `windowed`, the macOS title bar modes, the iPadOS home indicator, the split view toggle and column toolbars (#13) |

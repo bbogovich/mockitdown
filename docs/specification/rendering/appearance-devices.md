@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.8.8
+spec_version: 0.8.9
 status: draft
 updated: 2026-11-25
 page_id: REND.2
@@ -142,7 +142,7 @@ drawing it. The fixed time and status icons make renderings reproducible.
 | C1 | The chrome kinds MUST be `none`, `ios`, `ipados`, `macos`, `windows`, `android` and `browser`. |
 | C2 | The figure assembler MUST take the chrome from the `chrome` option when it is not `auto`, else from `@Screen(chrome:)` when given and not `auto`, else from the pack's `chrome` map for the resolved device (none when unmapped). |
 | C3 | If the chrome kind is unknown, then the figure assembler MUST warn "unknown chrome 'x' (known: …)" with code `chrome` and draw none. |
-| C4 | `ios` MUST draw a status bar (time 9:41, dynamic island, cellular, Wi-Fi and battery icons) and a home indicator; `ipados` a status bar with date and battery percentage; `android` a status bar and a navigation handle; `macos` a title bar with traffic lights and the title; `windows` a title bar with app icon, title and minimise/maximise/close controls; `browser` a window bar with traffic lights, navigation buttons, an address field showing the `url` option (default `https://app.example.com`) and a menu button. |
+| C4 | `ios` MUST draw a status bar (time 9:41, dynamic island, cellular, Wi-Fi and battery icons) and a home indicator; `ipados` a status bar with date and battery percentage and a home indicator; `android` a status bar and a navigation handle; `macos` a title bar with traffic lights and the title (unified with the root's toolbar as R-DEV-010.C2 and C7 say); `windows` a title bar with app icon, title and minimise/maximise/close controls; `browser` a window bar with traffic lights, navigation buttons, an address field showing the `url` option (default `https://app.example.com`) and a menu button. |
 | C5 | Chrome MUST be static markup with classes `mkd-chrome` and one of `mkd-chrome--status`, `mkd-chrome--titlebar`, `mkd-chrome--browser`, `mkd-chrome--home` and `data-chrome=<kind>`, styled by the base pack and restyled by packs. |
 | V1 | A SwiftUI phone mockup shows the iOS status bar and home indicator; `chrome="browser" url="https://shop.example.com"` shows that address. |
 
@@ -262,6 +262,15 @@ Python and TypeScript render tests (conformance cases added to `shared/conforman
 SwiftUI runs on iPhone, iPad and Mac, and one source often serves all three (SRC-9). Each form gets
 its platform's chrome, and the shared containers adapt as SwiftUI adapts them.
 
+On a Mac the window's title bar becomes the root view's toolbar row, as in macOS 26: a navigation stack's bar, a
+split view's columns or a sidebar-adaptable tab view run up to the top edge with the traffic lights floating over
+their leading end; a plain view's `.navigationTitle` and `.toolbar` are drawn in the title bar itself. A view without
+either keeps the classic centred window title. The sidebar's own title is the window's: macOS shows it in the
+toolbar, not in the sidebar.
+
+`windowed` shows how an iPad app looks in iPadOS 26's windowing: the app's window, with its traffic lights, over
+the wallpaper. It means nothing for other chrome, so the renderer warns rather than guessing.
+
 **R-DEV-010.TC-1 — Chrome per form**
 
 Python and TypeScript render tests: the V1 source at phone, tablet and desktop; assert `data-chrome` ios/ipados/macos, the floating sidebar at desktop and tablet (C6) and the collapsed stack at phone; browser screenshot reviewed manually (TC-M1).
@@ -281,9 +290,19 @@ TC-M: compare phone, tablet and desktop renders with iOS 26, iPadOS 26 and macOS
 | C1 | The `swiftui` pack MUST draw `phone` forms in iOS 26 chrome (status bar with time, Dynamic Island, cellular, Wi-Fi and battery; home indicator), `tablet` forms in iPadOS 26 chrome (status bar with time and date, Wi-Fi, battery percentage; home indicator) and `desktop` and `wide` forms in macOS 26 chrome. |
 | C2 | macOS 26 chrome MUST draw a window with rounded corners (`--mkd-window-radius`, 16 points), a shadow, and traffic lights 12 points in diameter; when the root view has a toolbar or navigation title, the title bar MUST be unified with it — title leading after the traffic lights, toolbar items trailing as Liquid Glass capsules — otherwise a centred title. |
 | C3 | With `macos` chrome, a `NavigationSplitView`'s sidebar MUST be drawn as the macOS 26 floating sidebar (an inset rounded translucent panel running under the title bar, the traffic lights over it) with a sidebar toggle button in the toolbar. |
-| C4 | The render option `windowed` (fence attribute, `@Screen(windowed:)`) with `ipados` chrome MUST draw an iPadOS 26 app window — rounded corners, traffic lights at its top leading corner — over a wallpaper, inset from the frame. |
+| C4 | The render option `windowed` (fence attribute `windowed`, CLI `--windowed`, `mockitdown-mockup` attribute `windowed`, `@Screen(windowed:)`) with `ipados` chrome MUST draw an iPadOS 26 app window — rounded corners, traffic lights at its top leading corner — over a wallpaper (`--mkd-wallpaper`), inset from the frame, the status bar and home indicator drawn over the wallpaper. |
 | C5 | The `swiftui` pack SHOULD adapt shared elements to the form: `NavigationSplitView` collapses to its sidebar in a `NavigationStack` on a phone; `TabView(.sidebarAdaptable)` shows a sidebar on tablet and desktop; `Form` (automatic) uses the grouped style on phone and tablet and the columns style on desktop. |
 | C6 | With `ipados` chrome, a `NavigationSplitView`'s sidebar MUST be drawn as the iPadOS 26 floating sidebar: an inset, rounded Liquid Glass panel over the detail's background, with the sidebar's title and rows inside it and a sidebar toggle button in the toolbar. |
+| C7 | The title bar MUST be unified with the root's own toolbar row — the traffic lights drawn over its leading end — when the root view is a `NavigationStack` whose content has a `.navigationTitle` or `.toolbar`, a `NavigationSplitView`, or a `.sidebarAdaptable` `TabView`. |
+| C8 | With `macos` or `ipados` chrome, a toolbar button that has an icon MUST show only its icon. |
+| C9 | With `macos` chrome, the sidebar toggle MUST stand at the trailing end of the sidebar's part of the toolbar row. |
+| C10 | With any chrome other than `ipados`, the renderer MUST ignore `windowed` and warn "windowed needs iPadOS chrome; ignored" with code `chrome`. |
+| C11 | With `ipados` chrome, the sidebar toggle MUST be a Liquid Glass circle at the sidebar's top leading corner, beside the traffic lights when `windowed`. |
+| C12 | A `NavigationSplitView` column that is not a `NavigationStack` MUST draw its `.toolbar` items in its header, trailing its title. |
+| C13 | For any other root view carrying `.navigationTitle` or `.toolbar`, the macOS title bar MUST be 52 points tall and draw that title leading after the traffic lights, in place of the window title, and the toolbar items trailing. |
+| C14 | With `macos` or `ipados` chrome, adjacent toolbar buttons MUST share one Liquid Glass capsule. |
+| C15 | With `macos` chrome, the sidebar's own navigation title MUST be drawn leading in the toolbar row beside the sidebar when no other column has a title, and not inside the sidebar. |
+| C16 | With `macos` chrome, the titles of the columns after the sidebar MUST be drawn leading in the toolbar row. |
 | V1 | The same `NavigationSplitView` source renders with an iOS status bar at `phone`, an iPadOS status bar at `tablet` and a macOS window with a floating sidebar at `desktop`. |
 
 ---
@@ -340,6 +359,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.9 | 2026-11-25 | as built: unified title bar rules (C7, C13), icon-only toolbar buttons sharing a glass capsule (C8, C14), macOS sidebar toggle and titles in the toolbar row (C9, C15, C16), windowed ignored without iPadOS chrome (C10), iPad toggle (C11), split column toolbar (C12), windowed on CLI and element (C4) (#13); as built: ipados draws a home indicator; macos title bar unified per R-DEV-010 (#13) |
 | 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
@@ -347,6 +367,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
 | 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |

@@ -70,7 +70,7 @@ R-ASSET-003 | requirements | active | 0.2.0 r0 | ASSET.1 | Embedding local image
 R-ASSET-004 | requirements | active | 0.2.0 r0 | ASSET.1 | Image-bearing attributes
 R-ASSET-005 | requirements | active | 0.2.0 r0 | ASSET.1 | Built-in icons
 R-CLI-001 | requirements | active | 0.2.0 r0 | CLI.1 | Commands
-R-CLI-002 | requirements | active | 0.2.0 r0 | CLI.1 | Rendering options on the command line
+R-CLI-002 | requirements | active | 0.8.9 r1 | CLI.1 | Rendering options on the command line
 R-CLI-003 | requirements | active | 0.2.0 r0 | CLI.1 | render
 R-CLI-004 | requirements | active | 0.2.0 r0 | CLI.1 | check
 R-CLI-005 | requirements | active | 0.2.0 r0 | CLI.1 | css
@@ -79,12 +79,12 @@ R-DEV-001 | requirements | active | 0.2.0 r0 | REND.2 | Device forms and sizes
 R-DEV-002 | requirements | active | 0.2.1 r1 | REND.2 | Device selection
 R-DEV-003 | requirements | active | 0.2.0 r0 | REND.2 | Frame unit scaling
 R-DEV-004 | requirements | active | 0.2.0 r0 | REND.2 | Length rewriting
-R-DEV-005 | requirements | active | 0.2.0 r0 | REND.2 | Device chrome
+R-DEV-005 | requirements | active | 0.8.9 r1 | REND.2 | Device chrome
 R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host page
 R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
 R-DEV-008 | requirements | active | 0.8.1 r1 | REND.2 | Fit frames: natural width and presentations
 R-DEV-009 | requirements | active | 0.7.0 r0 | REND.2 | The macOS menu bar
-R-DEV-010 | requirements | active | 0.8.8 r1 | REND.2 | Multi-platform chrome for SwiftUI
+R-DEV-010 | requirements | active | 0.8.9 r2 | REND.2 | Multi-platform chrome for SwiftUI
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
 R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
 R-DIAG-003 | requirements | active | 0.8.3 r1 | DIAG.1 | Diagnostic codes
@@ -135,8 +135,8 @@ R-PACK-010 | requirements | active | 0.3.0 r0 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
 R-PACK-012 | requirements | active | 0.8.5 r3 | PACK.1 | Pack reference gallery and site sections
 R-PACK-013 | requirements | active | 0.8.4 r1 | PACK.1 | Element samples
-R-PACK-014 | requirements | active | 0.8.6 r3 | PACK.1 | SwiftUI control styles
-R-PACK-015 | requirements | active | 0.8.8 r4 | PACK.1 | SwiftUI presentations and navigation
+R-PACK-014 | requirements | active | 0.8.9 r4 | PACK.1 | SwiftUI control styles
+R-PACK-015 | requirements | active | 0.8.9 r5 | PACK.1 | SwiftUI presentations and navigation
 R-REND-001 | requirements | active | 0.2.0 r0 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.2.0 r0 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.2.0 r0 | REND.1 | Attributes on the markup
@@ -154,9 +154,9 @@ R-REND-014 | requirements | active | 0.8.3 r1 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.6.1 r1 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
-R-REPO-004 | requirements | active | 0.6.2 r1 | REPO.1 | Conformance corpus
+R-REPO-004 | requirements | active | 0.8.9 r2 | REPO.1 | Conformance corpus
 R-WEB-001 | requirements | active | 0.6.4 r2 | WEB.1 | TypeScript package and core
-R-WEB-002 | requirements | active | 0.6.7 r2 | WEB.1 | The mockitdown-mockup element
+R-WEB-002 | requirements | active | 0.8.9 r3 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.5 r1 | WEB.2 | Development server
 R-WEB-004 | requirements | active | 0.8.0 r3 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.6.5 r2 | WEB.2 | Web test suites

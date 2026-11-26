@@ -10,7 +10,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 |---|---|---|---|---|---|
 | [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
 
-## Not started (88)
+## Not started (85)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -30,7 +30,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-004 | Image-bearing attributes | — | 0.2.0 |  |  |
 | R-ASSET-005 | Built-in icons | — | 0.2.0 |  |  |
 | R-CLI-001 | Commands | — | 0.2.0 |  |  |
-| R-CLI-002 | Rendering options on the command line | — | 0.2.0 |  |  |
 | R-CLI-003 | render | — | 0.2.0 |  |  |
 | R-CLI-004 | check | — | 0.2.0 |  |  |
 | R-CLI-005 | css | — | 0.2.0 |  |  |
@@ -39,11 +38,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-002 | Device selection | — | 0.2.1 |  |  |
 | R-DEV-003 | Frame unit scaling | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
-| R-DEV-005 | Device chrome | — | 0.2.0 |  |  |
 | R-DEV-006 | Isolation from the host page | — | 0.2.0 |  |  |
 | R-DEV-007 | Additional chrome kinds | — | 0.3.0 |  |  |
 | R-DEV-009 | The macOS menu bar | — | 0.7.0 |  |  |
-| R-DEV-010 | Multi-platform chrome for SwiftUI | — | 0.7.0 |  |  |
 | R-DIAG-001 | Diagnostic content | — | 0.2.0 |  |  |
 | R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
 | R-DIAG-004 | The error box | — | 0.2.0 |  |  |
@@ -103,25 +100,28 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 
-## Implemented (18)
+## Implemented (21)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
+| [R-CLI-002](../ledger/R-CLI-002.md) | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-DEV-005](../ledger/R-DEV-005.md) | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-DEV-010](../ledger/R-DEV-010.md) | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
-| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.6 | 0.8.6 | 2026-11-25 | #11 |
-| [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.7 | 0.8.7 | 2026-11-25 | #12 |
+| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-REND-014](../ledger/R-REND-014.md) | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
 | [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
-| [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
+| [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
-| [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.6.7 | 0.6.7 | 2026-11-25 | #7 |
+| [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
 | [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |

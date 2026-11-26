@@ -1,8 +1,8 @@
 ---
 title: "Command line"
-spec_version: 0.2.0
+spec_version: 0.8.9
 status: draft
-updated: 2026-11-24
+updated: 2026-11-25
 page_id: CLI.1
 ---
 
@@ -35,7 +35,7 @@ in a component library.
 
 | | Statement |
 |---|---|
-| C1 | `render` and `check` MUST accept `--pack`, `--default-pack` (default `base`), `--device`, `--appearance` (one of the four), `--width`, `--height`, `--chrome`, `--title`, `--elements`, `-I/--import-path` (repeatable), `-A/--asset-path` (repeatable), `-P/--pack-path` (repeatable) and `--no-embed`, with the meaning of the corresponding render option. |
+| C1 | `render` and `check` MUST accept `--pack`, `--default-pack` (default `base`), `--device`, `--appearance` (one of the four), `--width`, `--height`, `--chrome`, `--title`, `--windowed`, `--elements`, `-I/--import-path` (repeatable), `-A/--asset-path` (repeatable), `-P/--pack-path` (repeatable) and `--no-embed`, with the meaning of the corresponding render option. |
 | C2 | When the source is a file, the CLI MUST set the render option `source_path` to its resolved path, so relative imports and images resolve against the file's directory first. |
 | V1 | `mockitdown render screens/a.mockitdown -I lib` resolves `import "kpi"` from `screens/` and then `lib/`. |
 
@@ -122,4 +122,6 @@ mockitdown elements sapui5 --markdown > sapui5-elements.md
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.9 | 2026-11-25 | as built: --windowed (R-DEV-010.C4) (#13) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

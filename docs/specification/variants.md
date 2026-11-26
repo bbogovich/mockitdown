@@ -162,7 +162,7 @@ Automated by `test_coverage`, `test_layout` and `test_options_are_known` in `pyt
 | C3 | The expected HTML MUST be produced by the Python renderer, by `python/tools/gen_conformance.py`. |
 | C4 | `gen_conformance.py --check` MUST fail when an expected file differs from what the Python renderer now produces. |
 | C5 | Each variant's test suite MUST render every case and fail on any difference from the expected HTML. |
-| C6 | Each `<name>.json` MUST be a JSON object holding only render options — `pack`, `default_pack`, `device`, `default_device`, `appearance`, `default_appearance`, `chrome`, `title`, `id`, `window`, `url` (strings), `width`, `height` (integers), `caption`, `elements`, `source`, `show_warnings` (booleans) — with every absent key taking its default. |
+| C6 | Each `<name>.json` MUST be a JSON object holding only render options — `pack`, `default_pack`, `device`, `default_device`, `appearance`, `default_appearance`, `chrome`, `title`, `id`, `window`, `url` (strings), `width`, `height` (integers), `caption`, `elements`, `source`, `show_warnings`, `windowed` (booleans) — with every absent key taking its default. |
 | C7 | Each case MUST have `<name>.diag.json`, an object `{"packs": [id, …], "diagnostics": [{"severity", "code", "message", "line", "col", "source"}, …]}` holding the render's pack lineage and its diagnostics in order, and each variant's test suite MUST fail when its result differs from it. |
 | C8 | `<name>.html` MUST be the rendered HTML followed by one line feed. |
 | C9 | A case MUST be rendered with no source path, no asset or pack search paths and the single import search path `.` resolved against `shared/conformance/`; component files the cases import MUST lie under `shared/conformance/components/`. |

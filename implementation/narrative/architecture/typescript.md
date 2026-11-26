@@ -105,8 +105,10 @@ normalised path as source (C11). Parses are cached by path and text.
 ## Rendering
 
 `render(source, options)` evaluates, then `renderScreen` assembles the figure exactly as the Python
-`render_screen`: device and size, appearance, chrome, title and caption, the anchor prefix, the views
-through `Renderer`, overlays, the Elements table and the error box in front (`errorHtml`).
+`render_screen`: device and size, appearance, chrome, title and caption, `windowed` and the macOS
+title bar mode (`titlebarMode`, `titleToolbar`, R-DEV-010), the anchor prefix, the views through
+`Renderer`, overlays, the Elements table and the error box in front (`errorHtml`). `windowed` is a
+`FENCE_OPTIONS` entry, so the `mockitdown-mockup` element observes it as an attribute.
 
 ```mermaid
 flowchart LR
@@ -169,3 +171,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.4 | 2026-11-25 | Page written: package, core modules, assets as data, imports, registry (#3) |
 | 0.3.5 | 2026-11-25 | Renderer, styles, charts, chrome, icons, assets by base URL, number formatting; `render`, `check` (#4) |
 | 0.3.6 | 2026-11-25 | `elements/assets.ts`: `loadAssetsFromUrl`, the browser asset loader (#5) |
+| 0.3.14 | 2026-11-25 | `windowed` option and attribute, `titlebarMode` (#13) |

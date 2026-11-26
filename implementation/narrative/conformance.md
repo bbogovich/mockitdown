@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.13
+impl_version: 0.3.14
 status: draft
 updated: 2026-11-25
 page_id: IMPL.CONF
@@ -47,7 +47,7 @@ repository path.
 | `pack-<id>-own-<n>` | 260 | each listed pack's own elements, twelve per case, device `fit` |
 | `appearance-` | 8 | light, dark, auto, both; from `@Screen`; option over `@Screen`; default |
 | `device-` | 12 | the six sizes, `fit`, from `@Screen`, default, pack default, width/height |
-| `chrome-` | 15 | every chrome kind, auto per pack, browser url, `@Screen`, window |
+| `chrome-` | 28 | every chrome kind, auto per pack, browser url, `@Screen`, window; SwiftUI split view at phone, tablet and desktop, `windowed` (option, `@Screen`, ignored on a Mac with its warning), the macOS title bar modes (stack, plain root with toolbar, sidebar-adaptable tabs, plain, base pack), a split column toolbar, Form automatic on a Mac |
 | `option-` | 9 | title, id, caption, elements table, source, pack and default pack |
 | `import-` | 8 | `import <Module>`, component files, nested imports, inline structs |
 | `annotate-` | 21 | callouts, pointers, marquee, highlight, tap, free marks, position, in dialog |
@@ -94,3 +94,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.10 | 2026-11-25 | `shape-` area; chart cases from values and without data (#9) |
 | 0.3.12 | 2026-11-25 | `control-` area (#11) |
 | 0.3.13 | 2026-11-25 | `present-` area (#12) |
+| 0.3.14 | 2026-11-25 | SwiftUI platform `chrome-` cases, the `windowed` option key (#13) |

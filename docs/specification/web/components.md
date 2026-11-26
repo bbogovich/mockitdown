@@ -142,7 +142,7 @@ Automated by `typescript/tests/browser/mockup.spec.mjs`: a page with one invalid
 |---|---|
 | C1 | Loading the package entry `dist/mockitdown.js` MUST define the custom element `mockitdown-mockup`, and every custom element of the package MUST have a tag beginning with `mockitdown-`. |
 | C2 | The mockup element MUST take its code from its first child `<script type="text/mockitdown">`, with a first line and a last line holding only whitespace dropped and the common leading indentation of the remaining lines removed; other children MUST be ignored. |
-| C3 | The mockup element MUST accept the fence attributes of R-MDX-003 as HTML attributes with the same names and meanings (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`, `width`, `height`, `caption`, `elements`, `source`, and `window`, which the fence also accepts), plus `import-base` and `asset-base` (URLs, default: the document's base URL). |
+| C3 | The mockup element MUST accept the fence attributes of R-MDX-003 as HTML attributes with the same names and meanings (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`, `width`, `height`, `caption`, `elements`, `source`, `window` and `windowed`, which the fence also accepts), plus `import-base` and `asset-base` (URLs, default: the document's base URL). |
 | C4 | The mockup element MUST render into an open shadow root holding the stylesheet for the packs used and the rendered HTML. |
 | C5 | The mockup element MUST re-render when an observed attribute changes or the script's text changes. |
 | C6 | When rendering produces diagnostics, the mockup element MUST show them as the Python variant's error box does and MUST dispatch a bubbling, composed `mockitdown-diagnostics` event whose `detail.diagnostics` lists them. |

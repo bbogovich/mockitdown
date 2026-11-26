@@ -1,6 +1,6 @@
 ---
 title: Packs
-impl_version: 0.3.13
+impl_version: 0.3.14
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKS
@@ -9,7 +9,7 @@ page_id: IMPL.PACKS
 # Packs
 
 Realizes **A-PACK-1** (registry) and **A-PACK-2** (built-in packs); requirements R-PACK-001 –
-R-PACK-009, R-PACK-014 and R-PACK-015.
+R-PACK-009, R-PACK-014, R-PACK-015 and R-DEV-010.
 
 ## `PackRegistry` — `packs/__init__.py`
 
@@ -70,7 +70,31 @@ The presentation and navigation blocks of the SwiftUI `pack.css` draw:
 | TabView | at `fit` the bar is static below the panel (content never under it); `.page` dots without a capsule; `.sidebarAdaptable` on tablet and desktop: the bar as a sidebar column of rows |
 | NavigationSplitView | sidebar 320 (220 on desktop) on `sidebar-bg` with hairlines; column titles (large, inline on the detail); `.prominentDetail` floats the sidebar as a glass panel; at `fit` at least 640 × 360 and bleeding over the fit padding |
 
-The macOS floating sidebar of R-DEV-010.C3 is left to #13: it styles `.mkd-frame[data-chrome="macos"] .mkd-split__col[data-col="sidebar"]` (the existing desktop rules round and inset the column) and its `.mkd-split__header`.
+## SwiftUI platform chrome — `shared/packs/{base,swiftui}/pack.css` (R-DEV-010)
+
+The base pack carries the chrome geometry every pack gets with that chrome; the SwiftUI pack adds the
+Liquid Glass look and its containers' adaptations (the "Multi-platform chrome" block at the end of its
+`pack.css`). Tokens: `window-radius` (16 px), `window-shadow`, `wallpaper` (a light and a dark gradient).
+
+| Frame | Base | SwiftUI |
+|---|---|---|
+| `[data-chrome="macos"]` | `--mkd-window-radius` (16 px) corners, `--mkd-window-shadow` | no border; 32-point title bar |
+| `[data-titlebar="unified"]` | title bar absolute over the screen (52 px, lights only, z-index 30); the root navigation bar, split view's first column and tab bar make room for the lights | the navigation bar's large title moved past the lights |
+| `[data-titlebar="toolbar"]` | a 52-point title bar: lights, leading items, title, spacer, trailing items | 15-point bold title on the window background |
+| `[data-windowed="true"]` | wallpaper on the frame; status bar and home indicator over it in white; the screen inset (10/28/4 px) with 26-pixel corners and the window shadow; `.mkd-chrome--lights` at the window's top leading corner | the toggle beside the lights, the sidebar's top padding |
+| `[data-device^="phone"]` | — | the split view collapsed: the other columns hidden, the sidebar a grouped list with chevrons, no selection; the frame on the grouped background |
+
+Split view sidebars: with `macos` chrome an 8-pixel inset, 12-pixel-corner panel on `sidebar-bg`, 44
+pixels of top padding under the lights, its title hidden and, when no other column has a title, placed
+in the toolbar row beside it (`:has()`); the toggle at the sidebar's trailing end of the toolbar row;
+the other columns' headers leading, 52 pixels. With `ipados` chrome an 8-pixel inset, 26-pixel-corner
+glass panel with the toggle as a 40-pixel glass circle at its top leading corner and the large title
+below. `.prominentDetail` keeps the floating overlay on both, the macOS detail toolbar shifted past
+the sidebar. `TabView(.sidebarAdaptable)` floats its sidebar the same way. Toolbars (`.mkd-navbar__leading`,
+`.mkd-navbar__trailing`, `.mkd-split__toolbar`, `.mkd-chrome__toolbar`) with `macos`/`ipados` chrome:
+one glass capsule, icon-only buttons (the label hidden when the button has an icon). `Form` defaults
+to `.automatic`: on `desktop` and `wide` frames the `.columns` rules apply to it (the selectors read
+`:is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"])`).
 
 ## The contract tests — `tests/test_packs.py`
 
@@ -95,3 +119,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 | 0.3.2 | 2026-11-25 | Packs live in shared/packs and are copied into the package at build (#1) |
 | 0.3.12 | 2026-11-25 | SwiftUI control styles (R-PACK-014) (#11) |
 | 0.3.13 | 2026-11-25 | SwiftUI presentations and navigation (R-PACK-015) (#12) |
+| 0.3.14 | 2026-11-25 | SwiftUI platform chrome (R-DEV-010) (#13) |
