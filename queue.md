@@ -139,12 +139,12 @@ entries:
   - seq: 16
     issue: 16
     action: implement
-    state: in-progress
+    state: done
     run: vibe-20261125-175414
     queued: 2026-11-25T22:54:05Z
     queued-by: agent:claude
     started: 2026-11-26T02:02:32Z
-    finished:
+    finished: 2026-11-26T02:20:58Z
 ---
 
 Written only by the issue client. See R-ISSUE-015.
