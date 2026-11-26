@@ -84,7 +84,7 @@ R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host 
 R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
 R-DEV-008 | requirements | active | 0.8.1 r1 | REND.2 | Fit frames: natural width and presentations
 R-DEV-009 | requirements | active | 0.7.0 r0 | REND.2 | The macOS menu bar
-R-DEV-010 | requirements | active | 0.7.0 r0 | REND.2 | Multi-platform chrome for SwiftUI
+R-DEV-010 | requirements | active | 0.8.8 r1 | REND.2 | Multi-platform chrome for SwiftUI
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
 R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
 R-DIAG-003 | requirements | active | 0.8.3 r1 | DIAG.1 | Diagnostic codes
@@ -136,7 +136,7 @@ R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
 R-PACK-012 | requirements | active | 0.8.5 r3 | PACK.1 | Pack reference gallery and site sections
 R-PACK-013 | requirements | active | 0.8.4 r1 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.8.6 r3 | PACK.1 | SwiftUI control styles
-R-PACK-015 | requirements | active | 0.8.7 r3 | PACK.1 | SwiftUI presentations and navigation
+R-PACK-015 | requirements | active | 0.8.8 r4 | PACK.1 | SwiftUI presentations and navigation
 R-REND-001 | requirements | active | 0.2.0 r0 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.2.0 r0 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.2.0 r0 | REND.1 | Attributes on the markup

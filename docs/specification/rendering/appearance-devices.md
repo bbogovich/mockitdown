@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.8.3
+spec_version: 0.8.8
 status: draft
 updated: 2026-11-25
 page_id: REND.2
@@ -264,7 +264,7 @@ its platform's chrome, and the shared containers adapt as SwiftUI adapts them.
 
 **R-DEV-010.TC-1 — Chrome per form**
 
-Python and TypeScript render tests: the V1 source at phone, tablet and desktop; assert `data-chrome` ios/ipados/macos, the floating sidebar markup at desktop and the collapsed stack at phone; browser screenshot reviewed manually (TC-M1).
+Python and TypeScript render tests: the V1 source at phone, tablet and desktop; assert `data-chrome` ios/ipados/macos, the floating sidebar at desktop and tablet (C6) and the collapsed stack at phone; browser screenshot reviewed manually (TC-M1).
 
 **R-DEV-010.TC-2 — Windowed iPad app**
 
@@ -283,6 +283,7 @@ TC-M: compare phone, tablet and desktop renders with iOS 26, iPadOS 26 and macOS
 | C3 | With `macos` chrome, a `NavigationSplitView`'s sidebar MUST be drawn as the macOS 26 floating sidebar (an inset rounded translucent panel running under the title bar, the traffic lights over it) with a sidebar toggle button in the toolbar. |
 | C4 | The render option `windowed` (fence attribute, `@Screen(windowed:)`) with `ipados` chrome MUST draw an iPadOS 26 app window — rounded corners, traffic lights at its top leading corner — over a wallpaper, inset from the frame. |
 | C5 | The `swiftui` pack SHOULD adapt shared elements to the form: `NavigationSplitView` collapses to its sidebar in a `NavigationStack` on a phone; `TabView(.sidebarAdaptable)` shows a sidebar on tablet and desktop; `Form` (automatic) uses the grouped style on phone and tablet and the columns style on desktop. |
+| C6 | With `ipados` chrome, a `NavigationSplitView`'s sidebar MUST be drawn as the iPadOS 26 floating sidebar: an inset, rounded Liquid Glass panel over the detail's background, with the sidebar's title and rows inside it and a sidebar toggle button in the toolbar. |
 | V1 | The same `NavigationSplitView` source renders with an iOS status bar at `phone`, an iPadOS status bar at `tablet` and a macOS window with a floating sidebar at `desktop`. |
 
 ---
@@ -339,14 +340,16 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
-| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
-| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; New R-DEV-010: Multi-platform chrome for SwiftUI; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.7
+spec_version: 0.8.8
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -409,7 +409,7 @@ TC-M: compare the gallery cards with Apple's iOS 26 and macOS 26 HIG screenshots
 | C4 | A `Sheet` MUST render from the bottom with rounded top corners, a grabber, its content and the dimmed screen above it (R-DEV-008.C4, C9). |
 | C5 | A `Tab` alone MUST render as one item of a tab bar (icon over label, selected tint) inside the tab bar capsule; inside a `TabView` it is one of its tabs. |
 | C6 | A `TabView` MUST render its selected tab's content above a floating Liquid Glass capsule tab bar with icon-over-label items and a highlight pill on the selected item, and the content MUST NOT extend under the bar at `fit`; `.page` MUST render the content with page indicator dots below it and no tab bar; `.sidebarAdaptable` MUST render as `.automatic` on a phone and as a sidebar list of the tabs on tablet and desktop; `.tabBarOnly` as `.automatic`. |
-| C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet and at `fit`, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; a column's title is the `.navigationTitle` of its content unless the column is a `NavigationStack`, which draws its own bar; `.balanced` MUST share the width between the columns side by side (as `.automatic`) and `.prominentDetail` MUST keep the detail at full width with the sidebar floating over it; with `macos` chrome it MUST follow R-DEV-010.C3. |
+| C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet and at `fit`, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines at `fit` and with `ios` chrome; a column's title is the `.navigationTitle` of its content unless the column is a `NavigationStack`, which draws its own bar; `.balanced` MUST share the width between the columns side by side (as `.automatic`) and `.prominentDetail` MUST keep the detail at full width with the sidebar floating over it; with `macos` or `ipados` chrome it MUST follow R-DEV-010.C3 and C6. |
 | C8 | At `fit` with no device, `NavigationSplitView` MUST render at least 640 × 360 points so that its columns are visible. |
 | C9 | In every pack, a dialog whose variant is `alert` or `action-sheet` and that has no `actions:` MUST render its `Button` children as its actions, in order and with their roles, and its other children in its body. |
 | C10 | In every pack, a dialog of variant `popover` written on its own MUST render a placeholder anchor button above its surface; a pack other than `swiftui` MAY omit the arrow. |
@@ -562,6 +562,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |
 | 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |
 | 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |
 | 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
@@ -573,6 +574,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |
 | 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |
 | 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
 | 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
