@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.8.9
+spec_version: 0.8.10
 status: draft
 updated: 2026-11-25
 page_id: REND.2
@@ -250,7 +250,7 @@ Python and TypeScript render tests (conformance cases added to `shared/conforman
 | C6 | Without `.commands`, and around its additions, the menu bar MUST show the standard menus App, File, Edit, View, Window and Help with macOS's standard items for each placement (for example File: New ⌘N, Open… ⌘O, Close ⌘W, Save ⌘S; Edit: Undo ⌘Z, Redo ⇧⌘Z, Cut ⌘X, Copy ⌘C, Paste ⌘V, Select All ⌘A; App: About <App>, Settings… ⌘,, Hide <App> ⌘H, Quit <App> ⌘Q). |
 | C7 | An open menu MUST be drawn as a dropdown under its title (the title highlighted), overlapping the window, as a translucent rounded panel holding one row per item: `Button` (title; `.keyboardShortcut("k", modifiers: …)` drawn right-aligned as ⌃⌥⇧⌘ glyphs then the key, default modifier ⌘), `Divider` (separator), `Menu` (submenu: title and a trailing chevron), `Toggle` (checkmark when on), and `.disabled(true)` items greyed. |
 | C8 | A `CommandMenu` or `Menu` inside `.commands` MAY carry `.open()` (or `isPresented: true`), which opens it like naming it in `menubar`; at most one menu bar menu MUST be drawn open (the first). |
-| C9 | The menu bar MUST be part of the frame's height: at a fixed device the window MUST fill the frame below it. |
+| C9 | The menu bar MUST be part of the frame's height: at a fixed device the window MUST fill the frame below it, keeping its macOS 26 window form (R-DEV-010.C2: rounded corners, shadow, traffic lights, unified title bar) under the bar rather than on the frame's own edge. |
 | V1 | `menubar="File"` on a desktop SwiftUI mockup with `.commands { CommandMenu("Shapes") { Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command]) } }` renders the bar with App…File, Edit, View, Shapes, Window, Help, the clock, and an open File menu whose first row is New with ⌘N. |
 
 ---
@@ -359,18 +359,20 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.10 | 2026-11-25 | re-based on R-DEV-010@0.8.9: the window keeps its form below the menu bar |
 | 0.8.9 | 2026-11-25 | as built: unified title bar rules (C7, C13), icon-only toolbar buttons sharing a glass capsule (C8, C14), macOS sidebar toggle and titles in the toolbar row (C9, C15, C16), windowed ignored without iPadOS chrome (C10), iPad toggle (C11), split column toolbar (C12), windowed on CLI and element (C4) (#13); as built: ipados draws a home indicator; macos title bar unified per R-DEV-010 (#13) |
 | 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
-| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.9 | 2026-11-25 | as built: unified title bar rules (C7, C13), icon-only toolbar buttons sharing a glass capsule (C8, C14), macOS sidebar toggle and titles in the toolbar row (C9, C15, C16), windowed ignored without iPadOS chrome (C10), iPad toggle (C11), split column toolbar (C12), windowed on CLI and element (C4) (#13); as built: ipados draws a home indicator; macos title bar unified per R-DEV-010 (#13) |
 | 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
-| 0.7.0 | 2026-11-25 | New R-DEV-009: The macOS menu bar; SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
+| 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -83,7 +83,7 @@ R-DEV-005 | requirements | active | 0.8.9 r1 | REND.2 | Device chrome
 R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host page
 R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
 R-DEV-008 | requirements | active | 0.8.1 r1 | REND.2 | Fit frames: natural width and presentations
-R-DEV-009 | requirements | active | 0.7.0 r0 | REND.2 | The macOS menu bar
+R-DEV-009 | requirements | active | 0.8.10 r1 | REND.2 | The macOS menu bar
 R-DEV-010 | requirements | active | 0.8.9 r2 | REND.2 | Multi-platform chrome for SwiftUI
 R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
 R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
