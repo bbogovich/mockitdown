@@ -145,6 +145,15 @@ entries:
     queued-by: agent:claude
     started: 2026-11-26T02:02:32Z
     finished: 2026-11-26T02:20:58Z
+  - seq: 17
+    issue: 17
+    action: implement
+    state: planned
+    run:
+    queued: 2026-11-26T20:40:21Z
+    queued-by: agent:claude
+    started:
+    finished:
 ---
 
 Written only by the issue client. See R-ISSUE-015.
