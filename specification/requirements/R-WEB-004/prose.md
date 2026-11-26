@@ -24,3 +24,10 @@ history entry (Back returns to the previous pack); a tab change replaces the cur
 client, admin console, kanban board, chat, product page, calendar) are desktop layouts: their index entries name
 `device: "desktop"`, so the phone-first packs (`swiftui`, `android`) show them in their desktop form rather than squeezed
 onto a phone.
+
+**Show source (SRC-11).** Every example has a Show source button. The block it opens is the snippet a
+reader would paste into a page to get the same example in the same pack: the `mockitdown-mockup` tag
+with `pack` (and, for the platform examples, `device`, `chrome`, `menubar`, `app`, `windowed`) around a
+`<script type="text/mockitdown">` child holding the pattern file verbatim. Attributes that only serve the
+gallery (`caption`, `label`, `appearance`) are left out. The block has a Copy button and scrolls sideways
+for long lines; opening it never re-renders the example.

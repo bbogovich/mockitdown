@@ -76,6 +76,13 @@ client, admin console, kanban board, chat, product page, calendar) are desktop l
 `device: "desktop"`, so the phone-first packs (`swiftui`, `android`) show them in their desktop form rather than squeezed
 onto a phone.
 
+**Show source (SRC-11).** Every example has a Show source button. The block it opens is the snippet a
+reader would paste into a page to get the same example in the same pack: the `mockitdown-mockup` tag
+with `pack` (and, for the platform examples, `device`, `chrome`, `menubar`, `app`, `windowed`) around a
+`<script type="text/mockitdown">` child holding the pattern file verbatim. Attributes that only serve the
+gallery (`caption`, `label`, `appearance`) are left out. The block has a Copy button and scrolls sideways
+for long lines; opening it never re-renders the example.
+
 **R-WEB-004.TC-1 — Every pack renders**
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
@@ -103,6 +110,29 @@ Automated by `typescript/tests/browser/gallery.spec.mjs`: opening `packs.html#pa
 **R-WEB-004.TC-7 — Complex layout examples render everywhere**
 
 `patterns.test.ts` and `test_patterns.py`: each of the twelve core patterns renders in every shipped pack without an error diagnostic; the gallery geometry checks (TC-4) apply to them at their device size.
+
+**R-WEB-004.TC-8 — Show source on every example**
+
+Browser test (Chromium, `gallery.spec.mjs`), for the `base` pack (core patterns) and for `swiftui`
+(including the Mac example with `device`, `chrome`, `menubar` and `app`):
+
+1. On the Examples tab every `.pattern` has one Show source button with `aria-expanded="false"`, and its
+   source block is hidden.
+2. Activating the button of each example sets `aria-expanded="true"`, the label to Hide source, and shows
+   the block; the block's text equals `packGallery.source(id)`, which equals the expected snippet built
+   from `shared/patterns/index.json` and the pattern file (C22 attribute order, file text unchanged, no
+   `caption`, `label` or `appearance`).
+3. The example's `mockitdown-mockup` is the same element before and after, its `rendered` event does not
+   fire again and its bounding box is unchanged (C25).
+4. The block's computed `white-space` keeps line breaks and its `overflow-x` scrolls; its colours differ
+   between light and dark appearance (C23).
+5. With a stubbed clipboard, Copy writes exactly the snippet and the live region reads Copied; with the
+   clipboard removed, Copy selects the block's text (C24).
+6. Activating the button again hides the block and restores `aria-expanded="false"`.
+7. `packGallery.source(id)` resolves `null` for a swiftui-only example while `base` is selected (C26).
+
+A unit test of the snippet builder (pure function, both a core and a pack-specific entry) runs under
+`npm test` without a browser.
 
 **R-WEB-004.TC-M1 — Manual review**
 
@@ -132,6 +162,12 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 | C18 | `window.packGallery` MUST also offer `tab(name)`, which selects a tab and resolves when its content is shown; `renderAll()` MUST render both tabs' mockups. |
 | C19 | `shared/patterns/` MUST hold, in addition to the six patterns of C3, at least these complex layouts in the core vocabulary: a three-pane mail client (folder sidebar, message list, reading pane), an admin console (sidebar navigation, header with search and avatar, KPI cards, chart and table), a kanban board (columns of cards), a chat application (conversation list, message thread with bubbles, composer), a product page (gallery, details, options, purchase panel, reviews) and a calendar or scheduler (week grid with events and a side panel). |
 | C20 | The Examples tab MUST list the examples in the order of `shared/patterns/index.json`, with an in-tab index linking to each example. |
+| C21 | Each example of the Examples tab MUST have a Show source toggle button, with `aria-expanded` and `aria-controls`, that shows or hides a source block below the example's mockup; the source block MUST be hidden by default and the button's label MUST read Hide source while it is shown. |
+| C22 | The source block MUST show the snippet that reproduces the example in the selected pack: a `<mockitdown-mockup>` opening tag carrying `pack` and every attribute the gallery passes from the index entry (C14), in the order `pack`, `device`, `chrome`, `menubar`, `app`, `windowed`, then a `<script type="text/mockitdown">` child (R-WEB-002) holding the pattern file's text unchanged (its indentation and line breaks kept, without a trailing newline), then the closing tags; the gallery-only attributes `caption`, `label` and `appearance` MUST NOT appear. |
+| C23 | The source block MUST be monospaced, keep its line breaks, scroll horizontally rather than wrap, and follow the page's light or dark appearance. |
+| C24 | The source block MUST have a Copy button that writes the snippet to the clipboard and announces Copied through a polite live region; where the clipboard is unavailable it MUST select the snippet's text instead. |
+| C25 | Showing or hiding an example's source MUST NOT re-create, re-render or resize that example's mockup. |
+| C26 | `window.packGallery` MUST offer `source(patternId)`, which resolves with the snippet of C22 for that example in the selected pack, or `null` when the selected pack does not show that example. |
 | V1 | The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing. |
 
 ---

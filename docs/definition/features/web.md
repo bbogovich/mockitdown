@@ -71,6 +71,10 @@ so each is seen whole; multi-platform packs show an example application per plat
 
 **Tabs and complex examples (SRC-10).** A pack has around a hundred element cards; the examples sat below all of them. Elements and examples now have their own tabs, and the examples grow to complex application layouts.
 
+**Show source (SRC-11).** Each design example can reveal the source that builds it — the pattern
+file wrapped in the `mockitdown-mockup` tag with the attributes the gallery passes for the selected
+pack — so a reader learns the vocabulary from working layouts and can copy one as a starting point.
+
 **F-18.UC-1 — Review a pack in the browser**
 
 **Actor:** developer or reviewer.
@@ -89,6 +93,20 @@ so each is seen whole; multi-platform packs show an example application per plat
 
 **Outcome:** each element card shows a meaningful sample and its variants without overlap; the
 examples show an iPhone app, an iPad app and a Mac app with its menu bar.
+
+**F-18.UC-3 — Learn how a design example is built**
+
+**Actor:** developer or designer writing their own mockup.
+
+**Precondition:** the pack gallery is open on a pack's Examples tab.
+
+1. The reader chooses an example (for example the mail client) and selects its Show source button.
+2. The gallery shows, under the example, the source that produces it in the selected pack.
+3. The reader copies the source, or reads how the regions are composed.
+4. The reader selects the button again; the source is hidden.
+
+**Outcome:** the reader has the exact source of the example as rendered in that pack, and the example
+itself did not change while they looked.
 
 ### F-19 — Visual mockup editing components
 

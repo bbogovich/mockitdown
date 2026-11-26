@@ -2,14 +2,14 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.7.0
-rev: 2
+version: 0.8.0
+rev: 3
 page: FEAT.3
 slot: features
 order: 3
-hash: c0294cd2fcfc
+hash: 11557e161429
 family: web
-source: [SRC-8, SRC-9, SRC-10]
+source: [SRC-8, SRC-9, SRC-10, SRC-11]
 requires: [F-17]
 ---
 
@@ -21,6 +21,7 @@ C4: The page is served for manual review by a development server built on Node's
 C5: Automated browser tests open the page, select each pack and fail on any diagnostic or missing render.
 C9: The selected pack's content is split into tabs — its elements and its design examples — so that the examples are reached in one step, without scrolling past every element.
 C10: The design examples include complex application layouts beyond single forms: multi-pane workspaces, dashboards with navigation, boards, messaging, commerce and scheduling screens.
+C11: Each design example offers a show-source option that reveals the mockitdown source of that example, as it would be written to reproduce it in the selected pack, so that a reader can see how the example is constructed and copy it.
 AC1: Every listed, non-hidden pack can be selected in the side panel, and selecting it shows its elements and patterns.
 AC2: Every element of every pack renders on the page without a diagnostic.
 AC3: `npm test` runs the browser tests against the served page.
@@ -32,3 +33,4 @@ AC5: The SwiftUI pack's examples include at least one phone, one tablet and one 
 AC6: The browser tests fail when any two variant cells of an element card overlap.
 AC7: Opening a pack's Examples tab shows its first design example without scrolling, and a link can open a pack directly on that tab.
 AC8: The design examples number at least twelve, at least six of them complex multi-region layouts.
+AC9: From any design example a reader can reveal its source in one step, see the exact source and attributes that produce the example in the selected pack, copy it, and hide it again without the example changing.

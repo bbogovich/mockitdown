@@ -7,3 +7,7 @@ said nothing about the element. Packs can name a sample per element; the gallery
 so each is seen whole; multi-platform packs show an example application per platform.
 
 **Tabs and complex examples (SRC-10).** A pack has around a hundred element cards; the examples sat below all of them. Elements and examples now have their own tabs, and the examples grow to complex application layouts.
+
+**Show source (SRC-11).** Each design example can reveal the source that builds it — the pattern
+file wrapped in the `mockitdown-mockup` tag with the attributes the gallery passes for the selected
+pack — so a reader learns the vocabulary from working layouts and can copy one as a starting point.

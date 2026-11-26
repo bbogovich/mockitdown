@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.9.0 | 2026-11-26 | `WEB.2` | show source on gallery examples (SRC-11) |
 | 0.8.14 | 2026-11-25 | `WEB.2` | R-WEB-004 clarified as built: the design patterns in the Examples tab (C3), an index entry's device and chrome over the pack defaults (C9) (#16) |
 | 0.8.13 | 2026-11-25 | `PACK.1` | as built in #15: a selected Table row stays accent over the Mac's row stripes (R-PACK-014.C14) |
 | 0.8.12 | 2026-11-25 | `WEB.2` | R-WEB-004 re-based on R-WEB-002 (windowed, menubar attributes) |

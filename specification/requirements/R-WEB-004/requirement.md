@@ -2,13 +2,13 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.8.14
-rev: 5
+version: 0.9.0
+rev: 6
 page: WEB.2
 slot: reqs
 order: 2
-hash: f0f9ce1532cf
-source: [SRC-8, SRC-9, SRC-10]
+hash: b42b06e4f3a7
+source: [SRC-8, SRC-9, SRC-10, SRC-11]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
 refs: [R-DEV-008, R-PACK-012, R-WEB-002]
@@ -34,4 +34,10 @@ C17: The selected tab MUST be reflected in the fragment as `#pack=<id>&tab=eleme
 C18: `window.packGallery` MUST also offer `tab(name)`, which selects a tab and resolves when its content is shown; `renderAll()` MUST render both tabs' mockups.
 C19: `shared/patterns/` MUST hold, in addition to the six patterns of C3, at least these complex layouts in the core vocabulary: a three-pane mail client (folder sidebar, message list, reading pane), an admin console (sidebar navigation, header with search and avatar, KPI cards, chart and table), a kanban board (columns of cards), a chat application (conversation list, message thread with bubbles, composer), a product page (gallery, details, options, purchase panel, reviews) and a calendar or scheduler (week grid with events and a side panel).
 C20: The Examples tab MUST list the examples in the order of `shared/patterns/index.json`, with an in-tab index linking to each example.
+C21: Each example of the Examples tab MUST have a Show source toggle button, with `aria-expanded` and `aria-controls`, that shows or hides a source block below the example's mockup; the source block MUST be hidden by default and the button's label MUST read Hide source while it is shown.
+C22: The source block MUST show the snippet that reproduces the example in the selected pack: a `<mockitdown-mockup>` opening tag carrying `pack` and every attribute the gallery passes from the index entry (C14), in the order `pack`, `device`, `chrome`, `menubar`, `app`, `windowed`, then a `<script type="text/mockitdown">` child (R-WEB-002) holding the pattern file's text unchanged (its indentation and line breaks kept, without a trailing newline), then the closing tags; the gallery-only attributes `caption`, `label` and `appearance` MUST NOT appear.
+C23: The source block MUST be monospaced, keep its line breaks, scroll horizontally rather than wrap, and follow the page's light or dark appearance.
+C24: The source block MUST have a Copy button that writes the snippet to the clipboard and announces Copied through a polite live region; where the clipboard is unavailable it MUST select the snippet's text instead.
+C25: Showing or hiding an example's source MUST NOT re-create, re-render or resize that example's mockup.
+C26: `window.packGallery` MUST offer `source(patternId)`, which resolves with the snippet of C22 for that example in the selected pack, or `null` when the selected pack does not show that example.
 V1: The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing.

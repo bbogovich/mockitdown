@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.0 | 2026-11-26 | `FEAT.3` | show source on gallery examples (SRC-11) |
 | 0.7.0 | 2026-11-25 | `FEAT.3` | SRC-10: gallery tabs and complex examples |
 | 0.6.0 | 2026-11-25 | `FEAT.1`, `FEAT.2`, `FEAT.3` | SRC-9: SwiftUI fidelity, layout without overlap, multi-platform chrome and the macOS menu bar, meaningful gallery samples |
 | 0.5.0 | 2026-11-25 | `FEAT.3` | F-16–F-20: shared language and packs for two variants, web mockup element, web pack gallery, visual editing components, infinite canvas (SRC-8) |
