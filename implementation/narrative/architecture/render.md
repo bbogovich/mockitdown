@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.10
+impl_version: 0.3.12
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REND
@@ -128,6 +128,29 @@ axes or grid with no data. `r_chart` warns `"<Element> has no data"` with code `
 `has_data` is false. A bubble's radius is `17 * sqrt(size / max size)`, so areas are proportional
 (C10). Candle bodies carry `class="mkd-chart__candle"`.
 
+## SwiftUI control markup — `r_select`, `r_datepicker`, `r_progress`, `r_toolbar`, `r_list` (R-PACK-014)
+
+Both renderers (`render/html.py`, `typescript/src/core/render/html.ts`) add markup keyed on the
+SwiftUI style names, which no other pack uses:
+
+- `r_select`: options come from children of the option roles or any child with a `tag`
+  (`_options`, `_option_tags`); a selection matching a tag selects it; without a selection the
+  one-value styles (`PICKER_FIRST`) show the first option. `.segmented`/`.palette` go to
+  `r_segmented`, `.inline`/`.radioGroup` to `r_radiogroup`, `.wheel` to a `wheel` role root built by
+  `_wheel`; an option style without options falls back to the menu field (label, empty value,
+  up-down chevron).
+- `r_datepicker`: the styles of `DATE_STYLES` go to `_date_style` — default 23 Nov 2026 9:41 AM,
+  `_parse_time` for `T14:05`, `displayedComponents` for the parts; capsules (`data-kind="compact"`),
+  wheel columns, the numeric field (`data-kind="field"`) with a stepper; `.graphical` to
+  `_calendar(v, date)` so the default date is selected (`r_calendar` keeps its own `selection`).
+- `r_progress`: `minimumValueLabel`/`maximumValueLabel` as `__min`/`__max`; `.accessoryCircular`
+  an open arc path (`GAUGE_ARC`, `pathLength="100"`, dash = value × 100); `.accessoryLinear` a
+  `__marker` at the value; `.accessoryCircularCapacity` the closed ring.
+- `r_toolbar`: `.compactMenu`/`.menu` render one `.mkd-toolbar__menu` instead of the children.
+- `r_list`: `selection:` is kept in `list_selection` while the rows render; `_rows` marks the wrapper
+  whose child's tag or text equals it.
+- `r_textfield`: a filled field whose placeholder is its only title carries it as `aria-label`.
+
 ## Style builder — `render/style.py`
 
 `StyleBuilder.build(view)` runs one `_m_<modifier>` handler per recorded modifier and returns
@@ -151,3 +174,4 @@ axes or grid with no data. `r_chart` warns `"<Element> has no data"` with code `
 | 0.3.3 | 2026-11-25 | Portable anchor prefix from pack id and source (#2) |
 | 0.3.9 | 2026-11-25 | Fit frames at natural width, presentations in flow, tooltip anchor/arrow, rows without overlap, message bubbles (#8) |
 | 0.3.10 | 2026-11-25 | Shapes (circle inside its frame, true ellipse) and charts drawn from values, no-data warning (#9) |
+| 0.3.12 | 2026-11-25 | SwiftUI control markup: pickers, date pickers, gauges, control group menus, list selection (#11) |

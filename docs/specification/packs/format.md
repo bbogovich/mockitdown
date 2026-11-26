@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.5
+spec_version: 0.8.6
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -330,9 +330,18 @@ Each style must look like the native style it names (SRC-9, F-3.C7). The clauses
 parts that make each style recognisable; colours, sizes and radii come from the pack's tokens, which
 follow Apple's iOS 26 and macOS 26 design resources.
 
+As built (#11): the styles are CSS in the `swiftui` pack over role markup that both renderers emit.
+Where a style needs parts the generic markup lacks, the renderers draw them for the SwiftUI style names
+only: one menu button for a `.compactMenu`/`.menu` control group, the date and time capsules, the
+`.wheel` columns and the field stepper of a date picker, the open arc of an `.accessoryCircular` gauge,
+the dot of an `.accessoryLinear` gauge and the bounds of any gauge, and the wheel of a picker. A wheel
+shows the selection with two neighbours on each side, the way the iOS wheel shows five rows. A text
+field keeps its title as its accessible name when its text replaces the placeholder, which is what the
+macOS columns form shows as the row's label.
+
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
-Python and TypeScript render tests (conformance cases) per element and variant asserting the listed parts (e.g. graphical DatePicker has 7 weekday cells and one selected day; Picker .segmented has one segment per option; Gauge default is a linear track).
+Python and TypeScript render tests (conformance cases) per element and variant asserting the listed parts (e.g. graphical DatePicker has 7 weekday cells and one selected day; Picker .segmented has one segment per option; Gauge default is a linear track). Implemented as IT-19 (`python/tests/test_swiftui_controls.py` and the `control-*` conformance cases).
 
 **R-PACK-014.TC-M1 — Visual comparison with SwiftUI**
 
@@ -342,14 +351,19 @@ TC-M: open the gallery at `#pack=swiftui`, compare each card with the same contr
 
 | | Statement |
 |---|---|
-| C1 | `ControlGroup` in the `swiftui` pack MUST render `.automatic` as a joined Liquid Glass capsule of its buttons, `.navigation` as a joined capsule of icon-only buttons, `.palette` as a row of borderless icon buttons, and `.compactMenu` and `.menu` as one button (the group's label or an ellipsis glyph; `.menu` with a trailing chevron) that stands for a menu. |
-| C2 | `DatePicker` MUST show a selection even without `selection:` (fixed default 23 Nov 2026, 9:41 AM, for deterministic output); `.automatic`/`.compact` MUST render the label and grey capsules holding the date (`Nov 23, 2026`) and, unless `displayedComponents: .date`, the time; `.graphical` a month calendar (month title with chevrons, weekday initials, a 7-column day grid, the selected day in a filled accent circle) whose width fits its frame; `.wheel` wheel columns with a selection band; `.field` (macOS) a text field `11/23/2026`; `.stepperField` that field with a stepper. |
+| C1 | `ControlGroup` in the `swiftui` pack MUST render `.automatic` as a joined Liquid Glass capsule of its buttons, `.navigation` as a joined capsule of icon-only buttons, `.palette` as a row of borderless icon buttons, and `.compactMenu` and `.menu` as one button (the group's label and `systemImage:`, or an ellipsis glyph; `.menu` with a trailing chevron) that stands for a menu. |
+| C2 | `DatePicker` MUST show a selection even without `selection:` (fixed default 23 Nov 2026, 9:41 AM, for deterministic output); `.automatic`/`.compact` MUST render the label and grey capsules holding the date (`Nov 23, 2026`) and, unless `displayedComponents: .date`, the time; `.graphical` a month calendar (month title with chevrons, weekday initials, a 7-column day grid, the selected day in a filled accent circle) whose width fits its frame; `.wheel` wheel columns with a selection band; `.field` (macOS) a text field `11/23/2026` (followed by `, 9:41 AM` unless `displayedComponents: .date`); `.stepperField` that field with a stepper. |
 | C3 | `Form` MUST render `.automatic` and `.grouped` as inset rounded sections on the grouped background with each row's label leading and control trailing, and `.columns` (macOS) as two columns — trailing-aligned labels, leading-aligned controls — without section backgrounds. |
-| C4 | `Gauge` MUST default to `.automatic` (a linear track with the value filled and its current value, minimum and maximum labels), render `.accessoryCircular` as an open 240° ring with the current value in its centre, `.accessoryCircularCapacity` as a closed ring filled to the value with the value in its centre, `.accessoryLinear` as a thin track with a dot marker at the value, `.accessoryLinearCapacity` as a thicker capsule filled to the value, and `.linearCapacity` as a full-width capsule filled to the value with the label above. |
+| C4 | `Gauge` MUST default to `.automatic` (a linear track with the value filled and its current value, minimum and maximum labels, each label shown when the gauge gives it), render `.accessoryCircular` as an open 240° ring with the current value in its centre, `.accessoryCircularCapacity` as a closed ring filled to the value with the value in its centre, `.accessoryLinear` as a thin track with a dot marker at the value, `.accessoryLinearCapacity` as a thicker capsule filled to the value, and `.linearCapacity` as a full-width capsule filled to the value with the label above. |
 | C5 | `List` MUST render `.insetGrouped` as rounded sections inset 16 points on the grouped background, `.grouped` as full-width sections on the grouped background, `.inset` as rounded inset rows on the plain background, `.plain` as full-width rows with separators inset 16 points, `.sidebar` as a source list (section headers, rows with icons, the selected row an accent-tinted rounded highlight; translucent on macOS), and `.bordered` (macOS) as a bordered box with alternating row backgrounds. |
 | C6 | `Picker` MUST render its options from its children (`Text`, or any view with `.tag`) and mark the `selection:` (default: the first); `.menu`/`.automatic` as the label leading and the selected option with an up-down chevron in the accent colour trailing; `.segmented` as a segmented control of the options; `.inline` as rows with a checkmark on the selected; `.radioGroup` (macOS) as radio buttons; `.wheel` as a wheel with the selection band; `.navigationLink` as a row with the label, the selected option in secondary colour and a chevron; `.palette` as a row of the options with the selected one highlighted. A picker with no options MUST show its label and an empty value, never an empty box. |
 | C7 | `Toggle` MUST render `.automatic`/`.switch` as the label leading and a 51 × 31 switch trailing (green when on), `.button` as a capsule button tinted when on, and `.checkbox` (macOS) as a checkbox followed by the label. |
 | C8 | `Button` variants MUST each keep their natural width (R-REND-013; the joined capsules of C1 are a deliberate overlap under R-REND-013.C5); `.glass` and `.glassProminent` MUST render as Liquid Glass capsules (translucent, light edge, soft shadow; prominent tinted with the accent). |
+| C9 | `displayedComponents: .date` MUST hide a `DatePicker`'s time and `.hourAndMinute` its date; a `selection:` MAY carry a time (`2026-11-23T14:05`), shown in place of 9:41 AM. |
+| C10 | `DatePicker` `.wheel` MUST show one column per part — weekday with month and day, hour, minute and AM/PM for a date and time; month, day and year for a date alone; hour, minute and AM/PM for a time alone — each with up to two neighbours either side of the selection. |
+| C11 | A `Picker` option MAY be any child with `.tag(…)`; a `selection:` matching a tag MUST select that option and show its content. |
+| C12 | `List(selection:)` MUST mark the row whose text or tag equals the selection, and `.sidebar` and `.bordered` MUST draw that row as selected. |
+| C13 | In `Form` `.columns`, a filled `TextField` MUST be labelled by its title (the placeholder argument) in the labels column. |
 | V1 | Each variant of each element above, built from its declared sample (R-PACK-013.C4), renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes. |
 
 ---
@@ -533,6 +547,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |
 | 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
 | 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
 | 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |
@@ -542,6 +557,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
 | 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
 | 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |
 | 0.8.1 | 2026-11-25 | as built (#8): the attrs maps also apply to the parameter receiving a positional argument (C3), so Dialog("Edit") in prime keeps its title |

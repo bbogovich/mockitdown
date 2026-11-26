@@ -1,6 +1,6 @@
 ---
 title: Packs
-impl_version: 0.1.0
+impl_version: 0.3.12
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKS
@@ -9,7 +9,7 @@ page_id: IMPL.PACKS
 # Packs
 
 Realizes **A-PACK-1** (registry) and **A-PACK-2** (built-in packs); requirements R-PACK-001 –
-R-PACK-009.
+R-PACK-009 and R-PACK-014.
 
 ## `PackRegistry` — `packs/__init__.py`
 
@@ -36,6 +36,26 @@ into `python/src/mockitdown/packs/<id>/`, where `BUILTIN_DIR` finds them, and sh
 data (`python/pyproject.toml` `[tool.setuptools.package-data]`: `packs/*/pack.json`,
 `packs/*/pack.css`). Edit `shared/`, then reinstall or run `python/tools/sync_shared.py`.
 
+## SwiftUI control styles — `shared/packs/swiftui/pack.css` (R-PACK-014)
+
+The last block of the SwiftUI `pack.css` styles each control style of R-PACK-014 by `data-el` and
+`data-variant` (one sub-block per element, after the general rules so it takes precedence); the
+`base` `pack.css` holds the structural rules of the parts it needs (`.mkd-wheel`, the gauge bounds and
+marker, the date picker stepper, the control group menu button) so the markup renders in every pack.
+`pack.json` sets the defaults the clauses name — `Gauge` `.automatic`, `ControlGroup` and
+`DatePicker` `.automatic` — maps `.tag(…)` to the `tag` attribute (C11), gives `ControlGroup` a
+`label` parameter and declares the samples (a `Gauge` with bounds, a `List(selection:)`).
+
+| Element | Styles drawn by CSS | Markup from the renderer |
+|---|---|---|
+| ControlGroup | joined glass capsule; icon-only capsule (labels hidden); palette of borderless circles | `.compactMenu`/`.menu`: `.mkd-toolbar__menu` (label and icon, or the ellipsis; chevron for `.menu`) |
+| DatePicker | grey capsules; graphical calendar with filled accent selection, columns ≥ 38 pt; wheel band | date/time capsules, `.mkd-wheel` columns, `11/23/2026, 9:41 AM` field, `.mkd-datepicker__stepper` |
+| Form | inset grouped (existing); `.columns`: a subgrid of trailing labels and leading controls, toggles as checkboxes, a filled text field labelled by `attr(aria-label)` | `aria-label` on a filled `TextField` |
+| Gauge | linear grid (label/value, min/track/max); `.linearCapacity`, `.accessoryLinearCapacity` heights; `.accessoryLinear` gradient track and dot | open 240° arc (`data-open`), `.mkd-progress__marker`, `__min`/`__max` |
+| List | grouped hairlines; inset on `surface-2`; plain separators; sidebar source list (accent selection, macOS translucent with tinted selection); bordered box with alternating rows | `data-selected` on the selected row's wrapper |
+| Picker | label leading and accent value with up-down chevron; inline rows with checkmark; macOS radio group; palette highlight | `.mkd-wheel` (role `wheel`), palette through `r_segmented`, first option by default, tagged options |
+| Toggle, Button | 51 × 31 switch, tinted button, checkbox; translucent glass capsules with a light edge | — |
+
 ## The contract tests — `tests/test_packs.py`
 
 | Test | Checks |
@@ -57,3 +77,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.2 | 2026-11-25 | Packs live in shared/packs and are copied into the package at build (#1) |
+| 0.3.12 | 2026-11-25 | SwiftUI control styles (R-PACK-014) (#11) |

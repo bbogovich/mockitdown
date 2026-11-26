@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.6 | 2026-11-25 | `PACK.1` | R-PACK-014 as built in #11: menu group label and icon, field time, gauge labels when given; date components, wheel columns, tagged picker options, List selection, columns text field titles (C9-C13) |
 | 0.8.5 | 2026-11-25 | `PACK.1` | R-PACK-012/014/015 clarified against R-PACK-013 as built in #10 |
 | 0.8.4 | 2026-11-25 | `PACK.1` | R-PACK-013 as built: declared samples of elements with variants, inheritance, generic sample content (#10) |
 | 0.8.3 | 2026-11-25 | `DIAG.1`, `REND.1`, `REND.2` | as built in #9: shape framing (R-REND-014.C5, C6), charts from series, gauge and bubble areas (R-REND-012.C8-C10), diagnostic code chart (R-DIAG-003) |

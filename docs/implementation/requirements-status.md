@@ -10,7 +10,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 |---|---|---|---|---|---|
 | [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
 
-## Not started (90)
+## Not started (89)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -90,9 +90,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-008 | Shipped packs | — | 0.5.0 |  |  |
 | R-PACK-009 | The core vocabulary | — | 0.2.0 |  |  |
 | R-PACK-010 | Hidden packs | — | 0.3.0 |  |  |
-| R-PACK-012 | Pack reference gallery and site sections | — | 0.5.0 |  |  |
-| R-PACK-014 | SwiftUI control styles | — | 0.8.2 |  |  |
-| R-PACK-015 | SwiftUI presentations and navigation | — | 0.8.2 |  |  |
+| R-PACK-012 | Pack reference gallery and site sections | — | 0.8.5 |  |  |
+| R-PACK-015 | SwiftUI presentations and navigation | — | 0.8.5 |  |  |
 | R-REND-001 | Figure structure | — | 0.2.0 |  |  |
 | R-REND-002 | Role markup | — | 0.2.0 |  |  |
 | R-REND-003 | Attributes on the markup | — | 0.2.0 |  |  |
@@ -105,7 +104,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 
-## Implemented (16)
+## Implemented (17)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -114,6 +113,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
+| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.6 | 0.8.6 | 2026-11-25 | #11 |
 | [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-REND-014](../ledger/R-REND-014.md) | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
