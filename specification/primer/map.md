@@ -158,5 +158,5 @@ R-REPO-004 | requirements | active | 0.8.9 r2 | REPO.1 | Conformance corpus
 R-WEB-001 | requirements | active | 0.6.4 r2 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.8.9 r3 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.5 r1 | WEB.2 | Development server
-R-WEB-004 | requirements | active | 0.8.12 r4 | WEB.2 | Pack gallery test page
+R-WEB-004 | requirements | active | 0.8.14 r5 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.6.5 r2 | WEB.2 | Web test suites

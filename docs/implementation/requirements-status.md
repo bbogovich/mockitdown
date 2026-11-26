@@ -118,5 +118,5 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
 | [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
-| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.12 | 0.8.12 | 2026-11-25 | #15 |
+| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.14 | 0.8.14 | 2026-11-25 | #16 |
 | [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |

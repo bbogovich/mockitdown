@@ -56,7 +56,7 @@ over `dist/mockitdown.js` — no framework. The side panel is built from `shared
 and shows each pack's name from its reference file; the main area shows the pack's facts (id,
 version, import modules, default device and chrome, group), its own elements, then the core
 vocabulary, each as a card with the element's sample and, when the pack has variants for it, the
-variants sample. The design patterns follow (sign-in form, list and detail, settings, dashboard with
+variants sample. The Examples tab shows the design patterns (sign-in form, list and detail, settings, dashboard with
 charts, data table with toolbar and filters, wizard): ordinary mockitdown sources without an
 `import`, rendered with `pack="<id>"`, so a phone pack shows them on a phone and a desktop pack in its
 window or browser chrome.
@@ -70,6 +70,11 @@ Open it with `cd typescript && npm run serve`, then `http://127.0.0.1:8173/pages
 **Natural size and per-platform examples (SRC-9).** Cards scroll sideways rather than squeeze their mockups (SRC-9#scroll); multi-platform packs add example applications per platform; the browser tests check geometry, not only the absence of diagnostics.
 
 **Tabs (SRC-10).** Elements and examples are separate tabs so the examples are one click away; six complex layouts join the six simple patterns.
+The tab list stays under the top bar while a tab scrolls, and the name filter belongs to the Elements tab. A pack change is a
+history entry (Back returns to the previous pack); a tab change replaces the current entry. The complex layouts (mail
+client, admin console, kanban board, chat, product page, calendar) are desktop layouts: their index entries name
+`device: "desktop"`, so the phone-first packs (`swiftui`, `android`) show them in their desktop form rather than squeezed
+onto a phone.
 
 **R-WEB-004.TC-1 — Every pack renders**
 
@@ -109,13 +114,13 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 |---|---|
 | C1 | The pack gallery page `pages/packs.html` MUST have a master-detail layout: a side panel listing every shipped, non-hidden pack grouped and ordered as the example site's Reference menu (R-PACK-012.C5), and a main area showing the selected pack. |
 | C2 | Selecting a pack MUST show, for each element the pack offers (its own first, then the inherited core vocabulary), a `mockitdown-mockup` of the element's sample with the element's name, role, positional arguments, defaults, variants and `doc` line, from `shared/reference/<pack>.json`. |
-| C3 | Below the elements the main area MUST show the design patterns of `shared/patterns/` rendered in the selected pack: at least sign-in form, list and detail, settings, dashboard with charts, data table with toolbar and filters, and wizard or multi-step form. |
+| C3 | The Examples tab (C16) MUST show the design patterns of `shared/patterns/` rendered in the selected pack: at least sign-in form, list and detail, settings, dashboard with charts, data table with toolbar and filters, and wizard or multi-step form. |
 | C4 | Each design pattern MUST be written in the core vocabulary and render in every shipped pack without an error diagnostic. |
 | C5 | The selected pack MUST be reflected in the URL fragment (`#pack=<id>`) so a pack can be linked and reloaded. |
 | C6 | The page MUST offer light and dark appearance and a filter on element name. |
 | C7 | The side panel MUST collapse into a menu on windows narrower than 720 CSS pixels. |
 | C8 | `shared/patterns/index.json` MUST list the design patterns in display order as `{"patterns": [{"id", "title", "file"}, …]}`, each `file` a `.mockitdown` source in `shared/patterns/` that imports no module, so that the gallery chooses the pack. |
-| C9 | The gallery MUST render each element sample with `device="fit"`, and each design pattern with the selected pack's default device and chrome. |
+| C9 | The gallery MUST render each element sample with `device="fit"`, and each design pattern with the device and chrome its index entry names (C14), else with the selected pack's default device and chrome. |
 | C10 | The gallery SHOULD create a card's `mockitdown-mockup` only when the card comes near the viewport. |
 | C11 | The gallery MUST expose `window.packGallery` with `state` (`ready` once the side panel and the first pack are shown), `select(id)` and `renderAll()`, which creates every mockup of the selected pack, waits for each one's `rendered`, and resolves with the pack, its element names, its pattern ids, the number of mockups, those without rendered content and the error diagnostics. |
 | C12 | An unknown or missing `#pack=` fragment MUST select the first pack of the side panel. |
