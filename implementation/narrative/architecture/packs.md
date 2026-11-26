@@ -1,6 +1,6 @@
 ---
 title: Packs
-impl_version: 0.3.14
+impl_version: 0.3.15
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKS
@@ -9,7 +9,7 @@ page_id: IMPL.PACKS
 # Packs
 
 Realizes **A-PACK-1** (registry) and **A-PACK-2** (built-in packs); requirements R-PACK-001 –
-R-PACK-009, R-PACK-014, R-PACK-015 and R-DEV-010.
+R-PACK-009, R-PACK-014, R-PACK-015, R-DEV-009 and R-DEV-010.
 
 ## `PackRegistry` — `packs/__init__.py`
 
@@ -96,6 +96,28 @@ one glass capsule, icon-only buttons (the label hidden when the button has an ic
 to `.automatic`: on `desktop` and `wide` frames the `.columns` rules apply to it (the selectors read
 `:is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"])`).
 
+## The macOS menu bar — `shared/packs/base/pack.css` (R-DEV-009)
+
+All in the base pack, so any pack drawn with `macos` chrome gets it. Tokens (base, light and dark):
+`desktop` (the wallpaper behind the window's top corners), `menubar-bg`, `menubar-fg`, `menubar-sel`
+(the open title's highlight), `menu-bg`, `menu-fg`, `menu-fg-2` (shortcuts, chevrons), `menu-fg-3`
+(disabled), `menu-sep`, `menu-sel`/`on-menu-sel` (an open submenu's row), `menu-shadow`.
+
+- `.mkd-frame[data-menubar="true"]`: a 10-pixel-corner frame on `--mkd-desktop`; the 16-point radius
+  and window shadow move to `.mkd-window` (flex column, `position: relative`, `overflow: hidden`), which
+  fills the frame below the bar.
+- The title bar rules that used `.mkd-frame[data-titlebar=…] > …` now read
+  `:is(.mkd-frame, .mkd-window)[data-titlebar=…] > …` (base and SwiftUI): the window carries
+  `data-titlebar` too, so the unified and toolbar title bars work under the bar.
+- `.mkd-menubar`: 24 px, `z-index: 40`, 13 px system font, no `backdrop-filter` (it would become the
+  dropdown's backdrop root and the open menu would stop blurring the window). Menus are 22-pixel pills
+  (`data-menu="app"` bold, `data-open` highlighted); the gap, the status icons 16 px (battery 22 px) and
+  the clock with `white-space: pre`.
+- `.mkd-menubar__dropdown`: absolute under its title (`top: calc(100% + 4px)`), 5-pixel padding,
+  12-pixel corners, `menu-bg` with `backdrop-filter: blur(30px) saturate(1.8)`, `menu-shadow`; rows
+  24 px with a 18-pixel checkmark column, optional 22-pixel icon column, label, shortcut (20-pixel gap,
+  `menu-fg-2`) and chevron; separators inset 10 px; `--sub` cascades to the right.
+
 ## The contract tests — `tests/test_packs.py`
 
 | Test | Checks |
@@ -120,3 +142,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 | 0.3.12 | 2026-11-25 | SwiftUI control styles (R-PACK-014) (#11) |
 | 0.3.13 | 2026-11-25 | SwiftUI presentations and navigation (R-PACK-015) (#12) |
 | 0.3.14 | 2026-11-25 | SwiftUI platform chrome (R-DEV-010) (#13) |
+| 0.3.15 | 2026-11-25 | The macOS menu bar and the window under it (R-DEV-009) (#14) |

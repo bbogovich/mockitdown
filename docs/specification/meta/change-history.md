@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.11 | 2026-11-25 | `REND.2` | The macOS menu bar as built (#14): R-DEV-009 C1, C3, C5 revised; C10-C12 added |
 | 0.8.10 | 2026-11-25 | `REND.2` | R-DEV-009 re-based on R-DEV-010 as built in #13 |
 | 0.8.9 | 2026-11-25 | `CLI.1`, `PACK.1`, `REND.2`, `REPO.1`, `WEB.1` | R-DEV-010 as built: unified macOS title bar rules, icon-only toolbar buttons in one glass capsule, sidebar toggles and titles, windowed ignored without iPadOS chrome, split column toolbars; R-DEV-005 iPadOS home indicator; R-PACK-014 Form automatic per form; R-PACK-015 phone collapse; windowed in R-WEB-002, R-REPO-004, R-CLI-002 (#13) |
 | 0.8.8 | 2026-11-25 | `PACK.1`, `REND.2` | iPadOS floating sidebar (R-DEV-010.C6, R-PACK-015.C7) |

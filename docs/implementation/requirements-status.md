@@ -10,7 +10,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 |---|---|---|---|---|---|
 | [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
 
-## Not started (85)
+## Not started (84)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -40,7 +40,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DEV-006 | Isolation from the host page | — | 0.2.0 |  |  |
 | R-DEV-007 | Additional chrome kinds | — | 0.3.0 |  |  |
-| R-DEV-009 | The macOS menu bar | — | 0.7.0 |  |  |
 | R-DIAG-001 | Diagnostic content | — | 0.2.0 |  |  |
 | R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
 | R-DIAG-004 | The error box | — | 0.2.0 |  |  |
@@ -100,7 +99,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 
-## Implemented (21)
+## Implemented (22)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -108,6 +107,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-CLI-002](../ledger/R-CLI-002.md) | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-DEV-005](../ledger/R-DEV-005.md) | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-DEV-009](../ledger/R-DEV-009.md) | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | [R-DEV-010](../ledger/R-DEV-010.md) | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |

@@ -11,3 +11,10 @@ NavigationSplitView { … } detail: { … }
     CommandMenu("Format") { Button("Bold").keyboardShortcut("b"); Divider(); Toggle("Show Ruler", isOn: true) }
   }
 ```
+
+The status items follow macOS's own order (battery, Wi-Fi, Control Center, then the clock), and the
+standard menus carry the items a SwiftUI app gets on macOS 26 for each placement, so a `CommandGroup`
+edits exactly the group it names; an empty `CommandGroup(replacing:)` removes that group without
+leaving a doubled separator. Only one menu is drawn open, because macOS shows only one at a time;
+the title highlighted in the bar tells the reader which. A mistyped menu title or placement draws the
+bar anyway, with a warning, so the mistake is visible rather than silently dropped.

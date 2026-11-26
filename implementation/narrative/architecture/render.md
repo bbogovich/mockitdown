@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.14
+impl_version: 0.3.15
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REND
@@ -10,7 +10,7 @@ page_id: IMPL.REND
 
 Realizes **A-REND-1** (HTML renderer), **A-REND-2** (figure assembly and chrome) and **A-REND-3**
 (style builder); requirements R-REND-001 – R-REND-010, R-APP-001, R-APP-003, R-DEV-001, R-DEV-002,
-R-DEV-005, R-DEV-008, R-DEV-010, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
+R-DEV-005, R-DEV-008, R-DEV-009, R-DEV-010, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004.
 
 ## Figure assembly — `render/__init__.py`, `render/chrome.py`
 
@@ -45,9 +45,6 @@ R-DEV-005, R-DEV-008, R-DEV-010, R-REND-012, R-REND-013, R-REND-014, R-ASSET-004
   and `chrome.top(..., toolbar=…)` draws them in the title bar (C13); otherwise nothing (a centred
   window title).
 - `chrome.bottom("ipados")` draws the home indicator (C1).
-- The macOS menu bar (R-DEV-009, #14) goes before `chrome.top` in `frame_inner`: the slot is marked
-  in the code; the window rules (radius, shadow) are on the frame, so a menu bar will need the window
-  drawn below it inside the frame (R-DEV-009.C9).
 
 ```mermaid
 flowchart LR
@@ -58,6 +55,52 @@ flowchart LR
   T -- unified --> U["data-titlebar=unified<br/>root draws the toolbar row"]
   T -- toolbar --> TB["_title_toolbar → chrome.top(toolbar=…)"]
 ```
+
+### The macOS menu bar — `render/menubar.py` (R-DEV-009)
+
+- `menubar.option(value)` reads the option (`RenderOptions.menubar`, else `@Screen(menubar:)`):
+  `True`/`"true"`/`""` → the bar, no menu open; `False`/`"false"` → none; any other text → the bar
+  with that menu open. With chrome other than `macos` it is ignored with the warning
+  "menubar needs macOS chrome" (code `chrome`, C2).
+- When shown, the frame carries `data-menubar="true"` and `frame_inner` becomes
+  `div.mkd-menubar` + `div.mkd-window[data-titlebar]`, the window wrapping the top chrome, the screen
+  and the bottom chrome (C9). The bar is rendered **first** (document order: anchors number alike in
+  both variants), then the title bar's toolbar, then the body. Without the option the markup is
+  unchanged, so no other conformance case moved.
+- The app name (C4): `RenderOptions.app` → `@Screen(app:)` → the title → `App`.
+- `build` merges the menus: the standard menus are data — `vocabulary.MENUBAR`, the `menubar` key of
+  `shared/language/vocabulary.json` (menus → entries: `"-"` separators and groups of items, each group
+  at a SwiftUI placement or fixed); `.commands` is found with `_find_mod` on the root (through
+  `WindowGroup`/`Group`), its `CommandGroup(replacing:|before:|after:)` edit the group at that placement
+  (last `replacing` wins; `before`/`after` accumulate), `CommandMenu` (and a bare `Menu`) are inserted
+  before the menu with `id: "window"`. Separators are tidied (none first, last or doubled). An unknown
+  or missing placement warns and is skipped (C11).
+- `view_rows` maps views to rows: `divider` → separator, `button`/`menuitem`/`link` → item (label,
+  `.keyboardShortcut` → `shortcut()`: ⌃⌥⇧⌘ in that order then the key, ⌘ by default, `KEY_GLYPHS` for
+  `KeyEquivalent` members, none for `.defaultAction`/`.cancelAction`; `systemImage` icon; `.disabled`),
+  `toggle` → checkmark item, `menu` → submenu (chevron), `section` → header + rows, `group` → its rows.
+  `keyboardShortcut` moved from the vocabulary's `ignored` list to `rendered`, and `commands` joined it,
+  so both reach the renderer as modifiers.
+- One menu opens (C8): the first in bar order that the title names, that carries
+  `.open()`/`isPresented:`, or that holds an open submenu; it is drawn inside its
+  `.mkd-menubar__menu` as `.mkd-menubar__dropdown`, so CSS places it under its title without
+  measuring. An open submenu cascades (`.mkd-menubar__dropdown--sub`). A title naming no menu warns
+  (C10).
+- Status items, in macOS's order: battery, Wi-Fi, Control Center (`switch.2`), then the fixed clock
+  from the data (`Mon Nov 23  9:41 AM`, `white-space: pre`).
+
+```mermaid
+flowchart LR
+  O["options.menubar / @Screen(menubar:)"] --> M{"chrome == macos?"}
+  M -- no --> MW["warning: chrome"]
+  M -- yes --> B["build: MENUBAR data + .commands"]
+  B --> R["render: bar + one dropdown"]
+  R --> F["frame: .mkd-menubar + .mkd-window(top + screen + bottom)"]
+```
+
+Debugging: render with `mockitdown render x.mockitdown --device desktop --menubar File --standalone`;
+a dropdown that does not blur the window under it means an ancestor has `backdrop-filter` (it becomes
+the backdrop root) — the bar deliberately has none.
 
 ## Renderer — `render/html.py`
 
@@ -224,3 +267,4 @@ Both renderers, for every pack:
 | 0.3.12 | 2026-11-25 | SwiftUI control markup: pickers, date pickers, gauges, control group menus, list selection (#11) |
 | 0.3.13 | 2026-11-25 | Presentations and navigation: alert actions from Button children, popover anchor and arrow, split view columns and titles, lone tabs (#12) |
 | 0.3.14 | 2026-11-25 | Platform chrome: `windowed`, the macOS title bar modes, the iPadOS home indicator, the split view toggle and column toolbars (#13) |
+| 0.3.15 | 2026-11-25 | The macOS menu bar: `render/menubar.py`, `.mkd-window` under the bar (#14) |

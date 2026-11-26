@@ -108,7 +108,11 @@ normalised path as source (C11). Parses are cached by path and text.
 `render_screen`: device and size, appearance, chrome, title and caption, `windowed` and the macOS
 title bar mode (`titlebarMode`, `titleToolbar`, R-DEV-010), the anchor prefix, the views through
 `Renderer`, overlays, the Elements table and the error box in front (`errorHtml`). `windowed` is a
-`FENCE_OPTIONS` entry, so the `mockitdown-mockup` element observes it as an attribute.
+`FENCE_OPTIONS` entry, so the `mockitdown-mockup` element observes it as an attribute. The macOS menu
+bar (R-DEV-009) is `core/render/menubar.ts`, a line-for-line port of `render/menubar.py`; `menubar` and
+`app` are `FENCE_OPTIONS` entries (strings — an empty `menubar` attribute means true), and the standard
+menus reach it as `MENUBAR`, read by `setVocabulary` from the `menubar` key of `vocabulary.json` (plain
+`JSON.parse`: it holds only strings, flags and lists).
 
 ```mermaid
 flowchart LR
@@ -172,3 +176,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.5 | 2026-11-25 | Renderer, styles, charts, chrome, icons, assets by base URL, number formatting; `render`, `check` (#4) |
 | 0.3.6 | 2026-11-25 | `elements/assets.ts`: `loadAssetsFromUrl`, the browser asset loader (#5) |
 | 0.3.14 | 2026-11-25 | `windowed` option and attribute, `titlebarMode` (#13) |
+| 0.3.15 | 2026-11-25 | `core/render/menubar.ts`, `menubar` and `app` options and attributes, `MENUBAR` vocabulary data (#14) |
