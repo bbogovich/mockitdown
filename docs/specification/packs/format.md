@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.9
+spec_version: 0.8.13
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -339,6 +339,8 @@ shows the selection with two neighbours on each side, the way the iOS wheel show
 field keeps its title as its accessible name when its text replaces the placeholder, which is what the
 macOS columns form shows as the row's label.
 
+A selected table row wins over the Mac's alternating row stripes: the gallery's Mac example (#15) selects the second, striped row, which used to keep its stripe under white text.
+
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
 Python and TypeScript render tests (conformance cases) per element and variant asserting the listed parts (e.g. graphical DatePicker has 7 weekday cells and one selected day; Picker .segmented has one segment per option; Gauge default is a linear track). Implemented as IT-19 (`python/tests/test_swiftui_controls.py` and the `control-*` conformance cases).
@@ -364,6 +366,7 @@ TC-M: open the gallery at `#pack=swiftui`, compare each card with the same contr
 | C11 | A `Picker` option MAY be any child with `.tag(…)`; a `selection:` matching a tag MUST select that option and show its content. |
 | C12 | `List(selection:)` MUST mark the row whose text or tag equals the selection, and `.sidebar` and `.bordered` MUST draw that row as selected. |
 | C13 | In `Form` `.columns`, a filled `TextField` MUST be labelled by its title (the placeholder argument) in the labels column. |
+| C14 | A `Table` row marked `.selected()` MUST be drawn with the accent background and white text on every form, also where it falls on an alternating (striped) row of a `desktop` or `wide` form. |
 | V1 | Each variant of each element above, built from its declared sample (R-PACK-013.C4), renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes. |
 
 ---
@@ -562,6 +565,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |
 | 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
 | 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |
 | 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |
@@ -575,6 +579,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
 | 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |
 | 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |
 | 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |

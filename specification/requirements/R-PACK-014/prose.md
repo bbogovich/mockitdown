@@ -10,3 +10,5 @@ the dot of an `.accessoryLinear` gauge and the bounds of any gauge, and the whee
 shows the selection with two neighbours on each side, the way the iOS wheel shows five rows. A text
 field keeps its title as its accessible name when its text replaces the placeholder, which is what the
 macOS columns form shows as the row's label.
+
+A selected table row wins over the Mac's alternating row stripes: the gallery's Mac example (#15) selects the second, striped row, which used to keep its stripe under white text.

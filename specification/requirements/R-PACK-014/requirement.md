@@ -2,8 +2,8 @@
 id: R-PACK-014
 title: SwiftUI control styles
 status: active
-version: 0.8.9
-rev: 4
+version: 0.8.13
+rev: 5
 page: PACK.1
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-REND-013, R-PACK-013]
-hash: 9eef0103a527
+hash: 7751690676b2
 refs: [R-DEV-010, R-PACK-013, R-REND-013]
 ---
 
@@ -28,4 +28,5 @@ C10: `DatePicker` `.wheel` MUST show one column per part — weekday with month 
 C11: A `Picker` option MAY be any child with `.tag(…)`; a `selection:` matching a tag MUST select that option and show its content.
 C12: `List(selection:)` MUST mark the row whose text or tag equals the selection, and `.sidebar` and `.bordered` MUST draw that row as selected.
 C13: In `Form` `.columns`, a filled `TextField` MUST be labelled by its title (the placeholder argument) in the labels column.
+C14: A `Table` row marked `.selected()` MUST be drawn with the accent background and white text on every form, also where it falls on an alternating (striped) row of a `desktop` or `wide` form.
 V1: Each variant of each element above, built from its declared sample (R-PACK-013.C4), renders at `fit` with its listed parts present (checked by markup assertions) and, in the gallery, without overlapping boxes.

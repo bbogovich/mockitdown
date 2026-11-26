@@ -1,10 +1,10 @@
 ---
 requirement: R-WEB-004
 title: Pack gallery test page
-status: partial
-version: 0.8.0
+status: implemented
+version: 0.8.12
 date: 2026-11-25
-issue: 8
+issue: 15
 ---
 
 # R-WEB-004 — Pack gallery test page
@@ -13,5 +13,6 @@ issue: 8
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.8.12 | 2026-11-25 | implemented | #15 | C14: index.json entries may carry packs/device/chrome/menubar/app/windowed; packs.js shows a pack-specific pattern only for its packs and passes the keys as mockup attributes; SwiftUI iPhone (list, detail), iPad (three-column split) and Mac (split view, toolbar, .commands, menu bar open on Transaction) examples; IT-23 (TC-5) in both variants and Chromium | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md), [Repository layout and shared assets](../narrative/repository.md) |
 | 0.8.0 | 2026-11-25 | partial | #8 | C13 and C15: element samples and variants at natural fit size, scrolling inside the card; TC-4 geometry assertions over every pack in gallery.spec.mjs (geometry.mjs). C14 and C16-C20 not yet implemented | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.6.7 | 2026-11-25 | implemented | #7 | typescript/pages/packs.html + packs.js + packs.css: master-detail pack gallery over shared/reference (groups of index.json, own then core elements with name, role, arguments, defaults, variants, doc, sample and variants sample), design patterns of shared/patterns/ (sign-in, list-detail, settings, dashboard, data-table, wizard; core vocabulary, import-free), #pack= deep links with history, light/dark, name filter, menu under 720 px, lazy mockups by IntersectionObserver, window.packGallery select/renderAll; IT-15 in both variants | [The pack gallery](../narrative/architecture/gallery.md), [Web development server, test pages and browser tests](../narrative/architecture/web-dev.md), [Testing](../narrative/testing.md), [Repository layout and shared assets](../narrative/repository.md) |

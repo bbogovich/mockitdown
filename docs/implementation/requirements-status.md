@@ -4,12 +4,6 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Partly implemented (1)
-
-| Requirement | Title | Implemented | Specification | Date | Issue |
-|---|---|---|---|---|---|
-| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.0 | 0.8.0 | 2026-11-25 | #8 |
-
 ## Not started (84)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
@@ -99,7 +93,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 
-## Implemented (22)
+## Implemented (23)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -112,7 +106,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
-| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
 | [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
@@ -124,4 +118,5 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
 | [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.12 | 0.8.12 | 2026-11-25 | #15 |
 | [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
