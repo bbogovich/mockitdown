@@ -8,18 +8,15 @@
   <script type="module" src="packs.js"></script>
 </head>
 <body>
-  <!-- The pack gallery (R-WEB-004): the packs of shared/reference/index.json in a side panel, the
-       selected pack's elements (shared/reference/<pack>.json) and the design patterns of
-       shared/patterns/ in the main area. Mockups are created as they come near the viewport. -->
+  <!-- The pack gallery (R-WEB-004): the packs of shared/reference/index.json in a side panel; in the
+       main area the selected pack's facts above two tabs, Elements (shared/reference/<pack>.json, with
+       the name filter) and Examples (the design patterns of shared/patterns/). Mockups are created as
+       they come near the viewport. -->
   <header class="bar">
     <button id="menu" type="button" aria-controls="packs" aria-expanded="false">☰ Packs</button>
     <a class="brand" href="./">mockitdown</a>
     <span class="brand-sub">Pack gallery</span>
     <span class="spacer"></span>
-    <label class="field">
-      <span class="sr-only">Filter elements by name</span>
-      <input id="filter" type="search" placeholder="Filter elements…" autocomplete="off" spellcheck="false">
-    </label>
     <label class="field">
       <span>Appearance</span>
       <select id="appearance">

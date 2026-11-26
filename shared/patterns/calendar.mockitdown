@@ -1,0 +1,37 @@
+// Calendar: a toolbar with the week and view switcher, a side panel with the month and the calendars,
+// and the week grid with events, today's column and the current time.
+VStack(alignment: .leading, spacing: 12) {
+  HStack(spacing: 12) {
+    Button("Today")
+    IconButton("chevron.left")
+    IconButton("chevron.right")
+    Text("November 24 – 28, 2026").font(.title2)
+    Spacer()
+    SegmentedControl(["Day", "Week", "Month"], selection: "Week")
+    SearchField("Search events").frame(width: 200)
+    Button("New event", systemImage: "plus").buttonStyle(.borderedProminent)
+  }
+  HStack(alignment: .top, spacing: 16) {
+    VStack(alignment: .leading, spacing: 12) {
+      DatePicker("Date", selection: "2026-11-25").datePickerStyle(.graphical)
+      Text("My calendars").font(.headline)
+      Toggle("Work", isOn: true)
+      Toggle("Personal", isOn: true)
+      Toggle("Holidays", isOn: false)
+      Text("Up next").font(.headline)
+      TimelineItem("Design review", time: "14:00", description: "Room 4 · Farah Haddad")
+      TimelineItem("Call with Ana", time: "16:30")
+    }
+    .frame(width: 260)
+    Schedule(days: ["Mon 24", "Tue 25", "Wed 26", "Thu 27", "Fri 28"], startHour: 8, endHour: 18,
+             events: [("Standup", "Mon 24", 9, 9.5, .blue), ("Planning", "Mon 24", 10, 12, .purple),
+                      ("Standup", "Tue 25", 9, 9.5, .blue), ("Customer call", "Tue 25", 11, 12, .orange),
+                      ("Standup", "Wed 26", 9, 9.5, .blue), ("Design review", "Wed 26", 14, 15.5, .pink),
+                      ("Lunch with Chen", "Wed 26", 12, 13, .green), ("Call with Ana", "Wed 26", 16.5, 17, .orange),
+                      ("Standup", "Thu 27", 9, 9.5, .blue), ("Focus time", "Thu 27", 13, 16, .gray),
+                      ("Standup", "Fri 28", 9, 9.5, .blue), ("Retro", "Fri 28", 15, 16, .purple)],
+             today: "Wed 26", now: 11.25)
+      .frame(maxWidth: .infinity)
+  }
+}
+.padding()

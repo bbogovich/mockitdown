@@ -1,0 +1,55 @@
+// Admin console: sidebar navigation, a header with search and the signed-in user, key figures, a chart
+// with its breakdown, and the latest orders in a table. The navigation is a column of NavItems rather
+// than a Sidebar, which some packs draw as an overlay drawer (PrimeVue's Sidebar).
+HStack(alignment: .top, spacing: 0) {
+  VStack(alignment: .leading, spacing: 4) {
+    Label("Acme Admin", systemImage: "cube").font(.headline)
+    Divider()
+    NavItem("Dashboard", systemImage: "square.grid.2x2", selected: true)
+    NavItem("Orders", systemImage: "cart", badge: 8)
+    NavItem("Customers", systemImage: "person.2")
+    NavItem("Products", systemImage: "shippingbox")
+    NavItem("Reports", systemImage: "chart.bar")
+    NavItem("Settings", systemImage: "gearshape")
+  }
+  .padding(12)
+  .frame(width: 200)
+  VStack(alignment: .leading, spacing: 16) {
+    HStack(spacing: 12) {
+      VStack(alignment: .leading, spacing: 0) {
+        Text("Dashboard").font(.title2)
+        Breadcrumb(["Home", "Dashboard"])
+      }
+      Spacer()
+      SearchField("Search orders, customers…").frame(width: 240)
+      IconButton("bell").badge(3)
+      Avatar("Ana Lima")
+    }
+    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+      Stat("Revenue", "$128.4k", change: "+12.5%", trend: [4, 5, 4, 6, 7, 8], systemImage: "dollarsign.circle")
+      Stat("Orders", "3,214", change: "+4.1%", trend: [5, 6, 6, 7, 6, 8], systemImage: "cart")
+      Stat("New customers", "412", change: "+9.8%", trend: [2, 3, 4, 4, 5, 6], systemImage: "person.badge.plus")
+      Stat("Refund rate", "1.8%", change: "-0.4%", trend: [6, 5, 5, 4, 4, 3], systemImage: "arrow.counterclockwise")
+    }
+    HStack(alignment: .top, spacing: 12) {
+      Card("Revenue, last 12 months") {
+        Chart(kind: .area, values: [42, 48, 45, 52, 58, 55, 63, 70, 68, 76, 82, 90])
+      }
+      .frame(maxWidth: .infinity)
+      Card("Sales by channel") {
+        Chart(kind: .donut, values: [48, 27, 15, 10])
+      }
+      .frame(width: 240)
+    }
+    Card("Latest orders") {
+      Table(columns: ["Order", "Customer", "Date", "Status", "Total"],
+            rows: [["#10428", "Ana Lima", "Nov 24", "Paid", "$248.00"],
+                   ["#10427", "Ben Okafor", "Nov 24", "Shipped", "$89.90"],
+                   ["#10426", "Chen Wu", "Nov 23", "Pending", "$1,204.50"],
+                   ["#10425", "Dana Park", "Nov 23", "Refunded", "$54.00"],
+                   ["#10424", "Eli Novak", "Nov 22", "Paid", "$312.75"]])
+    }
+  }
+  .padding()
+  .frame(maxWidth: .infinity)
+}

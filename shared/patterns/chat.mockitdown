@@ -1,0 +1,58 @@
+// Chat application: a conversation list with search and unread counts, and the open conversation with
+// its header, a thread of bubbles from both sides, reactions and read receipts, and the composer.
+HStack(alignment: .top, spacing: 0) {
+  VStack(alignment: .leading, spacing: 8) {
+    HStack {
+      Text("Chats").font(.title2)
+      Spacer()
+      IconButton("square.and.pencil")
+    }
+    SearchField("Search")
+    List {
+      Row("Design team", subtitle: "Farah: The new icons are up", detail: "09:52", avatar: "Design team").badge(4)
+      Row("Ana Lima", subtitle: "See you at the station!", detail: "09:41", avatar: "Ana Lima")
+      Row("Ben Okafor", subtitle: "You: Sent the build link", detail: "08:30", avatar: "Ben Okafor")
+      Row("Chen Wu", subtitle: "Thanks for the notes", detail: "Yesterday", avatar: "Chen Wu")
+      Row("Dana Park", subtitle: "Photo", detail: "Mon", avatar: "Dana Park")
+      Row("Eli Novak", subtitle: "Let's call tomorrow", detail: "Sun", avatar: "Eli Novak")
+    }
+    .listStyle(.plain)
+  }
+  .padding()
+  .frame(width: 300)
+  Divider()
+  VStack(alignment: .leading, spacing: 0) {
+    HStack(spacing: 12) {
+      Avatar("Ana Lima")
+      VStack(alignment: .leading, spacing: 0) {
+        Text("Ana Lima").font(.headline)
+        Text("online").font(.caption).foregroundStyle(.secondary)
+      }
+      Spacer()
+      IconButton("phone")
+      IconButton("video")
+      IconButton("info.circle")
+    }
+    .padding()
+    Divider()
+    VStack(alignment: .leading, spacing: 8) {
+      Text("Today").font(.caption).foregroundStyle(.secondary)
+      MessageBubble("Morning! Are we still on for the trip to Porto on Friday?", from: .them, author: "Ana Lima", time: "09:30")
+      MessageBubble("Yes! I booked the 8:05 train, coach 4.", from: .me, time: "09:32", status: "Read")
+      MessageBubble("Perfect. I'll bring the guide book and snacks.", from: .them, author: "Ana Lima", time: "09:35", reactions: ["👍", "😄"])
+      MessageBubble("Could you also print the hotel confirmation? My printer is out of ink.", from: .me, time: "09:38", status: "Read")
+      MessageBubble("Sure, no problem. See you at the station!", from: .them, author: "Ana Lima", time: "09:41")
+      Spacer()
+    }
+    .padding()
+    Divider()
+    HStack(spacing: 8) {
+      IconButton("paperclip")
+      TextField("Message", text: "").frame(maxWidth: .infinity)
+      IconButton("mic")
+      Button("Send", systemImage: "paperplane.fill").buttonStyle(.borderedProminent)
+    }
+    .padding()
+  }
+  .frame(maxWidth: .infinity)
+}

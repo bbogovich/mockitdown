@@ -1,0 +1,43 @@
+// Kanban board: a project header with filters and members, and four columns of cards with tags,
+// assignees, due dates, comments and priorities.
+VStack(alignment: .leading, spacing: 12) {
+  HStack(spacing: 12) {
+    VStack(alignment: .leading, spacing: 0) {
+      Text("Website relaunch").font(.title2)
+      Text("Sprint 14 · Nov 18 – Dec 1").foregroundStyle(.secondary)
+    }
+    Spacer()
+    SearchField("Filter cards")
+    Picker("Assignee", selection: "Everyone") { Text("Everyone"); Text("Ana Lima"); Text("Ben Okafor") }
+    Button("New card", systemImage: "plus").buttonStyle(.borderedProminent)
+  }
+  HStack(spacing: 8) {
+    Chip("Label: Design")
+    Chip("Due this week")
+    Link("Clear filters")
+    Spacer()
+    ProgressView("Sprint progress", value: 0.45).frame(width: 220)
+  }
+  Board {
+    BoardColumn("Backlog", count: 4) {
+      KanbanCard("Audit the image sizes", tags: ["Performance"], assignees: ["Chen Wu"], comments: 2)
+      KanbanCard("Cookie banner copy", tags: ["Content", "Legal"], due: "Dec 2")
+      KanbanCard("Search analytics", description: "Track queries without results.", tags: ["Analytics"])
+    }
+    BoardColumn("In progress", count: 3, color: .blue) {
+      KanbanCard("New pricing page", description: "Three plans, yearly toggle, FAQ.", tags: ["Design", "Web"], assignees: ["Ana Lima", "Ben Okafor"], due: "Nov 28", comments: 5, priority: .high)
+      KanbanCard("Navigation on mobile", tags: ["Design"], assignees: ["Farah Haddad"], due: "Nov 29", comments: 3)
+      KanbanCard("Migrate the blog", tags: ["Web"], assignees: ["Eli Novak"], attachments: 2)
+    }
+    BoardColumn("Review", count: 2, color: .orange) {
+      KanbanCard("Checkout accessibility fixes", tags: ["A11y"], assignees: ["Dana Park"], due: "Nov 26", comments: 8, priority: .high)
+      KanbanCard("Footer links", tags: ["Content"], assignees: ["Gus Moreau"], comments: 1)
+    }
+    BoardColumn("Done", count: 5, color: .green) {
+      KanbanCard("Brand colours in tokens", tags: ["Design"], assignees: ["Ana Lima"])
+      KanbanCard("Sitemap", tags: ["SEO"], assignees: ["Chen Wu"], comments: 4)
+      KanbanCard("Hosting move", tags: ["Ops"], assignees: ["Ben Okafor"])
+    }
+  }
+}
+.padding()

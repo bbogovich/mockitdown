@@ -2,7 +2,8 @@
 // vocabulary and render in every shipped pack — listed in the gallery or hidden — without an error
 // diagnostic. TC-5 (C14): a pack-specific pattern (`packs`) renders in each of its packs with the entry's
 // device, chrome, menubar, app and windowed, without any diagnostic; swiftui has an iPhone, an iPad and a
-// Mac app, the Mac app with the menu bar and an open menu.
+// Mac app, the Mac app with the menu bar and an open menu. TC-7 (C19): six complex layouts join the six
+// simple patterns, each built from the elements its layout names; TC-2 renders all twelve in every pack.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -60,7 +61,7 @@ test("TC-2: each core pattern renders in every shipped pack without an error dia
   for (const p of corePatterns) {
     for (const pack of packs) {
       for (const appearance of ["light", "dark"]) {
-        const result = core.render(p.source, { pack, appearance });
+        const result = core.render(p.source, { ...options(p, pack), appearance });
         for (const d of result.errors) failures.push(`${p.id} in ${pack} (${appearance}): ${d}`);
         if (!result.html.includes("mkd-figure")) failures.push(`${p.id} in ${pack}: no figure`);
       }
@@ -103,4 +104,26 @@ test("TC-5: swiftui shows an iPhone, an iPad and a Mac app with the menu bar (C1
   }
   const html = core.render(mac.source, options(mac, "swiftui")).html;
   assert.ok(html.includes("mkd-menubar__dropdown"), "the Mac app shows an open menu");
+});
+
+/** C19: the complex layouts, each with the core elements (or source fragments) its description names. */
+const COMPLEX: Record<string, RegExp[]> = {
+  "mail-client": [/NavigationSplitView/, /\bcontent:/, /\bdetail:/, /Label\("Inbox"/, /Row\(/],
+  "admin-console": [/NavItem\(/, /SearchField\(/, /Avatar\(/, /Stat\(/, /Chart\(/, /Table\(/],
+  "kanban-board": [/Board\b/, /BoardColumn\(/, /KanbanCard\(/],
+  "chat": [/MessageBubble\(/, /from: \.me/, /TextField\(/, /Row\(/],
+  "product-page": [/Image\b/, /Rating\(/, /Picker\(|SegmentedControl\(/, /Stepper\(/, /Button\(/, /Comment\(/],
+  "calendar": [/Schedule\(/, /events:/, /DatePicker\(|Calendar\(/],
+};
+
+test("TC-7: the six complex layouts are core patterns built from the elements they name (C19)", () => {
+  const ids = corePatterns.map((p) => p.id);
+  assert.ok(corePatterns.length >= 12, `at least twelve core patterns, found ${corePatterns.length}`);
+  for (const [id, needles] of Object.entries(COMPLEX)) {
+    const p = corePatterns.find((q) => q.id === id);
+    assert.ok(p, `complex pattern ${id} is listed without packs`);
+    for (const n of needles) assert.match(p!.source, n, `${id} uses ${n}`);
+  }
+  // C20: the gallery lists the examples in index order; the simple six come first, then the complex six
+  assert.deepEqual(ids.slice(0, 6), ["sign-in", "list-detail", "settings", "dashboard", "data-table", "wizard"]);
 });

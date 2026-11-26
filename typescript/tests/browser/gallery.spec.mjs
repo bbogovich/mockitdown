@@ -79,7 +79,7 @@ test("TC-3: packs.html#pack=carbon opens Carbon; selecting a pack updates the fr
   await expect(page.locator("#pack-title")).toHaveText("Carbon");
   await expect(page.locator('a[data-pack="carbon"]')).toHaveAttribute("aria-current", "page");
   await page.locator('a[data-pack="mui"]').click();
-  await expect(page).toHaveURL(/#pack=mui$/);
+  await expect(page).toHaveURL(/#pack=mui&tab=elements$/);
   await expect(page.locator("#pack-title")).toHaveText("Material UI");
   await page.reload();
   await page.waitForFunction(() => window.packGallery?.state === "ready");
@@ -126,10 +126,10 @@ test("under 720 px the side panel collapses into a menu (C7)", async ({ page }) 
 
 test("a missing or unknown #pack= selects the first pack of the side panel (C12)", async ({ page }) => {
   await open(page);
-  await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}$`));
+  await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}&tab=elements$`));
   await expect(page.locator(`a[data-pack="${PACKS[0]}"]`)).toHaveAttribute("aria-current", "page");
   await open(page, "#pack=no-such-pack");
-  await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}$`));
+  await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}&tab=elements$`));
 });
 
 // TC-4 (C13, C15) and R-REND-013 TC-1: after renderAll(), every element card's sample and variants are
@@ -513,6 +513,7 @@ test("TC-5: swiftui shows its iPhone, iPad and Mac example apps; other packs do 
   const summary = await renderPack(page, "swiftui");
   expect(summary.errors).toEqual([]);
   expect(summary.empty).toEqual([]);
+  await page.evaluate(() => window.packGallery.tab("examples"));
   const specific = PATTERNS.filter((p) => p.packs?.includes("swiftui"));
   expect(summary.patterns).toEqual(expect.arrayContaining(specific.map((p) => p.id)));
   const shown = await page.evaluate(() => [...document.querySelectorAll(".pattern")].map((s) => {
@@ -564,3 +565,102 @@ test("TC-5: swiftui shows its iPhone, iPad and Mac example apps; other packs do 
   expect(other.errors).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+// R-WEB-004 TC-6 (C16, C17, C18, C20): the Elements and Examples tabs. Elements is the default; a deep link
+// opens Examples at its first example with no element card visible; selecting a pack keeps the tab, reloading
+// restores it; the in-tab index scrolls to each example; packGallery.tab() resolves when the tab is shown.
+test("TC-6: Elements and Examples tabs, kept in the fragment, with an in-tab index (C16–C18, C20)", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page, "#pack=mui");
+  const tabs = page.locator('#main [role="tab"]');
+  await expect(tabs).toHaveText([/^Elements\d*$/, /^Examples\d*$/]);
+  await expect(page.locator('#main [role="tab"][aria-selected="true"]')).toHaveText(/^Elements/);
+  await expect(page.locator("#tab-elements")).toBeVisible();
+  await expect(page.locator("#tab-examples")).toBeHidden();
+  await expect(page.locator("#filter")).toBeVisible();
+  await expect(page.locator(".pack-head")).toBeVisible();
+  await expect(page).toHaveURL(/#pack=mui&tab=elements$/);
+
+  // a deep link: Examples, the first example in view, no element card visible (C16, C17)
+  await page.goto("/pages/packs.html#pack=carbon&tab=examples");
+  await page.reload();
+  await page.waitForFunction(() => window.packGallery?.state === "ready");
+  await expect(page.locator("#pack-title")).toHaveText("Carbon");
+  await expect(page.locator('#main [role="tab"][aria-selected="true"]')).toHaveText(/^Examples/);
+  await expect(page.locator("#tab-elements")).toBeHidden();
+  await expect(page.locator("#filter")).toBeHidden();
+  await expect(page.locator(".pattern").first()).toBeInViewport();
+  expect(await page.$$eval(".element", (els) => els.filter((e) => e.checkVisibility()).length)).toBe(0);
+  await expect(page.locator(".pattern mockitdown-mockup").first()).toBeAttached();
+
+  // C20: the examples in index order, with an index linking to each
+  const order = patternsFor("carbon").map((p) => p.id);
+  expect(await page.$$eval(".pattern", (els) => els.map((e) => e.dataset.pattern))).toEqual(order);
+  const links = page.locator("#example-index a[data-example]");
+  expect(await links.evaluateAll((as) => as.map((a) => a.dataset.example))).toEqual(order);
+  for (const id of [order[order.length - 1], order[5], order[1]]) {
+    await links.locator(`xpath=self::*[@data-example="${id}"]`).click();
+    await expect(page.locator(`.pattern[data-pattern="${id}"] h3`)).toBeInViewport();
+    await expect(page).toHaveURL(/#pack=carbon&tab=examples$/);
+  }
+
+  // C17: selecting another pack keeps the tab; reloading restores it
+  await page.locator('a[data-pack="fluent"]').click();
+  await expect(page).toHaveURL(/#pack=fluent&tab=examples$/);
+  await expect(page.locator("#pack-title")).toHaveText("Fluent (WinUI 3)");
+  await expect(page.locator("#tab-examples")).toBeVisible();
+  await page.reload();
+  await page.waitForFunction(() => window.packGallery?.state === "ready");
+  await expect(page.locator("#tab-examples")).toBeVisible();
+  await expect(page.locator("#tab-elements")).toBeHidden();
+
+  // clicking a tab switches it and updates the fragment
+  await tabs.filter({ hasText: "Elements" }).click();
+  await expect(page).toHaveURL(/#pack=fluent&tab=elements$/);
+  await expect(page.locator("#tab-elements")).toBeVisible();
+  await expect(page.locator(".element").first()).toBeInViewport();
+
+  // C18: tab(name) resolves when the tab is shown; an unknown tab selects Elements
+  const shown = await page.evaluate(async () => {
+    await window.packGallery.tab("examples");
+    const a = [!document.getElementById("tab-examples").hidden, location.hash];
+    await window.packGallery.tab("nonsense");
+    return [...a, !document.getElementById("tab-elements").hidden, location.hash];
+  });
+  expect(shown).toEqual([true, "#pack=fluent&tab=examples", true, "#pack=fluent&tab=elements"]);
+  await page.goto("/pages/packs.html#pack=gtk&tab=bogus");
+  await page.reload();
+  await page.waitForFunction(() => window.packGallery?.state === "ready");
+  await expect(page.locator("#tab-elements")).toBeVisible();
+  await expect(page).toHaveURL(/#pack=gtk&tab=elements$/);
+
+  // C18: renderAll() renders both tabs' mockups
+  const summary = await page.evaluate(() => window.packGallery.renderAll());
+  expect(summary.patterns).toEqual(patternsFor("gtk").map((p) => p.id));
+  expect(summary.empty).toEqual([]);
+  expect(summary.errors).toEqual([]);
+  expect(await page.$$eval("#tab-examples mockitdown-mockup", (els) => els.length)).toBe(patternsFor("gtk").length);
+  expect(errors).toEqual([]);
+});
+
+// R-WEB-004 TC-7 (C19) with TC-4's geometry: every core and pack-specific example, in the Examples tab at its
+// device size, has no intersecting row children and its presentation surfaces whole, in every pack.
+for (let c = 0; c < CHUNKS; c++) {
+  const chunk = PACKS.filter((_, i) => i % CHUNKS === c);
+  test(`TC-7: packs ${chunk[0]}… show every example without overlaps (${c + 1}/${CHUNKS})`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const errors = await open(page, "#pack=base&tab=examples");
+    const problems = [];
+    for (const id of chunk) {
+      const summary = await renderPack(page, id);
+      expect(summary.errors, `${id}: error diagnostics`).toEqual([]);
+      expect(summary.empty, `${id}: examples without content`).toEqual([]);
+      await page.evaluate(() => window.packGallery.tab("examples"));
+      expect(await page.locator("main .pattern mockitdown-mockup").count(), id).toBe(patternsFor(id).length);
+      const found = await page.evaluate(inspectMockups, { selector: "main .pattern mockitdown-mockup" });
+      problems.push(...found.map((p) => `${id}: ${p}`));
+    }
+    expect(problems, "geometry of the examples").toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}

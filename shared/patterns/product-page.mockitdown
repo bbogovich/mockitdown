@@ -1,0 +1,64 @@
+// Product page: breadcrumb, a gallery with thumbnails, the details with rating and price, size and
+// colour options, the purchase panel, and the reviews.
+ScrollView {
+  VStack(alignment: .leading, spacing: 16) {
+    Breadcrumb(["Home", "Outdoor", "Backpacks", "Trail 28"])
+    HStack(alignment: .top, spacing: 24) {
+      VStack(spacing: 8) {
+        Image().frame(width: 360, height: 280)
+        HStack(spacing: 8) {
+          Image().frame(width: 84, height: 64)
+          Image().frame(width: 84, height: 64)
+          Image().frame(width: 84, height: 64)
+          Image().frame(width: 84, height: 64)
+        }
+      }
+      VStack(alignment: .leading, spacing: 10) {
+        HStack(spacing: 8) {
+          Badge("New")
+          Tag("Free shipping")
+        }
+        Text("Trail 28 Backpack").font(.largeTitle)
+        HStack(spacing: 8) {
+          Rating(4.5)
+          Text("4.5 · 182 reviews").foregroundStyle(.secondary)
+        }
+        Text("$129.00").font(.title)
+        Text("A light 28-litre daypack with a ventilated back panel, a rain cover and a padded laptop sleeve.")
+        Text("Colour: Forest").font(.headline)
+        SegmentedControl(["Forest", "Slate", "Sand"])
+        Picker("Size", selection: "M / L") { Text("S / M"); Text("M / L"); Text("L / XL") }
+        Stepper("Quantity: 1")
+        HStack(spacing: 8) {
+          Button("Add to cart", systemImage: "cart.badge.plus").buttonStyle(.borderedProminent)
+          Button("Buy now")
+          IconButton("heart")
+        }
+        Label("In stock — ships tomorrow", systemImage: "checkmark.circle").foregroundStyle(.green)
+        Label("Free returns within 30 days", systemImage: "arrow.counterclockwise")
+      }
+    }
+    Divider()
+    HStack(alignment: .top, spacing: 24) {
+      VStack(alignment: .leading, spacing: 8) {
+        Text("Customer reviews").font(.title2)
+        HStack(spacing: 8) {
+          Rating(4.5)
+          Text("4.5 out of 5").font(.headline)
+        }
+        LabeledContent("5 stars", value: "68%")
+        LabeledContent("4 stars", value: "21%")
+        LabeledContent("3 stars", value: "7%")
+        LabeledContent("1–2 stars", value: "4%")
+        Button("Write a review")
+      }
+      .frame(width: 220)
+      VStack(alignment: .leading, spacing: 12) {
+        Comment("Carried it on a three-day hike: comfortable, dry and the hip belt pockets fit a phone.", author: "Ana Lima", time: "2 weeks ago")
+        Comment("Great size for commuting. The laptop sleeve is padded well. I'd like one more outer pocket.", author: "Ben Okafor", time: "1 month ago")
+        Comment("The rain cover is a nice touch. Colour is darker than on the photos.", author: "Chen Wu", time: "2 months ago")
+      }
+    }
+  }
+  .padding()
+}

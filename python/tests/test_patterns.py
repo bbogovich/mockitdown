@@ -19,6 +19,15 @@ from mockitdown.packs import PackRegistry
 
 PATTERNS = ROOT.parent / "shared" / "patterns"
 REQUIRED = ("sign-in", "list-detail", "settings", "dashboard", "data-table", "wizard")
+#: C19 (TC-7): the complex layouts, each with the core elements (or source fragments) its description names.
+COMPLEX = {
+    "mail-client": (r"NavigationSplitView", r"\bcontent:", r"\bdetail:", r'Label\("Inbox"', r"Row\("),
+    "admin-console": (r"NavItem\(", r"SearchField\(", r"Avatar\(", r"Stat\(", r"Chart\(", r"Table\("),
+    "kanban-board": (r"Board\b", r"BoardColumn\(", r"KanbanCard\("),
+    "chat": (r"MessageBubble\(", r"from: \.me", r"TextField\(", r"Row\("),
+    "product-page": (r"Image\b", r"Rating\(", r"Picker\(|SegmentedControl\(", r"Stepper\(", r"Button\(", r"Comment\("),
+    "calendar": (r"Schedule\(", r"events:", r"DatePicker\(|Calendar\("),
+}
 #: The keys an index entry may carry (C8, C14).
 KEYS = {"id", "title", "file", "packs", "device", "chrome", "menubar", "app", "windowed"}
 
@@ -60,10 +69,29 @@ class PatternTests(unittest.TestCase):
         failures = []
         for p in self.core:
             for pack in packs:
-                result = render(self.sources[p["id"]], RenderOptions(pack=pack))
+                result = render(self.sources[p["id"]], options(p, pack))
                 failures += [f"{p['id']} in {pack}: {d}" for d in result.errors]
                 if "mkd-figure" not in result.html:
                     failures.append(f"{p['id']} in {pack}: no figure")
+        self.assertEqual(failures, [])
+
+    def test_tc7_complex_layouts_are_listed(self):
+        """TC-7 (C19): six complex layouts join the six simple patterns; each renders everywhere (above)."""
+        core = {p["id"]: p for p in self.core}
+        self.assertGreaterEqual(len(core), 12)
+        for pid, needles in COMPLEX.items():
+            self.assertIn(pid, core)
+            for needle in needles:
+                self.assertRegex(self.sources[pid], needle, pid)
+        self.assertEqual([p["id"] for p in self.core][:6], list(REQUIRED))
+
+    def test_tc7_core_patterns_render_in_dark_without_errors(self):
+        """TC-7: the dark appearance of every core pattern renders without an error in every pack."""
+        failures = []
+        for p in self.core:
+            for pack in PackRegistry().ids():
+                result = render(self.sources[p["id"]], dataclasses.replace(options(p, pack), appearance="dark"))
+                failures += [f"{p['id']} in {pack} (dark): {d}" for d in result.errors]
         self.assertEqual(failures, [])
 
     def test_tc5_pack_specific_patterns_render_in_their_packs(self):

@@ -1,0 +1,66 @@
+// Mail client: a folder sidebar with counts, a message list with unread markers, and the reading pane
+// with the sender, recipients, the message, an attachment and the reply actions.
+NavigationSplitView {
+  List {
+    Section("Mailboxes") {
+      Label("Inbox", systemImage: "tray").badge(12)
+      Label("Flagged", systemImage: "flag").badge(3)
+      Label("Drafts", systemImage: "doc")
+      Label("Sent", systemImage: "paperplane")
+      Label("Archive", systemImage: "archivebox")
+      Label("Trash", systemImage: "trash")
+    }
+    Section("Folders") {
+      Label("Clients", systemImage: "folder").badge(4)
+      Label("Finance", systemImage: "folder")
+      Label("Travel", systemImage: "folder")
+    }
+  }
+  .navigationTitle("Mail")
+} content: {
+  List {
+    Row("Ana Lima", subtitle: "Quarterly review — the numbers are in", detail: "09:41", avatar: "Ana Lima").badge("New")
+    Row("Ben Okafor", subtitle: "Build is green again after the fix", detail: "08:15", avatar: "Ben Okafor")
+    Row("Chen Wu", subtitle: "Research notes for Thursday", detail: "Yesterday", avatar: "Chen Wu")
+    Row("Dana Park", subtitle: "Invoice 2026-114 attached", detail: "Yesterday", avatar: "Dana Park")
+    Row("Eli Novak", subtitle: "Re: Offsite agenda", detail: "Mon", avatar: "Eli Novak")
+    Row("Farah Haddad", subtitle: "Design review moved to 3 pm", detail: "Mon", avatar: "Farah Haddad")
+    Row("Gus Moreau", subtitle: "Your flight to Lisbon is confirmed", detail: "Sun", avatar: "Gus Moreau")
+  }
+  .navigationTitle("Inbox")
+  .searchable(text: "")
+} detail: {
+  VStack(alignment: .leading, spacing: 12) {
+    HStack(spacing: 8) {
+      Button("Reply", systemImage: "arrowshape.turn.up.left")
+      IconButton("person.2").help("Reply all")
+      IconButton("arrow.forward").help("Forward")
+      Spacer()
+      IconButton("archivebox")
+      IconButton("trash")
+      IconButton("flag")
+    }
+    Divider()
+    HStack(alignment: .top, spacing: 12) {
+      Avatar("Ana Lima")
+      VStack(alignment: .leading, spacing: 2) {
+        Text("Quarterly review — the numbers are in").font(.headline)
+        Text("Ana Lima <ana@example.com>").foregroundStyle(.secondary)
+        Text("To: Product team · Cc: Ben Okafor · Today, 09:41").font(.caption).foregroundStyle(.secondary)
+      }
+    }
+    Text("Hi team,")
+    Text("the figures for the third quarter are in. **Revenue** is up 12% on the last quarter and churn fell below 2% for the first time.")
+    Text("I have attached the full report. Let's go through it on Thursday before the board meeting.")
+    Text("Thanks, Ana")
+    HStack(spacing: 8) {
+      Label("Q3-report.pdf · 2.4 MB", systemImage: "doc.richtext")
+      Spacer()
+      Link("Download", destination: "#")
+    }
+    .padding(8)
+    .border(Color.gray)
+    Spacer()
+  }
+  .padding()
+}
