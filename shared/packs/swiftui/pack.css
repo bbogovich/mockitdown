@@ -1741,12 +1741,12 @@
 .mkd-pack-swiftui .mkd-frame[data-chrome="macos"] { --sw-glass-btn: 36px; }
 
 /* macOS title bar: a centred title (32 points), or unified with the root's toolbar row (52 points) */
-.mkd-pack-swiftui .mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 10px 0 20px; background: var(--mkd-bg); }
-.mkd-pack-swiftui .mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar .mkd-chrome__title { font-size: 15px; font-weight: 700; }
-.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-right: 10px; }
-.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
-.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__large { margin-left: 78px; }
-.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 0 0 20px; background: none; }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="toolbar"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 10px 0 20px; background: var(--mkd-bg); }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="toolbar"] > .mkd-chrome--titlebar .mkd-chrome__title { font-size: 15px; font-weight: 700; }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-right: 10px; }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__large { margin-left: 78px; }
+.mkd-pack-swiftui :is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 0 0 20px; background: none; }
 
 /* NavigationSplitView with macOS chrome (C3): the sidebar an inset rounded translucent panel running under
    the title bar, the traffic lights over it, the sidebar toggle at its trailing end of the toolbar row;

@@ -36,6 +36,7 @@ def _options(a: argparse.Namespace, source_path: Path | None) -> RenderOptions:
     return RenderOptions(
         pack=a.pack, default_pack=a.default_pack, device=a.device, appearance=a.appearance,
         width=a.width, height=a.height, chrome=a.chrome or "auto", title=a.title, windowed=a.windowed,
+        menubar=a.menubar, app=a.app,
         elements=a.elements, import_paths=tuple(Path(p) for p in a.import_path),
         asset_paths=tuple(Path(p) for p in a.asset_path), pack_paths=tuple(Path(p) for p in a.pack_path),
         embed_assets=not a.no_embed, source_path=source_path,
@@ -53,6 +54,9 @@ def _common(p: argparse.ArgumentParser) -> None:
     p.add_argument("--title")
     p.add_argument("--windowed", action="store_true", default=None,
                    help="draw the app as an iPadOS window over a wallpaper (ipados chrome)")
+    p.add_argument("--menubar", nargs="?", const="true", metavar="MENU",
+                   help="draw the macOS menu bar (macos chrome); MENU: the title of the menu drawn open")
+    p.add_argument("--app", help="the application name in the macOS menu bar (default: the title)")
     p.add_argument("--elements", action="store_true", help="append the Elements table")
     p.add_argument("-I", "--import-path", action="append", default=[], help="directory for import \"…\"")
     p.add_argument("-A", "--asset-path", action="append", default=[], help="directory for Image(\"…\")")

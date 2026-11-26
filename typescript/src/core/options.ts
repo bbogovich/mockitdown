@@ -27,6 +27,7 @@ export const FENCE_OPTIONS: ReadonlyMap<string, "str" | "int" | "bool"> = new Ma
   ["pack", "str"], ["device", "str"], ["appearance", "str"], ["width", "int"], ["height", "int"],
   ["chrome", "str"], ["title", "str"], ["id", "str"], ["caption", "bool"], ["elements", "bool"],
   ["url", "str"], ["source", "bool"], ["window", "str"], ["windowed", "bool"],
+  ["menubar", "str"], ["app", "str"],
 ] as const);
 
 /**
@@ -62,6 +63,13 @@ export interface RenderOptions {
   url: string | null;
   /** Draw the app as a window over a wallpaper (iPadOS chrome, R-DEV-010.C4). null: `@Screen(windowed:)` or off. */
   windowed: boolean | null;
+  /**
+   * The macOS menu bar (R-DEV-009.C1): true, false or the title of the menu drawn open ("true"/"false"/""
+   * as text). null: `@Screen(menubar:)` or off.
+   */
+  menubar: boolean | string | null;
+  /** The application name in the menu bar (R-DEV-009.C4). null: `@Screen(app:)`, the title, then "App". */
+  app: string | null;
   /** Search paths for `import "path"`, joined with the path as POSIX paths. */
   import_paths: readonly string[];
   /** The path the source came from (relative imports resolve against its directory), if any. */
@@ -94,6 +102,8 @@ export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
   window: null,
   url: null,
   windowed: null,
+  menubar: null,
+  app: null,
   import_paths: [],
   source_path: null,
   show_warnings: false,

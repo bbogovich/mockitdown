@@ -1,5 +1,7 @@
-// swiftui own elements: GroupBox, HSplitView, HelpLink, Image, Inspector, Label, LabeledContent, LineMark, Link, List, Map, Menu
+// swiftui own elements: GeometryReader, GlassEffectContainer, GroupBox, HSplitView, HelpLink, Image, Inspector, Label, LabeledContent, LineMark, Link, List
 VStack(alignment: .leading, spacing: 12) {
+  GeometryReader() { Text("Content"); Button("Action") }
+  GlassEffectContainer() { Text("Content"); Button("Action") }
   GroupBox("Title") { Text("Content"); Button("Action") }
   HSplitView() { Text("Content"); Button("Action") }
   HelpLink()
@@ -19,7 +21,5 @@ VStack(alignment: .leading, spacing: 12) {
     Label("Projects", systemImage: "folder")
   }
 }
-  Map("Label").frame(width: 160, height: 96)
-  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
 }
 .padding()

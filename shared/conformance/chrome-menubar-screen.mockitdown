@@ -1,0 +1,11 @@
+// @Screen(app:, menubar:) with the App menu open
+@Screen(app: "Notes", menubar: "Notes")
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}

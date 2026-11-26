@@ -77,18 +77,65 @@
 /* macOS title bar meeting the root view (R-DEV-010.C2). unified: the root draws the toolbar row (a navigation
    bar, a split view, a sidebar) and the traffic lights float over its leading end; toolbar: the title bar is
    the toolbar row, the root's title leading after the lights and its items trailing. */
-.mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar { position: absolute; z-index: 30; top: 0; left: 0; height: 52px; padding: 0 0 0 20px; background: none; border: 0; pointer-events: none; }
-.mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar > :not(.mkd-chrome__lights) { display: none; }
-.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-left: 92px; }
-.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
-.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-split > .mkd-split__col:first-child { padding-top: 52px; }
-.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-tabs > .mkd-tabs__bar { padding-left: 92px; }
-.mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar { height: 52px; padding: 0 12px 0 20px; gap: 8px; }
-.mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar > .mkd-chrome__lights { margin-right: 12px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-chrome--titlebar { position: absolute; z-index: 30; top: 0; left: 0; height: 52px; padding: 0 0 0 20px; background: none; border: 0; pointer-events: none; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-chrome--titlebar > :not(.mkd-chrome__lights) { display: none; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-left: 92px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-split > .mkd-split__col:first-child { padding-top: 52px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="unified"] > .mkd-screen > .mkd-tabs > .mkd-tabs__bar { padding-left: 92px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="toolbar"] > .mkd-chrome--titlebar { height: 52px; padding: 0 12px 0 20px; gap: 8px; }
+:is(.mkd-frame, .mkd-window)[data-titlebar="toolbar"] > .mkd-chrome--titlebar > .mkd-chrome__lights { margin-right: 12px; }
 .mkd-frame[data-titlebar="toolbar"] .mkd-chrome__title { flex: none; margin: 0; text-align: left; font-size: 15px; font-weight: 700; }
 .mkd-frame[data-titlebar="toolbar"] .mkd-chrome__spacer { flex: 1 1 auto; }
 .mkd-frame .mkd-chrome__toolbar { display: flex; align-items: center; gap: 8px; }
 .mkd-frame .mkd-chrome__toolbar .mkd-button { flex: none; }
+
+/* The macOS menu bar (R-DEV-009): a 24-point translucent bar across the frame over the desktop, the window
+   (div.mkd-window) filling the frame below it with its own macOS form, one open menu dropping over the window.
+   The bar itself has no backdrop-filter: that would make it the dropdown's backdrop root and the dropdown
+   would no longer blur the window under it. */
+.mkd-frame[data-menubar="true"] { border-radius: 10px; background: var(--mkd-desktop, linear-gradient(160deg, #9fc4f5 0%, #5f8fe0 40%, #4a6fc9 62%, #9f86da 100%)); box-shadow: 0 2px 4px rgb(0 0 0 / .06), 0 12px 32px rgb(0 0 0 / .10); }
+.mkd-frame .mkd-window {
+  position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--mkd-bg); border-radius: var(--mkd-window-radius, 16px);
+  box-shadow: var(--mkd-window-shadow, 0 0 0 0.5px rgb(0 0 0 / .18), 0 22px 56px rgb(0 0 0 / .22), 0 4px 12px rgb(0 0 0 / .08));
+}
+.mkd-frame .mkd-menubar {
+  position: relative; z-index: 40; flex: none; display: flex; align-items: center; height: 24px; padding: 0 12px 0 8px;
+  background: var(--mkd-menubar-bg); color: var(--mkd-menubar-fg);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; font-size: 13px; line-height: 16px; font-weight: 500; white-space: nowrap;
+}
+.mkd-frame .mkd-menubar .mkd-icon { flex: none; width: 16px; height: 16px; }
+.mkd-frame .mkd-menubar__apple { display: flex; align-items: center; height: 22px; padding: 0 9px 0 8px; }
+.mkd-frame .mkd-menubar__apple .mkd-icon { width: 17px; height: 17px; margin-top: -2px; }
+.mkd-frame .mkd-menubar__menu { position: relative; display: flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 6px; }
+.mkd-frame .mkd-menubar__menu:where([data-menu="app"]) { font-weight: 700; }
+.mkd-frame .mkd-menubar__menu:where([data-open="true"]) { background: var(--mkd-menubar-sel); }
+.mkd-frame .mkd-menubar__gap { flex: 1 1 auto; }
+.mkd-frame .mkd-menubar__status { display: flex; align-items: center; gap: 16px; padding-left: 12px; }
+.mkd-frame .mkd-menubar__status > .mkd-icon:first-child { width: 22px; height: 22px; }
+.mkd-frame .mkd-menubar__clock { white-space: pre; padding-left: 2px; }
+.mkd-frame .mkd-menubar__dropdown {
+  position: absolute; z-index: 1; top: calc(100% + 4px); left: 0; display: flex; flex-direction: column; min-width: 200px; padding: 5px;
+  border-radius: 12px; background: var(--mkd-menu-bg); color: var(--mkd-menu-fg); box-shadow: var(--mkd-menu-shadow);
+  backdrop-filter: blur(30px) saturate(1.8); font-weight: 400;
+}
+.mkd-frame .mkd-menubar__dropdown--sub { top: -5px; left: calc(100% + 2px); }
+.mkd-frame .mkd-menubar__item { position: relative; display: flex; align-items: center; height: 24px; padding: 0 10px 0 4px; border-radius: 7px; }
+.mkd-frame .mkd-menubar__item:where([data-state="disabled"]) { color: var(--mkd-menu-fg-3); }
+.mkd-frame .mkd-menubar__item:where([data-open="true"]) { background: var(--mkd-menu-sel); color: var(--mkd-on-menu-sel); }
+.mkd-frame .mkd-menubar__check { flex: none; display: flex; align-items: center; justify-content: center; width: 18px; }
+.mkd-frame .mkd-menubar__check .mkd-icon { width: 11px; height: 11px; stroke-width: 3; }
+.mkd-frame .mkd-menubar__icon { flex: none; display: flex; width: 22px; }
+.mkd-frame .mkd-menubar__icon .mkd-icon { width: 15px; height: 15px; }
+.mkd-frame .mkd-menubar__label { flex: 1 1 auto; padding-right: 8px; }
+.mkd-frame .mkd-menubar__key { flex: none; margin-left: 20px; color: var(--mkd-menu-fg-2); letter-spacing: .04em; }
+.mkd-frame .mkd-menubar__item:where([data-state="disabled"]) .mkd-menubar__key { color: var(--mkd-menu-fg-3); }
+.mkd-frame .mkd-menubar__chevron { flex: none; display: flex; margin-left: 20px; margin-right: -4px; color: var(--mkd-menu-fg-2); }
+.mkd-frame .mkd-menubar__item:where([data-open="true"]) > :is(.mkd-menubar__key, .mkd-menubar__chevron) { color: inherit; }
+.mkd-frame .mkd-menubar__chevron .mkd-icon { width: 11px; height: 11px; stroke-width: 2.6; }
+.mkd-frame .mkd-menubar__sep { height: 1px; margin: 5px 10px; background: var(--mkd-menu-sep); }
+.mkd-frame .mkd-menubar__header { padding: 4px 10px 2px 22px; color: var(--mkd-menu-fg-2); font-size: 11px; font-weight: 600; }
 
 /* iPadOS windowed app (R-DEV-010.C4): the app's window inset over the wallpaper, its lights at the top leading corner */
 .mkd-frame[data-windowed="true"] { background: var(--mkd-wallpaper, linear-gradient(155deg, #b7d3fb 0%, #86a7f2 36%, #a98ee6 68%, #f1b3cf 100%)); }

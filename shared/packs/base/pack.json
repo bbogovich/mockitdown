@@ -117,7 +117,19 @@
       "map-land": "#eef0e6",
       "map-water": "#b9d7ee",
       "map-park": "#cfe6c5",
-      "map-road": "#ffffff"
+      "map-road": "#ffffff",
+      "desktop": "linear-gradient(160deg, #9fc4f5 0%, #5f8fe0 40%, #4a6fc9 62%, #9f86da 100%)",
+      "menubar-bg": "rgb(246 246 246 / 0.5)",
+      "menubar-fg": "rgb(0 0 0 / 0.85)",
+      "menubar-sel": "rgb(0 0 0 / 0.1)",
+      "menu-bg": "rgb(240 240 242 / 0.8)",
+      "menu-fg": "rgb(0 0 0 / 0.85)",
+      "menu-fg-2": "rgb(0 0 0 / 0.45)",
+      "menu-fg-3": "rgb(0 0 0 / 0.25)",
+      "menu-sep": "rgb(0 0 0 / 0.1)",
+      "menu-sel": "#0a7aff",
+      "on-menu-sel": "#ffffff",
+      "menu-shadow": "0 0 0 0.5px rgb(0 0 0 / 0.14), inset 0 0 0 0.5px rgb(255 255 255 / 0.6), 0 12px 36px rgb(0 0 0 / 0.2), 0 2px 6px rgb(0 0 0 / 0.08)"
     },
     "dark": {
       "bg": "#16181d",
@@ -156,7 +168,19 @@
       "map-land": "#2a2e33",
       "map-water": "#1f3a52",
       "map-park": "#2b3d2c",
-      "map-road": "#3a3f46"
+      "map-road": "#3a3f46",
+      "desktop": "linear-gradient(160deg, #1f3a6e 0%, #1b2c5c 40%, #172449 62%, #3a2d63 100%)",
+      "menubar-bg": "rgb(28 28 30 / 0.5)",
+      "menubar-fg": "rgb(255 255 255 / 0.92)",
+      "menubar-sel": "rgb(255 255 255 / 0.18)",
+      "menu-bg": "rgb(40 40 44 / 0.78)",
+      "menu-fg": "rgb(255 255 255 / 0.9)",
+      "menu-fg-2": "rgb(255 255 255 / 0.48)",
+      "menu-fg-3": "rgb(255 255 255 / 0.25)",
+      "menu-sep": "rgb(255 255 255 / 0.12)",
+      "menu-sel": "#0a84ff",
+      "on-menu-sel": "#ffffff",
+      "menu-shadow": "0 0 0 0.5px rgb(0 0 0 / 0.6), inset 0 0 0 0.5px rgb(255 255 255 / 0.14), 0 12px 36px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.2)"
     }
   },
   "modifiers": {

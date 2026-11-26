@@ -47,7 +47,7 @@ onto, its arguments, defaults and variants. **Core** is the vocabulary every pac
 
 | Pack | Imitates | Selected by | Elements |
 |---|---|---|---|
-| [SwiftUI](swiftui.md) | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) iOS 26 SDK | `SwiftUI` | 175 |
+| [SwiftUI](swiftui.md) | SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) iOS 26 SDK | `SwiftUI` | 177 |
 | [Android · Jetpack Compose](android.md) | Jetpack Compose · Material 3 Expressive (baseline scheme) Compose Material 3 1.4 · Android 16 | `Android`, `JetpackCompose`, `Compose`, `Material3` | 237 |
 
 ## Retro

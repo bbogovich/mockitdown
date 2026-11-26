@@ -441,3 +441,36 @@ NavigationSplitView {
   }
 }
 ```
+
+## Mac menu bar
+
+`menubar` draws the macOS menu bar above the window (`macos` chrome only): the standard menus, merged
+with the app's `.commands`, and one menu open — named by `menubar="Format"` or marked `.open()`.
+
+```mockitdown device="desktop" appearance="both" app="Notes" menubar="Format"
+import SwiftUI
+
+NavigationSplitView {
+  List {
+    Label("All iCloud", systemImage: "folder")
+    Label("Notes", systemImage: "folder")
+    Label("Recently Deleted", systemImage: "trash")
+  }.navigationTitle("Folders")
+} detail: {
+  VStack(alignment: .leading, spacing: 8) {
+    Text("Groceries").font(.title)
+    Text("Milk, eggs, bread, coffee")
+  }.padding()
+}
+.commands {
+  CommandGroup(after: .newItem) { Button("New Folder").keyboardShortcut("n", modifiers: [.shift, .command]) }
+  CommandMenu("Format") {
+    Button("Bold").keyboardShortcut("b")
+    Button("Italic").keyboardShortcut("i")
+    Divider()
+    Toggle("Show Ruler", isOn: true)
+    Button("Paste Style") {}.disabled(true)
+    Menu("Font") { Button("Bigger") {} }
+  }
+}
+```

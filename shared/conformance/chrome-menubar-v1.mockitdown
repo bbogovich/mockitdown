@@ -1,0 +1,15 @@
+// R-DEV-009 V1: the bar with Shapes before Window and File open
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
+.commands {
+  CommandMenu("Shapes") {
+    Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command])
+  }
+}

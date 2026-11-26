@@ -259,3 +259,78 @@ describe("multi-platform chrome for SwiftUI (R-DEV-010)", () => {
     assert.match(sw('Form { Toggle("On", isOn: true) }', { device: "desktop" }), /class="mkd-form" data-el="Form" data-variant="automatic"/);
   });
 });
+
+// R-DEV-009 TC-1/TC-2 (IT-22): the macOS menu bar in the TypeScript variant (geometry: gallery.spec.mjs).
+describe("the macOS menu bar (R-DEV-009)", () => {
+  const SPLIT = 'NavigationSplitView {\n  List {\n    Label("Inbox", systemImage: "tray")\n  }.navigationTitle("Mail")\n} detail: {\n  Text("Select a message")\n}';
+  const V1 = `${SPLIT}\n.commands {\n  CommandMenu("Shapes") {\n    Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command])\n  }\n}`;
+  const sw = (src: string, opts: Record<string, unknown> = {}): string => {
+    const r = core.render(src, { pack: "swiftui", device: "desktop", ...opts });
+    assert.deepEqual(r.diagnostics, [], src);
+    return r.html;
+  };
+  const frame = (html: string): string => /<div class="mkd-frame"[^>]*>/.exec(html)![0];
+  const titles = (html: string): string[] => [...html.matchAll(/<span class="mkd-menubar__title">([^<]*)<\/span>/g)].map((m) => m[1]);
+  const rows = (html: string): string[][] => {
+    const d = html.slice(html.indexOf('<span class="mkd-menubar__dropdown"'), html.indexOf('<div class="mkd-window"'));
+    return [...d.matchAll(/<span class="mkd-menubar__(item|sep)"[^>]*>(?:<span class="mkd-menubar__check">.*?<\/span>)?(?:<span class="mkd-menubar__icon">.*?<\/span>)?(?:<span class="mkd-menubar__label">([^<]*)<\/span>)?(?:<span class="mkd-menubar__key">([^<]*)<\/span>)?/g)]
+      .map((m) => (m[1] === "sep" ? ["-", ""] : [m[2] ?? "", m[3] ?? ""]));
+  };
+
+  it("V1: the bar in order, the clock, File open with New ⌘N (C1, C3, C5, C6)", () => {
+    const html = sw(V1, { menubar: "File" });
+    assert.match(frame(html), /data-chrome="macos" data-titlebar="unified" data-menubar="true"/);
+    assert.match(html, /<div class="mkd-menubar" role="menubar"><span class="mkd-menubar__apple"><svg class="mkd-icon" data-icon="apple.logo"/);
+    assert.deepEqual(titles(html), ["App", "File", "Edit", "View", "Shapes", "Window", "Help"]);
+    assert.match(html, /<span class="mkd-menubar__clock">Mon Nov 23  9:41 AM<\/span>/);
+    assert.deepEqual(rows(html)[0], ["New", "⌘N"]);
+    assert.match(html, /<\/div><div class="mkd-window" data-titlebar="unified"><div class="mkd-chrome mkd-chrome--titlebar"/);
+  });
+
+  it("the option's values, @Screen, the app name and the element attribute (C1, C4)", () => {
+    assert.doesNotMatch(sw(SPLIT), /mkd-menubar/);
+    assert.doesNotMatch(sw(SPLIT, { menubar: "false" }), /mkd-menubar/);
+    for (const v of [true, "true", ""]) {
+      const html = sw(SPLIT, { menubar: v });
+      assert.match(frame(html), /data-menubar="true"/);
+      assert.doesNotMatch(html, /mkd-menubar__dropdown/);
+    }
+    assert.deepEqual(titles(sw(SPLIT, { menubar: true, title: "Mail" }))[0], "Mail");
+    assert.deepEqual(titles(sw(SPLIT, { menubar: true, title: "Mail", app: "Post" }))[0], "Post");
+    const screen = sw(`@Screen(app: "Notes", menubar: "Edit")\n${SPLIT}`);
+    assert.deepEqual(titles(screen)[0], "Notes");
+    assert.deepEqual(rows(screen)[0], ["Undo", "⌘Z"]);
+    assert.deepEqual(core.coerceFenceOptions({ menubar: "File", app: "Mail" }), [{ menubar: "File", app: "Mail" }, []]);
+  });
+
+  it("the open menu's rows: shortcuts, separator, checkmark, disabled, submenu (C7, C8)", () => {
+    const src = `${SPLIT}\n.commands {\n  CommandMenu("Format") {\n    Button("Bold").keyboardShortcut("b")\n`
+      + '    Button("Strike").keyboardShortcut("x", modifiers: [.command, .control, .option, .shift])\n    Divider()\n'
+      + '    Toggle("Show Ruler", isOn: true)\n    Button("Unavailable") {}.disabled(true)\n    Menu("Font") { Button("Bigger") {} }\n  }.open()\n}';
+    const html = sw(src, { menubar: true });
+    assert.match(html, /data-open="true"><span class="mkd-menubar__title">Format<\/span><span class="mkd-menubar__dropdown" role="menu">/);
+    assert.deepEqual(rows(html), [["Bold", "⌘B"], ["Strike", "⌃⌥⇧⌘X"], ["-", ""], ["Show Ruler", ""], ["Unavailable", ""], ["Font", ""]]);
+    assert.match(html, /role="menuitem" data-checked="true"><span class="mkd-menubar__check"><svg class="mkd-icon" data-icon="checkmark"/);
+    assert.match(html, /role="menuitem" data-state="disabled">/);
+    assert.match(html, /role="menuitem" data-submenu="true"><span class="mkd-menubar__check"><\/span><span class="mkd-menubar__label">Font<\/span><span class="mkd-menubar__chevron">/);
+  });
+
+  it("CommandGroup edits the standard menus; unknown placements and titles warn (C5, C6)", () => {
+    const src = `${SPLIT}\n.commands {\n  CommandGroup(replacing: .newItem) { Button("New Note").keyboardShortcut("n") }\n`
+      + '  CommandGroup(after: .saveItem) { Button("Share…") {} }\n}';
+    const labels = rows(sw(src, { menubar: "File" })).map((r) => r[0]);
+    assert.equal(labels[0], "New Note");
+    assert.ok(!labels.includes("Open…"));
+    assert.ok(labels.indexOf("Share…") > labels.indexOf("Save"));
+    const r = core.render(`${SPLIT}\n.commands { CommandGroup(after: .frobnicate) { Button("X") {} } }`,
+      { pack: "swiftui", device: "desktop", menubar: "Nope" });
+    assert.ok(r.diagnostics.some((d) => d.code === "chrome" && d.message.includes("frobnicate")));
+    assert.ok(r.diagnostics.some((d) => d.code === "chrome" && d.message.includes('"Nope"')));
+  });
+
+  it("menubar needs macOS chrome (C2)", () => {
+    const r = core.render(SPLIT, { pack: "swiftui", device: "phone", menubar: true });
+    assert.ok(r.diagnostics.some((d) => d.code === "chrome" && d.message === "menubar needs macOS chrome"));
+    assert.doesNotMatch(r.html, /mkd-menubar/);
+  });
+});

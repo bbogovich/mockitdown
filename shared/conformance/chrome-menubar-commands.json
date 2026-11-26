@@ -1,0 +1,7 @@
+{
+  "pack": "swiftui",
+  "device": "desktop",
+  "menubar": true,
+  "app": "Notes",
+  "appearance": "dark"
+}

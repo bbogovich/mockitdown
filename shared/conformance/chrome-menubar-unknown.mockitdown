@@ -1,0 +1,11 @@
+// a menubar title naming no menu and an unknown placement warn
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
+.commands { CommandGroup(after: .frobnicate) { Button("X") {} } }

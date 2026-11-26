@@ -21,7 +21,7 @@ DEVICES: dict[str, tuple[int, int]] = {
 FENCE_OPTIONS: dict[str, type] = {
     "pack": str, "device": str, "appearance": str, "width": int, "height": int, "chrome": str,
     "title": str, "id": str, "caption": bool, "elements": bool, "url": str, "source": bool, "window": str,
-    "windowed": bool,
+    "windowed": bool, "menubar": str, "app": str,
 }
 
 
@@ -53,6 +53,11 @@ class RenderOptions:
     url: str | None = None
     #: Draw the app as a window over a wallpaper (iPadOS chrome, R-DEV-010.C4). None: @Screen(windowed:) or off.
     windowed: bool | None = None
+    #: The macOS menu bar (R-DEV-009.C1): True, False or the title of the menu drawn open ("true"/"false"/""
+    #: as text). None: @Screen(menubar:) or off.
+    menubar: bool | str | None = None
+    #: The application name in the menu bar (R-DEV-009.C4). None: @Screen(app:), the title, then "App".
+    app: str | None = None
     import_paths: tuple[Path, ...] = ()
     asset_paths: tuple[Path, ...] = ()
     pack_paths: tuple[Path, ...] = ()

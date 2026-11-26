@@ -1,0 +1,24 @@
+{
+  "packs": [
+    "base",
+    "swiftui"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "chrome",
+      "message": "CommandGroup placement \".frobnicate\" is unknown; ignored",
+      "line": 11,
+      "col": 25,
+      "source": ""
+    },
+    {
+      "severity": "warning",
+      "code": "chrome",
+      "message": "menubar names no menu \"Frobnicate\" (menus: App, File, Edit, View, Window, Help)",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

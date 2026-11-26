@@ -1,5 +1,10 @@
-// swiftui own elements: SignInWithAppleButton, Slider, SpriteView, Stepper, Tab, TabSection, TabView, Table, TableColumn, TableRow, Text, TextEditor
+// swiftui own elements: ShareLink, Sheet, SignInWithAppleButton, Slider, SpriteView, Stepper, Tab, TabSection, TabView, Table, TableColumn, TableRow
 VStack(alignment: .leading, spacing: 12) {
+  ShareLink()
+  Sheet("New event", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Team lunch")
+  DatePicker("Starts", selection: "2026-11-23")
+}
   SignInWithAppleButton()
   Slider()
   SpriteView("Label").frame(width: 160, height: 96)
@@ -18,7 +23,5 @@ VStack(alignment: .leading, spacing: 12) {
   Table(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
   TableColumn("Title")
   TableRow() { Text("Ana Lima"); Text("Active") }
-  Text("Content")
-  TextEditor("Text")
 }
 .padding()

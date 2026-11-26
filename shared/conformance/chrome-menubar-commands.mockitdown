@@ -1,0 +1,24 @@
+// CommandGroup edits and a CommandMenu with every row kind, opened by a submenu's .open()
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
+.commands {
+  CommandGroup(replacing: .newItem) { Button("New Note").keyboardShortcut("n") }
+  CommandGroup(after: .saveItem) { Button("Export as PDF…") {} }
+  CommandMenu("Format") {
+    Button("Bold").keyboardShortcut("b")
+    Button("Copy Style", systemImage: "doc.on.doc").keyboardShortcut("c", modifiers: [.option, .command])
+    Button("Strikethrough").keyboardShortcut("x", modifiers: [.control, .command])
+    Divider()
+    Toggle("Show Ruler", isOn: true)
+    Button("Reset Style") {}.disabled(true)
+    Section("Text") { Button("Larger").keyboardShortcut(.upArrow, modifiers: [.option, .command]) }
+    Menu("Font") { Button("Bigger") {}; Button("Smaller") {} }.open()
+  }
+}

@@ -13,9 +13,9 @@
  * `code` property instead (R-WEB-002.C9). Other children are ignored and never shown.
  *
  * Attributes: the fence attributes (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`,
- * `width`, `height`, `caption`, `elements`, `source`, `window`, `windowed`) with the fence's meanings, plus
- * `import-base` and `asset-base` (URLs, default: the document's base URL). A boolean attribute
- * present without a value is true. Note that `id` and `title` are also global HTML attributes: they
+ * `width`, `height`, `caption`, `elements`, `source`, `window`, `windowed`, `menubar`, `app`) with the fence's
+ * meanings, plus `import-base` and `asset-base` (URLs, default: the document's base URL). A boolean attribute
+ * present without a value is true, and so is `menubar` (R-DEV-009.C1). Note that `id` and `title` are also global HTML attributes: they
  * set the figure's id and title (and its caption) as well as the element's id and tooltip.
  *
  * The element renders into an open shadow root: the stylesheet of the packs used (one constructed

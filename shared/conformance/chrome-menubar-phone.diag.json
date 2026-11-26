@@ -1,0 +1,16 @@
+{
+  "packs": [
+    "base",
+    "swiftui"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "chrome",
+      "message": "menubar needs macOS chrome",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

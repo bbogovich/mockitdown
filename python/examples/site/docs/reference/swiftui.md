@@ -4,7 +4,7 @@
 
 **Imitates:** SwiftUI · iOS 26, iPadOS 26, macOS 26 (Liquid Glass) iOS 26 SDK · **Pack id:** `swiftui` · **Selected by:** `pack="swiftui"`, `import SwiftUI` · **Default device:** phone (ios chrome)
 
-86 own elements, plus 89 core elements in this pack's style.
+88 own elements, plus 89 core elements in this pack's style.
 Each entry shows the element rendered with sample arguments (and, for the pack's own
 elements, each of its variants), the role it maps onto, its positional arguments, its
 defaults and variants.
@@ -179,6 +179,34 @@ ColorPicker("Tint", selection: .blue) — label with the rainbow colour well
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 ColorPicker("Label") { Text("Content"); Button("Action") }
+```
+
+</div>
+
+<div class="ref-card" markdown>
+
+### `CommandGroup`
+
+CommandGroup(replacing:\|before:\|after: .newItem\|.saveItem\|.pasteboard\|…) { Button … } inside .commands { … } — edits a standard menu of the macOS menu bar at that placement
+
+<p class="ref-props">role <code>group</code></p>
+
+```mockitdown pack="swiftui" device="fit" source="true"
+CommandGroup(after: .newItem) { Button("New Folder").keyboardShortcut("n", modifiers: [.shift, .command]) }
+```
+
+</div>
+
+<div class="ref-card" markdown>
+
+### `CommandMenu`
+
+CommandMenu("Format") { Button("Bold").keyboardShortcut("b"); Divider(); Toggle("Show Ruler", isOn: true) } inside .commands { … } — a menu of the macOS menu bar (render option menubar), added before Window; .open() draws it open
+
+<p class="ref-props">role <code>menu</code> · arguments <code>label</code></p>
+
+```mockitdown pack="swiftui" device="fit" source="true"
+CommandMenu("Format") { Button("Bold").keyboardShortcut("b"); Divider(); Toggle("Show Ruler", isOn: true) }
 ```
 
 </div>

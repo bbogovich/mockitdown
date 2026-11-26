@@ -11,6 +11,7 @@
   "callout",
   "class",
   "clipShape",
+  "commands",
   "confirmationDialog",
   "cornerRadius",
   "cursor",
@@ -30,6 +31,7 @@
   "imageScale",
   "inspector",
   "italic",
+  "keyboardShortcut",
   "labelsHidden",
   "lineLimit",
   "marquee",
@@ -95,7 +97,6 @@
   "ignoresSafeArea",
   "interactiveDismissDisabled",
   "kerning",
-  "keyboardShortcut",
   "keyboardType",
   "layoutPriority",
   "listRowBackground",
@@ -157,5 +158,373 @@
   "SwiftData",
   "UIKit",
   "WebKit"
- ]
+ ],
+ "menubar": {
+  "clock": "Mon Nov 23  9:41 AM",
+  "menus": [
+   {
+    "title": "{app}",
+    "id": "app",
+    "entries": [
+     {
+      "placement": "appInfo",
+      "items": [
+       {
+        "title": "About {app}"
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "appSettings",
+      "items": [
+       {
+        "title": "Settings…",
+        "key": ","
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "systemServices",
+      "items": [
+       {
+        "title": "Services",
+        "submenu": true
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "appVisibility",
+      "items": [
+       {
+        "title": "Hide {app}",
+        "key": "h"
+       },
+       {
+        "title": "Hide Others",
+        "key": "h",
+        "modifiers": [
+         "option",
+         "command"
+        ]
+       },
+       {
+        "title": "Show All"
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "appTermination",
+      "items": [
+       {
+        "title": "Quit {app}",
+        "key": "q"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "title": "File",
+    "entries": [
+     {
+      "placement": "newItem",
+      "items": [
+       {
+        "title": "New",
+        "key": "n"
+       },
+       {
+        "title": "Open…",
+        "key": "o"
+       },
+       {
+        "title": "Open Recent",
+        "submenu": true
+       }
+      ]
+     },
+     "-",
+     {
+      "items": [
+       {
+        "title": "Close",
+        "key": "w"
+       }
+      ]
+     },
+     {
+      "placement": "saveItem",
+      "items": [
+       {
+        "title": "Save",
+        "key": "s"
+       },
+       {
+        "title": "Duplicate",
+        "key": "s",
+        "modifiers": [
+         "shift",
+         "command"
+        ]
+       },
+       {
+        "title": "Rename…"
+       },
+       {
+        "title": "Move To…"
+       },
+       {
+        "title": "Revert To",
+        "submenu": true
+       }
+      ]
+     },
+     {
+      "placement": "importExport",
+      "items": []
+     },
+     "-",
+     {
+      "placement": "printItem",
+      "items": [
+       {
+        "title": "Page Setup…",
+        "key": "p",
+        "modifiers": [
+         "shift",
+         "command"
+        ]
+       },
+       {
+        "title": "Print…",
+        "key": "p"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Edit",
+    "entries": [
+     {
+      "placement": "undoRedo",
+      "items": [
+       {
+        "title": "Undo",
+        "key": "z"
+       },
+       {
+        "title": "Redo",
+        "key": "z",
+        "modifiers": [
+         "shift",
+         "command"
+        ]
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "pasteboard",
+      "items": [
+       {
+        "title": "Cut",
+        "key": "x"
+       },
+       {
+        "title": "Copy",
+        "key": "c"
+       },
+       {
+        "title": "Paste",
+        "key": "v"
+       },
+       {
+        "title": "Paste and Match Style",
+        "key": "v",
+        "modifiers": [
+         "option",
+         "shift",
+         "command"
+        ]
+       },
+       {
+        "title": "Delete"
+       },
+       {
+        "title": "Select All",
+        "key": "a"
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "textEditing",
+      "items": [
+       {
+        "title": "Find",
+        "submenu": true
+       },
+       {
+        "title": "Spelling and Grammar",
+        "submenu": true
+       },
+       {
+        "title": "Substitutions",
+        "submenu": true
+       },
+       {
+        "title": "Transformations",
+        "submenu": true
+       },
+       {
+        "title": "Speech",
+        "submenu": true
+       }
+      ]
+     },
+     {
+      "placement": "textFormatting",
+      "items": []
+     },
+     "-",
+     {
+      "items": [
+       {
+        "title": "AutoFill",
+        "submenu": true
+       },
+       {
+        "title": "Start Dictation…"
+       },
+       {
+        "title": "Emoji & Symbols"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "title": "View",
+    "entries": [
+     {
+      "placement": "toolbar",
+      "items": [
+       {
+        "title": "Hide Toolbar",
+        "key": "t",
+        "modifiers": [
+         "option",
+         "command"
+        ]
+       },
+       {
+        "title": "Customize Toolbar…"
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "sidebar",
+      "items": [
+       {
+        "title": "Hide Sidebar",
+        "key": "s",
+        "modifiers": [
+         "control",
+         "command"
+        ]
+       }
+      ]
+     },
+     "-",
+     {
+      "items": [
+       {
+        "title": "Enter Full Screen",
+        "key": "f",
+        "modifiers": [
+         "control",
+         "command"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Window",
+    "id": "window",
+    "entries": [
+     {
+      "placement": "windowSize",
+      "items": [
+       {
+        "title": "Minimize",
+        "key": "m"
+       },
+       {
+        "title": "Zoom"
+       },
+       {
+        "title": "Fill"
+       },
+       {
+        "title": "Center"
+       }
+      ]
+     },
+     "-",
+     {
+      "items": [
+       {
+        "title": "Move & Resize",
+        "submenu": true
+       },
+       {
+        "title": "Full Screen Tile",
+        "submenu": true
+       }
+      ]
+     },
+     "-",
+     {
+      "placement": "singleWindowList",
+      "items": []
+     },
+     {
+      "placement": "windowList",
+      "items": []
+     },
+     "-",
+     {
+      "placement": "windowArrangement",
+      "items": [
+       {
+        "title": "Bring All to Front"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Help",
+    "entries": [
+     {
+      "placement": "help",
+      "items": [
+       {
+        "title": "{app} Help",
+        "key": "?"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
 }

@@ -2,6 +2,7 @@
 
 * RENDERED: modifiers the HTML renderer interprets (layout, typography, colour, navigation …).
 * IGNORED: behaviour-only SwiftUI modifiers accepted silently so real SwiftUI code can be pasted.
+* MENUBAR: the standard menus of the macOS menu bar (R-DEV-009).
 
 A pack adds attribute-setting modifiers in its ``pack.json`` ``modifiers`` map (for instance
 ``buttonStyle`` → ``variant``). Any other modifier draws a warning and is ignored.
@@ -19,6 +20,10 @@ _DATA = json.loads((Path(__file__).resolve().parent / "vocabulary.json").read_te
 
 RENDERED = frozenset(_DATA["rendered"])
 IGNORED = frozenset(_DATA["ignored"])
+
+#: The macOS menu bar's standard menus and clock (R-DEV-009.C3, C6): ``{"clock": str, "menus": [{"title",
+#: "id"?, "entries": ["-" | {"placement"?, "items": [{"title", "key"?, "modifiers"?, "submenu"?}]}]}]}``.
+MENUBAR: dict = _DATA.get("menubar", {"clock": "", "menus": []})
 
 #: Import names that select no pack but are legal in pasted Swift code.
 NEUTRAL_MODULES = frozenset(_DATA["neutral_modules"])

@@ -59,7 +59,7 @@ OPTION_KEYS: dict[str, type] = {
     "pack": str, "default_pack": str, "device": str, "default_device": str, "appearance": str,
     "default_appearance": str, "width": int, "height": int, "chrome": str, "title": str, "id": str,
     "caption": bool, "elements": bool, "source": bool, "window": str, "url": str, "show_warnings": bool,
-    "windowed": bool,
+    "windowed": bool, "menubar": (bool, str), "app": str,
 }
 
 #: Own elements per pack-<id>-own-<n> case.
@@ -286,6 +286,45 @@ def platform_cases() -> list[Case]:
         Case("chrome-form-automatic", "Form defaults to automatic (columns on a Mac)",
              next(e for e in _reference("swiftui")["elements"] if e["name"] == "Form")["sample"],
              {**sw, "device": "desktop"}),
+        *menubar_cases(split),
+    ]
+
+
+def menubar_cases(split: str) -> list[Case]:
+    """The macOS menu bar (R-DEV-009): the option's spellings, the standard menus, .commands merged in, the
+    open menu's rows, the warnings."""
+    sw = {"pack": "swiftui", "device": "desktop"}
+    v1 = split + ('\n.commands {\n  CommandMenu("Shapes") {\n'
+                  '    Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command])\n  }\n}')
+    fmt = split + ('\n.commands {\n'
+                   '  CommandGroup(replacing: .newItem) { Button("New Note").keyboardShortcut("n") }\n'
+                   '  CommandGroup(after: .saveItem) { Button("Export as PDF…") {} }\n'
+                   '  CommandMenu("Format") {\n'
+                   '    Button("Bold").keyboardShortcut("b")\n'
+                   '    Button("Copy Style", systemImage: "doc.on.doc").keyboardShortcut("c", modifiers: [.option, .command])\n'
+                   '    Button("Strikethrough").keyboardShortcut("x", modifiers: [.control, .command])\n'
+                   '    Divider()\n'
+                   '    Toggle("Show Ruler", isOn: true)\n'
+                   '    Button("Reset Style") {}.disabled(true)\n'
+                   '    Section("Text") { Button("Larger").keyboardShortcut(.upArrow, modifiers: [.option, .command]) }\n'
+                   '    Menu("Font") { Button("Bigger") {}; Button("Smaller") {} }.open()\n'
+                   '  }\n}')
+    return [
+        Case("chrome-menubar-v1", "R-DEV-009 V1: the bar with Shapes before Window and File open", v1,
+             {**sw, "menubar": "File"}),
+        Case("chrome-menubar-true", "menubar=true: the bar with no menu open; the app name from the title", split,
+             {**sw, "menubar": True, "title": "Mail"}),
+        Case("chrome-menubar-screen", "@Screen(app:, menubar:) with the App menu open",
+             '@Screen(app: "Notes", menubar: "Notes")\n' + split, sw),
+        Case("chrome-menubar-commands", "CommandGroup edits and a CommandMenu with every row kind, opened by a submenu's .open()",
+             fmt, {**sw, "menubar": True, "app": "Notes", "appearance": "dark"}),
+        Case("chrome-menubar-edit", "the Edit menu open over a plain window in the base pack", 'VStack { Text("Hello") }',
+             {"chrome": "macos", "device": "desktop", "menubar": "Edit", "title": "Hello"}),
+        Case("chrome-menubar-phone", "menubar needs macOS chrome: ignored with a warning", split,
+             {"pack": "swiftui", "device": "phone", "menubar": True}, diagnostics=True),
+        Case("chrome-menubar-unknown", "a menubar title naming no menu and an unknown placement warn",
+             split + '\n.commands { CommandGroup(after: .frobnicate) { Button("X") {} } }',
+             {**sw, "menubar": "Frobnicate"}, diagnostics=True),
     ]
 
 

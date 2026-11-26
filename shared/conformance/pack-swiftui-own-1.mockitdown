@@ -1,4 +1,4 @@
-// swiftui own elements: ActionSheet, Alert, AnyView, AreaMark, AsyncImage, BarMark, Button, Canvas, Card, Chart, ColorPicker, ConcentricRectangle
+// swiftui own elements: ActionSheet, Alert, AnyView, AreaMark, AsyncImage, BarMark, Button, Canvas, Card, Chart, ColorPicker, CommandGroup
 VStack(alignment: .leading, spacing: 12) {
   ActionSheet("Title") { Text("Content"); Button("Action") }
   Alert("Delete this photo?", message: "It will be removed from all your devices.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })
@@ -11,6 +11,6 @@ VStack(alignment: .leading, spacing: 12) {
   Card("Title") { Text("Content"); Button("Action") }
   Chart(values: [3, 5, 2, 6, 4])
   ColorPicker("Label") { Text("Content"); Button("Action") }
-  ConcentricRectangle().frame(width: 160, height: 96)
+  CommandGroup(after: .newItem) { Button("New Folder").keyboardShortcut("n", modifiers: [.shift, .command]) }
 }
 .padding()

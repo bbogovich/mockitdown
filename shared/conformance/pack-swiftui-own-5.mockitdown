@@ -1,5 +1,7 @@
-// swiftui own elements: RealityView, RenameButton, Row, SceneView, ScrollView, ScrollViewReader, Section, SectorMark, SecureField, SettingsLink, ShareLink, Sheet
+// swiftui own elements: Popover, ProgressView, RealityView, RenameButton, Row, SceneView, ScrollView, ScrollViewReader, Section, SectorMark, SecureField, SettingsLink
 VStack(alignment: .leading, spacing: 12) {
+  Popover("Filters") { Toggle("Unread only", isOn: true); Toggle("Flagged", isOn: false) }
+  ProgressView("Label")
   RealityView("Label").frame(width: 160, height: 96)
   RenameButton()
   Row("Title")
@@ -10,10 +12,5 @@ VStack(alignment: .leading, spacing: 12) {
   SectorMark(values: [3, 5, 2, 6, 4])
   SecureField("Placeholder")
   SettingsLink()
-  ShareLink()
-  Sheet("New event", actions: { Button("Cancel"); Button("Add") }) {
-  TextField("Title", text: "Team lunch")
-  DatePicker("Starts", selection: "2026-11-23")
-}
 }
 .padding()

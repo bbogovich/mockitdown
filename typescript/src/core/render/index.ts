@@ -6,10 +6,12 @@
  *       div.mkd-stage                        one cell per rendered appearance
  *         div.mkd-cell
  *           div.mkd-frame[data-appearance][data-device][data-chrome][data-window][data-titlebar][data-windowed]
- *                        style="--mkd-w;--mkd-h" | data-fit
+ *                        [data-menubar]  style="--mkd-w;--mkd-h" | data-fit
  *             div.mkd-chrome …                  top chrome (the window's traffic lights when windowed)
  *             div.mkd-screen                    the views, then div.mkd-layer overlays
  *             div.mkd-chrome …                  bottom chrome
+ *           with the macOS menu bar (data-menubar), the frame holds div.mkd-menubar (see ./menubar.ts) and
+ *           div.mkd-window[data-titlebar], which holds the top chrome, the screen and the bottom chrome
  *           div.mkd-cell__label                 "Light" / "Dark" when appearance=both
  *       div.mkd-caption                         "<id> · <title>"
  *       table.mkd-elements                      optional Elements table
@@ -21,6 +23,7 @@ import { DEVICES, parseBool, type RenderOptions } from "../options.js";
 import { sha1Hex } from "../sha1.js";
 import { intStr, pyBool, pyRepr, pyStr, strRepr, strTitle } from "../values.js";
 import * as chromeMod from "./chrome.js";
+import * as menubarMod from "./menubar.js";
 import { Renderer } from "./html.js";
 import { bool, esc, name } from "./util.js";
 
@@ -120,17 +123,35 @@ export function renderScreen(screen: Screen, renderer: Renderer, opts: RenderOpt
     windowed = false;
   }
   if (windowed) windowAttr += ' data-windowed="true"';
+  let [menubar, menuTitle] = menubarMod.option(opts.menubar !== null && opts.menubar !== undefined
+    ? opts.menubar : screen.meta.get("menubar", false));
+  if (menubar && chromeKind !== "macos") {
+    diags.warning("menubar needs macOS chrome", null, "chrome");
+    menubar = false;
+  }
 
   renderer.anchorPrefix = anchorPrefix(pack.id, source);
   const mode = chromeKind === "macos" ? titlebarMode(screen.views, renderer) : "";
   if (mode) windowAttr += ` data-titlebar="${mode}"`;
-  // The title bar's toolbar is rendered before the body, in document order (anchors number alike).
+  if (menubar) windowAttr += ' data-menubar="true"';
+  // The menu bar, then the title bar's toolbar are rendered before the body, in document order (anchors
+  // number alike).
+  let bar = "";
+  if (menubar) {
+    const appMeta = screen.meta.get("app", null);
+    const app = opts.app || (pyBool(appMeta) ? metaText(appMeta) : "") || title || "App";
+    bar = menubarMod.render(screen.views, renderer, app, menuTitle, diags);
+  }
   const toolbar = mode === "toolbar" ? titleToolbar(screen.views, renderer) : null;
   const body = renderer.views(screen.views);
   const overlays = renderer.overlays.join("");
   const screenHtml = `<div class="mkd-screen">${body}${overlays}</div>`;
-  // The macOS menu bar (R-DEV-009) goes before the top chrome, above the window.
-  const frameInner = chromeMod.top(chromeKind, title, url, { windowed, toolbar }) + screenHtml + chromeMod.bottom(chromeKind);
+  let frameInner = chromeMod.top(chromeKind, title, url, { windowed, toolbar }) + screenHtml + chromeMod.bottom(chromeKind);
+  if (menubar) {
+    // The macOS menu bar (R-DEV-009.C9) above the window, which keeps its form below it.
+    const titlebar = mode ? ` data-titlebar="${mode}"` : "";
+    frameInner = `${bar}<div class="mkd-window"${titlebar}>${frameInner}</div>`;
+  }
 
   const dims = size === null ? ' data-fit="true"' : ` style="--mkd-w:${intStr(Math.trunc(size[0]))};--mkd-h:${intStr(Math.trunc(size[1]))}"`;
   const modes = appearance === "both" ? ["light", "dark"] : [appearance];
@@ -146,6 +167,10 @@ export function renderScreen(screen: Screen, renderer: Renderer, opts: RenderOpt
   return `<div class="mkd-figure mkd-pack-${esc(pack.id)}" role="figure"${aria} data-pack="${esc(pack.id)}" `
     + `data-device="${esc(device)}" data-appearance="${esc(appearance)}">`
     + `<div class="mkd-stage" data-count="${cells.length}">${cells.join("")}</div>${caption}${table}</div>`;
+}
+
+function metaText(value: unknown): string {
+  return value === true ? "true" : value === false ? "false" : pyStr(value);
 }
 
 /** The Elements table: one row per view carrying `.id()`, with its element, struct and refs. */

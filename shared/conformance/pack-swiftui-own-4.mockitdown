@@ -1,5 +1,7 @@
-// swiftui own elements: MultiDatePicker, NavigationLink, NavigationSplitView, NavigationStack, NavigationView, OutlineGroup, PasteButton, PhotosPicker, Picker, PointMark, Popover, ProgressView
+// swiftui own elements: Map, Menu, MultiDatePicker, NavigationLink, NavigationSplitView, NavigationStack, NavigationView, OutlineGroup, PasteButton, PhotosPicker, Picker, PointMark
 VStack(alignment: .leading, spacing: 12) {
+  Map("Label").frame(width: 160, height: 96)
+  Menu("Label") { Button("Open"); Button("Save"); Divider(); Button("Close") }
   MultiDatePicker("Label")
   NavigationLink("Title")
   NavigationSplitView {
@@ -18,7 +20,5 @@ VStack(alignment: .leading, spacing: 12) {
   PhotosPicker()
   Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }
   PointMark(values: [3, 5, 2, 6, 4])
-  Popover("Filters") { Toggle("Unread only", isOn: true); Toggle("Flagged", isOn: false) }
-  ProgressView("Label")
 }
 .padding()

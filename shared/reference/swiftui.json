@@ -173,6 +173,30 @@
    "variants_sample": null
   },
   {
+   "name": "CommandGroup",
+   "role": "group",
+   "params": [],
+   "defaults": {},
+   "variants": [],
+   "doc": "CommandGroup(replacing:|before:|after: .newItem|.saveItem|.pasteboard|…) { Button … } inside .commands { … } — edits a standard menu of the macOS menu bar at that placement",
+   "own": true,
+   "sample": "CommandGroup(after: .newItem) { Button(\"New Folder\").keyboardShortcut(\"n\", modifiers: [.shift, .command]) }",
+   "variants_sample": null
+  },
+  {
+   "name": "CommandMenu",
+   "role": "menu",
+   "params": [
+    "label"
+   ],
+   "defaults": {},
+   "variants": [],
+   "doc": "CommandMenu(\"Format\") { Button(\"Bold\").keyboardShortcut(\"b\"); Divider(); Toggle(\"Show Ruler\", isOn: true) } inside .commands { … } — a menu of the macOS menu bar (render option menubar), added before Window; .open() draws it open",
+   "own": true,
+   "sample": "CommandMenu(\"Format\") { Button(\"Bold\").keyboardShortcut(\"b\"); Divider(); Toggle(\"Show Ruler\", isOn: true) }",
+   "variants_sample": null
+  },
+  {
    "name": "ConcentricRectangle",
    "role": "shape",
    "params": [],

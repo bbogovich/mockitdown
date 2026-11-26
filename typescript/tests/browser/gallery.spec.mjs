@@ -441,3 +441,63 @@ test("R-DEV-010 TC-1/TC-2: SwiftUI chrome per form, floating sidebars and the wi
   expect(m.form.control.l).toBeGreaterThan(m.form.frame.l + 300 * m.form.unit);
   expect(errors).toEqual([]);
 });
+
+// R-DEV-009 TC-2 (C2, C3, C7, C9) and TC-1 in the browser: the menu bar 24 points tall across the frame, the
+// window filling the frame below it with its 16-point corners, the open menu under its title over the window.
+test("R-DEV-009 TC-1/TC-2: the macOS menu bar, the window under it and an open menu", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page, "#pack=swiftui");
+  const split = REFERENCES.swiftui.elements.find((e) => e.name === "NavigationSplitView").sample;
+  const commands = `${split}\n.commands {\n  CommandMenu("Shapes") {\n    Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command])\n`
+    + '    Divider()\n    Toggle("Snap to Grid", isOn: true)\n    Menu("Arrange") { Button("Bring Forward") {} }\n  }\n}';
+  const mockups = [
+    { code: commands, label: "file", attrs: { pack: "swiftui", device: "desktop", menubar: "File", caption: "false" } },
+    { code: commands, label: "shapes", attrs: { pack: "swiftui", device: "desktop", menubar: "Shapes", app: "Draw", caption: "false" } },
+    { code: split, label: "phone", attrs: { pack: "swiftui", device: "phone", menubar: "", caption: "false" } },
+  ];
+  await page.evaluate(mountMockups, { id: "menubar", width: 1400, mockups });
+  const m = await page.evaluate(() => {
+    const out = {};
+    for (const el of document.querySelectorAll("#menubar mockitdown-mockup")) {
+      const r = el.shadowRoot;
+      const b = (s) => {
+        const e = r.querySelector(s);
+        if (!e || getComputedStyle(e).display === "none") return null;
+        const x = e.getBoundingClientRect();
+        return { l: x.left, r: x.right, t: x.top, b: x.bottom, w: x.width, h: x.height };
+      };
+      const frame = r.querySelector(".mkd-frame");
+      const win = r.querySelector(".mkd-window");
+      out[el.dataset.label] = {
+        frame: b(".mkd-frame"), bar: b(".mkd-menubar"), window: b(".mkd-window"), lights: b(".mkd-chrome__lights"),
+        title: b('.mkd-menubar__menu[data-open="true"] > .mkd-menubar__title'), menu: b(".mkd-menubar__dropdown"),
+        key: b(".mkd-menubar__dropdown .mkd-menubar__key"), label: b(".mkd-menubar__dropdown .mkd-menubar__label"),
+        clock: b(".mkd-menubar__clock"),
+        unit: frame.getBoundingClientRect().width / Number(getComputedStyle(frame).getPropertyValue("--mkd-w")),
+        radius: win ? getComputedStyle(win).borderTopLeftRadius : null,
+        overflowing: r.querySelector(".mkd-menubar") ? r.querySelector(".mkd-menubar").scrollWidth > r.querySelector(".mkd-menubar").clientWidth + 1 : false,
+      };
+    }
+    return out;
+  });
+  for (const k of ["file", "shapes"]) {
+    const x = m[k];
+    // C3, C9: the bar spans the frame, 24 points tall; the window fills the frame below it
+    expect(x.bar.w).toBeGreaterThanOrEqual(x.frame.w - 3);
+    expect(x.bar.h / x.unit).toBeCloseTo(24, 0);
+    expect((x.window.t - x.frame.t) / x.unit).toBeCloseTo(24, 0);
+    expect(x.window.b).toBeGreaterThanOrEqual(x.frame.b - 2);
+    expect(parseFloat(x.radius) / x.unit).toBeCloseTo(16, 0);
+    expect(x.lights.t).toBeGreaterThan(x.window.t);
+    expect(x.clock.r).toBeLessThanOrEqual(x.frame.r);
+    expect(x.overflowing).toBe(false);
+    // C7: the dropdown under its title, over the window, the shortcut right of the label
+    expect(x.menu.t).toBeGreaterThanOrEqual(x.title.b);
+    expect(x.menu.l).toBeLessThanOrEqual(x.title.l);
+    expect(x.menu.b).toBeGreaterThan(x.window.t);
+    expect(x.key.l).toBeGreaterThan(x.label.r);
+  }
+  // C2: no bar with a phone's chrome
+  expect(m.phone.bar).toBeNull();
+  expect(errors).toEqual([]);
+});

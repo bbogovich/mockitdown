@@ -1921,6 +1921,34 @@
       "area": "chrome"
     },
     {
+      "name": "chrome-menubar-v1",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-true",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-screen",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-commands",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-edit",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-phone",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-menubar-unknown",
+      "area": "chrome"
+    },
+    {
       "name": "option-title",
       "area": "option"
     },

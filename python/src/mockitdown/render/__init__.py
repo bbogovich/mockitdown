@@ -6,12 +6,14 @@ Structure (classes are the stable styling contract)::
       div.mkd-stage                        one cell per rendered appearance
         div.mkd-cell
           div.mkd-frame[data-appearance=light|dark|auto][data-device][data-chrome][data-window]
-                       [data-titlebar=unified|toolbar][data-windowed=true]
+                       [data-titlebar=unified|toolbar][data-windowed=true][data-menubar=true]
               style="--mkd-w:<points>;--mkd-h:<points>"   (absent in fit mode: data-fit)
             div.mkd-chrome …                  top chrome (status bar, title bar, browser bar;
                                               the window's traffic lights when windowed)
             div.mkd-screen                    the views, then div.mkd-layer overlays
             div.mkd-chrome …                  bottom chrome (home indicator)
+          with the macOS menu bar (data-menubar), the frame holds div.mkd-menubar (see .menubar) and
+          div.mkd-window[data-titlebar], which holds the top chrome, the screen and the bottom chrome
           div.mkd-cell__label                 "Light" / "Dark" when appearance=both
       div.mkd-caption                         "<id> · <title>"
       table.mkd-elements                      optional Elements table
@@ -26,6 +28,7 @@ from ..model import Screen, walk
 from ..model import View
 from ..options import DEVICES, RenderOptions, parse_bool
 from . import chrome as chrome_mod
+from . import menubar as menubar_mod
 from .html import Renderer, _bool, _name, esc
 
 __all__ = ["render_screen", "Renderer"]
@@ -117,19 +120,34 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
         windowed = False
     if windowed:
         window_attr += ' data-windowed="true"'
+    menubar, menu_title = menubar_mod.option(opts.menubar if opts.menubar is not None
+                                             else screen.meta.get("menubar", False))
+    if menubar and chrome != "macos":
+        diags.warning("menubar needs macOS chrome", None, "chrome")
+        menubar = False
 
     renderer.anchor_prefix = anchor_prefix(pack.id, source)
     mode = titlebar_mode(screen.views, renderer) if chrome == "macos" else ""
     if mode:
         window_attr += f' data-titlebar="{mode}"'
-    # The title bar's toolbar is rendered before the body, in document order (anchors number alike).
+    if menubar:
+        window_attr += ' data-menubar="true"'
+    # The menu bar, then the title bar's toolbar are rendered before the body, in document order (anchors
+    # number alike).
+    bar = ""
+    if menubar:
+        app = opts.app or (_text(screen.meta.get("app")) if screen.meta.get("app") else "") or title or "App"
+        bar = menubar_mod.render(screen.views, renderer, app, menu_title, diags)
     toolbar = _title_toolbar(screen.views, renderer) if mode == "toolbar" else None
     body = renderer.views(screen.views)
     overlays = "".join(renderer.overlays)
     screen_html = f'<div class="mkd-screen">{body}{overlays}</div>'
-    # The macOS menu bar (R-DEV-009) goes before the top chrome, above the window.
     frame_inner = chrome_mod.top(chrome, title, url, windowed=windowed, toolbar=toolbar) + screen_html \
         + chrome_mod.bottom(chrome)
+    if menubar:
+        # The macOS menu bar (R-DEV-009.C9) above the window, which keeps its form below it.
+        titlebar = f' data-titlebar="{mode}"' if mode else ""
+        frame_inner = f'{bar}<div class="mkd-window"{titlebar}>{frame_inner}</div>'
 
     if size is None:
         dims = ' data-fit="true"'
@@ -149,6 +167,10 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     return (f'<div class="mkd-figure mkd-pack-{esc(pack.id)}" role="figure"{aria} data-pack="{esc(pack.id)}" '
             f'data-device="{esc(device)}" data-appearance="{esc(appearance)}">'
             f'<div class="mkd-stage" data-count="{len(cells)}">{"".join(cells)}</div>{caption}{table}</div>')
+
+
+def _text(value: object) -> str:
+    return "true" if value is True else "false" if value is False else str(value)
 
 
 def anchor_prefix(pack_id: str, source: str) -> str:

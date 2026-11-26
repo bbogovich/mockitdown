@@ -1,5 +1,7 @@
-// swiftui own elements: WebView, WindowGroup
+// swiftui own elements: VideoPlayer, ViewThatFits, WebView, WindowGroup
 VStack(alignment: .leading, spacing: 12) {
+  VideoPlayer("Label").frame(width: 160, height: 96)
+  ViewThatFits() { Text("Content"); Button("Action") }
   WebView("Label").frame(width: 160, height: 96)
   WindowGroup() { Text("Content"); Button("Action") }
 }

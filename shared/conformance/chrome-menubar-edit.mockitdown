@@ -1,0 +1,2 @@
+// the Edit menu open over a plain window in the base pack
+VStack { Text("Hello") }

@@ -1,5 +1,7 @@
-// swiftui own elements: ConfirmationDialog, ContainerRelativeShape, ContentUnavailableView, ControlGroup, DatePicker, DisclosureGroup, EditButton, EmptyView, Form, Gauge, GeometryReader, GlassEffectContainer
+// swiftui own elements: CommandMenu, ConcentricRectangle, ConfirmationDialog, ContainerRelativeShape, ContentUnavailableView, ControlGroup, DatePicker, DisclosureGroup, EditButton, EmptyView, Form, Gauge
 VStack(alignment: .leading, spacing: 12) {
+  CommandMenu("Format") { Button("Bold").keyboardShortcut("b"); Divider(); Toggle("Show Ruler", isOn: true) }
+  ConcentricRectangle().frame(width: 160, height: 96)
   ConfirmationDialog("Discard your changes?", message: "Your edits to this note have not been saved.", actions: { Button("Discard Changes", role: .destructive); Button("Keep Editing"); Button("Cancel", role: .cancel) })
   ContainerRelativeShape().frame(width: 160, height: 96)
   ContentUnavailableView("Title") { Text("Content"); Button("Action") }
@@ -19,7 +21,5 @@ VStack(alignment: .leading, spacing: 12) {
   }
 }
   Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100")
-  GeometryReader() { Text("Content"); Button("Action") }
-  GlassEffectContainer() { Text("Content"); Button("Action") }
 }
 .padding()

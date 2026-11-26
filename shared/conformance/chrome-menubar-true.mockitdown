@@ -1,0 +1,10 @@
+// menubar=true: the bar with no menu open; the app name from the title
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}
