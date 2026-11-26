@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.12
+impl_version: 0.3.13
 status: draft
 updated: 2026-11-25
 page_id: IMPL.REND
@@ -151,6 +151,22 @@ SwiftUI style names, which no other pack uses:
   whose child's tag or text equals it.
 - `r_textfield`: a filled field whose placeholder is its only title carries it as `aria-label`.
 
+## Presentations and navigation markup — `r_dialog`, `r_split`, `r_tab` (R-PACK-015)
+
+Both renderers, for every pack:
+
+- `r_dialog`: a dialog of a variant in `ACTION_DIALOGS` (`alert`, `action-sheet`) without an
+  `actions:`/`buttons:` slot renders its `Button` children as `.mkd-dialog__actions` and the others in
+  the body (C9). A `popover` dialog draws `.mkd-dialog__arrow` first in the surface and, when written on
+  its own, a `.mkd-popover__anchor` holding the tooltip placeholder button before it in the layer
+  (C10); `base` `pack.css` lays such a layer out as a column and hides the arrow.
+- `_collect_presentations`: a `.popover` presentation draws `.mkd-presented__arrow`.
+- `r_split`: unlabelled children are sidebar (first), detail (last), content (a middle second); a
+  column that is not a `NavigationStack` gets `.mkd-split__header` with its `.navigationTitle`
+  (`_find_mod`).
+- `r_tab` (a `Tab` outside a `TabView`): a `tabs` root with `data-standalone="true"`, the placement of
+  the pack's `TabView` default (`bottom` in base and SwiftUI), and one selected `.mkd-tabs__tab`.
+
 ## Style builder — `render/style.py`
 
 `StyleBuilder.build(view)` runs one `_m_<modifier>` handler per recorded modifier and returns
@@ -175,3 +191,4 @@ SwiftUI style names, which no other pack uses:
 | 0.3.9 | 2026-11-25 | Fit frames at natural width, presentations in flow, tooltip anchor/arrow, rows without overlap, message bubbles (#8) |
 | 0.3.10 | 2026-11-25 | Shapes (circle inside its frame, true ellipse) and charts drawn from values, no-data warning (#9) |
 | 0.3.12 | 2026-11-25 | SwiftUI control markup: pickers, date pickers, gauges, control group menus, list selection (#11) |
+| 0.3.13 | 2026-11-25 | Presentations and navigation: alert actions from Button children, popover anchor and arrow, split view columns and titles, lone tabs (#12) |

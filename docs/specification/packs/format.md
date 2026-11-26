@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.8.6
+spec_version: 0.8.7
 status: draft
 updated: 2026-11-25
 page_id: PACK.1
@@ -375,13 +375,25 @@ TC-M: open the gallery at `#pack=swiftui`, compare each card with the same contr
 Presentations and navigation containers are where SwiftUI's look is most distinctive (SRC-9). The
 clauses fix the visible structure of each; at `fit` they are drawn whole (R-DEV-008).
 
+SwiftUI writes an alert's and a confirmation dialog's buttons in the closure
+(`.alert("Delete?", isPresented: $p) { Button("Delete", role: .destructive) }`), so the `Alert` and
+`ConfirmationDialog` elements take their `Button` children as actions (C9); `actions:` still works and
+wins when given. Because the dialog role is shared, this holds in every pack whose alert is a dialog, as
+do the popover's placeholder anchor (C10) and the one-item tab bar of a lone `Tab` (C11).
+
+As built (#12): the column titles of a split view come from each column's `.navigationTitle`, drawn as a
+large title on the sidebar and content columns and inline on the detail; on a desktop the sidebar title
+is small and secondary until the macOS floating sidebar of R-DEV-010.C3 replaces it. `.balanced` keeps
+the columns side by side as `.automatic` does; `.prominentDetail` floats the sidebar as a glass panel
+over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog takes the alert's card.
+
 **R-PACK-015.TC-1 — SwiftUI presentations**
 
-Python and TypeScript render tests per element asserting the parts (alert title, message, capsule actions; action-sheet rows and separate cancel; popover arrow; sheet grabber; tab item); browser box checks at `fit`.
+Python and TypeScript render tests per element asserting the parts (alert title, message, capsule actions; action-sheet rows and separate cancel; popover arrow; sheet grabber; tab item); browser box checks at `fit`. Button children become actions (C9); a popover alone has its anchor (C10); a lone `Tab` is a one-item bar (C11). Built as IT-20.
 
 **R-PACK-015.TC-2 — SwiftUI navigation containers**
 
-Render tests: TabView variants (content box above the bar box; page dots for `.page`); V1 split view columns and widths; `.prominentDetail` detail spans the frame.
+Render tests: TabView variants (content box above the bar box; page dots for `.page`); V1 split view columns and widths; `.prominentDetail` detail spans the frame. Built as IT-20.
 
 **R-PACK-015.TC-M1 — Visual comparison with SwiftUI**
 
@@ -397,8 +409,11 @@ TC-M: compare the gallery cards with Apple's iOS 26 and macOS 26 HIG screenshots
 | C4 | A `Sheet` MUST render from the bottom with rounded top corners, a grabber, its content and the dimmed screen above it (R-DEV-008.C4, C9). |
 | C5 | A `Tab` alone MUST render as one item of a tab bar (icon over label, selected tint) inside the tab bar capsule; inside a `TabView` it is one of its tabs. |
 | C6 | A `TabView` MUST render its selected tab's content above a floating Liquid Glass capsule tab bar with icon-over-label items and a highlight pill on the selected item, and the content MUST NOT extend under the bar at `fit`; `.page` MUST render the content with page indicator dots below it and no tab bar; `.sidebarAdaptable` MUST render as `.automatic` on a phone and as a sidebar list of the tabs on tablet and desktop; `.tabBarOnly` as `.automatic`. |
-| C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; `.balanced` MUST share the width between the columns and `.prominentDetail` MUST keep the detail at full width with the sidebar over it; with `macos` chrome it MUST follow R-DEV-010.C3. |
+| C7 | A `NavigationSplitView` MUST take its columns from `sidebar:`/`content:`/`detail:` closures (or, unlabelled, the first child as sidebar and the last as detail, a middle child as content) and render two or three columns: the sidebar (a `.sidebar` list with its own navigation title, 320 points on a tablet and at `fit`, 220 on a desktop), the optional content column, and the detail with its title, separated by hairlines; a column's title is the `.navigationTitle` of its content unless the column is a `NavigationStack`, which draws its own bar; `.balanced` MUST share the width between the columns side by side (as `.automatic`) and `.prominentDetail` MUST keep the detail at full width with the sidebar floating over it; with `macos` chrome it MUST follow R-DEV-010.C3. |
 | C8 | At `fit` with no device, `NavigationSplitView` MUST render at least 640 × 360 points so that its columns are visible. |
+| C9 | In every pack, a dialog whose variant is `alert` or `action-sheet` and that has no `actions:` MUST render its `Button` children as its actions, in order and with their roles, and its other children in its body. |
+| C10 | In every pack, a dialog of variant `popover` written on its own MUST render a placeholder anchor button above its surface; a pack other than `swiftui` MAY omit the arrow. |
+| C11 | In every pack, a `Tab` written outside a `TabView` MUST render as a tab bar with that one tab selected, placed as the pack's `TabView` places its bar. |
 | V1 | Each element above renders from its declared sample (R-PACK-013.C4); `NavigationSplitView { List { Label("Inbox", systemImage: "tray") } .navigationTitle("Mail") } detail: { Text("Select a message") }` renders a sidebar column with the title Mail and an Inbox row beside a detail column. |
 
 ## Reference: `pack.json`
@@ -547,6 +562,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |
 | 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |
 | 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
 | 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
@@ -557,6 +573,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.6 | 2026-11-25 | as built: ControlGroup menu label and icon, field time, gauge labels when given; date components and wheel columns, tagged picker options, List selection, columns labels for text fields (C9-C13) |
 | 0.8.5 | 2026-11-25 | re-based on R-PACK-013@0.8.4: variants built from declared samples; C3 defers to R-PACK-013.C2 for declared samples (#10); re-based on R-PACK-013@0.8.4: elements rendered from declared samples |
 | 0.8.4 | 2026-11-25 | as built: a declared sample of an element with variants is a call of it, varied with .variant (C6); declared samples are inherited and checked in every extending pack (C7); generic samples give pickers, radio groups and segmented controls options and a selection, date pickers a date, charts values, table rows cells and tabs a TabView (C8) (#10) |
 | 0.8.2 | 2026-11-25 | re-based on R-REND-013@0.8.1: joined capsules are a deliberate overlap (C5); re-based on R-DEV-008@0.8.1: sheet geometry also per C9 |

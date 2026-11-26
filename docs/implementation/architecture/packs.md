@@ -1,6 +1,6 @@
 ---
 title: Packs
-impl_version: 0.3.12
+impl_version: 0.3.13
 status: draft
 updated: 2026-11-25
 page_id: IMPL.PACKS
@@ -9,7 +9,7 @@ page_id: IMPL.PACKS
 # Packs
 
 Realizes **A-PACK-1** (registry) and **A-PACK-2** (built-in packs); requirements R-PACK-001 –
-R-PACK-009 and R-PACK-014.
+R-PACK-009, R-PACK-014 and R-PACK-015.
 
 ## `PackRegistry` — `packs/__init__.py`
 
@@ -56,6 +56,22 @@ marker, the date picker stepper, the control group menu button) so the markup re
 | Picker | label leading and accent value with up-down chevron; inline rows with checkmark; macOS radio group; palette highlight | `.mkd-wheel` (role `wheel`), palette through `r_segmented`, first option by default, tagged options |
 | Toggle, Button | 51 × 31 switch, tinted button, checkbox; translucent glass capsules with a light edge | — |
 
+## SwiftUI presentations and navigation — `shared/packs/swiftui/pack.css` (R-PACK-015)
+
+The presentation and navigation blocks of the SwiftUI `pack.css` draw:
+
+| Element | CSS |
+|---|---|
+| Alert | glass card 300 wide, `--mkd-radius-alert` (34 px, a pack token), bold centred title and message; actions as 48-pixel grey capsules, side by side for two (cancel first), stacked for three or more (cancel last); destructive red, prominent accent |
+| ConfirmationDialog | phone: the header, message and rows as one glass panel (28-pixel corners, hairline rows), the cancel action as its own glass capsule below; with `ipados` or `macos` chrome the alert selector applies (`:is(.mkd-dialog[data-variant="alert"], .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) .mkd-dialog[data-variant="action-sheet"])`) and the phone rules are limited to other chrome |
+| Popover | glass bubble, no dimming (transparent scrim), `.mkd-dialog__arrow` / `.mkd-presented__arrow` as a clipped triangle above it |
+| Sheet | a grid: title between the first action (leading) and the last (trailing, accent) as glass capsules (`.mkd-dialog__actions { display: contents }`), the content as a grouped section |
+| Tab alone | `[data-standalone="true"]`: the tab bar capsule in flow, one item |
+| TabView | at `fit` the bar is static below the panel (content never under it); `.page` dots without a capsule; `.sidebarAdaptable` on tablet and desktop: the bar as a sidebar column of rows |
+| NavigationSplitView | sidebar 320 (220 on desktop) on `sidebar-bg` with hairlines; column titles (large, inline on the detail); `.prominentDetail` floats the sidebar as a glass panel; at `fit` at least 640 × 360 and bleeding over the fit padding |
+
+The macOS floating sidebar of R-DEV-010.C3 is left to #13: it styles `.mkd-frame[data-chrome="macos"] .mkd-split__col[data-col="sidebar"]` (the existing desktop rules round and inset the column) and its `.mkd-split__header`.
+
 ## The contract tests — `tests/test_packs.py`
 
 | Test | Checks |
@@ -78,3 +94,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.2 | 2026-11-25 | Packs live in shared/packs and are copied into the package at build (#1) |
 | 0.3.12 | 2026-11-25 | SwiftUI control styles (R-PACK-014) (#11) |
+| 0.3.13 | 2026-11-25 | SwiftUI presentations and navigation (R-PACK-015) (#12) |

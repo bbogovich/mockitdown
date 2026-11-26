@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.8.7 | 2026-11-25 | `PACK.1` | R-PACK-015 as built in #12: Button children of alert and action-sheet dialogs are their actions (C9), a lone popover's placeholder anchor (C10), a lone Tab as a one-item tab bar (C11); split view column titles, 320 points at fit, .balanced and .prominentDetail (C7) |
 | 0.8.6 | 2026-11-25 | `PACK.1` | R-PACK-014 as built in #11: menu group label and icon, field time, gauge labels when given; date components, wheel columns, tagged picker options, List selection, columns text field titles (C9-C13) |
 | 0.8.5 | 2026-11-25 | `PACK.1` | R-PACK-012/014/015 clarified against R-PACK-013 as built in #10 |
 | 0.8.4 | 2026-11-25 | `PACK.1` | R-PACK-013 as built: declared samples of elements with variants, inheritance, generic sample content (#10) |

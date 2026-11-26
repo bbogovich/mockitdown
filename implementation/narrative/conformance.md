@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.12
+impl_version: 0.3.13
 status: draft
 updated: 2026-11-25
 page_id: IMPL.CONF
@@ -55,6 +55,7 @@ repository path.
 | `chart-` | 30 | every chart kind and data form, `Chart {}` marks, a dark pack, candlesticks from values, bubble and heatmap from `series:`, charts without data (with the `chart` warning) |
 | `shape-` | 5 | circle, ellipse and capsule in a 160 × 96 frame; a stroked, shadowed circle; a background in an ellipse |
 | `control-` | 48 | every variant of the SwiftUI ControlGroup, DatePicker, Form, Gauge, List, Picker and Toggle from its declared sample; glass buttons; a labelled menu group; date picker defaults, components and wheels; first and tagged picker options; pickers without options; a macOS columns form; a bordered list selection |
+| `present-` | 22 | the SwiftUI Alert, ConfirmationDialog, Popover, Sheet, Tab, TabView and NavigationSplitView from their declared samples and every TabView and NavigationSplitView variant; Button children as alert and confirmation actions; a confirmation dialog on a tablet; a lone Tab; unlabelled two- and three-column split views; a content closure on a tablet; the `.popover` arrow |
 | `image-` | 9 | data URI, remote, protocol-relative, placeholder, icons, avatar, modifiers |
 | `lang-` | 10 | let/if, ForEach, inline Markdown, fonts, layout modifiers, colours, escaping |
 | `diag-` | 17 | syntax errors, unknown element/module/pack/device/chrome/appearance/icon, imports, images, shown warnings |
@@ -92,3 +93,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.3 | 2026-11-25 | Page written (#2) |
 | 0.3.10 | 2026-11-25 | `shape-` area; chart cases from values and without data (#9) |
 | 0.3.12 | 2026-11-25 | `control-` area (#11) |
+| 0.3.13 | 2026-11-25 | `present-` area (#12) |
