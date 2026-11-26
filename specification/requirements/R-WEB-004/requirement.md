@@ -2,16 +2,16 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.8.0
-rev: 3
+version: 0.8.12
+rev: 4
 page: WEB.2
 slot: reqs
 order: 2
-hash: a23dbc0ef5c5
+hash: 6a911f4e9141
 source: [SRC-8, SRC-9, SRC-10]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
-refs: [R-DEV-008, R-PACK-012]
+refs: [R-DEV-008, R-PACK-012, R-WEB-002]
 ---
 
 C1: The pack gallery page `pages/packs.html` MUST have a master-detail layout: a side panel listing every shipped, non-hidden pack grouped and ordered as the example site's Reference menu (R-PACK-012.C5), and a main area showing the selected pack.
@@ -27,7 +27,7 @@ C10: The gallery SHOULD create a card's `mockitdown-mockup` only when the card c
 C11: The gallery MUST expose `window.packGallery` with `state` (`ready` once the side panel and the first pack are shown), `select(id)` and `renderAll()`, which creates every mockup of the selected pack, waits for each one's `rendered`, and resolves with the pack, its element names, its pattern ids, the number of mockups, those without rendered content and the error diagnostics.
 C12: An unknown or missing `#pack=` fragment MUST select the first pack of the side panel.
 C13: Each element card MUST show its sample and its variants sample at their natural `fit` size (R-DEV-008.C1); a mockup wider than its card MUST scroll horizontally within the card rather than be squeezed or scaled.
-C14: An entry of `shared/patterns/index.json` MAY carry `packs` (pack ids; the pattern is shown only for those packs and MAY import their module), `device`, `chrome`, `menubar` and `app`; for `swiftui` the gallery MUST show at least an iPhone app (TabView with a NavigationStack list and detail), an iPad app (three-column NavigationSplitView) and a Mac app (NavigationSplitView with toolbar, `.commands` and `menubar` naming an open menu).
+C14: An entry of `shared/patterns/index.json` MAY carry `packs` (pack ids; the pattern is shown only for those packs and MAY import their module), `device`, `chrome`, `menubar`, `app` and `windowed`, passed to the `mockitdown-mockup` as the attributes of the same name (R-WEB-002.C3); for `swiftui` the gallery MUST show at least an iPhone app (TabView with a NavigationStack list and detail), an iPad app (three-column NavigationSplitView) and a Mac app (NavigationSplitView with toolbar, `.commands` and `menubar` naming an open menu).
 C15: The browser tests MUST fail, for any pack, when two captioned variant cells of an element card intersect, when a `fit` frame is narrower than its content's scroll width, or when a presentation surface of an element sample is smaller than 200 × 80 points (a toast: than its text).
 C16: The main area MUST show the selected pack's facts above two tabs, Elements and Examples, with exactly one tab's content shown; Elements (the element cards and the name filter) MUST be the default.
 C17: The selected tab MUST be reflected in the fragment as `#pack=<id>&tab=elements|examples`, kept when another pack is selected, and restored on reload; an unknown tab MUST select Elements.
