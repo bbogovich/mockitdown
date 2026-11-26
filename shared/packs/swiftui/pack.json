@@ -21,7 +21,7 @@
       "shadow-1": "0 1px 2px rgb(0 0 0 / 0.06), 0 3px 8px rgb(0 0 0 / 0.08)",
       "shadow-2": "0 4px 16px rgb(0 0 0 / 0.12)",
       "shadow-3": "0 10px 40px rgb(0 0 0 / 0.18)",
-      "radius-s": "6px", "radius-m": "10px", "radius-l": "16px", "radius-xl": "26px", "radius-pill": "999px", "radius-alert": "34px",
+      "radius-s": "6px", "radius-m": "10px", "radius-l": "16px", "radius-xl": "26px", "radius-pill": "999px", "radius-alert": "34px", "window-radius": "16px",
       "font": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", \"SF Pro\", system-ui, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
       "font-rounded": "ui-rounded, \"SF Pro Rounded\", -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
       "font-mono": "ui-monospace, \"SF Mono\", SFMono-Regular, Menlo, monospace",
@@ -65,7 +65,9 @@
       "avatar-top": "#a5abb8", "avatar-bottom": "#858994",
       "map-land": "#efebe3", "map-park": "#cfe8c4", "map-water": "#a9d3f5", "map-road": "#ffffff",
       "video-bg": "#000000", "tab-sel": "rgb(116 116 128 / 0.12)",
-      "sheet-grouped-bg": "#f2f2f7", "sheet-cell-bg": "#ffffff"
+      "sheet-grouped-bg": "#f2f2f7", "sheet-cell-bg": "#ffffff",
+      "wallpaper": "linear-gradient(155deg, #b7d3fb 0%, #86a7f2 36%, #a98ee6 68%, #f1b3cf 100%)",
+      "window-shadow": "0 0 0 0.5px rgb(0 0 0 / 0.18), 0 22px 56px rgb(0 0 0 / 0.22), 0 4px 12px rgb(0 0 0 / 0.08)"
     },
     "dark": {
       "bg": "#000000", "surface": "#1c1c1e", "surface-2": "#1c1c1e", "surface-3": "#3a3a3c",
@@ -102,7 +104,9 @@
       "avatar-top": "#6e7380", "avatar-bottom": "#4f535c",
       "map-land": "#2b2d30", "map-park": "#28392a", "map-water": "#1d3346", "map-road": "#45474c",
       "video-bg": "#000000", "tab-sel": "rgb(118 118 128 / 0.26)",
-      "sheet-grouped-bg": "#1c1c1e", "sheet-cell-bg": "#2c2c2e"
+      "sheet-grouped-bg": "#1c1c1e", "sheet-cell-bg": "#2c2c2e",
+      "wallpaper": "linear-gradient(155deg, #16224d 0%, #253a85 38%, #4b2f7c 70%, #6b2550 100%)",
+      "window-shadow": "0 0 0 0.5px rgb(255 255 255 / 0.16), 0 22px 56px rgb(0 0 0 / 0.55), 0 4px 12px rgb(0 0 0 / 0.3)"
     }
   },
   "fonts": {
@@ -211,7 +215,7 @@
     "ProgressView": {"role": "progress", "params": ["label"], "variants": ["automatic", "linear", "circular"], "doc": "ProgressView() spinner, or ProgressView(\"Uploading\", value: 0.4)"},
 
     "List": {"role": "list", "defaults": {"variant": "insetGrouped"}, "variants": ["automatic", "insetGrouped", "grouped", "inset", "plain", "sidebar", "bordered"], "doc": "List { Section(\"…\") { … } } — inset-grouped by default; .listStyle(.plain|.sidebar|.grouped)", "sample": "List(selection: \"Inbox\") {\n  Section(\"Favourites\") {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Drafts\", systemImage: \"doc\")\n  }\n  Section(\"Folders\") {\n    Label(\"Archive\", systemImage: \"archivebox\")\n    Label(\"Projects\", systemImage: \"folder\")\n  }\n}"},
-    "Form": {"role": "form", "defaults": {"variant": "grouped"}, "variants": ["automatic", "grouped", "columns"], "doc": "Form { Section { TextField … Toggle … } } — inset-grouped rows", "sample": "Form {\n  Section(\"Account\") {\n    TextField(\"Name\", text: \"Ana Lima\")\n    Toggle(\"Notifications\", isOn: true)\n  }\n  Section(\"Display\") {\n    Picker(\"Appearance\", selection: \"Automatic\") { Text(\"Light\"); Text(\"Dark\"); Text(\"Automatic\") }\n    Stepper(\"Font size\", value: 17)\n  }\n}"},
+    "Form": {"role": "form", "defaults": {"variant": "automatic"}, "variants": ["automatic", "grouped", "columns"], "doc": "Form { Section { TextField … Toggle … } } — automatic: inset-grouped rows on iPhone and iPad, columns on the Mac · .formStyle(.grouped|.columns)", "sample": "Form {\n  Section(\"Account\") {\n    TextField(\"Name\", text: \"Ana Lima\")\n    Toggle(\"Notifications\", isOn: true)\n  }\n  Section(\"Display\") {\n    Picker(\"Appearance\", selection: \"Automatic\") { Text(\"Light\"); Text(\"Dark\"); Text(\"Automatic\") }\n    Stepper(\"Font size\", value: 17)\n  }\n}"},
     "Section": {"role": "section", "params": ["title"], "doc": "Section(\"Header\") { … } footer: { Text(\"…\") }"},
     "TabSection": {"role": "section", "params": ["title"], "doc": "A group of Tabs (sidebar-adaptable TabView)"},
     "LabeledContent": {"role": "labeled", "params": ["label", "value"], "doc": "LabeledContent(\"Version\", value: \"26.1\") — label + secondary value"},

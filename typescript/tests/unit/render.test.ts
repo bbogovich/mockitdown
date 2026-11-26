@@ -206,3 +206,56 @@ describe("charts from values (R-REND-012.C6, C7)", () => {
     assert.deepEqual(core.render("GaugeChart()", { device: "fit" }).diagnostics.filter((d) => d.code === "chart"), []);
   });
 });
+
+// R-DEV-010 TC-1/TC-2 (IT-21): chrome per form, the macOS title bar, the sidebar toggle and the windowed iPad
+// app in the TypeScript variant (geometry: gallery.spec.mjs).
+describe("multi-platform chrome for SwiftUI (R-DEV-010)", () => {
+  const V1 = 'NavigationSplitView {\n  List {\n    Label("Inbox", systemImage: "tray")\n  }.navigationTitle("Mail")\n} detail: {\n  Text("Select a message")\n}';
+  const sw = (src: string, opts: Record<string, unknown> = {}): string => {
+    const r = core.render(src, { pack: "swiftui", ...opts });
+    assert.deepEqual(r.diagnostics, [], src);
+    return r.html;
+  };
+  const frame = (html: string): string => /<div class="mkd-frame"[^>]*>/.exec(html)![0];
+
+  it("the same split view at phone, tablet and desktop (C1, V1)", () => {
+    const phone = sw(V1, { device: "phone" });
+    assert.match(frame(phone), /data-chrome="ios"/);
+    assert.match(phone, /mkd-chrome__island/);
+    assert.match(phone, /mkd-chrome--home" data-chrome="ios"/);
+    const tablet = sw(V1, { device: "tablet" });
+    assert.match(frame(tablet), /data-chrome="ipados"/);
+    assert.match(tablet, /9:41 Mon Nov 23/);
+    assert.match(tablet, /mkd-chrome__pct">100%/);
+    assert.match(tablet, /mkd-chrome--home" data-chrome="ipados"/);
+    const desktop = sw(V1, { device: "desktop" });
+    assert.match(frame(desktop), /data-chrome="macos" data-titlebar="unified"/);
+    assert.match(desktop, /<span class="mkd-split__toggle" role="button" aria-label="Toggle Sidebar"><svg class="mkd-icon" data-icon="sidebar.left"/);
+  });
+
+  it("the macOS title bar: unified, drawn from the root's title and toolbar, or a centred title (C2)", () => {
+    assert.doesNotMatch(frame(sw('VStack { Text("Hello") }', { device: "desktop" })), /data-titlebar/);
+    assert.match(frame(sw('NavigationStack { Text("a").navigationTitle("Inbox") }', { device: "desktop" })), /data-titlebar="unified"/);
+    assert.doesNotMatch(frame(sw('NavigationStack { Text("a") }', { device: "desktop" })), /data-titlebar/);
+    const plain = sw('VStack { Text("Body") }.navigationTitle("Notes").toolbar { Button("New", systemImage: "square.and.pencil") {} }',
+      { device: "desktop", title: "App" });
+    assert.match(frame(plain), /data-titlebar="toolbar"/);
+    assert.match(plain, /mkd-chrome__title">Notes<\/span><span class="mkd-chrome__spacer"><\/span><span class="mkd-chrome__toolbar"><span class="mkd-button"/);
+    assert.doesNotMatch(frame(sw('NavigationStack { Text("a").navigationTitle("Inbox") }', { device: "tablet" })), /data-titlebar/);
+  });
+
+  it("windowed draws the iPad app window; other chrome ignores it with a warning (C4)", () => {
+    const html = sw(V1, { device: "tablet", windowed: true });
+    assert.match(frame(html), /data-windowed="true"/);
+    assert.match(html, /<div class="mkd-chrome mkd-chrome--lights" data-chrome="ipados"><span class="mkd-chrome__lights">/);
+    assert.match(frame(sw(`@Screen(windowed: true)\n${V1}`, { device: "tablet" })), /data-windowed="true"/);
+    assert.doesNotMatch(frame(sw(`@Screen(windowed: true)\n${V1}`, { device: "tablet", windowed: false })), /data-windowed/);
+    const mac = core.render(V1, { pack: "swiftui", device: "desktop", windowed: true });
+    assert.ok(mac.diagnostics.some((d) => d.code === "chrome" && d.message === "windowed needs iPadOS chrome; ignored"));
+    assert.doesNotMatch(frame(mac.html), /data-windowed/);
+  });
+
+  it("Form defaults to automatic (C5)", () => {
+    assert.match(sw('Form { Toggle("On", isOn: true) }', { device: "desktop" }), /class="mkd-form" data-el="Form" data-variant="automatic"/);
+  });
+});

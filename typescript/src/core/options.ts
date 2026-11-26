@@ -26,7 +26,7 @@ export const DEVICES: ReadonlyMap<string, readonly [number, number]> = new Map([
 export const FENCE_OPTIONS: ReadonlyMap<string, "str" | "int" | "bool"> = new Map([
   ["pack", "str"], ["device", "str"], ["appearance", "str"], ["width", "int"], ["height", "int"],
   ["chrome", "str"], ["title", "str"], ["id", "str"], ["caption", "bool"], ["elements", "bool"],
-  ["url", "str"], ["source", "bool"], ["window", "str"],
+  ["url", "str"], ["source", "bool"], ["window", "str"], ["windowed", "bool"],
 ] as const);
 
 /**
@@ -60,6 +60,8 @@ export interface RenderOptions {
   window: string | null;
   /** Address shown by browser chrome. */
   url: string | null;
+  /** Draw the app as a window over a wallpaper (iPadOS chrome, R-DEV-010.C4). null: `@Screen(windowed:)` or off. */
+  windowed: boolean | null;
   /** Search paths for `import "path"`, joined with the path as POSIX paths. */
   import_paths: readonly string[];
   /** The path the source came from (relative imports resolve against its directory), if any. */
@@ -91,6 +93,7 @@ export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
   source: false,
   window: null,
   url: null,
+  windowed: null,
   import_paths: [],
   source_path: null,
   show_warnings: false,

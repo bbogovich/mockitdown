@@ -45,7 +45,7 @@ const { html, packs } = render(source, {});
 ```
 
 Options use the Python `RenderOptions` field names (`pack`, `default_pack`, `device`, `appearance`,
-`width`, `height`, `chrome`, `title`, `id`, `caption`, `elements`, `source`, `window`, `url`,
+`width`, `height`, `chrome`, `title`, `id`, `caption`, `elements`, `source`, `window`, `windowed`, `url`,
 `import_paths`, `source_path`, `show_warnings`), plus `import_resolver`, a function returning a
 component file's text for a candidate path, and `asset_base`, the URL local image paths resolve
 against (images are never embedded; without it a local path is reported as not found).

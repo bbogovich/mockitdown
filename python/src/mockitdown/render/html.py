@@ -1244,18 +1244,32 @@ class Renderer:
             st = ""
             if isinstance(widths, list) and i < len(widths) and (length := u(_num(widths[i]))) is not None:
                 st = f' style="flex:0 0 {length};width:{length}"'
-            # A column's own navigation title, when it is not a NavigationStack drawing its bar (R-PACK-015.C7).
+            # A column's own navigation title and toolbar, when it is not a NavigationStack drawing its bar
+            # (R-PACK-015.C7, R-DEV-010.C2).
             header = ""
             if not any(c.role == "navstack" for c in views):
+                title_html = ""
                 title_view = self._find_mod(views, "navigationTitle")
                 if title_view is not None:
                     m = title_view.mod("navigationTitle")
                     title_html = self.content(m.arg()) if m.args else self.views(m.content or [])
-                    if title_html:
-                        header = (f'<div class="mkd-split__header"><span class="mkd-split__title">{title_html}'
-                                  "</span></div>")
+                tb_views: list[View] = []
+                holder = self._find_mod(views, "toolbar")
+                if holder is not None:
+                    for m in holder.modifiers:
+                        if m.name == "toolbar" and m.content:
+                            tb_views.extend(m.content)
+                groups = self._toolbar_items(tb_views)
+                items = self.views(groups["leading"] + groups["principal"] + groups["trailing"])
+                if title_html or items:
+                    header = ('<div class="mkd-split__header">'
+                              + (f'<span class="mkd-split__title">{title_html}</span>' if title_html else "")
+                              + (f'<span class="mkd-split__toolbar">{items}</span>' if items else "") + "</div>")
             out.append(f'<div class="mkd-split__col" data-col="{esc(name)}"{st}>{header}{self.views(views)}</div>')
-        return self.open(v, "split", data={"columns": str(len(cols))}) + "".join(out) + "</div>"
+        # The sidebar toggle: hidden by the base pack, shown in the toolbar with macOS and iPadOS chrome (R-DEV-010.C3, C6).
+        toggle = (f'<span class="mkd-split__toggle" role="button" aria-label="Toggle Sidebar">'
+                  f'{self.icon("sidebar.left")}</span>')
+        return self.open(v, "split", data={"columns": str(len(cols))}) + "".join(out) + toggle + "</div>"
 
     def r_tabs(self, v: View) -> str:
         tabs: list[dict] = []

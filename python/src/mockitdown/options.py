@@ -21,6 +21,7 @@ DEVICES: dict[str, tuple[int, int]] = {
 FENCE_OPTIONS: dict[str, type] = {
     "pack": str, "device": str, "appearance": str, "width": int, "height": int, "chrome": str,
     "title": str, "id": str, "caption": bool, "elements": bool, "url": str, "source": bool, "window": str,
+    "windowed": bool,
 }
 
 
@@ -50,6 +51,8 @@ class RenderOptions:
     window: str | None = None
     #: Address shown by browser chrome.
     url: str | None = None
+    #: Draw the app as a window over a wallpaper (iPadOS chrome, R-DEV-010.C4). None: @Screen(windowed:) or off.
+    windowed: bool | None = None
     import_paths: tuple[Path, ...] = ()
     asset_paths: tuple[Path, ...] = ()
     pack_paths: tuple[Path, ...] = ()

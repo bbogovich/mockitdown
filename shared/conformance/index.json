@@ -1869,6 +1869,58 @@
       "area": "chrome"
     },
     {
+      "name": "chrome-swiftui-phone",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-swiftui-tablet",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-swiftui-desktop",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-swiftui-windowed",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-swiftui-windowed-screen",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-swiftui-windowed-mac",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos-stack",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos-toolbar",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos-tabs",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos-plain",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-macos-base",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-split-toolbar",
+      "area": "chrome"
+    },
+    {
+      "name": "chrome-form-automatic",
+      "area": "chrome"
+    },
+    {
       "name": "option-title",
       "area": "option"
     },

@@ -324,9 +324,9 @@ EmptyView() { Text("Content"); Button("Action") }
 
 ### `Form`
 
-Form { Section { TextField … Toggle … } } — inset-grouped rows
+Form { Section { TextField … Toggle … } } — automatic: inset-grouped rows on iPhone and iPad, columns on the Mac · .formStyle(.grouped\|.columns)
 
-<p class="ref-props">role <code>form</code> · defaults <code>variant: &quot;grouped&quot;</code> · variants <code>automatic</code>, <code>grouped</code>, <code>columns</code></p>
+<p class="ref-props">role <code>form</code> · defaults <code>variant: &quot;automatic&quot;</code> · variants <code>automatic</code>, <code>grouped</code>, <code>columns</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 HStack(alignment: .top, spacing: 24) {

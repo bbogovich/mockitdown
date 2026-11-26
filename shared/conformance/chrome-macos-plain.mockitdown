@@ -1,0 +1,2 @@
+// a plain root: centred window title
+VStack { Text("Hello") }

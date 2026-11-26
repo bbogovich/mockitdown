@@ -1,0 +1,2 @@
+// a split column's title and toolbar in its header
+NavigationSplitView { List { Text("Inbox") }.navigationTitle("Mail") } detail: { Text("Message").navigationTitle("Lunch").toolbar { Button("Reply", systemImage: "arrowshape.turn.up.left") {} } }

@@ -1,0 +1,2 @@
+// a sidebar-adaptable TabView: unified title bar
+TabView { Tab("Home", systemImage: "house") { Text("Welcome") }; Tab("Search", systemImage: "magnifyingglass") { Text("Find") } }.tabViewStyle(.sidebarAdaptable)

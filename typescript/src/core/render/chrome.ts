@@ -9,11 +9,20 @@ import { esc } from "./util.js";
 export const CHROME_KINDS = ["none", "ios", "ipados", "macos", "windows", "android", "browser", "gnome", "kde", "win31",
   "window"] as const;
 
+const LIGHTS = '<span class="mkd-chrome__lights"><i data-light="close"></i><i data-light="min"></i>'
+  + '<i data-light="max"></i></span>';
+
 function i(name: string): string {
   return iconSvg(name, "mkd-icon")[0];
 }
 
-export function top(kind: string, title: string, url: string | null): string {
+/**
+ * The chrome above the screen. `windowed` (`ipados`): the traffic lights of the app window drawn over a
+ * wallpaper (R-DEV-010.C4). `toolbar` (`macos`): the root view's navigation title, leading and trailing
+ * toolbar items as HTML, drawn in the unified title bar (R-DEV-010.C2); the title replaces the window title.
+ */
+export function top(kind: string, title: string, url: string | null,
+  { windowed = false, toolbar = null }: { windowed?: boolean; toolbar?: readonly [string, string, string] | null } = {}): string {
   switch (kind) {
     case "ios":
       return '<div class="mkd-chrome mkd-chrome--status" data-chrome="ios"><span class="mkd-chrome__time">9:41</span>'
@@ -22,14 +31,22 @@ export function top(kind: string, title: string, url: string | null): string {
     case "ipados":
       return '<div class="mkd-chrome mkd-chrome--status" data-chrome="ipados"><span class="mkd-chrome__time">'
         + '9:41 Mon Nov 23</span><span class="mkd-chrome__icons">'
-        + `${i("wifi")}<span class="mkd-chrome__pct">100%</span>${i("battery")}</span></div>`;
+        + `${i("wifi")}<span class="mkd-chrome__pct">100%</span>${i("battery")}</span></div>`
+        + (windowed ? `<div class="mkd-chrome mkd-chrome--lights" data-chrome="ipados">${LIGHTS}</div>` : "");
     case "android":
       return '<div class="mkd-chrome mkd-chrome--status" data-chrome="android"><span class="mkd-chrome__time">'
         + `9:30</span><span class="mkd-chrome__icons">${i("wifi")}${i("cellularbars")}${i("battery")}`
         + "</span></div>";
     case "macos":
-      return '<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="macos"><span class="mkd-chrome__lights">'
-        + '<i data-light="close"></i><i data-light="min"></i><i data-light="max"></i></span>'
+      if (toolbar !== null) {
+        const [titleHtml, leading, trailing] = toolbar;
+        return '<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="macos">' + LIGHTS
+          + (leading ? `<span class="mkd-chrome__toolbar mkd-chrome__toolbar--leading">${leading}</span>` : "")
+          + `<span class="mkd-chrome__title">${titleHtml || esc(title)}</span>`
+          + '<span class="mkd-chrome__spacer"></span>'
+          + (trailing ? `<span class="mkd-chrome__toolbar">${trailing}</span>` : "") + "</div>";
+      }
+      return '<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="macos">' + LIGHTS
         + `<span class="mkd-chrome__title">${esc(title)}</span><span class="mkd-chrome__spacer"></span></div>`;
     case "windows":
       return '<div class="mkd-chrome mkd-chrome--titlebar" data-chrome="windows"><span class="mkd-chrome__app">'
@@ -70,7 +87,10 @@ export function top(kind: string, title: string, url: string | null): string {
 
 export function bottom(kind: string): string {
   if (kind === "window") return '<div class="mkd-chrome mkd-chrome--statusbar" data-chrome="window"><i data-btn="grow"></i></div>';
-  if (kind === "ios") return '<div class="mkd-chrome mkd-chrome--home" data-chrome="ios"><span class="mkd-chrome__indicator"></span></div>';
+  if (kind === "ios" || kind === "ipados") {
+    return `<div class="mkd-chrome mkd-chrome--home" data-chrome="${kind}"><span class="mkd-chrome__indicator">`
+      + "</span></div>";
+  }
   if (kind === "android") {
     return '<div class="mkd-chrome mkd-chrome--home" data-chrome="android"><span class="mkd-chrome__indicator">'
       + "</span></div>";

@@ -5,9 +5,11 @@ Structure (classes are the stable styling contract)::
     div.mkd-figure.mkd-pack-<id>[role=figure][data-pack][data-device][data-appearance]
       div.mkd-stage                        one cell per rendered appearance
         div.mkd-cell
-          div.mkd-frame[data-appearance=light|dark|auto][data-device][data-chrome]
+          div.mkd-frame[data-appearance=light|dark|auto][data-device][data-chrome][data-window]
+                       [data-titlebar=unified|toolbar][data-windowed=true]
               style="--mkd-w:<points>;--mkd-h:<points>"   (absent in fit mode: data-fit)
-            div.mkd-chrome …                  top chrome (status bar, title bar, browser bar)
+            div.mkd-chrome …                  top chrome (status bar, title bar, browser bar;
+                                              the window's traffic lights when windowed)
             div.mkd-screen                    the views, then div.mkd-layer overlays
             div.mkd-chrome …                  bottom chrome (home indicator)
           div.mkd-cell__label                 "Light" / "Dark" when appearance=both
@@ -21,9 +23,10 @@ import hashlib
 
 from ..diagnostics import Diagnostics
 from ..model import Screen, walk
-from ..options import DEVICES, RenderOptions
+from ..model import View
+from ..options import DEVICES, RenderOptions, parse_bool
 from . import chrome as chrome_mod
-from .html import Renderer, esc
+from .html import Renderer, _bool, _name, esc
 
 __all__ = ["render_screen", "Renderer"]
 
@@ -46,6 +49,48 @@ def _resolve_device(screen: Screen, opts: RenderOptions, diags: Diagnostics) -> 
     return device, size
 
 
+def titlebar_mode(views: list[View], renderer: Renderer) -> str:
+    """How the macOS title bar meets the root view (R-DEV-010.C2): ``unified`` when the root draws its own
+    toolbar row (a NavigationStack with a title or toolbar, a NavigationSplitView, a sidebar-adaptable
+    TabView), ``toolbar`` when the root carries ``.navigationTitle`` or ``.toolbar`` that the title bar
+    draws, otherwise "" (a centred window title)."""
+    if not views:
+        return ""
+    root = views[0]
+    if root.role == "split":
+        return "unified"
+    if root.role == "tabs":
+        return "unified" if _name(root.attr("variant")) == "sidebarAdaptable" else ""
+    if root.role == "navstack":
+        if _bool(root.attr("hideNavigationBar")):
+            return ""
+        has = bool(root.attr("title")) or renderer._find_mod(root.children, "navigationTitle") is not None \
+            or renderer._find_mod(root.children, "toolbar") is not None
+        return "unified" if has else ""
+    if renderer._find_mod([root], "navigationTitle") is not None or renderer._find_mod([root], "toolbar") is not None:
+        return "toolbar"
+    return ""
+
+
+def _title_toolbar(views: list[View], renderer: Renderer) -> tuple[str, str, str]:
+    """The root's navigation title and its leading and trailing toolbar items, rendered for the title bar."""
+    title_html = ""
+    title_view = renderer._find_mod(views[:1], "navigationTitle")
+    if title_view is not None:
+        m = title_view.mod("navigationTitle")
+        title_html = renderer.content(m.arg()) if m.args else renderer.views(m.content or [])
+    tb_views: list[View] = []
+    holder = renderer._find_mod(views[:1], "toolbar")
+    if holder is not None:
+        for m in holder.modifiers:
+            if m.name == "toolbar" and m.content:
+                tb_views.extend(m.content)
+    groups = renderer._toolbar_items(tb_views)
+    leading = renderer.views(groups["leading"])
+    trailing = renderer.views(groups["principal"] + groups["trailing"])
+    return title_html, leading, trailing
+
+
 def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags: Diagnostics,
                   source: str = "") -> str:
     pack = screen.pack
@@ -66,12 +111,25 @@ def render_screen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags
     url = opts.url or (str(screen.meta["url"]) if screen.meta.get("url") else None)
     window = opts.window or (str(screen.meta["window"]) if screen.meta.get("window") else None)
     window_attr = f' data-window="{esc(window)}"' if window else ""
+    windowed = opts.windowed if opts.windowed is not None else parse_bool(screen.meta.get("windowed", False))
+    if windowed and chrome != "ipados":
+        diags.warning("windowed needs iPadOS chrome; ignored", None, "chrome")
+        windowed = False
+    if windowed:
+        window_attr += ' data-windowed="true"'
 
     renderer.anchor_prefix = anchor_prefix(pack.id, source)
+    mode = titlebar_mode(screen.views, renderer) if chrome == "macos" else ""
+    if mode:
+        window_attr += f' data-titlebar="{mode}"'
+    # The title bar's toolbar is rendered before the body, in document order (anchors number alike).
+    toolbar = _title_toolbar(screen.views, renderer) if mode == "toolbar" else None
     body = renderer.views(screen.views)
     overlays = "".join(renderer.overlays)
     screen_html = f'<div class="mkd-screen">{body}{overlays}</div>'
-    frame_inner = chrome_mod.top(chrome, title, url) + screen_html + chrome_mod.bottom(chrome)
+    # The macOS menu bar (R-DEV-009) goes before the top chrome, above the window.
+    frame_inner = chrome_mod.top(chrome, title, url, windowed=windowed, toolbar=toolbar) + screen_html \
+        + chrome_mod.bottom(chrome)
 
     if size is None:
         dims = ' data-fit="true"'

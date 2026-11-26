@@ -1,0 +1,3 @@
+// a NavigationStack with a title and toolbar: unified title bar
+NavigationStack { List { Text("Groceries"); Text("Errands") }.navigationTitle("Lists")
+  .toolbar { Button("Add", systemImage: "plus") {}; Button("Share", systemImage: "square.and.arrow.up") {} } }

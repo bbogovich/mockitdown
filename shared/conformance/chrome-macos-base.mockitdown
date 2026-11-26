@@ -1,0 +1,3 @@
+// unified title bar in the base pack
+NavigationStack { List { Text("Groceries"); Text("Errands") }.navigationTitle("Lists")
+  .toolbar { Button("Add", systemImage: "plus") {}; Button("Share", systemImage: "square.and.arrow.up") {} } }

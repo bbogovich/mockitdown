@@ -1,0 +1,4 @@
+// a plain root's title and toolbar drawn in the title bar
+VStack { Text("Groceries") }.navigationTitle("Notes")
+  .toolbar { ToolbarItem(placement: .navigation) { Button("Back", systemImage: "chevron.left") {} }
+    Button("New", systemImage: "square.and.pencil") {} }

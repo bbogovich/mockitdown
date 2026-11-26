@@ -59,6 +59,7 @@ OPTION_KEYS: dict[str, type] = {
     "pack": str, "default_pack": str, "device": str, "default_device": str, "appearance": str,
     "default_appearance": str, "width": int, "height": int, "chrome": str, "title": str, "id": str,
     "caption": bool, "elements": bool, "source": bool, "window": str, "url": str, "show_warnings": bool,
+    "windowed": bool,
 }
 
 #: Own elements per pack-<id>-own-<n> case.
@@ -241,7 +242,51 @@ def chrome_cases() -> list[Case]:
         Case("chrome-window-dialog", "window option emitted as data-window", body,
              {"pack": "win95", "window": "dialog", "title": "Dialog"}),
     ]
-    return out
+    return out + platform_cases()
+
+
+def platform_cases() -> list[Case]:
+    """SwiftUI's chrome per form (R-DEV-010): status bars, home indicators, the macOS title bar meeting the
+    root view, the sidebar toggle, the windowed iPad app, Form automatic."""
+    split = _reference("swiftui")["elements"]
+    split = next(e for e in split if e["name"] == "NavigationSplitView")["sample"]
+    stack = ('NavigationStack { List { Text("Groceries"); Text("Errands") }.navigationTitle("Lists")\n'
+             '  .toolbar { Button("Add", systemImage: "plus") {}; Button("Share", systemImage: "square.and.arrow.up") {} } }')
+    plain = ('VStack { Text("Groceries") }.navigationTitle("Notes")\n'
+             '  .toolbar { ToolbarItem(placement: .navigation) { Button("Back", systemImage: "chevron.left") {} }\n'
+             '    Button("New", systemImage: "square.and.pencil") {} }')
+    tabs = ('TabView { Tab("Home", systemImage: "house") { Text("Welcome") }; '
+            'Tab("Search", systemImage: "magnifyingglass") { Text("Find") } }.tabViewStyle(.sidebarAdaptable)')
+    sw = {"pack": "swiftui"}
+    return [
+        Case("chrome-swiftui-phone", "a split view on a phone: iOS status bar, home indicator", split,
+             {**sw, "device": "phone"}),
+        Case("chrome-swiftui-tablet", "a split view on a tablet: iPadOS status bar, home indicator, toggle", split,
+             {**sw, "device": "tablet"}),
+        Case("chrome-swiftui-desktop", "a split view on a desktop: macOS window, unified title bar", split,
+             {**sw, "device": "desktop", "title": "Mail"}),
+        Case("chrome-swiftui-windowed", "windowed: the iPad app window's traffic lights", split,
+             {**sw, "device": "tablet", "windowed": True}),
+        Case("chrome-swiftui-windowed-screen", "windowed from @Screen(windowed:)",
+             "@Screen(windowed: true)\n" + split, {**sw, "device": "tablet"}),
+        Case("chrome-swiftui-windowed-mac", "windowed needs iPadOS chrome: ignored with a warning", split,
+             {**sw, "device": "desktop", "windowed": True}, diagnostics=True),
+        Case("chrome-macos-stack", "a NavigationStack with a title and toolbar: unified title bar", stack,
+             {**sw, "device": "desktop"}),
+        Case("chrome-macos-toolbar", "a plain root's title and toolbar drawn in the title bar", plain,
+             {**sw, "device": "desktop", "title": "App"}),
+        Case("chrome-macos-tabs", "a sidebar-adaptable TabView: unified title bar", tabs, {**sw, "device": "desktop"}),
+        Case("chrome-macos-plain", "a plain root: centred window title", 'VStack { Text("Hello") }',
+             {**sw, "device": "desktop", "title": "Hello"}),
+        Case("chrome-macos-base", "unified title bar in the base pack", stack, {"chrome": "macos", "device": "desktop"}),
+        Case("chrome-split-toolbar", "a split column's title and toolbar in its header",
+             'NavigationSplitView { List { Text("Inbox") }.navigationTitle("Mail") } detail: { Text("Message")'
+             '.navigationTitle("Lunch").toolbar { Button("Reply", systemImage: "arrowshape.turn.up.left") {} } }',
+             {**sw, "device": "desktop"}),
+        Case("chrome-form-automatic", "Form defaults to automatic (columns on a Mac)",
+             next(e for e in _reference("swiftui")["elements"] if e["name"] == "Form")["sample"],
+             {**sw, "device": "desktop"}),
+    ]
 
 
 def option_cases() -> list[Case]:

@@ -65,12 +65,12 @@
 }
 
 /* ---------- frame and device chrome ---------- */
-.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] { border-radius: 16px; border-color: var(--mkd-mac-control-line); }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] { border: 0; border-radius: var(--mkd-window-radius); box-shadow: var(--mkd-window-shadow); }
 .mkd-pack-swiftui .mkd-chrome--status { font-size: 17px; font-weight: 600; }
 .mkd-pack-swiftui .mkd-chrome--status[data-chrome="ipados"] { font-size: 13px; font-weight: 600; }
 .mkd-pack-swiftui .mkd-chrome__indicator { background: var(--mkd-fg); }
 .mkd-pack-swiftui .mkd-chrome--titlebar[data-chrome="macos"] {
-  height: 38px;
+  height: 32px;
   padding: 0 14px;
   background: var(--mkd-mac-toolbar);
   border-bottom: 0;
@@ -1579,38 +1579,40 @@
 .mkd-pack-swiftui .mkd-wheel[data-el="Picker"] .mkd-wheel__column { min-width: 220px; }
 
 /* ---------- Form ---------- */
-/* .columns (macOS): trailing-aligned labels, leading-aligned controls, no section backgrounds */
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] { display: grid; grid-template-columns: max-content max-content; justify-content: center; align-content: start; column-gap: 8px; padding: 20px 24px; background: var(--mkd-bg); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] > :is(.mkd-section, .mkd-form__row),
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__body,
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; margin: 0; padding: 0; border-radius: 0; background: none; overflow: visible; min-height: 0; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section + .mkd-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--mkd-separator); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__header { grid-column: 1 / -1; padding: 0 0 6px; font-size: var(--mkd-fs-body); font-weight: 600; color: var(--mkd-fg); text-transform: none; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row { padding: 4px 0; align-items: center; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row::after { display: none; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > :is(.mkd-field, .mkd-stepper) { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; gap: 0 8px; min-width: 0; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label) { display: block; grid-column: 1; justify-self: end; font-size: var(--mkd-fs-body); color: var(--mkd-fg); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label)::after { content: ":"; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield[aria-label]::before { content: attr(aria-label) ":"; grid-column: 1; justify-self: end; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__control, .mkd-field__helper) { grid-column: 2; justify-self: start; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 200px; min-height: 26px; padding: 0 7px; border-radius: 6px; background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__control { min-height: 26px; padding: 0 6px 0 10px; gap: 6px; border-radius: 6px; background: var(--mkd-mac-control); color: var(--mkd-fg); box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 2px rgb(0 0 0 / 0.1); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__icon--end { color: var(--mkd-fg-2); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper > .mkd-stepper__value { grid-column: 2; grid-row: 1; justify-self: start; width: 48px; height: 26px; padding: 0 7px; border-radius: 6px; line-height: 26px; color: var(--mkd-fg); background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper > .mkd-stepper__buttons { grid-column: 2; grid-row: 1; justify-self: start; margin-left: 54px; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper:not(:has(> .mkd-stepper__value)) > .mkd-stepper__buttons { margin-left: 0; }
+/* .columns (macOS), and .automatic on a Mac (R-DEV-010.C5): trailing-aligned labels, leading-aligned controls, no section backgrounds */
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) { display: grid; grid-template-columns: max-content max-content; justify-content: center; align-content: start; column-gap: 8px; padding: 20px 24px; background: var(--mkd-bg); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) > :is(.mkd-section, .mkd-form__row),
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; margin: 0; padding: 0; border-radius: 0; background: none; overflow: visible; min-height: 0; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) > .mkd-section + .mkd-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) > .mkd-section > .mkd-section__header { grid-column: 1 / -1; padding: 0 0 6px; font-size: var(--mkd-fs-body); font-weight: 600; color: var(--mkd-fg); text-transform: none; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row { padding: 4px 0; align-items: center; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row::after { display: none; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > :is(.mkd-field, .mkd-stepper) { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; gap: 0 8px; min-width: 0; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label) { display: block; grid-column: 1; justify-self: end; font-size: var(--mkd-fs-body); color: var(--mkd-fg); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label)::after { content: ":"; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-textfield[aria-label]::before { content: attr(aria-label) ":"; grid-column: 1; justify-self: end; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > * > :is(.mkd-field__control, .mkd-field__helper) { grid-column: 2; justify-self: start; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 200px; min-height: 26px; padding: 0 7px; border-radius: 6px; background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-select .mkd-field__control { min-height: 26px; padding: 0 6px 0 10px; gap: 6px; border-radius: 6px; background: var(--mkd-mac-control); color: var(--mkd-fg); box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 2px rgb(0 0 0 / 0.1); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-select .mkd-field__icon--end { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-stepper > .mkd-stepper__value { grid-column: 2; grid-row: 1; justify-self: start; width: 48px; height: 26px; padding: 0 7px; border-radius: 6px; line-height: 26px; color: var(--mkd-fg); background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-stepper > .mkd-stepper__buttons { grid-column: 2; grid-row: 1; justify-self: start; margin-left: 54px; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-stepper:not(:has(> .mkd-stepper__value)) > .mkd-stepper__buttons { margin-left: 0; }
 /* a toggle in the columns form is a checkbox followed by its label, in the controls column */
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-toggle { grid-column: 2; flex-direction: row-reverse; justify-content: flex-end; gap: 7px; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle__track { width: 16px; height: 16px; border-radius: 4px; background: var(--mkd-mac-control); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle__thumb { display: none; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle[data-on="true"] .mkd-toggle__track { background: var(--mkd-accent); box-shadow: none; }
-.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle[data-on="true"] .mkd-toggle__track::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
-.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-form[data-variant="columns"]) { --mkd-bg: var(--mkd-mac-window); }
-.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] { padding: 20px 24px; }
-.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__body { box-shadow: none; background: none; }
-.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row { min-height: 0; padding: 3px 0; }
-.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 180px; min-height: 22px; border-radius: 5px; }
-.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__control { min-height: 22px; border-radius: 5px; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-form__row > .mkd-toggle { grid-column: 2; flex-direction: row-reverse; justify-content: flex-end; gap: 7px; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-toggle__track { width: 16px; height: 16px; border-radius: 4px; background: var(--mkd-mac-control); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-toggle__thumb { display: none; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-toggle[data-on="true"] .mkd-toggle__track { background: var(--mkd-accent); box-shadow: none; }
+.mkd-pack-swiftui :is(.mkd-form[data-variant="columns"], .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="automatic"]) .mkd-toggle[data-on="true"] .mkd-toggle__track::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-form[data-variant="columns"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]):has(> .mkd-screen > .mkd-form[data-variant="automatic"]),
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-navstack:has(> .mkd-navstack__content > .mkd-form[data-variant="automatic"]) { --mkd-bg: var(--mkd-mac-window); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form:is([data-variant="columns"], [data-variant="automatic"]) { padding: 20px 24px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form:is([data-variant="columns"], [data-variant="automatic"]) > .mkd-section > .mkd-section__body { box-shadow: none; background: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form:is([data-variant="columns"], [data-variant="automatic"]) .mkd-form__row { min-height: 0; padding: 3px 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form:is([data-variant="columns"], [data-variant="automatic"]) .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 180px; min-height: 22px; border-radius: 5px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form:is([data-variant="columns"], [data-variant="automatic"]) .mkd-form__row > .mkd-select .mkd-field__control { min-height: 22px; border-radius: 5px; }
 
 /* ---------- Gauge ---------- */
 /* linear styles: label and current value above, the bounds either side of the track */
@@ -1716,3 +1718,125 @@
 /* ---------- Toggle .button: a capsule, accent-tinted when on ---------- */
 .mkd-pack-swiftui .mkd-button[data-el="Toggle"] { white-space: nowrap; }
 .mkd-pack-swiftui .mkd-button[data-el="Toggle"][data-pressed="false"] { color: var(--mkd-fg); }
+
+/* =====================================================================================
+ * Multi-platform chrome (R-DEV-010): the macOS 26 window and its unified toolbar, the floating
+ * sidebars of macOS 26 and iPadOS 26, the windowed iPad app, and the containers adapting to the form.
+ * The frame says which: data-chrome (ios | ipados | macos), data-titlebar (unified | toolbar),
+ * data-windowed, data-device.
+ * ===================================================================================== */
+
+/* toolbar items (macOS and iPadOS): icon-only when they have an icon, side by side in one Liquid Glass capsule */
+.mkd-pack-swiftui .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) :is(.mkd-navbar__leading, .mkd-navbar__trailing, .mkd-split__toolbar, .mkd-chrome__toolbar):has(> .mkd-button:not([data-variant="borderedProminent"], [data-variant="glassProminent"])):not(:has(> :not(.mkd-button))) {
+  display: flex; align-items: center; justify-self: end; width: max-content; height: var(--sw-glass-btn); padding: 0 4px; gap: 0; border-radius: 999px;
+  background: var(--mkd-glass-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); backdrop-filter: blur(14px) saturate(1.8);
+}
+.mkd-pack-swiftui .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) :is(.mkd-navbar__leading, .mkd-navbar__trailing, .mkd-split__toolbar, .mkd-chrome__toolbar):not(:has(> :not(.mkd-button))) > .mkd-button:is([data-el]):not([data-variant="borderedProminent"], [data-variant="glassProminent"]) {
+  height: var(--sw-glass-btn); min-width: var(--sw-glass-btn); padding: 0 10px; gap: 6px; border: 0; border-radius: 999px;
+  background: none; box-shadow: none; backdrop-filter: none; color: var(--mkd-fg);
+}
+.mkd-pack-swiftui .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) :is(.mkd-navbar__leading, .mkd-navbar__trailing, .mkd-split__toolbar, .mkd-chrome__toolbar) > .mkd-button:has(> .mkd-button__icon) > .mkd-button__label { display: none; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] :is(.mkd-navbar__leading, .mkd-navbar__trailing, .mkd-split__toolbar, .mkd-chrome__toolbar) > .mkd-button .mkd-icon { width: 17px; height: 17px; stroke-width: 1.8; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] :is(.mkd-navbar__leading, .mkd-navbar__trailing, .mkd-split__toolbar, .mkd-chrome__toolbar) > .mkd-button .mkd-icon { width: 21px; height: 21px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] { --sw-glass-btn: 36px; }
+
+/* macOS title bar: a centred title (32 points), or unified with the root's toolbar row (52 points) */
+.mkd-pack-swiftui .mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 10px 0 20px; background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar .mkd-chrome__title { font-size: 15px; font-weight: 700; }
+.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-right: 10px; }
+.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
+.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__large { margin-left: 78px; }
+.mkd-pack-swiftui .mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar[data-chrome="macos"] { height: 52px; padding: 0 0 0 20px; background: none; }
+
+/* NavigationSplitView with macOS chrome (C3): the sidebar an inset rounded translucent panel running under
+   the title bar, the traffic lights over it, the sidebar toggle at its trailing end of the toolbar row;
+   the other columns' titles leading in the toolbar row, their items trailing */
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split[data-variant] > .mkd-split__col[data-col="sidebar"],
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col[data-col="sidebar"] {
+  flex: 0 0 220px; margin: 8px; padding-top: 44px; border-radius: 12px;
+  background: var(--mkd-sidebar-bg); box-shadow: 0 0 0 0.5px var(--mkd-glass-line), 0 1px 10px rgb(0 0 0 / 0.06); backdrop-filter: none;
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col[data-col="sidebar"] + .mkd-split__col { border-left: 0; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split[data-variant="prominentDetail"] > .mkd-split__col[data-col="sidebar"] { margin: 0; width: 220px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split[data-variant="prominentDetail"] > .mkd-split__col:not([data-col="sidebar"]) > .mkd-split__header,
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split[data-variant="prominentDetail"] > .mkd-split__col:not([data-col="sidebar"]) > .mkd-navstack > .mkd-navbar { padding-left: 244px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list { padding-top: 0; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section:first-child { margin-top: 4px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__toggle {
+  display: inline-flex; position: absolute; z-index: 6; top: 12px; left: 192px; width: 28px; height: 28px;
+  align-items: center; justify-content: center; border-radius: 6px; color: var(--mkd-fg-2);
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__toggle .mkd-icon { width: 18px; height: 18px; stroke-width: 1.7; }
+/* a sidebar's title is the window's: shown in the toolbar row when no other column has one */
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col[data-col="sidebar"] > .mkd-split__header { display: none; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split:not(:has(> .mkd-split__col:not([data-col="sidebar"]) :is(.mkd-split__title, .mkd-navbar__title-text))) > .mkd-split__col[data-col="sidebar"] > .mkd-split__header {
+  display: flex; position: absolute; z-index: 4; top: 0; left: 252px; height: 52px; padding: 0;
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col > .mkd-split__header .mkd-split__title { font-size: 15px; font-weight: 700; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col:not([data-col="sidebar"]) > .mkd-split__header { justify-content: flex-start; min-height: 52px; padding: 0 10px 0 16px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-split > .mkd-split__col:not([data-col="sidebar"]) > .mkd-navstack > .mkd-navbar { padding: 0 10px 0 16px; }
+
+/* NavigationSplitView with iPadOS chrome (C6): an inset, rounded Liquid Glass panel over the detail's
+   background holding the toggle, the sidebar's title and its rows */
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split[data-variant] > .mkd-split__col[data-col="sidebar"],
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split > .mkd-split__col[data-col="sidebar"] {
+  flex: 0 0 320px; margin: 8px; padding-top: 60px; border-radius: 26px;
+  background: var(--mkd-sidebar-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); backdrop-filter: blur(24px) saturate(1.6);
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split > .mkd-split__col[data-col="sidebar"] + .mkd-split__col { border-left: 0; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split[data-variant="prominentDetail"] > .mkd-split__col[data-col="sidebar"] { margin: 0; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split > .mkd-split__col[data-col="sidebar"] > .mkd-split__header { padding-top: 0; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split > .mkd-split__toggle {
+  display: inline-flex; position: absolute; z-index: 6; top: 18px; left: 20px; width: 40px; height: 40px;
+  align-items: center; justify-content: center; border-radius: 50%; color: var(--mkd-fg);
+  background: var(--mkd-glass-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-split > .mkd-split__toggle .mkd-icon { width: 21px; height: 21px; }
+
+/* a sidebar-style List inside the floating sidebar is flat: the column is the panel */
+.mkd-pack-swiftui .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list[data-variant="sidebar"] {
+  margin: 0; padding: 0 10px 12px; border-radius: 0; background: none; box-shadow: none; backdrop-filter: none;
+}
+
+/* the windowed iPad app (C4): lights at the window's top leading corner, the toggle beside them */
+.mkd-pack-swiftui .mkd-frame[data-windowed="true"] .mkd-split > .mkd-split__toggle { top: 12px; left: 84px; width: 32px; height: 32px; }
+.mkd-pack-swiftui .mkd-frame[data-windowed="true"] .mkd-split > .mkd-split__col[data-col="sidebar"] { padding-top: 52px; }
+.mkd-pack-swiftui .mkd-frame[data-windowed="true"] > .mkd-screen > .mkd-tabs[data-variant="sidebarAdaptable"][data-placement] > .mkd-tabs__bar { padding-top: 44px; }
+
+/* TabView(.sidebarAdaptable) on iPadOS and macOS (C5): the sidebar floats as the split view's does */
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-tabs[data-variant="sidebarAdaptable"][data-placement] > .mkd-tabs__bar {
+  margin: 8px; padding: 44px 10px 10px; border-radius: 12px; box-shadow: 0 0 0 0.5px var(--mkd-glass-line), 0 1px 10px rgb(0 0 0 / 0.06);
+}
+.mkd-pack-swiftui .mkd-frame[data-chrome="macos"] .mkd-tabs[data-variant="sidebarAdaptable"] > .mkd-tabs__panel { padding-top: 60px; }
+.mkd-pack-swiftui .mkd-frame[data-chrome="ipados"] .mkd-tabs[data-variant="sidebarAdaptable"][data-placement] > .mkd-tabs__bar {
+  margin: 8px; padding: 14px 10px; border-radius: 26px; box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge);
+}
+
+/* NavigationSplitView on a phone (C5): collapsed to its sidebar in a navigation stack — large title,
+   inset-grouped rows with chevrons, no selection; the other columns are pushed, not shown */
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col:not([data-col="sidebar"]) { display: none; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split[data-variant] > .mkd-split__col[data-col="sidebar"],
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] {
+  position: static; flex: 1 1 auto; width: auto; margin: 0; border-radius: 0; background: var(--mkd-grouped-bg); box-shadow: none; backdrop-filter: none;
+}
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] > .mkd-split__header { padding: 4px 20px 6px; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list { padding: 0 16px 16px; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list > .mkd-section > .mkd-section__body { gap: 0; border-radius: var(--sw-section-r); background: var(--mkd-cell-bg); overflow: hidden; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-list > :is(.mkd-listitem, .mkd-listitem--wrap) { background-color: var(--mkd-cell-bg); }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem, .mkd-listitem--wrap)[data-el],
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem, .mkd-listitem--wrap):is([data-selected], [data-child]) {
+  min-height: 52px; padding: 0 16px; border-radius: 0; color: var(--mkd-fg);
+  background: linear-gradient(var(--mkd-separator), var(--mkd-separator)) right bottom / calc(100% - 54px) 0.5px no-repeat, none;
+}
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem, .mkd-listitem--wrap):last-child { background: none; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] :is(.mkd-listitem, .mkd-listitem--wrap)::after {
+  content: ""; display: block; position: static; flex: none; width: 8px; height: 8px; margin: 0 4px 0 auto; border: solid var(--mkd-chevron); border-width: 2px 2px 0 0; background: none; transform: rotate(45deg);
+}
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-listitem--wrap:has(> [data-selected="true"]) :is(.mkd-label__icon, .mkd-label__title, .mkd-badge),
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-listitem[data-selected="true"] :is(.mkd-listitem__title, .mkd-leading-icon, .mkd-listitem__badge) { color: inherit; }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-label__icon { color: var(--mkd-accent); }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-label .mkd-badge { margin-left: auto; color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"] .mkd-split > .mkd-split__col[data-col="sidebar"] .mkd-label { flex: 1 1 auto; }
+.mkd-pack-swiftui .mkd-frame:is([data-chrome="macos"], [data-chrome="ipados"]) .mkd-navbar__leading:has(> .mkd-button) { justify-self: start; }
+/* the collapsed split view paints the phone in the grouped background, status bar and home indicator included */
+.mkd-pack-swiftui .mkd-frame[data-device^="phone"]:has(> .mkd-screen > .mkd-split) { --mkd-bg: var(--mkd-grouped-bg); }

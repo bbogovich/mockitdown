@@ -1,0 +1,16 @@
+{
+  "packs": [
+    "base",
+    "swiftui"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "chrome",
+      "message": "windowed needs iPadOS chrome; ignored",
+      "line": 0,
+      "col": 0,
+      "source": ""
+    }
+  ]
+}

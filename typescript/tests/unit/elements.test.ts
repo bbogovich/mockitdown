@@ -15,7 +15,7 @@ test("the entry imports in Node without defining elements; tags begin with mocki
   assert.equal(entry.SCRIPT_TYPE, "text/mockitdown");
   assert.deepEqual([...entry.MOCKUP_ATTRIBUTES], [
     "pack", "device", "appearance", "width", "height", "chrome", "title", "id", "caption", "elements",
-    "url", "source", "window", "import-base", "asset-base",
+    "url", "source", "window", "windowed", "import-base", "asset-base",
   ]);
 });
 

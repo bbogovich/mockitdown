@@ -5,8 +5,9 @@
  *     div.mkd-figure.mkd-pack-<id>[role=figure][data-pack][data-device][data-appearance]
  *       div.mkd-stage                        one cell per rendered appearance
  *         div.mkd-cell
- *           div.mkd-frame[data-appearance][data-device][data-chrome] style="--mkd-w;--mkd-h" | data-fit
- *             div.mkd-chrome …                  top chrome
+ *           div.mkd-frame[data-appearance][data-device][data-chrome][data-window][data-titlebar][data-windowed]
+ *                        style="--mkd-w;--mkd-h" | data-fit
+ *             div.mkd-chrome …                  top chrome (the window's traffic lights when windowed)
  *             div.mkd-screen                    the views, then div.mkd-layer overlays
  *             div.mkd-chrome …                  bottom chrome
  *           div.mkd-cell__label                 "Light" / "Dark" when appearance=both
@@ -15,13 +16,13 @@
  */
 
 import type { Diagnostics } from "../diagnostics.js";
-import { walk, type Screen } from "../model.js";
-import { DEVICES, type RenderOptions } from "../options.js";
+import { walk, type Screen, type View } from "../model.js";
+import { DEVICES, parseBool, type RenderOptions } from "../options.js";
 import { sha1Hex } from "../sha1.js";
 import { intStr, pyBool, pyRepr, pyStr, strRepr, strTitle } from "../values.js";
 import * as chromeMod from "./chrome.js";
 import { Renderer } from "./html.js";
-import { esc } from "./util.js";
+import { bool, esc, name } from "./util.js";
 
 export { Renderer };
 
@@ -51,6 +52,44 @@ export function anchorPrefix(packId: string, source: string): string {
   return sha1Hex(`${packId}\n${source}`).slice(0, 6);
 }
 
+/**
+ * How the macOS title bar meets the root view (R-DEV-010.C2): "unified" when the root draws its own toolbar
+ * row (a NavigationStack with a title or toolbar, a NavigationSplitView, a sidebar-adaptable TabView),
+ * "toolbar" when the root carries `.navigationTitle` or `.toolbar` that the title bar draws, otherwise ""
+ * (a centred window title).
+ */
+export function titlebarMode(views: readonly View[], renderer: Renderer): string {
+  if (!views.length) return "";
+  const root = views[0];
+  if (root.role === "split") return "unified";
+  if (root.role === "tabs") return name(root.attr(["variant"])) === "sidebarAdaptable" ? "unified" : "";
+  if (root.role === "navstack") {
+    if (bool(root.attr(["hideNavigationBar"]))) return "";
+    const has = pyBool(root.attr(["title"])) || renderer.findMod(root.children, "navigationTitle") !== null
+      || renderer.findMod(root.children, "toolbar") !== null;
+    return has ? "unified" : "";
+  }
+  if (renderer.findMod([root], "navigationTitle") !== null || renderer.findMod([root], "toolbar") !== null) return "toolbar";
+  return "";
+}
+
+/** The root's navigation title and its leading and trailing toolbar items, rendered for the title bar. */
+function titleToolbar(views: readonly View[], renderer: Renderer): [string, string, string] {
+  let titleHtml = "";
+  const titleView = renderer.findMod(views.slice(0, 1), "navigationTitle");
+  if (titleView !== null) {
+    const m = titleView.mod("navigationTitle")!;
+    titleHtml = m.args.length ? renderer.content(m.arg()) : renderer.views(m.content ?? []);
+  }
+  const tbViews: View[] = [];
+  const holder = renderer.findMod(views.slice(0, 1), "toolbar");
+  if (holder !== null) {
+    for (const m of holder.modifiers) if (m.name === "toolbar" && m.content && m.content.length) tbViews.push(...m.content);
+  }
+  const groups = renderer.toolbarItems(tbViews);
+  return [titleHtml, renderer.views(groups.leading), renderer.views([...groups.principal, ...groups.trailing])];
+}
+
 export function renderScreen(screen: Screen, renderer: Renderer, opts: RenderOptions, diags: Diagnostics, source = ""): string {
   const pack = screen.pack;
   const [device, size] = resolveDevice(screen, opts, diags);
@@ -74,13 +113,24 @@ export function renderScreen(screen: Screen, renderer: Renderer, opts: RenderOpt
   const sid = opts.id || metaOr("id");
   const url = opts.url || metaStr(screen, "url");
   const windowKind = opts.window || metaStr(screen, "window");
-  const windowAttr = windowKind ? ` data-window="${esc(windowKind)}"` : "";
+  let windowAttr = windowKind ? ` data-window="${esc(windowKind)}"` : "";
+  let windowed = opts.windowed !== null && opts.windowed !== undefined ? opts.windowed : parseBool(screen.meta.get("windowed", false));
+  if (windowed && chromeKind !== "ipados") {
+    diags.warning("windowed needs iPadOS chrome; ignored", null, "chrome");
+    windowed = false;
+  }
+  if (windowed) windowAttr += ' data-windowed="true"';
 
   renderer.anchorPrefix = anchorPrefix(pack.id, source);
+  const mode = chromeKind === "macos" ? titlebarMode(screen.views, renderer) : "";
+  if (mode) windowAttr += ` data-titlebar="${mode}"`;
+  // The title bar's toolbar is rendered before the body, in document order (anchors number alike).
+  const toolbar = mode === "toolbar" ? titleToolbar(screen.views, renderer) : null;
   const body = renderer.views(screen.views);
   const overlays = renderer.overlays.join("");
   const screenHtml = `<div class="mkd-screen">${body}${overlays}</div>`;
-  const frameInner = chromeMod.top(chromeKind, title, url) + screenHtml + chromeMod.bottom(chromeKind);
+  // The macOS menu bar (R-DEV-009) goes before the top chrome, above the window.
+  const frameInner = chromeMod.top(chromeKind, title, url, { windowed, toolbar }) + screenHtml + chromeMod.bottom(chromeKind);
 
   const dims = size === null ? ' data-fit="true"' : ` style="--mkd-w:${intStr(Math.trunc(size[0]))};--mkd-h:${intStr(Math.trunc(size[1]))}"`;
   const modes = appearance === "both" ? ["light", "dark"] : [appearance];

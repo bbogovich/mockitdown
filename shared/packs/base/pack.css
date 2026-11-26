@@ -21,7 +21,10 @@
 .mkd-frame:where([data-chrome="ios"]) { border-radius: 54px; border: 10px solid #1b1c1f; }
 .mkd-frame:where([data-chrome="android"]) { border-radius: 36px; border: 8px solid #1b1c1f; }
 .mkd-frame:where([data-chrome="ipados"]) { border-radius: 26px; border: 10px solid #1b1c1f; }
-.mkd-frame:where([data-chrome="macos"]) { border-radius: 12px; }
+.mkd-frame:where([data-chrome="macos"]) {
+  border-radius: var(--mkd-window-radius, 16px);
+  box-shadow: var(--mkd-window-shadow, 0 0 0 0.5px rgb(0 0 0 / .18), 0 22px 56px rgb(0 0 0 / .22), 0 4px 12px rgb(0 0 0 / .08));
+}
 .mkd-frame:where([data-chrome="windows"]) { border-radius: 8px; }
 .mkd-frame .mkd-screen {
   position: relative;
@@ -48,6 +51,8 @@
 .mkd-frame .mkd-chrome--home { height: 30px; justify-content: center; background: var(--mkd-bg); }
 .mkd-frame .mkd-chrome__indicator { width: 136px; height: 5px; border-radius: 3px; background: var(--mkd-fg); opacity: .85; }
 .mkd-frame .mkd-chrome--home:where([data-chrome="android"]) .mkd-chrome__indicator { width: 108px; height: 4px; }
+.mkd-frame .mkd-chrome--home:where([data-chrome="ipados"]) { height: 20px; }
+.mkd-frame .mkd-chrome--home:where([data-chrome="ipados"]) .mkd-chrome__indicator { width: 300px; }
 .mkd-frame .mkd-chrome--titlebar { height: 32px; padding: 0 12px; gap: 10px; background: var(--mkd-chrome-bg); border-bottom: 1px solid var(--mkd-divider); }
 .mkd-frame .mkd-chrome__lights { display: flex; gap: 8px; }
 .mkd-frame .mkd-chrome__lights i { display: block; width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
@@ -68,6 +73,31 @@
 .mkd-frame .mkd-chrome__address { flex: 1; display: flex; gap: 6px; align-items: center; height: 28px; padding: 0 12px; border-radius: 14px; background: var(--mkd-bg); color: var(--mkd-fg-2); font-size: 13px; }
 .mkd-frame .mkd-chrome__address .mkd-icon { width: 12px; height: 12px; }
 .mkd-frame .mkd-chrome__menu { opacity: .7; }
+
+/* macOS title bar meeting the root view (R-DEV-010.C2). unified: the root draws the toolbar row (a navigation
+   bar, a split view, a sidebar) and the traffic lights float over its leading end; toolbar: the title bar is
+   the toolbar row, the root's title leading after the lights and its items trailing. */
+.mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar { position: absolute; z-index: 30; top: 0; left: 0; height: 52px; padding: 0 0 0 20px; background: none; border: 0; pointer-events: none; }
+.mkd-frame[data-titlebar="unified"] > .mkd-chrome--titlebar > :not(.mkd-chrome__lights) { display: none; }
+.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar { padding-left: 92px; }
+.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { min-height: 52px; }
+.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-split > .mkd-split__col:first-child { padding-top: 52px; }
+.mkd-frame[data-titlebar="unified"] > .mkd-screen > .mkd-tabs > .mkd-tabs__bar { padding-left: 92px; }
+.mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar { height: 52px; padding: 0 12px 0 20px; gap: 8px; }
+.mkd-frame[data-titlebar="toolbar"] > .mkd-chrome--titlebar > .mkd-chrome__lights { margin-right: 12px; }
+.mkd-frame[data-titlebar="toolbar"] .mkd-chrome__title { flex: none; margin: 0; text-align: left; font-size: 15px; font-weight: 700; }
+.mkd-frame[data-titlebar="toolbar"] .mkd-chrome__spacer { flex: 1 1 auto; }
+.mkd-frame .mkd-chrome__toolbar { display: flex; align-items: center; gap: 8px; }
+.mkd-frame .mkd-chrome__toolbar .mkd-button { flex: none; }
+
+/* iPadOS windowed app (R-DEV-010.C4): the app's window inset over the wallpaper, its lights at the top leading corner */
+.mkd-frame[data-windowed="true"] { background: var(--mkd-wallpaper, linear-gradient(155deg, #b7d3fb 0%, #86a7f2 36%, #a98ee6 68%, #f1b3cf 100%)); }
+.mkd-frame[data-windowed="true"] > .mkd-chrome--status,
+.mkd-frame[data-windowed="true"] > .mkd-chrome--home { background: none; color: #fff; }
+.mkd-frame[data-windowed="true"] > .mkd-chrome--home .mkd-chrome__indicator { background: #fff; }
+.mkd-frame[data-windowed="true"] > .mkd-screen { margin: 10px 28px 4px; border-radius: 26px; box-shadow: var(--mkd-window-shadow, 0 0 0 0.5px rgb(0 0 0 / .18), 0 22px 56px rgb(0 0 0 / .22)); }
+.mkd-frame .mkd-chrome--lights { position: absolute; z-index: 30; top: 56px; left: 48px; pointer-events: none; }
+.mkd-frame[data-windowed="true"] > .mkd-screen > .mkd-navstack > .mkd-navbar > .mkd-navbar__bar { padding-left: 76px; }
 
 /* ---------- icons and text ---------- */
 .mkd-frame .mkd-icon {
@@ -446,6 +476,9 @@
 .mkd-frame .mkd-split__col + .mkd-split__col { border-left: 1px solid var(--mkd-divider); }
 .mkd-frame .mkd-split__col:where([data-col="sidebar"]) { flex: 0 0 260px; background: var(--mkd-surface-2); }
 .mkd-frame .mkd-split[data-columns="3"] > .mkd-split__col:where([data-col="content"]) { flex: 0 0 320px; }
+.mkd-frame .mkd-split__toggle { display: none; }
+.mkd-frame .mkd-split__header { display: flex; align-items: center; gap: 8px; }
+.mkd-frame .mkd-split__toolbar { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .mkd-frame .mkd-split__col > * { flex: 1 1 auto; min-height: 0; }
 /* A column's own navigation title (R-PACK-015.C7). */
 .mkd-frame .mkd-split__col > .mkd-split__header { flex: none; padding: 12px 16px 6px; }

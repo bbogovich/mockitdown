@@ -1201,19 +1201,35 @@ const ROLES: Record<string, RoleFn> = {
         const length = u(num(widths[i]));
         if (length !== null) st = ` style="flex:0 0 ${length};width:${length}"`;
       }
-      // A column's own navigation title, when it is not a NavigationStack drawing its bar (R-PACK-015.C7).
+      // A column's own navigation title and toolbar, when it is not a NavigationStack drawing its bar
+      // (R-PACK-015.C7, R-DEV-010.C2).
       let header = "";
       if (!views.some((c) => c.role === "navstack")) {
+        let titleHtml = "";
         const titleView = this.findMod(views, "navigationTitle");
         if (titleView !== null) {
           const m = titleView.mod("navigationTitle")!;
-          const titleHtml = m.args.length ? this.content(m.arg()) : this.views(m.content ?? []);
-          if (titleHtml) header = `<div class="mkd-split__header"><span class="mkd-split__title">${titleHtml}</span></div>`;
+          titleHtml = m.args.length ? this.content(m.arg()) : this.views(m.content ?? []);
+        }
+        const tbViews: View[] = [];
+        const holder = this.findMod(views, "toolbar");
+        if (holder !== null) {
+          for (const m of holder.modifiers) if (m.name === "toolbar" && m.content && m.content.length) tbViews.push(...m.content);
+        }
+        const groups = this.toolbarItems(tbViews);
+        const items = this.views([...groups.leading, ...groups.principal, ...groups.trailing]);
+        if (titleHtml || items) {
+          header = '<div class="mkd-split__header">'
+            + (titleHtml ? `<span class="mkd-split__title">${titleHtml}</span>` : "")
+            + (items ? `<span class="mkd-split__toolbar">${items}</span>` : "") + "</div>";
         }
       }
       return `<div class="mkd-split__col" data-col="${esc(nm)}"${st}>${header}${this.views(views)}</div>`;
     });
-    return this.open(v, "split", "div", { data: { columns: String(cols.length) } }) + out.join("") + "</div>";
+    // The sidebar toggle: hidden by the base pack, shown in the toolbar with macOS and iPadOS chrome (R-DEV-010.C3, C6).
+    const toggle = '<span class="mkd-split__toggle" role="button" aria-label="Toggle Sidebar">'
+      + `${this.icon("sidebar.left")}</span>`;
+    return this.open(v, "split", "div", { data: { columns: String(cols.length) } }) + out.join("") + toggle + "</div>";
   },
   tabs(v) {
     const tabs: Tab[] = [];
