@@ -1,0 +1,54 @@
+// An iPhone app (iOS 26): a TabView with the floating Liquid Glass tab bar, its first tab a
+// NavigationStack with a large title, a search field, glass toolbar buttons and an inset-grouped list.
+import SwiftUI
+
+TabView {
+  Tab("Explore", systemImage: "map") {
+    NavigationStack {
+      List {
+        Section {
+          Picker("Show", selection: "Nearby") {
+            Text("Nearby"); Text("Popular"); Text("Saved")
+          }
+          .pickerStyle(.segmented)
+        }
+        Section {
+          Row("Sunrise Ridge Loop", subtitle: "5.4 mi · Moderate",
+              detail: "2 h 40 m", systemImage: "sun.max", iconColor: .orange, chevron: true)
+          Row("Cedar Falls Trail", subtitle: "3.1 mi · Easy",
+              detail: "1 h 20 m", systemImage: "drop.fill", iconColor: .blue, chevron: true)
+          Row("Eagle Peak Summit", subtitle: "9.8 mi · Hard",
+              detail: "6 h 10 m", systemImage: "flame.fill", iconColor: .red, chevron: true)
+          Row("Fern Hollow", subtitle: "2.2 mi · Easy",
+              detail: "55 m", systemImage: "figure.walk", iconColor: .green, chevron: true)
+        } header: {
+          Text("Within 25 miles")
+        }
+        Section("Conditions") {
+          LabeledContent("Weather", value: "62° Partly cloudy")
+          LabeledContent("Sunset", value: "4:52 PM")
+          Gauge(value: 0.35, label: { Text("Trail traffic") }, currentValueLabel: { Text("Light") })
+            .gaugeStyle(.accessoryLinear)
+            .tint(.green)
+        }
+        Section {
+          Toggle("Offline maps", isOn: true)
+        } footer: {
+          Text("Maps for saved trails download over Wi-Fi.")
+        }
+      }
+      .navigationTitle("Explore")
+      .searchable(text: "", prompt: "Trails, parks, peaks")
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) { Button(systemImage: "slider.horizontal.3") }
+        ToolbarItemGroup(placement: .topBarTrailing) {
+          Button(systemImage: "mappin")
+          Button(systemImage: "plus")
+        }
+      }
+    }
+  }
+  Tab("Saved", systemImage: "bookmark") { Text("Saved trails") }.badge(3)
+  Tab("Activity", systemImage: "chart.bar") { Text("Activity") }
+  Tab("Profile", systemImage: "person.circle") { Text("Profile") }
+}

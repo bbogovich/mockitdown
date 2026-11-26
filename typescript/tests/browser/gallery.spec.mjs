@@ -9,6 +9,8 @@ const PACKS = INDEX.groups.flatMap((g) => g.packs);
 const REFERENCES = Object.fromEntries(PACKS.map((id) => [id,
   JSON.parse(readFileSync(new URL(`../../../shared/reference/${id}.json`, import.meta.url), "utf8"))]));
 const PATTERNS = JSON.parse(readFileSync(new URL("../../../shared/patterns/index.json", import.meta.url), "utf8")).patterns;
+/** The patterns the gallery shows for `pack`: the core ones and those naming it in `packs` (C14). */
+const patternsFor = (pack) => PATTERNS.filter((p) => !p.packs || p.packs.includes(pack));
 
 async function open(page, hash = "") {
   const errors = [];
@@ -49,9 +51,9 @@ for (let c = 0; c < CHUNKS; c++) {
       const summary = await renderPack(page, id);
       expect(summary.pack, id).toBe(id);
       expect(summary.elements, id).toEqual(reference.elements.map((e) => e.name));
-      const expected = reference.elements.length + reference.elements.filter((e) => e.variants_sample).length + PATTERNS.length;
+      const expected = reference.elements.length + reference.elements.filter((e) => e.variants_sample).length + patternsFor(id).length;
       expect(summary.mockups, id).toBe(expected);
-      expect(summary.patterns, id).toEqual(PATTERNS.map((p) => p.id));
+      expect(summary.patterns, id).toEqual(patternsFor(id).map((p) => p.id));
       expect(summary.empty, `${id}: mockups without rendered content`).toEqual([]);
       expect(summary.errors, `${id}: error diagnostics`).toEqual([]);
     }
@@ -499,5 +501,66 @@ test("R-DEV-009 TC-1/TC-2: the macOS menu bar, the window under it and an open m
   }
   // C2: no bar with a phone's chrome
   expect(m.phone.bar).toBeNull();
+  expect(errors).toEqual([]);
+});
+
+// R-WEB-004 TC-5 (C14): pack-specific example applications. At #pack=swiftui the examples include an iPhone,
+// an iPad and a Mac app, each mockup carrying its entry's device (and the other keys); the Mac app draws the
+// menu bar with an open menu over its window; another pack shows none of them.
+test("TC-5: swiftui shows its iPhone, iPad and Mac example apps; other packs do not (C14)", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page, "#pack=swiftui");
+  const summary = await renderPack(page, "swiftui");
+  expect(summary.errors).toEqual([]);
+  expect(summary.empty).toEqual([]);
+  const specific = PATTERNS.filter((p) => p.packs?.includes("swiftui"));
+  expect(summary.patterns).toEqual(expect.arrayContaining(specific.map((p) => p.id)));
+  const shown = await page.evaluate(() => [...document.querySelectorAll(".pattern")].map((s) => {
+    const m = s.querySelector("mockitdown-mockup");
+    const attrs = Object.fromEntries(["device", "chrome", "menubar", "app", "windowed"]
+      .filter((k) => m.hasAttribute(k)).map((k) => [k, m.getAttribute(k)]));
+    const r = m.shadowRoot;
+    const box = (sel) => {
+      const e = r.querySelector(sel);
+      if (!e || getComputedStyle(e).display === "none") return null;
+      const x = e.getBoundingClientRect();
+      return { l: x.left, r: x.right, t: x.top, b: x.bottom, w: x.width, h: x.height };
+    };
+    const sel = r.querySelector('.mkd-table tr[aria-selected="true"] td');
+    const zebra = r.querySelector('.mkd-table tbody tr:nth-child(even):not([aria-selected="true"]) td');
+    const selected = sel ? { fg: getComputedStyle(sel).color, bg: getComputedStyle(sel).backgroundColor,
+      zebra: zebra ? getComputedStyle(zebra).backgroundColor : null } : null;
+    return { id: s.dataset.pattern, attrs, selected, device: r.querySelector(".mkd-frame")?.dataset.device ?? null,
+      bar: box(".mkd-menubar"), menu: box(".mkd-menubar__dropdown"), window: box(".mkd-window"),
+      tabbar: box(".mkd-tabs__bar"), sidebar: box("[data-col=\"sidebar\"]"), content: box("[data-col=\"content\"]") };
+  }));
+  const byId = Object.fromEntries(shown.map((s) => [s.id, s]));
+  for (const p of specific) {
+    const s = byId[p.id];
+    for (const k of ["device", "chrome", "menubar", "app"]) if (p[k] !== undefined) expect(s.attrs[k], `${p.id} ${k}`).toBe(String(p[k]));
+    if (p.windowed !== undefined) expect(s.attrs.windowed, `${p.id} windowed`).toBe(String(p.windowed));
+    if (p.device !== undefined) expect(s.device, `${p.id} frame device`).toBe(p.device);
+  }
+  const devices = specific.map((p) => p.device);
+  expect(devices).toEqual(expect.arrayContaining(["phone", "tablet", "desktop"]));
+  const tablet = byId[specific.find((p) => p.device === "tablet").id];
+  expect(tablet.sidebar).not.toBeNull();
+  expect(tablet.content).not.toBeNull();
+  expect(byId[specific.find((p) => p.device === "phone").id].tabbar).not.toBeNull();
+  const mac = byId[specific.find((p) => p.device === "desktop" && p.menubar).id];
+  expect(mac.bar).not.toBeNull();
+  expect(mac.menu).not.toBeNull();
+  expect(mac.menu.t).toBeGreaterThanOrEqual(mac.bar.b - 1);
+  expect(mac.menu.b).toBeGreaterThan(mac.window.t);
+  // R-PACK-014.C14: the selected table row (an even, zebra-striped one) is accent with white text
+  if (mac.selected) {
+    expect(mac.selected.fg).toBe("rgb(255, 255, 255)");
+    expect(mac.selected.bg).not.toBe(mac.selected.zebra);
+  }
+  // another pack shows only the core patterns
+  const other = await renderPack(page, "mui");
+  expect(other.patterns).toEqual(patternsFor("mui").map((p) => p.id));
+  for (const p of specific.filter((q) => !q.packs.includes("mui"))) expect(other.patterns).not.toContain(p.id);
+  expect(other.errors).toEqual([]);
   expect(errors).toEqual([]);
 });

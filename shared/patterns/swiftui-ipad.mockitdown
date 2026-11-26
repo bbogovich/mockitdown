@@ -1,0 +1,88 @@
+// An iPad app (iPadOS 26): a three-column NavigationSplitView — the floating glass sidebar, the
+// recipe list and the recipe — with toolbar buttons in a glass capsule and a search field.
+import SwiftUI
+
+NavigationSplitView {
+  List(selection: "All Recipes") {
+    Section("Library") {
+      Label("All Recipes", systemImage: "book").badge(48)
+      Label("Favorites", systemImage: "heart").badge(12)
+      Label("Recently Cooked", systemImage: "clock")
+      Label("Shopping List", systemImage: "cart").badge(7)
+    }
+    Section("Collections") {
+      Label("Weeknight", systemImage: "folder")
+      Label("Baking", systemImage: "folder")
+      Label("Holiday", systemImage: "folder")
+      Label("Meal Prep", systemImage: "folder")
+    }
+  }
+  .listStyle(.sidebar)
+  .navigationTitle("Recipes")
+} content: {
+  List {
+    Row("Lemon Herb Chicken", subtitle: "Dinner · 45 min", detail: "★ 4.9").selected()
+    Row("Mushroom Risotto", subtitle: "Dinner · 50 min", detail: "★ 4.7")
+    Row("Shakshuka", subtitle: "Brunch · 30 min", detail: "★ 4.8")
+    Row("Miso Glazed Salmon", subtitle: "Dinner · 25 min", detail: "★ 4.6")
+    Row("Banana Bread", subtitle: "Baking · 1 h 10 min", detail: "★ 4.9")
+    Row("Thai Green Curry", subtitle: "Dinner · 35 min", detail: "★ 4.5")
+    Row("Overnight Oats", subtitle: "Breakfast · 5 min", detail: "★ 4.3")
+  }
+  .listStyle(.plain)
+  .navigationTitle("All Recipes")
+  .searchable(text: "", prompt: "Search recipes")
+} detail: {
+  NavigationStack {
+    ScrollView {
+      VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Lemon Herb Chicken").font(.largeTitle).bold()
+          Text("Roast chicken thighs with lemon, garlic and thyme over crispy potatoes.")
+            .foregroundStyle(.secondary)
+        }
+        HStack(spacing: 12) {
+          GroupBox("Prep") { Text("15 min").font(.headline) }.frame(maxWidth: .infinity)
+          GroupBox("Cook") { Text("30 min").font(.headline) }.frame(maxWidth: .infinity)
+          GroupBox("Calories") { Text("540 kcal").font(.headline) }.frame(maxWidth: .infinity)
+          GroupBox("Rating") {
+            HStack(spacing: 2) {
+              Image(systemName: "star.fill").foregroundStyle(.orange)
+              Text("4.9").font(.headline)
+            }
+          }.frame(maxWidth: .infinity)
+        }
+        HStack(alignment: .top, spacing: 16) {
+          GroupBox("Ingredients") {
+            Stepper("Servings", value: 4)
+            Divider()
+            Toggle("6 chicken thighs", isOn: true)
+            Toggle("1 kg small potatoes", isOn: true)
+            Toggle("2 lemons", isOn: false)
+            Toggle("1 head of garlic", isOn: false)
+            Toggle("A bunch of thyme", isOn: false)
+          }.frame(maxWidth: .infinity)
+          GroupBox("Nutrition") {
+            SectorMark(values: [38, 42, 20], labels: ["Protein", "Carbs", "Fat"], height: 160)
+            LabeledContent("Protein", value: "38 g")
+            LabeledContent("Carbs", value: "42 g")
+            LabeledContent("Fat", value: "20 g")
+          }.frame(maxWidth: .infinity)
+        }
+        GroupBox("Method") {
+          Text("1. Heat the oven to 220 °C.")
+          Text("2. Toss the potatoes with oil, salt and half the thyme.")
+          Text("3. Nestle in the chicken, add the lemon and garlic, and roast for 30 minutes.")
+        }
+      }
+      .padding(24)
+    }
+    .toolbar {
+      ToolbarItemGroup(placement: .topBarTrailing) {
+        Button(systemImage: "heart")
+        Button(systemImage: "cart")
+        ShareLink(item: "recipe").labelStyle(.iconOnly)
+      }
+    }
+  }
+}

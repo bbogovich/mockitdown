@@ -10,12 +10,18 @@
 //   select(id)      select a pack (updates #pack=<id>); resolves when its cards are built
 //   renderAll()     create every mockup of the selected pack, wait for all `rendered`, and resolve
 //                   with {pack, elements, patterns, mockups, empty, errors}
+//
+// A pattern entry of shared/patterns/index.json without `packs` is a core pattern, shown for every pack;
+// one with `packs` is shown only for those packs, and its `device`, `chrome`, `menubar`, `app` and
+// `windowed` become the mockup's attributes of the same name (R-WEB-004.C14).
 
 import "../dist/mockitdown.js";
 
 const REFERENCE = "../shared/reference/";
 const PATTERNS = "../shared/patterns/";
 const APPEARANCE_KEY = "mockitdown.gallery.appearance";
+/** Pattern entry keys passed to the mockup element as attributes of the same name (R-WEB-004.C14). */
+const PATTERN_ATTRIBUTES = ["device", "chrome", "menubar", "app", "windowed"];
 
 const $ = (id) => document.getElementById(id);
 
@@ -164,8 +170,8 @@ async function showPack(id) {
     own && own < ref.elements.length ? h("div", { class: "subhead" }, "Core vocabulary") : null,
     h("div", { class: "elements", id: "core" }, ref.elements.filter((e) => !e.own).map((e) => elementCard(e, id))),
     h("p", { class: "empty-filter", id: "no-match", hidden: true }, "No element matches the filter."),
-    h("h2", {}, "Design patterns", h("small", {}, `in ${ref.name}, core vocabulary`)),
-    h("div", { class: "patterns" }, gallery.patterns.map((p) => patternCard(p, id))),
+    h("h2", {}, "Design patterns", h("small", {}, `in ${ref.name}`)),
+    h("div", { class: "patterns" }, gallery.patterns.filter((p) => patternShown(p, id)).map((p) => patternCard(p, id))),
   );
   for (const slot of main.querySelectorAll(".slot")) gallery.observer.observe(slot);
   applyFilter();
@@ -192,10 +198,18 @@ function elementCard(e, pack) {
   );
 }
 
+/** A core pattern (no `packs`) is shown for every pack; a pack-specific one only for its packs. */
+function patternShown(p, pack) {
+  return !Array.isArray(p.packs) || p.packs.includes(pack);
+}
+
 function patternCard(p, pack) {
-  return h("section", { class: "pattern", dataset: { pattern: p.id } },
-    h("h3", {}, p.title),
-    h("div", { class: "stage" }, slot(p.source, { pack, caption: "false", label: `pattern ${p.id}` })));
+  const attrs = { pack, caption: "false", label: `pattern ${p.id}` };
+  for (const k of PATTERN_ATTRIBUTES) if (p[k] !== undefined && p[k] !== null) attrs[k] = String(p[k]);
+  const specific = Array.isArray(p.packs);
+  return h("section", { class: "pattern", dataset: specific ? { pattern: p.id, specific: "true" } : { pattern: p.id } },
+    h("h3", {}, p.title, specific ? h("span", { class: "own" }, p.device ?? "example") : null),
+    h("div", { class: "stage" }, slot(p.source, attrs)));
 }
 
 /** A placeholder holding what the mockup will need. */

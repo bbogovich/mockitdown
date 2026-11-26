@@ -5,6 +5,10 @@
   {"id": "settings", "title": "Settings", "file": "settings.mockitdown"},
   {"id": "dashboard", "title": "Dashboard with charts", "file": "dashboard.mockitdown"},
   {"id": "data-table", "title": "Data table with toolbar and filters", "file": "data-table.mockitdown"},
-  {"id": "wizard", "title": "Wizard (multi-step form)", "file": "wizard.mockitdown"}
+  {"id": "wizard", "title": "Wizard (multi-step form)", "file": "wizard.mockitdown"},
+  {"id": "swiftui-iphone-list", "title": "iPhone app: tab bar, navigation stack and list", "file": "swiftui-iphone-list.mockitdown", "packs": ["swiftui"], "device": "phone"},
+  {"id": "swiftui-iphone-detail", "title": "iPhone app: the pushed detail", "file": "swiftui-iphone-detail.mockitdown", "packs": ["swiftui"], "device": "phone"},
+  {"id": "swiftui-ipad", "title": "iPad app: three-column split view", "file": "swiftui-ipad.mockitdown", "packs": ["swiftui"], "device": "tablet"},
+  {"id": "swiftui-mac", "title": "Mac app: split view, toolbar and menu bar", "file": "swiftui-mac.mockitdown", "packs": ["swiftui"], "device": "desktop", "menubar": "Transaction", "app": "Ledger"}
  ]
 }

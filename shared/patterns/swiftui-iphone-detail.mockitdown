@@ -1,0 +1,58 @@
+// The detail the list pushes: the same TabView, a NavigationStack with the glass back button and an
+// inline title, a map, an elevation chart, statistics and a prominent glass button.
+import SwiftUI
+
+TabView {
+  Tab("Explore", systemImage: "map") {
+    NavigationStack(back: "Explore") {
+      ScrollView {
+        VStack(alignment: .leading, spacing: 14) {
+          Map("Sunrise Ridge Loop").frame(height: 160).clipShape(.rect(cornerRadius: 22))
+          VStack(alignment: .leading, spacing: 4) {
+            Text("Sunrise Ridge Loop").font(.title2).bold()
+            HStack(spacing: 6) {
+              Image(systemName: "star.fill").foregroundStyle(.orange)
+              Text("4.8 · 1,204 reviews · Pine Valley State Park")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            }
+          }
+          HStack(spacing: 10) {
+            Button("Start Hike", systemImage: "figure.walk")
+              .buttonStyle(.glassProminent)
+              .controlSize(.large)
+              .frame(maxWidth: .infinity)
+            Button(systemImage: "bookmark").buttonStyle(.glass).controlSize(.large)
+            ShareLink(item: "trail").labelStyle(.iconOnly).buttonStyle(.glass).controlSize(.large)
+          }
+          HStack(spacing: 10) {
+            GroupBox("Distance") { Text("5.4 mi").font(.headline) }.frame(maxWidth: .infinity)
+            GroupBox("Gain") { Text("1,120 ft").font(.headline) }.frame(maxWidth: .infinity)
+            GroupBox("Time") { Text("2:40 h").font(.headline) }.frame(maxWidth: .infinity)
+          }
+          GroupBox("Elevation") {
+            AreaMark(values: [820, 900, 1040, 1310, 1580, 1720, 1940, 1810, 1460, 1120, 900],
+                     height: 70)
+              .tint(.green)
+          }
+        }
+        .padding(.horizontal, 16)
+      }
+      .navigationTitle("Trail")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Menu(systemImage: "ellipsis") {
+            Button("Directions", systemImage: "map")
+            Button("Download Map", systemImage: "arrow.down.to.line")
+            Divider()
+            Button("Report a Problem", systemImage: "exclamationmark.triangle")
+          }
+        }
+      }
+    }
+  }
+  Tab("Saved", systemImage: "bookmark") { Text("Saved trails") }.badge(3)
+  Tab("Activity", systemImage: "chart.bar") { Text("Activity") }
+  Tab("Profile", systemImage: "person.circle") { Text("Profile") }
+}

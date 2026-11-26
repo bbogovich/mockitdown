@@ -1,0 +1,109 @@
+// A Mac app (macOS 26) under the menu bar: a NavigationSplitView with the floating glass sidebar, a
+// unified toolbar with a segmented picker, a control group and a search field, charts and a table;
+// .commands adds a CommandGroup to File and a custom CommandMenu, drawn open in the menu bar.
+import SwiftUI
+
+NavigationSplitView {
+  List(selection: "Checking") {
+    Section("Overview") {
+      Label("Dashboard", systemImage: "gauge")
+      Label("Reports", systemImage: "chart.pie")
+      Label("Budgets", systemImage: "chart.bar")
+    }
+    Section("Accounts") {
+      NavigationLink("Checking", systemImage: "creditcard").badge(4)
+      Label("Savings", systemImage: "dollarsign")
+      Label("Credit Card", systemImage: "creditcard")
+      Label("Brokerage", systemImage: "chart.line")
+    }
+    Section("Tags") {
+      Label("Household", systemImage: "house")
+      Label("Travel", systemImage: "airplane")
+      Label("Work", systemImage: "briefcase")
+    }
+  }
+  .listStyle(.sidebar)
+  .navigationTitle("Ledger")
+} detail: {
+  NavigationStack {
+    ScrollView {
+      VStack(alignment: .leading, spacing: 16) {
+        HStack(spacing: 12) {
+          GroupBox("Balance") {
+            Text("$12,480.32").font(.title2).bold()
+            Text("+ $1,240 this month").font(.caption).foregroundStyle(.green)
+          }.frame(maxWidth: .infinity)
+          GroupBox("Income") {
+            Text("$6,850.00").font(.title2).bold()
+            Text("2 deposits").font(.caption).foregroundStyle(.secondary)
+          }.frame(maxWidth: .infinity)
+          GroupBox("Spending") {
+            Text("$5,610.18").font(.title2).bold()
+            Gauge(value: 0.78, label: { Text("78% of budget") }).gaugeStyle(.linearCapacity).tint(.orange)
+          }.frame(maxWidth: .infinity)
+        }
+        HStack(alignment: .top, spacing: 12) {
+          GroupBox("Balance, last 12 weeks") {
+            LineMark(values: [9.8, 10.1, 9.6, 10.4, 10.9, 10.2, 11.0, 11.6, 11.1, 11.9, 12.2, 12.5],
+                     height: 120)
+              .tint(.blue)
+          }.frame(maxWidth: .infinity)
+          GroupBox("Spending by category") {
+            BarMark(values: [1840, 920, 640, 480, 310],
+                    labels: ["Rent", "Food", "Travel", "Bills", "Other"], height: 120)
+              .tint(.purple)
+          }.frame(maxWidth: .infinity)
+        }
+        Table {
+          TableColumn("Date")
+          TableColumn("Payee")
+          TableColumn("Category")
+          TableColumn("Amount")
+          TableRow { Text("Nov 24"); Text("Blue Bottle Coffee"); Text("Food"); Text("−$6.50") }
+          TableRow { Text("Nov 23"); Text("Acme Corp Payroll"); Text("Income"); Text("+$3,425.00") }.selected()
+          TableRow { Text("Nov 22"); Text("City Utilities"); Text("Bills"); Text("−$118.40") }
+          TableRow { Text("Nov 21"); Text("Alaska Airlines"); Text("Travel"); Text("−$312.00") }
+          TableRow { Text("Nov 20"); Text("Whole Foods Market"); Text("Food"); Text("−$84.17") }
+          TableRow { Text("Nov 18"); Text("Hillside Apartments"); Text("Rent"); Text("−$1,840.00") }
+        }
+      }
+      .padding(20)
+    }
+    .navigationTitle("Checking")
+    .navigationSubtitle("Nov 2026 · 42 transactions")
+    .searchable(text: "", prompt: "Search")
+    .toolbar {
+      Picker("Period", selection: "Month") { Text("Week"); Text("Month"); Text("Year") }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+      ControlGroup {
+        Button(systemImage: "chevron.left")
+        Button(systemImage: "chevron.right")
+      }
+      Button(systemImage: "square.and.arrow.up")
+      Button(systemImage: "plus")
+    }
+  }
+}
+.commands {
+  CommandGroup(after: .newItem) {
+    Button("New Transaction").keyboardShortcut("t", modifiers: [.shift, .command])
+    Button("New Account…").keyboardShortcut("a", modifiers: [.option, .command])
+  }
+  CommandMenu("Transaction") {
+    Button("Mark as Cleared").keyboardShortcut("k")
+    Button("Split Transaction…").keyboardShortcut("s", modifiers: [.option, .command])
+    Button("Duplicate").keyboardShortcut("d")
+    Divider()
+    Menu("Category") {
+      Button("Food")
+      Button("Travel")
+      Button("Bills")
+    }
+    Toggle("Show Pending", isOn: true)
+    Toggle("Show Reconciled", isOn: false)
+    Divider()
+    Button("Undo Reconcile") {}.disabled(true)
+    Button("Delete Transaction").keyboardShortcut(.delete, modifiers: [.command])
+  }
+}
