@@ -1,0 +1,6 @@
+// swiftui TabView
+TabView {
+  Tab("Home", systemImage: "house") { Text("Welcome home") }
+  Tab("Library", systemImage: "books.vertical") { Text("Your library") }
+  Tab("Search", systemImage: "magnifyingglass") { Text("Search") }
+}

@@ -1,0 +1,2 @@
+// a Tab outside a TabView
+Tab("Search", systemImage: "magnifyingglass") { Text("Find") }

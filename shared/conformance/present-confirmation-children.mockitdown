@@ -1,0 +1,2 @@
+// Button children of a ConfirmationDialog are its actions
+ConfirmationDialog("Delete note?") { Button("Delete", role: .destructive); Button("Cancel", role: .cancel) }

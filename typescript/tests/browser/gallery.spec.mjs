@@ -295,3 +295,75 @@ test("R-PACK-013 TC-2: every base chart sample draws at least one mark", async (
   expect(marks.filter(([, n]) => n < 1).map(([name]) => name)).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+// R-PACK-015 TC-1 (C1–C5) and TC-2 (C6–C8): SwiftUI presentations and navigation containers at fit, from the
+// declared samples; boxes measured in the shadow roots.
+test("R-PACK-015 TC-1/TC-2: SwiftUI presentations and navigation containers at fit", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page, "#pack=swiftui");
+  const sample = (n) => REFERENCES.swiftui.elements.find((e) => e.name === n).sample;
+  const fit = { pack: "swiftui", device: "fit", caption: "false" };
+  const cases = {
+    alert2: sample("Alert"),
+    alert3: 'Alert("Save changes?") { Text("Unsaved edits."); Button("Save"); Button("Don\'t Save", role: .destructive); Button("Cancel", role: .cancel) }',
+    confirm: sample("ConfirmationDialog"),
+    popover: sample("Popover"),
+    sheet: sample("Sheet"),
+    tab: 'Tab("Search", systemImage: "magnifyingglass") { Text("Find") }',
+    tabview: sample("TabView"),
+    page: `${sample("TabView")}.tabViewStyle(.page)`,
+    split: sample("NavigationSplitView"),
+    prominent: `${sample("NavigationSplitView")}.navigationSplitViewStyle(.prominentDetail)`,
+  };
+  const mockups = [...Object.entries(cases).map(([label, code]) => ({ code, label, attrs: fit })),
+    { code: `${sample("TabView")}.tabViewStyle(.sidebarAdaptable)`, label: "sidebarAdaptable", attrs: { ...fit, device: "tablet" } }];
+  await page.evaluate(mountMockups, { id: "present", width: 1400, mockups });
+  expect(await page.evaluate(inspectMockups, { selector: "#present mockitdown-mockup" })).toEqual([]);
+  const m = await page.evaluate(() => {
+    const out = {};
+    for (const el of document.querySelectorAll("#present mockitdown-mockup")) {
+      const r = el.shadowRoot;
+      const q = (s) => r.querySelector(s);
+      const b = (s) => { const e = q(s); if (!e) return null; const x = e.getBoundingClientRect(); return { l: x.left, r: x.right, t: x.top, b: x.bottom, w: x.width, h: x.height }; };
+      const all = (s) => [...r.querySelectorAll(s)].map((e) => { const x = e.getBoundingClientRect(); return { l: x.left, t: x.top, w: x.width }; });
+      out[el.dataset.label] = {
+        dialog: b(".mkd-dialog"), actions: all(".mkd-dialog__actions > .mkd-button"),
+        radius: q(".mkd-dialog") ? getComputedStyle(q(".mkd-dialog")).borderTopLeftRadius : null,
+        cancel: b('.mkd-dialog__actions > [data-role="cancel"]'), rows: b('.mkd-dialog__actions > :not([data-role="cancel"])'),
+        arrow: b(".mkd-dialog__arrow"), anchor: b(".mkd-popover__anchor"),
+        frame: b(".mkd-frame"), panel: b(".mkd-tabs__panel"), bar: b(".mkd-tabs__bar"), tabs: all(".mkd-tabs__tab"),
+        pill: q('.mkd-tabs__tab[aria-selected="true"]') ? getComputedStyle(q('.mkd-tabs__tab[aria-selected="true"]')).backgroundColor : null,
+        split: b(".mkd-split"), sidebar: b('[data-col="sidebar"]'), detail: b('[data-col="detail"]'),
+        title: q(".mkd-split__title")?.textContent ?? null,
+      };
+    }
+    return out;
+  });
+  // C1: about 300 wide, 34-point corners, two capsules side by side, three stacked
+  expect(m.alert2.dialog.w).toBeGreaterThan(280);
+  expect(m.alert2.radius).toBe("34px");
+  expect(m.alert2.actions[0].t).toBe(m.alert2.actions[1].t);
+  expect(new Set(m.alert3.actions.map((a) => a.t)).size).toBe(3);
+  // C2: the cancel action set apart below the rows
+  expect(m.confirm.cancel.t).toBeGreaterThan(m.confirm.rows.b);
+  // C3: the arrow between the anchor and the bubble, pointing up
+  expect(m.popover.arrow.t).toBeGreaterThanOrEqual(m.popover.anchor.b - 1);
+  expect(m.popover.arrow.b).toBeLessThanOrEqual(m.popover.dialog.t + 1);
+  // C5: one tab item in the bar
+  expect(m.tab.tabs.length).toBe(1);
+  // C6: the content above the bar at fit; the selected item's pill; page dots below the content
+  expect(m.tabview.panel.b).toBeLessThanOrEqual(m.tabview.bar.t + 1);
+  expect(m.tabview.pill).not.toBe("rgba(0, 0, 0, 0)");
+  expect(m.page.bar.t).toBeGreaterThanOrEqual(m.page.panel.b - 1);
+  expect(m.page.bar.h).toBeLessThan(30);
+  // C6: .sidebarAdaptable on a tablet: the tabs as a column beside the content
+  expect(m.sidebarAdaptable.tabs[1].t).toBeGreaterThan(m.sidebarAdaptable.tabs[0].t);
+  expect(m.sidebarAdaptable.panel.l).toBeGreaterThanOrEqual(m.sidebarAdaptable.bar.r - 1);
+  // C7, C8, V1: at least 640 × 360, sidebar titled Mail beside the detail; .prominentDetail spans the frame
+  expect(m.split.split.w).toBeGreaterThanOrEqual(640);
+  expect(m.split.split.h).toBeGreaterThanOrEqual(360);
+  expect(m.split.title).toBe("Mail");
+  expect(m.split.detail.l).toBeGreaterThanOrEqual(m.split.sidebar.r - 1);
+  expect(m.prominent.detail.w).toBeGreaterThanOrEqual(m.prominent.split.w - 1);
+  expect(errors).toEqual([]);
+});

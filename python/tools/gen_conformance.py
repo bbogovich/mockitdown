@@ -27,7 +27,8 @@ that file's resolved path as their source, so the corpus has none (the generator
 
 Areas (the name prefix): role-* (every base element, by render role), pack-* (every shipped pack,
 plus its own elements in chunks), appearance-*, device-*, chrome-*, option-*, import-*,
-annotate-*, overlay-*, chart-*, shape-*, control-* (SwiftUI control styles), image-*, lang-*, diag-*.
+annotate-*, overlay-*, chart-*, shape-*, control-* (SwiftUI control styles), present-* (SwiftUI
+presentations and navigation), image-*, lang-*, diag-*.
 """
 
 from __future__ import annotations
@@ -473,6 +474,43 @@ def control_cases() -> list[Case]:
     return out
 
 
+def present_cases() -> list[Case]:
+    """SwiftUI presentations and navigation (R-PACK-015): every element and variant from its declared sample,
+    plus Button children as actions, the unlabelled split view columns, a lone Tab and the chrome forms."""
+    els = registry().get("swiftui").elements
+    sw = {"device": "fit", "pack": "swiftui"}
+    out = [Case(f"present-{n.lower()}", f"swiftui {n}", els[n].sample, dict(sw))
+           for n in ("Alert", "ConfirmationDialog", "Popover", "Sheet", "Tab", "TabView", "NavigationSplitView")]
+    for n in ("TabView", "NavigationSplitView"):
+        for variant in els[n].variants:
+            out.append(Case(f"present-{n.lower()}-{variant.lower()}", f"swiftui {n} .{variant}",
+                            f'{els[n].sample}.variant("{variant}")', dict(sw)))
+    out += [
+        Case("present-alert-children", "Button children of an Alert are its actions",
+             'Alert("Save changes?") { Text("Your edits are not saved."); Button("Save"); '
+             'Button("Don\'t Save", role: .destructive); Button("Cancel", role: .cancel) }', dict(sw)),
+        Case("present-confirmation-children", "Button children of a ConfirmationDialog are its actions",
+             'ConfirmationDialog("Delete note?") { Button("Delete", role: .destructive); Button("Cancel", role: .cancel) }',
+             dict(sw)),
+        Case("present-confirmation-tablet", "a ConfirmationDialog with iPadOS chrome",
+             els["ConfirmationDialog"].sample, {"device": "tablet", "pack": "swiftui"}),
+        Case("present-tab-alone", "a Tab outside a TabView", 'Tab("Search", systemImage: "magnifyingglass") { Text("Find") }',
+             dict(sw)),
+        Case("present-split-children", "unlabelled split view columns: first sidebar, last detail",
+             'NavigationSplitView { List { Text("A") }.navigationTitle("Side"); Text("Detail").navigationTitle("Item") }',
+             dict(sw)),
+        Case("present-split-three", "three unlabelled columns", 'NavigationSplitView { Text("S"); Text("C"); Text("D") }',
+             dict(sw)),
+        Case("present-split-content", "sidebar, content and detail closures",
+             'NavigationSplitView { List { Text("Inbox") }.navigationTitle("Mail") } content: '
+             '{ List { Text("Hello") }.navigationTitle("Inbox") } detail: { Text("Hello, world") }',
+             {"device": "tablet", "pack": "swiftui"}),
+        Case("present-popover-modifier", "the .popover presentation draws an arrow",
+             'Button("Filter").popover(isPresented: true) { Text("Filters") }', dict(sw)),
+    ]
+    return out
+
+
 def image_cases() -> list[Case]:
     return [
         Case("image-data-uri", "Image with a data: URI passes through",
@@ -555,7 +593,7 @@ def diag_cases() -> list[Case]:
 def build_cases() -> list[Case]:
     cases = (role_cases() + pack_cases() + appearance_cases() + device_cases() + chrome_cases()
              + option_cases() + import_cases() + annotate_cases() + overlay_cases() + chart_cases()
-             + shape_cases() + control_cases() + image_cases() + lang_cases() + diag_cases())
+             + shape_cases() + control_cases() + present_cases() + image_cases() + lang_cases() + diag_cases())
     names = [c.name for c in cases]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:

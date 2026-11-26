@@ -1,0 +1,2 @@
+// sidebar, content and detail closures
+NavigationSplitView { List { Text("Inbox") }.navigationTitle("Mail") } content: { List { Text("Hello") }.navigationTitle("Inbox") } detail: { Text("Hello, world") }

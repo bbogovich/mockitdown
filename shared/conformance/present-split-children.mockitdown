@@ -1,0 +1,2 @@
+// unlabelled split view columns: first sidebar, last detail
+NavigationSplitView { List { Text("A") }.navigationTitle("Side"); Text("Detail").navigationTitle("Item") }

@@ -1,0 +1,2 @@
+// swiftui Alert
+Alert("Delete this photo?", message: "It will be removed from all your devices.", actions: { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) })

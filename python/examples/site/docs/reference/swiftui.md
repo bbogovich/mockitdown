@@ -31,7 +31,7 @@ ActionSheet("Title") { Text("Content"); Button("Action") }
 
 ### `Alert`
 
-Alert("Delete?", message: "…") { Button("Cancel", role: .cancel) … } — prefer .alert(…)
+Alert("Delete?", message: "…") { Button("Cancel", role: .cancel); Button("Delete", role: .destructive) } — iOS 26 glass card; the Button children (or actions:) are capsule actions, side by side for two, stacked for more · prefer .alert(…)
 
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;alert&quot;</code></p>
 
@@ -201,7 +201,7 @@ ConcentricRectangle().frame(width: 160, height: 96)
 
 ### `ConfirmationDialog`
 
-Action sheet; prefer .confirmationDialog(…)
+ConfirmationDialog("Discard?", message: "…") { Button("Discard", role: .destructive); Button("Cancel", role: .cancel) } — action sheet on iPhone, alert-style on iPad and Mac · prefer .confirmationDialog(…)
 
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;action-sheet&quot;</code></p>
 
@@ -685,7 +685,7 @@ NavigationLink("Title")
 
 ### `NavigationSplitView`
 
-NavigationSplitView { sidebar } content: { … } detail: { … }
+NavigationSplitView { sidebar } content: { … } detail: { … } — or unlabelled children (first sidebar, last detail); each column's .navigationTitle is its title
 
 <p class="ref-props">role <code>split</code> · variants <code>automatic</code>, <code>balanced</code>, <code>prominentDetail</code></p>
 
@@ -834,7 +834,7 @@ PointMark(values: [3, 5, 2, 6, 4])
 
 ### `Popover`
 
-Popover bubble; prefer .popover(isPresented:)
+Popover("Filters") { … } — glass bubble with an arrow; alone it points at a placeholder button · prefer .popover(isPresented:)
 
 <p class="ref-props">role <code>dialog</code> · arguments <code>title</code> · defaults <code>variant: &quot;popover&quot;</code></p>
 
@@ -1097,7 +1097,7 @@ Stepper("Label")
 
 ### `Tab`
 
-Tab("Search", systemImage: "magnifyingglass") { … } · .badge(3)
+Tab("Search", systemImage: "magnifyingglass") { … } · .badge(3) — one tab of a TabView; alone, one tab bar item
 
 <p class="ref-props">role <code>tab</code> · arguments <code>label</code></p>
 
@@ -1129,7 +1129,7 @@ TabSection("Title") { Text("First item"); Text("Second item") }
 
 ### `TabView`
 
-TabView { Tab("Home", systemImage: "house") { … } } — floating Liquid Glass tab bar
+TabView { Tab("Home", systemImage: "house") { … } } — floating Liquid Glass tab bar · .tabViewStyle(.page) dots · .sidebarAdaptable sidebar on iPad and Mac
 
 <p class="ref-props">role <code>tabs</code> · defaults <code>placement: &quot;bottom&quot;</code> · variants <code>automatic</code>, <code>page</code>, <code>sidebarAdaptable</code>, <code>tabBarOnly</code></p>
 

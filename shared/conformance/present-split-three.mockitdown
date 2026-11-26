@@ -1,0 +1,2 @@
+// three unlabelled columns
+NavigationSplitView { Text("S"); Text("C"); Text("D") }

@@ -2389,6 +2389,94 @@
       "area": "control"
     },
     {
+      "name": "present-alert",
+      "area": "present"
+    },
+    {
+      "name": "present-confirmationdialog",
+      "area": "present"
+    },
+    {
+      "name": "present-popover",
+      "area": "present"
+    },
+    {
+      "name": "present-sheet",
+      "area": "present"
+    },
+    {
+      "name": "present-tab",
+      "area": "present"
+    },
+    {
+      "name": "present-tabview",
+      "area": "present"
+    },
+    {
+      "name": "present-navigationsplitview",
+      "area": "present"
+    },
+    {
+      "name": "present-tabview-automatic",
+      "area": "present"
+    },
+    {
+      "name": "present-tabview-page",
+      "area": "present"
+    },
+    {
+      "name": "present-tabview-sidebaradaptable",
+      "area": "present"
+    },
+    {
+      "name": "present-tabview-tabbaronly",
+      "area": "present"
+    },
+    {
+      "name": "present-navigationsplitview-automatic",
+      "area": "present"
+    },
+    {
+      "name": "present-navigationsplitview-balanced",
+      "area": "present"
+    },
+    {
+      "name": "present-navigationsplitview-prominentdetail",
+      "area": "present"
+    },
+    {
+      "name": "present-alert-children",
+      "area": "present"
+    },
+    {
+      "name": "present-confirmation-children",
+      "area": "present"
+    },
+    {
+      "name": "present-confirmation-tablet",
+      "area": "present"
+    },
+    {
+      "name": "present-tab-alone",
+      "area": "present"
+    },
+    {
+      "name": "present-split-children",
+      "area": "present"
+    },
+    {
+      "name": "present-split-three",
+      "area": "present"
+    },
+    {
+      "name": "present-split-content",
+      "area": "present"
+    },
+    {
+      "name": "present-popover-modifier",
+      "area": "present"
+    },
+    {
       "name": "image-data-uri",
       "area": "image"
     },

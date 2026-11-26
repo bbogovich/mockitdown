@@ -35,7 +35,7 @@
     "variant": "alert"
    },
    "variants": [],
-   "doc": "Alert(\"Delete?\", message: \"…\") { Button(\"Cancel\", role: .cancel) … } — prefer .alert(…)",
+   "doc": "Alert(\"Delete?\", message: \"…\") { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) } — iOS 26 glass card; the Button children (or actions:) are capsule actions, side by side for two, stacked for more · prefer .alert(…)",
    "own": true,
    "sample": "Alert(\"Delete this photo?\", message: \"It will be removed from all your devices.\", actions: { Button(\"Cancel\", role: .cancel); Button(\"Delete\", role: .destructive) })",
    "variants_sample": null
@@ -195,7 +195,7 @@
     "variant": "action-sheet"
    },
    "variants": [],
-   "doc": "Action sheet; prefer .confirmationDialog(…)",
+   "doc": "ConfirmationDialog(\"Discard?\", message: \"…\") { Button(\"Discard\", role: .destructive); Button(\"Cancel\", role: .cancel) } — action sheet on iPhone, alert-style on iPad and Mac · prefer .confirmationDialog(…)",
    "own": true,
    "sample": "ConfirmationDialog(\"Discard your changes?\", message: \"Your edits to this note have not been saved.\", actions: { Button(\"Discard Changes\", role: .destructive); Button(\"Keep Editing\"); Button(\"Cancel\", role: .cancel) })",
    "variants_sample": null
@@ -578,7 +578,7 @@
     "balanced",
     "prominentDetail"
    ],
-   "doc": "NavigationSplitView { sidebar } content: { … } detail: { … }",
+   "doc": "NavigationSplitView { sidebar } content: { … } detail: { … } — or unlabelled children (first sidebar, last detail); each column's .navigationTitle is its title",
    "own": true,
    "sample": "NavigationSplitView {\n  List {\n    Label(\"Inbox\", systemImage: \"tray\")\n    Label(\"Sent\", systemImage: \"paperplane\")\n    Label(\"Archive\", systemImage: \"archivebox\")\n  }.navigationTitle(\"Mail\")\n} detail: {\n  Text(\"Select a message\")\n}",
    "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {\n      List {\n        Label(\"Inbox\", systemImage: \"tray\")\n        Label(\"Sent\", systemImage: \"paperplane\")\n        Label(\"Archive\", systemImage: \"archivebox\")\n      }.navigationTitle(\"Mail\")\n    } detail: {\n      Text(\"Select a message\")\n    }.variant(\"automatic\"); Text(\"automatic\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {\n      List {\n        Label(\"Inbox\", systemImage: \"tray\")\n        Label(\"Sent\", systemImage: \"paperplane\")\n        Label(\"Archive\", systemImage: \"archivebox\")\n      }.navigationTitle(\"Mail\")\n    } detail: {\n      Text(\"Select a message\")\n    }.variant(\"balanced\"); Text(\"balanced\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { NavigationSplitView {\n      List {\n        Label(\"Inbox\", systemImage: \"tray\")\n        Label(\"Sent\", systemImage: \"paperplane\")\n        Label(\"Archive\", systemImage: \"archivebox\")\n      }.navigationTitle(\"Mail\")\n    } detail: {\n      Text(\"Select a message\")\n    }.variant(\"prominentDetail\"); Text(\"prominentDetail\").font(.caption).foregroundStyle(.secondary) }\n}"
@@ -698,7 +698,7 @@
     "variant": "popover"
    },
    "variants": [],
-   "doc": "Popover bubble; prefer .popover(isPresented:)",
+   "doc": "Popover(\"Filters\") { … } — glass bubble with an arrow; alone it points at a placeholder button · prefer .popover(isPresented:)",
    "own": true,
    "sample": "Popover(\"Filters\") { Toggle(\"Unread only\", isOn: true); Toggle(\"Flagged\", isOn: false) }",
    "variants_sample": null
@@ -957,7 +957,7 @@
    ],
    "defaults": {},
    "variants": [],
-   "doc": "Tab(\"Search\", systemImage: \"magnifyingglass\") { … } · .badge(3)",
+   "doc": "Tab(\"Search\", systemImage: \"magnifyingglass\") { … } · .badge(3) — one tab of a TabView; alone, one tab bar item",
    "own": true,
    "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search the library\") }\n  Tab(\"Profile\", systemImage: \"person\") { Text(\"Your profile\") }\n}",
    "variants_sample": null
@@ -988,7 +988,7 @@
     "sidebarAdaptable",
     "tabBarOnly"
    ],
-   "doc": "TabView { Tab(\"Home\", systemImage: \"house\") { … } } — floating Liquid Glass tab bar",
+   "doc": "TabView { Tab(\"Home\", systemImage: \"house\") { … } } — floating Liquid Glass tab bar · .tabViewStyle(.page) dots · .sidebarAdaptable sidebar on iPad and Mac",
    "own": true,
    "sample": "TabView {\n  Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n  Tab(\"Library\", systemImage: \"books.vertical\") { Text(\"Your library\") }\n  Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search\") }\n}",
    "variants_sample": "HStack(alignment: .top, spacing: 24) {\n  VStack(alignment: .leading, spacing: 4) { TabView {\n      Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n      Tab(\"Library\", systemImage: \"books.vertical\") { Text(\"Your library\") }\n      Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search\") }\n    }.variant(\"automatic\"); Text(\"automatic\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TabView {\n      Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n      Tab(\"Library\", systemImage: \"books.vertical\") { Text(\"Your library\") }\n      Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search\") }\n    }.variant(\"page\"); Text(\"page\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TabView {\n      Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n      Tab(\"Library\", systemImage: \"books.vertical\") { Text(\"Your library\") }\n      Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search\") }\n    }.variant(\"sidebarAdaptable\"); Text(\"sidebarAdaptable\").font(.caption).foregroundStyle(.secondary) }\n  VStack(alignment: .leading, spacing: 4) { TabView {\n      Tab(\"Home\", systemImage: \"house\") { Text(\"Welcome home\") }\n      Tab(\"Library\", systemImage: \"books.vertical\") { Text(\"Your library\") }\n      Tab(\"Search\", systemImage: \"magnifyingglass\") { Text(\"Search\") }\n    }.variant(\"tabBarOnly\"); Text(\"tabBarOnly\").font(.caption).foregroundStyle(.secondary) }\n}"

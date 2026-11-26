@@ -49,6 +49,8 @@ PRESENTATIONS = ("alert", "sheet", "confirmationDialog", "fullScreenCover", "pop
 #: The anchor of a tooltip written without content (R-DEV-008.C5).
 TOOLTIP_PLACEHOLDER = ('<span class="mkd-button" data-placeholder="true" role="button">'
                        '<span class="mkd-button__label">Button</span></span>')
+#: Dialog variants whose Button children are their actions, as in SwiftUI's alert and confirmation dialog.
+ACTION_DIALOGS = ("alert", "action-sheet")
 #: Roles a picker takes its options from (any other child counts when it has a ``.tag``).
 OPTION_ROLES = ("text", "label", "button", "listitem", "menuitem", "tab", "radio")
 #: SwiftUI picker styles showing one value: without ``selection:`` they show the first option (R-PACK-014.C6).
@@ -356,6 +358,7 @@ class Renderer:
                                      + ('<div class="mkd-scrim"></div>' if kind == "sheet" else "")
                                      + f'<div class="mkd-presented" data-kind="{kind}">'
                                      + ('<div class="mkd-presented__grabber"></div>' if kind == "sheet" else "")
+                                     + ('<span class="mkd-presented__arrow"></span>' if kind == "popover" else "")
                                      + f"{body}</div></div>")
 
     # --- layout roles ----------------------------------------------------------------------------
@@ -1224,22 +1227,34 @@ class Renderer:
 
     def r_split(self, v: View) -> str:
         cols: list[tuple[str, list[View]]] = []
-        names = ["sidebar", "content", "detail"]
         if v.slots:
             cols.append(("sidebar", v.children))
             for key in ("content", "detail", "inspector"):
                 if key in v.slots:
                     cols.append((key, v.slots[key]))
         else:
+            # Unlabelled columns: the first child is the sidebar, the last the detail, a middle one the content.
+            n = len(v.children)
             for i, c in enumerate(v.children):
-                cols.append((names[i] if i < 3 else f"col{i}", [c]))
+                name = "sidebar" if i == 0 else "detail" if i == n - 1 else "content" if i == 1 else f"col{i}"
+                cols.append((name, [c]))
         widths = v.attr("columnWidths", "widths")
         out = []
         for i, (name, views) in enumerate(cols):
             st = ""
             if isinstance(widths, list) and i < len(widths) and (length := u(_num(widths[i]))) is not None:
                 st = f' style="flex:0 0 {length};width:{length}"'
-            out.append(f'<div class="mkd-split__col" data-col="{esc(name)}"{st}>{self.views(views)}</div>')
+            # A column's own navigation title, when it is not a NavigationStack drawing its bar (R-PACK-015.C7).
+            header = ""
+            if not any(c.role == "navstack" for c in views):
+                title_view = self._find_mod(views, "navigationTitle")
+                if title_view is not None:
+                    m = title_view.mod("navigationTitle")
+                    title_html = self.content(m.arg()) if m.args else self.views(m.content or [])
+                    if title_html:
+                        header = (f'<div class="mkd-split__header"><span class="mkd-split__title">{title_html}'
+                                  "</span></div>")
+            out.append(f'<div class="mkd-split__col" data-col="{esc(name)}"{st}>{header}{self.views(views)}</div>')
         return self.open(v, "split", data={"columns": str(len(cols))}) + "".join(out) + "</div>"
 
     def r_tabs(self, v: View) -> str:
@@ -1306,7 +1321,18 @@ class Renderer:
             f'<div class="mkd-tabs__bar" role="tablist">{"".join(bar)}</div>' + panel + "</div>"
 
     def r_tab(self, v: View) -> str:
-        return self.open(v, "group") + self.views(v.children) + "</div>"
+        """A ``Tab`` outside a ``TabView``: one selected item of a tab bar (R-PACK-015.C5)."""
+        tab_view = self.pack.element("TabView")
+        placement = _name(v.attr("placement")) or _name(dict(tab_view.defaults).get("placement") if tab_view
+                                                           else None) or "top"
+        icon_name = v.attr("systemImage", "icon", "image")
+        label = v.attr("label", "title", "text")
+        icon = f'<span class="mkd-tabs__icon">{self.icon(icon_name, v=v)}</span>' if icon_name else ""
+        lab = f'<span class="mkd-tabs__label">{self.content(label)}</span>' if label is not None else ""
+        badge = self.badge_html(v.attr("badge"), "mkd-badge mkd-tabs__badge")
+        return (self.open(v, "tabs", data={"placement": placement, "standalone": "true"})
+                + '<div class="mkd-tabs__bar" role="tablist"><span class="mkd-tabs__tab" role="tab" aria-selected="true">'
+                + f"{icon}{lab}{badge}</span></div></div>")
 
     def r_appbar(self, v: View) -> str:
         leading = self.slot(v, "leading", "navigation", "start")
@@ -1754,11 +1780,17 @@ class Renderer:
         saved = self.in_menu
         self.in_menu = False
         mark = len(self.overlays)
-        body = self.views(v.children)
+        children = v.children
+        if variant in ACTION_DIALOGS and not actions and any(c.role == "button" for c in children):
+            # SwiftUI's alert and confirmation dialog take their buttons from the closure (R-PACK-015.C9).
+            actions = self.views([c for c in children if c.role == "button"])
+            children = [c for c in children if c.role != "button"]
+        body = self.views(children)
         self.in_menu = saved
         inner_layers = self.overlays[mark:]
         del self.overlays[mark:]
         markup = (self.open(v, "dialog", attrs={"role": "dialog"})
+                  + ('<span class="mkd-dialog__arrow"></span>' if variant == "popover" else "")
                   + (f'<div class="mkd-dialog__icon">{self.icon(icon, v=v)}</div>' if icon else "")
                   + (f'<div class="mkd-dialog__header"><span class="mkd-dialog__title">{title}</span>'
                      + (f'<span class="mkd-dialog__close">{self.icon("xmark")}</span>' if closable else "")
@@ -1769,8 +1801,10 @@ class Renderer:
         if not _bool(v.attr("modal", "presented", "open"), True) or _bool(v.attr("inline")):
             self.overlays.extend(inner_layers)
             return markup
+        # A popover written on its own points at a placeholder anchor above it (R-PACK-015.C3).
+        anchor = f'<div class="mkd-popover__anchor">{TOOLTIP_PLACEHOLDER}</div>' if variant == "popover" else ""
         self.overlays.append(f'<div class="mkd-layer" data-kind="{esc(variant)}"><div class="mkd-scrim"></div>'
-                             f"{markup}</div>")
+                             f"{anchor}{markup}</div>")
         self.overlays.extend(inner_layers)  # anchored marks after the dialog they point into
         return ""
 

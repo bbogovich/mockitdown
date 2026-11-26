@@ -447,6 +447,9 @@
 .mkd-frame .mkd-split__col:where([data-col="sidebar"]) { flex: 0 0 260px; background: var(--mkd-surface-2); }
 .mkd-frame .mkd-split[data-columns="3"] > .mkd-split__col:where([data-col="content"]) { flex: 0 0 320px; }
 .mkd-frame .mkd-split__col > * { flex: 1 1 auto; min-height: 0; }
+/* A column's own navigation title (R-PACK-015.C7). */
+.mkd-frame .mkd-split__col > .mkd-split__header { flex: none; padding: 12px 16px 6px; }
+.mkd-frame .mkd-split__title { font-size: var(--mkd-fs-title3, 20px); font-weight: 700; }
 .mkd-frame :where(.mkd-split__col) > :where(.mkd-text, .mkd-button, .mkd-hstack):not([data-fill]) { flex: none; }
 
 .mkd-frame .mkd-tabs { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
@@ -464,6 +467,8 @@
 .mkd-frame .mkd-tabs:where([data-placement="bottom"]) .mkd-tabs__tab .mkd-icon { width: 24px; height: 24px; }
 .mkd-frame .mkd-tabs:where([data-placement="bottom"]) .mkd-tabs__badge { position: absolute; top: 0; left: 55%; }
 .mkd-frame .mkd-tabs:where([data-placement="leading"], [data-placement="left"]) { flex-direction: row; }
+/* A Tab written on its own: one item of a tab bar (R-PACK-015.C5). */
+.mkd-frame .mkd-tabs:where([data-standalone="true"]) { align-self: flex-start; min-width: 120px; }
 .mkd-frame .mkd-tabs:where([data-placement="leading"], [data-placement="left"]) > .mkd-tabs__bar { flex-direction: column; border-bottom: 0; border-right: 1px solid var(--mkd-divider); }
 
 .mkd-frame .mkd-appbar { flex: none; display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; background: var(--mkd-surface); border-bottom: 1px solid var(--mkd-divider); color: var(--mkd-fg); }
@@ -645,6 +650,11 @@
 .mkd-frame .mkd-presented:where([data-kind="popover"]) { min-width: 240px; border-radius: var(--mkd-radius-l); padding: 12px; }
 .mkd-frame .mkd-presented > :where(.mkd-navstack, .mkd-list, .mkd-form) { flex: 1 1 auto; min-height: 0; }
 .mkd-frame .mkd-presented__grabber { flex: none; width: 36px; height: 5px; margin: 6px auto 0; border-radius: 3px; background: var(--mkd-fg-3); opacity: .5; }
+/* A popover written on its own sits under a placeholder anchor (R-PACK-015.C3); packs that draw an arrow show
+   .mkd-dialog__arrow / .mkd-presented__arrow, hidden here. */
+.mkd-frame .mkd-layer:where([data-kind="popover"]):has(> .mkd-popover__anchor) { flex-direction: column; align-items: center; justify-content: flex-start; gap: 10px; padding: 16px 20px 24px; }
+.mkd-frame .mkd-popover__anchor { position: relative; flex: none; display: flex; justify-content: center; }
+.mkd-frame :where(.mkd-dialog__arrow, .mkd-presented__arrow) { display: none; }
 /* A sheet written on its own has the grabber of a presented sheet (R-DEV-008.C3, C4); a pack replaces it by its own ::before. */
 .mkd-frame :where(.mkd-layer[data-kind="sheet"] > .mkd-dialog)::before { content: ""; flex: none; align-self: center; width: 36px; height: 5px; border-radius: 3px; background: var(--mkd-fg-3); opacity: .5; }
 

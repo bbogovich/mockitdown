@@ -1,0 +1,2 @@
+// swiftui Popover
+Popover("Filters") { Toggle("Unread only", isOn: true); Toggle("Flagged", isOn: false) }

@@ -36,6 +36,8 @@ const PRESENTATIONS = ["alert", "sheet", "confirmationDialog", "fullScreenCover"
 const TOOLTIP_PLACEHOLDER = '<span class="mkd-button" data-placeholder="true" role="button">'
   + '<span class="mkd-button__label">Button</span></span>';
 const DECORATIONS = ["callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"];
+/** Dialog variants whose Button children are their actions, as in SwiftUI's alert and confirmation dialog. */
+const ACTION_DIALOGS = ["alert", "action-sheet"];
 const OPTION_ROLES = ["text", "label", "button", "listitem", "menuitem", "tab", "radio"];
 /** SwiftUI picker styles showing one value: without `selection:` they show the first option (R-PACK-014.C6). */
 const PICKER_FIRST = ["automatic", "menu", "navigationLink", "palette", "wheel"];
@@ -331,6 +333,7 @@ export class Renderer {
           + (kind === "sheet" ? '<div class="mkd-scrim"></div>' : "")
           + `<div class="mkd-presented" data-kind="${kind}">`
           + (kind === "sheet" ? '<div class="mkd-presented__grabber"></div>' : "")
+          + (kind === "popover" ? '<span class="mkd-presented__arrow"></span>' : "")
           + `${body}</div></div>`);
       }
     }
@@ -1183,12 +1186,13 @@ const ROLES: Record<string, RoleFn> = {
   },
   split(v) {
     const cols: [string, View[]][] = [];
-    const names = ["sidebar", "content", "detail"];
     if (v.slots.size) {
       cols.push(["sidebar", v.children]);
       for (const key of ["content", "detail", "inspector"]) if (v.slots.has(key)) cols.push([key, v.slots.get(key)!]);
     } else {
-      v.children.forEach((c, i) => cols.push([i < 3 ? names[i] : `col${i}`, [c]]));
+      // Unlabelled columns: the first child is the sidebar, the last the detail, a middle one the content.
+      const n = v.children.length;
+      v.children.forEach((c, i) => cols.push([i === 0 ? "sidebar" : i === n - 1 ? "detail" : i === 1 ? "content" : `col${i}`, [c]]));
     }
     const widths = at(v, "columnWidths", "widths");
     const out = cols.map(([nm, views], i) => {
@@ -1197,7 +1201,17 @@ const ROLES: Record<string, RoleFn> = {
         const length = u(num(widths[i]));
         if (length !== null) st = ` style="flex:0 0 ${length};width:${length}"`;
       }
-      return `<div class="mkd-split__col" data-col="${esc(nm)}"${st}>${this.views(views)}</div>`;
+      // A column's own navigation title, when it is not a NavigationStack drawing its bar (R-PACK-015.C7).
+      let header = "";
+      if (!views.some((c) => c.role === "navstack")) {
+        const titleView = this.findMod(views, "navigationTitle");
+        if (titleView !== null) {
+          const m = titleView.mod("navigationTitle")!;
+          const titleHtml = m.args.length ? this.content(m.arg()) : this.views(m.content ?? []);
+          if (titleHtml) header = `<div class="mkd-split__header"><span class="mkd-split__title">${titleHtml}</span></div>`;
+        }
+      }
+      return `<div class="mkd-split__col" data-col="${esc(nm)}"${st}>${header}${this.views(views)}</div>`;
     });
     return this.open(v, "split", "div", { data: { columns: String(cols.length) } }) + out.join("") + "</div>";
   },
@@ -1259,7 +1273,20 @@ const ROLES: Record<string, RoleFn> = {
     return this.open(v, "tabs", "div", { data: { placement } })
       + `<div class="mkd-tabs__bar" role="tablist">${bar.join("")}</div>` + panel + "</div>";
   },
-  tab(v) { return this.open(v, "group") + this.views(v.children) + "</div>"; },
+  /** A `Tab` outside a `TabView`: one selected item of a tab bar (R-PACK-015.C5). */
+  tab(v) {
+    const tabView = this.pack.element("TabView");
+    const dflt = tabView ? tabView.defaults.find(([k]) => k === "placement") : undefined;
+    const placement = name(at(v, "placement")) || name(dflt ? dflt[1] : null) || "top";
+    const iconName = at(v, "systemImage", "icon", "image");
+    const label = at(v, "label", "title", "text");
+    const icon = pyBool(iconName) ? `<span class="mkd-tabs__icon">${this.icon(iconName, "mkd-icon", v)}</span>` : "";
+    const lab = label !== null ? `<span class="mkd-tabs__label">${this.content(label)}</span>` : "";
+    const badge = this.badgeHtml(at(v, "badge"), "mkd-badge mkd-tabs__badge");
+    return this.open(v, "tabs", "div", { data: { placement, standalone: "true" } })
+      + '<div class="mkd-tabs__bar" role="tablist"><span class="mkd-tabs__tab" role="tab" aria-selected="true">'
+      + `${icon}${lab}${badge}</span></div></div>`;
+  },
   appbar(v) {
     let leading = this.slot(v, "leading", "navigation", "start");
     if (!leading) {
@@ -1632,11 +1659,18 @@ const ROLES: Record<string, RoleFn> = {
     const saved = this.inMenu;
     this.inMenu = false;
     const mark = this.overlays.length;
-    const body = this.views(v.children);
+    let children = v.children;
+    if (ACTION_DIALOGS.includes(variant) && !actions && children.some((c) => c.role === "button")) {
+      // SwiftUI's alert and confirmation dialog take their buttons from the closure (R-PACK-015.C9).
+      actions = this.views(children.filter((c) => c.role === "button"));
+      children = children.filter((c) => c.role !== "button");
+    }
+    const body = this.views(children);
     this.inMenu = saved;
     const innerLayers = this.overlays.slice(mark);
     this.overlays.length = mark;
     const markup = this.open(v, "dialog", "div", { attrs: { role: "dialog" } })
+      + (variant === "popover" ? '<span class="mkd-dialog__arrow"></span>' : "")
       + (pyBool(icon) ? `<div class="mkd-dialog__icon">${this.icon(icon, "mkd-icon", v)}</div>` : "")
       + (title || closable ? `<div class="mkd-dialog__header"><span class="mkd-dialog__title">${title}</span>`
         + (closable ? `<span class="mkd-dialog__close">${this.icon("xmark")}</span>` : "") + "</div>" : "")
@@ -1647,7 +1681,9 @@ const ROLES: Record<string, RoleFn> = {
       this.overlays.push(...innerLayers);
       return markup;
     }
-    this.overlays.push(`<div class="mkd-layer" data-kind="${esc(variant)}"><div class="mkd-scrim"></div>${markup}</div>`);
+    // A popover written on its own points at a placeholder anchor above it (R-PACK-015.C3).
+    const anchor = variant === "popover" ? `<div class="mkd-popover__anchor">${TOOLTIP_PLACEHOLDER}</div>` : "";
+    this.overlays.push(`<div class="mkd-layer" data-kind="${esc(variant)}"><div class="mkd-scrim"></div>${anchor}${markup}</div>`);
     this.overlays.push(...innerLayers); // anchored marks after the dialog they point into
     return "";
   },

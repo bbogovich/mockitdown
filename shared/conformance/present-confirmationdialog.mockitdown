@@ -1,0 +1,2 @@
+// swiftui ConfirmationDialog
+ConfirmationDialog("Discard your changes?", message: "Your edits to this note have not been saved.", actions: { Button("Discard Changes", role: .destructive); Button("Keep Editing"); Button("Cancel", role: .cancel) })

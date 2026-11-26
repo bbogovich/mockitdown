@@ -1,0 +1,5 @@
+// swiftui Sheet
+Sheet("New event", actions: { Button("Cancel"); Button("Add") }) {
+  TextField("Title", text: "Team lunch")
+  DatePicker("Starts", selection: "2026-11-23")
+}

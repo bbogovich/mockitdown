@@ -1,0 +1,2 @@
+// Button children of an Alert are its actions
+Alert("Save changes?") { Text("Your edits are not saved."); Button("Save"); Button("Don't Save", role: .destructive); Button("Cancel", role: .cancel) }

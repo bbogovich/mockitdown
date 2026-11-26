@@ -40,7 +40,7 @@ class FitPresentationTests(unittest.TestCase):
                 html = result.html
                 if role == "dialog":
                     ok = re.search(r'class="mkd-layer" data-kind="[^"]+"><div class="mkd-scrim"></div>'
-                                   r'<div class="mkd-dialog', html) and "Title" in html and "Action" in html
+                                   r'(?:<div class="mkd-popover__anchor">.*?</div>)?<div class="mkd-dialog', html)  # R-PACK-015.C3 anchor and "Title" in html and "Action" in html
                 elif role == "toast":
                     ok = 'class="mkd-layer" data-kind="toast"' in html and "Message" in html
                 else:

@@ -1,0 +1,10 @@
+// swiftui NavigationSplitView .prominentDetail
+NavigationSplitView {
+  List {
+    Label("Inbox", systemImage: "tray")
+    Label("Sent", systemImage: "paperplane")
+    Label("Archive", systemImage: "archivebox")
+  }.navigationTitle("Mail")
+} detail: {
+  Text("Select a message")
+}.variant("prominentDetail")
