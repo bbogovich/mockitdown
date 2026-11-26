@@ -1,0 +1,2 @@
+// a Picker without selection shows the first option
+Picker("Flavor") { Text("Chocolate"); Text("Vanilla") }

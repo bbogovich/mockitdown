@@ -1,0 +1,4 @@
+// tagged Picker options
+VStack { Picker("Size", selection: "m") { Text("Small").tag("s"); Text("Medium").tag("m") }
+  Picker("Size", selection: "m") { Text("Small").tag("s"); Text("Medium").tag("m") }.pickerStyle(.segmented)
+  Picker("Icon", selection: "b") { Image(systemName: "star").tag("a"); Image(systemName: "bell").tag("b") }.pickerStyle(.palette) }

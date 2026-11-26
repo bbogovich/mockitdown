@@ -153,6 +153,31 @@ const MONTH_NAMES = ["", "January", "February", "March", "April", "May", "June",
   "October", "November", "December"];
 const MONTH_ABBR = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+export function monthAbbr(m: number): string {
+  if (m < 0 || m > 12) throw new PyError("IndexError", "list index out of range");
+  return MONTH_ABBR[m];
+}
+
+/** `d + timedelta(days=k)`. */
+export function addDays(d: PyDate, k: number): PyDate {
+  let { year, month, day } = d;
+  day += k;
+  while (day < 1) {
+    [year, month] = month === 1 ? [year - 1, 12] : [year, month - 1];
+    day += monthLen(year, month);
+  }
+  while (day > monthLen(year, month)) {
+    day -= monthLen(year, month);
+    [year, month] = month === 12 ? [year + 1, 1] : [year, month + 1];
+  }
+  return { year, month, day };
+}
+
+/** `d.isoformat()`. */
+export function isoDate(d: PyDate): string {
+  return `${String(d.year).padStart(4, "0")}-${String(d.month).padStart(2, "0")}-${String(d.day).padStart(2, "0")}`;
+}
+
 export function monthName(m: number): string {
   if (m < 0 || m > 12) throw new PyError("IndexError", "list index out of range");
   return MONTH_NAMES[m];
@@ -230,6 +255,15 @@ export function parseDate(value: unknown): PyDate | null {
   if (typeof value === "string") {
     const m = /^(\p{Nd}{4})-(\p{Nd}{2})-(\p{Nd}{2})/u.exec(value);
     if (m) return makeDate(digitsInt(m[1]), digitsInt(m[2]), digitsInt(m[3]));
+  }
+  return null;
+}
+
+/** The `HH:MM` after the date of an ISO date-time string (`2026-11-23T14:05`), or null. */
+export function parseTime(value: unknown): [number, number] | null {
+  if (typeof value === "string") {
+    const m = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}[T ](\p{Nd}{1,2}):(\p{Nd}{2})/u.exec(value);
+    if (m && digitsInt(m[1]) < 24 && digitsInt(m[2]) < 60) return [digitsInt(m[1]), digitsInt(m[2])];
   }
   return null;
 }

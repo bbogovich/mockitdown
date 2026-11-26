@@ -1,0 +1,2 @@
+// Pickers without options
+VStack { Picker("Flavor"); Picker("Flavor").pickerStyle(.segmented); Picker("Flavor").pickerStyle(.wheel); Picker("Flavor").pickerStyle(.inline) }

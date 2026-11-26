@@ -1,0 +1,2 @@
+// swiftui DatePicker .stepperField
+DatePicker("Starts", selection: "2026-11-23").variant("stepperField")

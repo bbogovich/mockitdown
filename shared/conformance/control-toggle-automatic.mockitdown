@@ -1,0 +1,2 @@
+// swiftui Toggle .automatic
+Toggle("Wi-Fi", isOn: true).variant("automatic")

@@ -402,6 +402,25 @@
 .mkd-frame .mkd-calendar__day[data-today="true"] { color: var(--mkd-accent); font-weight: 700; }
 .mkd-frame .mkd-calendar__day[data-marked="true"]::after { content: ""; position: absolute; bottom: 3px; width: 4px; height: 4px; border-radius: 50%; background: var(--mkd-accent); }
 
+/* ---------- wheel (.pickerStyle(.wheel), .datePickerStyle(.wheel)): five rows, the selection band in the middle ---------- */
+.mkd-frame .mkd-wheel { position: relative; display: inline-flex; justify-content: center; gap: 4px; padding: 0 8px; align-self: center; }
+.mkd-frame .mkd-wheel__band { position: absolute; left: 0; right: 0; top: 64px; height: 32px; border-radius: var(--mkd-radius-m); background: var(--mkd-surface-3); }
+.mkd-frame .mkd-wheel__column { position: relative; display: grid; grid-template-rows: repeat(5, 32px); align-items: center; justify-items: center; min-width: 2.5em; padding: 0 6px; }
+.mkd-frame .mkd-wheel__item { grid-row: 3; white-space: nowrap; color: var(--mkd-fg-3); }
+.mkd-frame .mkd-wheel__item[data-offset="-2"] { grid-row: 1; }
+.mkd-frame .mkd-wheel__item[data-offset="-1"] { grid-row: 2; }
+.mkd-frame .mkd-wheel__item[data-offset="1"] { grid-row: 4; }
+.mkd-frame .mkd-wheel__item[data-offset="2"] { grid-row: 5; }
+.mkd-frame .mkd-wheel__item[aria-selected="true"] { color: var(--mkd-fg); }
+/* date picker parts, gauge bounds and marker, a control group drawn as one menu button */
+.mkd-frame .mkd-datepicker__date + .mkd-datepicker__time { margin-left: 8px; }
+.mkd-frame .mkd-datepicker__stepper { display: inline-flex; flex-direction: column; color: var(--mkd-fg-2); }
+.mkd-frame .mkd-datepicker__stepper .mkd-icon { width: 10px; height: 10px; }
+.mkd-frame .mkd-progress__min, .mkd-frame .mkd-progress__max { font-size: 12px; color: var(--mkd-fg-2); }
+.mkd-frame .mkd-progress__marker { position: absolute; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--mkd-fg); }
+.mkd-frame .mkd-toolbar__menu { display: inline-flex; align-items: center; gap: 4px; }
+.mkd-frame .mkd-toolbar__menu-chevron .mkd-icon { width: 12px; height: 12px; }
+
 /* ---------- navigation ---------- */
 .mkd-frame .mkd-navstack { display: flex; flex-direction: column; min-height: 0; min-width: 0; background: var(--mkd-bg); }
 .mkd-frame .mkd-navbar { flex: none; display: flex; flex-direction: column; padding: 0 16px; background: var(--mkd-bg); }

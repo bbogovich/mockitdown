@@ -1,0 +1,2 @@
+// swiftui glass buttons
+HStack { Button("Share", systemImage: "square.and.arrow.up").buttonStyle(.glass); Button("Done").buttonStyle(.glassProminent) }

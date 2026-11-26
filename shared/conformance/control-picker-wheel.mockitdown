@@ -1,0 +1,2 @@
+// swiftui Picker .wheel
+Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("wheel")

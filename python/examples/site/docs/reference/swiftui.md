@@ -243,7 +243,7 @@ ContentUnavailableView("Title") { Text("Content"); Button("Action") }
 
 ControlGroup { Button … } — joined capsule of buttons
 
-<p class="ref-props">role <code>toolbar</code> · defaults <code>variant: &quot;group&quot;</code> · variants <code>automatic</code>, <code>navigation</code>, <code>palette</code>, <code>compactMenu</code>, <code>menu</code></p>
+<p class="ref-props">role <code>toolbar</code> · arguments <code>label</code> · defaults <code>variant: &quot;automatic&quot;</code> · variants <code>automatic</code>, <code>navigation</code>, <code>palette</code>, <code>compactMenu</code>, <code>menu</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 HStack(alignment: .top, spacing: 24) {
@@ -263,7 +263,7 @@ HStack(alignment: .top, spacing: 24) {
 
 DatePicker("Starts", selection: "2026-11-23") — compact grey capsule; .datePickerStyle(.graphical) for the calendar
 
-<p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · variants <code>automatic</code>, <code>compact</code>, <code>graphical</code>, <code>wheel</code>, <code>field</code>, <code>stepperField</code></p>
+<p class="ref-props">role <code>datepicker</code> · arguments <code>label</code> · defaults <code>variant: &quot;automatic&quot;</code> · variants <code>automatic</code>, <code>compact</code>, <code>graphical</code>, <code>wheel</code>, <code>field</code>, <code>stepperField</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 HStack(alignment: .top, spacing: 24) {
@@ -371,16 +371,16 @@ HStack(alignment: .top, spacing: 24) {
 
 Gauge(value: 0.7, label: { Text("BPM") }, currentValueLabel: { Text("72") }) · .gaugeStyle(…)
 
-<p class="ref-props">role <code>progress</code> · arguments <code>value</code> · defaults <code>variant: &quot;accessoryCircular&quot;</code> · variants <code>automatic</code>, <code>accessoryCircular</code>, <code>accessoryCircularCapacity</code>, <code>accessoryLinear</code>, <code>accessoryLinearCapacity</code>, <code>linearCapacity</code></p>
+<p class="ref-props">role <code>progress</code> · arguments <code>value</code> · defaults <code>variant: &quot;automatic&quot;</code> · variants <code>automatic</code>, <code>accessoryCircular</code>, <code>accessoryCircularCapacity</code>, <code>accessoryLinear</code>, <code>accessoryLinearCapacity</code>, <code>linearCapacity</code></p>
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 HStack(alignment: .top, spacing: 24) {
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryCircular"); Text("accessoryCircular").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryCircularCapacity"); Text("accessoryCircularCapacity").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryLinear"); Text("accessoryLinear").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("accessoryLinearCapacity"); Text("accessoryLinearCapacity").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%").variant("linearCapacity"); Text("linearCapacity").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("accessoryCircular"); Text("accessoryCircular").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("accessoryCircularCapacity"); Text("accessoryCircularCapacity").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("accessoryLinear"); Text("accessoryLinear").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("accessoryLinearCapacity"); Text("accessoryLinearCapacity").font(.caption).foregroundStyle(.secondary) }
+  VStack(alignment: .leading, spacing: 4) { Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("linearCapacity"); Text("linearCapacity").font(.caption).foregroundStyle(.secondary) }
 }
 ```
 
@@ -550,7 +550,7 @@ List { Section("…") { … } } — inset-grouped by default; .listStyle(.plain\
 
 ```mockitdown pack="swiftui" device="fit" source="true"
 HStack(alignment: .top, spacing: 24) {
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -560,7 +560,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("automatic"); Text("automatic").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -570,7 +570,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("insetGrouped"); Text("insetGrouped").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -580,7 +580,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("grouped"); Text("grouped").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -590,7 +590,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("inset"); Text("inset").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -600,7 +600,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("plain"); Text("plain").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")
@@ -610,7 +610,7 @@ HStack(alignment: .top, spacing: 24) {
         Label("Projects", systemImage: "folder")
       }
     }.variant("sidebar"); Text("sidebar").font(.caption).foregroundStyle(.secondary) }
-  VStack(alignment: .leading, spacing: 4) { List {
+  VStack(alignment: .leading, spacing: 4) { List(selection: "Inbox") {
       Section("Favourites") {
         Label("Inbox", systemImage: "tray")
         Label("Drafts", systemImage: "doc")

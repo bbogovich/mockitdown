@@ -1,0 +1,11 @@
+// swiftui List .inset
+List(selection: "Inbox") {
+  Section("Favourites") {
+    Label("Inbox", systemImage: "tray")
+    Label("Drafts", systemImage: "doc")
+  }
+  Section("Folders") {
+    Label("Archive", systemImage: "archivebox")
+    Label("Projects", systemImage: "folder")
+  }
+}.variant("inset")

@@ -1,0 +1,2 @@
+// swiftui ControlGroup .navigation
+ControlGroup { Button("Back", systemImage: "backward.fill"); Button("Play", systemImage: "play.fill"); Button("Forward", systemImage: "forward.fill") }.variant("navigation")

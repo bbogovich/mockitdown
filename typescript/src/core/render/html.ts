@@ -17,9 +17,9 @@ import { intStr, isList, isSeq, isTuple, PyDict, pyBool, pyEq, pyRepr, pyStr, Py
 import { chartHasData, chartSpec, renderChart } from "./charts.js";
 import { cssColor, fontStyle, StyleBuilder, styleAttr, u, type DataMap, type StyleMap } from "./style.js";
 import {
-  bool, colName, cursorSvg, DATE_MIN, dateKey, decorate, esc, fmt, formatDate, fx, highlight, hour, initials, int, isIn,
-  isNum, isNumOrBool, iter, len, MAP_SVG, monthDates, monthName, name, num, numValue, or, or0, ordSum,
-  parseDate, parseRange, PY_WS, pyRound, terminalLine, textHtml, type PyDate,
+  addDays, bool, colName, cursorSvg, DATE_MIN, dateKey, decorate, esc, fmt, formatDate, fx, highlight, hour, initials, int, isIn,
+  isNum, isNumOrBool, isoDate, iter, len, MAP_SVG, monthAbbr, monthDates, monthLen, monthName, name, num, numValue, or, or0,
+  ordSum, parseDate, parseRange, parseTime, PY_WS, pyRound, terminalLine, textHtml, weekday, type PyDate,
 } from "./util.js";
 
 /** Element attributes copied verbatim to `data-<name>` when they are simple values. */
@@ -37,6 +37,22 @@ const TOOLTIP_PLACEHOLDER = '<span class="mkd-button" data-placeholder="true" ro
   + '<span class="mkd-button__label">Button</span></span>';
 const DECORATIONS = ["callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"];
 const OPTION_ROLES = ["text", "label", "button", "listitem", "menuitem", "tab", "radio"];
+/** SwiftUI picker styles showing one value: without `selection:` they show the first option (R-PACK-014.C6). */
+const PICKER_FIRST = ["automatic", "menu", "navigationLink", "palette", "wheel"];
+/** SwiftUI picker styles drawing their options; without options they fall back to the menu style. */
+const PICKER_OPTIONS = ["segmented", "palette", "inline", "radioGroup", "radio", "wheel"];
+/** SwiftUI date picker styles (R-PACK-014.C2): they always show a selection, 23 Nov 2026 9:41 AM by default. */
+const DATE_STYLES = ["automatic", "compact", "graphical", "wheel", "field", "stepperField"];
+const DEFAULT_DATE: PyDate = { year: 2026, month: 11, day: 23 };
+const DEFAULT_TIME: [number, number] = [9, 41];
+const WEEKDAY_ABBR = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+/** The open 240-degree arc of an accessoryCircular gauge (centre 12,12, radius 9, gap at the bottom). */
+const GAUGE_ARC = "M4.21 16.5A9 9 0 1 1 19.79 16.5";
+
+/** Whether `c` is one of a picker's options. */
+function isOption(c: View): boolean {
+  return OPTION_ROLES.includes(c.role) || at(c, "tag") !== null;
+}
 
 const PLACEMENT: Record<string, string> = {
   topBarLeading: "leading", navigationBarLeading: "leading", cancellationAction: "leading",
@@ -95,6 +111,8 @@ export class Renderer {
   overlays: string[] = [];
   /** "list" | "form" while rendering rows. */
   rowWrap: string | null = null;
+  /** The selection of the List being rendered. */
+  listSelection: string | null = null;
   inMenu = false;
   chartSeq = 0;
   /** Prefix making anchor names unique per figure on a page (set by the document assembler). */
@@ -344,11 +362,11 @@ export class Renderer {
       }
     } else {
       for (const c of v.children) {
-        if (OPTION_ROLES.includes(c.role)) {
+        if (isOption(c)) {
           const lab = fmt(at(c, "content", "title", "label", "text"));
           const saved = this.inMenu;
           this.inMenu = false;
-          const markup = c.role === "label" ? this.view(c) : textHtml(lab);
+          const markup = OPTION_ROLES.includes(c.role) && c.role !== "label" ? textHtml(lab) : this.view(c);
           this.inMenu = saved;
           out.push([lab, markup]);
         }
@@ -357,17 +375,28 @@ export class Renderer {
     return out;
   }
 
+  /** The `.tag` of each option taken from the children (parallel to `options`). */
+  optionTags(v: View): (string | null)[] {
+    if (isSeq(at(v, "options", "items", "choices", "segments"))) return [];
+    return v.children.filter(isOption).map((c) => (at(c, "tag") === null ? null : fmt(at(c, "tag"))));
+  }
+
   selectedIndex(v: View, options: Options): number {
     const sel = at(v, "selection", "selected", "value", "current", "active");
     if (typeof sel === "boolean") return -1;
     if (isNum(sel)) return int(numValue(sel));
     const n = fmt(sel);
     for (let i = 0; i < options.length; i++) if (options[i][0] === n) return i;
+    if (sel !== null) {
+      const tags = this.optionTags(v);
+      if (tags.includes(n)) return tags.indexOf(n);
+    }
     return sel !== null ? -1 : 0;
   }
 
   field(v: View, role: string, valueHtml: string, o: {
     placeholder: boolean; kind?: string; endIcon?: string; popup?: string; controlExtra?: string; style?: Record<string, string> | null;
+    attrs?: Record<string, unknown> | null;
   }): string {
     const label = this.textOrSlot(v, "label", "title", "header");
     let helper = this.textOrSlot(v, "helper", "helperText", "supportingText", "description", "hint", "footer");
@@ -402,7 +431,100 @@ export class Renderer {
     if (helper) parts.push(`<div class="mkd-field__helper">${helper}</div>`);
     const count = at(v, "counter", "maxLength");
     if (pyBool(count)) parts.push(`<div class="mkd-field__counter">${esc(fmt(count))}</div>`);
-    return this.open(v, role, "div", { cls: "mkd-field", data, style: o.style ?? null }) + parts.join("") + (o.popup ?? "") + "</div>";
+    return this.open(v, role, "div", { cls: "mkd-field", data, style: o.style ?? null, attrs: o.attrs ?? null })
+      + parts.join("") + (o.popup ?? "") + "</div>";
+  }
+
+  calendarOf(v: View, sel: unknown): string {
+    const today: PyDate = { year: 2026, month: 11, day: 23 };
+      const d = parseDate(sel) ?? today;
+      const year = int(or0(num(at(v, "year"), d.year), d.year));
+      const month = int(or0(num(at(v, "month"), d.month), d.month));
+      const first = int(or0(num(at(v, "firstWeekday"), 0), 0)); // 0 = Sunday
+      const marked = new Set(iter(or(at(v, "events", "marked"), [])).map((x) => dateKey(parseDate(x) ?? DATE_MIN)));
+      const rng = at(v, "range");
+      const r0 = isList(rng) && rng.length === 2 ? parseDate(rng[0]) : null;
+      const r1 = isList(rng) && rng.length === 2 ? parseDate(rng[1]) : null;
+      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const order = Array.from({ length: 7 }, (_, i) => days[(((first + i) % 7) + 7) % 7]);
+      const head = order.map((w) => `<span class="mkd-calendar__weekday">${this.pack.id === "swiftui" ? w.slice(0, 1) : w.slice(0, 2)}</span>`).join("");
+      const cells: string[] = [];
+      const dk = dateKey(d);
+      for (const day of monthDates(year, month, (((first - 1) % 7) + 7) % 7)) {
+        const attrs: string[] = [];
+        const k = dateKey(day);
+        if (day.month !== month) attrs.push('data-outside="true"');
+        if (pyBool(sel) && k === dk) attrs.push('aria-selected="true"');
+        if (r0 && r1 && dateKey(r0) <= k && k <= dateKey(r1)) attrs.push('data-in-range="true"');
+        if (marked.has(k)) attrs.push('data-marked="true"');
+        if (k === dateKey(today) && bool(at(v, "showToday"), false)) attrs.push('data-today="true"');
+        cells.push(`<span class="mkd-calendar__day" ${attrs.join(" ")}>${day.day}</span>`);
+      }
+      const title = `${monthName(month)} ${year}`;
+      const label = this.content(at(v, "label", "title"));
+      return this.open(v, "calendar")
+        + (label ? `<div class="mkd-calendar__label">${label}</div>` : "")
+        + `<div class="mkd-calendar__header"><span class="mkd-calendar__title">${esc(title)}`
+        + `<span class="mkd-calendar__title-chevron">${this.icon("chevron.right")}</span></span>`
+        + `<span class="mkd-calendar__nav">${this.icon("chevron.left")}${this.icon("chevron.right")}</span></div>`
+        + `<div class="mkd-calendar__grid">${head}${cells.join("")}</div></div>`;
+  }
+
+  /** A SwiftUI date picker style (R-PACK-014.C2); without a selection, 23 Nov 2026 9:41 AM. */
+  dateStyle(v: View, variant: string): string {
+    const value = at(v, "selection", "date", "value", "text");
+    const d = parseDate(value) ?? DEFAULT_DATE;
+    const [hh, mm] = parseTime(value) ?? DEFAULT_TIME;
+    if (variant === "graphical") return this.calendarOf(v, isoDate(d));
+    const comps = at(v, "displayedComponents", "components");
+    const names = isSeq(comps) ? [...comps].map((c) => name(c)) : pyBool(comps) ? [name(comps)] : [];
+    const showDate = !names.length || names.includes("date") || !names.includes("hourAndMinute");
+    const showTime = !names.length || names.includes("hourAndMinute");
+    const h12 = hh % 12 || 12;
+    const ampm = hh < 12 ? "AM" : "PM";
+    const time = `${h12}:${String(mm).padStart(2, "0")} ${ampm}`;
+    const range = [-2, -1, 0, 1, 2];
+    if (variant === "wheel") {
+      const cols: [string[], number][] = [];
+      if (showDate && showTime) {
+        cols.push([range.map((k) => {
+          const x = addDays(d, k);
+          return `${WEEKDAY_ABBR[weekday(x.year, x.month, x.day)]} ${monthAbbr(x.month)} ${x.day}`;
+        }), 2]);
+      } else if (showDate) {
+        const last = monthLen(d.year, d.month);
+        cols.push([range.map((k) => monthName((((d.month - 1 + k) % 12) + 12) % 12 + 1)), 2]);
+        cols.push([range.map((k) => String((((d.day - 1 + k) % last) + last) % last + 1)), 2]);
+        cols.push([range.map((k) => String(d.year + k)), 2]);
+      }
+      if (showTime) {
+        cols.push([range.map((k) => String((((h12 - 1 + k) % 12) + 12) % 12 + 1)), 2]);
+        cols.push([range.map((k) => String((((mm + k) % 60) + 60) % 60).padStart(2, "0")), 2]);
+        cols.push([["AM", "PM"], ampm === "AM" ? 0 : 1]);
+      }
+      return this.open(v, "wheel", "div", { attrs: { role: "group" } }) + this.wheel(cols) + "</div>";
+    }
+    if (variant === "field" || variant === "stepperField") {
+      const text = [showDate ? `${d.month}/${d.day}/${d.year}` : "", showTime ? time : ""].filter((t) => t).join(", ");
+      const stepper = variant === "stepperField"
+        ? `<span class="mkd-datepicker__stepper">${this.icon("chevron.up")}${this.icon("chevron.down")}</span>` : "";
+      return this.field(v, "datepicker", textHtml(text), { placeholder: false, kind: "field", controlExtra: stepper });
+    }
+    const inner = (showDate ? `<span class="mkd-datepicker__date">${esc(formatDate(isoDate(d), "medium"))}</span>` : "")
+      + (showTime ? `<span class="mkd-datepicker__time">${esc(time)}</span>` : "");
+    return this.field(v, "datepicker", inner, { placeholder: false, kind: "compact" });
+  }
+
+  /** Wheel columns (markup items, selected index), two neighbours each side, under a selection band. */
+  wheel(columns: [string[], number][]): string {
+    const out = ['<span class="mkd-wheel__band"></span>'];
+    for (const [items, sel] of columns) {
+      const cells = items.map((item, i) => (Math.abs(i - sel) <= 2
+        ? `<span class="mkd-wheel__item" data-offset="${i - sel}"${i === sel ? ' aria-selected="true"' : ""}>${item}</span>` : ""))
+        .join("");
+      out.push(`<span class="mkd-wheel__column">${cells}</span>`);
+    }
+    return out.join("");
   }
 
   findMod(views: readonly View[], modName: string, depth = 0): View | null {
@@ -442,7 +564,9 @@ export class Renderer {
       } else {
         const cls = wrap === "list" ? "mkd-listitem mkd-listitem--wrap" : "mkd-form__row";
         const inner = this.view(c);
-        out.push(inner ? `<div class="${cls}" data-child="${esc(c.role)}">${inner}</div>` : "");
+        const sel = wrap === "list" && this.listSelection !== null
+          && fmt(at(c, "tag", "content", "title", "label", "text")) === this.listSelection ? ' data-selected="true"' : "";
+        out.push(inner ? `<div class="${cls}" data-child="${esc(c.role)}"${sel}>${inner}</div>` : "");
       }
     }
     this.rowWrap = saved;
@@ -635,14 +759,23 @@ const ROLES: Record<string, RoleFn> = {
     if (total === null) total = value !== null && value > 1 ? 100.0 : 1.0;
     const frac = value === null ? null : pyMax(0.0, pyMin(1.0, total ? value / total : 0.0));
     const variant = name(at(v, "kind", "variant", "style")) || "linear";
-    const circular = ["circular", "ring", "spinner", "gauge", "accessoryCircular", "radial", "circle", "dashboard"].includes(variant);
+    const circular = ["circular", "ring", "spinner", "gauge", "accessoryCircular", "accessoryCircularCapacity",
+      "radial", "circle", "dashboard"].includes(variant);
     const label = this.textOrSlot(v, "label", "title") || this.views(v.children);
     let current = this.textOrSlot(v, "currentValueLabel", "valueLabel");
+    const low = this.textOrSlot(v, "minimumValueLabel", "minLabel");
+    const high = this.textOrSlot(v, "maximumValueLabel", "maxLabel");
     if (bool(at(v, "showValue")) && frac !== null && !current) current = `${pyRound(frac * 100)}%`;
     const data: Record<string, unknown> = { kind: circular ? "circular" : "linear" };
     if (frac === null) data.indeterminate = "true";
     const parts = label ? [`<span class="mkd-progress__label">${label}</span>`] : [];
-    if (circular) {
+    if (variant === "accessoryCircular") { // an open 240-degree ring (R-PACK-014.C4)
+      const dash = `${fx((frac !== null ? frac : 0.3) * 100, 2)} 100`;
+      parts.push('<span class="mkd-progress__ring" data-open="true"><svg viewBox="0 0 24 24" aria-hidden="true">'
+        + `<path class="mkd-progress__track" d="${GAUGE_ARC}" pathLength="100"/>`
+        + `<path class="mkd-progress__bar" d="${GAUGE_ARC}" pathLength="100" stroke-dasharray="${dash}"/>`
+        + "</svg></span>");
+    } else if (circular) {
       const r = 9.0;
       const circ = 2 * 3.14159 * r;
       const dash = `${fx((frac !== null ? frac : 0.3) * circ, 2)} ${fx(circ, 2)}`;
@@ -652,8 +785,11 @@ const ROLES: Record<string, RoleFn> = {
         + "</svg></span>");
     } else {
       const width = `${fx((frac !== null ? frac : 0.35) * 100, 1)}%`;
-      parts.push(`<span class="mkd-progress__track"><span class="mkd-progress__bar" style="width:${width}"></span></span>`);
+      const marker = variant === "accessoryLinear" ? `<span class="mkd-progress__marker" style="left:${width}"></span>` : "";
+      parts.push(`<span class="mkd-progress__track"><span class="mkd-progress__bar" style="width:${width}"></span>${marker}</span>`);
     }
+    if (low) parts.push(`<span class="mkd-progress__min">${low}</span>`);
+    if (high) parts.push(`<span class="mkd-progress__max">${high}</span>`);
     if (current) parts.push(`<span class="mkd-progress__value">${current}</span>`);
     return this.open(v, "progress", "div", { data, attrs: { role: "progressbar" } }) + parts.join("") + "</div>";
   },
@@ -829,7 +965,7 @@ const ROLES: Record<string, RoleFn> = {
     const options = this.options(v);
     let sel = this.selectedIndex(v, options);
     const chosen = new Set<number>();
-    v.children.filter((c) => OPTION_ROLES.includes(c.role)).forEach((c, i) => {
+    v.children.filter(isOption).forEach((c, i) => {
       if (bool(at(c, "selected"))) chosen.add(i);
     });
     if (chosen.size && at(v, "selection", "selected", "value") === null) sel = -1;
@@ -859,22 +995,35 @@ const ROLES: Record<string, RoleFn> = {
     const style: Record<string, string> = {};
     if (kind === "multiline") style["--mkd-rows"] = intStr(int(or0(num(at(v, "rows", "lineLimit"), 3), 3)));
     const end = kind === "password" && bool(at(v, "reveal"), false) ? "eye.slash" : "";
-    return this.field(v, "textfield", inner, { placeholder: isPh, kind, endIcon: end, style });
+    // A filled field still has a title: its placeholder names it (a Form's columns style shows it).
+    const titled = ["label", "title", "header"].some((n) => v.slots.has(n) || ![null, "", false].includes(raw(v, n) as never));
+    const named = !isPh && typeof placeholderText === "string" && placeholderText !== "" && !titled;
+    return this.field(v, "textfield", inner, { placeholder: isPh, kind, endIcon: end, style,
+      attrs: named ? { "aria-label": placeholderText } : null });
   },
   select(v) {
     const variant = name(at(v, "variant"));
-    if (variant === "segmented") return ROLES.segmented.call(this, v);
-    if (["radioGroup", "inline", "radio"].includes(variant)) return ROLES.radiogroup.call(this, v);
     const options = this.options(v);
+    if (PICKER_OPTIONS.includes(variant) && !options.length && !v.children.length) {
+      // nothing to draw the options of: the label and an empty value (R-PACK-014.C6)
+    } else if (variant === "segmented" || variant === "palette") return ROLES.segmented.call(this, v);
+    else if (["radioGroup", "inline", "radio"].includes(variant)) return ROLES.radiogroup.call(this, v);
+    else if (variant === "wheel") {
+      const s = this.selectedIndex(v, options);
+      return this.open(v, "wheel", "div", { attrs: { role: "listbox" } }) + this.wheel([[options.map(([, m]) => m), s]]) + "</div>";
+    }
     const sel = this.selectedIndex(v, options);
     const value = at(v, "selection", "value", "selected");
+    const tags = this.optionTags(v);
     let shown: string;
     if (isNum(value) && int(numValue(value)) >= 0 && int(numValue(value)) < options.length) shown = options[int(numValue(value))][1];
+    else if (typeof value === "string" && value && tags.includes(value)) shown = options[tags.indexOf(value)][1];
     else if (typeof value === "string" && value) shown = textHtml(value);
     else if (isList(value)) {
       shown = value.map((x) => '<span class="mkd-chip" data-el="Chip" data-size="small"><span class="mkd-chip__label">'
         + `${esc(fmt(x))}</span></span>`).join("");
-    } else shown = "";
+    } else if (value === null && options.length && PICKER_FIRST.includes(variant)) shown = options[0][1];
+    else shown = "";
     const placeholder = !shown;
     if (placeholder) shown = this.content(at(v, "placeholder", "prompt"));
     let popup = "";
@@ -882,7 +1031,8 @@ const ROLES: Record<string, RoleFn> = {
       popup = '<div class="mkd-select__popup" role="listbox">' + options.map(([, markup], i) =>
         `<div class="mkd-select__option" role="option" aria-selected="${i === sel ? "true" : "false"}">${markup}</div>`).join("") + "</div>";
     }
-    const chevron = (variant === "menu" || variant === "automatic") && this.pack.id === "swiftui" ? "chevron.up.down" : "chevron.down";
+    const menuLike = variant === "menu" || variant === "automatic" || (PICKER_OPTIONS.includes(variant) && !options.length);
+    const chevron = menuLike && this.pack.id === "swiftui" ? "chevron.up.down" : "chevron.down";
     return this.field(v, "select", shown, { placeholder, endIcon: chevron, popup });
   },
   radiogroup(v) {
@@ -950,7 +1100,7 @@ const ROLES: Record<string, RoleFn> = {
   },
   datepicker(v) {
     const variant = name(at(v, "variant", "style"));
-    if (variant === "graphical") return ROLES.calendar.call(this, v);
+    if (DATE_STYLES.includes(variant)) return this.dateStyle(v, variant);
     const value = at(v, "selection", "date", "value", "text");
     const shown = pyBool(value) ? formatDate(value, name(at(v, "format")) || "medium") : "";
     const kind = name(at(v, "kind")) || "date";
@@ -958,41 +1108,7 @@ const ROLES: Record<string, RoleFn> = {
     return this.field(v, "datepicker", shown ? textHtml(shown) : this.content(at(v, "placeholder")),
       { placeholder: !shown, kind, endIcon: end });
   },
-  calendar(v) {
-    const sel = at(v, "selection", "date", "value");
-    const today: PyDate = { year: 2026, month: 11, day: 23 };
-    const d = parseDate(sel) ?? today;
-    const year = int(or0(num(at(v, "year"), d.year), d.year));
-    const month = int(or0(num(at(v, "month"), d.month), d.month));
-    const first = int(or0(num(at(v, "firstWeekday"), 0), 0)); // 0 = Sunday
-    const marked = new Set(iter(or(at(v, "events", "marked"), [])).map((x) => dateKey(parseDate(x) ?? DATE_MIN)));
-    const rng = at(v, "range");
-    const r0 = isList(rng) && rng.length === 2 ? parseDate(rng[0]) : null;
-    const r1 = isList(rng) && rng.length === 2 ? parseDate(rng[1]) : null;
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const order = Array.from({ length: 7 }, (_, i) => days[(((first + i) % 7) + 7) % 7]);
-    const head = order.map((w) => `<span class="mkd-calendar__weekday">${this.pack.id === "swiftui" ? w.slice(0, 1) : w.slice(0, 2)}</span>`).join("");
-    const cells: string[] = [];
-    const dk = dateKey(d);
-    for (const day of monthDates(year, month, (((first - 1) % 7) + 7) % 7)) {
-      const attrs: string[] = [];
-      const k = dateKey(day);
-      if (day.month !== month) attrs.push('data-outside="true"');
-      if (pyBool(sel) && k === dk) attrs.push('aria-selected="true"');
-      if (r0 && r1 && dateKey(r0) <= k && k <= dateKey(r1)) attrs.push('data-in-range="true"');
-      if (marked.has(k)) attrs.push('data-marked="true"');
-      if (k === dateKey(today) && bool(at(v, "showToday"), false)) attrs.push('data-today="true"');
-      cells.push(`<span class="mkd-calendar__day" ${attrs.join(" ")}>${day.day}</span>`);
-    }
-    const title = `${monthName(month)} ${year}`;
-    const label = this.content(at(v, "label", "title"));
-    return this.open(v, "calendar")
-      + (label ? `<div class="mkd-calendar__label">${label}</div>` : "")
-      + `<div class="mkd-calendar__header"><span class="mkd-calendar__title">${esc(title)}`
-      + `<span class="mkd-calendar__title-chevron">${this.icon("chevron.right")}</span></span>`
-      + `<span class="mkd-calendar__nav">${this.icon("chevron.left")}${this.icon("chevron.right")}</span></div>`
-      + `<div class="mkd-calendar__grid">${head}${cells.join("")}</div></div>`;
-  },
+  calendar(v) { return this.calendarOf(v, at(v, "selection", "date", "value")); },
   dropzone(v) {
     const label = this.content(at(v, "label", "title", "text")) || "Drop files here";
     const hint = this.content(at(v, "hint", "description"));
@@ -1337,7 +1453,11 @@ const ROLES: Record<string, RoleFn> = {
   },
   list(v) {
     const header = this.textOrSlot(v, "header", "title");
+    const saved = this.listSelection;
+    const sel = at(v, "selection");
+    this.listSelection = typeof sel === "string" || typeof sel === "number" ? fmt(sel) : null;
     const body = this.rows(v.children, "list");
+    this.listSelection = saved;
     const hasSections = v.children.some((c) => c.role === "section");
     return this.open(v, "list", "div", { data: { sections: hasSections ? "true" : null }, attrs: { role: "list" } })
       + (header ? `<div class="mkd-list__header">${header}</div>` : "") + body + "</div>";
@@ -1459,6 +1579,17 @@ const ROLES: Record<string, RoleFn> = {
   tablerow(v) { return this.open(v, "hstack") + this.views(v.children) + "</div>"; },
   tablecolumn() { return ""; },
   toolbar(v) {
+    const variant = name(at(v, "variant"));
+    if (variant === "compactMenu" || variant === "menu") { // one button standing for a menu (R-PACK-014.C1)
+      const title = this.textOrSlot(v, "title", "label");
+      const icon = at(v, "systemImage", "icon");
+      let inner = (pyBool(icon) ? `<span class="mkd-toolbar__menu-icon">${this.icon(icon, "mkd-icon", v)}</span>` : "")
+        + (title ? `<span class="mkd-toolbar__menu-label">${title}</span>` : "");
+      if (!inner) inner = `<span class="mkd-toolbar__menu-icon">${this.icon("ellipsis")}</span>`;
+      if (variant === "menu") inner += `<span class="mkd-toolbar__menu-chevron">${this.icon("chevron.down")}</span>`;
+      return this.open(v, "toolbar", "div", { attrs: { role: "toolbar" } })
+        + `<span class="mkd-toolbar__menu" role="button" aria-haspopup="menu">${inner}</span></div>`;
+    }
     const title = this.textOrSlot(v, "title");
     return this.open(v, "toolbar", "div", { attrs: { role: "toolbar" } })
       + (title ? `<span class="mkd-toolbar__title">${title}</span>` : "") + this.views(v.children) + "</div>";

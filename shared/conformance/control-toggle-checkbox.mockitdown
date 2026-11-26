@@ -1,0 +1,2 @@
+// swiftui Toggle .checkbox
+Toggle("Wi-Fi", isOn: true).variant("checkbox")

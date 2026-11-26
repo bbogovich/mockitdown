@@ -1,0 +1,2 @@
+// swiftui Picker .inline
+Picker("Flavor", selection: "Vanilla") { Text("Chocolate"); Text("Vanilla"); Text("Strawberry") }.variant("inline")

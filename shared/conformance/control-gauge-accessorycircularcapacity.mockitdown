@@ -1,0 +1,2 @@
+// swiftui Gauge .accessoryCircularCapacity
+Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100").variant("accessoryCircularCapacity")

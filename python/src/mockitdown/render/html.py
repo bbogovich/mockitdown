@@ -49,6 +49,19 @@ PRESENTATIONS = ("alert", "sheet", "confirmationDialog", "fullScreenCover", "pop
 #: The anchor of a tooltip written without content (R-DEV-008.C5).
 TOOLTIP_PLACEHOLDER = ('<span class="mkd-button" data-placeholder="true" role="button">'
                        '<span class="mkd-button__label">Button</span></span>')
+#: Roles a picker takes its options from (any other child counts when it has a ``.tag``).
+OPTION_ROLES = ("text", "label", "button", "listitem", "menuitem", "tab", "radio")
+#: SwiftUI picker styles showing one value: without ``selection:`` they show the first option (R-PACK-014.C6).
+PICKER_FIRST = ("automatic", "menu", "navigationLink", "palette", "wheel")
+#: SwiftUI picker styles drawing their options; without options they fall back to the menu style.
+PICKER_OPTIONS = ("segmented", "palette", "inline", "radioGroup", "radio", "wheel")
+#: SwiftUI date picker styles (R-PACK-014.C2): they always show a selection, 23 Nov 2026 9:41 AM by default.
+DATE_STYLES = ("automatic", "compact", "graphical", "wheel", "field", "stepperField")
+DEFAULT_DATE = _dt.date(2026, 11, 23)
+DEFAULT_TIME = (9, 41)
+WEEKDAY_ABBR = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+#: The open 240-degree arc of an accessoryCircular gauge (centre 12,12, radius 9, gap at the bottom).
+GAUGE_ARC = "M4.21 16.5A9 9 0 1 1 19.79 16.5"
 
 
 def esc(s: object) -> str:
@@ -119,6 +132,7 @@ class Renderer:
         self.styles = StyleBuilder(pack.font, diags)
         self.overlays: list[str] = []
         self.row_wrap: str | None = None  # "list" | "form" while rendering rows
+        self.list_selection: str | None = None  # the selection of the List being rendered
         self.in_menu = False
         self.chart_seq = 0
         #: Prefix making anchor names unique per figure on a page (set by the document assembler).
@@ -543,16 +557,25 @@ class Renderer:
             total = 100.0 if value is not None and value > 1 else 1.0
         frac = None if value is None else max(0.0, min(1.0, value / total if total else 0.0))
         variant = _name(v.attr("kind", "variant", "style")) or "linear"
-        circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "radial", "circle", "dashboard")
+        circular = variant in ("circular", "ring", "spinner", "gauge", "accessoryCircular", "accessoryCircularCapacity",
+                               "radial", "circle", "dashboard")
         label = self.text_or_slot(v, "label", "title") or self.views(v.children)
         current = self.text_or_slot(v, "currentValueLabel", "valueLabel")
+        low = self.text_or_slot(v, "minimumValueLabel", "minLabel")
+        high = self.text_or_slot(v, "maximumValueLabel", "maxLabel")
         if _bool(v.attr("showValue")) and frac is not None and not current:
             current = f"{round(frac * 100)}%"
         data = {"kind": "circular" if circular else "linear"}
         if frac is None:
             data["indeterminate"] = "true"
         parts = [f'<span class="mkd-progress__label">{label}</span>'] if label else []
-        if circular:
+        if variant == "accessoryCircular":  # an open 240-degree ring (R-PACK-014.C4)
+            dash = f"{(frac if frac is not None else 0.3) * 100:.2f} 100"
+            parts.append(f'<span class="mkd-progress__ring" data-open="true"><svg viewBox="0 0 24 24" aria-hidden="true">'
+                         f'<path class="mkd-progress__track" d="{GAUGE_ARC}" pathLength="100"/>'
+                         f'<path class="mkd-progress__bar" d="{GAUGE_ARC}" pathLength="100" stroke-dasharray="{dash}"/>'
+                         f"</svg></span>")
+        elif circular:
             r = 9.0
             circ = 2 * 3.14159 * r
             dash = f"{(frac if frac is not None else 0.3) * circ:.2f} {circ:.2f}"
@@ -562,8 +585,14 @@ class Renderer:
                          f"</svg></span>")
         else:
             width = f"{(frac if frac is not None else 0.35) * 100:.1f}%"
+            marker = f'<span class="mkd-progress__marker" style="left:{width}"></span>' \
+                if variant == "accessoryLinear" else ""
             parts.append(f'<span class="mkd-progress__track"><span class="mkd-progress__bar" '
-                         f'style="width:{width}"></span></span>')
+                         f'style="width:{width}"></span>{marker}</span>')
+        if low:
+            parts.append(f'<span class="mkd-progress__min">{low}</span>')
+        if high:
+            parts.append(f'<span class="mkd-progress__max">{high}</span>')
         if current:
             parts.append(f'<span class="mkd-progress__value">{current}</span>')
         return self.open(v, "progress", data=data, attrs={"role": "progressbar"}) + "".join(parts) + "</div>"
@@ -769,14 +798,21 @@ class Renderer:
                     out.append((_fmt(o), text_html(_fmt(o))))
         else:
             for c in v.children:
-                if c.role in ("text", "label", "button", "listitem", "menuitem", "tab", "radio"):
+                if c.role in OPTION_ROLES or c.attr("tag") is not None:
                     lab = _fmt(c.attr("content", "title", "label", "text"))
                     saved = self.in_menu
                     self.in_menu = False
-                    markup = self.view(c) if c.role in ("label",) else text_html(lab)
+                    markup = text_html(lab) if c.role in OPTION_ROLES and c.role != "label" else self.view(c)
                     self.in_menu = saved
                     out.append((lab, markup))
         return out
+
+    def _option_tags(self, v: View) -> list[str | None]:
+        """The ``.tag`` of each option taken from the children (parallel to `_options`)."""
+        if isinstance(v.attr("options", "items", "choices", "segments"), (list, tuple)):
+            return []
+        return [None if c.attr("tag") is None else _fmt(c.attr("tag"))
+                for c in v.children if c.role in OPTION_ROLES or c.attr("tag") is not None]
 
     def _selected_index(self, v: View, options: list[tuple[str, str]]) -> int:
         sel = v.attr("selection", "selected", "value", "current", "active")
@@ -788,13 +824,15 @@ class Renderer:
         for i, (lab, _) in enumerate(options):
             if lab == name:
                 return i
+        if sel is not None and name in (tags := self._option_tags(v)):
+            return tags.index(name)
         return -1 if sel is not None else 0
 
     def r_segmented(self, v: View) -> str:
         options = self._options(v)
         sel = self._selected_index(v, options)
-        chosen = {i for i, c in enumerate(c for c in v.children if c.role in (
-            "text", "label", "button", "listitem", "menuitem", "tab", "radio")) if _bool(c.attr("selected"))}
+        chosen = {i for i, c in enumerate(c for c in v.children if c.role in OPTION_ROLES or c.attr("tag") is not None)
+                  if _bool(c.attr("selected"))}
         if chosen and v.attr("selection", "selected", "value") is None:
             sel = -1
         label = self.content(v.attr("label", "title"))
@@ -807,7 +845,7 @@ class Renderer:
 
     def _field(self, v: View, role: str, value_html: str, *, placeholder: bool, kind: str = "",
                end_icon: str = "", popup: str = "", control_extra: str = "",
-               style: dict | None = None) -> str:
+               style: dict | None = None, attrs: dict | None = None) -> str:
         label = self.text_or_slot(v, "label", "title", "header")
         helper = self.text_or_slot(v, "helper", "helperText", "supportingText", "description", "hint", "footer")
         err = v.attr("error", "errorMessage")
@@ -850,7 +888,7 @@ class Renderer:
         count = v.attr("counter", "maxLength")
         if count:
             parts.append(f'<div class="mkd-field__counter">{esc(_fmt(count))}</div>')
-        return self.open(v, role, cls="mkd-field", data=data, style=style) + "".join(parts) + popup + "</div>"
+        return self.open(v, role, cls="mkd-field", data=data, style=style, attrs=attrs) + "".join(parts) + popup + "</div>"
 
     def r_textfield(self, v: View) -> str:
         kind = _name(v.attr("kind", "type", "axis")) or ""
@@ -869,24 +907,39 @@ class Renderer:
         if kind == "multiline":
             style["--mkd-rows"] = str(int(_num(v.attr("rows", "lineLimit"), 3) or 3))
         end = "eye.slash" if kind == "password" and _bool(v.attr("reveal"), False) else ""
-        return self._field(v, "textfield", inner, placeholder=is_ph, kind=kind, end_icon=end, style=style)
+        # A filled field still has a title: its placeholder names it (a Form's columns style shows it).
+        named = not is_ph and isinstance(placeholder_text, str) and placeholder_text \
+            and not self.has(v, "label", "title", "header")
+        return self._field(v, "textfield", inner, placeholder=is_ph, kind=kind, end_icon=end, style=style,
+                           attrs={"aria-label": placeholder_text} if named else None)
 
     def r_select(self, v: View) -> str:
         variant = _name(v.attr("variant"))
-        if variant == "segmented":
-            return self.r_segmented(v)
-        if variant in ("radioGroup", "inline", "radio"):
-            return self.r_radiogroup(v)
         options = self._options(v)
+        if variant in PICKER_OPTIONS and not options and not v.children:
+            pass  # nothing to draw the options of: the label and an empty value (R-PACK-014.C6)
+        elif variant in ("segmented", "palette"):
+            return self.r_segmented(v)
+        elif variant in ("radioGroup", "inline", "radio"):
+            return self.r_radiogroup(v)
+        elif variant == "wheel":
+            sel = self._selected_index(v, options)
+            return self.open(v, "wheel", attrs={"role": "listbox"}) + self._wheel([([m for _, m in options], sel)]) \
+                + "</div>"
         sel = self._selected_index(v, options)
         value = v.attr("selection", "value", "selected")
+        tags = self._option_tags(v)
         if isinstance(value, (int, float)) and not isinstance(value, bool) and 0 <= int(value) < len(options):
             shown = options[int(value)][1]
+        elif isinstance(value, str) and value and value in tags:
+            shown = options[tags.index(value)][1]
         elif isinstance(value, str) and value:
             shown = text_html(value)
         elif isinstance(value, list):
             shown = "".join(f'<span class="mkd-chip" data-el="Chip" data-size="small"><span class="mkd-chip__label">'
                             f"{esc(_fmt(x))}</span></span>" for x in value)
+        elif value is None and options and variant in PICKER_FIRST:
+            shown = options[0][1]
         else:
             shown = ""
         placeholder = not shown
@@ -897,7 +950,8 @@ class Renderer:
             popup = '<div class="mkd-select__popup" role="listbox">' + "".join(
                 f'<div class="mkd-select__option" role="option" aria-selected="{"true" if i == sel else "false"}">'
                 f"{markup}</div>" for i, (_, markup) in enumerate(options)) + "</div>"
-        chevron = "chevron.up.down" if variant in ("menu", "automatic") and self.pack.id == "swiftui" else "chevron.down"
+        menu_like = variant in ("menu", "automatic") or (variant in PICKER_OPTIONS and not options)
+        chevron = "chevron.up.down" if menu_like and self.pack.id == "swiftui" else "chevron.down"
         return self._field(v, "select", shown, placeholder=placeholder, end_icon=chevron, popup=popup)
 
     def r_radiogroup(self, v: View) -> str:
@@ -914,6 +968,17 @@ class Renderer:
         return self.open(v, "radiogroup", attrs={"role": "radiogroup"}) + (
             f'<div class="mkd-radiogroup__label">{label}</div>' if label else "") + \
             f'<div class="mkd-radiogroup__items">{radios}</div></div>'
+
+    def _wheel(self, columns: list[tuple[list[str], int]]) -> str:
+        """Wheel columns (markup items, selected index), two neighbours each side, under a selection band."""
+        out = ['<span class="mkd-wheel__band"></span>']
+        for items, sel in columns:
+            cells = "".join(
+                f'<span class="mkd-wheel__item" data-offset="{i - sel}"'
+                + (' aria-selected="true"' if i == sel else "") + f">{item}</span>"
+                for i, item in enumerate(items) if abs(i - sel) <= 2)
+            out.append(f'<span class="mkd-wheel__column">{cells}</span>')
+        return "".join(out)
 
     def r_slider(self, v: View) -> str:
         rng = v.attr("in", "range", "bounds")
@@ -963,8 +1028,8 @@ class Renderer:
 
     def r_datepicker(self, v: View) -> str:
         variant = _name(v.attr("variant", "style"))
-        if variant == "graphical":
-            return self.r_calendar(v)
+        if variant in DATE_STYLES:
+            return self._date_style(v, variant)
         value = v.attr("selection", "date", "value", "text")
         shown = _format_date(value, _name(v.attr("format")) or "medium") if value else ""
         kind = _name(v.attr("kind")) or "date"
@@ -972,8 +1037,49 @@ class Renderer:
         return self._field(v, "datepicker", text_html(shown) if shown else self.content(v.attr("placeholder")),
                            placeholder=not shown, kind=kind, end_icon=end)
 
+    def _date_style(self, v: View, variant: str) -> str:
+        """A SwiftUI date picker style (R-PACK-014.C2); without a selection, 23 Nov 2026 9:41 AM."""
+        value = v.attr("selection", "date", "value", "text")
+        d = _parse_date(value) or DEFAULT_DATE
+        hh, mm = _parse_time(value) or DEFAULT_TIME
+        if variant == "graphical":
+            return self._calendar(v, d.isoformat())
+        comps = v.attr("displayedComponents", "components")
+        names = [_name(c) for c in comps] if isinstance(comps, (list, tuple)) else [_name(comps)] if comps else []
+        show_date = not names or "date" in names or "hourAndMinute" not in names
+        show_time = not names or "hourAndMinute" in names
+        h12, ampm = (hh % 12 or 12), ("AM" if hh < 12 else "PM")
+        time = f"{h12}:{mm:02d} {ampm}"
+        if variant == "wheel":
+            cols: list[tuple[list[str], int]] = []
+            if show_date and show_time:
+                days = [d + _dt.timedelta(days=k) for k in range(-2, 3)]
+                cols.append(([f"{WEEKDAY_ABBR[x.weekday()]} {calendar.month_abbr[x.month]} {x.day}" for x in days], 2))
+            elif show_date:
+                last = calendar.monthrange(d.year, d.month)[1]
+                cols.append(([calendar.month_name[(d.month - 1 + k) % 12 + 1] for k in range(-2, 3)], 2))
+                cols.append(([str((d.day - 1 + k) % last + 1) for k in range(-2, 3)], 2))
+                cols.append(([str(d.year + k) for k in range(-2, 3)], 2))
+            if show_time:
+                cols.append(([str((h12 - 1 + k) % 12 + 1) for k in range(-2, 3)], 2))
+                cols.append(([f"{(mm + k) % 60:02d}" for k in range(-2, 3)], 2))
+                cols.append((["AM", "PM"], 0 if ampm == "AM" else 1))
+            return self.open(v, "wheel", attrs={"role": "group"}) + self._wheel(cols) + "</div>"
+        if variant in ("field", "stepperField"):
+            text = f"{d.month}/{d.day}/{d.year}" if show_date else ""
+            text = ", ".join(t for t in (text, time if show_time else "") if t)
+            stepper = (f'<span class="mkd-datepicker__stepper">{self.icon("chevron.up")}{self.icon("chevron.down")}'
+                       "</span>") if variant == "stepperField" else ""
+            return self._field(v, "datepicker", text_html(text), placeholder=False, kind="field", control_extra=stepper)
+        inner = (f'<span class="mkd-datepicker__date">{esc(_format_date(d.isoformat(), "medium"))}</span>'
+                 if show_date else "") \
+            + (f'<span class="mkd-datepicker__time">{esc(time)}</span>' if show_time else "")
+        return self._field(v, "datepicker", inner, placeholder=False, kind="compact")
+
     def r_calendar(self, v: View) -> str:
-        sel = v.attr("selection", "date", "value")
+        return self._calendar(v, v.attr("selection", "date", "value"))
+
+    def _calendar(self, v: View, sel: object) -> str:
         d = _parse_date(sel) or _dt.date(2026, 11, 23)
         year = int(_num(v.attr("year"), d.year) or d.year)
         month = int(_num(v.attr("month"), d.month) or d.month)
@@ -1410,7 +1516,9 @@ class Renderer:
             else:
                 cls = "mkd-listitem mkd-listitem--wrap" if wrap == "list" else "mkd-form__row"
                 inner = self.view(c)
-                out.append(f'<div class="{cls}" data-child="{esc(c.role)}">{inner}</div>' if inner else "")
+                sel = ' data-selected="true"' if wrap == "list" and self.list_selection is not None and \
+                    _fmt(c.attr("tag", "content", "title", "label", "text")) == self.list_selection else ""
+                out.append(f'<div class="{cls}" data-child="{esc(c.role)}"{sel}>{inner}</div>' if inner else "")
         self.row_wrap = saved
         return "".join(out)
 
@@ -1430,7 +1538,11 @@ class Renderer:
 
     def r_list(self, v: View) -> str:
         header = self.text_or_slot(v, "header", "title")
+        saved = self.list_selection
+        sel = v.attr("selection")
+        self.list_selection = _fmt(sel) if isinstance(sel, (str, int)) and not isinstance(sel, bool) else None
         body = self._rows(v.children, "list")
+        self.list_selection = saved
         has_sections = any(c.role == "section" for c in v.children)
         return self.open(v, "list", data={"sections": "true" if has_sections else None},
                          attrs={"role": "list"}) + (
@@ -1586,6 +1698,17 @@ class Renderer:
         return ""
 
     def r_toolbar(self, v: View) -> str:
+        if _name(v.attr("variant")) in ("compactMenu", "menu"):  # one button standing for a menu (R-PACK-014.C1)
+            title = self.text_or_slot(v, "title", "label")
+            icon = v.attr("systemImage", "icon")
+            inner = (f'<span class="mkd-toolbar__menu-icon">{self.icon(icon, v=v)}</span>' if icon else "") + (
+                f'<span class="mkd-toolbar__menu-label">{title}</span>' if title else "")
+            if not inner:
+                inner = f'<span class="mkd-toolbar__menu-icon">{self.icon("ellipsis")}</span>'
+            if _name(v.attr("variant")) == "menu":
+                inner += f'<span class="mkd-toolbar__menu-chevron">{self.icon("chevron.down")}</span>'
+            return self.open(v, "toolbar", attrs={"role": "toolbar"}) + \
+                f'<span class="mkd-toolbar__menu" role="button" aria-haspopup="menu">{inner}</span></div>'
         title = self.text_or_slot(v, "title")
         return self.open(v, "toolbar", attrs={"role": "toolbar"}) + (
             f'<span class="mkd-toolbar__title">{title}</span>' if title else "") + self.views(v.children) + "</div>"
@@ -2216,6 +2339,15 @@ def _parse_date(value: object) -> _dt.date | None:
                 return _dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
             except ValueError:
                 return None
+    return None
+
+
+def _parse_time(value: object) -> tuple[int, int] | None:
+    """The ``HH:MM`` after the date of an ISO date-time string (``2026-11-23T14:05``), or None."""
+    if isinstance(value, str):
+        m = re.match(r"^\d{4}-\d{2}-\d{2}[T ](\d{1,2}):(\d{2})", value)
+        if m and int(m.group(1)) < 24 and int(m.group(2)) < 60:
+            return int(m.group(1)), int(m.group(2))
     return None
 
 

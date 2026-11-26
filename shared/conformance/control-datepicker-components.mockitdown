@@ -1,0 +1,5 @@
+// displayed components and a time in the selection
+VStack { DatePicker("Due", selection: "2026-03-05", displayedComponents: .date)
+  DatePicker("Alarm", selection: "2026-03-05T14:05", displayedComponents: .hourAndMinute)
+  DatePicker("Due", selection: "2026-03-05", displayedComponents: .date).datePickerStyle(.wheel)
+  DatePicker("Alarm", selection: "2026-03-05T00:00", displayedComponents: [.hourAndMinute]).datePickerStyle(.wheel) }

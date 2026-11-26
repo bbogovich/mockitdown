@@ -27,7 +27,7 @@ that file's resolved path as their source, so the corpus has none (the generator
 
 Areas (the name prefix): role-* (every base element, by render role), pack-* (every shipped pack,
 plus its own elements in chunks), appearance-*, device-*, chrome-*, option-*, import-*,
-annotate-*, overlay-*, chart-*, shape-*, image-*, lang-*, diag-*.
+annotate-*, overlay-*, chart-*, shape-*, control-* (SwiftUI control styles), image-*, lang-*, diag-*.
 """
 
 from __future__ import annotations
@@ -429,6 +429,50 @@ def shape_cases() -> list[Case]:
     ]
 
 
+def control_cases() -> list[Case]:
+    """SwiftUI control styles (R-PACK-014): every variant of the styled elements from its declared sample,
+    plus the defaults and edge cases the clauses name."""
+    els = registry().get("swiftui").elements
+    out = []
+    for n in ("ControlGroup", "DatePicker", "Form", "Gauge", "List", "Picker", "Toggle"):
+        e = els[n]
+        for variant in e.variants:
+            out.append(Case(f"control-{n.lower()}-{variant.lower()}", f"swiftui {n} .{variant}",
+                            f'{e.sample}.variant("{variant}")', {"device": "fit", "pack": "swiftui"}))
+    out += [
+        Case("control-button-glass", "swiftui glass buttons",
+             'HStack { Button("Share", systemImage: "square.and.arrow.up").buttonStyle(.glass); '
+             'Button("Done").buttonStyle(.glassProminent) }', {"device": "fit", "pack": "swiftui"}),
+        Case("control-controlgroup-label", "a labelled ControlGroup menu",
+             'ControlGroup("Format", systemImage: "star") { Button("Bold"); Button("Italic") }'
+             '.controlGroupStyle(.menu)', {"device": "fit", "pack": "swiftui"}),
+        Case("control-datepicker-default", "a DatePicker without selection", 'DatePicker("Starts")',
+             {"device": "fit", "pack": "swiftui"}),
+        Case("control-datepicker-components", "displayed components and a time in the selection",
+             'VStack { DatePicker("Due", selection: "2026-03-05", displayedComponents: .date)\n'
+             '  DatePicker("Alarm", selection: "2026-03-05T14:05", displayedComponents: .hourAndMinute)\n'
+             '  DatePicker("Due", selection: "2026-03-05", displayedComponents: .date).datePickerStyle(.wheel)\n'
+             '  DatePicker("Alarm", selection: "2026-03-05T00:00", displayedComponents: [.hourAndMinute])'
+             '.datePickerStyle(.wheel) }', {"device": "fit", "pack": "swiftui"}),
+        Case("control-form-columns-desktop", "a columns Form on macOS",
+             f'{els["Form"].sample}.formStyle(.columns)', {"device": "desktop", "pack": "swiftui"}),
+        Case("control-picker-first", "a Picker without selection shows the first option",
+             'Picker("Flavor") { Text("Chocolate"); Text("Vanilla") }', {"device": "fit", "pack": "swiftui"}),
+        Case("control-picker-tags", "tagged Picker options",
+             'VStack { Picker("Size", selection: "m") { Text("Small").tag("s"); Text("Medium").tag("m") }\n'
+             '  Picker("Size", selection: "m") { Text("Small").tag("s"); Text("Medium").tag("m") }.pickerStyle(.segmented)\n'
+             '  Picker("Icon", selection: "b") { Image(systemName: "star").tag("a"); Image(systemName: "bell").tag("b") }'
+             '.pickerStyle(.palette) }', {"device": "fit", "pack": "swiftui"}),
+        Case("control-picker-empty", "Pickers without options",
+             'VStack { Picker("Flavor"); Picker("Flavor").pickerStyle(.segmented); Picker("Flavor").pickerStyle(.wheel);'
+             ' Picker("Flavor").pickerStyle(.inline) }', {"device": "fit", "pack": "swiftui"}),
+        Case("control-list-selection", "a List selection outside the sidebar style",
+             'List(selection: "Drafts") { Label("Inbox", systemImage: "tray"); Label("Drafts", systemImage: "doc") }'
+             '.listStyle(.bordered)', {"device": "desktop", "pack": "swiftui"}),
+    ]
+    return out
+
+
 def image_cases() -> list[Case]:
     return [
         Case("image-data-uri", "Image with a data: URI passes through",
@@ -511,7 +555,7 @@ def diag_cases() -> list[Case]:
 def build_cases() -> list[Case]:
     cases = (role_cases() + pack_cases() + appearance_cases() + device_cases() + chrome_cases()
              + option_cases() + import_cases() + annotate_cases() + overlay_cases() + chart_cases()
-             + shape_cases() + image_cases() + lang_cases() + diag_cases())
+             + shape_cases() + control_cases() + image_cases() + lang_cases() + diag_cases())
     names = [c.name for c in cases]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:

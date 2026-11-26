@@ -1,0 +1,2 @@
+// swiftui DatePicker .field
+DatePicker("Starts", selection: "2026-11-23").variant("field")

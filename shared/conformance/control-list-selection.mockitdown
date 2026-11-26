@@ -1,0 +1,2 @@
+// a List selection outside the sidebar style
+List(selection: "Drafts") { Label("Inbox", systemImage: "tray"); Label("Drafts", systemImage: "doc") }.listStyle(.bordered)

@@ -1,0 +1,2 @@
+// a labelled ControlGroup menu
+ControlGroup("Format", systemImage: "star") { Button("Bold"); Button("Italic") }.controlGroupStyle(.menu)

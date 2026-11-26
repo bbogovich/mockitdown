@@ -1,0 +1,11 @@
+// swiftui Form .grouped
+Form {
+  Section("Account") {
+    TextField("Name", text: "Ana Lima")
+    Toggle("Notifications", isOn: true)
+  }
+  Section("Display") {
+    Picker("Appearance", selection: "Automatic") { Text("Light"); Text("Dark"); Text("Automatic") }
+    Stepper("Font size", value: 17)
+  }
+}.variant("grouped")

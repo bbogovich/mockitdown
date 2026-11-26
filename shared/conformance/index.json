@@ -2197,6 +2197,198 @@
       "area": "shape"
     },
     {
+      "name": "control-controlgroup-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-controlgroup-navigation",
+      "area": "control"
+    },
+    {
+      "name": "control-controlgroup-palette",
+      "area": "control"
+    },
+    {
+      "name": "control-controlgroup-compactmenu",
+      "area": "control"
+    },
+    {
+      "name": "control-controlgroup-menu",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-compact",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-graphical",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-wheel",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-field",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-stepperfield",
+      "area": "control"
+    },
+    {
+      "name": "control-form-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-form-grouped",
+      "area": "control"
+    },
+    {
+      "name": "control-form-columns",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-accessorycircular",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-accessorycircularcapacity",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-accessorylinear",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-accessorylinearcapacity",
+      "area": "control"
+    },
+    {
+      "name": "control-gauge-linearcapacity",
+      "area": "control"
+    },
+    {
+      "name": "control-list-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-list-insetgrouped",
+      "area": "control"
+    },
+    {
+      "name": "control-list-grouped",
+      "area": "control"
+    },
+    {
+      "name": "control-list-inset",
+      "area": "control"
+    },
+    {
+      "name": "control-list-plain",
+      "area": "control"
+    },
+    {
+      "name": "control-list-sidebar",
+      "area": "control"
+    },
+    {
+      "name": "control-list-bordered",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-menu",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-segmented",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-inline",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-radiogroup",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-wheel",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-navigationlink",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-palette",
+      "area": "control"
+    },
+    {
+      "name": "control-toggle-automatic",
+      "area": "control"
+    },
+    {
+      "name": "control-toggle-switch",
+      "area": "control"
+    },
+    {
+      "name": "control-toggle-button",
+      "area": "control"
+    },
+    {
+      "name": "control-toggle-checkbox",
+      "area": "control"
+    },
+    {
+      "name": "control-button-glass",
+      "area": "control"
+    },
+    {
+      "name": "control-controlgroup-label",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-default",
+      "area": "control"
+    },
+    {
+      "name": "control-datepicker-components",
+      "area": "control"
+    },
+    {
+      "name": "control-form-columns-desktop",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-first",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-tags",
+      "area": "control"
+    },
+    {
+      "name": "control-picker-empty",
+      "area": "control"
+    },
+    {
+      "name": "control-list-selection",
+      "area": "control"
+    },
+    {
       "name": "image-data-uri",
       "area": "image"
     },

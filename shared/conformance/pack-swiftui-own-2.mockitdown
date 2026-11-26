@@ -18,7 +18,7 @@ VStack(alignment: .leading, spacing: 12) {
     Stepper("Font size", value: 17)
   }
 }
-  Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%")
+  Gauge(value: 0.72, label: "Battery", currentValueLabel: "72%", minimumValueLabel: "0", maximumValueLabel: "100")
   GeometryReader() { Text("Content"); Button("Action") }
   GlassEffectContainer() { Text("Content"); Button("Action") }
 }

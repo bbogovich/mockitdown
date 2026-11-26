@@ -1439,3 +1439,199 @@
 .mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-listitem { gap: 7px; }
 .mkd-pack-swiftui .mkd-frame:is([data-device="desktop"]) .mkd-split__col[data-col="sidebar"] .mkd-leading-icon,
 .mkd-pack-swiftui .mkd-frame:is([data-device="wide"]) .mkd-split__col[data-col="sidebar"] .mkd-leading-icon { min-width: 16px; }
+
+/* =====================================================================================================
+ * Control styles (R-PACK-014): ControlGroup, DatePicker, Form, Gauge, List, Picker, Toggle and the
+ * Liquid Glass buttons, one block per element, after the general rules above so they take precedence.
+ * ===================================================================================================== */
+
+/* ---------- Button .glass / .glassProminent: translucent capsule, light edge, soft shadow ---------- */
+.mkd-pack-swiftui .mkd-button[data-variant="glass"] {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0) 60%), var(--mkd-glass-bg);
+  box-shadow: var(--mkd-glass-shadow), inset 0 1px 0 var(--mkd-glass-edge), inset 0 0 0 1px var(--mkd-glass-line), 0 0 0 0.5px var(--mkd-glass-line);
+}
+.mkd-pack-swiftui .mkd-button[data-variant="glassProminent"] {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 55%), color-mix(in srgb, var(--mkd-accent) 88%, transparent);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--mkd-accent) 32%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.45), inset 0 0 0 1px rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(14px) saturate(1.8);
+}
+
+/* ---------- ControlGroup ---------- */
+/* .navigation: the joined capsule with icon-only buttons */
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="navigation"] > .mkd-button { width: 48px; min-width: 0; padding: 0; justify-content: center; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"]:is([data-variant="navigation"], [data-variant="palette"]) > .mkd-button > .mkd-button__label { display: none; }
+/* .palette: a row of borderless icon buttons */
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="palette"] { height: 44px; gap: 4px; border-radius: 0; background: none; box-shadow: none; overflow: visible; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="palette"] > .mkd-button { width: 44px; height: 44px; min-width: 0; padding: 0; justify-content: center; border-radius: 50%; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="palette"] > .mkd-button + .mkd-button { box-shadow: none; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="palette"] > .mkd-button .mkd-icon { width: 22px; height: 22px; }
+/* .compactMenu / .menu: one glass button standing for the menu */
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"] > .mkd-toolbar__menu { height: 100%; padding: 0 16px; gap: 6px; color: var(--mkd-fg); font-size: var(--mkd-fs-body); white-space: nowrap; }
+.mkd-pack-swiftui .mkd-toolbar[data-el="ControlGroup"][data-variant="compactMenu"]:not(:has(.mkd-toolbar__menu-label)) > .mkd-toolbar__menu { width: 40px; padding: 0; justify-content: center; }
+.mkd-pack-swiftui .mkd-toolbar__menu-icon .mkd-icon { width: 20px; height: 20px; }
+.mkd-pack-swiftui .mkd-toolbar__menu-chevron .mkd-icon { width: 13px; height: 13px; stroke-width: 2.6; color: var(--mkd-fg-2); }
+
+/* ---------- DatePicker ---------- */
+/* .automatic / .compact: the label, then the date and the time in grey capsules */
+.mkd-pack-swiftui .mkd-datepicker[data-kind="compact"] .mkd-field__control { min-height: 0; padding: 0; border-radius: 0; background: none; }
+.mkd-pack-swiftui .mkd-datepicker[data-kind="compact"] .mkd-field__input { display: inline-flex; gap: 6px; }
+.mkd-pack-swiftui .mkd-datepicker__date,
+.mkd-pack-swiftui .mkd-datepicker__time { display: inline-flex; align-items: center; height: 34px; padding: 0 12px; border-radius: 999px; background: var(--mkd-fill-3); color: var(--mkd-fg); font-size: var(--mkd-fs-body); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.mkd-pack-swiftui .mkd-datepicker__date + .mkd-datepicker__time { margin-left: 0; }
+/* .field / .stepperField (macOS): a bordered text field, with a stepper */
+.mkd-pack-swiftui .mkd-datepicker[data-kind="field"] .mkd-field__control { min-height: 26px; padding: 0 0 0 7px; gap: 0; border-radius: 6px; background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border), 0 1px 1px rgb(0 0 0 / 0.04); font-variant-numeric: tabular-nums; }
+.mkd-pack-swiftui .mkd-datepicker[data-kind="field"] .mkd-field__input { padding-right: 7px; white-space: nowrap; }
+.mkd-pack-swiftui .mkd-datepicker__stepper { align-self: stretch; justify-content: center; width: 18px; border-left: 1px solid var(--mkd-field-border); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-datepicker__stepper .mkd-icon { width: 11px; height: 11px; margin: -1px auto; stroke-width: 2.6; }
+/* .graphical: the month calendar, the selected day in a filled accent circle */
+.mkd-pack-swiftui .mkd-calendar[data-el="DatePicker"] { min-width: 300px; }
+.mkd-pack-swiftui .mkd-calendar__grid { grid-template-columns: repeat(7, minmax(38px, 1fr)); }
+.mkd-pack-swiftui .mkd-calendar__day[aria-selected="true"] { background: var(--mkd-accent); color: var(--mkd-on-accent); font-weight: 600; }
+/* .wheel: columns on a grey selection band */
+.mkd-pack-swiftui .mkd-wheel { gap: 0; padding: 0 12px; font-size: 21px; }
+.mkd-pack-swiftui .mkd-wheel__band { left: 8px; right: 8px; top: 68px; height: 34px; border-radius: 9px; background: var(--mkd-fill-3); }
+.mkd-pack-swiftui .mkd-wheel__column { grid-template-rows: repeat(5, 34px); padding: 0 10px; }
+.mkd-pack-swiftui .mkd-wheel__item { color: var(--mkd-fg-2); font-variant-numeric: tabular-nums; }
+.mkd-pack-swiftui .mkd-wheel__item:is([data-offset="-2"], [data-offset="2"]) { color: var(--mkd-fg-3); font-size: 17px; transform: scaleY(0.8); }
+.mkd-pack-swiftui .mkd-wheel__item:is([data-offset="-1"], [data-offset="1"]) { font-size: 19px; }
+.mkd-pack-swiftui .mkd-wheel__item[aria-selected="true"] { color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-wheel[data-el="Picker"] .mkd-wheel__column { min-width: 220px; }
+
+/* ---------- Form ---------- */
+/* .columns (macOS): trailing-aligned labels, leading-aligned controls, no section backgrounds */
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] { display: grid; grid-template-columns: max-content max-content; justify-content: center; align-content: start; column-gap: 8px; padding: 20px 24px; background: var(--mkd-bg); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] > :is(.mkd-section, .mkd-form__row),
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__body,
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; margin: 0; padding: 0; border-radius: 0; background: none; overflow: visible; min-height: 0; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section + .mkd-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__header { grid-column: 1 / -1; padding: 0 0 6px; font-size: var(--mkd-fs-body); font-weight: 600; color: var(--mkd-fg); text-transform: none; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row { padding: 4px 0; align-items: center; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row::after { display: none; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > :is(.mkd-field, .mkd-stepper) { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; gap: 0 8px; min-width: 0; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label) { display: block; grid-column: 1; justify-self: end; font-size: var(--mkd-fs-body); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__label, .mkd-stepper__label)::after { content: ":"; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield[aria-label]::before { content: attr(aria-label) ":"; grid-column: 1; justify-self: end; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > * > :is(.mkd-field__control, .mkd-field__helper) { grid-column: 2; justify-self: start; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 200px; min-height: 26px; padding: 0 7px; border-radius: 6px; background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__control { min-height: 26px; padding: 0 6px 0 10px; gap: 6px; border-radius: 6px; background: var(--mkd-mac-control); color: var(--mkd-fg); box-shadow: 0 0 0 0.5px var(--mkd-mac-control-line), 0 1px 2px rgb(0 0 0 / 0.1); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__icon--end { color: var(--mkd-fg-2); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper > .mkd-stepper__value { grid-column: 2; grid-row: 1; justify-self: start; width: 48px; height: 26px; padding: 0 7px; border-radius: 6px; line-height: 26px; color: var(--mkd-fg); background: var(--mkd-field-bg); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper > .mkd-stepper__buttons { grid-column: 2; grid-row: 1; justify-self: start; margin-left: 54px; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-stepper:not(:has(> .mkd-stepper__value)) > .mkd-stepper__buttons { margin-left: 0; }
+/* a toggle in the columns form is a checkbox followed by its label, in the controls column */
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-toggle { grid-column: 2; flex-direction: row-reverse; justify-content: flex-end; gap: 7px; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle__track { width: 16px; height: 16px; border-radius: 4px; background: var(--mkd-mac-control); box-shadow: inset 0 0 0 1px var(--mkd-field-border); }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle__thumb { display: none; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle[data-on="true"] .mkd-toggle__track { background: var(--mkd-accent); box-shadow: none; }
+.mkd-pack-swiftui .mkd-form[data-variant="columns"] .mkd-toggle[data-on="true"] .mkd-toggle__track::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-form[data-variant="columns"]) { --mkd-bg: var(--mkd-mac-window); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] { padding: 20px 24px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] > .mkd-section > .mkd-section__body { box-shadow: none; background: none; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row { min-height: 0; padding: 3px 0; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-textfield .mkd-field__control { min-width: 180px; min-height: 22px; border-radius: 5px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-form[data-variant="columns"] .mkd-form__row > .mkd-select .mkd-field__control { min-height: 22px; border-radius: 5px; }
+
+/* ---------- Gauge ---------- */
+/* linear styles: label and current value above, the bounds either side of the track */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] { display: grid; grid-template-columns: auto minmax(160px, 1fr) auto; grid-template-areas: "label label value" "min track max"; align-items: center; gap: 6px 0; min-width: 220px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] > .mkd-progress__label { grid-area: label; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] > .mkd-progress__value { grid-area: value; justify-self: end; font-size: 15px; font-variant-numeric: tabular-nums; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] > .mkd-progress__track { grid-area: track; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] > .mkd-progress__min { grid-area: min; margin-right: 8px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] > .mkd-progress__max { grid-area: max; margin-left: 8px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"] :is(.mkd-progress__min, .mkd-progress__max) { font-size: 12px; color: var(--mkd-fg-2); font-variant-numeric: tabular-nums; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="linear"] .mkd-progress__track { height: 8px; border-radius: 4px; background: var(--mkd-fill); }
+/* .linearCapacity: the label above a full-width capsule, the bounds below it */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="linearCapacity"] { grid-template-columns: auto minmax(160px, 1fr) auto; grid-template-areas: "label label value" "track track track" "min . max"; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="linearCapacity"] .mkd-progress__track { height: 12px; border-radius: 6px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="linearCapacity"] > :is(.mkd-progress__min, .mkd-progress__max) { margin: 0; }
+/* .accessoryLinearCapacity: a thicker capsule filled to the value */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryLinearCapacity"] .mkd-progress__track { height: 10px; border-radius: 5px; }
+/* .accessoryLinear: a thin track with a dot at the value */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryLinear"] .mkd-progress__track { height: 4px; border-radius: 2px; overflow: visible; background: linear-gradient(90deg, color-mix(in srgb, var(--mkd-accent) 35%, transparent), var(--mkd-accent)); }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryLinear"] .mkd-progress__bar { display: none; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryLinear"] .mkd-progress__marker { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: var(--mkd-fg); box-shadow: 0 0 0 2px var(--mkd-bg); }
+/* .accessoryCircular: an open 240-degree ring, the value in the centre, the bounds at its ends */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryCircular"] .mkd-progress__ring svg { transform: none; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"] .mkd-progress__ring[data-open="true"] .mkd-progress__track,
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"] .mkd-progress__ring[data-open="true"] .mkd-progress__bar { fill: none; stroke-width: 3.2; stroke-linecap: round; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] > :is(.mkd-progress__min, .mkd-progress__max) { grid-area: ring; align-self: end; font-size: 10px; line-height: 1; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] > .mkd-progress__min { justify-self: start; margin-left: 6px; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-kind="circular"] > .mkd-progress__max { justify-self: end; margin-right: 4px; }
+/* .accessoryCircularCapacity: a closed ring filled to the value (no bounds) */
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryCircularCapacity"] > :is(.mkd-progress__min, .mkd-progress__max) { display: none; }
+.mkd-pack-swiftui .mkd-progress[data-el="Gauge"][data-variant="accessoryCircularCapacity"] .mkd-progress__ring .mkd-progress__track { stroke: var(--mkd-fill); }
+
+/* ---------- List ---------- */
+/* .grouped: full-width sections, square and edged with hairlines */
+.mkd-pack-swiftui .mkd-list[data-variant="grouped"] > .mkd-section > .mkd-section__body { box-shadow: inset 0 1px 0 var(--mkd-separator), inset 0 -1px 0 var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-list[data-variant="grouped"] > .mkd-section > .mkd-section__header { padding-left: var(--sw-row-px); }
+/* .inset: rounded inset rows on the plain background */
+.mkd-pack-swiftui .mkd-list[data-variant="inset"] > .mkd-section > .mkd-section__body { background: var(--mkd-surface-2); }
+.mkd-pack-swiftui .mkd-list[data-variant="inset"] > .mkd-section > .mkd-section__header { text-transform: none; font-weight: 600; font-size: 15px; color: var(--mkd-fg); }
+/* .plain: full-width rows, separators inset 16 points (the rows themselves carry them) */
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] { padding: 0 0 12px; }
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] .mkd-listitem--wrap { --sw-sep-left: var(--sw-row-px); }
+.mkd-pack-swiftui .mkd-list[data-variant="plain"] > .mkd-section > .mkd-section__body > :last-child::after { display: block; left: 0; }
+/* .sidebar: a source list — bold section headers, rows with icons, the selection an accent-filled rounded row */
+.mkd-pack-swiftui .mkd-frame:has(> .mkd-screen > .mkd-list[data-variant="sidebar"]) { --mkd-bg: var(--mkd-grouped-bg); }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] { padding: 4px 12px 20px; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section { margin-top: 10px; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section > .mkd-section__header { padding: 6px 12px 4px; font-size: 17px; font-weight: 700; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] > .mkd-section > .mkd-section__body { gap: 2px; background: none; border-radius: 0; overflow: visible; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] .mkd-listitem { min-height: 44px; padding: 0 12px; border-radius: 12px; background: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] .mkd-listitem::after { display: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="sidebar"] .mkd-label { gap: 12px; }
+.mkd-pack-swiftui :is(.mkd-list[data-variant="sidebar"], .mkd-split__col[data-col="sidebar"]) .mkd-listitem--wrap[data-selected="true"] { background: var(--mkd-accent); color: var(--mkd-on-accent); }
+.mkd-pack-swiftui :is(.mkd-list[data-variant="sidebar"], .mkd-split__col[data-col="sidebar"]) .mkd-listitem--wrap[data-selected="true"] :is(.mkd-label__icon, .mkd-text, .mkd-badge) { color: var(--mkd-on-accent); }
+/* on macOS the sidebar is translucent, its selection accent-tinted */
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-list[data-variant="sidebar"] { margin: 8px; padding: 6px 10px 12px; border-radius: 18px; background: var(--mkd-sidebar-bg); box-shadow: var(--mkd-glass-shadow), inset 0 0 0 1px var(--mkd-glass-edge); backdrop-filter: blur(24px) saturate(1.6); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-list[data-variant="sidebar"] > .mkd-section > .mkd-section__header { padding: 2px 8px 4px; font-size: 11px; font-weight: 700; color: var(--mkd-fg-3); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-list[data-variant="sidebar"] .mkd-listitem { min-height: 28px; padding: 0 8px; border-radius: 8px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) .mkd-list[data-variant="sidebar"] .mkd-label { gap: 7px; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) :is(.mkd-list[data-variant="sidebar"], .mkd-split__col[data-col="sidebar"]) .mkd-listitem--wrap[data-selected="true"] { background: color-mix(in srgb, var(--mkd-accent) 22%, transparent); color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) :is(.mkd-list[data-variant="sidebar"], .mkd-split__col[data-col="sidebar"]) .mkd-listitem--wrap[data-selected="true"] :is(.mkd-label__icon, .mkd-text, .mkd-badge) { color: inherit; }
+.mkd-pack-swiftui .mkd-frame:is([data-device="desktop"], [data-device="wide"]) :is(.mkd-list[data-variant="sidebar"], .mkd-split__col[data-col="sidebar"]) .mkd-listitem--wrap[data-selected="true"] .mkd-label__icon { color: var(--mkd-accent); }
+/* .bordered (macOS): a bordered box with alternating row backgrounds */
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] { gap: 0; padding: 0; border-radius: 6px; background: var(--mkd-bg); box-shadow: inset 0 0 0 1px var(--mkd-separator); overflow: hidden; }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] > .mkd-section > .mkd-section__header { padding: 6px 10px 4px; font-size: 13px; font-weight: 600; color: var(--mkd-fg-2); text-transform: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] .mkd-listitem { min-height: 32px; padding: 4px 10px; }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] .mkd-listitem::after { display: none; }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] :is(.mkd-section__body, .mkd-list) > .mkd-listitem:nth-child(even),
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] > .mkd-listitem:nth-child(even) { background: var(--mkd-mac-row-alt); }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] .mkd-listitem--wrap[data-selected="true"] { background: var(--mkd-accent); color: var(--mkd-on-accent); }
+.mkd-pack-swiftui .mkd-list[data-variant="bordered"] .mkd-listitem--wrap[data-selected="true"] :is(.mkd-label__icon, .mkd-text) { color: var(--mkd-on-accent); }
+
+/* ---------- Picker ---------- */
+/* .menu / .automatic / .navigationLink: the label leading, the value trailing (not inside bars) */
+.mkd-pack-swiftui .mkd-select:not(:is(.mkd-navbar, .mkd-toolbar, .mkd-bottombar, .mkd-appbar) .mkd-select):not([data-labels-hidden="true"]) { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+.mkd-pack-swiftui .mkd-select:not(:is(.mkd-navbar, .mkd-toolbar, .mkd-bottombar, .mkd-appbar) .mkd-select):not([data-labels-hidden="true"]) > .mkd-field__label { display: block; font-size: var(--mkd-fs-body); color: var(--mkd-fg); white-space: nowrap; }
+.mkd-pack-swiftui .mkd-select .mkd-field__input { white-space: nowrap; }
+.mkd-pack-swiftui .mkd-select[data-variant="navigationLink"] { align-self: stretch; min-width: 240px; }
+.mkd-pack-swiftui .mkd-select[data-variant="navigationLink"] .mkd-field__control { color: var(--mkd-fg-2); }
+/* .inline: the options as rows, a checkmark on the selected one */
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] { gap: 6px; min-width: 240px; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] > .mkd-radiogroup__label { padding: 0 var(--sw-row-px); font-size: 13px; font-weight: 400; color: var(--mkd-fg-2); text-transform: uppercase; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] .mkd-radiogroup__items { gap: 0; border-radius: var(--sw-section-r); background: var(--mkd-cell-bg); box-shadow: 0 0 0 1px var(--mkd-separator); overflow: hidden; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] .mkd-radio__dot { display: none; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] .mkd-radio { justify-content: space-between; min-height: var(--sw-row-h); padding: 0 var(--sw-row-px); font-size: var(--mkd-fs-body); box-shadow: inset 0 -1px 0 var(--mkd-separator); }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] .mkd-radio:last-child { box-shadow: none; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="inline"] .mkd-radio[data-checked="true"]::after { content: ""; width: 14px; height: 10px; border: solid var(--mkd-accent); border-width: 0 0 2.5px 2.5px; transform: translateY(-2px) rotate(-45deg); }
+.mkd-pack-swiftui :is(.mkd-form__row, .mkd-listitem--wrap) > .mkd-radiogroup[data-variant="inline"] .mkd-radiogroup__items { border-radius: 0; background: none; box-shadow: none; }
+/* .radioGroup (macOS): the label leading, radio buttons stacked beside it */
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="radioGroup"] { flex-direction: row; align-items: flex-start; gap: 10px; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="radioGroup"] > .mkd-radiogroup__label { font-size: var(--mkd-fs-body); font-weight: 400; line-height: 22px; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="radioGroup"] > .mkd-radiogroup__label::after { content: ":"; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="radioGroup"] .mkd-radiogroup__items { gap: 6px; }
+.mkd-pack-swiftui .mkd-radiogroup[data-variant="radioGroup"] .mkd-radio { gap: 7px; min-height: 22px; font-size: var(--mkd-fs-body); }
+/* .palette: the options in a row, the selected one on a highlight */
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] { align-self: flex-start; }
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] .mkd-segmented__items { display: inline-flex; height: auto; gap: 6px; padding: 0; background: none; }
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] .mkd-segmented__item { flex: none; }
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] .mkd-segmented__item { min-width: 44px; height: 44px; padding: 0 14px; font-size: 15px; font-weight: 400; color: var(--mkd-fg); }
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] .mkd-segmented__item[aria-selected="true"] { background: var(--mkd-fill-3); color: var(--mkd-accent); font-weight: 600; box-shadow: none; }
+.mkd-pack-swiftui .mkd-segmented[data-variant="palette"] .mkd-segmented__item .mkd-icon { width: 22px; height: 22px; }
+
+/* ---------- Toggle .button: a capsule, accent-tinted when on ---------- */
+.mkd-pack-swiftui .mkd-button[data-el="Toggle"] { white-space: nowrap; }
+.mkd-pack-swiftui .mkd-button[data-el="Toggle"][data-pressed="false"] { color: var(--mkd-fg); }
