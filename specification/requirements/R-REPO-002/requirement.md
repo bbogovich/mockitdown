@@ -2,16 +2,17 @@
 id: R-REPO-002
 title: Shared assets are the single source
 status: active
-version: 0.6.1
-rev: 1
+version: 0.10.0
+rev: 2
 page: REPO.1
 slot: reqs
 order: 2
-hash: e4fe28e55a3e
-source: [SRC-8]
+hash: 82f6c4808181
+source: [SRC-8, SRC-12]
 realizes: [F-16]
 requires: [R-REPO-001]
 constrained_by: [ADR-17]
+refs: [R-PACK-016]
 ---
 
 C1: The built-in packs MUST exist only as `shared/packs/<id>/pack.json` and `shared/packs/<id>/pack.css`.
@@ -22,3 +23,4 @@ C5: Each variant's build MUST copy the shared files it publishes into its own pa
 C6: A test in each variant MUST fail when its package copy differs from `shared/` after a build.
 C7: Both variants MUST read the shared files as data and MUST NOT execute anything from them.
 V1: After the move, the Python icon, vocabulary and pack modules load their data from the packaged copies and the existing test suite passes unchanged.
+C8: The role rule table (R-PACK-016) MUST exist only as `shared/language/roles.json`, and each variant's build MUST copy it into its package beside `vocabulary.json`.

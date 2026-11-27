@@ -1,8 +1,8 @@
 ---
 title: "Language: syntax"
-spec_version: 0.2.1
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: LANG.1
 ---
 
@@ -174,10 +174,18 @@ This is the core of SwiftUI's look: `VStack { … }`, `Section("Header") { … }
 and modifiers stacked on their own lines. Requiring a call's `(` and a trailing closure's `{` on the
 same line is what makes newline-separated statements unambiguous — the same rule Swift applies.
 
+A dotted element name such as `Badge.Ribbon("New")` parses as one call with a dotted callee (C8); the
+evaluator resolves it (R-EVAL-003.C9).
+
 **R-LANG-007.TC-1 — Chains and labelled closures**
 
 Automated by `tests/test_syntax.py::SyntaxTests::test_modifier_chain_across_lines` and
 `test_trailing_and_labeled_closures`.
+
+**R-LANG-007.TC-2 — Dotted callees**
+
+Parser unit tests in both suites: `Badge.Ribbon("New")` and `Card.Meta { Text("x") }` parse as calls with a
+member-access callee; `Text("a").font(.title)` still parses as a modifier chain.
 
 **Realizes.** F-2 · **Decisions.** ADR-2
 
@@ -191,6 +199,7 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_modifier_chain_across_line
 | C6 | The parser MUST parse closure parameters when the closure starts with `a, b in`, `(a, b) in`, typed parameters `a: T in`, or `_ in`; otherwise the closure has no parameters and its whole content is its body. |
 | C7 | If an argument list lacks `,` or `)` between arguments, then the parser MUST raise "expected ',' or ')' in an argument list". |
 | V1 | `Text("A")` newline `.font(.title)` newline `.bold()` parses as one chain; `.alert("T", isPresented: true) { Button("OK") } message: { Text("m") }` has one unlabelled and one labelled trailing closure; `ForEach(items) { name, dept in … }` has two parameters. |
+| C8 | The parser MUST parse a member access whose name begins with an uppercase letter, followed on the same line by an argument list or a trailing closure (`Badge.Ribbon("New")`, `Card.Meta { … }`), as a call whose callee is that member access. |
 
 ---
 
@@ -233,6 +242,8 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_errors_are_located` and
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -2,13 +2,14 @@
 id: M-OPT-1
 title: RenderOptions
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.0
+rev: 1
 page: MODEL.1
 slot: entities
 order: 8
 level: entity
-hash: d7143b395c02
+hash: 6394afa635d7
+refs: [R-EDIT-004]
 ---
 
 F1: pack: str · optional — forced pack (fence `pack`)
@@ -32,4 +33,5 @@ F18: embed_assets: bool — inline local images (default true)
 F19: max_embed_bytes: int — embed size cap (default 2000000)
 F20: source_path: path · optional — file the source came from
 F21: show_warnings: bool — show warnings in the page (default false)
+F22: edit: bool — edit-mode rendering, `data-mkd-node` and `data-mkd-derived` on role roots (default false; R-EDIT-004)
 I1: Render options MUST be immutable; overrides produce a new value.

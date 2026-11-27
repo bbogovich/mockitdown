@@ -1,0 +1,97 @@
+VStack(spacing: 0) {
+  Toolbar {
+    ToolbarItemGroup {
+      IconButton(icon: "plus")
+      IconButton(icon: "folder")
+      IconButton(icon: "arrow.down.to.line")
+    }
+    Divider()
+    ToolbarItemGroup {
+      IconButton(icon: "arrowshape.turn.up.left")
+      IconButton(icon: "arrow.clockwise")
+    }
+    Spacer()
+    SegmentedControl(["Design", "Preview", "Code"], selection: 0)
+    Spacer()
+    Picker("Pack", selection: "Fluent")
+    Picker("Device", selection: "Desktop")
+    Text("75 %")
+  }
+  .callout(1)
+  HStack(spacing: 0) {
+    VStack(alignment: .leading, spacing: 8) {
+      SegmentedControl(["Outline", "Mockups"], selection: 0)
+      Tree {
+        TreeItem("Sign in · NavigationStack", folder: true) {
+          TreeItem("VStack", folder: true) {
+            TreeItem("Text \"Welcome back\"", systemImage: "doc")
+            TreeItem("HStack #actions", folder: true).selected()
+            TreeItem("Button \"Sign in\"", systemImage: "square")
+          }
+        }
+      }
+      .callout(2)
+      Divider()
+      SearchField("Filter elements")
+      Text("Allowed in HStack").font(.caption).foregroundStyle(.secondary)
+      Grid {
+        GridRow { Card("Button"); Card("Toggle") }
+        GridRow { Card("Text"); Card("Picker") }
+      }
+      Button("Add to HStack #actions", systemImage: "plus").buttonStyle(.borderedProminent)
+      .callout(3)
+      Spacer()
+    }
+    .padding(10)
+    .frame(width: 260)
+    Divider()
+    VStack {
+      HStack {
+        Text("Sign in").font(.caption)
+        Spacer()
+      }
+      Card("Sign in") {
+        VStack(alignment: .leading, spacing: 10) {
+          Text("Welcome back").font(.title2)
+          TextField("Email")
+          SecureField("Password")
+          HStack { Button("Forgot password?"); Spacer(); Button("Sign in").buttonStyle(.borderedProminent) }
+            .highlight()
+        }
+        .padding()
+      }
+      .frame(width: 360)
+      .callout(4)
+      Spacer()
+    }
+    .padding(16)
+    .frame(maxWidth: .infinity)
+    Divider()
+    VStack(alignment: .leading, spacing: 8) {
+      Text("HStack").font(.headline)
+      Text("#actions · in VStack").font(.caption).foregroundStyle(.secondary)
+      Section("Layout") {
+        Stepper("Spacing", value: 8)
+        Picker("Alignment", selection: "center")
+      }
+      Section("Modifiers") {
+        LabeledContent("padding", value: "default")
+        Button("Add modifier", systemImage: "plus")
+      }
+      Section("Identifier") {
+        TextField("id", text: "actions")
+      }
+      .callout(5)
+      Spacer()
+    }
+    .padding(10)
+    .frame(width: 260)
+  }
+  HStack {
+    Text("Ready · 0 diagnostics").font(.caption)
+    Spacer()
+    Text("Sign in › VStack › HStack #actions").font(.caption)
+  }
+  .padding(6)
+  .callout(6)
+}

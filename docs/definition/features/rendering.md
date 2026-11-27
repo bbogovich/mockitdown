@@ -1,8 +1,8 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.6.0
+def_version: 0.9.0
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: FEAT.2
 ---
 
@@ -109,6 +109,10 @@ extension added to the pages that need it.
 **Change.** One bad element never hides the rest: every stage collects located diagnostics. The
 page shows the errors; the log lists everything; strict mode turns errors into a failed build.
 
+**Unknown labelled arguments (SRC-12#s13).** A misspelt or unsupported label used to vanish without a
+trace, so an author could not tell why an argument had no effect, and an editor could not show it as
+"not understood by this pack". It is now a warning.
+
 **F-12.UC-1 — Fix a typo reported by the build**
 
 **Actor:** specification author. **Precondition:** strict mode is on in CI.
@@ -155,14 +159,19 @@ that framework's style, each with its source.
 
 Manuals and design specifications explain screens by numbering their parts. mockitdown draws those numbers, pointers and selections as part of the mockup so they move with the layout.
 
+**Overlays keep their marks (SRC-12#s13).** A dialog, a toast or a floating action button dropped its
+own callouts, and callouts inside a dialog landed at the screen's top-left corner. An editor that lets
+a designer annotate any element must not lose them, so marks on and inside overlays are drawn where
+they belong.
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
-| 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
-| 0.3.0 | 2026-11-24 | New F-15: Annotations and overlays |
 | 0.2.0 | 2026-11-24 | Page created |

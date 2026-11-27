@@ -2,14 +2,14 @@
 id: F-16
 title: Shared language and packs for the Python and web variants
 status: active
-version: 0.5.0
-rev: 0
+version: 0.9.0
+rev: 1
 page: FEAT.3
 slot: features
 order: 1
-hash: 079014f59cbe
+hash: eae30e23ae52
 family: platform
-source: [SRC-8]
+source: [SRC-8, SRC-12]
 requires: [F-10]
 ---
 
@@ -23,3 +23,9 @@ AC1: The repository has the top-level folders `python/`, `typescript/` and `shar
 AC2: The Python package built from `python/` contains the shared assets and passes its existing test suite and example-site build.
 AC3: A set of shared reference mockups renders to identical HTML in the Python and the TypeScript variant; a test fails on any difference.
 AC4: Adding or changing a pack in `shared/` is enough for both variants to offer it.
+C6: The shared language data states, for every render role, its category (frame, bar, layout, collection, content and control, overlay, annotation), the child roles it accepts and how it attaches to its parent (as a child, a modifier or a presentation); a pack can narrow these rules for one of its elements.
+C7: The shared language data states the type of every role parameter and every rendered modifier (text, number, Boolean, enumeration, colour, icon, array) and the group of each modifier, so that tools can choose a matching control; a pack can override a type for one of its elements.
+C8: Both variants publish the role rules and the typed parameters with their other shared assets.
+AC5: Every render role has a rule, and a test fails when a role has none.
+AC6: Asking whether an element may contain another gives the answer of its role unless its pack narrows it, and a refusal names its reason.
+AC7: Publishing the role rules and the typed parameters changes no rendered output in either variant.

@@ -1,8 +1,8 @@
 ---
 title: "Language: semantics"
-spec_version: 0.2.1
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: LANG.2
 ---
 
@@ -48,6 +48,10 @@ Structs shadow pack elements, so a site can override a pack's element with its o
 the same name. Literals render as text so that `"Hello"` on its own line is a valid view, as in
 a SwiftUI `ViewBuilder`.
 
+**Dotted element names (F-2.C7, SRC-12#s13).** Component libraries name sub-components with a dot
+(`Badge.Ribbon`, `Card.Meta`). Packs keep their joined names (`BadgeRibbon`), and a dotted call resolves
+to the joined name, so both spellings work and no pack changes. `Color.red` keeps its own meaning (C6).
+
 **R-EVAL-003.TC-1 — Unknown element renders a placeholder**
 
 **Given** `VStack { Foo { Text("in") } }` in the base pack, **when** it is rendered, **then** the
@@ -55,6 +59,13 @@ result has one error with code `unknown`, and the HTML contains `<div class="mkd
 holding the name `Foo` and the `Text` child.
 
 Automated by `tests/test_render.py::EvaluateRenderTests::test_unknown_element_is_an_error_but_renders`.
+
+**R-EVAL-003.TC-2 — Dotted element names**
+
+Conformance cases `eval-dotted-names` in both suites: in a pack with `BadgeRibbon`, `Badge.Ribbon("New")`
+renders the same element as `BadgeRibbon("New")` with `data-el="Badge.Ribbon"`; `Color.red` still makes a
+colour; `Nope.Thing()` is an `unknown` error naming `Nope.Thing`; a `let` named `Badge` makes
+`Badge.Ribbon` a member access, not a dotted name.
 
 **Realizes.** F-2, F-3, F-4
 
@@ -69,6 +80,8 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_unknown_element_is
 | C7 | When a member access without parentheses (`view.modifier`) appears where views are expected, the evaluator MUST treat it as a modifier call with no arguments. |
 | C8 | If an expression that cannot produce views appears where views are expected, then the evaluator MUST report "this expression does not produce a view" with code `view`. |
 | V1 | With a struct `Card` declared in the block, `Card("x")` instantiates the struct even when the pack also has a `Card` element; `Foo()` with no such struct or element is an `unknown` error and an `unknown` view. |
+| C9 | When a call's callee is a dotted name `A.B` (or `A.B.C`) whose parts all begin with an uppercase letter and whose first part is neither a variable in scope nor `Color`, the evaluator MUST resolve the call as C1 resolves the joined name (`AB`), so that `Badge.Ribbon(…)` calls the element `BadgeRibbon`. |
+| C10 | The view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name. |
 
 ---
 
@@ -79,7 +92,26 @@ That is what lets a pack add framework-native argument names without code: the p
 element's positional `params` and defaults, and the role reads whichever attribute names it
 understands (see the role catalogue).
 
-**Realizes.** F-2, F-3
+**Unknown labelled arguments (F-12.C6, SRC-12#s13).** A label that nothing reads — a typo such as
+`colour:` or an argument another framework has — used to vanish without a word. It is now a warning, in
+both variants, so an author learns why the argument had no effect, and the inspector lists it as "not
+understood by this pack" (R-TOOL-007.C7). Bindings (`isOn: $flag`) are exempt: pasted SwiftUI is full of
+them (R-EVAL-011), and they carry no value a mockup could show.
+
+```text
+Text("Hi", colour: .red)
+warning [argument] 'colour' is not understood by Text in pack 'base'   (line 1, col 12)
+```
+
+**R-EVAL-004.TC-1 — Unknown labelled arguments**
+
+Conformance cases `diag-unknown-label` (a misspelt label on a core element and on a pack element, an
+alias, a default, a slot label, an `action:` closure and a binding — only the first two warn) with their
+`diag.json`, in both suites; the order and text of the warnings are identical. `test_examples.py`, the
+pattern tests (R-WEB-004.TC-7) and `gen_reference.py --check` fail on any `argument` warning in the
+example site, the design patterns or the reference samples (F-12.AC5).
+
+**Realizes.** F-2, F-3, F-12
 
 | | Statement |
 |---|---|
@@ -90,6 +122,10 @@ understands (see the role catalogue).
 | C5 | The evaluator MUST discard closure-valued arguments labelled `action`, `onCommit`, `onEditingChanged` or `perform` without evaluating them. |
 | C6 | When a labelled argument's value is a list of views (a view call used as an argument, such as `label: Label(…)`), the evaluator MUST also make it the slot of that label unless a slot of that name already exists. |
 | V1 | `Button("Save", systemImage: "tray") { … }` with params `["label"]` yields attributes `label="Save"`, `systemImage="tray"`; `Section("A") { X() } footer: { Y() }` yields children `[X]` and slot `footer: [Y]`; `Button("Go", action: { doIt() })` evaluates nothing for `action`. |
+| C7 | A labelled argument of an element call is understood when its label is a name in the element definition's `params` or `defaults`, an argument alias of its pack (R-PACK-011), a label its render role reads, a closure or slot label (C3, C4, C6), or a discarded action label (C5). |
+| C8 | Each variant MUST hold, for every render role, the labels that role reads, and the two variants' lists MUST be the same. |
+| C9 | If a labelled argument of an element call is not understood (C7) and its value is not a binding (`$name`), then the evaluator MUST report the warning "'<label>' is not understood by <Element> in pack '<id>'" with code `argument`, at the argument's location, and still render the element. |
+| C10 | The shipped design patterns, the reference samples and the example site MUST render without a warning of C9. |
 
 ---
 
@@ -264,6 +300,8 @@ accepted and dropped; `@State` values become the state the mockup shows.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

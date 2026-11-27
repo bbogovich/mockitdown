@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MockItDown Designer — Design Document</title>
+<style>{{css}}</style>
+<style>
+  @page { size: Letter; margin: 18mm 16mm 18mm 16mm; }
+  :root { --ink:#1d2330; --muted:#5b6476; --rule:#d9dde5; --accent:#3b5bdb; --soft:#f3f5f9; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font: 10.5pt/1.5 -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: var(--ink); margin: 0; background: #fff; }
+  h1 { font-size: 26pt; line-height: 1.15; margin: 0 0 6pt; letter-spacing: -0.01em; }
+  h2 { font-size: 15pt; margin: 22pt 0 6pt; padding-bottom: 3pt; border-bottom: 1.5pt solid var(--accent); break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 14pt 0 4pt; break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  p { margin: 0 0 7pt; }
+  ul, ol { margin: 0 0 8pt; padding-left: 16pt; }
+  li { margin: 2pt 0; }
+  code { font: 9pt/1.4 ui-monospace, Menlo, Consolas, monospace; background: var(--soft); padding: 0 2pt; border-radius: 2pt; }
+  pre { font: 8.6pt/1.45 ui-monospace, Menlo, Consolas, monospace; background: var(--soft); border: 0.75pt solid var(--rule); border-radius: 4pt; padding: 7pt 9pt; white-space: pre-wrap; break-inside: avoid; margin: 0 0 9pt; }
+  pre code { background: none; padding: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 10pt; font-size: 9.3pt; break-inside: auto; }
+  th, td { text-align: left; vertical-align: top; padding: 3.5pt 6pt; border-bottom: 0.75pt solid var(--rule); }
+  th { background: var(--soft); font-weight: 600; }
+  tr { break-inside: avoid; }
+  .cover { height: 230mm; display: flex; flex-direction: column; justify-content: space-between; break-after: page; }
+  .cover .kicker { color: var(--accent); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 9pt; }
+  .cover .sub { font-size: 13pt; color: var(--muted); max-width: 135mm; }
+  .meta { font-size: 9.5pt; color: var(--muted); border-top: 0.75pt solid var(--rule); padding-top: 8pt; }
+  .meta td { border: 0; padding: 1pt 10pt 1pt 0; }
+  .toc { columns: 2; column-gap: 12mm; font-size: 10pt; padding-left: 14pt; }
+  .figure { margin: 8pt 0 12pt; break-inside: avoid; }
+  .figure .mkd-figure { margin: 0 auto; }
+  .figcap { font-size: 9pt; color: var(--muted); margin-top: 4pt; }
+  .legend { font-size: 9.3pt; columns: 2; column-gap: 10mm; margin-top: 4pt; }
+  .note { border-left: 3pt solid var(--accent); background: var(--soft); padding: 6pt 9pt; margin: 6pt 0 10pt; font-size: 9.8pt; break-inside: avoid; }
+  .warn { border-left-color: #d9480f; }
+  .pb { break-before: page; }
+  .tag { display: inline-block; font-size: 8pt; padding: 0 4pt; border-radius: 3pt; background: #e7ecfb; color: #2b47b8; font-weight: 600; }
+  .tag.drop { background: #fde8e1; color: #b23b12; }
+  .tag.new { background: #e3f6ea; color: #1f7a3f; }
+  svg text { font-family: -apple-system, "Segoe UI", Arial, sans-serif; }
+  /* scale the large mockups to the page width */
+  .fit-wide { zoom: 0.52; }
+  .fit-mid { zoom: 0.62; }
+  .fit-small { zoom: 0.8; }
+  /* Chrome's PDF output rasterises shadows on rotated callout badges as grey squares */
+  @media print { .mkd-callout__badge, .mkd-callout__text { box-shadow: none !important; } }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div>
+    <div class="kicker">Design document · Demo and test application</div>
+    <h1>MockItDown Designer</h1>
+    <p class="sub">A desktop editor, built with Electron, for creating and editing mockitdown mockups visually. It is the
+    reference application for the <code>mockitdown-</code> design-tool web components.</p>
+  </div>
+  <div>
+    <h3>Contents</h3>
+    <ol class="toc">
+      <li>Purpose and scope</li>
+      <li>Users and goals</li>
+      <li>Where the designer sits</li>
+      <li>The main window</li>
+      <li>Selecting elements</li>
+      <li>Inserting elements</li>
+      <li>Editing properties</li>
+      <li>Structural editing and undo</li>
+      <li>Code view and round-trip</li>
+      <li>The infinite canvas and named mockups</li>
+      <li>The design document file</li>
+      <li>Web components</li>
+      <li>Requirements on the mockitdown core</li>
+      <li>The Electron application</li>
+      <li>Reuse from the MockItOut Designer</li>
+      <li>Testing</li>
+      <li>Delivery plan</li>
+      <li>Open questions</li>
+    </ol>
+  </div>
+  <table class="meta">
+    <tr><td><b>Status</b></td><td>Draft for review: the design-tool components are built after this document is accepted</td></tr>
+    <tr><td><b>Date</b></td><td>2026-11-25</td></tr>
+    <tr><td><b>Repositories</b></td><td><code>mockitdown</code> (components, in <code>typescript/</code>) · <code>MockItDown-Designer-Prototype</code> (this application)</td></tr>
+    <tr><td><b>Traces to</b></td><td>mockitdown definition 0.5.0: F-17 (mockup element), F-19 (visual editing components), F-20 (infinite canvas of named mockups); source SRC-8</td></tr>
+  </table>
+</section>
+
+<h2>1. Purpose and scope</h2>
+<p>mockitdown mockups are written as code: a SwiftUI-style notation rendered in the style of one of 38 UI framework
+packs. That suits developers but not UX designers. The <b>MockItDown Designer</b> lets a designer build the same mockups
+in a familiar visual editor: drag elements from a gallery, arrange them in an outline, set their properties in an
+inspector, and lay several screens out on a zoomable canvas. The output is ordinary mockitdown code, so the
+same mockup renders unchanged in a Markdown site, in a <code>&lt;mockitdown-mockup&gt;</code> element, and in
+SpecItOut design and specification projects.</p>
+<p>The designer is a <b>demo and test application</b>. Nearly all of its behaviour lives in reusable web components
+in the mockitdown repository (<code>typescript/</code>, tag prefix <code>mockitdown-</code>). Any web application
+can host those components. The Electron application adds only what a desktop editor needs: files, menus,
+windows, autosave and packaging.</p>
+<table>
+  <tr><th style="width:28%">In scope</th><th>Out of scope</th></tr>
+  <tr><td>
+    <ul>
+      <li>The gallery, outline, inspector, editable view, code view and canvas components</li>
+      <li>Insertion by drag-and-drop or by an Add button, limited to the elements allowed at that point</li>
+      <li>Outline-first selection, with click-to-locate in the view</li>
+      <li>Several named mockups on an infinite canvas</li>
+      <li>Saving a design document, and exporting it to Markdown and HTML</li>
+      <li>Undo and redo, and two-way editing between the visual view and the code</li>
+    </ul>
+  </td><td>
+    <ul>
+      <li>AI generation or a prompt view (the MockItOut Designer's Claude terminal is not carried over)</li>
+      <li>Real-time multi-user collaboration and cloud storage</li>
+      <li>Free-form vector drawing, with pixel positions outside layout containers</li>
+      <li>Interaction prototyping: links between mockups and click-through flows (see §18)</li>
+      <li>Authoring packs (packs stay JSON and CSS files, edited by hand)</li>
+    </ul>
+  </td></tr>
+</table>
+
+<h2>2. Users and goals</h2>
+<table>
+  <tr><th style="width:22%">User</th><th>Goal</th><th style="width:30%">What the designer gives them</th></tr>
+  <tr><td>UX designer</td><td>Compose screens from a framework's real components without writing code, and keep the element hierarchy clean</td><td>Gallery, outline, inspector, canvas; code optional</td></tr>
+  <tr><td>Developer / spec author</td><td>Receive mockups as reviewable, diffable text that renders in the documentation</td><td>Clean mockitdown code; Markdown export; stable mockup names</td></tr>
+  <tr><td>SpecItOut tooling</td><td>Import each mockup by name into the right design object or page</td><td>A design document with named mockups (§11)</td></tr>
+  <tr><td>mockitdown maintainers</td><td>An end-to-end test bed for the design-tool components</td><td>A real host application, with Playwright tests</td></tr>
+</table>
+<p>The interaction model follows <b>Axure</b> rather than Figma. Axure keeps the element hierarchy in view at all times,
+and inserting, removing or re-parenting elements is the main editing activity. Figma's pointer-first,
+free-position model breaks down when every element sits in a layout container.</p>
+
+<h2>3. Where the designer sits</h2>
+<div class="figure">
+<svg viewBox="0 0 680 250" width="100%" role="img" aria-label="Architecture: the Electron app hosts mockitdown web components that use the TypeScript core and shared packs">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5b6476"/></marker></defs>
+  <rect x="10" y="10" width="300" height="230" rx="10" fill="#f3f5f9" stroke="#c4cad6"/>
+  <text x="24" y="32" font-size="13" font-weight="700" fill="#1d2330">MockItDown-Designer-Prototype</text>
+  <text x="24" y="48" font-size="10.5" fill="#5b6476">Electron app (this document)</text>
+  <rect x="26" y="62" width="268" height="52" rx="6" fill="#fff" stroke="#c4cad6"/>
+  <text x="38" y="82" font-size="11" font-weight="600">Main process</text>
+  <text x="38" y="99" font-size="10" fill="#5b6476">menus · files · windows · autosave · recent</text>
+  <rect x="26" y="126" width="268" height="100" rx="6" fill="#fff" stroke="#3b5bdb"/>
+  <text x="38" y="146" font-size="11" font-weight="600">Renderer (sandboxed)</text>
+  <text x="38" y="163" font-size="10" fill="#5b6476">index.html + app.js (no framework)</text>
+  <text x="38" y="180" font-size="10" fill="#5b6476">&lt;mockitdown-designer&gt; composes the tools</text>
+  <text x="38" y="197" font-size="10" fill="#5b6476">preload bridge: open · save · export only</text>
+  <text x="38" y="214" font-size="10" fill="#5b6476">contextIsolation · sandbox · strict CSP</text>
+  <line x1="160" y1="114" x2="160" y2="126" stroke="#5b6476" marker-end="url(#ar)"/>
+
+  <rect x="370" y="10" width="300" height="230" rx="10" fill="#f3f5f9" stroke="#c4cad6"/>
+  <text x="384" y="32" font-size="13" font-weight="700" fill="#1d2330">mockitdown (NPM package)</text>
+  <text x="384" y="48" font-size="10.5" fill="#5b6476">typescript/ · tag prefix mockitdown-</text>
+  <rect x="386" y="62" width="268" height="62" rx="6" fill="#fff" stroke="#3b5bdb"/>
+  <text x="398" y="81" font-size="11" font-weight="600">Design-tool components (F-19, F-20)</text>
+  <text x="398" y="97" font-size="10" fill="#5b6476">designer · canvas · editor · outline · gallery</text>
+  <text x="398" y="112" font-size="10" fill="#5b6476">inspector · code · diagnostics</text>
+  <rect x="386" y="132" width="268" height="30" rx="6" fill="#fff" stroke="#c4cad6"/>
+  <text x="398" y="151" font-size="11" font-weight="600">&lt;mockitdown-mockup&gt; renderer (F-17)</text>
+  <rect x="386" y="170" width="268" height="30" rx="6" fill="#fff" stroke="#c4cad6"/>
+  <text x="398" y="189" font-size="11" font-weight="600">TypeScript core: parse · edit · render</text>
+  <rect x="386" y="208" width="268" height="24" rx="6" fill="#fff" stroke="#c4cad6"/>
+  <text x="398" y="224" font-size="10.5" fill="#5b6476">shared/: packs · page.css · icons · roles</text>
+  <line x1="294" y1="176" x2="384" y2="96" stroke="#5b6476" marker-end="url(#ar)"/>
+  <text x="300" y="128" font-size="9.5" fill="#5b6476">imports</text>
+</svg>
+<div class="figcap">Figure 1. The application is a thin shell. Editing logic lives in the mockitdown components, so other web applications get the same editor.</div>
+</div>
+<p>The designer depends on a released version of the <code>mockitdown</code> NPM package. While both are in
+development it uses a local path. Any change to editing behaviour goes into the mockitdown repository, through its
+VibeItOut queue, with browser tests on the component test page (F-19.C10). The Electron application has its own
+tests for its shell only.</p>
+
+<h2 class="pb">4. The main window</h2>
+<div class="figure"><div class="fit-wide">{{mockup:main-window|--pack sketch --device desktop --width 1280 --height 610 --chrome macos --title "MockItDown Designer — Sign in flow"}}</div>
+<div class="figcap">Figure 2. The main window in Design mode, drawn with mockitdown's <code>sketch</code> pack. The <code>HStack #actions</code> is selected: it is highlighted in the outline and outlined in the view, the gallery shows only the elements allowed inside it, and the inspector shows its properties.</div></div>
+<div class="legend">
+  <p><b>1 Toolbar.</b> New, open and save; undo and redo; the mode switch (Design · Preview · Code); the pack and device of the
+  active mockup; zoom.</p>
+  <p><b>2 Outline</b> (left, top). The element tree of the active mockup. A second tab, <i>Mockups</i>, lists the canvas's named mockups.</p>
+  <p><b>3 Gallery</b> (left, bottom). The elements allowed at the selection, grouped and searchable, with an Add button.</p>
+  <p><b>4 Canvas.</b> The editable view of the active mockup on the infinite canvas, with the other mockups around it.</p>
+  <p><b>5 Properties</b> (right). The selected element's arguments, modifiers and identifier.</p>
+  <p><b>6 Status bar.</b> The diagnostic count, which opens the diagnostics list, and the selection path as a clickable breadcrumb.</p>
+</div>
+<h3>Modes</h3>
+<table>
+  <tr><th style="width:16%">Mode</th><th>Centre area</th><th style="width:34%">Side panels</th></tr>
+  <tr><td>Design</td><td>The canvas with editable mockups: hover outlines, selection, drop indicators</td><td>Outline, gallery, inspector</td></tr>
+  <tr><td>Preview</td><td>The same mockups, read-only, exactly as <code>&lt;mockitdown-mockup&gt;</code> renders them. Appearance can be toggled between light, dark and both</td><td>Hidden. The Mockups list stays available for navigation</td></tr>
+  <tr><td>Code</td><td>The active mockup's mockitdown code, with diagnostics in the gutter. The outline still follows the cursor</td><td>Outline and inspector stay live; the gallery inserts at the cursor</td></tr>
+</table>
+<p>The panels can be resized and collapsed, and their sizes are kept per window. Design mode can also show the
+code view docked below the canvas, which suits developers who want both at once.</p>
+
+<h2>5. Selecting elements</h2>
+<p>Nested elements make a click ambiguous: a click on a button's label could mean the label, the button, the stack
+around it, or the card around that. The <b>outline is therefore the primary means of selection</b>, and a click in the
+view is a fast way to <i>locate</i> an element in the outline.</p>
+<ul>
+  <li><b>Click in the view</b> selects the innermost element under the pointer. Its outline row is revealed, with its
+  ancestors expanded and the row scrolled into view, and the element is outlined in the view (F-19.AC3).</li>
+  <li><b>Click again</b> on the same spot, or press <code>Esc</code>, to move the selection to the parent.
+  <code>Enter</code> moves back down to the previously selected child. Alt-click cycles through every element
+  stacked under the pointer.</li>
+  <li><b>Hover</b> in the outline or the view draws a thin outline on the element in the other, with its name and size as a tag.</li>
+  <li><b>The breadcrumb</b> in the status bar shows the path from the root and selects any ancestor in one click.</li>
+  <li><b>Keyboard in the outline</b>: arrows move and expand or collapse, Home and End jump, and typing finds the next matching row.</li>
+  <li><b>Multi-select</b> (Shift for a range and Cmd/Ctrl for single rows, among siblings only) for delete, duplicate, wrap and move.</li>
+</ul>
+<p>Outline rows reuse the MockItOut row anatomy: the element name, then its main label (the first argument, as in
+<code>Button "Sign in"</code>), then an <code>#id</code> chip when the element has an identifier. Rows of
+<b>derived</b> elements, which come from <code>ForEach</code>, <code>if</code> or a custom component, are drawn in italics
+with a link icon. Selecting one selects its source construct (see §9).</p>
+
+<h2>6. Inserting elements</h2>
+<div class="figure"><div class="fit-small">{{mockup:insert|--pack sketch --device fit --title "Inserting into the selected HStack"}}</div>
+<div class="figcap">Figure 3. With <code>HStack #actions</code> selected, the gallery offers only the elements allowed inside a horizontal stack (2) and says how many it hides and why (3). Dragging Toggle onto the outline shows where it will land (1).</div></div>
+<h3>The gallery</h3>
+<ul>
+  <li>The gallery lists the elements of the active mockup's pack: the pack's own elements first, then the inherited
+  core vocabulary. They are grouped by role category (§6.3) and drawn as small live previews rendered in the pack's
+  style, the same samples the Reference pages and the pack gallery test page use.</li>
+  <li>A search field filters by name, role and <code>doc</code> text. A <i>Components</i> group lists the custom
+  components (<code>struct</code>s) the mockup imports or declares.</li>
+  <li>With no selection the gallery shows everything allowed at the root of a mockup. With a selection it shows only
+  what may be a child of the selected element. A footer group, <i>Hidden here</i>, names what is filtered out and
+  why, so the rule is never a mystery.</li>
+</ul>
+<h3>Three ways to insert</h3>
+<ol>
+  <li><b>Add button</b> (or double-click, or <code>Enter</code> on a focused gallery item): inserts the element as the
+  <b>last child of the selection</b>, then selects it (F-19.C3, AC2).</li>
+  <li><b>Drag onto the outline</b>: a drop indicator shows <i>before</i>, <i>after</i> or <i>inside</i> the row
+  under the pointer. Positions that break the rules show a "no entry" cursor and a short reason.</li>
+  <li><b>Drag onto the view</b>: the innermost container under the pointer is outlined, and an insertion bar shows
+  the position along its axis (vertical for a VStack, horizontal for an HStack). The rules are the same.</li>
+</ol>
+<p>A newly inserted element gets its sample's arguments (for example <code>Button("Button")</code>). Its first text
+field opens for editing right away, so naming it takes one keystroke sequence.</p>
+<h3>6.3 Containment rules</h3>
+<p>Which elements may go where is decided by <b>role</b>, from a rule table that both the components and any future
+validator read (§13). The categories, with examples from the core vocabulary:</p>
+<table>
+  <tr><th style="width:18%">Category</th><th style="width:34%">Roles (examples)</th><th>May contain / may be placed in</th></tr>
+  <tr><td>Frame</td><td>NavigationStack, NavigationSplitView, TabView</td><td>Only at the root of a mockup, as a split-view column or as a tab's content. Never inside a stack, card or list</td></tr>
+  <tr><td>Bar</td><td>AppBar, Toolbar, Sidebar</td><td>Inside a frame or the root stack. A toolbar accepts only toolbar items, buttons, pickers and search fields</td></tr>
+  <tr><td>Layout</td><td>VStack, HStack, ZStack, Group, ScrollView, Grid, Form, Section, Card</td><td>Contain any layout, content or control element. A Grid accepts only GridRow</td></tr>
+  <tr><td>Collection</td><td>List, Table, Tree, Timeline, Board, Menu, Tabs, Steps</td><td>Only their item roles: List → Row/ListItem/Section; Table → TableColumn/TableRow; Tree → TreeItem; Menu → MenuItem; Board → BoardColumn → KanbanCard</td></tr>
+  <tr><td>Content and control</td><td>Text, Image, Icon, Badge, Button, Toggle, TextField, Picker, Slider, Chart …</td><td>Leaves: they have no children, except a Button or Link with a custom label</td></tr>
+  <tr><td>Overlay</td><td>Dialog, Sheet, Alert, Toast, Tooltip, Menu</td><td>Attached to an element through a presentation modifier (<code>.sheet</code>, <code>.alert</code>, <code>.overlay</code>), not placed as a child. The gallery offers them as <i>Attach …</i> actions on the selection</td></tr>
+  <tr><td>Annotation</td><td>Callout, Pointer, SelectionRect, highlight</td><td>Attached as modifiers to any element. Offered in the inspector's Annotations group</td></tr>
+</table>
+<p>A pack element inherits the rules of its role, so <code>VBtn</code> behaves as a Button and <code>ShellBar</code>
+as a Bar. A pack can tighten the rules for one element in <code>pack.json</code> (for example, a Fiori
+<code>ObjectPageLayout</code> that only accepts sections).</p>
+
+<h2>7. Editing properties</h2>
+<p>The inspector shows the selected element in four groups. The controls are generated from pack data, so a new pack
+needs no inspector code.</p>
+<table>
+  <tr><th style="width:18%">Group</th><th>Content</th><th style="width:34%">Control</th></tr>
+  <tr><td>Arguments</td><td>The element's positional parameters (<code>params</code>), then its labelled arguments in use. <i>Add argument</i> offers the labels the role understands</td><td>Text, number, Boolean switch, or a list of values for arrays (for example segmented items)</td></tr>
+  <tr><td>Variant and state</td><td><code>variant</code> (only the values the pack declares), <code>selected</code>, <code>disabled</code>, <code>checked</code>, <code>value</code></td><td>Drop-down of the declared variants, with live previews</td></tr>
+  <tr><td>Modifiers</td><td>Layout (padding, frame, spacing, alignment), Typography (font, weight), Colour (foreground, background, tint), Presentation (navigationTitle, toolbar, badge), Annotations (callout, highlight, pointer)</td><td>One editor per modifier, from the shared modifier vocabulary. <i>Add modifier</i> lists only those that apply</td></tr>
+  <tr><td>Identity</td><td><code>.id()</code> and <code>.ref()</code>, which feed the Elements table, and the element's comment</td><td>Text, validated for uniqueness within the mockup</td></tr>
+</table>
+<p>Edits apply as you type, debounced to 150 ms, and one burst of typing forms one undo step. An invalid value (a
+negative width, an unknown variant) is shown in red with the diagnostic text and is not applied. The <i>Mockup</i>
+tab of the inspector, shown when nothing is selected, edits the mockup's options: name, pack, device, size,
+appearance, title, caption, and whether to show the Elements table.</p>
+
+<h2>8. Structural editing and undo</h2>
+<table>
+  <tr><th style="width:26%">Command</th><th style="width:22%">Shortcut</th><th>Effect</th></tr>
+  <tr><td>Delete</td><td>Del / Backspace</td><td>Removes the selection. The selection moves to the next sibling, or to the parent</td></tr>
+  <tr><td>Duplicate</td><td>Cmd/Ctrl + D</td><td>Inserts a copy after each selected element; copied identifiers get a numeric suffix</td></tr>
+  <tr><td>Cut · Copy · Paste</td><td>Cmd/Ctrl + X · C · V</td><td>Uses the clipboard as mockitdown text, so pasting into a Markdown fence works too. Paste goes into the selection if it is a container, otherwise after it</td></tr>
+  <tr><td>Move up · down</td><td>Alt + ↑ / ↓</td><td>Reorders among siblings; drag in the outline does the same</td></tr>
+  <tr><td>Wrap in …</td><td>Cmd/Ctrl + G (VStack), menu for others</td><td>Wraps the selected siblings in a new container</td></tr>
+  <tr><td>Unwrap</td><td>Cmd/Ctrl + Shift + G</td><td>Replaces a container with its children, where the rules allow it</td></tr>
+  <tr><td>Convert to …</td><td>menu</td><td>Changes an element to another of the same role (Button → VBtn), keeping the arguments both understand</td></tr>
+  <tr><td>Extract component</td><td>menu</td><td>Turns the selection into a <code>struct</code> declared in the mockup and replaces it with a call</td></tr>
+  <tr><td>Undo · Redo</td><td>Cmd/Ctrl + Z · Shift + Cmd/Ctrl + Z</td><td>Covers every edit, including canvas moves and renames, with selection restored. History is per design document</td></tr>
+</table>
+
+<h2>9. Code view and round-trip</h2>
+<p>The code is the source of truth. Every visual edit is an <b>edit to the code</b>: an insertion, removal or
+replacement of a text span. The editor never regenerates the whole mockup from a model. This keeps the
+author's formatting, comments, <code>let</code> bindings, <code>ForEach</code> loops and <code>if</code> conditions
+intact, and keeps diffs small.</p>
+<ul>
+  <li>The core parses the code into a syntax tree that keeps source positions and whitespace. Each element call in
+  the tree has a stable node id while its text survives an edit.</li>
+  <li>When editing, the renderer tags every element it emits with the node id it came from (§13). This is how a click
+  in the view finds its outline row.</li>
+  <li><b>Derived elements</b> come from a <code>ForEach</code> body, an <code>if</code> branch or a custom component's
+  body, so one source node draws many view elements. In the view they select their <i>source</i> node and show a
+  "derived" badge. The inspector edits the source (so changing the loop body changes every row) and offers
+  <i>Edit in code</i> for anything it cannot express.</li>
+  <li>Editing in the code view re-parses after a 300 ms pause. If the code is valid, the outline and view update and
+  the selection is kept by node id. If not, diagnostics appear in the gutter and the status bar, and the visual
+  panels keep showing the last valid tree, read-only, until the code parses again (F-19.AC5).</li>
+  <li>The code view is a light editor built for this project: a text area with syntax colouring, line numbers,
+  diagnostics, bracket matching and auto-indent. It adds no third-party editor dependency. Whether that is enough is
+  an open question (§18).</li>
+</ul>
+
+<h2 class="pb">10. The infinite canvas and named mockups</h2>
+<div class="figure"><div class="fit-mid">{{mockup:canvas|--pack sketch --device desktop --width 1100 --height 420 --chrome macos --title "Canvas — three named mockups"}}</div>
+<div class="figcap">Figure 4. A canvas holding three named mockups (1, 2). The active mockup, Inbox, is highlighted and is the one the outline, gallery and inspector act on. A minimap (3) shows the whole canvas.</div></div>
+<ul>
+  <li><b>Zoom</b> from 10 % to 400 % with Cmd/Ctrl + scroll, pinch, the toolbar control or Cmd/Ctrl + plus/minus.
+  Cmd/Ctrl + 0 fits all mockups; Cmd/Ctrl + 1 sets 100 %; Shift + 2 fits the selection. Mockups stay sharp at every
+  zoom level because they are HTML, scaled with CSS transforms and laid out again past 200 % (F-20.AC1).</li>
+  <li><b>Pan</b> with scroll, by dragging with the space bar held, by middle-dragging, or by dragging the minimap viewport.</li>
+  <li><b>Mockups as frames.</b> Each mockup is a frame with a name label above it. Drag the label to move the mockup.
+  Double-click the label to rename. New mockups are placed in the first free slot to the right, and a frame can
+  snap to an 8 px grid and to its neighbours' edges.</li>
+  <li><b>Names are unique</b> within a document, are case-sensitive and may contain spaces. Renaming to a taken name
+  is refused with a message (F-20.AC2). A name is the key that SpecItOut tools import by, so the Mockups list warns
+  when a name is still a default such as "Mockup 3".</li>
+  <li><b>Activating a mockup.</b> Clicking a mockup's frame, or choosing it in the Mockups list, makes it active.
+  Inactive mockups render like Preview mode, which keeps large canvases fast (F-20.AC4).</li>
+  <li><b>Sections</b> (optional). A named rectangle behind a group of mockups, for example "Onboarding flow". It
+  becomes a heading in Markdown export.</li>
+</ul>
+
+<h2>11. The design document file</h2>
+<p>A design document is one JSON file, <code>*.mkdesign</code>. It is readable, diffable and stable in key order, and
+each mockup's code is kept verbatim, so it can be read without the designer.</p>
+<pre><code>{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Mail app",
+  "defaults": { "pack": "fluent", "appearance": "light" },
+  "imports": ["components/cards.mockitdown"],
+  "sections": [ { "name": "Onboarding", "x": -40, "y": -60, "w": 1400, "h": 900 } ],
+  "mockups": [
+    {
+      "name": "Sign in",
+      "x": 0, "y": 0,
+      "options": { "pack": "fluent", "device": "desktop", "width": 480, "height": 360, "title": "Sign in" },
+      "code": "NavigationStack {\n  VStack(spacing: 12) {\n    Text(\"Welcome back\").font(.title2)\n    …\n  }\n}\n"
+    }
+  ],
+  "view": { "zoom": 0.75, "x": 120, "y": 40, "active": "Sign in" }
+}</code></pre>
+<h3>Export</h3>
+<ul>
+  <li><b>Markdown</b>: one <code>```mockitdown</code> fence per mockup, in canvas order (top-to-bottom, then
+  left-to-right, within sections). The mockup's name goes in the fence's <code>id</code> and <code>title</code>
+  attributes, with a heading per section. The result drops straight into a Zensical or MkDocs site.</li>
+  <li><b>Folder of files</b>: one <code>&lt;name&gt;.mockitdown</code> per mockup, plus <code>index.json</code> with the names,
+  positions and options. SpecItOut's Design-project skills instead read the <code>.mkdesign</code> file and pick
+  mockups by name into requirements (§18).</li>
+  <li><b>HTML</b>: a standalone page with every mockup rendered by <code>&lt;mockitdown-mockup&gt;</code>. <b>PNG</b>:
+  the active mockup or a selection of them, at 1×, 2× or 3×.</li>
+</ul>
+<p>Opening a <code>.mockitdown</code> file creates a one-mockup document named after the file. Opening a Markdown
+file imports each <code>mockitdown</code> fence as a mockup and offers to save the result as <code>.mkdesign</code>.</p>
+
+<h2>12. Web components</h2>
+<p>All components are standard custom elements written in TypeScript with no framework (no React; see §15). Each
+renders into a shadow root and is styled through CSS custom properties and <code>::part</code>. They share one
+<b>design session</b>, a plain object holding the document, the active mockup, the selection and the undo history.
+A component joins a session either by being placed inside a <code>&lt;mockitdown-designer&gt;</code> or through a
+<code>session</code> property set by the host.</p>
+<table>
+  <tr><th style="width:27%">Element</th><th>Role</th><th style="width:30%">Main API</th></tr>
+  <tr><td><code>mockitdown-mockup</code></td><td>Read-only renderer, used for Preview and the gallery previews (F-17; specified as R-WEB-002)</td><td>Script child, fence attributes, <code>code</code>, <code>rendered</code></td></tr>
+  <tr><td><code>mockitdown-designer</code></td><td>The composite editor of Figure 2, with a default layout and slots to replace any panel</td><td><code>document</code>, <code>open(json)</code>, <code>toJSON()</code>, <code>mode</code></td></tr>
+  <tr><td><code>mockitdown-canvas</code></td><td>Infinite canvas of named mockup frames: zoom, pan, minimap, sections</td><td><code>zoom</code>, <code>fit()</code>, <code>reveal(name)</code></td></tr>
+  <tr><td><code>mockitdown-editor</code></td><td>One editable mockup: hover and selection overlays, drop targets, inline text edit</td><td><code>code</code>, <code>select(nodeId)</code></td></tr>
+  <tr><td><code>mockitdown-outline</code></td><td>Element tree with keyboard navigation, drag reorder and drop indicators</td><td><code>expandTo(nodeId)</code></td></tr>
+  <tr><td><code>mockitdown-gallery</code></td><td>Filtered, grouped element gallery with live previews and an Add button</td><td><code>filter</code>, the <code>insert</code> event</td></tr>
+  <tr><td><code>mockitdown-inspector</code></td><td>Typed property editor generated from pack data</td><td>—</td></tr>
+  <tr><td><code>mockitdown-code</code></td><td>Code editor with colouring and diagnostics</td><td><code>value</code>, <code>reveal(range)</code></td></tr>
+  <tr><td><code>mockitdown-diagnostics</code></td><td>List of the active mockup's diagnostics; clicking one selects its node</td><td>—</td></tr>
+</table>
+<p>Events, which bubble and cross the shadow boundary: <code>mockitdown-select</code>,
+<code>mockitdown-change</code> (with the text edits made), <code>mockitdown-insert</code>,
+<code>mockitdown-rename</code>, <code>mockitdown-diagnostics</code>. A host application such as the Electron shell
+listens for <code>mockitdown-change</code> to mark the document dirty and schedule an autosave.</p>
+<p>The mockitdown repository gains a <b>designer test page</b> (<code>typescript/pages/designer.html</code>) that
+composes these components with a sample document. It is used for demos and Playwright tests (F-19.C10), and is the
+same page the Electron app loads, with file access added.</p>
+
+<h2>13. Requirements on the mockitdown core</h2>
+<p>The visual editor needs a few things from the shared core that rendering alone does not. Each will be specified
+in the mockitdown repository before the design-tool issues are queued.</p>
+<ol>
+  <li><b>A syntax tree that keeps positions and formatting</b>, with stable node ids, and an edit API: insert,
+  remove, move, set argument, set modifier, rename. Each operation returns minimal text edits plus the new tree.
+  Python and TypeScript share the same printing rules for new code (indentation, argument order), checked by
+  conformance cases.</li>
+  <li><b>Source mapping in the rendered HTML</b>: an edit-mode render option that adds
+  <code>data-mkd-node="&lt;id&gt;"</code> to every element produced from a call, and marks derived elements.</li>
+  <li><b>A shared role rule table</b>, <code>shared/language/roles.json</code>, holding each role's category,
+  accepted child roles and attachment mode (child, modifier or presentation), with per-element overrides in
+  <code>pack.json</code>. The Python checker can use it too, to warn about an AppBar inside an HStack.</li>
+  <li><b>Typed parameter metadata</b> in <code>pack.json</code> and the modifier vocabulary (text, number, Boolean,
+  enum, colour, icon, array), so the inspector can choose its controls. Today an element declares only names and
+  defaults.</li>
+  <li><b>Element samples as data</b>, already planned for the pack gallery test page:
+  <code>shared/reference/&lt;pack&gt;.json</code>.</li>
+</ol>
+<div class="note">The core backlog already noted in mockitdown's HANDOFF has items that affect editing directly: unknown labelled
+arguments are dropped without a warning, dotted element names do not parse, and overlay layers lose their callouts.
+The editor should not hide these. The inspector will show unknown arguments as "not understood by this pack".</div>
+
+<h2>14. The Electron application</h2>
+<h3>Structure</h3>
+<pre><code>MockItDown-Designer-Prototype/
+├── package.json          electron, electron-builder, @playwright/test (dev); mockitdown (dependency)
+├── src/main/             main.ts · menu.ts · files.ts · autosave.ts · windows.ts
+├── src/preload/          preload.ts — contextBridge: openFile, saveFile, saveAs, export, recent
+├── src/renderer/         index.html · app.ts — mounts &lt;mockitdown-designer&gt;
+├── tests/                Playwright for Electron (_electron.launch)
+└── docs/design/          this document (design.src.html, mockups/, build.py)</code></pre>
+<h3>Behaviour</h3>
+<ul>
+  <li><b>Documents and windows</b>: one window per design document; the window title shows the document name and an
+  "edited" marker; the window's size and position are restored; a recent-documents list is kept; double-clicking
+  <code>.mkdesign</code> opens it, which needs a file association.</li>
+  <li><b>Menus</b>: File (New, Open, Open Recent, Save, Save As, Export ▸ Markdown · Folder · HTML · PNG, Close), Edit
+  (Undo, Redo, Cut, Copy, Paste, Duplicate, Delete, Select Parent), Insert (by category, mirroring the gallery),
+  Arrange (Wrap, Unwrap, Move Up/Down, Convert, Extract Component), View (Design/Preview/Code, Zoom, Panels,
+  Appearance), Mockup (New, Rename, Duplicate, Delete, Pack, Device), Help.</li>
+  <li><b>Autosave and recovery</b>: changes are written every 30 seconds to a recovery file beside the application data,
+  never over the document. After a crash the recovery is offered on the next launch.</li>
+  <li><b>Security</b>: <code>contextIsolation: true</code>, <code>sandbox: true</code>, <code>nodeIntegration:
+  false</code>, a strict Content-Security-Policy with no remote content, and the preload exposes only the named file
+  operations. Mockups that reference remote images show placeholders unless the user allows remote images for that
+  document.</li>
+  <li><b>Packaging</b>: electron-builder for macOS (signed and notarised), Windows and Linux. The MockItOut
+  prototype's Electron build was removed by macOS XProtect at launch because Apple had explicitly blocked the older
+  Electron version it used. This app tracks the latest stable Electron release, which avoids that block.</li>
+</ul>
+<h3>Dependencies</h3>
+<table>
+  <tr><th style="width:24%">Package</th><th style="width:16%">Kind</th><th>Why, and what was considered</th></tr>
+  <tr><td>electron</td><td>runtime</td><td>The requested desktop shell (MIT). Chromium matches the browsers the components target</td></tr>
+  <tr><td>mockitdown</td><td>runtime</td><td>The components; same author; no dependencies of its own</td></tr>
+  <tr><td>electron-builder</td><td>dev</td><td>Signing, notarisation and installers for three platforms; building this ourselves would be prohibitively expensive (MIT)</td></tr>
+  <tr><td>@playwright/test</td><td>dev</td><td>Electron end-to-end tests, the same harness as the mockitdown repository (Apache-2.0)</td></tr>
+  <tr><td>typescript</td><td>dev</td><td>Compiler only; no bundler</td></tr>
+</table>
+<p>No UI framework, state library, code-editor library or icon font is used.</p>
+
+<h2>15. Reuse from the MockItOut Designer</h2>
+<p>The MockItOut Designer prototype (<code>MockItOut/prototype/MockItOut/designer-py</code>, with an earlier Electron
+variant in <code>designer/</code>) is a Figma Make–style tool built with React and an embedded Claude terminal.
+Its presentation is the starting point; its implementation is not.</p>
+<table>
+  <tr><th style="width:34%">Element</th><th style="width:16%">Decision</th><th>Notes</th></tr>
+  <tr><td>Three-pane layout: outline 240 px, canvas, properties 260 px; toolbar above</td><td><span class="tag">reuse</span></td><td>Kept, with the gallery added below the outline and the panels made resizable</td></tr>
+  <tr><td>Outline row anatomy (type · label · <code>@id</code> chip), indent of 14 px per level, rounded selected row</td><td><span class="tag">reuse</span></td><td>Ported from <code>OutlineTree.tsx</code> and <code>styles.css</code> to <code>mockitdown-outline</code></td></tr>
+  <tr><td>Drag in the outline to re-parent, refusing a drop into the element's own descendants</td><td><span class="tag">reuse</span></td><td>Extended with before/after/inside indicators and the role rules</td></tr>
+  <tr><td>Inspector field style (small grey label above a full-width input)</td><td><span class="tag">reuse</span></td><td>Ported from <code>PropertyInspector.tsx</code>. Its single "Content" field and free-text kwargs give way to typed controls</td></tr>
+  <tr><td>Orange selection outline in the canvas (<code>[data-mio-selected]</code>)</td><td><span class="tag">reuse</span></td><td>Kept as a themeable token; a hover outline is added</td></tr>
+  <tr><td>Form-factor selector (phone · tablet · desktop · custom · fit)</td><td><span class="tag">reuse</span></td><td>Becomes the device option of the active mockup, using mockitdown's device sizes</td></tr>
+  <tr><td>Edit-mode toggle</td><td><span class="tag new">replace</span></td><td>Replaced by the Design · Preview · Code modes</td></tr>
+  <tr><td>Prompt view, Claude terminal, MockItOut bridge</td><td><span class="tag drop">drop</span></td><td>AI features are out of scope</td></tr>
+  <tr><td>React, zustand store, Vite, pywebview</td><td><span class="tag drop">drop</span></td><td>Web components and a plain session object; tsc only; Electron as requested</td></tr>
+  <tr><td>Kit CSS (<code>kit-fiori.css</code>, <code>kit-swift.css</code>)</td><td><span class="tag drop">drop</span></td><td>Superseded by mockitdown's 38 packs in <code>shared/</code></td></tr>
+</table>
+
+<h2>16. Testing</h2>
+<ul>
+  <li><b>Component tests</b> (mockitdown repository): Playwright against <code>pages/designer.html</code>, one test or
+  more for each acceptance criterion of F-19 and F-20, run in the same <code>npm test</code> as the renderer tests.</li>
+  <li><b>Core tests</b>: <code>node:test</code> for the edit API. Each operation is applied to conformance sources and
+  the resulting text is compared with expected files. Python runs the same cases once it implements the same edit API.</li>
+  <li><b>Application tests</b> (this repository): Playwright's Electron launcher drives the real app. Tests cover
+  New → insert → save → reopen, autosave recovery, export to Markdown followed by building it with the Python
+  mockitdown in strict mode, opening Markdown with three fences, and menu shortcuts.</li>
+  <li><b>Manual review script</b>: a checklist in the README that walks through Figure 2's flow in each mode, at
+  three zoom levels, in light and dark appearance.</li>
+</ul>
+<table>
+  <tr><th style="width:18%">Criterion</th><th>Scenario</th></tr>
+  <tr><td>F-19.AC1</td><td>Drag Text from the gallery into a VStack in the view; the code contains the new <code>Text(…)</code> at that position</td></tr>
+  <tr><td>F-19.AC2</td><td>Select an HStack; the gallery has no NavigationSplitView or TabView; Add on Toggle appends <code>Toggle(…)</code> as its last child</td></tr>
+  <tr><td>F-19.AC3</td><td>Click a Button inside a Card inside a List; the outline row is selected and visible with its ancestors expanded, and the view shows the selection outline</td></tr>
+  <tr><td>F-19.AC4</td><td>Change the Button's variant in the inspector; the code and the rendering change; Undo restores both</td></tr>
+  <tr><td>F-19.AC5</td><td>Type an unbalanced brace in the code view; a diagnostic appears, the outline keeps the last valid tree, and fixing the brace updates the view</td></tr>
+  <tr><td>F-20.AC1–4</td><td>Three mockups: zoom from 10 % to 400 % and pan; rename to a taken name is refused; save, reload and compare; activating a mockup loads its outline</td></tr>
+</table>
+
+<h2>17. Delivery plan</h2>
+<table>
+  <tr><th style="width:8%">#</th><th style="width:30%">Milestone</th><th>Content</th><th style="width:20%">Repository</th></tr>
+  <tr><td>0</td><td>Renderer ready</td><td>Restructure, shared assets, TypeScript core, <code>&lt;mockitdown-mockup&gt;</code>, pack gallery (queued as mockitdown issues #1–#7)</td><td>mockitdown</td></tr>
+  <tr><td>1</td><td>Editing core</td><td>Syntax tree that keeps formatting, edit API, source mapping, role rule table, typed parameters (§13)</td><td>mockitdown</td></tr>
+  <tr><td>2</td><td>Outline and selection</td><td><code>mockitdown-editor</code> and <code>mockitdown-outline</code>; the designer test page; F-19.AC3</td><td>mockitdown</td></tr>
+  <tr><td>3</td><td>Gallery and insertion</td><td><code>mockitdown-gallery</code>, drag-and-drop and Add, containment rules; F-19.AC1–2</td><td>mockitdown</td></tr>
+  <tr><td>4</td><td>Inspector, structure, undo</td><td><code>mockitdown-inspector</code>, the commands of §8, history; F-19.AC4</td><td>mockitdown</td></tr>
+  <tr><td>5</td><td>Code view</td><td><code>mockitdown-code</code>, two-way sync, diagnostics; F-19.AC5</td><td>mockitdown</td></tr>
+  <tr><td>6</td><td>Canvas</td><td><code>mockitdown-canvas</code>, named mockups, sections, minimap, <code>.mkdesign</code>; F-20</td><td>mockitdown</td></tr>
+  <tr><td>7</td><td>Desktop shell</td><td>Electron app: windows, menus, files, autosave, export, packaging, Electron tests</td><td>Designer-Prototype</td></tr>
+</table>
+<p>The application shell (milestone 7) can start once milestone 2 is done, hosting whatever components exist.</p>
+
+<h2>18. Open questions</h2>
+<ol>
+  <li><b>SpecItOut import shape</b> <span class="tag new">settled</span>. The importer is defined as part of SpecItOut's
+  new <i>Design</i> project type, and is managed from the rewritten SpecItOut app. Skills select specific mockups by
+  name from a designer file and import them into individual requirements. One requirement often holds several
+  mockups that together illustrate a workflow, so names must stay stable, and the order of a selection is
+  significant.</li>
+  <li><b>Code editor depth.</b> Is the built-in light editor enough, or is a full editor library such as CodeMirror 6
+  (MIT, modular, about 150 kB) worth a dependency for search, multi-cursor and folding?</li>
+  <li><b>Flows.</b> Should a later version link mockups (a button in "Sign in" leads to "Inbox") and export the links
+  for SpecItOut flow design objects?</li>
+  <li><b>Pack per mockup or per document.</b> This design allows a pack per mockup, with a document default. Is
+  mixing packs on one canvas, for example to compare Fluent and Material, a wanted use or a source of mistakes?</li>
+  <li><b>Python edit API.</b> Should the Python variant implement the same edit API (milestone 1) so command-line tools
+  can make structural edits, or should editing stay TypeScript-only?</li>
+</ol>
+
+</body>
+</html>

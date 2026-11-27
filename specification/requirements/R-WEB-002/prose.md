@@ -33,3 +33,6 @@ started; it is the hook tests and editors use after setting an attribute or `cod
 Pages that show many mockups can create them on demand: the pack gallery (R-WEB-004) sets `code` on
 a new element before inserting it, so each one renders once, and waits on `rendered` to know when a
 whole pack is done.
+
+`<mockitdown-mockup edit>` renders the mockup for editing (R-EDIT-004): every element produced from a
+call carries `data-mkd-node`. The design tools use it; a page showing a mockup to readers does not.

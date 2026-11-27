@@ -2,14 +2,15 @@
 id: F-2
 title: SwiftUI-syntax notation
 status: active
-version: 0.2.0
-rev: 0
+version: 0.9.0
+rev: 1
 page: FEAT.1
 slot: features
 order: 2
 family: authoring
-source: [SRC-2, SRC-3]
-hash: 5a32f9e2a2c1
+source: [SRC-2, SRC-3, SRC-12]
+hash: cd6548c29744
+refs: [F-3]
 ---
 
 G1: Authors and developers need a mockup notation that is already familiar, expressive enough for real screens and close to how the final application is written.
@@ -22,3 +23,5 @@ C6: The same notation is used for every UI framework; only the available element
 AC1: A SwiftUI view body built from stacks, lists, forms, controls, navigation and modifiers renders without errors in the SwiftUI pack.
 AC2: A block using `ForEach` over an array of tuples with named closure parameters renders one element per array item with the tuple values in place.
 AC3: Pasting a SwiftUI struct that uses `@State`, `$binding`, `.onTapGesture` and `.animation` produces no error.
+C7: Element names may be dotted, as SwiftUI and component libraries write nested types (`Badge.Ribbon`); such a call names one element.
+AC4: `Badge.Ribbon("New")` renders the same element as the pack's joined name `BadgeRibbon("New")` in both variants.

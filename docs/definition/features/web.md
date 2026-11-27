@@ -22,6 +22,12 @@ repository's shared assets (SRC-8). Authoring and documentation-site rendering a
 
 **Change.** The repository becomes the home of both variants: `python/` (the existing library), `typescript/` (the web components) and `shared/` (what both publish). A shared set of reference mockups keeps the two renderers producing the same markup.
 
+**Role rules and typed parameters (SRC-12#s6.3, SRC-12#s7).** The design tools must know which
+elements may go where and which control edits each argument. Both are kept once, as shared language
+data by role, so that the 3132 element definitions need no annotation each: a pack element inherits
+the rules and types of its role, and a pack overrides them only where one of its elements differs
+(for example a Fiori object page that accepts only sections).
+
 **F-16.UC-1 — Change a pack once for both variants**
 
 **Actor:** pack author.
@@ -75,6 +81,10 @@ so each is seen whole; multi-platform packs show an example application per plat
 file wrapped in the `mockitdown-mockup` tag with the attributes the gallery passes for the selected
 pack — so a reader learns the vocabulary from working layouts and can copy one as a starting point.
 
+**Published (SRC-17).** The gallery was reachable only through the development server, so a reader of
+the published documentation could not find it. It is now published beside the documentation and the
+demo site, with a Gallery header tab on both sites.
+
 **F-18.UC-1 — Review a pack in the browser**
 
 **Actor:** developer or reviewer.
@@ -108,6 +118,16 @@ examples show an iPhone app, an iPad app and a Mac app with its menu bar.
 **Outcome:** the reader has the exact source of the example as rendered in that pack, and the example
 itself did not change while they looked.
 
+**F-18.UC-4 — Open the gallery from the published documentation**
+
+**Actor:** reader of the published documentation or the demo site.
+
+1. The reader selects the Gallery header tab.
+2. The published pack gallery opens on its first pack.
+3. The reader selects another pack and its Examples tab.
+
+**Outcome:** the reader sees every pack's elements and examples without installing anything or running a server.
+
 ### F-19 — Visual mockup editing components
 
 **Requires:** F-17
@@ -115,6 +135,20 @@ itself did not change while they looked.
 **Problem.** Writing mockups as code suits developers, not designers. Figma is the most popular web tool, but Axure is the better model here: the element hierarchy must be easy to navigate to insert, remove and edit elements (SRC-8).
 
 **Change.** Design-tool components — gallery, outline, inspector, editable view and code view — that a web application composes into an editor. The outline is the primary means of selection, because a click on nested elements is ambiguous; a click narrows the search by selecting the innermost element there. The components are defined now and built after the developer reviews the designer design document (SRC-8#clar-design).
+
+**Design session, modes and host integration (SRC-12#s4, SRC-12#s5, SRC-12#s12, SRC-13).** The
+components share one plain session object, so that the outline, the view, the gallery and the
+inspector always agree on the document, the active mockup and the selection. A composite
+`mockitdown-designer` lays them out as in the designer's main window (SRC-13: toolbar, outline,
+gallery, canvas, properties, status bar) and is what a host such as the MockItDown Designer's
+Electron shell embeds: it opens a design document, reports changes so the host can mark the document
+edited and autosave it, and returns the document on request. Opening and saving files, menus and
+windows stay with the host.
+
+**Structural commands (SRC-12#s8).** Rearranging the hierarchy is the main editing activity, so the
+selection has the commands of a structured editor: delete, duplicate, the clipboard as mockitdown text
+(which also pastes into a Markdown fence), move, wrap, unwrap, convert and extract component. Each is
+one undo step that restores the selection, and a host can put the same commands in its menus.
 
 **F-19.UC-1 — Build a screen visually**
 
@@ -127,6 +161,21 @@ itself did not change while they looked.
 
 **Outcome:** the screen shows the new field with its original placeholder; the code view shows the matching mockitdown code.
 
+**F-19.UC-2 — Host a design document in the composite designer**
+
+**Actor:** a host application (for example the MockItDown Designer's desktop shell).
+
+**Precondition:** the host has read a design document from a file.
+
+1. The host places the composite designer on its page and opens the document in it.
+2. The designer selects an element and deletes it.
+3. The host receives one change notification with the text edits and marks the document edited.
+4. The host asks the composite designer for the document and writes it to the file.
+5. The host later opens the written file in the composite designer again.
+
+**Outcome:** the reopened document shows the mockups as they were saved, without the deleted element, and every
+other part of the document, including keys the designer does not know, is unchanged.
+
 ### F-20 — Infinite canvas of named mockups
 
 **Requires:** F-19
@@ -134,6 +183,13 @@ itself did not change while they looked.
 **Problem.** One page of a design often holds several mockups, and tools that build design and specification projects (SpecItOut) must place each one where it belongs (SRC-8).
 
 **Change.** An infinite canvas that zooms and pans, holding named mockups. The name is the key importing tools use.
+
+**The design document (SRC-12#s10, SRC-12#s11, SRC-15).** A design document is one readable,
+diffable JSON file, `*.mkdesign`, with each mockup's code kept verbatim, so it can be read without the
+designer and imported by SpecItOut tools mockup by mockup. A mockup may use its own pack, which keeps
+side-by-side comparisons possible; the document names the default. One small module in the mockitdown
+package reads and writes the format for the components and for a desktop shell alike; Markdown and
+folder export stay in the shell for now.
 
 **F-20.UC-1 — Lay out a flow of screens**
 
@@ -144,3 +200,25 @@ itself did not change while they looked.
 3. The designer saves the canvas document.
 
 **Outcome:** the document holds the three named mockups with their positions and code, ready for a SpecItOut tool to import each by name.
+
+### F-21 — Structural editing of mockup source
+
+**Requires:** F-16
+
+**Problem.** The design-tool components (F-19) need to change a mockup's code as the designer works. Regenerating the whole mockup from a model would lose the author's formatting, comments, `let` bindings, `ForEach` loops and `if` conditions, and would turn every edit into a large diff (SRC-12#s9). The core also has no way to tell which call produced a rendered element (SRC-12#s13).
+
+**Change.** The code stays the source of truth. The TypeScript core keeps the position of every node, gives each element call a node identity that survives edits, and offers structural edits that return minimal text changes plus the new tree. New code follows printing rules kept as language-neutral cases, so the Python variant can adopt the same rules later (ADR-21). An optional rendering made for editing tags each rendered element with its node and marks the derived ones, which is how a click in the view finds its source (SRC-12#s16 "Core tests").
+
+**F-21.UC-1 — Apply a structural edit and receive the text edits**
+
+**Actor:** a host application (for example a design-tool component).
+
+**Precondition:** the host holds a mockup's code, formatted by its author, with comments and a `ForEach` loop.
+
+1. The host parses the code and finds the node of a vertical stack.
+2. The host asks the core to insert a `Toggle` as the stack's last child.
+3. The core returns the text edits and the new tree.
+4. The host applies the text edits to its copy of the code and renders it for editing.
+
+**Outcome:** the code differs from the original only by the inserted line; the rendered toggle names its node; every
+other call keeps its node identity.

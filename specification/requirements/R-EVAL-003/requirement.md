@@ -2,16 +2,17 @@
 id: R-EVAL-003
 title: Name resolution for views
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.0
+rev: 1
 page: LANG.2
 slot: reqs
 order: 3
-source: [SRC-2]
+source: [SRC-2, SRC-12]
 realizes: [F-2, F-3, F-4]
 constrained_by: [A-EVAL-1, A-PACK-1]
 reverse_engineered: true
-hash: 67f4fcecc197
+hash: 74ae63fcae83
+refs: [M-VIEW-1]
 ---
 
 C1: When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a struct declared in the block or imported; a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack.
@@ -23,3 +24,5 @@ C6: When `Color.<name>` appears where views are expected, the evaluator MUST pro
 C7: When a member access without parentheses (`view.modifier`) appears where views are expected, the evaluator MUST treat it as a modifier call with no arguments.
 C8: If an expression that cannot produce views appears where views are expected, then the evaluator MUST report "this expression does not produce a view" with code `view`.
 V1: With a struct `Card` declared in the block, `Card("x")` instantiates the struct even when the pack also has a `Card` element; `Foo()` with no such struct or element is an `unknown` error and an `unknown` view.
+C9: When a call's callee is a dotted name `A.B` (or `A.B.C`) whose parts all begin with an uppercase letter and whose first part is neither a variable in scope nor `Color`, the evaluator MUST resolve the call as C1 resolves the joined name (`AB`), so that `Badge.Ribbon(…)` calls the element `BadgeRibbon`.
+C10: The view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name.

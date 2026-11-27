@@ -1,0 +1,44 @@
+VStack(spacing: 0) {
+  Toolbar {
+    Text("Mockups: 3").font(.caption)
+    Spacer()
+    IconButton(icon: "minus")
+    Text("35 %")
+    IconButton(icon: "plus")
+    Button("Fit all")
+    Button("Fit selection")
+  }
+  HStack(alignment: .top, spacing: 40) {
+    VStack(alignment: .leading, spacing: 4) {
+      Text("Sign in").font(.caption).bold()
+      Card("Sign in") {
+        VStack(spacing: 6) { TextField("Email"); SecureField("Password"); Button("Sign in").buttonStyle(.borderedProminent) }.padding(8)
+      }
+      .frame(width: 200)
+    }
+    .callout(1)
+    VStack(alignment: .leading, spacing: 4) {
+      Text("Inbox").font(.caption).bold()
+      Card("Inbox") {
+        List { Row("Ana Lima", subtitle: "Quarterly report"); Row("Ben Okafor", subtitle: "Design review"); Row("Chen Wu", subtitle: "Lunch?") }
+      }
+      .frame(width: 220)
+      .highlight()
+    }
+    .callout(2)
+    VStack(alignment: .leading, spacing: 4) {
+      Text("Message").font(.caption).bold()
+      Card("Message") {
+        VStack(alignment: .leading, spacing: 6) { Text("Quarterly report").font(.headline); Text("Hi team — the numbers are in."); Button("Reply") }.padding(8)
+      }
+      .frame(width: 200)
+    }
+    Spacer()
+    VStack {
+      Spacer()
+      Card("Minimap") { HStack(spacing: 4) { Rectangle().frame(width: 16, height: 20); Rectangle().frame(width: 16, height: 20); Rectangle().frame(width: 16, height: 20) }.padding(6) }
+      .callout(3)
+    }
+  }
+  .padding(24)
+}

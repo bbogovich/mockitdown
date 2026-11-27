@@ -2,16 +2,16 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.9.0
-rev: 6
+version: 0.10.0
+rev: 7
 page: WEB.2
 slot: reqs
 order: 2
-hash: b42b06e4f3a7
-source: [SRC-8, SRC-9, SRC-10, SRC-11]
+hash: 152e6443330b
+source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
-refs: [R-DEV-008, R-PACK-012, R-WEB-002]
+refs: [R-DEV-008, R-PACK-012, R-WEB-002, R-WEB-003]
 ---
 
 C1: The pack gallery page `pages/packs.html` MUST have a master-detail layout: a side panel listing every shipped, non-hidden pack grouped and ordered as the example site's Reference menu (R-PACK-012.C5), and a main area showing the selected pack.
@@ -41,3 +41,8 @@ C24: The source block MUST have a Copy button that writes the snippet to the cli
 C25: Showing or hiding an example's source MUST NOT re-create, re-render or resize that example's mockup.
 C26: `window.packGallery` MUST offer `source(patternId)`, which resolves with the snippet of C22 for that example in the selected pack, or `null` when the selected pack does not show that example.
 V1: The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing.
+C27: The Pages workflow `.github/workflows/pages.yml`, on both branches, MUST install the TypeScript package's development dependencies with `npm ci`, build it with `npm run build` in `typescript/` of `main`, and publish the pack gallery at `/gallery/` of the site.
+C28: The published `/gallery/` MUST reproduce the development server's URL layout (R-WEB-003.C5): `gallery/pages/` holding the files of `typescript/pages/`, `gallery/dist/` the built package, and `gallery/shared/` the `reference/` and `patterns/` folders of `shared/`, so that every test page works unchanged as static files.
+C29: `/gallery/index.html` MUST redirect to `pages/packs.html` with a meta refresh and a link.
+C30: Every request a published test page makes MUST be for a file under `/gallery/`.
+C31: The Pages workflow MUST serve the assembled site with a static file server before uploading it, open `/gallery/` in Chromium, and fail when the gallery does not reach `packGallery.state` `ready`, when `renderAll()` for `base` or `swiftui` reports an error diagnostic or a mockup without rendered content, or when a request fails.

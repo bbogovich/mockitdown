@@ -11,3 +11,8 @@ The corpus's `<name>.diag.json` (R-REPO-004.C7) is part of the expected result: 
 Images are never embedded (C7): a local path such as `Image("team.jpg")` becomes the `asset_base` URL joined with the path (C14), for the browser to load. With no `asset_base` there is nowhere to look, and the result is the one the Python renderer gives when none of its asset paths holds the file — the same warning and the photo placeholder (C15) — so the conformance case for a missing image holds in both variants.
 
 `render` returns what the Python `render` returns (C16): the HTML (the error box first when there are errors, or warnings with `show_warnings`), every diagnostic, the pack lineage for `stylesheet`, and the evaluated screen.
+
+The package also publishes the reference data (`dist/shared/reference/`), which the design-tool gallery
+reads for every element's role, parameters and sample (R-TOOL-004). The manifest lists it apart from the
+files a host loads into the core, because a browser host fetches every file of `files` at start-up and the
+reference data is large.

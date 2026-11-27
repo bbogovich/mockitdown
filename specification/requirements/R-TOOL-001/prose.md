@@ -1,0 +1,7 @@
+The view of SRC-13#p1.c4 for one mockup. A click is a quick way to *locate* an element: it selects
+the innermost element under the pointer, and a second click or Esc climbs to the parent, because a click
+on a button's label could mean the label, the button, the stack or the card around it (SRC-12#s5). The
+outline remains the primary means of selection.
+
+Elements that a loop, a condition or a component produced select the construct they came from and show a
+"derived" badge, because editing them means editing that construct.

@@ -83,6 +83,12 @@ with `pack` (and, for the platform examples, `device`, `chrome`, `menubar`, `app
 gallery (`caption`, `label`, `appearance`) are left out. The block has a Copy button and scrolls sideways
 for long lines; opening it never re-renders the example.
 
+**Published (SRC-17).** The Pages workflow builds the package and copies the test pages, the built
+package and the shared `reference/` and `patterns/` folders under `/gallery/` in the same layout as
+the development server, so `packs.js` reaches `../dist/` and `../shared/` unchanged. The workflow opens
+the published copy in a browser before it deploys, so a gallery that would not load is never published.
+Test pages added later (the designer test page) are published by the same copy.
+
 **R-WEB-004.TC-1 — Every pack renders**
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
@@ -134,6 +140,23 @@ Browser test (Chromium, `gallery.spec.mjs`), for the `base` pack (core patterns)
 A unit test of the snippet builder (pure function, both a core and a pack-specific entry) runs under
 `npm test` without a browser.
 
+**R-WEB-004.TC-9 — Published gallery**
+
+Run by the Pages workflow after the site is assembled (`typescript/tests/browser/published.spec.mjs`,
+pointed at a static file server over the assembled `public/` folder through `GALLERY_URL`):
+
+1. `/gallery/` redirects to `/gallery/pages/packs.html`, and `packGallery.state` becomes `ready`.
+2. `renderAll()` for `base` and for `swiftui` (Elements and Examples) resolves with no error
+   diagnostic and no mockup without rendered content.
+3. No request fails, and every request URL starts with the server's `/gallery/`.
+4. The assembled `public/gallery/` holds `pages/packs.html`, `dist/mockitdown.js`,
+   `dist/shared/manifest.json`, `shared/reference/index.json` and `shared/patterns/index.json`.
+5. The header tabs of `/` (documentation) and `/demos/` (example site) read Demo, Gallery,
+   Definition, Specification, Implementation, Reference, and both Gallery tabs link to `/gallery/`
+   (R-PACK-012.C6).
+
+The workflow fails, and nothing is deployed, when the test fails.
+
 **R-WEB-004.TC-M1 — Manual review**
 
 TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a few packs with the example site's Reference pages.
@@ -169,6 +192,11 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 | C25 | Showing or hiding an example's source MUST NOT re-create, re-render or resize that example's mockup. |
 | C26 | `window.packGallery` MUST offer `source(patternId)`, which resolves with the snippet of C22 for that example in the selected pack, or `null` when the selected pack does not show that example. |
 | V1 | The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing. |
+| C27 | The Pages workflow `.github/workflows/pages.yml`, on both branches, MUST install the TypeScript package's development dependencies with `npm ci`, build it with `npm run build` in `typescript/` of `main`, and publish the pack gallery at `/gallery/` of the site. |
+| C28 | The published `/gallery/` MUST reproduce the development server's URL layout (R-WEB-003.C5): `gallery/pages/` holding the files of `typescript/pages/`, `gallery/dist/` the built package, and `gallery/shared/` the `reference/` and `patterns/` folders of `shared/`, so that every test page works unchanged as static files. |
+| C29 | `/gallery/index.html` MUST redirect to `pages/packs.html` with a meta refresh and a link. |
+| C30 | Every request a published test page makes MUST be for a file under `/gallery/`. |
+| C31 | The Pages workflow MUST serve the assembled site with a static file server before uploading it, open `/gallery/` in Chromium, and fail when the gallery does not reach `packGallery.state` `ready`, when `renderAll()` for `base` or `swiftui` reports an error diagnostic or a mockup without rendered content, or when a request fails. |
 
 ---
 

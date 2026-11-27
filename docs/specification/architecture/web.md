@@ -32,11 +32,14 @@ The port of the Python core (ADR-18): lexer, parser, evaluator, renderer, style 
 
 The renderer is ported module for module: `render/html.ts` (roles), `render/style.ts` (modifiers → CSS), `render/charts.ts` (SVG charts), `render/chrome.ts` (device chrome), `render/index.ts` (figure assembly and the anchor prefix), with `icons.ts` reading the shared icon table and `asset-resolver.ts` resolving images against an asset base URL instead of embedding them (R-WEB-001.C7). Python's number formatting (`%.Nf`, `%g`, `round`, ties to even on the exact binary value) is reproduced in `pyformat.ts`, and the anchor prefix's SHA-1 in `sha1.ts`, synchronously and without Node's `crypto` (K1).
 
+The editing core keeps the same constraint (K1): it works on source text and returns text edits.
+
 **Level.** module
 
 | | Statement |
 |---|---|
 | P1 | provides: `render(source, options)`, `check(source, options)`, `evaluate(source, options)`, `stylesheet(packIds, {minify})`, `loadAssets(assets)`, `registerPack(json, css)`, `registerComponents(name, source)` and the pack registry (`typescript/src/core/`) |
+| P2 | provides: the editing core — `parseTree`, `reparse` and `edit` (R-EDIT-001 to R-EDIT-003), the `edit` render option (R-EDIT-004), `canContain` and `allowedChildren` (R-PACK-016) and `parameterTypes` and `modifierTypes` (R-PACK-017) |
 | U1 | uses A-REPO-1 — the packs, icons, vocabulary and page stylesheet, copied into the package at build |
 | K1 | The TypeScript core MUST NOT access the DOM, the network or the file system; assets reach it as data. |
 
@@ -88,3 +91,39 @@ Development and test only; none of it is part of the published package.
 | U1 | uses A-WEB-2 — every mockup on a test page |
 | U2 | uses A-REPO-1 — reference samples and design patterns |
 | K1 | The development server MUST serve files only from the package, its build output and `shared/`, and MUST bind to the loopback interface. |
+
+---
+
+#### A-WEB-4 — Design document and session module
+
+The pure half of the design tools: the `.mkdesign` format and the session every component shares. It is
+the part a host uses without a browser, for example to validate and save a document in an Electron main
+process.
+
+**Level.** module
+
+| | Statement |
+|---|---|
+| P1 | provides: the module `dist/design.js` (subpath `mockitdown/design`, `typescript/src/design/`): `readDesign`, `writeDesign`, `newDesign`, `mockupOptions` and `DesignSession` with its history and commands |
+| U1 | uses A-WEB-1 — parse, re-parse, edit and render the mockups' code, and the role rules |
+| K1 | The module MUST NOT access the DOM, the network or the file system, so that a desktop shell's main process can use it in Node. |
+| K2 | The session MUST change a mockup's code only through edit operations, commands and code changes it records in its history. |
+
+---
+
+#### A-WEB-5 — Design-tool components
+
+The DOM half of the design tools. Every element renders session state and forwards events, so the same
+rules apply whichever components a host composes, and the browser tests drive the components through the
+test pages.
+
+**Level.** module
+
+| | Statement |
+|---|---|
+| P1 | provides: the custom elements `mockitdown-designer`, `mockitdown-canvas`, `mockitdown-editor`, `mockitdown-outline`, `mockitdown-gallery`, `mockitdown-inspector`, `mockitdown-code` and `mockitdown-diagnostics` (`typescript/src/elements/`), defined by the package entry, and the test pages `pages/editor.html` and `pages/designer.html` |
+| U1 | uses A-WEB-4 — the session, the document, the history and the commands |
+| U2 | uses A-WEB-2 — previews, Preview mode and inactive mockups through `mockitdown-mockup` |
+| U3 | uses A-WEB-1 — edit-mode rendering, the lexer, role rules and parameter types |
+| K1 | Each component MUST render into its own open shadow root, be styled through custom properties and `::part`, and use no UI framework. |
+| K2 | The components MUST hold no editing rule of their own: they render the session's state and forward the user's actions to it. |

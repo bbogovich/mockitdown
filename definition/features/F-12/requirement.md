@@ -2,14 +2,14 @@
 id: F-12
 title: Diagnostics and strict builds
 status: active
-version: 0.2.0
-rev: 0
+version: 0.9.0
+rev: 1
 page: FEAT.2
 slot: features
 order: 5
 family: rendering
-source: [SRC-3]
-hash: a8e4b882df54
+source: [SRC-3, SRC-12]
+hash: 2dc6c0fccd67
 ---
 
 G1: Authors must learn quickly and precisely what is wrong with a mockup, and continuous integration must be able to refuse a broken one.
@@ -21,3 +21,6 @@ C5: Warnings appear in the build log; showing them in the page is optional.
 AC1: A misspelt element name produces an error naming the pack and the element, at its line and column, and a placeholder in the figure.
 AC2: With strict mode on, a site containing that block fails to build.
 AC3: A syntax error renders an error box in place of the figure.
+C6: A labelled argument that the called element does not understand is reported as a warning naming the element and the label, instead of being dropped silently; both variants report it alike.
+AC4: `Text("Hi", colour: .red)` produces a warning naming `Text` and `colour` in both variants, and the text still renders.
+AC5: The shipped design patterns, the element samples and the example site render without such a warning.

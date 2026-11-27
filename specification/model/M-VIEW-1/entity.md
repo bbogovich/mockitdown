@@ -2,13 +2,14 @@
 id: M-VIEW-1
 title: View
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.0
+rev: 1
 page: MODEL.1
 slot: entities
 order: 2
 level: entity
-hash: 05a3407e81f0
+hash: 391dbadd569d
+refs: [M-PACK-2, M-VIEW-2, R-EDIT-001, R-EDIT-004]
 ---
 
 F1: name: str · key — the element or struct name as written (`Button`, `InfoBar`), or the unknown name
@@ -21,6 +22,8 @@ F7: slots: dict — label → views, from labelled closures and view-valued argu
 F8: modifiers: list — recorded rendered modifiers, in order
 F9: component: str · optional — the struct whose body this view is the root of
 F10: loc: Location — where the view was written
+F11: node: str · optional — ordinal (`n<k>`) of the view node it was produced from (R-EDIT-001.C4)
+F12: derived: str · optional — ordinal of the innermost `ForEach` call, `if` statement or struct call that produced it (R-EDIT-004.C5)
 R1: definition: → M-PACK-2 (0..1) — the element definition
 R2: modifiers: → M-VIEW-2 (0..*) — recorded modifiers
 I1: A view's role MUST be a renderer role or `unknown`.

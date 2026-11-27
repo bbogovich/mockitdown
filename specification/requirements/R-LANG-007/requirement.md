@@ -2,17 +2,17 @@
 id: R-LANG-007
 title: Calls, modifier chains and closures
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.0
+rev: 1
 page: LANG.1
 slot: reqs
 order: 7
-source: [SRC-2]
+source: [SRC-2, SRC-12]
 realizes: [F-2]
 constrained_by: [A-SYN-2]
 decisions: [ADR-2]
 reverse_engineered: true
-hash: 77ed00c0d287
+hash: ba3547bf7f0f
 ---
 
 C1: The parser MUST parse an argument list as `(` zero or more arguments separated by `,` `)`, each optionally labelled `label:` where the label may be an identifier or a keyword, with line feeds allowed between arguments.
@@ -23,3 +23,4 @@ C5: After a trailing closure, the parser MUST parse each following `label: {` �
 C6: The parser MUST parse closure parameters when the closure starts with `a, b in`, `(a, b) in`, typed parameters `a: T in`, or `_ in`; otherwise the closure has no parameters and its whole content is its body.
 C7: If an argument list lacks `,` or `)` between arguments, then the parser MUST raise "expected ',' or ')' in an argument list".
 V1: `Text("A")` newline `.font(.title)` newline `.bold()` parses as one chain; `.alert("T", isPresented: true) { Button("OK") } message: { Text("m") }` has one unlabelled and one labelled trailing closure; `ForEach(items) { name, dept in … }` has two parameters.
+C8: The parser MUST parse a member access whose name begins with an uppercase letter, followed on the same line by an argument list or a trailing closure (`Badge.Ribbon("New")`, `Card.Meta { … }`), as a call whose callee is that member access.

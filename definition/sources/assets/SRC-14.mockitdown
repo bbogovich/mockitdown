@@ -1,0 +1,37 @@
+HStack(alignment: .top, spacing: 16) {
+  VStack(alignment: .leading, spacing: 6) {
+    Text("Outline").font(.headline)
+    Tree {
+      TreeItem("NavigationStack", folder: true) {
+        TreeItem("VStack", folder: true) {
+          TreeItem("Text \"Welcome back\"", systemImage: "doc")
+          TreeItem("HStack #actions", folder: true) {
+            TreeItem("Button \"Forgot password?\"", systemImage: "square")
+            TreeItem("Toggle — drop here", systemImage: "arrow.down")
+              .selected()
+          }
+        }
+      }
+    }
+    .callout(1)
+  }
+  .frame(width: 300)
+  VStack(alignment: .leading, spacing: 6) {
+    Text("Gallery — allowed in HStack").font(.headline)
+    SearchField("Filter elements")
+    Section("Controls") {
+      HStack { Card("Button"); Card("Toggle").highlight(); Card("Picker") }
+    }
+    .callout(2)
+    Section("Content") {
+      HStack { Card("Text"); Card("Image"); Card("Badge") }
+    }
+    Section("Hidden here (2)") {
+      Text("NavigationSplitView, TabView — frames go at the root of a mockup").font(.caption).foregroundStyle(.secondary)
+    }
+    .callout(3)
+    Button("Add to HStack #actions", systemImage: "plus").buttonStyle(.borderedProminent)
+  }
+  .frame(width: 360)
+}
+.padding()

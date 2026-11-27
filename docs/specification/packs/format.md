@@ -1,8 +1,8 @@
 ---
 title: "Pack format"
-spec_version: 0.8.13
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: PACK.1
 ---
 
@@ -255,6 +255,17 @@ The documentation (docs branch) and the example site (main branch) remain two Ze
 side by side (`/` and `/demos/`); identical header tabs make them read as one site. The Reference section
 lives in the example site because it is generated from code and needs every pack's CSS.
 
+The pack gallery of the web components (R-WEB-004) is published beside them at `/gallery/` and has its
+own header tab, Gallery, next to Demo on both sites (SRC-17).
+
+**R-PACK-012.TC-1 — Header tabs of both sites**
+
+Python test (`test_site_nav.py`): the top-level `nav` entries of `python/examples/site/mkdocs.yml` are
+Demo, Gallery, Definition, Specification, Implementation and Reference in that order, Gallery being the
+absolute URL `https://bbogovich.github.io/mockitdown/gallery/`, with `navigation.tabs` and
+`navigation.tabs.sticky` enabled. The published-site test of the Pages workflow (R-WEB-004.TC-9, step 5)
+checks the same six tabs, in order, in the built pages of both sites.
+
 **Realizes.** F-14
 
 | | Statement |
@@ -265,7 +276,7 @@ lives in the example site because it is generated from code and needs every pack
 | C4 | A pack's own elements that declare variants SHOULD be shown once per variant (at most eight) in one mockup. |
 | C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Wireframe (alternative looks of the core vocabulary, such as `sketch`), Desktop, Web, Mobile and Retro — a framework pack is Web when its default device uses browser chrome, Mobile when its default device is a phone or tablet, Desktop otherwise — the retro packs in chronological order; the Demo menu of the example site MUST use the same groups. |
 | C8 | Both sites MUST keep the header tabs visible at every window width and while scrolling (`navigation.tabs.sticky`, and a stylesheet overriding the theme's narrow-screen rule that moves the tabs into the drawer). |
-| C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same five top-level sections in the order Demo, Definition, Specification, Implementation, Reference; a section built by the other site is a link to its published URL. |
+| C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same six top-level sections in the order Demo, Gallery, Definition, Specification, Implementation, Reference; a section built elsewhere (by the other site, or the pack gallery at `/gallery/`, R-WEB-004.C27) is a link to its published URL. |
 | C7 | The site root MUST redirect to the Demo section. |
 | V1 | `python tools/gen_reference.py --check` fails, and with it the test suite, when a Reference page or the nav block differs from what the pack definitions generate. |
 
@@ -565,6 +576,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | six header tabs with Gallery next to Demo (SRC-17): C6, TC-1 (ING-1) |
 | 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |
 | 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
 | 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |
@@ -579,6 +591,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |
 | 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
 | 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |
 | 0.8.7 | 2026-11-25 | as built (#12): Button children of alert and action-sheet dialogs are their actions in every pack (C9), a lone popover has a placeholder anchor (C10), a lone Tab is a one-item tab bar (C11); C7 column titles from .navigationTitle, 320 points at fit, .balanced side by side, .prominentDetail floating sidebar |

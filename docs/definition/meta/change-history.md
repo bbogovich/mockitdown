@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.9.0 | 2026-11-26 | `FEAT.1`, `FEAT.2`, `FEAT.3` | ING-1 (MockItDown Designer components): F-21 structural editing; F-16.CR-1 role rules and typed parameters; F-12.CR-1 unknown labelled arguments warned; F-19.CR-1 design session, composite designer and host events; F-19.CR-2 structural commands; F-20.CR-1 the .mkdesign document; F-15.CR-1 overlay callouts; F-2.CR-1 dotted names; F-18.CR-4 gallery published on GitHub Pages (SRC-17) |
 | 0.8.0 | 2026-11-26 | `FEAT.3` | show source on gallery examples (SRC-11) |
 | 0.7.0 | 2026-11-25 | `FEAT.3` | SRC-10: gallery tabs and complex examples |
 | 0.6.0 | 2026-11-25 | `FEAT.1`, `FEAT.2`, `FEAT.3` | SRC-9: SwiftUI fidelity, layout without overlap, multi-platform chrome and the macOS menu bar, meaningful gallery samples |

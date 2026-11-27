@@ -1,8 +1,8 @@
 ---
 title: "Features: authoring"
-def_version: 0.6.0
+def_version: 0.9.0
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: FEAT.1
 ---
 
@@ -49,6 +49,9 @@ dialect (SRC-3).
 **Change.** The notation is a declarative subset of Swift and SwiftUI. Developers recognise it,
 editors highlight it as Swift, and real SwiftUI code can be pasted in. The same syntax describes a
 Fluent, Material or SAPUI5 screen — only the element names change.
+
+**Dotted element names (SRC-12#s13).** Component libraries name sub-components with a dot
+(`Badge.Ribbon`, `Card.Meta`); packs had to join them (`BadgeRibbon`). Both spellings now work.
 
 **F-2.UC-1 — Paste a SwiftUI view into the specification**
 
@@ -187,8 +190,10 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |

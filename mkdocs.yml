@@ -82,6 +82,7 @@ nav:
       - Packs:
           - Pack format: specification/packs/format.md
           - Pack catalogue: specification/packs/catalogue.md
+          - Role rules and typed parameters: specification/packs/design-data.md
       - Rendering:
           - Markup: specification/rendering/markup.md
           - Role catalogue: specification/rendering/roles.md
@@ -100,6 +101,9 @@ nav:
           - Variants and shared assets: specification/variants.md
           - Web components: specification/web/components.md
           - Test pages and tests: specification/web/test-pages.md
+          - Editing core: specification/web/editing.md
+          - Design-tool components: specification/web/design-tools.md
+          - Canvas of named mockups: specification/web/canvas.md
       - Architecture:
           - Core modules: specification/architecture/core.md
           - Output and integration modules: specification/architecture/output.md
@@ -108,6 +112,7 @@ nav:
       - Decisions:
           - Notation and rendering: specification/decisions/notation-rendering.md
           - Integration and delivery: specification/decisions/integration-delivery.md
+          - Web variant and design tools: specification/decisions/web-tools.md
       - Traceability to the prototype: specification/traceability.md
       - Change history: specification/meta/change-history.md
   - Implementation:

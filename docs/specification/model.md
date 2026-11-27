@@ -1,8 +1,8 @@
 ---
 title: "Model"
-spec_version: 0.2.0
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: MODEL.1
 ---
 
@@ -23,6 +23,28 @@ erDiagram
     str message
     Location location
     str code
+  }
+  DesignDocument {
+    str format
+    int version
+    str name
+    dict defaults
+    list imports
+    list sections
+    list mockups
+    dict view
+  }
+  DesignMockup {
+    str name PK
+    number x
+    number y
+    dict options
+    str code
+  }
+  TextEdit {
+    int start
+    int end
+    str text
   }
   RenderOptions {
     str pack
@@ -46,6 +68,7 @@ erDiagram
     int max_embed_bytes
     path source_path
     bool show_warnings
+    bool edit
   }
   Pack {
     str id PK
@@ -71,6 +94,15 @@ erDiagram
     dict defaults
     list variants
     str doc
+    dict rules
+    dict types
+  }
+  RoleRule {
+    str role PK
+    str category
+    list accepts
+    str attach
+    dict params
   }
   Module {
     str source
@@ -90,6 +122,8 @@ erDiagram
     list modifiers
     str component
     Location loc
+    str node
+    str derived
   }
   Modifier {
     str name
@@ -110,6 +144,7 @@ erDiagram
   }
   RenderResult ||--o{ Diagnostic : "diagnostics"
   RenderResult ||--|o Screen : "screen"
+  DesignDocument ||--o{ DesignMockup : "mockups"
   Pack ||--|o Pack : "parent"
   Pack ||--o{ ElementDef : "elements"
   View ||--|o ElementDef : "definition"
@@ -139,6 +174,8 @@ The syntax tree of one block or component file.
 
 One node of the resolved view tree that the evaluator produces and the renderer consumes.
 
+`node` and `derived` are set when the source was evaluated for an edit-mode rendering (R-EDIT-004).
+
 **Level.** entity
 
 | | Statement |
@@ -153,6 +190,8 @@ One node of the resolved view tree that the evaluator produces and the renderer 
 | F8 | modifiers: list — recorded rendered modifiers, in order |
 | F9 | component: str · optional — the struct whose body this view is the root of |
 | F10 | loc: Location — where the view was written |
+| F11 | node: str · optional — ordinal (`n<k>`) of the view node it was produced from (R-EDIT-001.C4) |
+| F12 | derived: str · optional — ordinal of the innermost `ForEach` call, `if` statement or struct call that produced it (R-EDIT-004.C5) |
 | R1 | definition: → M-PACK-2 (0..1) — the element definition |
 | R2 | modifiers: → M-VIEW-2 (0..*) — recorded modifiers |
 | I1 | A view's role MUST be a renderer role or `unknown`. |
@@ -246,6 +285,8 @@ A loaded design pack.
 
 One element of a pack: how a framework component maps onto a render role.
 
+`rules` and `types` are read only by the design tools (R-PACK-016, R-PACK-017); rendering ignores them.
+
 **Level.** entity
 
 | | Statement |
@@ -256,6 +297,8 @@ One element of a pack: how a framework component maps onto a render role.
 | F4 | defaults: dict — attribute values applied before the call's arguments |
 | F5 | variants: list — documented values of `variant` |
 | F6 | doc: str — one line of usage |
+| F7 | rules: dict · optional — `{accepts}`, narrowing its role's rule for this element (R-PACK-016.C5) |
+| F8 | types: dict · optional — parameter name → type, adding to or overriding its role's `params` (R-PACK-017.C3) |
 | I1 | The role MUST be one of the renderer's roles. |
 
 ---
@@ -263,6 +306,8 @@ One element of a pack: how a framework component maps onto a render role.
 #### M-OPT-1 — RenderOptions
 
 Everything that can be set for one mockup, from the site, the fence or the CLI.
+
+`edit` is a library option (R-EDIT-004.C10); the fence and the command line do not offer it.
 
 **Level.** entity
 
@@ -289,6 +334,7 @@ Everything that can be set for one mockup, from the site, the fence or the CLI.
 | F19 | max_embed_bytes: int — embed size cap (default 2000000) |
 | F20 | source_path: path · optional — file the source came from |
 | F21 | show_warnings: bool — show warnings in the page (default false) |
+| F22 | edit: bool — edit-mode rendering, `data-mkd-node` and `data-mkd-derived` on role roots (default false; R-EDIT-004) |
 | I1 | Render options MUST be immutable; overrides produce a new value. |
 
 ---
@@ -324,8 +370,82 @@ What `render` returns.
 | R1 | diagnostics: → M-DIAG-1 (0..*) — reported problems |
 | R2 | screen: → M-VIEW-3 (0..1) — the evaluated mockup |
 
+---
+
+#### M-PACK-3 — RoleRule
+
+One entry of `shared/language/roles.json` (R-PACK-016, R-PACK-017).
+
+**Level.** entity
+
+| | Statement |
+|---|---|
+| F1 | role: str · key — the render role (`root` for the root of a mockup) |
+| F2 | category: str — frame &#124; bar &#124; layout &#124; collection &#124; content &#124; overlay &#124; annotation |
+| F3 | accepts: list — the roles, or `@category` names, its views may hold as children |
+| F4 | attach: str — child &#124; presentation &#124; modifier |
+| F5 | params: dict — labelled argument → type (`text`, `number`, `bool`, `color`, `icon`, `enum`, `array`) |
+| I1 | Every render role MUST have exactly one rule. |
+
+---
+
+#### M-EDIT-1 — DesignDocument
+
+A `.mkdesign` file (R-EDIT-005). The fields are listed in the order the module writes them.
+
+**Level.** entity
+
+| | Statement |
+|---|---|
+| F1 | format: str — always `mockitdown-design` |
+| F2 | version: int — the format version, 1 |
+| F3 | name: str — the document's name |
+| F4 | defaults: dict — render options applied to every mockup (among them `pack`, the default pack) |
+| F5 | imports: list · optional — component files the mockups may import |
+| F6 | sections: list · optional — `{name, x, y, w, h}` rectangles drawn behind groups of mockups |
+| F7 | mockups: list — the named mockups, in document order |
+| F8 | view: dict · optional — `{zoom, x, y, active}`: the canvas's zoom, position and active mockup |
+| R1 | mockups: → M-EDIT-2 (0..*) — the document's mockups |
+| I1 | Mockup names MUST be unique within a document. |
+| I2 | Keys not listed here MUST be kept, after the listed ones, in the order they were read. |
+
+---
+
+#### M-EDIT-2 — DesignMockup
+
+One named mockup of a design document (R-EDIT-005, R-TOOL-012).
+
+**Level.** entity
+
+| | Statement |
+|---|---|
+| F1 | name: str · key — unique, case-sensitive, may hold spaces |
+| F2 | x: number — canvas position of the frame's left edge |
+| F3 | y: number — canvas position of the frame's top edge |
+| F4 | options: dict · optional — render options of this mockup (`pack`, `device`, `width`, `height`, `title`, …) |
+| F5 | code: str — the mockitdown source, verbatim |
+| I1 | The mockup's pack MUST be `options.pack`, else the document's `defaults.pack`, else `base`. |
+
+---
+
+#### M-EDIT-3 — TextEdit
+
+A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and carried by
+`mockitdown-change` (R-EDIT-006).
+
+**Level.** entity
+
+| | Statement |
+|---|---|
+| F1 | start: int — offset of the first replaced code unit (UTF-16) |
+| F2 | end: int — offset after the last replaced code unit; equal to `start` for an insertion |
+| F3 | text: str — the replacement text; empty for a removal |
+| I1 | The edits of one change MUST be in ascending order of `start` and MUST NOT overlap, every offset referring to the text before the change. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-PACK-3: RoleRule; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

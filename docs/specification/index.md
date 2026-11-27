@@ -1,8 +1,8 @@
 ---
 title: mockitdown Specification
-spec_version: 0.2.0
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: HOME
 ---
 
@@ -29,8 +29,9 @@ intent and its prose records a **Known deviation**.
 | Resources | [Assets and icons](assets.md) (R-ASSET) · [Component imports](imports.md) (R-IMP) |
 | Integration | [Markdown extension and fence](integration/markdown.md) (R-MDX) · [Site integration guide](integration/site-guide.md) · [Command line](integration/cli.md) (R-CLI) · [Library API](integration/api.md) (R-API) |
 | Quality | [Diagnostics](diagnostics.md) (R-DIAG) |
+| Web variant | [Variants and shared assets](variants.md) (R-REPO) · [Web components](web/components.md) (R-WEB) · [Test pages and tests](web/test-pages.md) · [Editing core](web/editing.md) (R-EDIT) · [Design-tool components](web/design-tools.md) and [Canvas of named mockups](web/canvas.md) (R-TOOL) · [Role rules and typed parameters](packs/design-data.md) |
 | Structure | [Core modules](architecture/core.md) · [Output and integration modules](architecture/output.md) (A-…) · [Model](model.md) (M-…) |
-| Decisions | [Notation and rendering](decisions/notation-rendering.md) (ADR-1 – ADR-7) · [Integration and delivery](decisions/integration-delivery.md) (ADR-8 – ADR-14) |
+| Decisions | [Notation and rendering](decisions/notation-rendering.md) (ADR-1 – ADR-7) · [Integration and delivery](decisions/integration-delivery.md) (ADR-8 – ADR-14) · [Web variant and design tools](decisions/web-tools.md) (ADR-21, ADR-22) |
 | History | [Traceability to the prototype](traceability.md) · [Change history](meta/change-history.md) |
 
 **Conventions.** Requirements are `R-<AREA>-nnn`; each has numbered normative clauses `C1, C2, …`
@@ -42,5 +43,6 @@ intent and its prose records a **Known deviation**.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | Web variant areas registered: R-EDIT (editing core), R-TOOL (design-tool components) (ING-1) |
 | 0.2.0 | 2026-11-24 | First full specification, derived from the prototype and the production code |
 | 0.1.0 | 2026-01-01 | Initialized |

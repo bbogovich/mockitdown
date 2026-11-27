@@ -24,6 +24,14 @@ script child (ADR-19):
 </mockitdown-mockup>
 ```
 
-The design-tool components (F-19, F-20) are specified after the designer design document is reviewed.
+The design-tool components (F-19, F-20) and the editing core they stand on (F-21) are specified on
+[Editing core](editing.md), [Design-tool components](design-tools.md) and
+[Canvas of named mockups](canvas.md).
 
 <!-- slot: reqs -->
+
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |

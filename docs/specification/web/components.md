@@ -1,8 +1,8 @@
 ---
 title: "Web components"
-spec_version: 0.6.0
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: WEB.1
 ---
 
@@ -24,7 +24,9 @@ script child (ADR-19):
 </mockitdown-mockup>
 ```
 
-The design-tool components (F-19, F-20) are specified after the designer design document is reviewed.
+The design-tool components (F-19, F-20) and the editing core they stand on (F-21) are specified on
+[Editing core](editing.md), [Design-tool components](design-tools.md) and
+[Canvas of named mockups](canvas.md).
 
 ### R-WEB-001 — TypeScript package and core
 
@@ -44,6 +46,11 @@ Images are never embedded (C7): a local path such as `Image("team.jpg")` becomes
 
 `render` returns what the Python `render` returns (C16): the HTML (the error box first when there are errors, or warnings with `show_warnings`), every diagnostic, the pack lineage for `stylesheet`, and the evaluated screen.
 
+The package also publishes the reference data (`dist/shared/reference/`), which the design-tool gallery
+reads for every element's role, parameters and sample (R-TOOL-004). The manifest lists it apart from the
+files a host loads into the core, because a browser host fetches every file of `files` at start-up and the
+reference data is large.
+
 **R-WEB-001.TC-1 — Conformance corpus in TypeScript**
 
 Automated by `typescript/tests/unit/conformance.test.ts` (node:test).
@@ -59,6 +66,13 @@ Automated by `typescript/tests/unit/packs.test.ts`: a pack registered with `regi
 **R-WEB-001.TC-4 — Render API and images by base URL**
 
 Automated by `typescript/tests/unit/render.test.ts`: `render` returns html, diagnostics, packs and screen; the error box, `show_warnings` and `source`; `check`; a local image resolved against `asset_base`, reported as not found without one, remote and `data:image` references passed through; `stylesheet` with ancestors once; the anchor prefix's SHA-1; icon names; Python number formatting.
+
+**R-WEB-001.TC-5 — Reference data in the package**
+
+`node scripts/copy-shared.mjs --check` (run by `npm test`) fails when `dist/shared/reference/` differs
+from `shared/reference/`; a unit test reads `dist/shared/manifest.json` and checks that `reference` lists
+`reference/index.json` and one `reference/<pack>.json` per pack, that none of them is in `files`, and
+that `loadAssetsFromUrl` with a recording `fetch` requests no reference file.
 
 **Realizes.** F-16, F-17
 
@@ -76,11 +90,12 @@ Automated by `typescript/tests/unit/render.test.ts`: `render` returns html, diag
 | C10 | When the render options name neither a source path nor import search paths, `import "path"` MUST try the path as written, then with `.mockitdown`. |
 | C11 | A diagnostic located in an imported component file MUST name that file's normalised path (the registered or resolved candidate, e.g. `components/pill.mockitdown`) as its source. |
 | C12 | The render options MUST use the field names of the Python `RenderOptions` for the options both variants share, so that a conformance case's `<name>.json` applies unchanged. |
-| C13 | `npm run build` MUST write `dist/shared/manifest.json`, an object `{"packs": [id, …], "files": [path, …]}` listing the built-in pack ids and the files under `dist/shared/`. |
+| C13 | `npm run build` MUST write `dist/shared/manifest.json`, an object `{"packs": [id, …], "files": [path, …], "reference": [path, …]}` listing the built-in pack ids, the files under `dist/shared/` that a host loads into the core, and the reference files of C17. |
 | C14 | The render options MUST name the asset base URL `asset_base`; a local image path MUST resolve to that URL joined with the path. |
 | C15 | When the render options name no asset base URL, a local image path MUST be reported as the Python renderer reports an image no asset path holds (`asset '<path>' not found (searched (no asset paths))`, code `asset`) and render as the image placeholder. |
 | C16 | `render` MUST return an object with `html`, `diagnostics`, `packs` (the pack lineage, root first, empty after a syntax error) and `screen`, as the Python `RenderResult`, and `check` MUST return the diagnostics of `render`. |
 | V1 | `node --test` runs the conformance cases against `dist/` and fails on any difference. |
+| C17 | `npm run build` MUST copy `shared/reference/index.json` and every `shared/reference/<pack>.json` into `dist/shared/reference/`, listed under `reference` and not under `files` in the manifest, so that `loadAssetsFromUrl` does not fetch them. |
 
 ---
 
@@ -124,6 +139,9 @@ Pages that show many mockups can create them on demand: the pack gallery (R-WEB-
 a new element before inserting it, so each one renders once, and waits on `rendered` to know when a
 whole pack is done.
 
+`<mockitdown-mockup edit>` renders the mockup for editing (R-EDIT-004): every element produced from a
+call carries `data-mkd-node`. The design tools use it; a page showing a mockup to readers does not.
+
 **R-WEB-002.TC-1 — Script child with markup characters**
 
 Automated by `typescript/tests/browser/mockup.spec.mjs`: code with `Text("a < b && c > d")` renders the text verbatim and the HTML equals the conformance output.
@@ -135,6 +153,12 @@ Automated by `typescript/tests/browser/mockup.spec.mjs`: changing `pack` and the
 **R-WEB-002.TC-3 — Diagnostics isolated**
 
 Automated by `typescript/tests/browser/mockup.spec.mjs`: a page with one invalid and one valid mockup shows the error box in the first, renders the second, and fires one `mockitdown-diagnostics` event.
+
+**R-WEB-002.TC-4 — Edit attribute**
+
+Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its shadow root, the HTML that
+`render` returns with `edit: true` for the same code; removing the attribute re-renders without any
+`data-mkd-node`.
 
 **Realizes.** F-17
 
@@ -153,3 +177,20 @@ Automated by `typescript/tests/browser/mockup.spec.mjs`: a page with one invalid
 | C11 | If an attribute of C3 has an invalid value, then the mockup element MUST report a fence error (code `fence`) as R-MDX-003.C4 does, after the render's diagnostics, and place an error box listing the fence errors above the rendering; attributes not named in C3 MUST be ignored. |
 | C12 | If the mockup element cannot render (the shared assets fail to load, or rendering throws), then it MUST show an error box holding one error of code `element` that names the cause. |
 | V1 | The browser tests mount mockup elements with code containing `<`, `>` and `&`, change attributes and code, and compare the shadow root's HTML with the conformance output. |
+| C13 | The mockup element MUST accept the boolean attribute `edit`, which renders with the `edit` option (R-EDIT-004.C1); like `import-base` and `asset-base`, it is not a fence attribute. |
+
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
+| 0.8.9 | 2026-11-25 | as built: the windowed attribute (R-DEV-010.C4) (#13) |
+| 0.6.7 | 2026-11-25 | reviewed against ADR-19 as clarified (#7); prose: elements created on demand by the pack gallery (R-WEB-004) |
+| 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
+| 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
+| 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.8.9 | 2026-11-25 | as built: the windowed attribute (R-DEV-010.C4) (#13) |
+| 0.6.7 | 2026-11-25 | reviewed against ADR-19 as clarified (#7); prose: elements created on demand by the pack gallery (R-WEB-004) |
+| 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
+| 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
+| 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |

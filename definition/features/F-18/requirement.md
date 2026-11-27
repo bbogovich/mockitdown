@@ -2,14 +2,14 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.8.0
-rev: 3
+version: 0.9.0
+rev: 4
 page: FEAT.3
 slot: features
 order: 3
-hash: 11557e161429
+hash: 76e8cedfd5ec
 family: web
-source: [SRC-8, SRC-9, SRC-10, SRC-11]
+source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
 requires: [F-17]
 ---
 
@@ -34,3 +34,6 @@ AC6: The browser tests fail when any two variant cells of an element card overla
 AC7: Opening a pack's Examples tab shows its first design example without scrolling, and a link can open a pack directly on that tab.
 AC8: The design examples number at least twelve, at least six of them complex multi-region layouts.
 AC9: From any design example a reader can reveal its source in one step, see the exact source and attributes that produce the example in the selected pack, copy it, and hide it again without the example changing.
+C12: The pack gallery is published with the documentation on the project's public site, at an address of its own, and works there as it does on the development server.
+C13: The documentation site and the example site each have a Gallery header tab, next to Demo, that opens the published gallery.
+AC10: After the documentation is published, the gallery's public address shows every pack with its elements and examples, without a failed request, and the Gallery tab of both sites opens it.

@@ -1,8 +1,8 @@
 ---
 title: Annotations and overlays
-spec_version: 0.6.2
+spec_version: 0.10.0
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: ANN.1
 ---
 
@@ -26,6 +26,15 @@ Create an item (#1), then share it (#2).
 
 Documentation often has to point at a part of a screen and then talk about it. A numbered circle on the element, matched by the same number in the prose (R-ANN-004), is the convention of manuals and design specs.
 
+**Overlays keep their marks (F-15.C5).** A dialog, a toast or a floating action button with
+`.callout(…)` draws the callout like any other element.
+
+**R-ANN-001.TC-1 — Callouts on overlays**
+
+Conformance cases `annotate-overlay-callouts` (a `Dialog`, a `Toast` and a floating action button each
+with `.callout(n)`, one presented through `.overlay`) in both suites: each overlay's callout mark is in
+the expected HTML. Browser test: each mark is visible and centred on its overlay's corner within 4 px.
+
 **Realizes.** F-15
 
 | | Statement |
@@ -36,6 +45,7 @@ Documentation often has to point at a part of a screen and then talk about it. A
 | C4 | A callout attached to a component that renders several views MUST be drawn once, on the first view. |
 | C5 | The `Callout(n, "label")` element MUST draw the same mark as a free element, for placement with `.position(x:y:)`. |
 | V1 | `Button("Send").callout(4)` renders the button and a mark containing `4`. |
+| C6 | The renderer MUST draw the marks of a view whose role is an overlay (`dialog`, `toast`, `fab`) — callouts, pointers, selections, highlights and taps — as for any other view, including when the overlay is presented through a modifier. |
 
 ---
 
@@ -62,6 +72,17 @@ Lists, cards and scroll areas clip their content, which would cut off a callout 
 The anchor prefix is derived from the pack and the source text alone, so every variant names anchors
 alike (ADR-18) and two different figures on one page do not collide.
 
+**Marks inside a dialog (F-15.C6).** A dialog is its own decoration context: the marks of its
+contents are positioned against the dialog, so a callout on a dialog's button sits on that button rather
+than at the screen's top-left corner.
+
+**R-ANN-003.TC-1 — Marks inside a dialog**
+
+Conformance case `annotate-dialog-contents` (a callout on a button inside a `Dialog`) in both suites.
+Browser test (Chromium): the callout's centre lies within 4 px of the button's top-left corner, once
+with anchor positioning and once with the fallback layer forced (anchor positioning disabled through
+the stylesheet's `@supports` branch).
+
 **Decisions.** ADR-15
 
 | | Statement |
@@ -72,6 +93,7 @@ alike (ADR-18) and two different figures on one page do not collide.
 | C4 | `.position(x:y:)` MUST place the view's centre at (x, y) points in its nearest positioned container (canvas, z-stack, screen); `.position` without coordinates MUST warn and be ignored; `.rotationEffect(.degrees(n))` MUST rotate the view; `.zIndex(n)` MUST order overlapping views; canvas, z-stack, card and presented containers MUST isolate the stacking of their children. |
 | C5 | The anchor name MUST be `--mkd-<p>-<n>`, `<p>` being the first six hexadecimal digits of the SHA-1 of the pack id, a line feed and the block source (UTF-8), and `<n>` counting the figure's decorated elements from 1 in render order. |
 | V1 | A callout on a row inside a clipped list is fully visible in a browser with anchor positioning. |
+| C6 | A mark on a view inside a dialog MUST be drawn at that view, in browsers with and without CSS anchor positioning; the fallback layer of C2 MUST be positioned within the dialog, not within the screen. |
 
 ---
 
@@ -92,6 +114,8 @@ Prose and picture refer to each other with the same numbered circle, so a reader
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-26 | marks inside a dialog are placed at their views (F-15.C6): C6, TC-1 (ING-1); overlays keep their marks (F-15.C5): C6, TC-1 (ING-1) |
 | 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |
 | 0.3.0 | 2026-11-24 | Page created |
+| 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |
 | 0.3.0 | 2026-11-24 | Page created |

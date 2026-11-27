@@ -33,6 +33,8 @@ flowchart LR
   A_WEB_1["TypeScript core<br/><small>A-WEB-1 · module</small>"]
   A_WEB_2["Mockup element<br/><small>A-WEB-2 · module</small>"]
   A_WEB_3["Development server and test pages<br/><small>A-WEB-3 · module</small>"]
+  A_WEB_4["Design document and session module<br/><small>A-WEB-4 · module</small>"]
+  A_WEB_5["Design-tool components<br/><small>A-WEB-5 · module</small>"]
   A_API_1 -->|"parse the source"| A_SYN_2
   A_API_1 -->|"evaluate the module into a screen"| A_EVAL_1
   A_API_1 -->|"assemble the figure"| A_REND_2
@@ -67,6 +69,10 @@ flowchart LR
   A_WEB_2 -->|"render the code and build the stylesheet"| A_WEB_1
   A_WEB_3 -->|"every mockup on a test page"| A_WEB_2
   A_WEB_3 -->|"reference samples and design patterns"| A_REPO_1
+  A_WEB_4 -->|"parse, re-parse, edit and render the moc"| A_WEB_1
+  A_WEB_5 -->|"the session, the document, the history a"| A_WEB_4
+  A_WEB_5 -->|"previews, Preview mode and inactive mock"| A_WEB_2
+  A_WEB_5 -->|"edit-mode rendering, the lexer, role rul"| A_WEB_1
 ```
 
 #### A-API-1 — Library API

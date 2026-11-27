@@ -11,3 +11,7 @@ so each is seen whole; multi-platform packs show an example application per plat
 **Show source (SRC-11).** Each design example can reveal the source that builds it — the pattern
 file wrapped in the `mockitdown-mockup` tag with the attributes the gallery passes for the selected
 pack — so a reader learns the vocabulary from working layouts and can copy one as a starting point.
+
+**Published (SRC-17).** The gallery was reachable only through the development server, so a reader of
+the published documentation could not find it. It is now published beside the documentation and the
+demo site, with a Gallery header tab on both sites.

@@ -31,3 +31,9 @@ with `pack` (and, for the platform examples, `device`, `chrome`, `menubar`, `app
 `<script type="text/mockitdown">` child holding the pattern file verbatim. Attributes that only serve the
 gallery (`caption`, `label`, `appearance`) are left out. The block has a Copy button and scrolls sideways
 for long lines; opening it never re-renders the example.
+
+**Published (SRC-17).** The Pages workflow builds the package and copies the test pages, the built
+package and the shared `reference/` and `patterns/` folders under `/gallery/` in the same layout as
+the development server, so `packs.js` reaches `../dist/` and `../shared/` unchanged. The workflow opens
+the published copy in a browser before it deploys, so a gallery that would not load is never published.
+Test pages added later (the designer test page) are published by the same copy.
