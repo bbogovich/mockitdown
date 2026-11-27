@@ -2,8 +2,8 @@
 id: R-PACK-020
 title: Windows 1.0 in its default colours
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 2
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 03b31524f532
+hash: 82338dce25e8
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `win1` (R-PACK-008.C7) MUST keep its identity, modules, elements and tiled-window layout, and MUST change its light appearance to the Windows 1.0 default EGA colour scheme of SRC-18#image1; its `framework` key MUST say "EGA 16 colours, default colour scheme".

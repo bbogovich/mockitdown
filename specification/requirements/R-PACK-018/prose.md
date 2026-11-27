@@ -20,3 +20,5 @@ one line.
 `.mkd-pack-lisa .mkd-frame { --mc-dither: …; }` followed by Lisa's own rules.
 
 **Verification.** TC-1 (resolution in both builds), TC-2 (the duplicate check), TC-3 (rendering unchanged).
+
+**As built (#54).** The build also fails on an include that shares its line with other text (C6), and only an `@import` outside a comment is refused at run time (C8). Re-checked against ADR-17 as re-checked in the same release: no obligation changed.

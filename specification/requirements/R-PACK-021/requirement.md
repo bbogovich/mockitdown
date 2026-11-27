@@ -2,8 +2,8 @@
 id: R-PACK-021
 title: Apple IIgs GS/OS beyond the Finder window
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 3
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 6de8013c4f10
+hash: 29a67857e902
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `gsos` (R-PACK-008.C7) MUST keep its identity, device, tokens and existing elements, and MUST add the screens and parts of GS/OS System 6.0.1 that SRC-18#refs lists.

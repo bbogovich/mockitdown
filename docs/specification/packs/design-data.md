@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.11.0
+spec_version: 0.12.4
 status: draft
 updated: 2026-11-27
 page_id: PACK.3
@@ -42,6 +42,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items A-REPO-1, R-REPO-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+Re-checked after R-REPO-002 was recorded as built (#54, partials resolved into the package copies, TC-4 tests named): no obligation of this requirement changed.
 
 **R-PACK-016.TC-1 — Every role has a rule**
 
@@ -126,10 +128,14 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
+| 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | re-checked against A-REPO-1, R-PACK-016 (SRC-18): unaffected; re-checked against A-REPO-1, R-REPO-002 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
+| 0.11.0 | 2026-11-27 | re-checked against A-REPO-1, R-PACK-016 (SRC-18): unaffected; re-checked against A-REPO-1, R-REPO-002 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

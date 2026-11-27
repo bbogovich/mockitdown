@@ -2,8 +2,8 @@
 id: R-PACK-024
 title: RISC OS pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 6
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: b1deb13fb076
+hash: 80793d07dd96
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `riscos` MUST imitate the Acorn RISC OS 3.11 desktop (1992), with `framework` naming it, `version` "RISC OS 3.11", and the import modules `RISCOS`, `Acorn`, `Archimedes` and `Wimp`, listed in the Retro group after `nextstep` (R-PACK-008.C9).

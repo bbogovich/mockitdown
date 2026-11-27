@@ -66,6 +66,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 resolved `pack.css` copies, so the copy check compares a copy with its resolution rather than with the
 file in `shared/`.
 
+Re-checked against ADR-17 after the stylesheet partials were built (#54): a `pack.css` copy that includes partials is compared with its resolved text, as C6 says; no obligation changed.
+
 **R-REPO-002.TC-1 — Python package copy matches shared**
 
 Automated by `python/tests/test_shared.py`: every file under `shared/packs` (except `_partials/`), `shared/css`, `shared/icons` and `shared/language` has a copy in the installed package, identical except for a `pack.css` that includes partials, whose copy equals its resolution (R-PACK-018.TC-1); `typescript/scripts/copy-shared.mjs --check`, run by `npm test`, checks `dist/shared/` the same way.
@@ -83,25 +85,28 @@ exists once, in `shared/`, and each package holds an identical copy beside `voca
 
 **R-REPO-002.TC-4 — Shared files in place, copied as data**
 
-Automated, in the files named. Step 4 exists; steps 1, 2, 3 and 5 extend
-`test_no_pack_outside_shared` and `test_shared.py` with new assertions, written by the issue that builds
-R-PACK-018 (which touches the same tests).
+Automated, in the files named (steps 1, 2, 3 and 5 written with R-PACK-018, #54).
 
-1. `python/tests/test_layout.py`: no `pack.json`, `pack.css`, `page.css`, `icons.json` or
-   `vocabulary.json` exists outside `shared/` and the build outputs (C1, C2, C3, C4); `icons.json` holds
-   `glyphs` and `aliases` objects and `vocabulary.json` the lists `rendered`, `ignored` and
+1. `python/tests/test_layout.py` (`test_no_pack_outside_shared`, `test_icon_and_vocabulary_files_hold_their_tables`):
+   no `pack.json`, `pack.css`, `page.css`, `icons.json` or `vocabulary.json` exists outside `shared/`, the
+   build outputs and the R-PACK-018 test fixture `python/tests/fixtures/` (C1, C2, C3, C4); `icons.json`
+   holds `glyphs` and `aliases` objects and `vocabulary.json` the lists `rendered`, `ignored` and
    `neutral_modules` (C3, C4).
 2. `python/tests/test_shared.py::test_wheel_contains_the_shared_assets` and the TypeScript
    `package.test.ts` manifest test: each package holds its copies, and neither variant's source opens a
-   path under `shared/` at run time — a grep over `python/src/mockitdown/` and `typescript/src/` for
-   `shared/` outside comments finds no file access (C5).
+   path under `shared/` at run time — `test_layout.py::test_no_run_time_access_to_shared` finds no string
+   naming `shared` in `python/src/mockitdown/` outside docstrings, and in `typescript/src/` no `shared/`
+   outside comments except a `new URL("…shared/", import.meta.url)` that resolves, from the compiled
+   module, to the package's own `dist/shared/` (C5).
 3. Both builds only copy and parse the files: the Python sync and `copy-shared.mjs` read them as text
-   or JSON, and no shared file is imported, evaluated or executed — a grep over both build scripts and
-   loaders for `import(`, `eval`, `exec` or `Function(` applied to shared content finds none (C7).
+   or JSON, and no shared file is imported, evaluated or executed —
+   `test_layout.py::test_builds_and_loaders_execute_nothing_shared` finds no call of `eval`, `exec`,
+   `Function`, `import(`, `__import__`, `run_path` or `import_module` in both build scripts and the
+   loaders of both variants (C7).
 4. `python/tests/test_shared.py::test_stale_copy_is_detected`: changing one copied file makes the copy
    check fail (C6, with TC-1).
 5. A `.css` file under `shared/packs/` is either `<id>/pack.css` of a directory holding `pack.json` or
-   `_partials/<name>.css`; any other fails the layout test (C1).
+   `_partials/<name>.css`; any other fails `test_layout.py::test_shared_css_is_a_pack_stylesheet_or_a_partial` (C1).
 
 **Realizes.** F-16
 
@@ -132,6 +137,8 @@ Checked at 0.10.1 after R-REPO-002.C8 (`shared/language/roles.json`): the file i
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at 0.11.0.** Its cited items ADR-17, R-REPO-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+Re-checked after R-REPO-002 was recorded as built (#54, partials resolved into the package copies, TC-4 tests named): no obligation of this requirement changed.
 
 **R-REPO-003.TC-1 — Wheel contains the shared assets**
 

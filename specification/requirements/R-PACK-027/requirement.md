@@ -2,8 +2,8 @@
 id: R-PACK-027
 title: Palm OS pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 9
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 8baa65a776e2
+hash: 10c54a6e75dd
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `palm` MUST imitate Palm OS 3.5 on the Palm V (1999, 160 × 160 greyscale), with `framework` naming it, `version` "Palm OS 3.5", and the import modules `PalmOS`, `Palm` and `PalmPilot`, listed in the Mobile group after `newton` (R-PACK-008.C9).

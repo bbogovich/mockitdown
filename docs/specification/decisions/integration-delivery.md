@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.12.1
+spec_version: 0.12.4
 status: draft
 updated: 2026-11-27
 page_id: ADR.2
@@ -216,6 +216,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 corpus, which the audit found written only in `shared/` but missing from the list, and the stylesheet
 partials of R-PACK-018. A partial is published only inside the pack stylesheets that include it.
 
+Re-checked with R-REPO-002 and R-PACK-018 as recorded as built (#54): the two builds resolve partials by the same steps, written once in each build script and verified by one fixture in both suites, so a pack change is still one commit both suites verify (C1); no obligation changed.
+
 **Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
 
 | | Statement |
@@ -330,6 +332,8 @@ templates whose users override values and fill content. SwiftUI already has the 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.4 | 2026-11-27 | re-check sentence names R-PACK-018 too, released with R-REPO-002 and R-PACK-018 (#54) |
+| 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |
 | 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
 | 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
@@ -339,6 +343,8 @@ templates whose users override values and fill content. SwiftUI already has the 
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
+| 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |
 | 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
 | 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |

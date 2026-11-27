@@ -1,15 +1,15 @@
 ---
 title: Packs
-impl_version: 0.3.15
+impl_version: 0.3.23
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.PACKS
 ---
 
 # Packs
 
 Realizes **A-PACK-1** (registry) and **A-PACK-2** (built-in packs); requirements R-PACK-001 –
-R-PACK-009, R-PACK-014, R-PACK-015, R-DEV-009 and R-DEV-010.
+R-PACK-009, R-PACK-014, R-PACK-015, R-PACK-018 (C8 here, the rest in the builds), R-DEV-009 and R-DEV-010.
 
 ## `PackRegistry` — `packs/__init__.py`
 
@@ -20,6 +20,9 @@ R-PACK-009, R-PACK-014, R-PACK-015, R-DEV-009 and R-DEV-010.
   `modifiers`, `chrome`, `sizes`, `icons` and per-mode `tokens` over the parent's, records
   `own_elements`, and caches the `Pack` (M-PACK-1). `_element` builds each `ElementDef` (M-PACK-2)
   and rejects a missing `role`.
+- A pack found in an `extra_dirs` (`pack_paths`) directory whose `pack.css` holds `@import` outside a
+  comment is refused before its `pack.json` is read (`_refuse_import`, R-PACK-018.C8): partials are
+  resolved only when a built-in pack is copied. TypeScript's `registerPack` refuses the same way.
 - `ids()` lists pack directories; `for_module(name)` builds a lower-cased module index on first use.
 - `Pack.lineage()` (root first), `Pack.font(name)` (alias lookup up the lineage),
   `Pack.chrome_for(device)`, `Pack.css_text()`.
@@ -34,7 +37,9 @@ R-PACK-009, R-PACK-014, R-PACK-015, R-DEV-009 and R-DEV-010.
 The packs are written only in `shared/packs/<id>/` (R-REPO-002.C1). The Python build copies them
 into `python/src/mockitdown/packs/<id>/`, where `BUILTIN_DIR` finds them, and ships them as package
 data (`python/pyproject.toml` `[tool.setuptools.package-data]`: `packs/*/pack.json`,
-`packs/*/pack.css`). Edit `shared/`, then reinstall or run `python/tools/sync_shared.py`.
+`packs/*/pack.css`). Edit `shared/`, then reinstall or run `python/tools/sync_shared.py`. A built-in
+`pack.css` may include stylesheet partials from `shared/packs/_partials/`; its package copy has them
+resolved (see [Repository layout and shared assets](../repository.md#stylesheet-partials-r-pack-018)).
 
 ## SwiftUI control styles — `shared/packs/swiftui/pack.css` (R-PACK-014)
 
@@ -143,3 +148,4 @@ Writing a pack is described in the [Pack authoring guide](../pack-authoring.md).
 | 0.3.13 | 2026-11-25 | SwiftUI presentations and navigation (R-PACK-015) (#12) |
 | 0.3.14 | 2026-11-25 | SwiftUI platform chrome (R-DEV-010) (#13) |
 | 0.3.15 | 2026-11-25 | The macOS menu bar and the window under it (R-DEV-009) (#14) |
+| 0.3.23 | 2026-11-27 | Site packs with `@import` refused; built-in copies resolved from partials (R-PACK-018) (#54) |

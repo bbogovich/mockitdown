@@ -1,8 +1,8 @@
 ---
 title: Pack authoring guide
-impl_version: 0.3.11
+impl_version: 0.3.23
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.PACKAUTH
 ---
 
@@ -74,6 +74,10 @@ Then, in this order:
   framework-native elements that share a role.
 - Use tokens for every colour, radius, shadow and font; never branch on appearance.
 - Write lengths in px as the framework specifies them; they are scaled automatically.
+- In a built-in pack, a block of rules another pack already has belongs in a partial
+  (`shared/packs/_partials/<name>.css`, every selector starting with `.mkd-scope`), included by both
+  with `@import "../_partials/<name>.css";` at the top of their `pack.css`; the builds resolve it into
+  each copy. A site pack (`-P packs`) cannot use partials: its `@import` is refused at load.
 
 Inspect the markup a role emits with `mockitdown render`:
 
@@ -119,3 +123,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 | 0.3.2 | 2026-11-25 | Built-in packs in shared/packs (#1) |
 | 0.3.9 | 2026-11-25 | Fit padding token, rows and popups at fit, tooltip arrows (#8) |
 | 0.3.11 | 2026-11-25 | Declared element samples (`sample`) (#10) |
+| 0.3.23 | 2026-11-27 | Stylesheet partials for built-in packs (R-PACK-018) (#54) |

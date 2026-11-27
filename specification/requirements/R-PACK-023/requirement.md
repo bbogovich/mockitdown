@@ -2,8 +2,8 @@
 id: R-PACK-023
 title: GEOS pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 5
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 4fd2ecbd67c4
+hash: e3b7acaa9621
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `geos` MUST imitate GEOS on the Commodore 64 (GEOS 64 2.0, 1988, the deskTop), with `framework` naming it, `version` "GEOS 64 2.0", and the import modules `GEOS`, `GEOS64` and `deskTop`, listed in the Retro group after `win1` (R-PACK-008.C9).

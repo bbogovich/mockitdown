@@ -2,8 +2,8 @@
 id: R-PACK-029
 title: BlackBerry pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 11
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 04c415a90c31
+hash: 5eaf924d7cee
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `blackberry` MUST imitate BlackBerry OS 5 on the BlackBerry Bold 9700 (2009) with its default Precision theme, with `framework` naming it, `version` "BlackBerry OS 5.0", and the import modules `BlackBerry`, `BlackBerryOS` and `RIM`, listed in the Mobile group after `wince` (R-PACK-008.C9).

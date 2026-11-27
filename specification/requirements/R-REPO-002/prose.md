@@ -10,3 +10,5 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 (R-PACK-018); the partials live in `shared/packs/_partials/` and reach the packages only inside the
 resolved `pack.css` copies, so the copy check compares a copy with its resolution rather than with the
 file in `shared/`.
+
+Re-checked against ADR-17 after the stylesheet partials were built (#54): a `pack.css` copy that includes partials is compared with its resolved text, as C6 says; no obligation changed.

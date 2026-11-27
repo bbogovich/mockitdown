@@ -12,6 +12,9 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.4 | 2026-11-27 | `ADR.2`, `PACK.3`, `PACK.4`, `PACK.5`, `REPO.1` | #54 as-built records released together with their re-checks (R-PACK-018, R-REPO-002, ADR-17 and the requirements standing on them): no obligation changed |
+| 0.12.3 | 2026-11-27 | `ADR.2`, `PACK.3`, `PACK.5`, `REPO.1` | re-checks after the #54 as-built records: ADR-17, R-PACK-016, R-REPO-003 and R-PACK-019 to R-PACK-029 unchanged in obligation |
+| 0.12.2 | 2026-11-27 | `PACK.4`, `REPO.1` | as built (#54): R-PACK-018 C6 (an @import sharing its line fails), C8 (only an @import outside comments is refused) and TC-1 (tests, fixture copies, dist/shared/packs/); R-REPO-002.TC-4 names its tests |
 | 0.12.1 | 2026-11-27 | `ADR.2` | ADR-10.D2 aligned with ADR-24 (SRC-19) |
 | 0.12.0 | 2026-11-27 | `ADR.2`, `CLI.1`, `IMP.1`, `LANG.1`, `LANG.2`, `MDX.1`, `MODEL.1`, `PACK.1`, `WEB.1` | SRC-19: import map replaces import_paths (ADR-24, R-IMP-002, R-MDX-002, R-CLI-002, R-WEB-001/002, M-OPT-1); library names and qualified references (R-IMP-007, R-IMP-004, R-LANG-003, R-EVAL-003); page library blocks (R-IMP-008, R-MDX-003); templates with slots (R-IMP-009, R-EVAL-005, R-LANG-004); User guide with Installation (R-PACK-030, R-PACK-012) |
 | 0.11.0 | 2026-11-27 | `ADR.2`, `ADR.3`, `ARCH.1`, `ARCH.3`, `PACK.1`, `PACK.3`, `PACK.4`, `PACK.5`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | SRC-18: stylesheet partials (R-PACK-018), shared assets named (ADR-17, A-REPO-1, A-PACK-2, R-REPO-002), shipped and hidden packs (R-PACK-008, R-PACK-010), gallery home page and hidden packs (R-WEB-004, R-WEB-006), TypeScript release builds (R-WEB-007, ADR-23), eleven pack requirements (R-PACK-019 to R-PACK-029); citing items re-checked |

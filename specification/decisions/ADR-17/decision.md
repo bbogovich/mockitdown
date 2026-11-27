@@ -2,12 +2,12 @@
 id: ADR-17
 title: One repository for both variants, with shared assets
 status: active
-version: 0.11.0
-rev: 3
+version: 0.12.4
+rev: 5
 page: ADR.2
 slot: decisions
 order: 999
-hash: 0964d92fab81
+hash: f7d4ca9a1cf8
 source: [SRC-8, SRC-18]
 constrains: [R-REPO-001, R-REPO-002, R-REPO-003]
 refs: [R-PACK-018]

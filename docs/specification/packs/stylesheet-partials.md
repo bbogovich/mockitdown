@@ -1,6 +1,6 @@
 ---
 title: "Shared stylesheet rules"
-spec_version: 0.11.0
+spec_version: 0.12.4
 status: draft
 updated: 2026-11-27
 page_id: PACK.4
@@ -48,26 +48,33 @@ one line.
 
 **Verification.** TC-1 (resolution in both builds), TC-2 (the duplicate check), TC-3 (rendering unchanged).
 
+**As built (#54).** The build also fails on an include that shares its line with other text (C6), and only an `@import` outside a comment is refused at run time (C8). Re-checked against ADR-17 as re-checked in the same release: no obligation changed.
+
 **R-PACK-018.TC-1 — Partials resolved by both builds**
 
 Unit tests in both variants over one fixture set, `python/tests/fixtures/partials/` read by
-`python/tests/test_shared.py` and by `typescript/tests/unit/package.test.ts` (each test points the
-build's resolve function at the fixture's `packs/` folder):
+`python/tests/test_shared.py` (`PartialTests`, and step 4 in `PackageCopyTests`) and by
+`typescript/tests/unit/package.test.ts` (each test points the build's resolve function —
+`sync_shared.resolve_pack_css`, `copy-shared.mjs` `resolvePackCss` — at the fixture's `packs/` folder;
+the expected copies are the fixture's `expected/<id>.pack.css`):
 
 1. Fixture: `_partials/demo.css` = `.mkd-scope .mkd-button { color: red; }`; packs `one` and `two`
    (each `pack.json` plus a `pack.css` starting with a comment, `@import "../_partials/demo.css";` and
    one own rule). The resolved `one/pack.css` equals the comment, `.mkd-pack-one .mkd-button { color: red; }`
    and `one`'s own rule, byte for byte; `two` likewise with `.mkd-pack-two`; the same expected bytes
    are asserted in both suites (C4, C5).
-2. The registry lists `one` and `two` but not `_partials` (C1).
+2. The Python registry (`PackRegistry` over the fixture) and the TypeScript build's pack list (`packIds`) list
+   `one` and `two` but not `_partials` (C1).
 3. An `@import` after the first rule, of `../_partials/missing.css`, or of `../two/pack.css` makes the
    resolve step fail with a message naming the pack and the path; a partial with a selector
    `.mkd-button` (no scope) or containing `prefers-color-scheme` fails naming the partial (C2, C3, C6).
-4. After `npm run build` and the Python sync, no file under `dist/shared/` or `python/src/mockitdown/packs/`
-   is named `*.css` outside `packs/<id>/pack.css`, and no copied `pack.css` contains `@import` (C7).
+4. After `npm run build` and the Python sync, no file under `dist/shared/packs/` or
+   `python/src/mockitdown/packs/` is named `*.css` other than `<id>/pack.css` beside a `pack.json`, the
+   manifest names no `_partials` path, no copied `pack.css` contains `@import`, and every copied
+   `pack.css` equals what the build's resolve step writes from `shared/` (C7, R-REPO-002.C6).
 5. `PackRegistry(pack_paths=[tmp])` with `tmp/acme/pack.css` containing `@import "../_partials/x.css";`
    raises "pack 'acme': @import is resolved only in built-in packs"; `registerPack(json, css)` with the
-   same CSS throws the same message (C8).
+   same CSS throws the same message (C8). An `@import` inside a comment is not refused.
 6. The existing contract tests (`test_css_is_scoped`, `test_css_has_no_appearance_branching`) pass on
    the resolved copies of every built-in pack.
 
@@ -102,9 +109,9 @@ Run once by the issue that moves rules, and again by any later issue that moves 
 | C3 | Every selector of a partial MUST start with the scope class `.mkd-scope`, alone or followed by a space, and a partial MUST NOT contain `@import`, `data-appearance` or `prefers-color-scheme`; R-PACK-007.C3 to C5 apply to partials as to pack stylesheets. |
 | C4 | When the Python build (`python/tools/sync_shared.py`) or the TypeScript build (`typescript/scripts/copy-shared.mjs`) copies a pack whose `pack.css` includes partials, it MUST write the package copy with each `@import` line replaced by the text of the named partial in which every selector's leading `.mkd-scope` is replaced by `.mkd-pack-<id>` of the including pack; the copy MUST contain no `@import`. |
 | C5 | The resolution of C4 MUST be textual and deterministic, so that both builds write byte-identical copies of every `pack.css`. |
-| C6 | A build MUST fail, naming the pack and the partial, when an `@import` names a partial that does not exist, appears after the first rule, or names a path outside `../_partials/`, and when a partial breaks C3. |
+| C6 | A build MUST fail, naming the pack and the partial, when an `@import` names a partial that does not exist, appears after the first rule, shares its line with anything but white space, or names a path outside `../_partials/`, and when a partial breaks C3. |
 | C7 | The partials themselves MUST NOT be copied into either package; only the resolved `pack.css` copies are published. |
-| C8 | A pack stylesheet loaded at run time — a site pack found through `pack_paths`, or an application pack given to `registerPack` — that contains `@import` MUST be refused with the error "pack 'x': @import is resolved only in built-in packs". |
+| C8 | A pack stylesheet loaded at run time — a site pack found through `pack_paths`, or an application pack given to `registerPack` — that contains `@import` outside a comment MUST be refused with the error "pack 'x': @import is resolved only in built-in packs". |
 | C9 | A rule that holds for every pack MUST be written once, in the `base` pack's stylesheet; a rule that two or more packs share MUST be written once, in a partial those packs include; no run of six consecutive non-blank lines MAY appear in two of the files `shared/packs/*/pack.css` and `shared/packs/_partials/*.css`, nor twice in one of them. |
 | C10 | Moving rules into `base` or into a partial MUST NOT change the rendering of any pack: the conformance corpus (R-REPO-004) MUST stay unchanged, and every pack whose stylesheet changed MUST look the same in the gallery as before, in light and dark appearance. |
 | V1 | A partial imported by two packs reaches both packages resolved and scoped to each; an import of a missing partial fails both builds; the duplicate check fails on a copied six-line run. |
@@ -113,4 +120,8 @@ Run once by the issue that moves rules, and again by any later issue that moves 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.4 | 2026-11-27 | prose names the as-built C6 and C8 details; re-checked against ADR-17 (#54) |
+| 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
+| 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |

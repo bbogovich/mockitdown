@@ -2,8 +2,8 @@
 id: R-PACK-025
 title: BeOS pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 7
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: a464e624c952
+hash: 78ecd3ddeeff
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `beos` MUST imitate BeOS R5 (2000) with the Tracker and the Deskbar, with `framework` naming it, `version` "BeOS R5", and the import modules `BeOS`, `BeAPI`, `InterfaceKit` and `Tracker`, listed in the Retro group after `win95` (R-PACK-008.C9).

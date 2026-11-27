@@ -2,8 +2,8 @@
 id: R-PACK-022
 title: Atari ST GEM pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 4
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 1359616a83b8
+hash: 17020b56e55c
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `gem` MUST imitate the GEM Desktop of the Atari ST (TOS 1.0 to 1.04, 1985–1989) in medium resolution, with `framework` naming it, `version` "TOS 1.04", and the import modules `GEM`, `AtariST`, `TOS` and `GEMDesktop`, listed in the Retro group after `mac-classic` (R-PACK-008.C9).

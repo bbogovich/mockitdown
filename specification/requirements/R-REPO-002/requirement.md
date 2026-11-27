@@ -2,12 +2,12 @@
 id: R-REPO-002
 title: Shared assets are the single source
 status: active
-version: 0.11.0
-rev: 5
+version: 0.12.4
+rev: 7
 page: REPO.1
 slot: reqs
 order: 2
-hash: ee34340db6a8
+hash: 5e262daf1ee3
 source: [SRC-8, SRC-12, SRC-18]
 realizes: [F-16]
 requires: [R-REPO-001]

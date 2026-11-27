@@ -2,8 +2,8 @@
 id: R-PACK-019
 title: Amiga Workbench pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 1
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 78f8588651a1
+hash: 25141bc03388
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `amiga` MUST imitate the Commodore Amiga Workbench 1.3 (Kickstart 1.3, 1988) in its 4-colour high-resolution screen, with `framework` naming it, `version` "Workbench 1.3", and the import modules `Amiga`, `Workbench`, `Intuition` and `AmigaOS`, listed in the Retro group after `win2` (R-PACK-008.C9).

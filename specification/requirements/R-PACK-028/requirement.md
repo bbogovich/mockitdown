@@ -2,8 +2,8 @@
 id: R-PACK-028
 title: Windows CE (Pocket PC) pack
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.4
+rev: 2
 page: PACK.5
 slot: reqs
 order: 10
@@ -11,7 +11,8 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 4c095a5256d9
+hash: b685c0505404
+refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 
 C1: The pack `wince` MUST imitate Pocket PC 2002 on Windows CE 3.0 (2001), with `framework` naming it, `version` "Pocket PC 2002", and the import modules `WindowsCE`, `PocketPC`, `WinCE` and `WindowsMobile`, listed in the Mobile group after `palm` (R-PACK-008.C9).

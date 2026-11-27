@@ -6,3 +6,5 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Shared assets named (SRC-18#answers, question 4).** D2 now names the role rule table and the edit
 corpus, which the audit found written only in `shared/` but missing from the list, and the stylesheet
 partials of R-PACK-018. A partial is published only inside the pack stylesheets that include it.
+
+Re-checked with R-REPO-002 and R-PACK-018 as recorded as built (#54): the two builds resolve partials by the same steps, written once in each build script and verified by one fixture in both suites, so a pack change is still one commit both suites verify (C1); no obligation changed.

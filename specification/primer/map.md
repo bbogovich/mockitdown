@@ -33,7 +33,7 @@ ADR-13 | decisions | active | 0.11.0 r3 | ADR.2 | The shipped packs
 ADR-14 | decisions | active | 0.2.0 r0 | ADR.2 | Documentation sites build with Zensical
 ADR-15 | decisions | active | 0.10.8 r2 | ADR.1 | Annotation marks use CSS anchor positioning with an inline fallback
 ADR-16 | decisions | active | 0.11.0 r2 | ADR.2 | Retro and easter-egg packs are original homages
-ADR-17 | decisions | active | 0.11.0 r3 | ADR.2 | One repository for both variants, with shared assets
+ADR-17 | decisions | active | 0.12.4 r5 | ADR.2 | One repository for both variants, with shared assets
 ADR-18 | decisions | active | 0.11.0 r4 | ADR.2 | The web variant is a TypeScript port held to the Python output
 ADR-19 | decisions | active | 0.11.0 r5 | ADR.2 | The mockup element carries its code in a script child
 ADR-2 | decisions | active | 0.10.2 r1 | ADR.1 | The notation is a declarative subset of Swift and SwiftUI
@@ -159,20 +159,20 @@ R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery
 R-PACK-013 | requirements | active | 0.11.0 r4 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI presentations and navigation
-R-PACK-016 | requirements | active | 0.11.0 r3 | PACK.3 | Role rules
+R-PACK-016 | requirements | active | 0.12.4 r5 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.11.0 r3 | PACK.3 | Typed parameters and modifiers
-R-PACK-018 | requirements | active | 0.11.0 r0 | PACK.4 | Stylesheet partials
-R-PACK-019 | requirements | active | 0.11.0 r0 | PACK.5 | Amiga Workbench pack
-R-PACK-020 | requirements | active | 0.11.0 r0 | PACK.5 | Windows 1.0 in its default colours
-R-PACK-021 | requirements | active | 0.11.0 r0 | PACK.5 | Apple IIgs GS/OS beyond the Finder window
-R-PACK-022 | requirements | active | 0.11.0 r0 | PACK.5 | Atari ST GEM pack
-R-PACK-023 | requirements | active | 0.11.0 r0 | PACK.5 | GEOS pack
-R-PACK-024 | requirements | active | 0.11.0 r0 | PACK.5 | RISC OS pack
-R-PACK-025 | requirements | active | 0.11.0 r0 | PACK.5 | BeOS pack
-R-PACK-026 | requirements | active | 0.11.0 r0 | PACK.5 | Apple Newton pack
-R-PACK-027 | requirements | active | 0.11.0 r0 | PACK.5 | Palm OS pack
-R-PACK-028 | requirements | active | 0.11.0 r0 | PACK.5 | Windows CE (Pocket PC) pack
-R-PACK-029 | requirements | active | 0.11.0 r0 | PACK.5 | BlackBerry pack
+R-PACK-018 | requirements | active | 0.12.4 r2 | PACK.4 | Stylesheet partials
+R-PACK-019 | requirements | active | 0.12.4 r2 | PACK.5 | Amiga Workbench pack
+R-PACK-020 | requirements | active | 0.12.4 r2 | PACK.5 | Windows 1.0 in its default colours
+R-PACK-021 | requirements | active | 0.12.4 r2 | PACK.5 | Apple IIgs GS/OS beyond the Finder window
+R-PACK-022 | requirements | active | 0.12.4 r2 | PACK.5 | Atari ST GEM pack
+R-PACK-023 | requirements | active | 0.12.4 r2 | PACK.5 | GEOS pack
+R-PACK-024 | requirements | active | 0.12.4 r2 | PACK.5 | RISC OS pack
+R-PACK-025 | requirements | active | 0.12.4 r2 | PACK.5 | BeOS pack
+R-PACK-026 | requirements | active | 0.12.4 r2 | PACK.5 | Apple Newton pack
+R-PACK-027 | requirements | active | 0.12.4 r2 | PACK.5 | Palm OS pack
+R-PACK-028 | requirements | active | 0.12.4 r2 | PACK.5 | Windows CE (Pocket PC) pack
+R-PACK-029 | requirements | active | 0.12.4 r2 | PACK.5 | BlackBerry pack
 R-PACK-030 | requirements | active | 0.12.0 r0 | PACK.1 | User guide: installation and defined terms
 R-REND-001 | requirements | active | 0.10.8 r1 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.10.8 r2 | REND.1 | Role markup
@@ -189,8 +189,8 @@ R-REND-012 | requirements | active | 0.8.3 r2 | REND.2 | Charts
 R-REND-013 | requirements | active | 0.10.7 r2 | REND.1 | Rows without overlap
 R-REND-014 | requirements | active | 0.10.7 r2 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.11.0 r2 | REPO.1 | Repository layout
-R-REPO-002 | requirements | active | 0.11.0 r5 | REPO.1 | Shared assets are the single source
-R-REPO-003 | requirements | active | 0.11.0 r5 | REPO.1 | The Python variant after the move
+R-REPO-002 | requirements | active | 0.12.4 r7 | REPO.1 | Shared assets are the single source
+R-REPO-003 | requirements | active | 0.12.4 r7 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.11.0 r6 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.11.0 r3 | WEB.4 | The editable view: mockitdown-editor
 R-TOOL-002 | requirements | active | 0.11.0 r3 | WEB.4 | The outline: mockitdown-outline
