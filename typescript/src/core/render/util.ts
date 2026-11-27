@@ -1,10 +1,11 @@
 /**
- * Helpers of the HTML renderer (the module-level functions of Python's `mockitdown.render.html`):
- * escaping, inline Markdown, value coercion with Python's semantics, dates, code highlighting and
- * the fixed SVG art.
+ * Helpers of the HTML renderer (the module-level functions of Python's `mockitdown.render.html`,
+ * `mockitdown.render._util` and the role families): escaping, inline Markdown, value coercion with
+ * Python's semantics, dates, code highlighting, the fixed SVG art, and the view accessors and markup
+ * constants shared by the {@link Renderer} (`./html.ts`) and its role families (`./roles/`).
  */
 
-import { EnumValue, Thunk, ViewList } from "../model.js";
+import { EnumValue, Thunk, ViewList, type View } from "../model.js";
 import { parsePyFloat, pyFixed, pyFormatG, pyRound } from "../pyformat.js";
 import { codePoints, intStr, isNumberLike, isSeq, PyDict, pyBool, pyEq, PyError, PyFloat, pyStr, pyStrip, pyTypeName } from "../values.js";
 
@@ -447,3 +448,34 @@ export const MAP_SVG = '<svg class="mkd-map__art" viewBox="0 0 400 300" preserve
   + '<path class="mkd-map__water" d="M0 220c60-30 110 20 180-10s120-50 220-20v110H0z"/>'
   + '<g class="mkd-map__roads"><path d="M0 130h400M150 0v300M0 30l400 230M300 0v220"/></g>'
   + '<g class="mkd-map__minor"><path d="M0 80h400M0 180h400M60 0v300M230 0v300M360 0v300"/></g></svg>';
+
+// --- shared by the Renderer and its role families -----------------------------------------------
+
+export const LEADING_WS = new RegExp(`^[${PY_WS}]+`, "u");
+
+export const PH = ' data-placeholder="true"';
+
+export const OPTION_ROLES = ["text", "label", "button", "listitem", "menuitem", "tab", "radio"];
+
+/** Whether `c` is one of a picker's options. */
+export function isOption(c: View): boolean {
+  return OPTION_ROLES.includes(c.role) || at(c, "tag") !== null;
+}
+
+export function has(o: object, k: string): boolean {
+  return Object.prototype.hasOwnProperty.call(o, k);
+}
+
+/** `v.attr(*names)`. */
+export function at(v: View, ...names: string[]): unknown {
+  return v.attr(names);
+}
+
+/** `v.attrs.get(name)`. */
+export function raw(v: View, key: string): unknown {
+  return v.attrs.get(key, null);
+}
+
+export function stripTags(s: string): string {
+  return s.replace(/<[^>]+>/g, "");
+}
