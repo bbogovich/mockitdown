@@ -1,0 +1,17 @@
+/* mockitdown stylesheet partial: win-button — the push button of Windows XP and Windows Vista, shared by
+ * the winxp and vista packs (R-PACK-018). Each includes it at the top of its pack.css; the builds scope
+ * its rules to that pack. The face, border and text colours are each pack's --mkd-btn-* tokens.
+ */
+
+/* push buttons: 75 × 23 px, 3 px corners */
+.mkd-scope .mkd-button {
+  height: 23px;
+  min-width: 75px;
+  padding: 0 10px;
+  gap: 4px;
+  border: 1px solid var(--mkd-btn-border);
+  border-radius: 3px;
+  background: var(--mkd-btn-bg);
+  color: var(--mkd-btn-fg);
+  font-weight: 400;
+}

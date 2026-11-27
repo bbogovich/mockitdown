@@ -5,6 +5,8 @@
  * Every colour comes from the --mkd-ph-* tokens, so both appearances switch by tokens alone.
  */
 
+@import "../_partials/crt.css";
+
 /* ---------- the tube: frame, glow, scanlines ---------- */
 .mkd-pack-phosphor .mkd-frame {
   border: 10px solid #15171a;
@@ -20,12 +22,6 @@
   background: radial-gradient(ellipse at 50% 45%, var(--mkd-surface-2) 0%, var(--mkd-bg) 70%);
 }
 .mkd-pack-phosphor .mkd-frame .mkd-screen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 30;
-  pointer-events: none;
-  border-radius: inherit;
   background:
     repeating-linear-gradient(to bottom, transparent 0 2px, var(--mkd-ph-scan) 2px 3px),
     radial-gradient(ellipse at 50% 50%, transparent 62%, var(--mkd-ph-vignette) 100%);

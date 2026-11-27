@@ -5,6 +5,8 @@
  * 28px dialogs, 4px menus and text-field corners); state layers use currentColor overlays.
  */
 
+@import "../_partials/material3.css";
+
 /* ---------- frame and type ---------- */
 .mkd-pack-angular-material .mkd-frame { letter-spacing: .0178em; }
 .mkd-pack-angular-material .mkd-screen { background: var(--mkd-surface); }
@@ -36,19 +38,8 @@
 .mkd-pack-angular-material .mkd-button {
   height: 40px;
   padding: 0 12px;
-  gap: 8px;
-  border: 0;
-  border-radius: 20px;
-  background: transparent;
-  color: var(--mkd-primary);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: .007em;
-  overflow: visible;
 }
 .mkd-pack-angular-material .mkd-button .mkd-icon { width: 18px; height: 18px; }
-.mkd-pack-angular-material .mkd-button::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; }
-.mkd-pack-angular-material .mkd-button[data-state="hover"]::after { opacity: .08; }
 .mkd-pack-angular-material .mkd-button:is([data-state="focused"])::after,
 .mkd-pack-angular-material .mkd-button:is([data-state="pressed"])::after { opacity: .12; }
 .mkd-pack-angular-material .mkd-button:has(> .mkd-button__icon:first-child) { padding-left: 12px; padding-right: 16px; }

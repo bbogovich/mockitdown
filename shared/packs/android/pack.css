@@ -6,6 +6,8 @@
  * are currentColor overlays at 8 / 10 / 10 % opacity.
  */
 
+@import "../_partials/material3.css";
+
 /* ---------- frame, chrome and type ---------- */
 .mkd-pack-android .mkd-frame { letter-spacing: .031em; --mkd-notch-bg: var(--mkd-surface); }
 .mkd-pack-android .mkd-frame[data-chrome="android"] { border-color: var(--mkd-device-frame); border-radius: 40px; }
@@ -174,20 +176,9 @@
 .mkd-pack-android .mkd-button {
   height: 40px;
   padding: 0 24px;
-  gap: 8px;
-  border: 0;
-  border-radius: 20px;
-  background: transparent;
-  color: var(--mkd-primary);
-  font-size: 14px;
-  font-weight: 500;
   line-height: 20px;
-  letter-spacing: .007em;
-  overflow: visible;
 }
 .mkd-pack-android .mkd-button .mkd-icon { width: 20px; height: 20px; }
-.mkd-pack-android .mkd-button::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; }
-.mkd-pack-android .mkd-button[data-state="hover"]::after { opacity: .08; }
 .mkd-pack-android .mkd-button:is([data-state="focused"], [data-state="pressed"])::after { opacity: .1; }
 .mkd-pack-android .mkd-button:is([data-variant="filled"], [data-variant="primary"], [data-variant="contained"], [data-variant="borderedProminent"]) { background: var(--mkd-primary); color: var(--mkd-on-primary); }
 .mkd-pack-android .mkd-button:is([data-variant="tonal"], [data-variant="secondary"], [data-variant="bordered"]) { background: var(--mkd-secondary-container); color: var(--mkd-on-secondary-container); }

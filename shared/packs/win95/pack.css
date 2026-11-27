@@ -224,6 +224,10 @@
   align-items: stretch;
   gap: 0;
   min-width: 180px;
+}
+/* the raised window face, shared by the Start menu and message boxes */
+.mkd-pack-win95 .mkd-card[data-el="StartMenu"],
+.mkd-pack-win95 .mkd-dialog {
   padding: 3px;
   border: 0;
   border-radius: 0;
@@ -283,15 +287,7 @@
   color: var(--mkd-face-fg);
 }
 .mkd-pack-win95 .mkd-toolbar[data-el="MenuBar"] { height: 19px; padding: 0 1px; gap: 0; }
-.mkd-pack-win95 .mkd-toolbar .mkd-button[data-el="MenuBarItem"] {
-  height: 17px;
-  min-width: 0;
-  padding: 0 6px;
-  box-shadow: none;
-  background: none;
-  color: var(--mkd-face-fg);
-}
-.mkd-pack-win95 .mkd-toolbar .mkd-button[data-el="MenuBarItem"]:is([data-selected="true"], [data-state="hover"]) { background: var(--mkd-hilite); color: var(--mkd-on-hilite); }
+.mkd-pack-win95 .mkd-toolbar .mkd-button[data-el="MenuBarItem"],
 .mkd-pack-win95 .mkd-menu[data-variant="menubar"] > .mkd-menu__trigger {
   height: 17px;
   min-width: 0;
@@ -300,6 +296,7 @@
   background: none;
   color: var(--mkd-face-fg);
 }
+.mkd-pack-win95 .mkd-toolbar .mkd-button[data-el="MenuBarItem"]:is([data-selected="true"], [data-state="hover"]) { background: var(--mkd-hilite); color: var(--mkd-on-hilite); }
 .mkd-pack-win95 .mkd-menu[data-variant="menubar"][data-open="true"] > .mkd-menu__trigger { background: var(--mkd-hilite); color: var(--mkd-on-hilite); }
 .mkd-pack-win95 .mkd-toolbar > .mkd-menu[data-variant="menubar"] .mkd-menu__popup { left: 0; right: auto; top: 100%; margin-top: 1px; }
 .mkd-pack-win95 .mkd-menu__popup {
@@ -790,12 +787,6 @@
   width: auto;
   min-width: 260px;
   max-width: min(440px, 100%);
-  padding: 3px;
-  border: 0;
-  border-radius: 0;
-  background: var(--mkd-face);
-  color: var(--mkd-face-fg);
-  box-shadow: var(--mkd-bevel-window);
 }
 .mkd-pack-win95 .mkd-dialog__header {
   grid-area: head;

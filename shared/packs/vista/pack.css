@@ -8,6 +8,8 @@
  * Dark tokens give the glass a graphite colourisation.
  */
 
+@import "../_partials/win-button.css";
+
 /* ---------- frame and the glass window chrome ---------- */
 .mkd-pack-vista .mkd-frame { border-radius: 0; border-color: #333333; }
 .mkd-pack-vista .mkd-frame[data-chrome="window"] {
@@ -550,18 +552,9 @@
 .mkd-pack-vista .mkd-hstack[data-el="StatusBar"] { flex: none; align-self: stretch; height: 22px; gap: 0; padding: 0 4px; background: var(--mkd-bg); border-top: 1px solid var(--mkd-divider); }
 .mkd-pack-vista .mkd-text[data-el="StatusBarPanel"] { flex: 1 1 auto; padding: 0 8px; border-right: 1px solid var(--mkd-divider); white-space: nowrap; overflow: hidden; font-size: 11px; }
 
-/* ---------- push buttons ---------- */
+/* ---------- push buttons (size, border and face: _partials/win-button.css) ---------- */
 .mkd-pack-vista .mkd-button {
-  height: 23px;
-  min-width: 75px;
-  padding: 0 10px;
-  gap: 4px;
-  border: 1px solid var(--mkd-btn-border);
-  border-radius: 3px;
-  background: var(--mkd-btn-bg);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55);
-  color: var(--mkd-btn-fg);
-  font-weight: 400;
 }
 .mkd-pack-vista .mkd-button .mkd-icon { width: 16px; height: 16px; }
 .mkd-pack-vista .mkd-button:is([data-variant="default"], [data-variant="primary"], [data-variant="borderedProminent"], [data-variant="filled"], [data-variant="accent"]) { border-color: var(--mkd-btn-default-border); background: var(--mkd-btn-default-bg); color: var(--mkd-btn-fg); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55), 0 0 3px rgb(60 160 240 / 0.45); }

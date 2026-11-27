@@ -66,4 +66,5 @@ typescript/dist/
 typescript/test-build/
 typescript/test-results/
 typescript/playwright-report/
+typescript/migration-baseline/
 typescript/LICENSE

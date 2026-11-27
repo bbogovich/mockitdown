@@ -1,0 +1,13 @@
+/* mockitdown stylesheet partial: crt — the glass of a cathode-ray tube, shared by the nls and phosphor
+ * packs (R-PACK-018). Each includes it at the top of its pack.css; the builds scope its rules to that pack.
+ */
+
+/* the layer over the whole screen; each pack paints its own scan lines and vignette on it */
+.mkd-scope .mkd-frame .mkd-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  border-radius: inherit;
+}

@@ -1,12 +1,36 @@
 """Every pack must load, map its elements to real render roles, scope its CSS and define tokens."""
 
+import hashlib
 import re
 import unittest
+from pathlib import Path
 
 from tests.helpers import render  # noqa: F401  (puts src on sys.path)
 from mockitdown.packs import BUILTIN_DIR, PackRegistry
 from mockitdown.render.html import Renderer
 from mockitdown import stylesheet
+
+SHARED_PACKS = Path(__file__).resolve().parents[2] / "shared" / "packs"
+#: R-PACK-018.C9: the length of a duplicated run of stylesheet lines.
+RUN = 6
+
+
+def duplicated_runs(files: dict[str, str], window: int = RUN) -> list[str]:
+    """Every run of `window` consecutive kept lines that occurs twice, as "file:line" of each copy.
+
+    The VibeItOut health report's measure of duplicated blocks: each line trimmed and its white space
+    collapsed; lines shorter than four characters or without a word character are dropped."""
+    kept: dict[str, list[tuple[int, str]]] = {}
+    for name, text in files.items():
+        lines = [(i, re.sub(r"\s+", " ", ln.strip())) for i, ln in enumerate(text.splitlines(), 1)]
+        kept[name] = [(i, s) for i, s in lines if len(s) >= 4 and re.search(r"\w", s)]
+    where: dict[str, list[str]] = {}
+    for name, keep in kept.items():
+        for k in range(len(keep) - window + 1):
+            h = hashlib.sha1("\n".join(s for _, s in keep[k:k + window]).encode()).hexdigest()
+            where.setdefault(h, []).append(f"{name}:{keep[k][0]}")
+    return sorted(" = ".join(locs) for locs in where.values() if len(locs) > 1)
+
 
 ROLES = {name[2:].replace("_", "-") for name in dir(Renderer) if name.startswith("r_")}
 
@@ -124,6 +148,21 @@ class PackTests(unittest.TestCase):
                 with self.subTest(pack=pid, element=name):
                     res = r(f"{name}()", RenderOptions(pack=pid))
                     self.assertFalse([d for d in res.errors if d.code != "argument"], [str(d) for d in res.errors])
+
+    def test_no_duplicated_css_runs(self):
+        """R-PACK-018 TC-2 (C9): no run of six stylesheet lines in two pack stylesheets or partials, or twice in one."""
+        paths = sorted(SHARED_PACKS.glob("*/pack.css")) + sorted(SHARED_PACKS.glob("_partials/*.css"))
+        self.assertGreater(len(paths), 30)
+        files = {str(p.relative_to(SHARED_PACKS)): p.read_text(encoding="utf-8") for p in paths}
+        dups = duplicated_runs(files)
+        self.assertEqual(dups, [], f"{len(dups)} duplicated runs of {RUN} lines:\n" + "\n".join(dups[:40]))
+
+    def test_duplicated_runs_measure(self):
+        """R-PACK-018.V1: the check fails on a copied six-line run, within a file or across two."""
+        block = "".join(f".x .y{i} {{ width: {i}px; }}\n" for i in range(6))
+        self.assertEqual(len(duplicated_runs({"a.css": block, "b.css": "/* b */\n" + block})), 1)
+        self.assertEqual(len(duplicated_runs({"a.css": block + "\n}\n" + block})), 1)
+        self.assertEqual(duplicated_runs({"a.css": block, "b.css": block.replace("5px", "7px")}), [])
 
     def test_stylesheet_builds_for_all(self):
         css = stylesheet(None)

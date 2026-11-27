@@ -1,0 +1,19 @@
+/* mockitdown stylesheet partial: material3 — rules of Material 3 that the android (Jetpack Compose) and
+ * angular-material packs share (R-PACK-018). Each includes it at the top of its pack.css; the builds
+ * scope its rules to that pack.
+ */
+
+/* buttons: the full-pill text button and its state layer; each pack sets its own height and padding */
+.mkd-scope .mkd-button {
+  gap: 8px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--mkd-primary);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .007em;
+  overflow: visible;
+}
+.mkd-scope .mkd-button::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; }
+.mkd-scope .mkd-button[data-state="hover"]::after { opacity: .08; }

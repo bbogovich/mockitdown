@@ -8,6 +8,8 @@
  * Every colour comes from the --mkd-crt-* tokens and the base tokens.
  */
 
+@import "../_partials/crt.css";
+
 /* ---------- the tube seen through a camera ---------- */
 .mkd-pack-nls .mkd-frame {
   border: 12px solid var(--mkd-crt-bezel);
@@ -22,12 +24,6 @@
   background: radial-gradient(ellipse at 50% 45%, var(--mkd-crt-field-hi) 0%, var(--mkd-crt-field) 72%);
 }
 .mkd-pack-nls .mkd-frame .mkd-screen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 30;
-  pointer-events: none;
-  border-radius: inherit;
   background:
     repeating-linear-gradient(to bottom, transparent 0 2px, var(--mkd-crt-scan) 2px 3px),
     radial-gradient(ellipse at 50% 50%, transparent 60%, var(--mkd-crt-vignette) 100%);

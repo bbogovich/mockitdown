@@ -6,6 +6,8 @@
  * Every colour that changes in the dark ("Luna Noir") variant is a token.
  */
 
+@import "../_partials/win-button.css";
+
 /* ---------- frame and the window chrome ---------- */
 .mkd-pack-winxp .mkd-frame { border-radius: 0; border-color: #4d4d4d; -webkit-font-smoothing: auto; }
 .mkd-pack-winxp .mkd-frame[data-chrome="window"] {
@@ -545,18 +547,7 @@
 .mkd-pack-winxp .mkd-text[data-el="StatusBarPanel"] { flex: 1 1 auto; align-self: stretch; display: flex; align-items: center; padding: 0 6px; border-right: 1px solid var(--mkd-divider); white-space: nowrap; overflow: hidden; }
 .mkd-pack-winxp .mkd-text[data-el="StatusBarPanel"]:last-child { border-right: 0; }
 
-/* ---------- push buttons ---------- */
-.mkd-pack-winxp .mkd-button {
-  height: 23px;
-  min-width: 75px;
-  padding: 0 10px;
-  gap: 4px;
-  border: 1px solid var(--mkd-btn-border);
-  border-radius: 3px;
-  background: var(--mkd-btn-bg);
-  color: var(--mkd-btn-fg);
-  font-weight: 400;
-}
+/* ---------- push buttons (size, border and face: _partials/win-button.css) ---------- */
 .mkd-pack-winxp .mkd-button .mkd-icon { width: 16px; height: 16px; }
 .mkd-pack-winxp .mkd-button:is([data-variant="default"], [data-variant="primary"], [data-variant="borderedProminent"], [data-variant="filled"], [data-variant="accent"]) { box-shadow: var(--mkd-btn-default); background: var(--mkd-btn-bg); border-color: var(--mkd-btn-border); color: var(--mkd-btn-fg); }
 .mkd-pack-winxp .mkd-button:is([data-variant="plain"], [data-variant="borderless"], [data-variant="link"]) { min-width: 0; border-color: transparent; background: none; color: var(--mkd-link); }
