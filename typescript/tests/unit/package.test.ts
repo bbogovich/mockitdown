@@ -1,9 +1,12 @@
 // R-WEB-001 TC-2 (C1, C2): the package's manifest and build output.
+// R-PACK-018 TC-1 (C1 to C8): stylesheet partials resolved by scripts/copy-shared.mjs, over the fixture
+// python/tests/test_shared.py reads too (python/tests/fixtures/partials/), with the same expected bytes.
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { test } from "node:test";
-import { PKG, REPO } from "./helpers.js";
+import { after, before, test } from "node:test";
+import { PKG, REPO, setup } from "./helpers.js";
 
 const pkg = JSON.parse(readFileSync(join(PKG, "package.json"), "utf8")) as Record<string, unknown>;
 
@@ -36,3 +39,143 @@ test("the build emits ES modules with declarations and dist/shared/ (C2)", () =>
 function sharedPath(f: string): string {
   return ({ "page.css": "css/page.css", "icons.json": "icons/icons.json", "vocabulary.json": "language/vocabulary.json" } as Record<string, string>)[f] ?? f;
 }
+
+// R-PACK-018 TC-1: stylesheet partials.
+const core = setup();const FIXTURE = join(REPO, "python", "tests", "fixtures", "partials");
+
+interface CopyShared {
+  resolvePackCss(packs: string, id: string): string;
+  copyText(src: string): string;
+  packIds(packs: string): string[];
+  PartialError: new (message: string) => Error;
+}
+
+let tool: CopyShared;
+let scratch: string;
+
+before(async () => {
+  // A computed specifier: scripts/copy-shared.mjs is plain JavaScript with no declarations.
+  tool = (await import(new URL("../../scripts/copy-shared.mjs", import.meta.url).href)) as CopyShared;
+  scratch = mkdtempSync(join(tmpdir(), "mkd-partials-"));
+});
+after(() => rmSync(scratch, { recursive: true, force: true }));
+
+let n = 0;
+function tree(): string {
+  const packs = join(scratch, `t${n++}`, "packs");
+  cpSync(join(FIXTURE, "packs"), packs, { recursive: true });
+  return packs;
+}
+
+function fails(packs: string, id: string, ...needles: string[]): void {
+  assert.throws(() => tool.resolvePackCss(packs, id), (e: Error) => {
+    assert.ok(e instanceof tool.PartialError, String(e));
+    for (const s of needles) assert.ok(e.message.includes(s), `${JSON.stringify(e.message)} names ${s}`);
+    return true;
+  });
+}
+
+test("step 1: the resolved copies are byte-exact, the same bytes as in the Python suite (C4, C5)", () => {
+  for (const id of ["one", "two"]) {
+    const want = readFileSync(join(FIXTURE, "expected", `${id}.pack.css`), "utf8");
+    assert.equal(tool.resolvePackCss(join(FIXTURE, "packs"), id), want, id);
+    assert.equal(tool.copyText(join(FIXTURE, "packs", id, "pack.css")), want, id);
+  }
+});
+
+test("step 2: _partials is not a pack (C1)", () => {
+  assert.deepEqual(tool.packIds(join(FIXTURE, "packs")), ["one", "two"]);
+});
+
+test("step 3: an import after the first rule fails, naming the pack and the path (C2, C6)", () => {
+  const packs = tree();
+  const css = join(packs, "one", "pack.css");
+  writeFileSync(css, readFileSync(css, "utf8") + '@import "../_partials/demo.css";\n');
+  fails(packs, "one", "'one'", "../_partials/demo.css", "after the first rule");
+});
+
+test("step 3: an import of a missing partial fails (C6)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "one", "pack.css"), '@import "../_partials/missing.css";\n');
+  fails(packs, "one", "'one'", "../_partials/missing.css", "no such partial");
+});
+
+test("step 3: an import outside ../_partials/ fails (C6)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "one", "pack.css"), '@import "../two/pack.css";\n');
+  fails(packs, "one", "'one'", "../two/pack.css", "outside ../_partials/");
+});
+
+test("step 3: a partial with an unscoped selector fails, naming the partial (C3, C6)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "_partials", "demo.css"), ".mkd-button { color: red; }\n");
+  fails(packs, "one", "'one'", "../_partials/demo.css", ".mkd-button");
+});
+
+test("step 3: a partial with prefers-color-scheme fails (C3, C6)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "_partials", "demo.css"),
+    "@media (prefers-color-scheme: dark) { .mkd-scope .mkd-button { color: red; } }\n");
+  fails(packs, "one", "'one'", "../_partials/demo.css", "prefers-color-scheme");
+});
+
+test("the scope is replaced at the start of every selector only, as in the Python suite (C4)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "_partials", "demo.css"),
+    "/* .mkd-scope in a comment stays */\n" +
+    '.mkd-scope .a, .mkd-scope .b:not(.c) { content: ".mkd-scope {"; }\n' +
+    "@media (max-width: 400px) { .mkd-scope { gap: 2px; } }\n" +
+    "@keyframes mkd-demo { from { opacity: 0; } to { opacity: 1; } }\n");
+  writeFileSync(join(packs, "one", "pack.css"), '@import "../_partials/demo.css";\n');
+  assert.equal(tool.resolvePackCss(packs, "one"),
+    "/* .mkd-scope in a comment stays */\n" +
+    '.mkd-pack-one .a, .mkd-pack-one .b:not(.c) { content: ".mkd-scope {"; }\n' +
+    "@media (max-width: 400px) { .mkd-pack-one { gap: 2px; } }\n" +
+    "@keyframes mkd-demo { from { opacity: 0; } to { opacity: 1; } }\n");
+});
+
+test("step 4: dist/shared/packs holds only <id>/pack.css copies, none with @import (C7)", () => {
+  const root = join(PKG, "dist", "shared", "packs");
+  for (const id of readdirSync(root)) {
+    assert.ok(statSync(join(root, id)).isDirectory(), id);
+    for (const f of readdirSync(join(root, id))) {
+      if (!f.endsWith(".css")) continue;
+      assert.equal(f, "pack.css", `${id}/${f}`);
+      assert.ok(!readFileSync(join(root, id, f), "utf8").includes("@import"), `${id}/pack.css`);
+    }
+  }
+  const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { files: string[] };
+  assert.deepEqual(manifest.files.filter((f) => f.includes("_partials")), []);
+});
+
+test("every dist/shared pack.css is the resolved copy of shared/ (R-REPO-002.C6, R-PACK-018.C4)", () => {
+  const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { packs: string[] };
+  for (const id of manifest.packs) {
+    const src = join(REPO, "shared", "packs", id, "pack.css");
+    if (!existsSync(src)) continue; // a pack without a stylesheet
+    assert.equal(readFileSync(join(PKG, "dist/shared/packs", id, "pack.css"), "utf8"), tool.copyText(src), id);
+  }
+});
+
+test("step 5: registerPack refuses a stylesheet with @import (C8)", () => {
+  assert.throws(() => core.registerPack('{"id": "acme", "modules": ["Acme"]}', '@import "../_partials/x.css";\n'),
+    (e: Error & { diagnostic?: { message: string } }) => {
+      assert.equal(e.diagnostic?.message, "pack 'acme': @import is resolved only in built-in packs");
+      return true;
+    });
+  assert.ok(!core.registry.ids().includes("acme"));
+});
+
+test("step 5: an @import inside a comment is not refused (C8)", () => {
+  try {
+    assert.equal(core.registerPack('{"id": "acme", "modules": ["Acme"]}', "/* no @import here */\n.mkd-pack-acme .mkd-button { color: red; }\n"), "acme");
+  } finally {
+    core.registry.clearRegistered();
+  }
+});
+
+test("step 3: an @import sharing its line fails (C2, C6)", () => {
+  const packs = tree();
+  writeFileSync(join(packs, "one", "pack.css"), '@import "../_partials/demo.css"; /* demo */\n');
+  fails(packs, "one", "'one'", "not on a line of its own");
+});

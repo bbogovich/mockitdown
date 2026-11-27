@@ -28,6 +28,7 @@ Site-defined packs are loaded from extra directories (``pack_paths``) with the s
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -128,6 +129,13 @@ def _element(name: str, raw: dict, where: str) -> ElementDef:
     )
 
 
+def _refuse_import(pack_id: str, css_file: Path) -> None:
+    """A site pack's stylesheet may not include partials: the built-in packs' `@import` lines are
+    resolved when the package is built, a site pack's never are (R-PACK-018.C8)."""
+    if css_file.is_file() and "@import" in re.sub(r"/\*.*?(\*/|$)", "", css_file.read_text(encoding="utf-8"), flags=re.S):
+        raise MockitdownError(f"pack {pack_id!r}: @import is resolved only in built-in packs")
+
+
 class PackRegistry:
     """Finds and loads packs from the built-in directory and any extra directories."""
 
@@ -159,6 +167,8 @@ class PackRegistry:
         if d is None:
             raise MockitdownError(f"unknown pack {pack_id!r}; known packs: {', '.join(self.ids())}")
         where = str(d / "pack.json")
+        if d.parent.resolve() != BUILTIN_DIR:
+            _refuse_import(pack_id, d / "pack.css")
         try:
             raw = json.loads((d / "pack.json").read_text(encoding="utf-8"))
         except ValueError as e:

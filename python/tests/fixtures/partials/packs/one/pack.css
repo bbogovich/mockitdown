@@ -1,0 +1,3 @@
+/* one: includes the demo partial */
+@import "../_partials/demo.css";
+.mkd-pack-one .mkd-label { color: blue; }

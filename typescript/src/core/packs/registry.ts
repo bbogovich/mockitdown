@@ -191,6 +191,10 @@ export class PackRegistry {
     const raw = toDict(json, "registered pack");
     const id = raw.get("id");
     if (typeof id !== "string" || !id) throw new MockitdownError("registered pack: pack.json has no string 'id'");
+    // A built-in pack's partials are resolved when the package is built; an application pack's never are (R-PACK-018.C8).
+    if (css.replace(/\/\*[\s\S]*?(\*\/|$)/g, "").includes("@import")) {
+      throw new MockitdownError(`pack ${strRepr(id)}: @import is resolved only in built-in packs`);
+    }
     this.app.set(id, { json: raw, css });
     this.invalidate();
     return id;
