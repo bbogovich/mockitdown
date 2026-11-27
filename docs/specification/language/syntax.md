@@ -1,8 +1,8 @@
 ---
 title: "Language: syntax"
-spec_version: 0.10.0
+spec_version: 0.12.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: LANG.1
 ---
 
@@ -81,6 +81,10 @@ simply become the mockup.
 Automated by `tests/test_syntax.py::SyntaxTests::test_imports_directive_struct_statements` and
 `test_preview_block_becomes_statements`.
 
+**R-LANG-003.TC-2 — File import aliases**
+
+`import "acme/cards" as Acme` parses as a file import with alias `Acme` (C8); `import SwiftUI as S` raises the syntax error of C9; `import "x" as 3` is a syntax error. Automated in the parser tests of both variants.
+
 **Realizes.** F-2 · **Decisions.** ADR-2
 
 | | Statement |
@@ -92,6 +96,8 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_imports_directive_struct_s
 | C5 | If a file import's string contains an interpolation, then the parser MUST raise a syntax error. |
 | C6 | The parser MUST parse a top-level `@Name` or `@Name(arguments)` that is not followed by a declaration as a directive. |
 | C7 | The parser MUST parse `#Preview`, an optional argument list and a block, and MUST append the block's statements to the module's top-level statements, discarding the arguments. |
+| C8 | The parser MUST parse `import "path" as Name`, `Name` an identifier, as a file import with the alias `Name`. |
+| C9 | If `as` follows a module import, then the parser MUST raise the syntax error "only a file import can be renamed with `as`". |
 | V1 | A module with `import SwiftUI`, `import "lib/cards"`, `@Screen(id: "S1")`, a struct, a `#Preview { … }` and a statement yields one module import, one file import, one directive, one struct and the preview's statements followed by the statement. |
 
 ---
@@ -107,6 +113,10 @@ supported because SwiftUI code uses them to split a body into parts.
 
 Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_with_slot_and_defaults`.
 
+**R-LANG-004.TC-2 — Optional view properties**
+
+`@ViewBuilder var toolbar: (some View)?`, `var footer: some View?` and `var x: Content?` are view-typed and optional; `var t: String?` is neither. Automated in the parser tests of both variants.
+
 **Realizes.** F-2, F-4 · **Decisions.** ADR-2, ADR-10
 
 | | Statement |
@@ -116,7 +126,7 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_w
 | C3 | The parser MUST record a type annotation as the text of its tokens up to `=`, `{`, a line feed, `;` or `}` at bracket depth zero. |
 | C4 | When a property named `body` has a block, the parser MUST record that block as the struct's body. |
 | C5 | When any other property has a block, the parser MUST record it as a computed view property: its default is a parameterless closure over the block, it carries the attribute `computed`, and its type is `some View` when none was written. |
-| C6 | A property MUST count as view-typed when it carries `@ViewBuilder` or its type, with spaces removed, is `someView`, `View`, `Content` or `AnyView`, or ends in `->someView` or `->Content`. |
+| C6 | A property MUST count as view-typed when it carries `@ViewBuilder` or its type, with spaces removed and one trailing `?` and enclosing parentheses ignored, is `someView`, `View`, `Content` or `AnyView`, or ends in `->someView` or `->Content`; a view-typed property whose type ends in `?` is optional. |
 | C7 | If a struct member starts with `init` or `func`, then the parser MUST raise the syntax error "initializers and functions are not supported; declare properties and a `body`". |
 | C8 | If a struct member is neither a property nor one of those, or the struct's closing brace is missing, then the parser MUST raise a located syntax error naming the struct. |
 | C9 | Generic parameter clauses (`struct Name<T: View>`) are not part of the language; the parser MUST report them as a syntax error. |
@@ -242,8 +252,10 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_errors_are_located` and
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

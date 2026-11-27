@@ -18,7 +18,7 @@ The Python API shared by the fence, the CLI and other tools, and the package's d
 from pathlib import Path
 from mockitdown import RenderOptions, render, stylesheet
 
-opts = RenderOptions(device="phone", appearance="both", import_paths=(Path("docs/mockups"),))
+opts = RenderOptions(device="phone", appearance="both", imports={"": ["docs/mockups"]})
 result = render(Path("checkout.mockitdown").read_text(), opts)
 for d in result.diagnostics:
     print(d)                       # "error [unknown] at line 3:5: …"
@@ -30,3 +30,4 @@ page = f"<style>{stylesheet(result.packs)}</style>{result.html}"
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | `imports` replaces `import_paths` in the example (ADR-24) |

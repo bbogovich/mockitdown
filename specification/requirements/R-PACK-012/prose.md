@@ -7,4 +7,4 @@ side by side (`/` and `/demos/`); identical header tabs make them read as one si
 lives in the example site because it is generated from code and needs every pack's CSS.
 
 The pack gallery of the web components (R-WEB-004) is published beside them at `/gallery/` and has its
-own header tab, Gallery, next to Demo on both sites (SRC-17).
+own header tab, Gallery, next to the User guide (formerly Demo) on both sites (SRC-17, SRC-19).

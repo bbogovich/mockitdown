@@ -1,6 +1,6 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.10.0
+def_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: FEAT.2
@@ -138,12 +138,12 @@ locally, the page shows the same message above the figure and a `Buton` placehol
 **Outcome:** the job fails on any error, and the JSON lists each diagnostic with file, line and
 column.
 
-### F-14 — Example site as demo and end-to-end test
+### F-14 — Example site as user guide and end-to-end test
 
 **Problem.** A renderer for seven frameworks regresses easily; users need to see what each pack
 can do before adopting it.
 
-**Change.** `examples/site` is both the demo and the end-to-end fixture: one page per pack, a
+**Change.** `examples/site` is both the user guide and the end-to-end fixture: an Installation page, one page per pack, a
 language tour and a custom-components page, all checked by the test suite.
 
 **F-14.UC-1 — Evaluate whether a framework is supported well enough**
@@ -154,6 +154,17 @@ language tour and a custom-components page, all checked by the test suite.
 
 **Outcome:** the developer sees simple controls, forms, lists, navigation and complete screens in
 that framework's style, each with its source.
+
+**F-14.UC-2 — Add mockups to an existing documentation site**
+
+**Actor:** developer maintaining a Zensical or MkDocs site (or a plain web page).
+
+1. The developer opens the User guide's Installation page.
+2. The developer installs the Python package with its Markdown extra (or the web components), adds
+   the configuration shown, writes a `mockitdown` block and builds the site.
+
+**Outcome:** the built page shows the rendered mockup; the developer knows where each option,
+including the import map, is configured.
 
 ### F-15 — Annotations and overlays
 
@@ -196,12 +207,14 @@ to, including elements inside dialogs and other overlays.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | Demo becomes User guide; Installation page for Python and TypeScript; every term the guide uses is defined (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |

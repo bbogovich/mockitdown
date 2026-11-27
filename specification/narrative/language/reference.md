@@ -235,8 +235,8 @@ HStack(spacing: 12) {
 .padding()
 ```
 
-Components can live in a library file and be imported by path. This site's `import_paths` contains
-the directory of a small library declaring `StatusPill` and `Panel`:
+Components can live in a library file and be imported by path. This site's import map (the extension's
+`imports` option, R-IMP-002) maps the root namespace `""` to the directory of a small library declaring `StatusPill` and `Panel`:
 
 ```mockitdown source="true" device="fit" title="Imported components"
 import "status"
@@ -296,3 +296,4 @@ NavigationStack {
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | Imported components found through the import map (ADR-24) |

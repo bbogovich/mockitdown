@@ -1,6 +1,6 @@
 ---
 title: "Features: authoring"
-def_version: 0.10.0
+def_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: FEAT.1
@@ -148,26 +148,76 @@ science-fiction pack.
 ### F-4 — Custom reusable components
 
 **Problem.** Real applications use components that no framework ships — a KPI tile, a person row,
-a status pill. Repeating their layout in every mockup is error-prone.
+a status pill, the application's own window layout. Repeating their layout in every mockup is
+error-prone, and a site that combines a vendor's component library with its own soon meets two
+components of the same name.
 
-**Change.** Components are `struct` views, exactly as in SwiftUI. Declared in a `.mockitdown` file in
-the site's import directory, they are imported by path and used like built-in elements:
+**Change.** Components are `struct` views, exactly as in SwiftUI. They are declared in a block, in a
+named library block on the same page, or in a `.mockitdown` library file. Library files are found
+through the site's import map, which maps namespaces to directories or URLs:
+
+```yaml
+- mockitdown:
+    imports:
+      shared/: docs/mockups/shared/
+      acme/: https://example.com/acme-mockups/
+```
 
 ```swift
 import "shared/kpi"
+import "acme/cards"
 KPI(label: "Revenue", value: "$48.2k")
+acme.Card(title: "Plan")      // qualified: needed only when another library also has a Card
 ```
+
+A component doubles as a template: properties with defaults are overridden by the caller, and
+view properties (`@ViewBuilder`) are content slots the caller fills — the trailing closure fills
+`content`, labelled closures fill the named ones, and an unfilled slot shows its default content or,
+when optional, nothing.
 
 **F-4.UC-1 — Share a component library across a site**
 
 **Actor:** documentation-site maintainer.
 
 1. The maintainer writes `docs/mockups/shared/kpi.mockitdown` declaring `struct KPI: View`.
-2. The maintainer sets the extension's import directory to `docs/mockups`.
+2. The maintainer maps the namespace `shared/` to `docs/mockups/shared/` in the extension's import map.
 3. Authors write `import "shared/kpi"` in any block and use `KPI(…)`.
 
 **Outcome:** every page renders the same KPI component; changing the library changes every mockup
 on the next build.
+
+**F-4.UC-2 — Reuse a component across the blocks of one page**
+
+**Actor:** page author.
+
+1. The author writes a block marked as the page's library `cards`, declaring `struct Pill: View`.
+2. Further down the page, the author writes `import "#cards"` in each block that shows pills.
+
+**Outcome:** every block on the page uses the same `Pill`; no file outside the page is needed, and
+other pages are unaffected.
+
+**F-4.UC-3 — Combine two component libraries with overlapping names**
+
+**Actor:** documentation-site maintainer combining a vendor library and the product's own library.
+
+1. The maintainer maps `acme/` to the vendor's library URL and `contoso/` to the product's directory.
+2. An author imports both, `import "acme/cards"` and `import "contoso/cards"`; both declare `Card`.
+3. The author writes `acme.Card(…)` and `contoso.Card(…)` (or imports one `as` a shorter name).
+
+**Outcome:** each call renders its own library's `Card`; a plain `Card` is reported as ambiguous
+rather than silently picking one.
+
+**F-4.UC-4 — Build screens from a layout template**
+
+**Actor:** designer documenting several screens of one application.
+
+1. The designer declares `struct AppShell: View` with a `title` property, a `sidebar` slot with
+   default navigation, an optional `toolbar` slot and a `content` slot.
+2. Each screen's block calls `AppShell(title: "Orders") { … }`, filling `content` with the screen
+   and, where needed, `toolbar:` with its own buttons.
+
+**Outcome:** every screen shares the shell's layout; each shows its own title and content, the
+default sidebar unless it supplies one, and a toolbar only where it gave one.
 
 ### F-5 — Embedded external assets
 
@@ -228,11 +278,13 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | import map replaces import directories; page library blocks; library-qualified names; components as templates with slots (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |
 | 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |
 | 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |

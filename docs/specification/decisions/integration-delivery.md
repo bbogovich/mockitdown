@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.11.0
+spec_version: 0.12.1
 status: draft
 updated: 2026-11-27
 page_id: ADR.2
@@ -74,7 +74,7 @@ component is cut off by the nesting limit.
 | | Statement |
 |---|---|
 | D1 | Custom components are `struct` declarations, inline or in `.mockitdown` files loaded with `import "path"`. |
-| D2 | Paths resolve against the importing file's directory, then `import_paths`; `.mockitdown` may be omitted; cycles are ignored; later definitions replace earlier ones and block-local ones replace imported ones. |
+| D2 | Paths resolve against the importing file's directory, then through the import map (ADR-24, which replaced `import_paths`); `.mockitdown` may be omitted; cycles are ignored; within one library later definitions replace earlier ones, across libraries a qualified name selects one (R-IMP-007), and block-local ones replace imported ones. |
 | O1 | rejected: the prototype's `component Name(p: Type) { … Slot("x") }` — a bespoke form; SwiftUI structs express the same with `@ViewBuilder` properties. |
 | O2 | rejected: register components in the site configuration — moves component code out of the documentation and away from the pages using it. |
 | O3 | rejected: import by module name (`import Components`) — collides with pack selection by module (R-PACK-005). |
@@ -301,10 +301,37 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 | O3 | rejected: a hand-written Chrome DevTools-protocol driver — code to maintain where Playwright is stable (Apache-2.0, Microsoft). |
 | C1 | `npm install` fetches two packages and their own dependencies; `npx playwright install chromium` fetches the test browser. |
 
+---
+
+#### ADR-24 — An import map of named libraries replaces import directories
+
+The developer asked for import paths to work like a virtual file system — a map from namespaces to
+locations, as TypeScript's `paths` does — for several component libraries with overlapping names to
+coexist, for components defined on the same page to be importable, and for components to act as
+templates whose users override values and fill content. SwiftUI already has the template mechanism:
+`@ViewBuilder` properties (the developer's "@ContentBuilder"), so no new syntax is added for it.
+
+**Constrains.** R-IMP-002, R-IMP-004, R-IMP-007, R-IMP-008, R-IMP-009, R-MDX-002, R-WEB-001
+
+| | Statement |
+|---|---|
+| D1 | Component library files are found through an import map — keys are namespaces (path prefixes ending in `/`), exact paths or the empty root key; targets are directories, files or URLs, or lists of them — in the manner of TypeScript's `paths` and the browser import map; it replaces the list of import directories `import_paths`, which becomes a configuration error. |
+| D2 | Each import belongs to a named library (its first path segment, or an `as` alias); components of different libraries never replace one another, a qualified `Library.Name` selects one, and an unqualified name is used only when it is unique. |
+| D3 | A page can declare a library in a block (`library="name"`), imported by later blocks of the page as `import "#name"`. |
+| D4 | Components are templates through SwiftUI's own means: value properties with defaults, and `@ViewBuilder` view properties as content slots — the trailing closure fills `content`, labelled closures or arguments fill named slots, a slot may have default content or be optional. |
+| O1 | rejected: keeping `import_paths` beside the map — two mechanisms for one job; the empty key `""` expresses a search directory. |
+| O2 | rejected: selective imports (`import { Card as AcmeCard } from "acme/cards"`) — not Swift syntax; qualified names are how Swift disambiguates two modules' types. |
+| O3 | rejected: making every struct of an earlier block visible to later blocks — implicit and order-dependent; a named library block is explicit and the same in the web components. |
+| O4 | rejected: a separate template syntax (`Slot("x")`, a `@ContentBuilder` attribute) — `@ViewBuilder` properties already express slots, and the code stays valid SwiftUI (ADR-10.C1). |
+| C1 | Existing sites change `import_paths: [d]` to `imports: {"": d}`; the build error says so. |
+| C2 | The language gains `import "…" as Name` and qualified component calls; the Python and TypeScript variants implement both identically (F-16). |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |
+| 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
 | 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
@@ -312,6 +339,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
+| 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |

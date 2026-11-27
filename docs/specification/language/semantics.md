@@ -1,6 +1,6 @@
 ---
 title: "Language: semantics"
-spec_version: 0.10.8
+spec_version: 0.12.0
 status: draft
 updated: 2026-11-27
 page_id: LANG.2
@@ -67,11 +67,15 @@ renders the same element as `BadgeRibbon("New")` with `data-el="Badge.Ribbon"`; 
 colour; `Nope.Thing()` is an `unknown` error naming `Nope.Thing`; a `let` named `Badge` makes
 `Badge.Ribbon` a member access, not a dotted name.
 
+**R-EVAL-003.TC-3 — Qualified components in resolution order**
+
+With library `acme` declaring `Card` and the pack also having a `Card` element, `acme.Card()` instantiates the struct, `Card()` instantiates the struct (unique), and a block-local `Card` wins over both for `Card()` but not for `acme.Card()`. Automated in `python/tests/` and the TypeScript unit tests.
+
 **Realizes.** F-2, F-3, F-4
 
 | | Statement |
 |---|---|
-| C1 | When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a struct declared in the block or imported; a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack. |
+| C1 | When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a qualified component `L.Name` when `L` names a loaded library (R-IMP-007.C4); a struct declared in the block or imported (R-IMP-007.C5); a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack. |
 | C2 | If none matches, then the evaluator MUST report the error "'Name' is not an element of pack '<id>' and no struct of that name is declared or imported" with code `unknown`, and MUST produce an `unknown` view named `Name` whose children are the views of its unlabelled trailing closure. |
 | C3 | When a bare identifier appears where views are expected, the evaluator MUST use the variable of that name if one is in scope, else call the struct or element of that name with no arguments; if neither exists, then it MUST report "unknown view or variable" with code `unknown` and produce an `unknown` view. |
 | C4 | When a string or number literal, or an interpolated string, appears where views are expected, the evaluator MUST produce a `Text` element with that content. |
@@ -145,12 +149,16 @@ appear where the body names `content`, the default applies, and the root view ca
 
 Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_with_slot_and_defaults`.
 
+**R-EVAL-005.TC-2 — Trailing closure prefers content**
+
+A struct with `@ViewBuilder var sidebar: some View = Text("Nav")` declared before `@ViewBuilder var content: some View` binds the trailing closure to `content`; a struct with slots `header` (defaulted) and `body2` (no default) and no `content` binds it to `body2`; a struct whose only view property is defaulted binds it there. Automated in both variants.
+
 **Realizes.** F-4 · **Decisions.** ADR-10
 
 | | Statement |
 |---|---|
 | C1 | When a struct is instantiated, the evaluator MUST bind labelled arguments to properties of the same name; if a label names no property, then it MUST warn "struct S has no property 'x'" with code `argument`. |
-| C2 | The evaluator MUST bind the unlabelled trailing closure to the first view-typed, non-computed property that no labelled argument bound, and each labelled trailing closure to the property of its label; if there is no such property, then it MUST warn with code `argument`. |
+| C2 | The evaluator MUST bind the unlabelled trailing closure to a view-typed, non-computed property that no labelled argument bound: the one named `content` if there is one, else the first in declaration order that has no default, else the first; it MUST bind each labelled trailing closure to the property of its label; if there is no such property, then it MUST warn with code `argument`. |
 | C3 | The evaluator MUST bind positional arguments, in order, to the stored properties not already bound, in declaration order. |
 | C4 | The evaluator MUST give each remaining property its default value, evaluated in the struct's own scope after the properties declared before it; a property with neither argument nor default MUST be `nil`, and if its type does not end in `?`, then the evaluator MUST report "missing argument 'x' for struct S" with code `argument`. |
 | C5 | If positional arguments remain after binding, then the evaluator MUST warn "too many arguments for struct S" with code `argument`. |
@@ -160,6 +168,7 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_w
 | C9 | The evaluator MUST mark every top-level view of the body with the struct's name as its component, unless it already carries an inner component's name, and MUST record the struct in the screen's list of used components. |
 | C10 | If struct instantiation nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply (recursive?)" with code `recursion` and produce no views. |
 | V1 | `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a struct that instantiates itself stops at depth 48 with a `recursion` error. |
+| V2 | `struct Shell: View { @ViewBuilder var sidebar: some View = Text("Nav"); @ViewBuilder var content: some View; var body: some View { … } }` called as `Shell { Text("Hi") }` binds `content` to the closure and `sidebar` to its default, with no diagnostic. |
 
 ---
 
@@ -302,10 +311,12 @@ accepted and dropped; `@State` values become the state the mockup shows.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

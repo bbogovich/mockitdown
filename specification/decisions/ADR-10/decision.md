@@ -2,18 +2,19 @@
 id: ADR-10
 title: Custom components are structs, imported from files by path
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.1
+rev: 1
 page: ADR.2
 slot: decisions
 order: 3
 source: [SRC-2, SRC-3]
 constrains: [R-IMP-001, R-IMP-002, R-IMP-003, R-IMP-004, R-EVAL-005]
-hash: 49b1b23588dc
+hash: a0c6825717f2
+refs: [ADR-24, R-IMP-007, R-PACK-005]
 ---
 
 D1: Custom components are `struct` declarations, inline or in `.mockitdown` files loaded with `import "path"`.
-D2: Paths resolve against the importing file's directory, then `import_paths`; `.mockitdown` may be omitted; cycles are ignored; later definitions replace earlier ones and block-local ones replace imported ones.
+D2: Paths resolve against the importing file's directory, then through the import map (ADR-24, which replaced `import_paths`); `.mockitdown` may be omitted; cycles are ignored; within one library later definitions replace earlier ones, across libraries a qualified name selects one (R-IMP-007), and block-local ones replace imported ones.
 O1: rejected: the prototype's `component Name(p: Type) { … Slot("x") }` — a bespoke form; SwiftUI structs express the same with `@ViewBuilder` properties.
 O2: rejected: register components in the site configuration — moves component code out of the documentation and away from the pages using it.
 O3: rejected: import by module name (`import Components`) — collides with pack selection by module (R-PACK-005).

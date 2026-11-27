@@ -1,8 +1,8 @@
 ---
 title: "Command line"
-spec_version: 0.10.2
+spec_version: 0.12.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: CLI.1
 ---
 
@@ -33,13 +33,19 @@ in a component library.
 
 Checked at 0.10.1 after M-OPT-1.F22 (`edit`): the command line offers no option for it (the model prose says so), so the list of C1 stands.
 
+**R-CLI-002.TC-1 — Import map flags**
+
+`mockitdown render screens/a.mockitdown -I acme/=vendor/acme/ -I lib` in a temporary tree resolves `import "acme/cards"` from `vendor/acme/` and `import "kpi"` from `screens/` then `lib/` (C1, C2, C3); `-I acme/=x -I acme/=y` tries `x` then `y`; the old long option `--import-path` is rejected by argparse. Automated in `python/tests/test_cli.py`.
+
 **Realizes.** F-13
 
 | | Statement |
 |---|---|
-| C1 | `render` and `check` MUST accept `--pack`, `--default-pack` (default `base`), `--device`, `--appearance` (one of the four), `--width`, `--height`, `--chrome`, `--title`, `--windowed`, `--elements`, `-I/--import-path` (repeatable), `-A/--asset-path` (repeatable), `-P/--pack-path` (repeatable) and `--no-embed`, with the meaning of the corresponding render option. |
+| C1 | `render` and `check` MUST accept `--pack`, `--default-pack` (default `base`), `--device`, `--appearance` (one of the four), `--width`, `--height`, `--chrome`, `--title`, `--windowed`, `--elements`, `-I/--import` (repeatable), `-A/--asset-path` (repeatable), `-P/--pack-path` (repeatable) and `--no-embed`, with the meaning of the corresponding render option. |
 | C2 | When the source is a file, the CLI MUST set the render option `source_path` to its resolved path, so relative imports and images resolve against the file's directory first. |
+| C3 | Each `-I/--import` value MUST be `KEY=TARGET`, adding the import-map entry `KEY` → `TARGET` (R-IMP-002.C7), or a bare `TARGET`, adding `TARGET` to the targets of the empty key; repeated values for one key MUST form its target list in order. |
 | V1 | `mockitdown render screens/a.mockitdown -I lib` resolves `import "kpi"` from `screens/` and then `lib/`. |
+| V2 | `mockitdown render a.mockitdown -I acme/=vendor/acme/ -I lib` resolves `import "acme/cards"` from `vendor/acme/` and `import "kpi"` from the file's directory, then `lib/`. |
 
 ---
 
@@ -124,8 +130,10 @@ mockitdown elements sapui5 --markdown > sapui5-elements.md
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.8.9 | 2026-11-25 | as built: --windowed (R-DEV-010.C4) (#13) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.8.9 | 2026-11-25 | as built: --windowed (R-DEV-010.C4) (#13) |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.11.0
+spec_version: 0.12.0
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -323,12 +323,12 @@ side by side (`/` and `/demos/`); identical header tabs make them read as one si
 lives in the example site because it is generated from code and needs every pack's CSS.
 
 The pack gallery of the web components (R-WEB-004) is published beside them at `/gallery/` and has its
-own header tab, Gallery, next to Demo on both sites (SRC-17).
+own header tab, Gallery, next to the User guide (formerly Demo) on both sites (SRC-17, SRC-19).
 
 **R-PACK-012.TC-1 — Header tabs of both sites**
 
 Python test (`test_site_nav.py`): the top-level `nav` entries of `python/examples/site/mkdocs.yml` are
-Demo, Gallery, Definition, Specification, Implementation and Reference in that order, Gallery being the
+User guide, Gallery, Definition, Specification, Implementation and Reference in that order, Gallery being the
 absolute URL `https://bbogovich.github.io/mockitdown/gallery/`, with `navigation.tabs` and
 `navigation.tabs.sticky` enabled. The published-site test of the Pages workflow (R-WEB-004.TC-9, step 5)
 checks the same six tabs, in order, in the built pages of both sites.
@@ -343,8 +343,8 @@ checks the same six tabs, in order, in the built pages of both sites.
 | C4 | A pack's own elements that declare variants SHOULD be shown once per variant (at most eight) in one mockup. |
 | C5 | The generator MUST also maintain the Reference block of the example site's navigation, between the `>>> reference nav` and `<<< reference nav` markers of `mkdocs.yml`, grouping packs as Core, Wireframe (alternative looks of the core vocabulary, such as `sketch`), Desktop, Web, Mobile and Retro — a framework pack is Web when its default device uses browser chrome, Mobile when its default device is a phone or tablet, Desktop otherwise — the retro packs in chronological order; the Demo menu of the example site MUST use the same groups. |
 | C8 | Both sites MUST keep the header tabs visible at every window width and while scrolling (`navigation.tabs.sticky`, and a stylesheet overriding the theme's narrow-screen rule that moves the tabs into the drawer). |
-| C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same six top-level sections in the order Demo, Gallery, Definition, Specification, Implementation, Reference; a section built elsewhere (by the other site, or the pack gallery at `/gallery/`, R-WEB-004.C27) is a link to its published URL. |
-| C7 | The site root MUST redirect to the Demo section. |
+| C6 | Both published sites (documentation and example site) MUST enable header tabs and list the same six top-level sections in the order User guide, Gallery, Definition, Specification, Implementation, Reference; a section built elsewhere (by the other site, or the pack gallery at `/gallery/`, R-WEB-004.C27) is a link to its published URL. |
+| C7 | The site root MUST redirect to the User guide section, which stays published at `/demos/`. |
 | V1 | `python tools/gen_reference.py --check` fails, and with it the test suite, when a Reference page or the nav block differs from what the pack definitions generate. |
 
 ---
@@ -513,6 +513,50 @@ TC-M: compare the gallery cards with Apple's iOS 26 and macOS 26 HIG screenshots
 | C11 | In every pack, a `Tab` written outside a `TabView` MUST render as a tab bar with that one tab selected, placed as the pack's `TabView` places its bar. |
 | V1 | Each element above renders from its declared sample (R-PACK-013.C4); `NavigationSplitView { List { Label("Inbox", systemImage: "tray") } .navigationTitle("Mail") } detail: { Text("Select a message") }` renders a sidebar column with the title Mail and an Inbox row beside a detail column. |
 
+---
+
+### R-PACK-030 — User guide: installation and defined terms
+
+**Requires:** R-PACK-012, R-IMP-007, R-IMP-008, R-IMP-009
+
+**Requirement.** The example site is the User guide (formerly "Demo"). It opens with an Installation
+page for both variants — the Python package in a Zensical or MkDocs site, and the web components in
+a plain HTML page — with tables of every extension option and fence attribute, and says where the
+import map is defined in each integration. The Custom components page shows the import map, page
+library blocks, qualified library names and templates with slots.
+
+**Rationale.** The developer found terms used but never defined (where `import_paths` was set, how to
+use a component from the same page). The option and attribute tables are tested against the code so
+they cannot fall behind it; the published URL stays `/demos/` so existing links keep working.
+
+**Verification.** TC-1 and TC-2 automated; TC-M1 a reading of every User guide page.
+
+**R-PACK-030.TC-1 — User guide structure and option tables**
+
+`python/tests/test_examples.py`: the first nav section of `python/examples/site/mkdocs.yml` is `User guide` with Home, Installation, Language tour, Custom components first (C1); every key of the extension's configuration schema and every fence attribute of R-MDX-003.C1 appears in the first column of the Installation page's option and attribute tables (C4); the Installation page names `imports`, `-I`, the render option `imports` and `mockitdown-imports` (C5); the Custom components page holds a block with `library=`, an `import "#` in a later block, a qualified call, an `as` import and a struct with a `content` slot, a defaulted and an optional view property (C6); the site configuration has `imports` and no `import_paths` (C8).
+
+**R-PACK-030.TC-2 — The Installation steps build a page**
+
+`python/tests/test_examples.py` (with Zensical installed): extracts the Installation page's Python configuration block and first page into a temporary directory, runs `zensical build` and finds a rendered mockup figure in the built page (C2). A browser test serves a temporary directory holding `dist/` and the Installation page's HTML snippet and finds a rendered `mockitdown-mockup` with no diagnostic (C3).
+
+**R-PACK-030.TC-M1 — Every term defined or linked**
+
+Reading each User guide page in the built site, top to bottom: every option, attribute, flag, file name and term is explained where first used or links to its explanation. Record the pages read and any gap on the issue; a gap fails the issue.
+
+**Realizes.** F-14
+
+| | Statement |
+|---|---|
+| C1 | The example site's first navigation section MUST be named `User guide` and list, in this order, Home, Installation, Language tour and Custom components, followed by the pages it lists today. |
+| C2 | The Installation page MUST describe the Python variant: installing `mockitdown[markdown]` with Zensical or MkDocs from PyPI; the `markdown_extensions` entries for the `mockitdown` extension and the `pymdownx.superfences` fence (R-MDX-001); a first page with a `mockitdown` block; the build command and where the built page is; and `mockitdown render` for a single file. |
+| C3 | The Installation page MUST describe the TypeScript variant: installing the release archive (R-WEB-007, `npm install <archive URL>`) or copying its `dist/`; a plain HTML page that loads `dist/mockitdown.js` and holds a `mockitdown-mockup` element; and serving that page over HTTP. |
+| C4 | The Installation page MUST hold a table of every option of the Markdown extension (R-MDX-002.C1) with its default and meaning, and a table of every fence attribute (R-MDX-003.C1) with its meaning, each linking to the page that specifies it further. |
+| C5 | The Installation page MUST say where the import map is defined in each integration — the extension's `imports` option, the command line's `-I`, the render option `imports` and the web components' `<script type="mockitdown-imports">` — with one example map used by all four. |
+| C6 | The Custom components page MUST show, each as a rendered block with its source: the site's import map configuration, a library block used by a later block on the page, two libraries declaring a component of the same name used qualified and through `as`, and a layout template with a `content` slot, a slot with a default and an optional slot. |
+| C7 | Every option, attribute, command-line flag, file name and term a User guide page uses MUST be explained on that page where first used, or link to the page that explains it. |
+| C8 | The example site's own configuration MUST use `imports` (no `import_paths`), and the Installation page's Python configuration MUST be the subset of it that a new site needs. |
+| V1 | The User guide tab opens Home, then Installation; the test suite fails when an extension option or fence attribute is missing from the Installation tables, and when the Installation snippets no longer build a page with a rendered mockup. |
+
 ## Reference: `pack.json`
 
 A complete, minimal site pack that extends Material UI:
@@ -659,6 +703,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide; New R-PACK-030: User guide: installation and defined terms |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
@@ -680,6 +725,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |

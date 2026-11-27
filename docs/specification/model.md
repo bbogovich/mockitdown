@@ -1,8 +1,8 @@
 ---
 title: "Model"
-spec_version: 0.10.0
+spec_version: 0.12.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: MODEL.1
 ---
 
@@ -61,7 +61,7 @@ erDiagram
     bool elements
     bool source
     str url
-    list import_paths
+    map imports
     list asset_paths
     list pack_paths
     bool embed_assets
@@ -69,6 +69,7 @@ erDiagram
     path source_path
     bool show_warnings
     bool edit
+    map libraries
   }
   Pack {
     str id PK
@@ -327,7 +328,7 @@ Everything that can be set for one mockup, from the site, the fence or the CLI.
 | F12 | elements: bool — append the Elements table (default false) |
 | F13 | source: bool — append the source disclosure (default false) |
 | F14 | url: str · optional — browser chrome address |
-| F15 | import_paths: list — import directories |
+| F15 | imports: map — import map, key → path, URL or list of them (R-IMP-002.C7, C8) |
 | F16 | asset_paths: list — asset directories |
 | F17 | pack_paths: list — site pack directories |
 | F18 | embed_assets: bool — inline local images (default true) |
@@ -335,6 +336,7 @@ Everything that can be set for one mockup, from the site, the fence or the CLI.
 | F20 | source_path: path · optional — file the source came from |
 | F21 | show_warnings: bool — show warnings in the page (default false) |
 | F22 | edit: bool — edit-mode rendering, `data-mkd-node` and `data-mkd-derived` on role roots (default false; R-EDIT-004) |
+| F23 | libraries: map — the page's library blocks, name → source (R-IMP-008.C9) |
 | I1 | Render options MUST be immutable; overrides produce a new value. |
 
 ---
@@ -446,6 +448,8 @@ A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and c
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-PACK-3: RoleRule; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-PACK-3: RoleRule; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |

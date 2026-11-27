@@ -26,7 +26,7 @@ A-WEB-3 | architecture | active | 0.6.0 r0 | ARCH.3 | Development server and tes
 A-WEB-4 | architecture | active | 0.10.0 r0 | ARCH.3 | Design document and session module
 A-WEB-5 | architecture | active | 0.10.0 r0 | ARCH.3 | Design-tool components
 ADR-1 | decisions | active | 0.10.8 r1 | ADR.1 | HTML and CSS is the only renderer; the SVG renderer is retired
-ADR-10 | decisions | active | 0.2.0 r0 | ADR.2 | Custom components are structs, imported from files by path
+ADR-10 | decisions | active | 0.12.1 r1 | ADR.2 | Custom components are structs, imported from files by path
 ADR-11 | decisions | active | 0.2.0 r0 | ADR.2 | An original icon set with framework name aliases
 ADR-12 | decisions | active | 0.2.0 r0 | ADR.2 | Zero runtime dependencies in the core; Python 3.11 or later
 ADR-13 | decisions | active | 0.11.0 r3 | ADR.2 | The shipped packs
@@ -41,6 +41,7 @@ ADR-20 | decisions | active | 0.11.0 r4 | ADR.2 | Web development dependencies: 
 ADR-21 | decisions | active | 0.11.0 r3 | ADR.3 | The edit API is TypeScript-only, with a language-neutral edit corpus
 ADR-22 | decisions | active | 0.11.0 r3 | ADR.3 | The edit-mode rendering exists in both variants, with per-parse node ordinals
 ADR-23 | decisions | active | 0.11.0 r0 | ADR.3 | TypeScript releases under their own tags, as GitHub release assets
+ADR-24 | decisions | active | 0.12.0 r0 | ADR.2 | An import map of named libraries replaces import directories
 ADR-3 | decisions | active | 0.10.2 r1 | ADR.1 | Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
 ADR-4 | decisions | active | 0.10.8 r2 | ADR.1 | Packs are data mapped onto a fixed set of render roles
 ADR-5 | decisions | active | 0.10.8 r1 | ADR.1 | Static CSS replicas, no framework runtime, no scripts, no network
@@ -53,7 +54,7 @@ M-DIAG-1 | model | active | 0.2.0 r0 | MODEL.1 | Diagnostic
 M-EDIT-1 | model | active | 0.10.0 r0 | MODEL.1 | DesignDocument
 M-EDIT-2 | model | active | 0.10.0 r0 | MODEL.1 | DesignMockup
 M-EDIT-3 | model | active | 0.10.0 r0 | MODEL.1 | TextEdit
-M-OPT-1 | model | active | 0.10.0 r1 | MODEL.1 | RenderOptions
+M-OPT-1 | model | active | 0.12.0 r2 | MODEL.1 | RenderOptions
 M-PACK-1 | model | active | 0.2.0 r0 | MODEL.1 | Pack
 M-PACK-2 | model | active | 0.10.0 r1 | MODEL.1 | ElementDef
 M-PACK-3 | model | active | 0.10.0 r0 | MODEL.1 | RoleRule
@@ -79,7 +80,7 @@ R-ASSET-003 | requirements | active | 0.2.0 r0 | ASSET.1 | Embedding local image
 R-ASSET-004 | requirements | active | 0.10.7 r1 | ASSET.1 | Image-bearing attributes
 R-ASSET-005 | requirements | active | 0.2.0 r0 | ASSET.1 | Built-in icons
 R-CLI-001 | requirements | active | 0.2.0 r0 | CLI.1 | Commands
-R-CLI-002 | requirements | active | 0.10.2 r2 | CLI.1 | Rendering options on the command line
+R-CLI-002 | requirements | active | 0.12.0 r3 | CLI.1 | Rendering options on the command line
 R-CLI-003 | requirements | active | 0.2.0 r0 | CLI.1 | render
 R-CLI-004 | requirements | active | 0.2.0 r0 | CLI.1 | check
 R-CLI-005 | requirements | active | 0.2.0 r0 | CLI.1 | css
@@ -110,9 +111,9 @@ R-EDIT-008 | requirements | active | 0.11.0 r3 | WEB.3 | Commands: duplicate, cl
 R-EDIT-009 | requirements | active | 0.11.0 r3 | WEB.3 | Commands: wrap, unwrap, convert and extract component
 R-EVAL-001 | requirements | active | 0.2.0 r0 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.2.0 r0 | LANG.2 | What a block renders
-R-EVAL-003 | requirements | active | 0.10.0 r1 | LANG.2 | Name resolution for views
+R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
 R-EVAL-004 | requirements | active | 0.10.0 r1 | LANG.2 | Binding element arguments
-R-EVAL-005 | requirements | active | 0.2.0 r0 | LANG.2 | Instantiating struct components
+R-EVAL-005 | requirements | active | 0.12.0 r1 | LANG.2 | Instantiating struct components
 R-EVAL-006 | requirements | active | 0.2.0 r0 | LANG.2 | ForEach
 R-EVAL-007 | requirements | active | 0.2.0 r0 | LANG.2 | Conditionals and local bindings
 R-EVAL-008 | requirements | active | 0.2.0 r0 | LANG.2 | Values and operators
@@ -120,23 +121,26 @@ R-EVAL-009 | requirements | active | 0.10.8 r1 | LANG.2 | Modifiers
 R-EVAL-010 | requirements | active | 0.2.0 r0 | LANG.2 | The @Screen directive
 R-EVAL-011 | requirements | active | 0.2.1 r1 | LANG.2 | Tolerance for pasted SwiftUI
 R-IMP-001 | requirements | active | 0.2.0 r0 | IMP.1 | File imports load components
-R-IMP-002 | requirements | active | 0.2.0 r0 | IMP.1 | Resolving import paths
+R-IMP-002 | requirements | active | 0.12.0 r1 | IMP.1 | Resolving import paths
 R-IMP-003 | requirements | active | 0.2.0 r0 | IMP.1 | Nested imports and cycles
-R-IMP-004 | requirements | active | 0.2.0 r0 | IMP.1 | Definition precedence
+R-IMP-004 | requirements | active | 0.12.0 r1 | IMP.1 | Definition precedence
 R-IMP-005 | requirements | active | 0.2.0 r0 | IMP.1 | Import errors and caching
 R-IMP-006 | requirements | active | 0.2.0 r0 | IMP.1 | Module imports are not file imports
+R-IMP-007 | requirements | active | 0.12.0 r0 | IMP.1 | Library names and qualified references
+R-IMP-008 | requirements | active | 0.12.0 r0 | IMP.1 | Library blocks on a page
+R-IMP-009 | requirements | active | 0.12.0 r0 | IMP.1 | Components as templates with content slots
 R-LANG-001 | requirements | active | 0.2.0 r0 | LANG.1 | Lexical structure
 R-LANG-002 | requirements | active | 0.2.0 r0 | LANG.1 | String literals and interpolation
-R-LANG-003 | requirements | active | 0.2.0 r0 | LANG.1 | Module structure
-R-LANG-004 | requirements | active | 0.2.0 r0 | LANG.1 | Struct declarations
+R-LANG-003 | requirements | active | 0.12.0 r1 | LANG.1 | Module structure
+R-LANG-004 | requirements | active | 0.12.0 r1 | LANG.1 | Struct declarations
 R-LANG-005 | requirements | active | 0.2.0 r0 | LANG.1 | Statements
 R-LANG-006 | requirements | active | 0.2.1 r1 | LANG.1 | Expressions and operators
 R-LANG-007 | requirements | active | 0.10.0 r1 | LANG.1 | Calls, modifier chains and closures
 R-LANG-008 | requirements | active | 0.2.0 r0 | LANG.1 | Collection and tuple literals
 R-LANG-009 | requirements | active | 0.2.0 r0 | LANG.1 | Syntax errors
 R-MDX-001 | requirements | active | 0.2.0 r0 | MDX.1 | Integration points
-R-MDX-002 | requirements | active | 0.10.2 r1 | MDX.1 | Extension options
-R-MDX-003 | requirements | active | 0.2.0 r0 | MDX.1 | Fence attributes
+R-MDX-002 | requirements | active | 0.12.0 r2 | MDX.1 | Extension options
+R-MDX-003 | requirements | active | 0.12.0 r1 | MDX.1 | Fence attributes
 R-MDX-004 | requirements | active | 0.2.1 r1 | MDX.1 | Per-page CSS delivery
 R-MDX-005 | requirements | active | 0.2.0 r0 | MDX.1 | Build log and strict mode
 R-MDX-006 | requirements | active | 0.10.8 r2 | MDX.1 | Compatibility with instant navigation
@@ -151,7 +155,7 @@ R-PACK-008 | requirements | active | 0.11.0 r5 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.11.0 r2 | PACK.1 | The core vocabulary
 R-PACK-010 | requirements | active | 0.11.0 r1 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
-R-PACK-012 | requirements | active | 0.10.0 r4 | PACK.1 | Pack reference gallery and site sections
+R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery and site sections
 R-PACK-013 | requirements | active | 0.11.0 r4 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI presentations and navigation
@@ -169,6 +173,7 @@ R-PACK-026 | requirements | active | 0.11.0 r0 | PACK.5 | Apple Newton pack
 R-PACK-027 | requirements | active | 0.11.0 r0 | PACK.5 | Palm OS pack
 R-PACK-028 | requirements | active | 0.11.0 r0 | PACK.5 | Windows CE (Pocket PC) pack
 R-PACK-029 | requirements | active | 0.11.0 r0 | PACK.5 | BlackBerry pack
+R-PACK-030 | requirements | active | 0.12.0 r0 | PACK.1 | User guide: installation and defined terms
 R-REND-001 | requirements | active | 0.10.8 r1 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.10.8 r2 | REND.1 | Role markup
 R-REND-003 | requirements | active | 0.10.7 r1 | REND.1 | Attributes on the markup
@@ -201,8 +206,8 @@ R-TOOL-011 | requirements | active | 0.11.0 r3 | WEB.5 | The canvas: mockitdown-
 R-TOOL-012 | requirements | active | 0.11.0 r3 | WEB.5 | Mockup frames: labels, moving, renaming and placement
 R-TOOL-013 | requirements | active | 0.11.0 r3 | WEB.5 | The active mockup and inactive previews
 R-TOOL-014 | requirements | active | 0.11.0 r3 | WEB.5 | Sections and the canvas round trip
-R-WEB-001 | requirements | active | 0.11.0 r6 | WEB.1 | TypeScript package and core
-R-WEB-002 | requirements | active | 0.11.0 r7 | WEB.1 | The mockitdown-mockup element
+R-WEB-001 | requirements | active | 0.12.0 r7 | WEB.1 | TypeScript package and core
+R-WEB-002 | requirements | active | 0.12.0 r8 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.11.0 r5 | WEB.2 | Development server
 R-WEB-004 | requirements | active | 0.11.0 r13 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.11.0 r5 | WEB.2 | Web test suites

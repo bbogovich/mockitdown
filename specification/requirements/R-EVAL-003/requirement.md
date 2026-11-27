@@ -2,8 +2,8 @@
 id: R-EVAL-003
 title: Name resolution for views
 status: active
-version: 0.10.0
-rev: 1
+version: 0.12.0
+rev: 2
 page: LANG.2
 slot: reqs
 order: 3
@@ -11,11 +11,11 @@ source: [SRC-2, SRC-12]
 realizes: [F-2, F-3, F-4]
 constrained_by: [A-EVAL-1, A-PACK-1]
 reverse_engineered: true
-hash: 74ae63fcae83
-refs: [M-VIEW-1]
+hash: 7931eba27b14
+refs: [M-VIEW-1, R-IMP-007]
 ---
 
-C1: When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a struct declared in the block or imported; a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack.
+C1: When a call `Name(…)` appears where views are expected, the evaluator MUST resolve `Name` in this order: `ForEach`; a qualified component `L.Name` when `L` names a loaded library (R-IMP-007.C4); a struct declared in the block or imported (R-IMP-007.C5); a variable in scope (calling a view-valued property such as `content()`); an element of the selected pack.
 C2: If none matches, then the evaluator MUST report the error "'Name' is not an element of pack '<id>' and no struct of that name is declared or imported" with code `unknown`, and MUST produce an `unknown` view named `Name` whose children are the views of its unlabelled trailing closure.
 C3: When a bare identifier appears where views are expected, the evaluator MUST use the variable of that name if one is in scope, else call the struct or element of that name with no arguments; if neither exists, then it MUST report "unknown view or variable" with code `unknown` and produce an `unknown` view.
 C4: When a string or number literal, or an interpolated string, appears where views are expected, the evaluator MUST produce a `Text` element with that content.

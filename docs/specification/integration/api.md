@@ -1,8 +1,8 @@
 ---
 title: "Library API"
-spec_version: 0.10.2
+spec_version: 0.12.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: API.1
 ---
 
@@ -77,7 +77,7 @@ needed only where Python-Markdown already runs (ADR-12).
 from pathlib import Path
 from mockitdown import RenderOptions, render, stylesheet
 
-opts = RenderOptions(device="phone", appearance="both", import_paths=(Path("docs/mockups"),))
+opts = RenderOptions(device="phone", appearance="both", imports={"": ["docs/mockups"]})
 result = render(Path("checkout.mockitdown").read_text(), opts)
 for d in result.diagnostics:
     print(d)                       # "error [unknown] at line 3:5: …"
@@ -88,6 +88,7 @@ page = f"<style>{stylesheet(result.packs)}</style>{result.html}"
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | `imports` replaces `import_paths` in the example (ADR-24) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

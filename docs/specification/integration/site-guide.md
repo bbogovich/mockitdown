@@ -40,7 +40,9 @@ markdown_extensions:
   - mockitdown:
       default_pack: swiftui           # pack for blocks that name none (default: base)
       default_appearance: auto        # follow the site's light/dark toggle (default: light)
-      import_paths: [docs/mockups]    # where import "…" looks (default: [docs])
+      imports:                        # import map: namespace → directory or URL (default: {"": docs})
+        "": docs/mockups              #   import "kpi"        → docs/mockups/kpi.mockitdown
+        acme/: https://example.com/acme/  # import "acme/cards" → …/acme/cards.mockitdown
       asset_paths: [docs]             # where Image("…") files are found (default: [docs])
       strict: true                    # fail the build on any mockitdown error
   - pymdownx.superfences:
@@ -60,7 +62,7 @@ Paths are relative to the directory the build runs in (usually the one holding `
 | `default_pack` | `base` | Pack for a block that selects none (R-PACK-005) |
 | `default_appearance` | `light` | `light`, `dark`, `auto` or `both` (R-APP-001) |
 | `default_device` | none | Device for a block that names none, before the pack's default (R-DEV-002) |
-| `import_paths` | `[docs]` | Directories for `import "…"` (R-IMP-002) |
+| `imports` | `{"": docs}` | Import map for `import "…"`: namespace (`acme/`), exact path or `""` → directory, file, URL or list (R-IMP-002, R-IMP-007); replaces `import_paths` (ADR-24) |
 | `asset_paths` | `[docs]` | Directories for local images (R-ASSET-002) |
 | `pack_paths` | `[]` | Directories of site packs, `<dir>/<id>/pack.json` (R-PACK-001) |
 | `embed_assets` | `true` | Inline local images as `data:` URIs (R-ASSET-003) |
@@ -141,3 +143,4 @@ Regenerate the file whenever mockitdown or a pack is upgraded.
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | `imports` (import map) replaces `import_paths` (ADR-24, SRC-19) |

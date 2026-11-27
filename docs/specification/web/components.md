@@ -1,6 +1,6 @@
 ---
 title: "Web components"
-spec_version: 0.11.0
+spec_version: 0.12.0
 status: draft
 updated: 2026-11-27
 page_id: WEB.1
@@ -38,7 +38,7 @@ The core reads no files and fetches nothing (A-WEB-1.K1), so everything reaches 
 
 Imports try the same candidates as the Python variant — the importing file's directory, then each import search path, each as written and then with `.mockitdown` — as POSIX paths. Where the Python variant would find no candidate at all (no source path, no search paths), the TypeScript one tries the path as written, so registered components need no search path; the error message is unchanged (`(searched (no import paths))`). A component's diagnostics name its normalised path where the Python variant names the file's absolute path; the corpus holds no such diagnostic (R-REPO-004.C10).
 
-Options keep the Python field names (`default_pack`, `show_warnings`, `import_paths`, `source_path` …); those that name files on disk (`asset_paths`, `pack_paths`, `embed_assets`, `max_embed_bytes`) have no TypeScript counterpart.
+Options keep the Python field names (`default_pack`, `show_warnings`, `imports`, `source_path` …); those that name files on disk (`asset_paths`, `pack_paths`, `embed_assets`, `max_embed_bytes`) have no TypeScript counterpart.
 
 The corpus's `<name>.diag.json` (R-REPO-004.C7) is part of the expected result: the harness compares the pack lineage and every diagnostic, in order, as the Python suite does.
 
@@ -80,6 +80,10 @@ from `shared/reference/`; a unit test reads `dist/shared/manifest.json` and chec
 `reference/index.json` and one `reference/<pack>.json` per pack, that none of them is in `files`, and
 that `loadAssetsFromUrl` with a recording `fetch` requests no reference file.
 
+**R-WEB-001.TC-6 — Import map in the TypeScript core**
+
+TypeScript unit tests run the cases of R-IMP-002.TC-1 that need no file system with registered components and a stub fetch: a registered `shared/kpi` wins over the map; `imports` with `acme/` → `https://h/acme/` asks for `https://h/acme/cards` then `https://h/acme/cards.mockitdown` (C6); with neither map nor source path, `import "pill"` tries `pill` then `pill.mockitdown` (C10).
+
 **Realizes.** F-16, F-17
 
 | | Statement |
@@ -89,11 +93,11 @@ that `loadAssetsFromUrl` with a recording `fetch` requests no reference file.
 | C3 | The package MUST export `render`, `check` and `stylesheet` with the semantics of the Python library API (R-API-001, R-API-002), taking a source string and render options and returning HTML strings and diagnostics. |
 | C4 | The TypeScript core MUST accept the same language, pack selection by `import <Module>` and by option, options and diagnostics as the Python variant. |
 | C5 | Packs MUST be registered from data: the built-in packs from the package's shared assets, an application's own packs by `registerPack(json, css)`; packs MUST extend one another as in the Python variant. |
-| C6 | `import "path"` of components MUST resolve against components registered by `registerComponents(name, source)` and, in the custom elements, against URLs relative to an import base URL, trying the name as written and then with `.mockitdown`. |
+| C6 | `import "path"` of components MUST resolve first against components registered by `registerComponents(name, source)`, then as R-IMP-002 says through the import map given by the render option `imports` — in the custom elements, the document's import map (R-WEB-002), whose relative targets resolve against the import base URL. |
 | C7 | Image references MUST follow R-ASSET-001; local paths MUST resolve against an asset base URL, and no asset is embedded. |
 | C8 | For every case of the conformance corpus (R-REPO-004), `render` MUST return exactly the expected HTML, and its pack lineage and diagnostics MUST equal the case's `<name>.diag.json`. |
 | C9 | The TypeScript core MUST run in current Chromium, Firefox and WebKit browsers and in Node 22 or later. |
-| C10 | When the render options name neither a source path nor import search paths, `import "path"` MUST try the path as written, then with `.mockitdown`. |
+| C10 | When the render options give neither a source path nor an import map, `import "path"` MUST try the path as written, then with `.mockitdown`. |
 | C11 | A diagnostic located in an imported component file MUST name that file's normalised path (the registered or resolved candidate, e.g. `components/pill.mockitdown`) as its source. |
 | C12 | The render options MUST use the field names of the Python `RenderOptions` for the options both variants share, so that a conformance case's `<name>.json` applies unchanged. |
 | C13 | `npm run build` MUST write `dist/shared/manifest.json`, an object `{"packs": [id, …], "files": [path, …], "reference": [path, …]}` listing the built-in pack ids, the files under `dist/shared/` that a host loads into the core, and the reference files of C17. |
@@ -172,13 +176,17 @@ Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its sha
 `render` returns with `edit: true` for the same code; removing the attribute re-renders without any
 `data-mkd-node`.
 
+**R-WEB-002.TC-5 — Document import map and imports attribute**
+
+Browser test (Chromium) serving `typescript/tests/fixtures/`: a page with `<script type="mockitdown-imports">{"acme/": "libs/acme/"}</script>` and `import-base="/fixtures/"` renders a mockup importing `acme/cards` from `/fixtures/libs/acme/cards.mockitdown` (C3, C14); an element with `imports='{"acme/": "other/"}'` loads from `other/` (C14); a map holding `{"acme/": 3}` shows the error of C15 and the mockup still renders its other content.
+
 **Realizes.** F-17
 
 | | Statement |
 |---|---|
 | C1 | Loading the package entry `dist/mockitdown.js` MUST define the custom element `mockitdown-mockup`, and every custom element of the package MUST have a tag beginning with `mockitdown-`. |
 | C2 | The mockup element MUST take its code from its first child `<script type="text/mockitdown">`, with a first line and a last line holding only whitespace dropped and the common leading indentation of the remaining lines removed; other children MUST be ignored. |
-| C3 | The mockup element MUST accept the fence attributes of R-MDX-003 as HTML attributes with the same names and meanings (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`, `width`, `height`, `caption`, `elements`, `source`, `window` and `windowed`, which the fence also accepts), plus `import-base` and `asset-base` (URLs, default: the document's base URL). |
+| C3 | The mockup element MUST accept the fence attributes of R-MDX-003 as HTML attributes with the same names and meanings (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`, `width`, `height`, `caption`, `elements`, `source`, `window` and `windowed`, which the fence also accepts, but not `library`, R-IMP-008.C8), plus `import-base` and `asset-base` (URLs, default: the document's base URL); `import-base` is the base against which the import map's relative targets resolve, and the root target when the map has no empty key. |
 | C4 | The mockup element MUST render into an open shadow root holding the stylesheet for the packs used and the rendered HTML. |
 | C5 | The mockup element MUST re-render when an observed attribute changes or the script's text changes. |
 | C6 | When rendering produces diagnostics, the mockup element MUST show them as the Python variant's error box does and MUST dispatch a bubbling, composed `mockitdown-diagnostics` event whose `detail.diagnostics` lists them. |
@@ -190,6 +198,8 @@ Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its sha
 | C12 | If the mockup element cannot render (the shared assets fail to load, or rendering throws), then it MUST show an error box holding one error of code `element` that names the cause. |
 | V1 | The browser tests mount mockup elements with code containing `<`, `>` and `&`, change attributes and code, and compare the shadow root's HTML with the conformance output. |
 | C13 | The mockup element MUST accept the boolean attribute `edit`, which renders with the `edit` option (R-EDIT-004.C1); like `import-base` and `asset-base`, it is not a fence attribute. |
+| C14 | The mockup element MUST take the document's import map from the first `<script type="mockitdown-imports">` element in the document, whose text is a JSON object of the form of R-IMP-002.C7 and C8, and MUST apply its `imports` attribute, a JSON object of the same form, on top of it for that element, its keys replacing the document's. |
+| C15 | If the document's import map or an `imports` attribute is not valid JSON of that form, then the mockup element MUST report the error "invalid import map: <reason>" with code `import` and render with the map ignored. |
 
 ---
 
@@ -248,6 +258,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; New R-WEB-007: TypeScript release builds on GitHub; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
@@ -257,6 +268,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; New R-WEB-007: TypeScript release builds on GitHub; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |

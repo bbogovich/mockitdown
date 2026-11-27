@@ -1,6 +1,6 @@
 ---
 title: "Markdown extension and fence"
-spec_version: 0.10.8
+spec_version: 0.12.0
 status: draft
 updated: 2026-11-27
 page_id: MDX.1
@@ -37,16 +37,23 @@ Site options are the defaults of one site; fence attributes (R-MDX-003) override
 
 Checked at 0.10.1 after M-OPT-1.F22 (`edit`): it is not an extension option and not a fence attribute (R-WEB-002.C13), so the options of C1 stand.
 
+**R-MDX-002.TC-1 — The import map option replaces import_paths**
+
+Python unit tests on the extension's configuration: with no options the effective import map is `{"": "docs"}` and `import "shared/kpi"` is looked up as `docs/shared/kpi` (C1); `import_paths: [docs/mockups]` raises at `markdown.Markdown(...)` with the exact message of C6 naming `docs/mockups`; `imports: {"a/": 3}` and `imports: [docs]` raise with the message of C7; `imports: {"shared/": "docs/mockups/shared/", "": ["docs", "lib"]}` is accepted. Automated in `python/tests/` by the issue that implements it.
+
 **Realizes.** F-11
 
 | | Statement |
 |---|---|
-| C1 | The Markdown extension MUST accept these options with these defaults: `default_pack` (`base`), `default_appearance` (`light`), `default_device` (empty: none), `import_paths` (`[docs]`), `asset_paths` (`[docs]`), `pack_paths` (`[]`), `embed_assets` (`true`), `max_embed_bytes` (`2000000`), `css` (`inline`), `strict` (`false`), `caption` (`true`), `elements` (`false`), `show_warnings` (`false`). |
-| C2 | The path options MUST accept one string or a list of strings. |
+| C1 | The Markdown extension MUST accept these options with these defaults: `default_pack` (`base`), `default_appearance` (`light`), `default_device` (empty: none), `imports` (`{"": "docs"}`), `asset_paths` (`[docs]`), `pack_paths` (`[]`), `embed_assets` (`true`), `max_embed_bytes` (`2000000`), `css` (`inline`), `strict` (`false`), `caption` (`true`), `elements` (`false`), `show_warnings` (`false`). |
+| C2 | The path options `asset_paths` and `pack_paths` MUST accept one string or a list of strings; `imports` is an import map (R-IMP-002.C7, C8). |
 | C3 | If `default_appearance` is not `light`, `dark`, `auto` or `both`, then the Markdown extension MUST fail configuration with "mockitdown: default_appearance must be one of …". |
 | C4 | If `css` is not `inline` or `none`, then the Markdown extension MUST fail configuration with "mockitdown: css must be 'inline' or 'none'". |
 | C5 | The options MUST apply to every block on the site unless a fence attribute overrides them. |
+| C6 | If the option `import_paths` is given, then the Markdown extension MUST fail configuration with "mockitdown: import_paths was replaced by imports; write imports: {\"\": [<the given directories>]}", the given directories filled in. |
+| C7 | If `imports` is not a mapping whose keys are strings and whose values are a string or a list of strings, then the Markdown extension MUST fail configuration with "mockitdown: imports must map each namespace to a path, a URL or a list of them". |
 | V1 | `- mockitdown: {default_pack: swiftui, css: none}` renders every block without a pack in SwiftUI and injects no CSS; `default_appearance: dim` fails the build at startup. |
+| V2 | `import_paths: [docs/mockups]` fails the build at startup with the message of C6 naming `docs/mockups`; `imports: {"shared/": docs/mockups/shared/}` is accepted. |
 
 ---
 
@@ -56,15 +63,20 @@ Attributes tune one rendering — the same block can be shown on a phone and on 
 same page with different attributes. The full list with examples is in the
 [Site integration guide](site-guide.md).
 
+**R-MDX-003.TC-1 — The library attribute**
+
+A fence with `library="cards"` is accepted by the validator with no fence error (C1); `library="my-cards"` produces the fence error naming `library` and the block renders as a mockup (C6). Automated in `python/tests/`.
+
 **Realizes.** F-1, F-11
 
 | | Statement |
 |---|---|
-| C1 | The fence MUST accept these attributes, with these types: `pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url` (text); `width`, `height` (integer); `caption`, `elements`, `source` (boolean). |
+| C1 | The fence MUST accept these attributes, with these types: `pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`, `library` (text); `width`, `height` (integer); `caption`, `elements`, `source` (boolean). |
 | C2 | The fence MUST read a boolean attribute as true when its value is `1`, `true`, `yes` or `on` (case-insensitive) and false otherwise. |
 | C3 | The fence validator MUST accept every attribute, so that a misspelt attribute is reported rather than silently turning the block into a code listing. |
 | C4 | If an attribute is unknown, has an invalid integer value, or gives an appearance other than the four, then the fence MUST report a fence error (code `fence`) naming it, ignore that attribute, render the block, and place an error box listing the fence errors above the figure. |
 | C5 | Fence attributes MUST override the site options and the block's `@Screen` metadata. |
+| C6 | If `library` is not an identifier (a letter or `_`, then letters, digits or `_`), then the fence MUST report a fence error naming it and render the block as a mockup (R-IMP-008). |
 | V1 | ```` ```mockitdown device="phone" elements="yes" ```` renders a phone with an Elements table; `devise="phone"` renders with an error box "unknown fence option 'devise'". |
 
 ---
@@ -132,11 +144,13 @@ problem.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
