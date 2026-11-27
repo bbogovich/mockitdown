@@ -409,8 +409,8 @@ entries:
   - seq: 46
     issue: 48
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261127-000002
     queued: 2026-11-27T04:51:08Z
     queued-by: agent:code-auditor
     started:
@@ -418,8 +418,8 @@ entries:
   - seq: 47
     issue: 49
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261127-000002
     queued: 2026-11-27T04:51:08Z
     queued-by: agent:code-auditor
     started:
@@ -427,8 +427,8 @@ entries:
   - seq: 48
     issue: 50
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261127-000002
     queued: 2026-11-27T04:51:08Z
     queued-by: agent:code-auditor
     started:
