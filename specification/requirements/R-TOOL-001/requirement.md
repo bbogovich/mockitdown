@@ -2,12 +2,12 @@
 id: R-TOOL-001
 title: "The editable view: mockitdown-editor"
 status: active
-version: 0.10.8
-rev: 2
+version: 0.11.0
+rev: 3
 page: WEB.4
 slot: reqs
 order: 1
-hash: ee059b3db1b3
+hash: a2c73f09abd3
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-EDIT-004, R-EDIT-006, R-WEB-002]

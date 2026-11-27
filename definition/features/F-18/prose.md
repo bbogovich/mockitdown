@@ -17,3 +17,11 @@ the published documentation could not find it. It is now published beside the do
 demo site, with a Gallery header tab on both sites.
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
+**A home page and the easter eggs (SRC-18#gallery).** The gallery's address now opens a short home
+page: what the gallery is for, that it renders with the TypeScript web component, how to use the library
+in a project, and — near its end — links into the gallery for each science-fiction easter egg. The eggs
+stay out of the side panel.
+
+**Deliberate constraints (SRC-18#answers).** The development server is built on Node's own HTTP module on
+purpose: naming it keeps an implementing agent from importing a web framework for a static file server.

@@ -2,14 +2,14 @@
 id: F-17
 title: Mockups embedded in web pages
 status: active
-version: 0.9.2
-rev: 1
+version: 0.10.0
+rev: 2
 page: FEAT.3
 slot: features
 order: 2
-hash: cd1139598f60
+hash: 656547104525
 family: web
-source: [SRC-8]
+source: [SRC-8, SRC-18]
 requires: [F-16]
 ---
 
@@ -25,3 +25,5 @@ AC2: Code containing `<`, `>` and `&` renders exactly as the same code in a Mark
 AC3: Changing the script's text or an option attribute updates the rendered mockup.
 AC4: An invalid mockup shows its diagnostics in place and does not break the rest of the page.
 AC5: All tags of the TypeScript variant begin with `mockitdown-`.
+C7: Each release of the TypeScript variant is also published on the project's GitHub releases page as the packaged library (the NPM package archive), so that a project can install a released build without a package registry.
+AC6: A project installs the library from the archive attached to a GitHub release and renders a `mockitdown-mockup` with it.

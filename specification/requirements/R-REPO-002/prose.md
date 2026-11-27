@@ -6,3 +6,7 @@ The role rule table joins the vocabulary as shared language data (R-PACK-016). B
 and the copy tests of C6 cover it; only the TypeScript design tools read it for now.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+**Stylesheet partials (SRC-18#health).** A pack stylesheet may include shared partials
+(R-PACK-018); the partials live in `shared/packs/_partials/` and reach the packages only inside the
+resolved `pack.css` copies, so the copy check compares a copy with its resolution rather than with the
+file in `shared/`.

@@ -17,3 +17,5 @@ selection has the commands of a structured editor: delete, duplicate, the clipbo
 one undo step that restores the selection, and a host can put the same commands in its menus.
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
+**Re-checked at 0.10.0.** Its cited items F-17 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.

@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.10.8
+spec_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: WEB.4
@@ -34,6 +34,8 @@ Elements that a loop, a condition or a component produced select the construct t
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items R-EDIT-004, R-EDIT-006, R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-TOOL-001.TC-1 — Click to locate**
 
@@ -81,6 +83,8 @@ selects the loop. Reordering rows by drag is R-TOOL-005; the Mockups tab becomes
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items R-EDIT-006 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-TOOL-002.TC-1 — Tree and selection sync**
 
@@ -140,6 +144,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-TOOL-001, R-TOOL-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-003.TC-1 — Open, select, delete, toJSON**
 
 Browser test (`designer.spec.mjs`) on `pages/designer.html`: select the nested button; press Delete;
@@ -191,6 +197,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-EDIT-006, R-PACK-016, R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-004.TC-1 — Filtered gallery and Add**
 
 Browser test (`gallery-component.spec.mjs`) on `pages/designer.html`: with an `HStack` selected, no card
@@ -233,6 +241,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-TOOL-001, R-TOOL-002, R-TOOL-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-005.TC-1 — Drop into the view**
 
 Browser test on `pages/designer.html`: drag the `Text` card onto the gap between a `VStack`'s first and
@@ -272,6 +282,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-EDIT-003, R-TOOL-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-006.TC-1 — Sample arguments and inline edit**
 
 Browser test on `pages/designer.html`: Add on `Button` inserts `Button("Button")` and opens a focused
@@ -305,6 +317,8 @@ stays red with the message until corrected.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items R-EDIT-003, R-EDIT-007, R-PACK-017 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-TOOL-007.TC-1 — Variant change and undo**
 
@@ -360,6 +374,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items ADR-20, R-EDIT-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-008.TC-1 — Light editor**
 
 Browser test (`code.spec.mjs`) on `pages/designer.html` in Code mode and on a bare `mockitdown-code`:
@@ -404,6 +420,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-EDIT-007, R-TOOL-003, R-TOOL-008 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-009.TC-1 — Unbalanced brace**
 
 Browser test (`sync.spec.mjs`) on `pages/designer.html`: select a `Text`; in Code mode delete a `}`;
@@ -445,6 +463,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-TOOL-009 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-010.TC-1 — Diagnostics lead to their element**
 
 Browser test on `pages/designer.html`: a mockup with `Text("A", bogus: 1)` and an unknown element shows
@@ -466,8 +486,10 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

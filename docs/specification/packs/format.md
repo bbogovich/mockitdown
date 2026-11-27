@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.10.8
+spec_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -195,6 +195,31 @@ styles. Ant Design, Tailwind Catalyst, IBM Carbon and GitHub Primer followed (AD
 The platform packs added in 0.3 widen coverage to Android and the Linux desktops (SRC-4); the retro packs serve enthusiasts and historical documentation (SRC-5); the easter eggs reward readers who reach the end of the documentation.
 
 Release 0.4 adds four web kits from the recommended-next list (Ant Design, Tailwind Catalyst, IBM Carbon, GitHub Primer), the cross-platform .NET toolkit Avalonia UI and five retro systems (NLS, Windows 1.0, NeXTSTEP, Windows 95, Mac OS X Aqua); the retro pages are ordered by year so the section reads as a history of the GUI.
+**At 0.11.0 (SRC-18).** Four further retro systems, the Amiga and four handhelds join, each specified on
+the [Retro and handheld packs](retro-handheld.md) page. The Retro group is ordered by the year each
+system first appeared; the handhelds follow the current mobile frameworks in the Mobile group, which the
+generator assigns by their default device (`phone`).
+
+**R-PACK-008.TC-1 — The shipped packs**
+
+Automated. Steps 2 to 5 are existing tests; steps 1 and 6 are new, written by the specification backfill
+issue for the pack area, and step 6 grows with each pack issue of C8.
+
+1. `python/tests/test_packs.py::test_shipped_packs` (new): `mockitdown packs` lists exactly the ids of C1,
+   C7 (without `lcars`, `phosphor`, `hologram`) and of C8 that are built, and `mockitdown packs --all`
+   adds the three easter eggs; every listed pack's `framework` and `version` keys are non-empty (C1, C6,
+   C7, C8).
+2. `test_packs_load_and_roles_exist`, `test_tokens_have_light_and_dark` and `test_module_names_are_unique`:
+   every pack loads, declares import modules, light and dark tokens, and its elements map to real roles;
+   the registry makes each extend `base` (R-PACK-003.C1) (C2).
+3. `python/tests/test_syntax.py` and the conformance cases of the `swiftui` area: `import SwiftUI`
+   selects `swiftui` (C3).
+4. `test_every_element_renders` and the Reference pages (R-PACK-012, `gen_reference.py --check`):
+   every element a pack defines renders, with its `doc` line and variants listed (C4).
+5. The conformance corpus (R-REPO-004.C2, every shipped pack at least once) and the SwiftUI and Material
+   control tests: style modifiers map to `variant` and render the framework's variants (C5).
+6. `python/tests/test_site_nav.py::test_group_order` (new): the Reference nav and `shared/reference/index.json`
+   list the Retro and Mobile groups in the order of C9, leaving out packs not yet built (C9).
 
 **Realizes.** F-3 · **Decisions.** ADR-13
 
@@ -207,6 +232,8 @@ Release 0.4 adds four web kits from the recommended-next list (Ant Design, Tailw
 | C4 | Each framework pack SHOULD define elements for as many of its framework's components as practical, under the framework's own names, with `doc` lines and documented `variants`. |
 | C5 | Each framework pack MUST map the framework's style modifiers or properties onto attributes its CSS styles (for example a button style onto `variant`), so that the same core elements take on the framework's variants. |
 | C6 | The pack's `framework` and `version` keys MUST name the imitated framework and the version whose design it follows. |
+| C8 | mockitdown MUST also ship the retro packs `gem` (R-PACK-022), `geos` (R-PACK-023), `amiga` (R-PACK-019), `riscos` (R-PACK-024) and `beos` (R-PACK-025) and the handheld packs `newton` (R-PACK-026), `palm` (R-PACK-027), `wince` (R-PACK-028) and `blackberry` (R-PACK-029), each as its own requirement says. |
+| C9 | The Retro group MUST list its packs in this order: `nls`, `xerox-star`, `lisa`, `mac-classic`, `gem`, `win1`, `geos`, `win2`, `amiga`, `gsos`, `nextstep`, `riscos`, `win31`, `win95`, `beos`, `macos9`, `cde`, `aqua`, `winxp`, `vista` (by the year each system first appeared); the Mobile group MUST list `swiftui`, `android`, `newton`, `palm`, `wince`, `blackberry`. |
 | V1 | `mockitdown packs` lists the framework and retro identifiers but not the hidden ones; the example site has one page per framework and retro pack, the retro pages listed in chronological order, and one hidden page per easter egg (F-14). |
 
 ---
@@ -218,6 +245,8 @@ The core vocabulary is SwiftUI's own names plus the cross-framework components S
 which is what makes imported component libraries portable (F-4.C6).
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **Realizes.** F-3 · **Decisions.** ADR-4
 
@@ -233,10 +262,30 @@ which is what makes imported component libraries portable (F-4.C6).
 ### R-PACK-010 — Hidden packs
 
 Easter-egg packs reward readers of the documentation without cluttering the lists of real frameworks.
+**In the gallery (SRC-18#gallery).** The easter eggs must be reachable in the pack gallery without being
+listed in it, so the generator writes their reference data like any pack's and lists them apart, under
+`hidden` in the index; the gallery and its home page read that list (R-WEB-004, R-WEB-006).
+
+**R-PACK-010.TC-1 — Hidden packs work but are not listed**
+
+Automated. Step 1 ties C1 to existing behaviour and needs a new assertion; steps 2 and 3 are new with C2.
+
+1. `python/tests/test_packs.py::test_hidden_packs` (new): `mockitdown packs` lists none of `lcars`,
+   `phosphor`, `hologram`, `mockitdown packs --all` lists all three, and rendering `Text("Hi")` with
+   `pack="lcars"`, and with `import LCARS`, gives no error diagnostic and the pack lineage
+   `["base", "lcars"]` (C1, C3).
+2. `python/tests/test_shared.py::test_hidden_packs_have_reference_data` (new): `shared/reference/index.json`
+   has `hidden` equal to `["hologram", "lcars", "phosphor"]`, no group lists any of them, and each has
+   `shared/reference/<id>.json` with every element of the pack; `gen_reference.py --check` passes (C2).
+3. `python/tests/test_examples.py::test_reference_pages_are_current` and the nav test: the example site
+   has no Reference page and no nav entry for a hidden pack, and `docs/eggs/<id>.md` exists for each of
+   the three while `mkdocs.yml`'s nav names none of them (C2, C3).
 
 | | Statement |
 |---|---|
 | C1 | A pack MAY declare `"hidden": true`; a hidden pack MUST work wherever it is named (fence `pack=`, `import`) and MUST be left out of `mockitdown packs` (unless `--all`) and of the generated catalogue. |
+| C2 | `tools/gen_reference.py` MUST also write `shared/reference/<id>.json` for every hidden pack and list the hidden packs, sorted by id, under the key `hidden` of `shared/reference/index.json` (`{"groups": […], "hidden": [id, …]}`), outside every group; it MUST NOT write a Reference page or a navigation entry for a hidden pack. |
+| C3 | The shipped hidden packs MUST be `lcars`, `phosphor` and `hologram`, each with a hidden page of the example site under `eggs/` that the site's navigation does not list. |
 | V1 | `mockitdown packs` does not list `lcars`; `pack="lcars"` renders. |
 
 ---
@@ -325,6 +374,8 @@ tab — so that only elements whose job the generic sample cannot show need a de
 
 Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change concerns the site sections, not samples, so C1 to C8 are unchanged.
 
+**Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-PACK-013.TC-1 — Declared samples**
 
 Python unit test of `gen_reference`: a declared sample is used verbatim; a declared sample with a diagnostic fails naming pack and element; `--check` passes on the shipped packs.
@@ -375,6 +426,8 @@ A selected table row wins over the Mac's alternating row stripes: the gallery's 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at 0.11.0.** Its cited items A-PACK-2, R-PACK-013 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
@@ -428,6 +481,8 @@ over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog ta
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at 0.11.0.** Its cited items A-PACK-2, R-PACK-013 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-PACK-015.TC-1 — SwiftUI presentations**
 
@@ -604,6 +659,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
@@ -622,8 +678,9 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
-| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
@@ -641,5 +698,5 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.5.0 | 2026-11-24 | Wireframe group (sketch) between Core and Desktop; Ships the vuetify, prime and sketch packs |
 | 0.4.1 | 2026-11-24 | Reference and Demo menus group framework packs as Desktop, Web, Mobile; header tabs stay visible at every width and while scrolling |
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
-| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
+| 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |

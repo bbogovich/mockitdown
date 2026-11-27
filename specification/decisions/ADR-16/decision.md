@@ -2,14 +2,14 @@
 id: ADR-16
 title: Retro and easter-egg packs are original homages
 status: active
-version: 0.10.2
-rev: 1
+version: 0.11.0
+rev: 2
 page: ADR.2
 slot: decisions
 order: 999
 source: [SRC-5]
 constrains: [R-PACK-008, R-PACK-010]
-hash: 7dc60eff3602
+hash: ccaa00f842db
 refs: [ADR-5]
 ---
 

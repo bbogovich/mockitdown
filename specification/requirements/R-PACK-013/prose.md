@@ -18,3 +18,5 @@ their role needs — options and a selection for pickers, a date for date picker
 tab — so that only elements whose job the generic sample cannot show need a declaration.
 
 Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change concerns the site sections, not samples, so C1 to C8 are unchanged.
+
+**Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.

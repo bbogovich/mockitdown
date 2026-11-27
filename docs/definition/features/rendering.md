@@ -1,8 +1,8 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.9.1
+def_version: 0.10.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: FEAT.2
 ---
 
@@ -164,15 +164,45 @@ own callouts, and callouts inside a dialog landed at the screen's top-left corne
 a designer annotate any element must not lose them, so marks on and inside overlays are drawn where
 they belong.
 
+**Who adds annotations, and when (SRC-18#answers).** Callouts exist for presenting a design in a
+document — a design specification, a manual, a review page. They are added while the design is refined,
+either in the mockitdown designer or in a SpecItOut application that holds the design, and are then
+shown wherever the mockup is rendered.
+
+**F-15.UC-1 — Present a design with numbered callouts in a document**
+
+**Actor:** designer writing a design specification or a manual page.
+
+1. The designer writes a mockup of the screen and attaches callouts 1 to 4 to the parts the text
+   explains, choosing a colour for them.
+2. The designer refers to (#1) to (#4) in the paragraphs around the mockup.
+
+**Outcome:** the rendered page shows the mockup with numbered circles on those parts and the same
+circles in the prose, so a reader matches each sentence to its part of the screen.
+
+**F-15.UC-2 — Annotate a mockup while refining the design**
+
+**Actor:** designer refining a design in the mockitdown designer or in a SpecItOut application.
+
+1. The designer selects an element of a mockup and adds a callout, a pointer, a tap or a focus
+   highlight to it, or marks a drag-selection over a group of elements.
+2. The designer saves the design.
+
+**Outcome:** the marks are part of the mockup's source; wherever the mockup is presented — the
+designer's canvas, the SpecItOut document, a Markdown page — they are drawn on the elements they belong
+to, including elements inside dialogs and other overlays.
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |

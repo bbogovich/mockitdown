@@ -29,6 +29,8 @@ The layout shown on this page. Moving files keeps their history (`git mv`).
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at 0.11.0.** Its cited items ADR-17 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-REPO-001.TC-1 — Root holds only the variant folders and cross-variant files**
 
 Automated by `python/tests/test_layout.py`: the root contains exactly the entries of C1 and C4 (plus ignored files).
@@ -59,10 +61,14 @@ The role rule table joins the vocabulary as shared language data (R-PACK-016). B
 and the copy tests of C6 cover it; only the TypeScript design tools read it for now.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+**Stylesheet partials (SRC-18#health).** A pack stylesheet may include shared partials
+(R-PACK-018); the partials live in `shared/packs/_partials/` and reach the packages only inside the
+resolved `pack.css` copies, so the copy check compares a copy with its resolution rather than with the
+file in `shared/`.
 
 **R-REPO-002.TC-1 — Python package copy matches shared**
 
-Automated by `python/tests/test_shared.py`: every file under `shared/packs`, `shared/css`, `shared/icons` and `shared/language` has an identical copy in the installed package.
+Automated by `python/tests/test_shared.py`: every file under `shared/packs` (except `_partials/`), `shared/css`, `shared/icons` and `shared/language` has a copy in the installed package, identical except for a `pack.css` that includes partials, whose copy equals its resolution (R-PACK-018.TC-1); `typescript/scripts/copy-shared.mjs --check`, run by `npm test`, checks `dist/shared/` the same way.
 
 **R-REPO-002.TC-2 — No pack outside shared**
 
@@ -75,16 +81,38 @@ Automated by `python/tests/test_layout.py`: no `pack.json` or `pack.css` exists 
 exists once, in `shared/`, and each package holds an identical copy beside `vocabulary.json`; no other
 `roles.json` exists outside `shared/language/` and the build outputs.
 
+**R-REPO-002.TC-4 — Shared files in place, copied as data**
+
+Automated, in the files named. Step 4 exists; steps 1, 2, 3 and 5 extend
+`test_no_pack_outside_shared` and `test_shared.py` with new assertions, written by the issue that builds
+R-PACK-018 (which touches the same tests).
+
+1. `python/tests/test_layout.py`: no `pack.json`, `pack.css`, `page.css`, `icons.json` or
+   `vocabulary.json` exists outside `shared/` and the build outputs (C1, C2, C3, C4); `icons.json` holds
+   `glyphs` and `aliases` objects and `vocabulary.json` the lists `rendered`, `ignored` and
+   `neutral_modules` (C3, C4).
+2. `python/tests/test_shared.py::test_wheel_contains_the_shared_assets` and the TypeScript
+   `package.test.ts` manifest test: each package holds its copies, and neither variant's source opens a
+   path under `shared/` at run time — a grep over `python/src/mockitdown/` and `typescript/src/` for
+   `shared/` outside comments finds no file access (C5).
+3. Both builds only copy and parse the files: the Python sync and `copy-shared.mjs` read them as text
+   or JSON, and no shared file is imported, evaluated or executed — a grep over both build scripts and
+   loaders for `import(`, `eval`, `exec` or `Function(` applied to shared content finds none (C7).
+4. `python/tests/test_shared.py::test_stale_copy_is_detected`: changing one copied file makes the copy
+   check fail (C6, with TC-1).
+5. A `.css` file under `shared/packs/` is either `<id>/pack.css` of a directory holding `pack.json` or
+   `_partials/<name>.css`; any other fails the layout test (C1).
+
 **Realizes.** F-16
 
 | | Statement |
 |---|---|
-| C1 | The built-in packs MUST exist only as `shared/packs/<id>/pack.json` and `shared/packs/<id>/pack.css`. |
+| C1 | The built-in packs MUST exist only as `shared/packs/<id>/pack.json`, `shared/packs/<id>/pack.css` and the stylesheet partials `shared/packs/_partials/<name>.css` they include (R-PACK-018). |
 | C2 | The page stylesheet MUST exist only as `shared/css/page.css`. |
 | C3 | The icon glyphs and icon aliases MUST exist only as `shared/icons/icons.json`, an object with `glyphs` (name → SVG inner markup) and `aliases` (name → glyph name). |
 | C4 | The modifier vocabulary (rendered and ignored modifiers) MUST exist only as `shared/language/vocabulary.json`, with `rendered`, `ignored` and `neutral_modules` name lists, `neutral_modules` being the import names that select no pack. |
 | C5 | Each variant's build MUST copy the shared files it publishes into its own package; neither package MAY read `shared/` at run time. |
-| C6 | A test in each variant MUST fail when its package copy differs from `shared/` after a build. |
+| C6 | A test in each variant MUST fail when its package copy differs, after a build, from what the build writes from `shared/`: an identical copy of every file, except a `pack.css` that includes partials, whose copy is resolved as R-PACK-018.C4 says. |
 | C7 | Both variants MUST read the shared files as data and MUST NOT execute anything from them. |
 | V1 | After the move, the Python icon, vocabulary and pack modules load their data from the packaged copies and the existing test suite passes unchanged. |
 | C8 | The role rule table (R-PACK-016) MUST exist only as `shared/language/roles.json`, and each variant's build MUST copy it into its package beside `vocabulary.json`. |
@@ -102,6 +130,8 @@ The reference JSON carries the same data as the Reference page of a pack, so the
 Checked at 0.10.1 after R-REPO-002.C8 (`shared/language/roles.json`): the file is a shared asset the wheel and sdist carry through C2, copied by the same build step as `vocabulary.json`; the other clauses are unaffected.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at 0.11.0.** Its cited items ADR-17, R-REPO-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-REPO-003.TC-1 — Wheel contains the shared assets**
 
@@ -167,6 +197,8 @@ edit API (ADR-21) and is outside the render cases' rules.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items ADR-18, ADR-22, R-REPO-003 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-REPO-004.TC-1 — Python matches the corpus**
 

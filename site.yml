@@ -83,6 +83,8 @@ nav:
           - Pack format: specification/packs/format.md
           - Pack catalogue: specification/packs/catalogue.md
           - Role rules and typed parameters: specification/packs/design-data.md
+          - Shared stylesheet rules: specification/packs/stylesheet-partials.md
+          - Retro and handheld packs: specification/packs/retro-handheld.md
       - Rendering:
           - Markup: specification/rendering/markup.md
           - Role catalogue: specification/rendering/roles.md

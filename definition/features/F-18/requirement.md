@@ -2,15 +2,16 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.9.3
-rev: 6
+version: 0.10.0
+rev: 7
 page: FEAT.3
 slot: features
 order: 3
-hash: a9742bf1f771
+hash: 6032b703b34d
 family: web
-source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
+source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17, SRC-18]
 requires: [F-17, F-3]
+refs: [F-17, F-3]
 ---
 
 G1: Developers and reviewers need to see every pack and every element rendered by the web components, both by eye and in automated tests.
@@ -37,3 +38,8 @@ AC9: From any design example a reader can reveal its source in one step, see the
 C12: The pack gallery is published with the documentation on the project's public site, at an address of its own, and works there as it does on the development server.
 C13: The documentation site and the example site each have a Gallery header tab, next to Demo, that opens the published gallery.
 AC10: After the documentation is published, the gallery's public address shows every pack with its elements and examples, without a failed request, and the Gallery tab of both sites opens it.
+C14: The published gallery opens on a home page that says what the gallery is for, that every mockup in it is rendered in the browser by the TypeScript renderer, and briefly how to use the TypeScript library in a project, with a link to its release builds (F-17.C7).
+C15: The easter-egg packs (F-3.C9) can be shown in the gallery by their address, but the side panel does not list them; the home page links to the gallery view of each of them.
+N1: C4 and AC4 deliberately name Node's own HTTP module: they keep an implementer from adding a web-server framework the gallery does not need (SRC-18#answers). They are product constraints, not implementation hints to drop.
+AC11: Opening the published gallery's address shows the home page, from which one link opens the pack gallery and one link per easter-egg pack opens that pack's elements.
+AC12: No easter-egg pack appears in the side panel, and opening the gallery at an easter-egg pack's address shows that pack's elements and examples without a diagnostic.

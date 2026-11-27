@@ -14,12 +14,13 @@ elements, the development server and the test pages. Both read the shared asset 
 #### A-REPO-1 — Shared asset tree
 
 The single source of everything both variants publish (ADR-17).
+**At 0.11.0 (SRC-18).** P1 also names the stylesheet partials, the role rule table and the edit corpus.
 
 **Level.** module
 
 | | Statement |
 |---|---|
-| P1 | provides: the shared asset tree `shared/` — `packs/<id>/pack.json` and `pack.css`, `css/page.css`, `icons/icons.json`, `language/vocabulary.json`, `images/`, `patterns/*.mockitdown`, `reference/<pack>.json` and `reference/index.json`, `conformance/` |
+| P1 | provides: the shared asset tree `shared/` — `packs/<id>/pack.json` and `pack.css`, `packs/_partials/<name>.css` (stylesheet partials, R-PACK-018), `css/page.css`, `icons/icons.json`, `language/vocabulary.json`, `language/roles.json`, `images/`, `patterns/*.mockitdown`, `reference/<pack>.json` and `reference/index.json`, `conformance/` (with the edit corpus `conformance/edit/`) |
 | K1 | The shared asset tree MUST hold data and stylesheets only; it MUST NOT hold code of either variant. |
 
 ---

@@ -12,3 +12,6 @@ folder export stay in the shell for now.
 **Re-checked at definition 0.9.1.** F-19.CR-3 only adds F-21 to its prerequisites; the canvas depends on the design tools as before.
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
+**Deliberate constraints (SRC-18#answers).** The format and the place of the module are fixed on
+purpose, so that SpecItOut tools and a desktop shell can rely on one readable file and one small module.

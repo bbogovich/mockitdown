@@ -2,12 +2,12 @@
 id: R-REPO-001
 title: Repository layout
 status: active
-version: 0.10.3
-rev: 1
+version: 0.11.0
+rev: 2
 page: REPO.1
 slot: reqs
 order: 1
-hash: 65b384fd036e
+hash: d56a454dd16e
 source: [SRC-8]
 realizes: [F-16]
 constrained_by: [ADR-17]

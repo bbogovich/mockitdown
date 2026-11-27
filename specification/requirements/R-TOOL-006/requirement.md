@@ -2,12 +2,12 @@
 id: R-TOOL-006
 title: "New elements: sample arguments and first-text editing"
 status: active
-version: 0.10.8
-rev: 2
+version: 0.11.0
+rev: 3
 page: WEB.4
 slot: reqs
 order: 6
-hash: f90cef9d82a9
+hash: fddffb90ec4b
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-TOOL-004, R-EDIT-003]

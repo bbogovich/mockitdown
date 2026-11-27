@@ -1,8 +1,8 @@
 ---
 title: Sources
-def_version: 0.9.0
+def_version: 0.10.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: SRC
 ---
 
@@ -64,10 +64,10 @@ Each is quoted verbatim in `definition/sources/` and cited by ID from the featur
 
 | Source | Recorded | Request | Features citing it |
 |---|---|---|---|
-| SRC-4 | 2026-11-24 | More platforms (Android, GTK, Qt, KDE Plasma), non-standard components, overlays and annotations, charts | F-15 |
-| SRC-5 | 2026-11-24 | Retro packs, Windows 3.1.1 in Retro, sci-fi easter eggs, demos on GitHub Pages | none yet |
-| SRC-6 | 2026-11-24 | Web kits from the roadmap, more retro systems in chronological order, tabbed documentation with a Reference section | F-14 |
-| SRC-7 | 2026-11-24 | Wireframe sketch and Vue packs | none yet |
+| SRC-4 | 2026-11-24 | More platforms (Android, GTK, Qt, KDE Plasma), non-standard components, overlays and annotations, charts | F-3, F-15 |
+| SRC-5 | 2026-11-24 | Retro packs, Windows 3.1.1 in Retro, sci-fi easter eggs, demos on GitHub Pages | F-3 |
+| SRC-6 | 2026-11-24 | Web kits from the roadmap, more retro systems in chronological order, tabbed documentation with a Reference section | F-3, F-14 |
+| SRC-7 | 2026-11-24 | Wireframe sketch and Vue packs | F-3 |
 | SRC-8 | 2026-11-25 | TypeScript web components beside the Python library (`python/`, `typescript/`, `shared/`) | F-16, F-17, F-18, F-19, F-20 |
 | SRC-9 | 2026-11-25 | SwiftUI gallery defects, desktop and tablet chrome, the macOS menu bar | F-3, F-8, F-10, F-18 |
 | SRC-10 | 2026-11-25 | Gallery tabs for elements and design examples; more complex layout examples | F-18 |
@@ -85,9 +85,20 @@ F-2, F-12, F-15, F-16, F-19, F-20 and F-21. SRC-14 and SRC-16 are not cited by a
 Recorded 2026-11-26: "Are the latest docs deployed to github pages? I don't see the gallery." Shaped F-18
 (C12, C13, AC10).
 
+## SRC-18 — audit answers, pack stylesheets, gallery home page, more packs
+
+Recorded 2026-11-27: the developer's answers to the definition and specification audit questions,
+the request to write shared pack stylesheet rules once, a gallery home page with links to the
+science-fiction easter eggs and GitHub release builds of the TypeScript library, and new packs — the
+Amiga, Windows 1.0 in its default colours (with a screenshot, kept as `assets/SRC-18-win1.png`), a fuller
+GS/OS, further retro systems from the GUI timeline, and Palm, BlackBerry, Windows CE and Newton in the
+Mobile group. The two pages it points to were read on 2026-11-27 and are summarised in the source.
+Shaped F-3, F-15, F-17, F-18 and F-20.
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
 | 0.9.1 | 2026-11-26 | Sources SRC-4 to SRC-17 and batch ING-1 listed (definition audit, #47) |
+| 0.10.0 | 2026-11-27 | SRC-18 added; SRC-4 to SRC-7 now cited by F-3 |

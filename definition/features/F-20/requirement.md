@@ -2,14 +2,14 @@
 id: F-20
 title: Infinite canvas of named mockups
 status: active
-version: 0.9.3
-rev: 3
+version: 0.10.0
+rev: 4
 page: FEAT.3
 slot: features
 order: 5
-hash: f3f1faa9b401
+hash: b4c38df160b8
 family: design-tools
-source: [SRC-8, SRC-12, SRC-15]
+source: [SRC-8, SRC-12, SRC-15, SRC-18]
 requires: [F-19]
 refs: [F-19]
 ---
@@ -32,3 +32,4 @@ C10: The document is read, validated and written by a module of the mockitdown p
 AC5: Opening a document of an unknown format or version, or one whose mockup has no code, is refused with a readable message naming the problem.
 AC6: Opening a document that holds keys the tools do not know and writing it back yields the same document, its keys and their order included.
 AC7: Saving and reloading a canvas also restores its sections and its view.
+N1: C6 (one JSON file, `.mkdesign`) and C10 (one module of the mockitdown package, no browser needed) are deliberate constraints of the product, not implementation hints: they keep an implementer from adding a database, a second format or a framework for a document that tools must read without the designer (SRC-18#answers).

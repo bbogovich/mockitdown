@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.11.0 | 2026-11-27 | `ADR.2`, `ADR.3`, `ARCH.1`, `ARCH.3`, `PACK.1`, `PACK.3`, `PACK.4`, `PACK.5`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | SRC-18: stylesheet partials (R-PACK-018), shared assets named (ADR-17, A-REPO-1, A-PACK-2, R-REPO-002), shipped and hidden packs (R-PACK-008, R-PACK-010), gallery home page and hidden packs (R-WEB-004, R-WEB-006), TypeScript release builds (R-WEB-007, ADR-23), eleven pack requirements (R-PACK-019 to R-PACK-029); citing items re-checked |
 | 0.10.8 | 2026-11-27 | `ADR.1`, `ADR.2`, `ADR.3`, `ANN.1`, `LANG.2`, `MDX.1`, `PACK.1`, `PACK.3`, `REND.1`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | audit follow-up: the chain of items citing the re-checked requirements, re-checked in one release |
 | 0.10.7 | 2026-11-27 | `ANN.1`, `ASSET.1`, `MDX.1`, `PACK.1`, `REND.1`, `WEB.3` | audit follow-up: requirements re-checked after the renderer split |
 | 0.10.6 | 2026-11-27 | `PACK.1`, `REND.2`, `WEB.2` | audit follow-up: suspects from the renderer split cleared; test cases name the split gallery specs |

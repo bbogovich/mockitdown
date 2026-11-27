@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.10.0 | 2026-11-27 | `FEAT.1`, `FEAT.2`, `FEAT.3` | SRC-18: audit answers (all packs recorded in F-3, annotation use cases in F-15, deliberate constraints noted in F-18 and F-20), shared stylesheet rules, gallery home page and easter eggs, TypeScript release builds, Amiga, Windows 1.0 colours, fuller GS/OS, GEM, GEOS, RISC OS, BeOS and classic handhelds |
 | 0.9.3 | 2026-11-26 | `FEAT.3` | audit: F-18, F-19 and F-20 re-checked against F-17 |
 | 0.9.2 | 2026-11-26 | `FEAT.3` | audit: F-17 and F-20 re-checked against their changed prerequisites |
 | 0.9.1 | 2026-11-26 | `FEAT.2`, `FEAT.3` | definition audit: F-19 requires F-21, F-18 requires F-3, F-14 tab bar lists Gallery, Sources page lists SRC-4..17 (#47) |

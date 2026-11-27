@@ -11,3 +11,7 @@
 ```
 
 **Re-checked at definition 0.9.1.** F-16.CR-1 adds role rules and typed parameters as shared data that only the design tools read; embedding a mockup in a web page is unchanged.
+
+**Release builds on GitHub (SRC-18#gallery).** A web project needs a released build to depend on.
+Each TypeScript release is attached to a GitHub release as the archive `npm pack` makes, which `npm
+install` accepts by its URL; the gallery's home page links to it.

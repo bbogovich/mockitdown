@@ -31,6 +31,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items ADR-20, R-WEB-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-WEB-003.TC-1 — Static server**
 
 Automated by `typescript/tests/unit/serve.test.ts`.
@@ -100,6 +102,11 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Home page and easter eggs (SRC-18#gallery).** `/gallery/` now opens the gallery home page
+(R-WEB-006) rather than the pack gallery itself. The science-fiction packs are reachable by address —
+the home page links to each — but stay out of the side panel. The device and chrome rules of C9 and the
+720 px boundary of C7 gain automated tests (TC-11, audit question 6).
+
 **R-WEB-004.TC-1 — Every pack renders**
 
 Automated by `typescript/tests/browser/gallery-packs.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
@@ -123,6 +130,24 @@ Automated, in the files named; no step is new behaviour, the case only ties the 
 
 Not covered by an automated test at 0.10.1: C9 (render with `device="fit"`; patterns with the device and
 chrome of their index entry, partly through TC-5) and C10 (lazy creation, a SHOULD).
+
+**R-WEB-004.TC-11 — Device fit, the 720 px boundary and hidden packs**
+
+New browser tests in `typescript/tests/browser/gallery-packs.spec.mjs` (C7, C32) and
+`gallery-render.spec.mjs` (C9, C10):
+
+1. At a window width of 720 CSS pixels the side panel is shown and the menu button hidden; at 719 the
+   panel is hidden behind the menu button (C7, the boundary TC-10 step 3 leaves out).
+2. For `base`, `swiftui` and `win95`, after `renderAll()`, every element card's `mockitdown-mockup`
+   (sample and variants sample) has `device="fit"`; every Examples mockup has the `device` and `chrome`
+   of its `shared/patterns/index.json` entry when the entry names them, and otherwise neither attribute,
+   so that the selected pack's default device and chrome apply (C9).
+3. On opening `#pack=base&tab=elements` without scrolling, the number of `mockitdown-mockup` elements in
+   the page is smaller than the number of element cards, and it grows after scrolling to the end (C10).
+4. Opening `#pack=lcars` shows the LCARS facts and its element cards; the side panel holds no entry for
+   `lcars`, `phosphor` or `hologram` and none marked selected; `packGallery.select("phosphor")` and
+   `renderAll()` resolve with no error diagnostic and no mockup without rendered content, also for
+   `hologram`; `#pack=nope` still selects the first pack (C32, C12).
 
 **R-WEB-004.TC-2 — Patterns in every pack**
 
@@ -176,11 +201,12 @@ A unit test of the snippet builder (pure function, both a core and a pack-specif
 Run by the Pages workflow after the site is assembled (`typescript/tests/browser/published.spec.mjs`,
 pointed at a static file server over the assembled `public/` folder through `GALLERY_URL`):
 
-1. `/gallery/` redirects to `/gallery/pages/packs.html`, and `packGallery.state` becomes `ready`.
+1. `/gallery/` redirects to `/gallery/pages/index.html` (the home page, R-WEB-006); its gallery link
+   opens `/gallery/pages/packs.html`, and `packGallery.state` becomes `ready`.
 2. `renderAll()` for `base` and for `swiftui` (Elements and Examples) resolves with no error
    diagnostic and no mockup without rendered content.
 3. No request fails, and every request URL starts with the server's `/gallery/`.
-4. The assembled `public/gallery/` holds `pages/packs.html`, `dist/mockitdown.js`,
+4. The assembled `public/gallery/` holds `pages/index.html`, `pages/packs.html`, `dist/mockitdown.js`,
    `dist/shared/manifest.json`, `shared/reference/index.json` and `shared/patterns/index.json`.
 5. The header tabs of `/definition/` (the first page of the documentation site, which has no page at
    `/`: the published root only redirects to `/demos/`) and of `/demos/` (example site) read Demo,
@@ -226,9 +252,10 @@ TC-M: open `npm run serve` → Pack gallery, step through the groups, compare a 
 | V1 | The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing. |
 | C27 | The Pages workflow `.github/workflows/pages.yml`, on both branches, MUST install the TypeScript package's development dependencies with `npm ci`, build it with `npm run build` in `typescript/` of `main`, and publish the pack gallery at `/gallery/` of the site. |
 | C28 | The published `/gallery/` MUST reproduce the development server's URL layout (R-WEB-003.C5): `gallery/pages/` holding the files of `typescript/pages/`, `gallery/dist/` the built package, and `gallery/shared/` the `reference/` and `patterns/` folders of `shared/`, so that every test page works unchanged as static files. |
-| C29 | `/gallery/index.html` MUST redirect to `pages/packs.html` with a meta refresh and a link. |
+| C29 | `/gallery/index.html` MUST redirect to `pages/index.html`, the gallery home page (R-WEB-006), with a meta refresh and a link. |
 | C30 | Every request a published test page makes MUST be for a file under `/gallery/`. |
 | C31 | The Pages workflow MUST serve the assembled site with a static file server before uploading it, open `/gallery/` in Chromium, and fail when the gallery does not reach `packGallery.state` `ready`, when `renderAll()` for `base` or `swiftui` reports an error diagnostic or a mockup without rendered content, or when a request fails. |
+| C32 | A `#pack=<id>` naming a pack listed under `hidden` in `shared/reference/index.json` (R-PACK-010.C2) MUST select that pack and show its facts and both tabs as for any pack, while the side panel lists no hidden pack and marks none of its entries as selected; `window.packGallery.select(id)` and `renderAll()` MUST accept a hidden pack. |
 
 ---
 
@@ -246,6 +273,8 @@ overlap `pages.yml` and `release.yml`.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items ADR-20, R-WEB-003 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-WEB-005.TC-1 — Browser smoke test**
 
@@ -269,3 +298,59 @@ Manual: a push shows the Python and the TypeScript jobs in the CI workflow run.
 | C5 | The CI workflow MUST run the TypeScript suite on Node 22 with the Chromium of Playwright, and the Python suite with Zensical installed so that the example site's real build runs. |
 | C6 | The browser tests MUST include a smoke test that loads a test page, loads the shared assets as a browser host does, renders a mockup through the core and fails on any failed request, page error or error diagnostic. |
 | V1 | `npm test` from a clean checkout after `npm ci` and `npx playwright install chromium` passes. |
+
+---
+
+### R-WEB-006 — Gallery home page
+
+**Requires:** R-WEB-004, R-PACK-010
+
+**Requirement.** The gallery's address opens a short home page rather than the pack gallery itself. It
+explains the gallery, names the renderer, shows how to use the library in a project, links to the
+releases, and ends with links to the science-fiction easter eggs.
+
+**Rationale.** SRC-18#gallery: a reader arriving from the documentation's Gallery tab needs to know what
+they are looking at and how to use what they see; the easter eggs are rewards for readers who read to
+the end, so their links sit at the end of the page, generated from the index so the page never falls
+behind the packs.
+
+**Verification.** TC-1.
+
+**R-WEB-006.TC-1 — Home page content, links and easter eggs**
+
+New browser test `typescript/tests/browser/gallery-home.spec.mjs` against the development server, and
+step 1 of R-WEB-004.TC-9 against the published copy:
+
+1. `/pages/index.html` loads with no failed request and no console error; the assembled gallery holds
+   `pages/index.html`, `pages/index.js` and `pages/index.css` (C1).
+2. The page text contains the phrases "pack gallery", "TypeScript renderer", `mockitdown-mockup` and
+   `pip install mockitdown` (C2, C3).
+3. A code block contains `loadAssetsFromUrl`, `<mockitdown-mockup pack=` and
+   `<script type="text/mockitdown">`, and has at most fifteen lines; a link's `href` is
+   `https://github.com/bbogovich/mockitdown/releases` and another's ends with `typescript/README.md`
+   (C4, C5).
+4. Links to `packs.html`, `../../definition/` and `../../demos/` exist; following `packs.html` reaches
+   `packGallery.state` `ready` (C6).
+5. The easter-egg section is the last section and holds exactly one link per id of `hidden` in
+   `shared/reference/index.json`, labelled with the pack's name; following each opens the gallery with
+   that pack selected and its elements shown (C7).
+6. With the gallery's appearance set to dark, the home page's `color-scheme` is dark; with no choice
+   and an emulated dark system scheme it is dark too; every request URL stays under the served root
+   (C8).
+7. With `shared/reference/index.json` answered by HTTP 404 (`page.route`), the page still shows its text
+   and gallery link and the sentence that the easter eggs could not be loaded (C9).
+
+**Realizes.** F-18
+
+| | Statement |
+|---|---|
+| C1 | `typescript/pages/index.html` (with its script `index.js` and stylesheet `index.css` beside it) MUST be the gallery home page; the published `/gallery/index.html` redirects to it (R-WEB-004.C29), and the development server serves it at `/pages/index.html`. |
+| C2 | The home page MUST say what the gallery is for: reviewing every shipped pack's elements and design examples as the web components render them, and serving as the end-to-end test page of the TypeScript variant. |
+| C3 | The home page MUST say that every mockup in the gallery is rendered in the browser by the TypeScript renderer through the `mockitdown-mockup` web component, and that Markdown sites use the Python package (`pip install mockitdown`) instead. |
+| C4 | The home page MUST give a short note on using the TypeScript library in a project: installing it from the archive attached to a GitHub release (R-WEB-007), loading the shared assets with `loadAssetsFromUrl`, and a `<mockitdown-mockup pack="…">` element holding a `<script type="text/mockitdown">` child, shown as a code block of at most fifteen lines. |
+| C5 | The home page MUST link to the project's GitHub releases page, `https://github.com/bbogovich/mockitdown/releases`, and to the TypeScript package's README on GitHub. |
+| C6 | The home page MUST link prominently to the pack gallery (`packs.html`), and to the documentation site (`../../definition/`) and the example site (`../../demos/`). |
+| C7 | Below the other sections, the home page MUST have an easter-egg section with one link per pack listed under `hidden` in `shared/reference/index.json`, read at load time, each to `packs.html#pack=<id>` and labelled with the pack's name from its reference file, so that a new hidden pack is linked without editing the page. |
+| C8 | The home page MUST follow the light or dark appearance chosen in the pack gallery (the same `localStorage` key) and, without a choice, the system's; it MUST use no framework and no script or stylesheet from outside `/gallery/` (R-WEB-004.C30). |
+| C9 | When `shared/reference/index.json` cannot be loaded, the home page MUST still show its text and the gallery link, and show in place of the easter-egg links a sentence saying they could not be loaded. |
+| V1 | The browser test opens the home page and fails when a required section or link is missing, or when an easter-egg link does not open its pack in the gallery. |

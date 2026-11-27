@@ -2,8 +2,8 @@
 id: R-PACK-013
 title: Element samples
 status: active
-version: 0.10.6
-rev: 3
+version: 0.11.0
+rev: 4
 page: PACK.1
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-18, F-14]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-012]
-hash: 3f1c04917e13
+hash: ea227fd1fb24
 refs: [R-DEV-008, R-PACK-014, R-PACK-015]
 ---
 

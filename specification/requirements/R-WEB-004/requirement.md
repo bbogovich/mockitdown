@@ -2,16 +2,16 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.10.8
-rev: 12
+version: 0.11.0
+rev: 13
 page: WEB.2
 slot: reqs
 order: 2
-hash: 5e4f29779956
-source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
+hash: f97d232f8cc3
+source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17, SRC-18]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
-refs: [R-DEV-008, R-PACK-012, R-WEB-002, R-WEB-003]
+refs: [R-DEV-008, R-PACK-010, R-PACK-012, R-WEB-002, R-WEB-003, R-WEB-006]
 ---
 
 C1: The pack gallery page `pages/packs.html` MUST have a master-detail layout: a side panel listing every shipped, non-hidden pack grouped and ordered as the example site's Reference menu (R-PACK-012.C5), and a main area showing the selected pack.
@@ -43,6 +43,7 @@ C26: `window.packGallery` MUST offer `source(patternId)`, which resolves with th
 V1: The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing.
 C27: The Pages workflow `.github/workflows/pages.yml`, on both branches, MUST install the TypeScript package's development dependencies with `npm ci`, build it with `npm run build` in `typescript/` of `main`, and publish the pack gallery at `/gallery/` of the site.
 C28: The published `/gallery/` MUST reproduce the development server's URL layout (R-WEB-003.C5): `gallery/pages/` holding the files of `typescript/pages/`, `gallery/dist/` the built package, and `gallery/shared/` the `reference/` and `patterns/` folders of `shared/`, so that every test page works unchanged as static files.
-C29: `/gallery/index.html` MUST redirect to `pages/packs.html` with a meta refresh and a link.
+C29: `/gallery/index.html` MUST redirect to `pages/index.html`, the gallery home page (R-WEB-006), with a meta refresh and a link.
 C30: Every request a published test page makes MUST be for a file under `/gallery/`.
 C31: The Pages workflow MUST serve the assembled site with a static file server before uploading it, open `/gallery/` in Chromium, and fail when the gallery does not reach `packGallery.state` `ready`, when `renderAll()` for `base` or `swiftui` reports an error diagnostic or a mockup without rendered content, or when a request fails.
+C32: A `#pack=<id>` naming a pack listed under `hidden` in `shared/reference/index.json` (R-PACK-010.C2) MUST select that pack and show its facts and both tabs as for any pack, while the side panel lists no hidden pack and marks none of its entries as selected; `window.packGallery.select(id)` and `renderAll()` MUST accept a hidden pack.

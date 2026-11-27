@@ -1,6 +1,6 @@
 ---
 title: "Web components"
-spec_version: 0.10.8
+spec_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: WEB.1
@@ -54,6 +54,8 @@ reference data is large.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items ADR-18, ADR-20, R-REPO-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-WEB-001.TC-1 — Conformance corpus in TypeScript**
 
@@ -150,6 +152,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items ADR-19, R-WEB-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-WEB-002.TC-1 — Script child with markup characters**
 
 Automated by `typescript/tests/browser/mockup.spec.mjs`: code with `Text("a < b && c > d")` renders the text verbatim and the HTML equals the conformance output.
@@ -187,10 +191,64 @@ Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its sha
 | V1 | The browser tests mount mockup elements with code containing `<`, `>` and `&`, change attributes and code, and compare the shadow root's HTML with the conformance output. |
 | C13 | The mockup element MUST accept the boolean attribute `edit`, which renders with the `edit` option (R-EDIT-004.C1); like `import-base` and `asset-base`, it is not a fence attribute. |
 
+---
+
+### R-WEB-007 — TypeScript release builds on GitHub
+
+**Requires:** R-WEB-001, R-WEB-005
+
+**Requirement.** The TypeScript library is released by tagging `ts-vX.Y.Z`: a workflow checks the tag,
+tests, packs the package with `npm pack` and attaches the archive to a GitHub release.
+
+**Rationale.** SRC-18#gallery asks for release builds of the packaged TypeScript library on GitHub so
+projects can use it; F-17.C7. Why its own tags and no npm registry: ADR-23.
+
+**Verification.** TC-1 (the workflow, checked on a real tag), TC-2 (the archive's content, in `npm test`).
+
+**R-WEB-007.TC-1 — A tagged release**
+
+Run by the issue that adds the workflow, after merging, with the release flow of the project's
+instructions:
+
+1. `.github/workflows/release-ts.yml` triggers on `push: tags: ["ts-v*"]` only, and `release.yml`'s
+   `v*` does not match `ts-v0.1.0` (checked by reading both files; a unit test in
+   `typescript/tests/unit/package.test.ts` parses both workflow files for their tag filters) (C1).
+2. The same unit test finds, in order, the version check, `npm ci`, `npm audit --audit-level=high`,
+   the Playwright Chromium install, `npm test`, `npm pack` and `gh release create`, the permission
+   `contents: write`, no `NPM_TOKEN` or other secret but `GITHUB_TOKEN`, and no `npm publish` (C2, C3,
+   C5, C7).
+3. Pushing `ts-v0.1.0`: `gh run watch` on the `release-ts` run succeeds; `gh release view ts-v0.1.0`
+   shows the title `mockitdown TypeScript 0.1.0`, the asset `mockitdown-0.1.0.tgz` and notes holding the
+   install command of C6 (C5, C6).
+4. In a fresh folder in the scratchpad, `npm install <the C6 URL>` succeeds, and a Node script that
+   imports `mockitdown/node` and renders `Text("Hi")` with `pack: "base"` prints HTML with no diagnostic.
+
+**R-WEB-007.TC-2 — Archive content and README**
+
+Unit test in `typescript/tests/unit/package.test.ts`: `npm pack --dry-run --json` after the build lists
+`package.json`, `README.md`, `LICENSE`, `dist/mockitdown.js`, `dist/shared/manifest.json` and every
+file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/` or `scripts/` (C4);
+`README.md` contains `releases/download/ts-v` and `npm install https://github.com/bbogovich/mockitdown/releases/download/` (C8).
+
+**Realizes.** F-17 · **Decisions.** ADR-23
+
+| | Statement |
+|---|---|
+| C1 | Pushing a tag `ts-vX.Y.Z` MUST run the workflow `.github/workflows/release-ts.yml`, and only such a tag; the Python release workflow (tags `vX.Y.Z`) MUST NOT run for it. |
+| C2 | The workflow MUST fail before building when the tag's version differs from `version` in `typescript/package.json`. |
+| C3 | The workflow MUST install with `npm ci` in `typescript/`, run `npm audit --audit-level=high` and `npm test` (with Chromium installed for the browser tests), and stop at the first failure. |
+| C4 | The workflow MUST build the package archive with `npm pack` in `typescript/`, giving `mockitdown-X.Y.Z.tgz`, which holds `package.json`, `README.md`, `LICENSE` and `dist/` with `dist/shared/` and its `manifest.json`, and no test, source or page file. |
+| C5 | The workflow MUST create a GitHub release for the tag, titled `mockitdown TypeScript X.Y.Z`, with the archive attached, using only the workflow's own `GITHUB_TOKEN` (permission `contents: write`). |
+| C6 | The release notes MUST give the install command `npm install https://github.com/bbogovich/mockitdown/releases/download/ts-vX.Y.Z/mockitdown-X.Y.Z.tgz` and list the commits since the previous `ts-v` tag. |
+| C7 | The workflow MUST NOT publish to the npm registry. |
+| C8 | `typescript/README.md` MUST describe installing a release from its GitHub release archive, with the install command of C6. |
+| V1 | A tag `ts-v0.1.0` on a commit whose `typescript/package.json` says 0.1.0 produces a release with `mockitdown-0.1.0.tgz`; installing that archive into an empty project and importing `mockitdown` works. |
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; New R-WEB-007: TypeScript release builds on GitHub; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
@@ -199,6 +257,7 @@ Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its sha
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
 | 0.8.9 | 2026-11-25 | as built: the windowed attribute (R-DEV-010.C4) (#13) |

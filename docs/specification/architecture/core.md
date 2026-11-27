@@ -1,8 +1,8 @@
 ---
 title: "Architecture: core modules"
-spec_version: 0.2.0
+spec_version: 0.11.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-27
 page_id: ARCH.1
 ---
 
@@ -192,15 +192,19 @@ Loads and merges packs (M-PACK-1, M-PACK-2). Realizes R-PACK-001 to R-PACK-004.
 
 The framework knowledge of mockitdown, as data. Realizes R-PACK-008 and R-PACK-009.
 
+**At 0.11.0 (SRC-18#answers, question 1).** P1 no longer lists the first eight packs only: it provides every shipped pack.
+
 **Level.** data
 
 | | Statement |
 |---|---|
-| P1 | provides: the directories `base`, `swiftui`, `fluent`, `mui`, `angular-material`, `sapui5`, `bootstrap` and `shadcn`, each with `pack.json` and `pack.css` (`mockitdown/packs/<id>/`) |
+| P1 | provides: one directory per shipped pack (R-PACK-008, R-PACK-019 to R-PACK-029), each with `pack.json` and `pack.css` (`mockitdown/packs/<id>/`), the `pack.css` copies resolved from the stylesheet partials they include (R-PACK-018) |
 | K1 | Built-in packs MUST satisfy the pack contract tests (R-PACK-004, R-PACK-006, R-PACK-007). |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | SRC-18: provides every shipped pack, not the first eight; pack.css copies resolved from partials |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

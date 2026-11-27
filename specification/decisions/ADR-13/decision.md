@@ -2,14 +2,14 @@
 id: ADR-13
 title: The shipped packs
 status: active
-version: 0.10.2
-rev: 2
+version: 0.11.0
+rev: 3
 page: ADR.2
 slot: decisions
 order: 6
 source: [SRC-2]
 constrains: [R-PACK-008]
-hash: dfec3eeab5af
+hash: d31824c9aa4f
 refs: [F-14, R-PACK-008]
 ---
 

@@ -55,6 +55,10 @@ the rules and types of its role, and a pack overrides them only where one of its
 
 **Re-checked at definition 0.9.1.** F-16.CR-1 adds role rules and typed parameters as shared data that only the design tools read; embedding a mockup in a web page is unchanged.
 
+**Release builds on GitHub (SRC-18#gallery).** A web project needs a released build to depend on.
+Each TypeScript release is attached to a GitHub release as the archive `npm pack` makes, which `npm
+install` accepts by its URL; the gallery's home page links to it.
+
 **F-17.UC-1 — Show a mockup in a web application**
 
 **Actor:** web developer.
@@ -88,6 +92,14 @@ the published documentation could not find it. It is now published beside the do
 demo site, with a Gallery header tab on both sites.
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
+**A home page and the easter eggs (SRC-18#gallery).** The gallery's address now opens a short home
+page: what the gallery is for, that it renders with the TypeScript web component, how to use the library
+in a project, and — near its end — links into the gallery for each science-fiction easter egg. The eggs
+stay out of the side panel.
+
+**Deliberate constraints (SRC-18#answers).** The development server is built on Node's own HTTP module on
+purpose: naming it keeps an implementing agent from importing a web framework for a static file server.
 
 **F-18.UC-1 — Review a pack in the browser**
 
@@ -156,6 +168,8 @@ one undo step that restores the selection, and a host can put the same commands 
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
 
+**Re-checked at 0.10.0.** Its cited items F-17 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **F-19.UC-1 — Build a screen visually**
 
 **Actor:** UX designer.
@@ -200,6 +214,9 @@ folder export stay in the shell for now.
 **Re-checked at definition 0.9.1.** F-19.CR-3 only adds F-21 to its prerequisites; the canvas depends on the design tools as before.
 
 **Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
+**Deliberate constraints (SRC-18#answers).** The format and the place of the module are fixed on
+purpose, so that SpecItOut tools and a desktop shell can rely on one readable file and one small module.
 
 **F-20.UC-1 — Lay out a flow of screens**
 

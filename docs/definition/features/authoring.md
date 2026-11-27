@@ -1,8 +1,8 @@
 ---
 title: "Features: authoring"
-def_version: 0.9.0
+def_version: 0.10.0
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: FEAT.1
 ---
 
@@ -87,6 +87,25 @@ on top of a neutral wireframe pack every other pack extends.
 **Fidelity of the SwiftUI pack (SRC-9).** Each style variant must look like the native style it
 names; a variant that renders as the default with a different label misleads the reviewer.
 
+**All shipped packs (SRC-18#answers).** C2 once named only the first eight packs; later requests added
+desktop, mobile and web frameworks (SRC-4, SRC-6, SRC-7), retro systems (SRC-5, SRC-6) and science-fiction
+easter eggs (SRC-4, SRC-5). C2, C8 and C9 now record every pack that ships. The easter eggs are their own
+capability because they behave differently: they render when named but are never listed — a reward for
+readers who explore (SRC-4).
+
+**More history, and phones before the iPhone (SRC-18#packs, SRC-18#mobile).** The Amiga Workbench, a
+Windows 1.0 pack in the garish default colours of its time (the developer's screenshot, SRC-18#image1),
+a much fuller GS/OS pack (from the screens of SRC-18#refs), and four systems from the GUI timeline with a
+look nobody confuses with another: Atari ST GEM (green desktop, 1985), GEOS on the Commodore 64 (1986),
+Acorn RISC OS (the icon bar, 1987/1992) and BeOS (yellow title tabs, 1995). OS/2 Warp 4, DeskMate and
+Visi On were considered and left for later: OS/2 and DeskMate resemble the Windows packs already shipped,
+and Visi On is mostly text. The handhelds — Newton, Palm OS, Windows CE and BlackBerry — join the Mobile
+group because they are phones and PDAs, not desktops.
+
+**Shared rules written once (SRC-18#health).** Packs that imitate related systems (the Lisa and the
+Macintosh, for example) share many drawing rules. Those rules live in one shared stylesheet that each
+pack includes, rather than in copies that drift apart.
+
 **F-3.UC-1 — Show the same screen in the target framework**
 
 **Actor:** designer.
@@ -106,6 +125,25 @@ Material UI form respectively.
 
 **Outcome:** the mockup uses the Fiori Horizon look for those components; core elements in the same
 block are styled to match.
+
+**F-3.UC-3 — Show a screen as a historic system drew it**
+
+**Actor:** writer of an article or talk about interface history, or a retro enthusiast.
+
+1. The writer describes a Cardfile window with `pack="win1"`, then the same layout with `pack="amiga"`
+   and `pack="palm"`.
+
+**Outcome:** each figure looks like a screenshot of that system — Windows 1.0 in its default yellow,
+blue and red, the Workbench in its blue and orange, the Palm in its 160 × 160 greyscale screen.
+
+**F-3.UC-4 — Find an easter egg**
+
+**Actor:** developer reading the documentation.
+
+1. The developer reads the gallery's home page to its end and follows the link to the LCARS pack.
+
+**Outcome:** the gallery shows the LCARS pack's elements and examples, although the side panel lists no
+science-fiction pack.
 
 ### F-4 — Custom reusable components
 
@@ -190,10 +228,12 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |
 | 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |

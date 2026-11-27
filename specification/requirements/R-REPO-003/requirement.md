@@ -2,12 +2,12 @@
 id: R-REPO-003
 title: The Python variant after the move
 status: active
-version: 0.10.3
-rev: 4
+version: 0.11.0
+rev: 5
 page: REPO.1
 slot: reqs
 order: 3
-hash: 33da594c6f90
+hash: 23071ad38e38
 source: [SRC-8]
 realizes: [F-16]
 requires: [R-REPO-002]

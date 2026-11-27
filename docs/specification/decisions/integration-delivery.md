@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.10.8
+spec_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: ADR.2
@@ -142,6 +142,8 @@ recorded in each `pack.json` (`version`).
 
 Checked at 0.10.1: R-PACK-008 has since been extended (0.3.0 to 0.5.0) to the full list of framework, retro and hidden packs; the eight packs of D1 and the four of D2 are still shipped, and C1 and C2 stand. R-PACK-008.C1 is the current list.
 
+**Re-checked at 0.11.0.** Its cited items R-PACK-008 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **Constrains.** R-PACK-008
 
 | | Statement |
@@ -190,6 +192,8 @@ replaced by site assets or by design (ADR-3).
 
 Checked at 0.10.1: R-PACK-008 grew its retro and hidden pack lists (0.3.0 to 0.5.0) in the spirit of D1 and D2; the decision stands.
 
+**Re-checked at 0.11.0.** Its cited items R-PACK-008, R-PACK-010 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **Constrains.** R-PACK-008, R-PACK-010
 
 | | Statement |
@@ -208,13 +212,16 @@ Two variants rendering the same packs must not drift apart; keeping the assets o
 Checked at 0.10.1 after R-REPO-002.C8 and R-REPO-004.C15: the role rule table (`shared/language/roles.json`) and the edit corpus (`shared/conformance/edit/`) are written only in `shared/` and copied by each build, as D2 requires; the list in D2 is illustrative of that rule, not closed.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+**Shared assets named (SRC-18#answers, question 4).** D2 now names the role rule table and the edit
+corpus, which the audit found written only in `shared/` but missing from the list, and the stylesheet
+partials of R-PACK-018. A partial is published only inside the pack stylesheets that include it.
 
 **Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
 
 | | Statement |
 |---|---|
 | D1 | The Python and TypeScript variants live in one repository, in `python/` and `typescript/`, with the assets both publish in `shared/`. |
-| D2 | `shared/` is the only place a pack definition, pack stylesheet, page stylesheet, icon glyph, modifier vocabulary, reference sample, design pattern or conformance case is written; each variant's build copies what it publishes. |
+| D2 | `shared/` is the only place a pack definition, pack stylesheet, stylesheet partial (`shared/packs/_partials/`), page stylesheet, icon glyph, modifier vocabulary, role rule table (`shared/language/roles.json`), reference sample, design pattern, conformance case or edit corpus case (`shared/conformance/edit/`) is written; each variant's build copies what it publishes, resolving a pack stylesheet's partials as it copies it (R-PACK-018). |
 | D3 | The Python package keeps its name, version line, public API and command line; only its location in the repository changes. |
 | O1 | rejected: two repositories with a shared Git submodule or a published asset package — two release lines and a third artefact for one set of files. |
 | O2 | rejected: symbolic links from the Python package into `shared/` — they break on Windows checkouts and in sdists. |
@@ -232,6 +239,8 @@ Checked at 0.10.1 after R-WEB-001.C13/C17 and R-REPO-004.C6/C15: the reference d
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items R-REPO-004, R-WEB-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **Constrains.** R-WEB-001, R-REPO-004
 
@@ -256,6 +265,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **Constrains.** R-WEB-002
 
 | | Statement |
@@ -277,6 +288,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-WEB-001, R-WEB-003, R-WEB-005 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **Constrains.** R-WEB-001, R-WEB-003, R-WEB-005
 
 | | Statement |
@@ -292,12 +305,14 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |

@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.10.8
+spec_version: 0.11.0
 status: draft
 updated: 2026-11-27
 page_id: WEB.5
@@ -24,6 +24,8 @@ frames are scaled with transforms up to 200 % and laid out again beyond, where a
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Re-checked at 0.11.0.** Its cited items R-TOOL-003 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
 **R-TOOL-011.TC-1 — Zoom and pan**
 
@@ -68,6 +70,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-EDIT-007, R-TOOL-011 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-012.TC-1 — Rename refused**
 
 Browser test on `pages/designer.html` with mockups `Sign in`, `Inbox`, `Message`: double-click
@@ -110,6 +114,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-TOOL-002, R-TOOL-012 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-013.TC-1 — Activation**
 
 Browser test on `pages/designer.html`: clicking the `Inbox` frame makes it active; the outline shows
@@ -147,6 +153,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**Re-checked at 0.11.0.** Its cited items R-EDIT-005, R-TOOL-013 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
 **R-TOOL-014.TC-1 — Round trip**
 
 Browser test (`canvas.spec.mjs`) on `pages/designer.html` covering F-20.AC1–AC4 together: three
@@ -176,8 +184,10 @@ outside; resizing and renaming work and each undoes in one step.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.0 | 2026-11-27 | re-checked against R-TOOL-003 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-011 (SRC-18): unaffected; re-checked against R-TOOL-002, R-TOOL-012 (SRC-18): unaffected; re-checked against R-EDIT-005, R-TOOL-013 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

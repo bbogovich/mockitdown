@@ -42,3 +42,8 @@ Test pages added later (the designer test page) are published by the same copy.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**Home page and easter eggs (SRC-18#gallery).** `/gallery/` now opens the gallery home page
+(R-WEB-006) rather than the pack gallery itself. The science-fiction packs are reachable by address —
+the home page links to each — but stay out of the side panel. The device and chrome rules of C9 and the
+720 px boundary of C7 gain automated tests (TC-11, audit question 6).

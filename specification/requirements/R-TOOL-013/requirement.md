@@ -2,12 +2,12 @@
 id: R-TOOL-013
 title: The active mockup and inactive previews
 status: active
-version: 0.10.8
-rev: 2
+version: 0.11.0
+rev: 3
 page: WEB.5
 slot: reqs
 order: 3
-hash: a34182ef5869
+hash: cc76b4919dc9
 source: [SRC-12, SRC-15, SRC-16]
 realizes: [F-20]
 requires: [R-TOOL-012, R-TOOL-002]

@@ -2,12 +2,12 @@
 id: F-19
 title: Visual mockup editing components
 status: active
-version: 0.9.3
-rev: 4
+version: 0.10.0
+rev: 5
 page: FEAT.3
 slot: features
 order: 4
-hash: 706907b0943a
+hash: 1c1afcecb69a
 family: design-tools
 source: [SRC-8, SRC-12, SRC-13]
 requires: [F-17, F-21]

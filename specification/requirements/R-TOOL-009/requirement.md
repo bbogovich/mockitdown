@@ -2,12 +2,12 @@
 id: R-TOOL-009
 title: Two-way editing and Code mode
 status: active
-version: 0.10.8
-rev: 2
+version: 0.11.0
+rev: 3
 page: WEB.4
 slot: reqs
 order: 9
-hash: a7056f22b66f
+hash: 9f6b9f4e82fd
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-TOOL-008, R-TOOL-003, R-EDIT-007]
