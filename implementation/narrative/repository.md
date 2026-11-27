@@ -2,7 +2,7 @@
 title: Repository layout and shared assets
 impl_version: 0.3.16
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: IMPL.REPO
 ---
 
@@ -24,8 +24,13 @@ mockitdown/                    (main branch)
     package.json, package-lock.json, tsconfig.json, tsconfig.test.json
     src/core/                  the core: syntax/, evaluate, packs/, diagnostics, options, styles …
     src/mockitdown.ts          package entry; src/node.ts the Node loader (mockitdown/node)
+    src/elements/              the mockitdown-mockup element and the browser asset loader
     scripts/copy-shared.mjs    copies shared/ into dist/shared/ (+ manifest.json) and the LICENSE
-    tests/unit/                node:test suites (IT-9, IT-10), compiled to test-build/
+    scripts/serve.mjs          the development server (R-WEB-003)
+    scripts/assemble-gallery.mjs  lays the gallery out as static files for /gallery/ (R-WEB-004.C27)
+    pages/                     test pages and the pack gallery (packs.html, packs.js, snippet.js, packs.css)
+    playwright.config.mjs, playwright.published.config.mjs   browser tests; the second checks the assembled site
+    tests/unit/, tests/browser/  node:test suites (IT-9, IT-10 …) compiled to test-build/; Playwright specs
     dist/, test-build/, node_modules/, LICENSE   build output and copies, ignored by git
   shared/                      the single source of what both variants publish
     packs/<id>/pack.json, pack.css
@@ -108,3 +113,4 @@ the sample once per variant (at most eight, `.variant("…")`), each captioned, 
 | 0.3.8 | 2026-11-25 | `shared/patterns/` (#7) |
 | 0.3.11 | 2026-11-25 | Declared element samples in the reference JSON (#10) |
 | 0.3.16 | 2026-11-25 | pack-specific patterns in `shared/patterns/` (#15) |
+| 0.3.20 | 2026-11-26 | Audit: layout lists elements/, scripts/, pages/ and the Playwright configs |

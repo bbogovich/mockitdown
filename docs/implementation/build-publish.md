@@ -2,7 +2,7 @@
 title: Build and publish
 impl_version: 0.3.19
 status: draft
-updated: 2026-11-27
+updated: 2026-11-26
 page_id: IMPL.BUILD
 ---
 
@@ -19,6 +19,17 @@ python3 -m venv .venv
 .venv/bin/pip install -e 'python[markdown]'                        # also copies shared/ into the package
 .venv/bin/pip install -r python/examples/site/requirements.txt     # zensical, for the site build
 cd python && ../.venv/bin/python -m unittest discover -s tests -t .
+```
+
+The TypeScript variant (Node ≥ 22) is built and tested in `typescript/` (see
+[Web development](architecture/web-dev.md)); `npm test` builds first, and its browser tests need
+Playwright's Chromium (`npx playwright install chromium`, once):
+
+```sh
+cd typescript
+npm ci
+npm run build          # tsc, then copies shared/ into dist/shared/
+npm test               # build, build:tests, node:test unit suites, Playwright (Chromium)
 ```
 
 ## Package
@@ -172,3 +183,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.2 | 2026-11-25 | Python variant moved to python/, shared assets in shared/: setup, package data, example site, Reference JSON, workflows (#1) |
 | 0.3.6 | 2026-11-25 | Continuous integration: ci.yml runs both variants' suites (#5) |
 | 0.3.19 | 2026-11-27 | Pack gallery published at /gallery/ and tested before upload; Gallery header tab on both sites (#19) |
+| 0.3.20 | 2026-11-26 | Audit: development setup covers the TypeScript build and test |

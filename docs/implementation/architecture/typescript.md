@@ -2,7 +2,7 @@
 title: TypeScript core
 impl_version: 0.3.6
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: IMPL.TS
 ---
 
@@ -44,7 +44,8 @@ module for module, held to the Python output by the conformance corpus.
 | `core/sha1.ts` | `hashlib.sha1` | synchronous SHA-1 of UTF-8 text, for the anchor prefix |
 | `core/api.ts` | `api.py` | `render`, `check`, `RenderResult`, `errorHtml`, `evaluate`, `stylesheet` |
 | `elements/assets.ts` | — | `loadAssetsFromUrl(base)`: the browser asset loader (A-WEB-2.P2), see [Web development](web-dev.md) |
-| `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core and `loadAssetsFromUrl`; will define the custom elements) |
+| `elements/mockup.ts` | `extension.py`, `fence.py` (the host side) | the `mockitdown-mockup` custom element, see [The mockup element](elements.md) |
+| `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core, `loadAssetsFromUrl` and the element API; defines the custom elements where `customElements` exists) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
 
 ## How the shared assets reach the core
@@ -177,3 +178,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.6 | 2026-11-25 | `elements/assets.ts`: `loadAssetsFromUrl`, the browser asset loader (#5) |
 | 0.3.14 | 2026-11-25 | `windowed` option and attribute, `titlebarMode` (#13) |
 | 0.3.15 | 2026-11-25 | `core/render/menubar.ts`, `menubar` and `app` options and attributes, `MENUBAR` vocabulary data (#14) |
+| 0.3.20 | 2026-11-26 | Audit: module table lists `elements/mockup.ts`; the entry defines the elements (stale "will define") |
