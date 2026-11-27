@@ -1,6 +1,6 @@
 ---
 title: The pack gallery
-impl_version: 0.3.18
+impl_version: 0.3.19
 status: draft
 updated: 2026-11-27
 page_id: IMPL.GALLERY
@@ -224,9 +224,20 @@ and `label` and the page's `appearance`, so the snippet and the shown example ca
   `.patterns` is a `minmax(0, 1fr)` grid so a long line scrolls inside the block instead of widening
   the card or the page.
 
+## Published
+
+The Pages workflow publishes the gallery at `https://bbogovich.github.io/mockitdown/gallery/`
+(R-WEB-004.C27–C31): `scripts/assemble-gallery.mjs` copies `pages/`, `dist/` and the `reference/` and
+`patterns/` folders of `shared/` into the development server's layout under `public/gallery/` and adds
+an `index.html` redirecting to `pages/packs.html`. The page needs no change to work there, because
+every URL it fetches is relative. Before the upload, IT-26 serves the assembled site statically and
+checks the gallery in Chromium. See [Build and publish](../build-publish.md#the-published-pack-gallery).
+
 ## Debugging
 
 - `cd typescript && npm run serve`, open `http://127.0.0.1:8173/pages/packs.html#pack=carbon`.
+- Published: a failed or out-of-`/gallery/` request in the Pages run's *Test the published site* step
+  names the URL; reproduce it with the local check in [Build and publish](../build-publish.md#the-published-pack-gallery).
 - In the console: `await packGallery.renderAll()` shows the summary for the open pack;
   `document.querySelector('[data-label="Button"]').diagnostics` one mockup's diagnostics.
 - A blank stage: check the mockup's box (`getBoundingClientRect()`); a figure needs a width from
@@ -245,3 +256,4 @@ and `label` and the page's `appearance`, so the snippet and the shown example ca
 | 0.3.16 | 2026-11-25 | Pack-specific examples (`packs` and the mockup options in `index.json`), the SwiftUI iPhone, iPad and Mac apps, IT-23 (#15) |
 | 0.3.17 | 2026-11-25 | Elements and Examples tabs, `#pack=<id>&tab=…`, `packGallery.tab()`, the example index; six complex layouts; IT-24 (#16) |
 | 0.3.18 | 2026-11-27 | Show source on every example: `snippet.js`, the source block with Copy, `packGallery.source()`; IT-25 (#17) |
+| 0.3.19 | 2026-11-27 | Published at /gallery/ (assemble-gallery.mjs, IT-26); the brand link goes to `../` (#19) |

@@ -1,5 +1,8 @@
-# Publishes GitHub Pages: the documentation site (docs branch) at /, the demo (example) site at /demos/.
-# Runs the tests first; the example site build is itself a test (strict mockitdown errors fail it).
+# Publishes GitHub Pages: the documentation site (docs branch) at /, the demo (example) site at /demos/,
+# the pack gallery (typescript/pages/ of main, R-WEB-004.C27-C31) at /gallery/.
+# Runs the tests first; the example site build is itself a test (strict mockitdown errors fail it), and
+# the assembled site is served and checked in Chromium before it is uploaded (R-WEB-004 TC-9).
+# The same file is on main and docs (a push runs the copy on the pushed branch): change both.
 name: pages
 on:
   push:
@@ -20,6 +23,11 @@ jobs:
         with: { ref: docs, path: docs }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: main/typescript/package-lock.json
       - name: Install
         run: |
           python -m pip install -e "main/python[markdown]"
@@ -33,6 +41,11 @@ jobs:
       - name: Build example site
         working-directory: main/python/examples/site
         run: zensical build --clean
+      - name: Build the web components (pack gallery)
+        working-directory: main/typescript
+        run: |
+          npm ci
+          npm run build
       - name: Assemble
         run: |
           mkdir -p public
@@ -42,6 +55,15 @@ jobs:
           if [ ! -f public/index.html ]; then
             printf '<!doctype html><meta charset="utf-8"><title>mockitdown</title><meta http-equiv="refresh" content="0; url=demos/"><link rel="canonical" href="demos/"><a href="demos/">mockitdown</a>\n' > public/index.html
           fi
+          # The pack gallery in the development server's URL layout: gallery/pages, dist, shared.
+          node main/typescript/scripts/assemble-gallery.mjs public/gallery
+      - name: Test the published site
+        working-directory: main/typescript
+        run: |
+          npx playwright install --with-deps chromium
+          python -m http.server 8174 --bind 127.0.0.1 --directory "$GITHUB_WORKSPACE/public" > /tmp/http.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS -o /dev/null http://127.0.0.1:8174/gallery/ && break; sleep 1; done
+          GALLERY_URL=http://127.0.0.1:8174/gallery/ npx playwright test -c playwright.published.config.mjs
       - uses: actions/upload-pages-artifact@v3
         with: { path: public }
   deploy:

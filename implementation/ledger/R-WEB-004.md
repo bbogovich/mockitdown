@@ -1,10 +1,10 @@
 ---
 requirement: R-WEB-004
 title: Pack gallery test page
-status: partial
-version: 0.10.0
+status: implemented
+version: 0.10.1
 date: 2026-11-26
-issue: 17
+issue: 19
 ---
 
 # R-WEB-004 — Pack gallery test page
@@ -13,6 +13,7 @@ issue: 17
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.10.1 | 2026-11-26 | implemented | #19 | C27-C31: pages.yml (both branches) builds typescript/ with npm ci and npm run build, assembles /gallery/ (pages, dist, shared/reference, shared/patterns, a meta-refresh index.html) with scripts/assemble-gallery.mjs, serves public/ with python -m http.server and runs published.spec.mjs (IT-26, TC-9) in Chromium before upload; the gallery's brand link goes to ../ | [Build and publish](../narrative/build-publish.md), [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.10.0 | 2026-11-26 | partial | #17 | C21-C26 (C24 as clarified): pages/snippet.js builds the reproducing snippet (pack, device, chrome, menubar, app, windowed in that order, the pattern file verbatim in a text/mockitdown script child, no caption/label/appearance) and gives packs.js the mockup's attributes too; each pattern card has a Show source button (aria-expanded, aria-controls) and a hidden source block below the stage with Copy (clipboard, polite live region Copied; selection when no clipboard or a refused write), monospaced, white-space pre, scrolling, page colours; toggling only flips hidden, so the mockup is untouched; packGallery.source(id); IT-25 (TC-8) in Chromium and a unit test. C27-C31 (publishing, #19) not yet implemented | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.8.14 | 2026-11-25 | implemented | #16 | C16-C20 (and C3/C9 as clarified): packs.js builds the pack's facts above an Elements/Examples tab list (sticky), exactly one panel shown, the filter in the Elements panel; #pack=<id>&tab=elements&#124;examples (pack change = history entry, tab change = replaceState, unknown tab = elements), side-panel links keep the tab; packGallery.tab(name) and selectedTab, renderAll() over both panels; the Examples tab's numbered index scrolls to each example; six complex core patterns (mail-client, admin-console, kanban-board, chat, product-page, calendar) with device desktop; IT-24 (TC-6, TC-7: tabs, twelve core patterns in every pack in both variants, TC-4 geometry of every example). No pack CSS change needed: the geometry checks passed in every pack | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.8.12 | 2026-11-25 | implemented | #15 | C14: index.json entries may carry packs/device/chrome/menubar/app/windowed; packs.js shows a pack-specific pattern only for its packs and passes the keys as mockup attributes; SwiftUI iPhone (list, detail), iPad (three-column split) and Mac (split view, toolbar, .commands, menu bar open on Transaction) examples; IT-23 (TC-5) in both variants and Chromium | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md), [Repository layout and shared assets](../narrative/repository.md) |

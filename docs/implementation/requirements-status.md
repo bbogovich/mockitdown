@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (7)
+## Changes pending (6)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -14,9 +14,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.8.9 | 0.10.0 | 2026-11-25 | #13 |
 | [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.10.0 | 2026-11-25 | #4 |
 | [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.10.0 | 2026-11-25 | #13 |
-| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.10.0 | 0.10.1 | 2026-11-26 | #17 |
 
-## Not started (109)
+## Not started (108)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -101,7 +100,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-008 | Shipped packs | — | 0.5.0 |  |  |
 | R-PACK-009 | The core vocabulary | — | 0.2.0 |  |  |
 | R-PACK-010 | Hidden packs | — | 0.3.0 |  |  |
-| R-PACK-012 | Pack reference gallery and site sections | — | 0.10.0 |  |  |
 | R-PACK-016 | Role rules | — | 0.10.0 |  |  |
 | R-PACK-017 | Typed parameters and modifiers | — | 0.10.0 |  |  |
 | R-REND-001 | Figure structure | — | 0.2.0 |  |  |
@@ -130,7 +128,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.10.0 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.10.0 |  |  |
 
-## Implemented (16)
+## Implemented (18)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -140,6 +138,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-DEV-009](../ledger/R-DEV-009.md) | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | [R-DEV-010](../ledger/R-DEV-010.md) | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-PACK-012](../ledger/R-PACK-012.md) | Pack reference gallery and site sections | 0.10.0 | 0.10.0 | 2026-11-26 | #19 |
 | [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
 | [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
 | [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
@@ -149,4 +148,5 @@ Specification .. A requirement is **outdated** when the specification changed it
 | [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
 | [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
 | [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.10.1 | 0.10.1 | 2026-11-26 | #19 |
 | [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |

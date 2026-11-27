@@ -1,8 +1,8 @@
 ---
 title: Build and publish
-impl_version: 0.3.6
+impl_version: 0.3.19
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.BUILD
 ---
 
@@ -83,10 +83,13 @@ cd python
 
 ## Header tabs
 
-Both sites enable `navigation.tabs` and list the same five sections in the same order — Demo,
-Definition, Specification, Implementation, Reference. Each site's own sections are nav sections (with
-their own sidebar); the other site's sections are absolute links to their published URLs
-(`https://bbogovich.github.io/mockitdown/…`), so they leave a local preview.
+Both sites enable `navigation.tabs` and list the same six sections in the same order — Demo,
+Gallery, Definition, Specification, Implementation, Reference (R-PACK-012.C6). Each site's own sections
+are nav sections (with their own sidebar); the other site's sections, and Gallery (the pack gallery at
+`/gallery/`, built by neither site), are absolute links to their published URLs
+(`https://bbogovich.github.io/mockitdown/…`), so they leave a local preview. The Gallery entry is in
+`site.yml` (documentation) and `python/examples/site/mkdocs.yml` (example site), right after Demo;
+`python/tests/test_site_nav.py` checks the example site's six tabs (R-PACK-012.TC-1).
 
 `navigation.tabs.sticky` keeps the tabs in the header while scrolling, and a small stylesheet
 (`assets/site.css` on the example site, `specification/stylesheets/tabs.css` on the documentation)
@@ -100,8 +103,44 @@ from each pack's default device and chrome.
 keep them identical): it checks out both branches, installs `main/python` with the `markdown` extra
 and both sites' requirements, runs the tests from `main/python`, builds
 the documentation site (published at `/`) and the example site (published at `/demos/`, with the
-Reference section at `/demos/reference/`), writes a root `index.html` that redirects to the Demo
-section, and deploys them with `actions/deploy-pages`.
+Reference section at `/demos/reference/`), builds the web components (Node 22, `npm ci` and
+`npm run build` in `main/typescript`), writes a root `index.html` that redirects to the Demo
+section, assembles the pack gallery at `/gallery/`, tests the assembled site, and deploys it with
+`actions/deploy-pages`.
+
+### The published pack gallery
+
+`node main/typescript/scripts/assemble-gallery.mjs public/gallery` (after `npm run build`) reproduces
+the development server's URL layout (R-WEB-003.C5) as static files, so the test pages work unchanged
+(R-WEB-004.C27–C30):
+
+| Published | From |
+|---|---|
+| `/gallery/index.html` | a meta refresh and a link to `pages/packs.html` (C29) |
+| `/gallery/pages/` | `typescript/pages/` |
+| `/gallery/dist/` | `typescript/dist/` (the built package, `dist/shared/` included) |
+| `/gallery/shared/reference/`, `/gallery/shared/patterns/` | the same folders of `shared/` |
+
+Every request of the gallery is relative (`../dist/`, `../shared/`, the package's own `dist/shared/`),
+so it stays under `/gallery/` (C30). The page's brand link goes to `../`: the index on the development
+server, the redirect back to the gallery when published.
+
+**Before upload** (C31, R-WEB-004.TC-9) the step *Test the published site* installs Playwright's
+Chromium, serves `public/` with `python -m http.server 8174` and runs
+`GALLERY_URL=http://127.0.0.1:8174/gallery/ npx playwright test -c playwright.published.config.mjs`
+(`typescript/tests/browser/published.spec.mjs`, IT-26). A failure fails the build job, so nothing is
+deployed. The same check locally, after building both sites and the package:
+
+```sh
+P=$(mktemp -d)/public; mkdir -p "$P/demos"
+cp -R ../mockitdown.docs/site/. "$P/"; cp -R python/examples/site/site/. "$P/demos/"
+(cd typescript && node scripts/assemble-gallery.mjs "$P/gallery")
+python3 -m http.server 8174 --bind 127.0.0.1 --directory "$P" &
+(cd typescript && GALLERY_URL=http://127.0.0.1:8174/gallery/ npx playwright test -c playwright.published.config.mjs)
+```
+
+The regular browser suite (`npm test`) ignores `published.spec.mjs`; the published config has no
+`webServer`, it needs `GALLERY_URL`.
 
 `.github/workflows/release.yml` runs on a `v*` tag: from `python/` it checks the tag against the
 version, runs the tests, builds the sdist and wheel (`python/dist/`) and publishes them through PyPI
@@ -132,3 +171,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.1.1 | 2026-11-24 | Docs site back on inline CSS |
 | 0.3.2 | 2026-11-25 | Python variant moved to python/, shared assets in shared/: setup, package data, example site, Reference JSON, workflows (#1) |
 | 0.3.6 | 2026-11-25 | Continuous integration: ci.yml runs both variants' suites (#5) |
+| 0.3.19 | 2026-11-27 | Pack gallery published at /gallery/ and tested before upload; Gallery header tab on both sites (#19) |
