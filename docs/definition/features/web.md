@@ -65,7 +65,7 @@ the rules and types of its role, and a pack overrides them only where one of its
 
 ### F-18 — Web pack gallery test page
 
-**Requires:** F-17
+**Requires:** F-17, F-3
 
 **Problem.** The Python variant has the example site and its Reference section to show every pack; the web components need an equivalent that also serves as their end-to-end test (SRC-8).
 
@@ -130,7 +130,7 @@ itself did not change while they looked.
 
 ### F-19 — Visual mockup editing components
 
-**Requires:** F-17
+**Requires:** F-17, F-21
 
 **Problem.** Writing mockups as code suits developers, not designers. Figma is the most popular web tool, but Axure is the better model here: the element hierarchy must be easy to navigate to insert, remove and edit elements (SRC-8).
 

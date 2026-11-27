@@ -1,8 +1,8 @@
 ---
 title: Sources
-def_version: 0.2.0
+def_version: 0.9.0
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: SRC
 ---
 
@@ -58,8 +58,36 @@ strict mode and the Elements table, and ADR-001 (HTML primary, SVG secondary). W
 design kept, changed and retired is traced in the specification's
 [Traceability to the prototype](../specification/traceability.md).
 
+## SRC-4 to SRC-11 — later requests from the developer
+
+Each is quoted verbatim in `definition/sources/` and cited by ID from the features it shaped.
+
+| Source | Recorded | Request | Features citing it |
+|---|---|---|---|
+| SRC-4 | 2026-11-24 | More platforms (Android, GTK, Qt, KDE Plasma), non-standard components, overlays and annotations, charts | F-15 |
+| SRC-5 | 2026-11-24 | Retro packs, Windows 3.1.1 in Retro, sci-fi easter eggs, demos on GitHub Pages | none yet |
+| SRC-6 | 2026-11-24 | Web kits from the roadmap, more retro systems in chronological order, tabbed documentation with a Reference section | F-14 |
+| SRC-7 | 2026-11-24 | Wireframe sketch and Vue packs | none yet |
+| SRC-8 | 2026-11-25 | TypeScript web components beside the Python library (`python/`, `typescript/`, `shared/`) | F-16, F-17, F-18, F-19, F-20 |
+| SRC-9 | 2026-11-25 | SwiftUI gallery defects, desktop and tablet chrome, the macOS menu bar | F-3, F-8, F-10, F-18 |
+| SRC-10 | 2026-11-25 | Gallery tabs for elements and design examples; more complex layout examples | F-18 |
+| SRC-11 | 2026-11-26 | Show source for each gallery example | F-18 |
+
+## SRC-12 to SRC-16 — the MockItDown Designer batch (ING-1)
+
+Ingest batch ING-1, recorded 2026-11-26: the designer's design document (SRC-12, `design.src.html`), the
+mockups `main-window` (SRC-13), `insert` (SRC-14) and `canvas` (SRC-15), and the designer's work list
+(SRC-16, `designer-ING-1.plan.md`). They are kept as assets and cited by page (`SRC-12#p3`). They shaped
+F-2, F-12, F-15, F-16, F-19, F-20 and F-21. SRC-14 and SRC-16 are not cited by a feature directly.
+
+## SRC-17 — publish the pack gallery
+
+Recorded 2026-11-26: "Are the latest docs deployed to github pages? I don't see the gallery." Shaped F-18
+(C12, C13, AC10).
+
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.9.1 | 2026-11-26 | Sources SRC-4 to SRC-17 and batch ING-1 listed (definition audit, #47) |

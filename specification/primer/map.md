@@ -171,7 +171,7 @@ R-REND-012 | requirements | active | 0.8.3 r2 | REND.2 | Charts
 R-REND-013 | requirements | active | 0.8.1 r1 | REND.1 | Rows without overlap
 R-REND-014 | requirements | active | 0.8.3 r1 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.6.0 r0 | REPO.1 | Repository layout
-R-REPO-002 | requirements | active | 0.10.0 r2 | REPO.1 | Shared assets are the single source
+R-REPO-002 | requirements | active | pending r3 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.6.1 r2 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.10.0 r3 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.10.0 r0 | WEB.4 | The editable view: mockitdown-editor
@@ -191,5 +191,5 @@ R-TOOL-014 | requirements | active | 0.10.0 r0 | WEB.5 | Sections and the canvas
 R-WEB-001 | requirements | active | 0.10.0 r3 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.10.0 r4 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.5 r1 | WEB.2 | Development server
-R-WEB-004 | requirements | active | 0.10.1 r8 | WEB.2 | Pack gallery test page
+R-WEB-004 | requirements | active | pending r9 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.6.5 r2 | WEB.2 | Web test suites

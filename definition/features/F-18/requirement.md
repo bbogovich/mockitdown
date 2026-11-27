@@ -2,15 +2,15 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.9.0
-rev: 4
+version: 0.9.1
+rev: 5
 page: FEAT.3
 slot: features
 order: 3
-hash: 76e8cedfd5ec
+hash: 5d36a98956e0
 family: web
 source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
-requires: [F-17]
+requires: [F-17, F-3]
 ---
 
 G1: Developers and reviewers need to see every pack and every element rendered by the web components, both by eye and in automated tests.

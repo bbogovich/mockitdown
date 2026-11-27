@@ -64,6 +64,13 @@ Automated by `python/tests/test_shared.py`: every file under `shared/packs`, `sh
 
 Automated by `python/tests/test_layout.py`: no `pack.json` or `pack.css` exists outside `shared/packs` and the build outputs.
 
+**R-REPO-002.TC-3 — Role rule table shared and copied**
+
+`python/tests/test_shared.py` (the copy test of TC-1 covers `shared/language/`, which then holds
+`roles.json`) and `typescript/scripts/copy-shared.mjs --check`, run by `npm test`: `shared/language/roles.json`
+exists once, in `shared/`, and each package holds an identical copy beside `vocabulary.json`; no other
+`roles.json` exists outside `shared/language/` and the build outputs.
+
 **Realizes.** F-16
 
 | | Statement |

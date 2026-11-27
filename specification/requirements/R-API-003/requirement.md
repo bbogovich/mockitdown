@@ -2,8 +2,8 @@
 id: R-API-003
 title: Render options
 status: active
-version: 0.2.0
-rev: 0
+version: pending
+rev: 1
 page: API.1
 slot: reqs
 order: 3
@@ -11,7 +11,8 @@ source: [SRC-2]
 realizes: [F-11, F-13]
 constrained_by: [A-OPT-1, M-OPT-1]
 reverse_engineered: true
-hash: 101a32005d68
+hash: cdd098018d12
+refs: [M-OPT-1]
 ---
 
 C1: Render options MUST be an immutable value with the fields and defaults of M-OPT-1, and MUST provide a copy with overrides applied.

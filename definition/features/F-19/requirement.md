@@ -2,15 +2,15 @@
 id: F-19
 title: Visual mockup editing components
 status: active
-version: 0.9.0
-rev: 2
+version: 0.9.1
+rev: 3
 page: FEAT.3
 slot: features
 order: 4
-hash: bd50bf7ae25d
+hash: 13abf4ee05d2
 family: design-tools
 source: [SRC-8, SRC-12, SRC-13]
-requires: [F-17]
+requires: [F-17, F-21]
 ---
 
 G1: UX designers are not comfortable writing mockups as code, so they need to build and edit mockups in a familiar visual editor whose element hierarchy is easy to navigate.

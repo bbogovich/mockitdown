@@ -94,6 +94,26 @@ Test pages added later (the designer test page) are published by the same copy.
 
 Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
 
+**R-WEB-004.TC-10 — Gallery page behaviour**
+
+Automated, in the files named; no step is new behaviour, the case only ties the clauses to their tests.
+
+1. `typescript/tests/unit/patterns.test.ts`: `shared/patterns/index.json` lists, in order, the patterns of
+   C3 (sign-in form, list and detail, settings, dashboard with charts, data table with toolbar and
+   filters, wizard), each entry with `id`, `title` and `file`, and each file imports no module (C8).
+2. `gallery.spec.mjs`, "light and dark appearance, and the element-name filter": choosing dark sets the
+   page and every mockup to dark, and typing `chart` in the filter hides every element card whose name
+   does not contain it, and clearing it shows all (C6).
+3. `gallery.spec.mjs`, "under 720 px the side panel collapses into a menu": at 600 px wide the side panel
+   is hidden behind the menu button, which opens it, and choosing a pack closes it; at 1200 px the panel
+   is shown and the button hidden (C7). The 720 px boundary itself is not tested.
+4. `gallery.spec.mjs`, "a missing or unknown #pack= selects the first pack of the side panel" (C12).
+5. `gallery.spec.mjs`, TC-1 uses `window.packGallery.state`, `select(id)` and `renderAll()` for every
+   pack (C11).
+
+Not covered by an automated test at 0.10.1: C9 (render with `device="fit"`; patterns with the device and
+chrome of their index entry, partly through TC-5) and C10 (lazy creation, a SHOULD).
+
 **R-WEB-004.TC-2 — Patterns in every pack**
 
 Automated by `typescript/tests/unit/patterns.test.ts`: `render` each pattern under each shipped pack (listed or hidden), light and dark, has no error and a figure; `python/tests/test_patterns.py` checks the same in the Python variant.
@@ -152,9 +172,10 @@ pointed at a static file server over the assembled `public/` folder through `GAL
 3. No request fails, and every request URL starts with the server's `/gallery/`.
 4. The assembled `public/gallery/` holds `pages/packs.html`, `dist/mockitdown.js`,
    `dist/shared/manifest.json`, `shared/reference/index.json` and `shared/patterns/index.json`.
-5. The header tabs of `/` (documentation) and `/demos/` (example site) read Demo, Gallery,
-   Definition, Specification, Implementation, Reference, and both Gallery tabs link to `/gallery/`
-   (R-PACK-012.C6).
+5. The header tabs of `/definition/` (the first page of the documentation site, which has no page at
+   `/`: the published root only redirects to `/demos/`) and of `/demos/` (example site) read Demo,
+   Gallery, Definition, Specification, Implementation, Reference, and both Gallery tabs link to
+   `/gallery/` (R-PACK-012.C6).
 
 The workflow fails, and nothing is deployed, when the test fails.
 

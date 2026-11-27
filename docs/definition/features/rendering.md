@@ -1,6 +1,6 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.9.0
+def_version: 0.9.1
 status: draft
 updated: 2026-11-26
 page_id: FEAT.2
@@ -168,10 +168,12 @@ they belong.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |

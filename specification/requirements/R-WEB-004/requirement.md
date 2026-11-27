@@ -2,12 +2,12 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.10.1
-rev: 8
+version: pending
+rev: 9
 page: WEB.2
 slot: reqs
 order: 2
-hash: abb4cf5070bf
+hash: e495a8d0660d
 source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]

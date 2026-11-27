@@ -13,8 +13,9 @@ pointed at a static file server over the assembled `public/` folder through `GAL
 3. No request fails, and every request URL starts with the server's `/gallery/`.
 4. The assembled `public/gallery/` holds `pages/packs.html`, `dist/mockitdown.js`,
    `dist/shared/manifest.json`, `shared/reference/index.json` and `shared/patterns/index.json`.
-5. The header tabs of `/` (documentation) and `/demos/` (example site) read Demo, Gallery,
-   Definition, Specification, Implementation, Reference, and both Gallery tabs link to `/gallery/`
-   (R-PACK-012.C6).
+5. The header tabs of `/definition/` (the first page of the documentation site, which has no page at
+   `/`: the published root only redirects to `/demos/`) and of `/demos/` (example site) read Demo,
+   Gallery, Definition, Specification, Implementation, Reference, and both Gallery tabs link to
+   `/gallery/` (R-PACK-012.C6).
 
 The workflow fails, and nothing is deployed, when the test fails.
