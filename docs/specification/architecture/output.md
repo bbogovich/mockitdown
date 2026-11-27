@@ -1,6 +1,6 @@
 ---
 title: "Architecture: output and integration modules"
-spec_version: 0.10.4
+spec_version: 0.10.5
 status: draft
 updated: 2026-11-27
 page_id: ARCH.2
@@ -12,7 +12,7 @@ The modules that turn an evaluated screen into HTML and CSS, resolve images and 
 
 #### A-REND-1 — HTML renderer
 
-The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004. `render/html.py` holds the dispatch and the infrastructure every family shares (the element root, slots, icons, decorations, overlays, presentations); each family's roles and the helpers only it uses sit in `render/roles/<family>.py`, so a change to one family's markup stays in one file.
+The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004. `render/html.py` holds the dispatch and the infrastructure every family shares (the element root, slots, icons, decorations, overlays, presentations); each family's roles and the helpers only it uses sit in `render/roles/<family>.py`, so a change to one family's markup stays in one file. The TypeScript renderer (A-WEB-1) mirrors the split with the same family names, `typescript/src/core/render/roles/<family>.ts`, so the two renderers' diffs read side by side.
 
 **Level.** module
 
@@ -148,6 +148,8 @@ Realizes R-CLI-001 to R-CLI-006.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.5 | 2026-11-27 | as built: the TypeScript renderer mirrors the role-family split with the same module names (#49) |
 | 0.10.4 | 2026-11-27 | as built: the r_<role> methods live in role-family mixins under mockitdown.render.roles and the shared helpers in mockitdown.render._util; Renderer in mockitdown.render.html inherits them (#48) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.4 | 2026-11-27 | as built: the r_<role> methods live in role-family mixins under mockitdown.render.roles and the shared helpers in mockitdown.render._util; Renderer in mockitdown.render.html inherits them (#48) |
 | 0.2.0 | 2026-11-24 | Page created |

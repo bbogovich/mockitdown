@@ -2,13 +2,13 @@
 id: A-REND-1
 title: HTML renderer
 status: active
-version: 0.10.4
-rev: 1
+version: 0.10.5
+rev: 2
 page: ARCH.2
 slot: elements
 order: 1
 level: module
-hash: d138d7bbcb88
+hash: f7f71e0dbddf
 refs: [A-ASSET-1, A-ASSET-2, A-DIAG-1, A-REND-3]
 ---
 

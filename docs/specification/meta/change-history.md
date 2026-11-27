@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.10.5 | 2026-11-27 | `ARCH.2`, `ARCH.3` | A-WEB-1 and A-REND-1 as built: the TypeScript role functions live in role-family modules under core/render/roles/, mirroring the Python split (#49) |
 | 0.10.4 | 2026-11-27 | `ARCH.2` | A-REND-1 as built: Renderer inherits its r_<role> methods from role-family mixins in mockitdown.render.roles; shared helpers in mockitdown.render._util (#48) |
 | 0.10.3 | 2026-11-26 | `ADR.1`, `ADR.2`, `ADR.3`, `PACK.1`, `PACK.3`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | specification audit: items re-stamped together so the prose clarifications leave no suspect citation (#51) |
 | 0.10.2 | 2026-11-26 | `ADR.1`, `ADR.2`, `API.1`, `CLI.1`, `MDX.1`, `PACK.1`, `REPO.1`, `WEB.2` | specification audit: suspects checked and cleared, R-WEB-004 TC-9 corrected, TC-10, R-REPO-002 TC-3 (#51) |

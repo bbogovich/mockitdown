@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.20
+impl_version: 0.3.21
 status: draft
 updated: 2026-11-27
 page_id: IMPL.TS
@@ -32,8 +32,9 @@ module for module, held to the Python output by the conformance corpus.
 | `core/vocabulary.ts` | `vocabulary.py` | `RENDERED`, `IGNORED`, `NEUTRAL_MODULES` (filled from `vocabulary.json`) |
 | `core/styles.ts` | `styles.py` | `scalePx`, `tokenCss`, `packCss`, `minifyCss`, `buildStylesheet` |
 | `core/assets.ts` | — | `loadAssets`: the shared assets handed to the core as data |
-| `core/render/html.ts` | `render/html.py`, `render/roles/*.py` | `Renderer`: one function per role in `ROLES`, decorations, overlays, presentations |
-| `core/render/util.ts` | `render/_util.py`, module functions of `render/roles/*.py` | `esc`, `textHtml`, `fmt`/`num`/`name`/`bool`, dates and `calendar`, code highlighting, cursors, map art |
+| `core/render/html.ts` | `render/html.py` | `Renderer`: dispatch through `ROLES`, the root tag, slots, decorations, overlays, presentations and the option, field, calendar, toolbar and row helpers |
+| `core/render/roles/<family>.ts` | `render/roles/<family>.py` | one `Record<string, RoleFn>` per role family — `LayoutRoles`, `ContentRoles`, `ControlRoles`, `NavigationRoles`, `ContainerRoles`, `ComponentRoles`, `AnnotationRoles` — re-exported by `roles/index.ts` |
+| `core/render/util.ts` | `render/_util.py`, module functions of `render/roles/*.py` | `esc`, `textHtml`, `fmt`/`num`/`name`/`bool`, dates and `calendar`, code highlighting, cursors, map art; `at`, `raw`, `has`, `isOption`, `stripTags`, `PH`, `LEADING_WS`, shared by `html.ts` and the families |
 | `core/render/style.ts` | `render/style.py` | `StyleBuilder` (modifiers → style, data, classes), `cssColor`, `u`, `fontStyle` |
 | `core/render/charts.ts` | `render/charts.py` | `ChartSpec`, `renderChart`, `niceTicks` |
 | `core/render/chrome.ts` | `render/chrome.py` | `CHROME_KINDS`, `top`, `bottom` |
@@ -129,7 +130,16 @@ flowchart LR
 ```
 
 A role is looked up in `ROLES` by name (`-` → `_`), as Python's `getattr(self, "r_" + role)`; an
-unknown role reports `role` and renders `mkd-unknown`. Images: remote and `data:image/…` pass
+unknown role reports `role` and renders `mkd-unknown`. `ROLES` is spread from the seven family
+records in `core/render/roles/` (the module names of Python's `render/roles/`), plus `unknown`; a role
+function is called with `this` bound to the `Renderer`. The `Renderer` class, with the helpers several
+families use (`options`, `field`, `calendarOf`, `dateStyle`, `rows`, `toolbarItems`, …), stays in
+`html.ts`; a module constant lives with the one family that uses it (`SEL`/`HL` in components,
+`PICKER_*` and `DATE_STYLES` in controls, `GAUGE_ARC` in content, `TOOLTIP_PLACEHOLDER` and
+`ACTION_DIALOGS` in containers), and one several modules use is in `util.ts`. The families import only
+the type `RoleFn` from `html.ts`, so there is no runtime import cycle; a role that renders as another
+calls that family's record (`ContainerRoles.menuitem.call(this, v)` for a Button in a menu), as Python
+calls `self.r_menuitem(v)`. Adding a role: add it to its family's record, as in Python. Images: remote and `data:image/…` pass
 through, other schemes and data URIs are refused, a local path is joined to `asset_base`, and without
 one is reported as not found with the Python wording (R-WEB-001.C14, C15).
 
@@ -180,3 +190,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.15 | 2026-11-25 | `core/render/menubar.ts`, `menubar` and `app` options and attributes, `MENUBAR` vocabulary data (#14) |
 | 0.3.20 | 2026-11-26 | Audit: module table lists `elements/mockup.ts`; the entry defines the elements (stale "will define") |
 | 0.3.20 | 2026-11-27 | The Python renderer's role families and `_util.py` in the module table (#48) |
+| 0.3.21 | 2026-11-27 | `core/render/html.ts` split into role-family modules under `core/render/roles/`, shared view accessors in `util.ts`; output unchanged (#49) |

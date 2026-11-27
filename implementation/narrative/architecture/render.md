@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.20
+impl_version: 0.3.21
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REND
@@ -132,6 +132,8 @@ Shared helpers:
 
 A module-level helper lives with the one family that uses it; one that several modules use goes to
 `_util.py`, which imports nothing from `html.py` or `roles/`, so the mixins never import `html.py`.
+The TypeScript renderer has the same families under `typescript/src/core/render/roles/`, one
+`<family>.ts` per Python `<family>.py` ([TypeScript core](typescript.md#rendering)).
 
 The 66 `r_<role>` methods are the [role catalogue](../../specification/rendering/roles.md). A role
 method reads attributes leniently (several framework spellings) and emits fixed markup.
@@ -219,7 +221,7 @@ axes or grid with no data. `r_chart` warns `"<Element> has no data"` with code `
 
 ## SwiftUI control markup — `r_select`, `r_datepicker`, `r_progress`, `r_toolbar`, `r_list` (R-PACK-014)
 
-Both renderers (`render/roles/*.py`, `typescript/src/core/render/html.ts`) add markup keyed on the
+Both renderers (`render/roles/*.py`, `typescript/src/core/render/roles/*.ts`) add markup keyed on the
 SwiftUI style names, which no other pack uses:
 
 - `r_select`: options come from children of the option roles or any child with a `tag`
@@ -267,7 +269,8 @@ Both renderers, for every pack:
 
 ## Adding a role
 
-1. Add `r_<role>` to the mixin of its family in `render/roles/` (and BEM parts) — R-REND-002.
+1. Add `r_<role>` to the mixin of its family in `render/roles/`, and the role function to the record of
+   the same family in `typescript/src/core/render/roles/` (and BEM parts) — R-REND-002.
 2. Style its structure in `packs/base/pack.css`.
 3. Add it to the role catalogue in the specification (a specification change).
 4. Map elements onto it in packs; `test_every_element_renders` covers it.
@@ -286,3 +289,4 @@ Both renderers, for every pack:
 | 0.3.14 | 2026-11-25 | Platform chrome: `windowed`, the macOS title bar modes, the iPadOS home indicator, the split view toggle and column toolbars (#13) |
 | 0.3.15 | 2026-11-25 | The macOS menu bar: `render/menubar.py`, `.mkd-window` under the bar (#14) |
 | 0.3.20 | 2026-11-27 | `render/html.py` split into role-family mixins under `render/roles/` and shared helpers in `render/_util.py`, no change in output (#48) |
+| 0.3.21 | 2026-11-27 | The TypeScript role families under `typescript/src/core/render/roles/` (#49) |

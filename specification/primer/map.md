@@ -13,14 +13,14 @@ A-MDX-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Superfences fence
 A-OPT-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Render options
 A-PACK-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Pack registry
 A-PACK-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Built-in packs
-A-REND-1 | architecture | active | 0.10.4 r1 | ARCH.2 | HTML renderer
+A-REND-1 | architecture | active | 0.10.5 r2 | ARCH.2 | HTML renderer
 A-REND-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Figure assembly and chrome
 A-REND-3 | architecture | active | 0.2.0 r0 | ARCH.2 | Style builder
 A-REPO-1 | architecture | active | 0.6.1 r1 | ARCH.3 | Shared asset tree
 A-STYLE-1 | architecture | active | 0.2.0 r0 | ARCH.2 | Stylesheet assembly
 A-SYN-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Lexer
 A-SYN-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Parser and syntax tree
-A-WEB-1 | architecture | active | 0.10.0 r3 | ARCH.3 | TypeScript core
+A-WEB-1 | architecture | active | 0.10.5 r4 | ARCH.3 | TypeScript core
 A-WEB-2 | architecture | active | 0.6.6 r2 | ARCH.3 | Mockup element
 A-WEB-3 | architecture | active | 0.6.0 r0 | ARCH.3 | Development server and test pages
 A-WEB-4 | architecture | active | 0.10.0 r0 | ARCH.3 | Design document and session module
