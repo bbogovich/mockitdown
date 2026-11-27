@@ -2,14 +2,14 @@
 id: ADR-15
 title: Annotation marks use CSS anchor positioning with an inline fallback
 status: active
-version: 0.3.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: ADR.1
 slot: decisions
 order: 999
 source: [SRC-4]
 constrains: [R-ANN-003]
-hash: 0846dade5b91
+hash: 98c91312fe07
 ---
 
 D1: Annotation marks are drawn in a screen-level layer tied to the decorated element by CSS anchor positioning, with an inline copy inside the element as a fallback.

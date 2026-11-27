@@ -2,16 +2,17 @@
 id: R-TOOL-005
 title: Drag and drop onto the outline and the view
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 5
-hash: 41c6d5397156
+hash: 8d95fb67194a
 source: [SRC-12, SRC-14]
 realizes: [F-19]
 requires: [R-TOOL-004, R-TOOL-001, R-TOOL-002]
 constrained_by: [A-WEB-5]
+refs: [F-19, R-EDIT-002, R-PACK-016]
 ---
 
 C1: A gallery card MUST be draggable onto the outline and onto the editor, and an outline row of a view that is not derived MUST be draggable within the outline.

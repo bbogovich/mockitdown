@@ -4,3 +4,5 @@ The browser tests live in `typescript/tests/browser/*.spec.mjs` and the configur
 `typescript/playwright.config.mjs` (plain JavaScript, so neither needs type declarations). The CI
 workflow is `.github/workflows/ci.yml`, with one job per variant; it publishes nothing, so it does not
 overlap `pages.yml` and `release.yml`.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

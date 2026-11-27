@@ -36,3 +36,5 @@ whole pack is done.
 
 `<mockitdown-mockup edit>` renders the mockup for editing (R-EDIT-004): every element produced from a
 call carries `data-mkd-node`. The design tools use it; a page showing a mockup to readers does not.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

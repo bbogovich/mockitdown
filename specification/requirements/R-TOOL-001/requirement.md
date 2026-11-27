@@ -2,16 +2,17 @@
 id: R-TOOL-001
 title: "The editable view: mockitdown-editor"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 1
-hash: b41eac245921
+hash: 4bc6ebc928c3
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-EDIT-004, R-EDIT-006, R-WEB-002]
 constrained_by: [A-WEB-5]
+refs: [R-EDIT-004, R-EDIT-005, R-EDIT-006, R-WEB-002]
 ---
 
 C1: The package MUST define the custom element `mockitdown-editor`, which renders one mockup of its session — the one its `mockup` attribute names, else the active mockup — with the `edit` option (R-EDIT-004) and the mockup's options (R-EDIT-005.C9) into its open shadow root.

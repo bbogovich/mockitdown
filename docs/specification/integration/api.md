@@ -1,8 +1,8 @@
 ---
 title: "Library API"
-spec_version: 0.2.0
+spec_version: 0.10.2
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: API.1
 ---
 
@@ -41,6 +41,9 @@ The Python API shared by the fence, the CLI and other tools, and the package's d
 ---
 
 ### R-API-003 — Render options
+
+
+Checked at 0.10.1 after M-OPT-1.F22 (`edit`, R-EDIT-004): C1 takes the new field and its default (false) through its reference to M-OPT-1. `edit` is a library option only, so C2 (every fence attribute and CLI option maps onto a render option) is unchanged.
 
 **Realizes.** F-11, F-13
 
@@ -85,4 +88,6 @@ page = f"<style>{stylesheet(result.packs)}</style>{result.html}"
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

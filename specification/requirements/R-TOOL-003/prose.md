@@ -17,3 +17,5 @@ A host can replace any panel through its slot, for example to put its own inspec
 replacement joins the designer's session. Code mode is specified with the code view (R-TOOL-009); undo
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
 (R-TOOL-011).
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

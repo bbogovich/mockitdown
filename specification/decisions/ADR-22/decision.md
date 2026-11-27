@@ -2,14 +2,15 @@
 id: ADR-22
 title: The edit-mode rendering exists in both variants, with per-parse node ordinals
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: ADR.3
 slot: decisions
 order: 2
-hash: c285ecbb3d97
+hash: 549c916e6246
 source: [SRC-12]
 constrains: [R-EDIT-004, R-REPO-004]
+refs: [ADR-18, R-EDIT-004, R-REPO-004]
 ---
 
 D1: The `edit` render option (R-EDIT-004) is built in both variants, in the same issue, with conformance cases, as ADR-18.C1 requires of every rendering change.

@@ -3,3 +3,5 @@ with line numbers, diagnostics in the gutter, bracket matching and auto-indent. 
 editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no find and replace, folding
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
 beside a `mockitdown-mockup`.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

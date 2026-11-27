@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: PACK.3
@@ -36,6 +36,8 @@ the restructuring commands check it; each refusal comes with a sentence saying w
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
 gallery.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-PACK-016.TC-1 — Every role has a rule**
 
@@ -85,6 +87,8 @@ that reads it changes.
 }
 ```
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-PACK-017.TC-1 — Types complete**
 
 Shared test in both suites (`test_types.py`, `types.test.ts`): every rule has `params` with valid
@@ -114,4 +118,6 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.0 | 2026-11-26 | Page created (ING-1) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

@@ -2,16 +2,17 @@
 id: R-TOOL-006
 title: "New elements: sample arguments and first-text editing"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 6
-hash: 86c0642b50dd
+hash: ee9ef18e88d2
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-TOOL-004, R-EDIT-003]
 constrained_by: [A-WEB-5]
+refs: [R-EDIT-003, R-PACK-013]
 ---
 
 C1: An element inserted from the gallery MUST be written as the top-level call of its reference sample (R-PACK-013) with that call's arguments and modifiers and without its trailing closures, or as `<Name>()` when the sample is not a call of the element.

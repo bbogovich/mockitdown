@@ -2,8 +2,8 @@
 id: R-PACK-004
 title: Element definitions
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: PACK.1
 slot: reqs
 order: 4
@@ -12,7 +12,7 @@ realizes: [F-3]
 constrained_by: [A-PACK-1, M-PACK-2]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 385991854ef4
+hash: e74faa4707f3
 ---
 
 C1: An element definition MUST name its render `role`; if `role` is missing, then the pack registry MUST raise "element 'X' has no 'role'".

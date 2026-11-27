@@ -2,12 +2,12 @@
 id: R-WEB-005
 title: Web test suites
 status: active
-version: 0.6.5
-rev: 2
+version: 0.10.3
+rev: 3
 page: WEB.2
 slot: reqs
 order: 3
-hash: 8d4d0943570e
+hash: b3eea6732e31
 source: [SRC-8]
 realizes: [F-18]
 requires: [R-WEB-003]

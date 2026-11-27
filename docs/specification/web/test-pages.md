@@ -25,6 +25,10 @@ The server is `typescript/scripts/serve.mjs`. Because it mirrors the folders' re
 generated on each request, so a new page in `pages/` is linked without editing anything; it is not a
 file in `pages/`. Responses carry `Cache-Control: no-store`, so a rebuild shows on reload.
 
+Checked at 0.10.1 after R-WEB-001.C13 and C17 (reference data in `dist/shared/reference/`): the server already serves `dist/` and `shared/` as they are (C5), so it needs no change.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-WEB-003.TC-1 — Static server**
 
 Automated by `typescript/tests/unit/serve.test.ts`.
@@ -89,6 +93,8 @@ package and the shared `reference/` and `patterns/` folders under `/gallery/` in
 the development server, so `packs.js` reaches `../dist/` and `../shared/` unchanged. The workflow opens
 the published copy in a browser before it deploys, so a gallery that would not load is never published.
 Test pages added later (the designer test page) are published by the same copy.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-WEB-004.TC-1 — Every pack renders**
 
@@ -232,6 +238,8 @@ The browser tests live in `typescript/tests/browser/*.spec.mjs` and the configur
 `typescript/playwright.config.mjs` (plain JavaScript, so neither needs type declarations). The CI
 workflow is `.github/workflows/ci.yml`, with one job per variant; it publishes nothing, so it does not
 overlap `pages.yml` and `release.yml`.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-WEB-005.TC-1 — Browser smoke test**
 

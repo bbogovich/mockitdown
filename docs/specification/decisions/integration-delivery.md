@@ -1,8 +1,8 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.6.7
+spec_version: 0.10.3
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: ADR.2
 ---
 
@@ -19,6 +19,8 @@ linked file.
 
 **Consequences.** CSS is repeated across pages in inline mode — acceptable for documentation sites;
 `css: none` exists for the rest.
+
+Checked at 0.10.1: R-MDX-004 changed after this decision only by a clarification that dropped a known-deviation note (0.2.1); the decision stands.
 
 **Constrains.** R-MDX-004, R-CLI-005
 
@@ -138,6 +140,8 @@ Primer followed in 0.4.
 **Consequences.** Eight packs to maintain under one contract; framework major versions are
 recorded in each `pack.json` (`version`).
 
+Checked at 0.10.1: R-PACK-008 has since been extended (0.3.0 to 0.5.0) to the full list of framework, retro and hidden packs; the eight packs of D1 and the four of D2 are still shipped, and C1 and C2 stand. R-PACK-008.C1 is the current list.
+
 **Constrains.** R-PACK-008
 
 | | Statement |
@@ -184,6 +188,8 @@ replaced by site assets or by design (ADR-3).
 
 **Consequences.** Approximate fonts; invented content.
 
+Checked at 0.10.1: R-PACK-008 grew its retro and hidden pack lists (0.3.0 to 0.5.0) in the spirit of D1 and D2; the decision stands.
+
 **Constrains.** R-PACK-008, R-PACK-010
 
 | | Statement |
@@ -198,6 +204,10 @@ replaced by site assets or by design (ADR-3).
 #### ADR-17 — One repository for both variants, with shared assets
 
 Two variants rendering the same packs must not drift apart; keeping the assets once and copying them at build time makes drift a test failure rather than a merge problem (SRC-8).
+
+Checked at 0.10.1 after R-REPO-002.C8 and R-REPO-004.C15: the role rule table (`shared/language/roles.json`) and the edit corpus (`shared/conformance/edit/`) are written only in `shared/` and copied by each build, as D2 requires; the list in D2 is illustrative of that rule, not closed.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
 
@@ -217,6 +227,10 @@ Two variants rendering the same packs must not drift apart; keeping the assets o
 
 A port duplicates logic, so a shared corpus of mockups and expected HTML decides what "the same" means and catches any difference automatically.
 
+Checked at 0.10.1 after R-WEB-001.C13/C17 and R-REPO-004.C6/C15: the reference data and the edit render option are carried by both variants (the `edit` option is rendered by both, R-EDIT-004, and held to the Python output by the conformance corpus), so D1 to D3 and C1 stand.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **Constrains.** R-WEB-001, R-REPO-004
 
 | | Statement |
@@ -234,6 +248,10 @@ A port duplicates logic, so a shared corpus of mockups and expected HTML decides
 
 Chosen by the developer (SRC-8#clar-script). A script element with an unknown type is never executed and its text is delivered verbatim.
 
+Checked at 0.10.1 after R-WEB-002.C13 (the boolean `edit` attribute): the code still comes from the script child; the attribute only selects the render option. D1 and C1 stand.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **Constrains.** R-WEB-002
 
 | | Statement |
@@ -248,6 +266,10 @@ Chosen by the developer (SRC-8#clar-script). A script element with an unknown ty
 #### ADR-20 — Web development dependencies: typescript and Playwright only
 
 Chosen by the developer (SRC-8#clar-deps), following the rule that third-party dependencies are avoided unless building the feature would be prohibitively expensive. Playwright: licence Apache-2.0, maintained by Microsoft with monthly releases, development only.
+
+Checked at 0.10.1 after R-WEB-001.C13/C17 (reference data copied by the build script): no development or runtime dependency is added, so D1, D2 and C1 stand.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Constrains.** R-WEB-001, R-WEB-003, R-WEB-005
 
@@ -264,12 +286,12 @@ Chosen by the developer (SRC-8#clar-deps), following the rule that third-party d
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
-| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
-| 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |
-| 0.6.0 | 2026-11-25 | New ADR-18: The web variant is a TypeScript port held to the Python output; New ADR-20: Web development dependencies: typescript and Playwright only; New ADR-17: One repository for both variants, with shared assets |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
+| 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
-| 0.3.0 | 2026-11-24 | New ADR-16: Retro and easter-egg packs are original homages |
 | 0.2.0 | 2026-11-24 | Page created |

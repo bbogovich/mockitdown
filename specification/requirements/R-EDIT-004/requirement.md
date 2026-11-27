@@ -2,16 +2,17 @@
 id: R-EDIT-004
 title: Edit-mode rendering
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 4
-hash: 9406c40a3213
+hash: ab3ad9117a22
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-001]
 constrained_by: [A-REND-1, A-WEB-1, M-OPT-1, M-VIEW-1, ADR-22]
+refs: [M-OPT-1, R-ANN-003, R-EDIT-001, R-EVAL-003, R-REND-002]
 ---
 
 C1: Both variants MUST offer the render option `edit` (M-OPT-1), a boolean that is false by default.

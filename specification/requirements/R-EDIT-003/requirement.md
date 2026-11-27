@@ -2,16 +2,17 @@
 id: R-EDIT-003
 title: "Edit API: arguments, modifiers and identifiers"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 3
-hash: cd484bf0a411
+hash: 39da5aea6af9
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-002]
 constrained_by: [A-WEB-1, ADR-21]
+refs: [R-EDIT-002]
 ---
 
 C1: The operation `setArgument` MUST take a view node, a label (or `null` and a position for a positional argument) and the code of a value, or `null` to remove the argument, and add, replace or remove that argument of the node's call.

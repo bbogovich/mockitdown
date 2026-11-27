@@ -2,16 +2,17 @@
 id: R-TOOL-008
 title: "The code view: mockitdown-code"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 8
-hash: cc3c48f4a598
+hash: b67752f46f88
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-001]
 constrained_by: [A-WEB-5, ADR-20]
+refs: [R-EDIT-002]
 ---
 
 C1: The package MUST define the custom element `mockitdown-code`, a plain text area with the properties `value` and `diagnostics` and the method `reveal(range)`, which scrolls to the range `{start, end}` (offsets) and selects it.

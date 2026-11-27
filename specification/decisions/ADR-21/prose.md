@@ -8,3 +8,5 @@ implementation can adopt them unchanged.
 
 **Consequences.** The editing core is built in one language; nothing in the Python variant changes for
 it, except the edit-mode rendering, which is a rendering change (ADR-22).
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

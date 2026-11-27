@@ -2,16 +2,17 @@
 id: R-TOOL-004
 title: "The gallery: mockitdown-gallery"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 4
-hash: d4a3087481d6
+hash: 1759b63f3582
 source: [SRC-12, SRC-14]
 realizes: [F-19]
 requires: [R-PACK-016, R-EDIT-006, R-WEB-002]
 constrained_by: [A-WEB-5]
+refs: [F-19, R-EDIT-006, R-PACK-016, R-WEB-001]
 ---
 
 C1: The package MUST define the custom element `mockitdown-gallery`, which lists the elements of the active mockup's pack — the pack's own elements first, then the inherited core vocabulary — grouped by the category of their role (R-PACK-016.C1).

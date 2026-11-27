@@ -1,8 +1,8 @@
 ---
 title: "Markdown extension and fence"
-spec_version: 0.2.1
+spec_version: 0.10.2
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: MDX.1
 ---
 
@@ -34,6 +34,8 @@ has the complete configuration.
 
 Site options are the defaults of one site; fence attributes (R-MDX-003) override them per block.
 `caption`, `elements` and `show_warnings` are site-wide only.
+
+Checked at 0.10.1 after M-OPT-1.F22 (`edit`): it is not an extension option and not a fence attribute (R-WEB-002.C13), so the options of C1 stand.
 
 **Realizes.** F-11
 
@@ -126,6 +128,8 @@ problem.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

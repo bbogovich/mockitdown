@@ -2,16 +2,17 @@
 id: R-TOOL-012
 title: "Mockup frames: labels, moving, renaming and placement"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.5
 slot: reqs
 order: 2
-hash: 167cb59963da
+hash: 7b29c16e5385
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-011, R-EDIT-007]
 constrained_by: [A-WEB-5, M-EDIT-2]
+refs: [F-20, R-EDIT-006, R-EDIT-007, R-TOOL-002]
 ---
 
 C1: Each frame MUST carry a label above it with the mockup's name, and dragging the label MUST move the frame, updating the mockup's `x` and `y` when the drag ends.

@@ -2,16 +2,17 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 6
-hash: b09c939b9c21
+hash: 713d954bd099
 source: [SRC-12]
 realizes: [F-19, F-20]
 requires: [R-EDIT-005, R-EDIT-002]
 constrained_by: [A-WEB-4, M-EDIT-1, M-EDIT-3]
+refs: [M-EDIT-3, R-EDIT-001, R-EDIT-002, R-EDIT-003, R-EDIT-004]
 ---
 
 C1: `mockitdown/design` MUST export `DesignSession`, a plain object without DOM access that holds a design document, the name of the active mockup, the selection (the ids of sibling view nodes of the active mockup), the hovered node and, per mockup, its last valid tree and its current diagnostics.

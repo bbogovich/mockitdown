@@ -16,3 +16,5 @@ The package also publishes the reference data (`dist/shared/reference/`), which 
 reads for every element's role, parameters and sample (R-TOOL-004). The manifest lists it apart from the
 files a host loads into the core, because a browser host fetches every file of `files` at start-up and the
 reference data is large.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

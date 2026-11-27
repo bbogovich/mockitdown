@@ -2,16 +2,17 @@
 id: R-TOOL-011
 title: "The canvas: mockitdown-canvas"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.5
 slot: reqs
 order: 1
-hash: 25474e52f3ae
+hash: 7859b1fa5e78
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-003]
 constrained_by: [A-WEB-5]
+refs: [F-20]
 ---
 
 C1: The package MUST define the custom element `mockitdown-canvas`, which shows every mockup of its session's document as a frame at the mockup's `x` and `y`, one canvas unit being one CSS pixel at 100 %.

@@ -15,3 +15,5 @@ designer.addEventListener("mockitdown-change", (e) => {
 
 Node ids are the session's; ordinals are what an edit-mode rendering carries (R-EDIT-004). `nodeFor`
 turns one into the other after every parse.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

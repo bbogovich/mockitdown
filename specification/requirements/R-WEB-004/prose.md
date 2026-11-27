@@ -38,3 +38,5 @@ package and the shared `reference/` and `patterns/` folders under `/gallery/` in
 the development server, so `packs.js` reaches `../dist/` and `../shared/` unchanged. The workflow opens
 the published copy in a browser before it deploys, so a gallery that would not load is never published.
 Test pages added later (the designer test page) are published by the same copy.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

@@ -2,8 +2,8 @@
 id: R-MDX-002
 title: Extension options
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: MDX.1
 slot: reqs
 order: 2
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-11]
 constrained_by: [A-MDX-1, M-OPT-1]
 reverse_engineered: true
-hash: 81168ddb34e2
+hash: 03a42ed5ea02
 ---
 
 C1: The Markdown extension MUST accept these options with these defaults: `default_pack` (`base`), `default_appearance` (`light`), `default_device` (empty: none), `import_paths` (`[docs]`), `asset_paths` (`[docs]`), `pack_paths` (`[]`), `embed_assets` (`true`), `max_embed_bytes` (`2000000`), `css` (`inline`), `strict` (`false`), `caption` (`true`), `elements` (`false`), `show_warnings` (`false`).

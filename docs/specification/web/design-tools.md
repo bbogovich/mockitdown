@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: WEB.4
@@ -30,6 +30,8 @@ outline remains the primary means of selection.
 
 Elements that a loop, a condition or a component produced select the construct they came from and show a
 "derived" badge, because editing them means editing that construct.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-TOOL-001.TC-1 — Click to locate**
 
@@ -73,6 +75,8 @@ the row anatomy, the 14-pixel indent and the rounded selected row of the MockItO
 
 The tree follows the rendered structure, so a `ForEach` over three items shows three italic rows; each
 selects the loop. Reordering rows by drag is R-TOOL-005; the Mockups tab becomes active in R-TOOL-013.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-TOOL-002.TC-1 — Tree and selection sync**
 
@@ -128,6 +132,8 @@ replacement joins the designer's session. Code mode is specified with the code v
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
 (R-TOOL-011).
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-003.TC-1 — Open, select, delete, toJSON**
 
 Browser test (`designer.spec.mjs`) on `pages/designer.html`: select the nested button; press Delete;
@@ -175,6 +181,8 @@ previews in the pack's style — the same samples as the Reference pages and the
 (R-PACK-013), created as they scroll into view as the pack gallery does (R-WEB-004.C10). The "Hidden
 here" footer says what the role rules filtered out and why, so the rule is never a mystery.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-004.TC-1 — Filtered gallery and Add**
 
 Browser test (`gallery-component.spec.mjs`) on `pages/designer.html`: with an `HStack` selected, no card
@@ -213,6 +221,8 @@ after or inside indicator, or onto the view with an insertion bar along the cont
 for a `VStack`, horizontal for an `HStack`. Dragging outline rows reorders and re-parents, refusing a drop
 into the row's own descendants as the MockItOut outline did (SRC-12#s15).
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-005.TC-1 — Drop into the view**
 
 Browser test on `pages/designer.html`: drag the `Text` card onto the gap between a `VStack`'s first and
@@ -248,6 +258,8 @@ its node id kept.
 Naming a new element takes one keystroke sequence (SRC-12#s6): it arrives with its sample's arguments,
 as in the Reference pages, and its first text opens for editing at once.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-006.TC-1 — Sample arguments and inline edit**
 
 Browser test on `pages/designer.html`: Add on `Button` inserts `Button("Button")` and opens a focused
@@ -277,6 +289,8 @@ inspector: a small grey label above a full-width input (SRC-12#s15).
 Edits apply as the designer types, debounced, and a burst of typing is one undo step. An invalid value is
 never written: a value the control rejects, or one whose rendering would add a diagnostic at the node,
 stays red with the message until corrected.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-TOOL-007.TC-1 — Variant change and undo**
 
@@ -328,6 +342,8 @@ editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no fi
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
 beside a `mockitdown-mockup`.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-008.TC-1 — Light editor**
 
 Browser test (`code.spec.mjs`) on `pages/designer.html` in Code mode and on a bare `mockitdown-code`:
@@ -368,6 +384,8 @@ pause; a valid result updates the outline and the view and keeps the selection b
 leaves them on the last valid tree, read-only, so the designer never loses the picture while a brace is
 missing. Developers can keep the code docked under the canvas in Design mode.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-009.TC-1 — Unbalanced brace**
 
 Browser test (`sync.spec.mjs`) on `pages/designer.html`: select a `Text`; in Code mode delete a `}`;
@@ -405,6 +423,8 @@ view below the view.
 The diagnostics of the active mockup, opened from the status bar's count (SRC-12#s4, SRC-13#p1.c6). An
 entry leads to its element, or, for a syntax error with no element yet, to its place in the code.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-010.TC-1 — Diagnostics lead to their element**
 
 Browser test on `pages/designer.html`: a mockup with `Text("A", bogus: 1)` and an unknown element shows
@@ -426,4 +446,6 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.0 | 2026-11-26 | Page created (ING-1) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

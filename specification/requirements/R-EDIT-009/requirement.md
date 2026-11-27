@@ -2,16 +2,17 @@
 id: R-EDIT-009
 title: "Commands: wrap, unwrap, convert and extract component"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 9
-hash: 74444a3b7875
+hash: 8591bad3bf24
 source: [SRC-12, SRC-16]
 realizes: [F-19]
 requires: [R-EDIT-008, R-PACK-016]
 constrained_by: [A-WEB-4]
+refs: [R-EDIT-003, R-EDIT-007, R-EVAL-004, R-PACK-016]
 ---
 
 C1: `session.wrap(name)` MUST replace the selected sibling nodes by one call `<name> { … }` holding them in their order, at the position of the first, and select the new call.

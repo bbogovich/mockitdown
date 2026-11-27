@@ -2,16 +2,17 @@
 id: R-EDIT-007
 title: Undo and redo history
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 7
-hash: 4fc9f86c16d4
+hash: 28d42a9bd0e6
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-006]
 constrained_by: [A-WEB-4]
+refs: [R-EDIT-006]
 ---
 
 C1: The session MUST keep one undo history per design document, each step holding the mockup, the change, the change's inverse and the selection before and after it.

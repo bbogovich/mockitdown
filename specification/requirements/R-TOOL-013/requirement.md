@@ -2,16 +2,17 @@
 id: R-TOOL-013
 title: The active mockup and inactive previews
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.5
 slot: reqs
 order: 3
-hash: 33dd88618178
+hash: 2a5190653568
 source: [SRC-12, SRC-15, SRC-16]
 realizes: [F-20]
 requires: [R-TOOL-012, R-TOOL-002]
 constrained_by: [A-WEB-5]
+refs: [F-20, R-EDIT-006, R-EDIT-009, R-TOOL-012]
 ---
 
 C1: A click on a frame, or on a row of the Mockups list, MUST make its mockup the active one, clear the selection and notify `active` (R-EDIT-006.C5).

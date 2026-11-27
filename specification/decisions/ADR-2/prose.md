@@ -7,3 +7,5 @@ functions, initialisers, generics or mutation. Metadata and identifiers become S
 
 **Consequences.** The grammar is larger than the prototype's but familiar; the language reference
 documents the exact subset, and unsupported Swift fails with a clear syntax error.
+
+Checked at 0.10.1: R-EVAL-011 and R-MDX-004 changed after this decision only by clarifications that dropped known-deviation notes (0.2.1); the decision stands.

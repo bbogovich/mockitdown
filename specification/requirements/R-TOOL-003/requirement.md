@@ -2,16 +2,17 @@
 id: R-TOOL-003
 title: The composite designer and its test page
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 3
-hash: fc8eb791300e
+hash: edfad8a7b755
 source: [SRC-12, SRC-13, SRC-16]
 realizes: [F-19, F-20]
 requires: [R-TOOL-001, R-TOOL-002]
 constrained_by: [A-WEB-5]
+refs: [R-EDIT-002, R-EDIT-005, R-EDIT-006]
 ---
 
 C1: The package MUST define the custom element `mockitdown-designer`, which owns a design session (its `session` property) that its components join (R-EDIT-006.C11).

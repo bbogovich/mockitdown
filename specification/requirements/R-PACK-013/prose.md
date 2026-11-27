@@ -16,3 +16,5 @@ Samples declared by `base` travel with the core vocabulary into every pack, so t
 pack's style. For the many framework elements that declare none, the generic sample gives the content
 their role needs — options and a selection for pickers, a date for date pickers, a `TabView` around a
 tab — so that only elements whose job the generic sample cannot show need a declaration.
+
+Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change concerns the site sections, not samples, so C1 to C8 are unchanged.

@@ -8,3 +8,5 @@ its stable id after each parse (R-EDIT-006.C9).
 
 **Consequences.** The cost is small (both renderers open role elements through one tag builder), there is
 one rendering truth, and the corpus grows by a handful of edit-mode cases.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

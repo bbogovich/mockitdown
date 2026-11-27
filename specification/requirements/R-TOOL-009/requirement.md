@@ -2,16 +2,17 @@
 id: R-TOOL-009
 title: Two-way editing and Code mode
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 9
-hash: d44ac2e4613a
+hash: 364a2a3ca63b
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-TOOL-008, R-TOOL-003, R-EDIT-007]
 constrained_by: [A-WEB-5]
+refs: [F-19, R-EDIT-001]
 ---
 
 C1: A code view joined to the session MUST apply its text to the active mockup 300 ms after the last keystroke, as one change whose edits replace the range between the longest common prefix and suffix of the old and new text.

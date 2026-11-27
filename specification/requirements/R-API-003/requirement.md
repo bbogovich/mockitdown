@@ -2,7 +2,7 @@
 id: R-API-003
 title: Render options
 status: active
-version: pending
+version: 0.10.2
 rev: 1
 page: API.1
 slot: reqs

@@ -12,3 +12,5 @@ field keeps its title as its accessible name when its text replaces the placehol
 macOS columns form shows as the row's label.
 
 A selected table row wins over the Mac's alternating row stripes: the gallery's Mac example (#15) selects the second, striped row, which used to keep its stripe under white text.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

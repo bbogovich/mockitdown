@@ -2,8 +2,8 @@
 id: R-PACK-015
 title: SwiftUI presentations and navigation
 status: active
-version: 0.8.9
-rev: 5
+version: 0.10.3
+rev: 6
 page: PACK.1
 slot: reqs
 order: 999
@@ -12,7 +12,7 @@ realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-DEV-008, R-PACK-013]
 reverse_engineered: true
-hash: 4b926c87e423
+hash: 619f327dea69
 refs: [R-DEV-008, R-DEV-010, R-PACK-013]
 ---
 

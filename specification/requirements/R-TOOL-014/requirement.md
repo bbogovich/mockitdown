@@ -2,16 +2,17 @@
 id: R-TOOL-014
 title: Sections and the canvas round trip
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.5
 slot: reqs
 order: 4
-hash: 764994faf896
+hash: 2f2f76a54997
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-013, R-EDIT-005]
 constrained_by: [A-WEB-5, M-EDIT-1]
+refs: [F-20]
 ---
 
 C1: The canvas MUST draw each section of the document as a named rectangle behind the frames, its name as a label at its top-left corner.

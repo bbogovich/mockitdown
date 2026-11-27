@@ -2,7 +2,7 @@
 id: R-REPO-002.CR-3
 target: R-REPO-002
 kind: clarification
-version: pending
+version: 0.10.2
 date: 2026-11-26
 issue: 51
 summary: "TC-3 covers C8, the roles.json copy (audit #51)"

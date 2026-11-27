@@ -2,15 +2,16 @@
 id: R-REPO-001
 title: Repository layout
 status: active
-version: 0.6.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: REPO.1
 slot: reqs
 order: 1
-hash: b28311b24246
+hash: 65b384fd036e
 source: [SRC-8]
 realizes: [F-16]
 constrained_by: [ADR-17]
+refs: [A-REPO-1]
 ---
 
 C1: The repository MUST have the top-level folders `python/` (the Python variant), `typescript/` (the TypeScript variant) and `shared/` (A-REPO-1).

@@ -2,16 +2,17 @@
 id: R-TOOL-010
 title: "The diagnostics list: mockitdown-diagnostics"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 10
-hash: 382db7dfde2e
+hash: 959fafc4b278
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-TOOL-009]
 constrained_by: [A-WEB-5]
+refs: [F-19, R-TOOL-008]
 ---
 
 C1: The package MUST define the custom element `mockitdown-diagnostics`, which lists the active mockup's diagnostics in order, each with its severity, message, line and column, and shows "No problems" when there are none.

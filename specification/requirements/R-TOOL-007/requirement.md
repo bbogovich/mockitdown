@@ -2,16 +2,17 @@
 id: R-TOOL-007
 title: "The inspector: mockitdown-inspector"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 7
-hash: 450c253ee34b
+hash: 24dd2892abe5
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-PACK-017, R-EDIT-007, R-EDIT-003]
 constrained_by: [A-WEB-5]
+refs: [F-19, M-PACK-2, R-EDIT-003, R-EDIT-007, R-EVAL-004, R-PACK-017, R-TOOL-008]
 ---
 
 C1: The package MUST define the custom element `mockitdown-inspector`, which shows the properties of the single selected node in four groups: Arguments, Variant and state, Modifiers, and Identity.

@@ -2,16 +2,17 @@
 id: R-PACK-016
 title: Role rules
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: PACK.3
 slot: reqs
 order: 1
-hash: 0d84d7892993
+hash: 971a48c0841b
 source: [SRC-12]
 realizes: [F-16]
 requires: [R-PACK-004, R-REPO-002]
 constrained_by: [A-REPO-1, M-PACK-2, M-PACK-3]
+refs: [M-PACK-2, M-PACK-3]
 ---
 
 C1: `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"root": {"accepts": […]}, "roles": {"<role>": {"category", "accepts", "attach"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`.

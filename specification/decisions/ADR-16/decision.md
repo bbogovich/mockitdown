@@ -2,14 +2,15 @@
 id: ADR-16
 title: Retro and easter-egg packs are original homages
 status: active
-version: 0.3.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: ADR.2
 slot: decisions
 order: 999
 source: [SRC-5]
 constrains: [R-PACK-008, R-PACK-010]
-hash: 72890bc19bd4
+hash: 7dc60eff3602
+refs: [ADR-5]
 ---
 
 D1: Retro packs (Macintosh System 1–6, Lisa, Mac OS 9, Apple IIgs GS/OS, Xerox Star, Windows 2.x, Windows 3.1.1, Windows XP, Windows Vista, Solaris CDE) imitate the look of historical systems with system fonts and CSS only, invented application content and neutral glyphs in place of trademarked logos.

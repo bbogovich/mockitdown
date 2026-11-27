@@ -2,16 +2,17 @@
 id: R-TOOL-002
 title: "The outline: mockitdown-outline"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.4
 slot: reqs
 order: 2
-hash: 075ed9292820
+hash: 78f9cb97438b
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-EDIT-006]
 constrained_by: [A-WEB-5]
+refs: [F-19, R-EDIT-004, R-EDIT-006]
 ---
 
 C1: The package MUST define the custom element `mockitdown-outline`, which shows the element tree of the session's active mockup as an ARIA tree (`role="tree"`, rows `role="treeitem"` with `aria-level`, `aria-expanded` and `aria-selected`).

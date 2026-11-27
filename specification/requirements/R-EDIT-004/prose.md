@@ -14,3 +14,5 @@ The attributes carry ordinals, which both parsers compute the same way, not the 
 stable ids; the session maps one to the other (R-EDIT-006.C9). The option therefore exists in both
 variants and is held to the conformance corpus like every other rendering (ADR-22, ADR-18.C1). It is a
 library option only: a documentation page has no use for it.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

@@ -4,3 +4,5 @@ The Python build copies the files with `python/tools/sync_shared.py`, run by `py
 
 The role rule table joins the vocabulary as shared language data (R-PACK-016). Both packages carry it,
 and the copy tests of C6 cover it; only the TypeScript design tools read it for now.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

@@ -2,8 +2,8 @@
 id: R-PACK-014
 title: SwiftUI control styles
 status: active
-version: 0.8.13
-rev: 5
+version: 0.10.3
+rev: 6
 page: PACK.1
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-REND-013, R-PACK-013]
-hash: 7751690676b2
+hash: 5b41eaae1a82
 refs: [R-DEV-010, R-PACK-013, R-REND-013]
 ---
 

@@ -2,14 +2,15 @@
 id: ADR-8
 title: CSS delivered inline per page by default, or linked by the site
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: ADR.2
 slot: decisions
 order: 1
 source: [SRC-3]
 constrains: [R-MDX-004, R-CLI-005]
-hash: ee3c8b54c4d2
+hash: 2148fdd31e59
+refs: [ADR-3]
 ---
 
 D1: By default (`css: inline`) the extension prepends one `<style>` per page holding the CSS of the packs that page used.

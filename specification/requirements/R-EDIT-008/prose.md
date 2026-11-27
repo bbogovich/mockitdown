@@ -3,3 +3,5 @@ an element copied in the designer pastes into a Markdown fence, a code review or
 
 Multi-select is limited to siblings: every command here acts on a contiguous or scattered run of children
 of one parent, which keeps their results predictable.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

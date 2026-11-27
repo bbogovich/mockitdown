@@ -1,8 +1,8 @@
 ---
 title: "Command line"
-spec_version: 0.8.9
+spec_version: 0.10.2
 status: draft
-updated: 2026-11-25
+updated: 2026-11-26
 page_id: CLI.1
 ---
 
@@ -30,6 +30,8 @@ CLI can do per file.
 
 Unlike a fenced block, a file has a known location, so relative imports and images work exactly as
 in a component library.
+
+Checked at 0.10.1 after M-OPT-1.F22 (`edit`): the command line offers no option for it (the model prose says so), so the list of C1 stands.
 
 **Realizes.** F-13
 
@@ -122,6 +124,8 @@ mockitdown elements sapui5 --markdown > sapui5-elements.md
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.8.9 | 2026-11-25 | as built: --windowed (R-DEV-010.C4) (#13) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.8.9 | 2026-11-25 | as built: --windowed (R-DEV-010.C4) (#13) |
 | 0.2.0 | 2026-11-24 | Page created |

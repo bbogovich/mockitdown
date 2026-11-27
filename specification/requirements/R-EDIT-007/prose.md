@@ -4,3 +4,5 @@ inverse, plus the selection on either side, so that undo puts the designer back 
 
 Typing coalesces: each keystroke in an inspector field or in the code view is applied, but the steps
 merge while the same field keeps changing, so one undo removes the whole word or value.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

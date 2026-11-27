@@ -2,16 +2,17 @@
 id: R-PACK-017
 title: Typed parameters and modifiers
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: PACK.3
 slot: reqs
 order: 2
-hash: 81d78313e3f6
+hash: 79d3a01c3807
 source: [SRC-12]
 realizes: [F-16]
 requires: [R-PACK-016]
 constrained_by: [A-REPO-1, M-PACK-2, M-PACK-3]
+refs: [M-PACK-2, R-EVAL-004]
 ---
 
 C1: Each rule of `roles.json` MUST carry `params`, an object mapping every labelled argument its role understands (R-EVAL-004.C7) to a type.

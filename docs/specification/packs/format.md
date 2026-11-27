@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: PACK.1
@@ -79,6 +79,8 @@ is specific to it.
 The element definition is the whole mapping from a framework's component to mockitdown's markup:
 `"InfoBar": {"role": "alert", "params": ["title"], "defaults": {"variant": "infobar"}}` makes
 Fluent's `InfoBar("Saved")` render through the shared `alert` role, restyled by the Fluent CSS.
+
+Checked at 0.10.1 after M-PACK-2.F7 and F8 (`rules`, `types`; R-PACK-016.C5, R-PACK-017.C3): both are optional and read only by the design tools, so C1 to C5 and the contract test are unchanged; C2 lists the keys that rendering uses.
 
 **R-PACK-004.TC-1 — Pack contract — roles and rendering**
 
@@ -305,6 +307,8 @@ pack's style. For the many framework elements that declare none, the generic sam
 their role needs — options and a selection for pickers, a date for date pickers, a `TabView` around a
 tab — so that only elements whose job the generic sample cannot show need a declaration.
 
+Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change concerns the site sections, not samples, so C1 to C8 are unchanged.
+
 **R-PACK-013.TC-1 — Declared samples**
 
 Python unit test of `gen_reference`: a declared sample is used verbatim; a declared sample with a diagnostic fails naming pack and element; `--check` passes on the shipped packs.
@@ -351,6 +355,8 @@ field keeps its title as its accessible name when its text replaces the placehol
 macOS columns form shows as the row's label.
 
 A selected table row wins over the Mac's alternating row stripes: the gallery's Mac example (#15) selects the second, striped row, which used to keep its stripe under white text.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
@@ -400,6 +406,8 @@ large title on the sidebar and content columns and inline on the detail; on a de
 is small and secondary until the macOS floating sidebar of R-DEV-010.C3 replaces it. `.balanced` keeps
 the columns side by side as `.automatic` does; `.prominentDetail` floats the sidebar as a glass panel
 over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog takes the alert's card.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-PACK-015.TC-1 — SwiftUI presentations**
 
@@ -576,6 +584,8 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | six header tabs with Gallery next to Demo (SRC-17): C6, TC-1 (ING-1) |
 | 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |
 | 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
@@ -591,6 +601,8 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
+| 0.10.0 | 2026-11-26 | six header tabs with Gallery next to Demo (SRC-17): C6, TC-1 (ING-1) |
 | 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |
 | 0.8.9 | 2026-11-25 | as built: Form .automatic is grouped on phone, tablet and fit and columns on desktop and wide, per R-DEV-010.C5 (#13); as built: on a phone the split view follows R-DEV-010.C5 (collapsed to its sidebar) (#13) |
 | 0.8.8 | 2026-11-25 | C7: hairline columns only at fit/iOS; iPadOS and macOS use the floating sidebar (R-DEV-010.C3, C6) — review of #12 |

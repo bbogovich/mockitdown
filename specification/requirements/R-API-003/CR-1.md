@@ -2,7 +2,7 @@
 id: R-API-003.CR-1
 target: R-API-003
 kind: clarification
-version: pending
+version: 0.10.2
 date: 2026-11-26
 issue: 51
 summary: "checked against the changed item it cites; no obligation changes (audit #51)"

@@ -1,6 +1,6 @@
 ---
 title: "Web components"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: WEB.1
@@ -50,6 +50,8 @@ The package also publishes the reference data (`dist/shared/reference/`), which 
 reads for every element's role, parameters and sample (R-TOOL-004). The manifest lists it apart from the
 files a host loads into the core, because a browser host fetches every file of `files` at start-up and the
 reference data is large.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-WEB-001.TC-1 — Conformance corpus in TypeScript**
 
@@ -142,6 +144,8 @@ whole pack is done.
 `<mockitdown-mockup edit>` renders the mockup for editing (R-EDIT-004): every element produced from a
 call carries `data-mkd-node`. The design tools use it; a page showing a mockup to readers does not.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-WEB-002.TC-1 — Script child with markup characters**
 
 Automated by `typescript/tests/browser/mockup.spec.mjs`: code with `Text("a < b && c > d")` renders the text verbatim and the HTML equals the conformance output.
@@ -183,12 +187,14 @@ Browser test (`mockup.spec.mjs`): a mockup element with `edit` holds, in its sha
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
 | 0.8.9 | 2026-11-25 | as built: the windowed attribute (R-DEV-010.C4) (#13) |
 | 0.6.7 | 2026-11-25 | reviewed against ADR-19 as clarified (#7); prose: elements created on demand by the pack gallery (R-WEB-004) |
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
 | 0.8.9 | 2026-11-25 | as built: the windowed attribute (R-DEV-010.C4) (#13) |
 | 0.6.7 | 2026-11-25 | reviewed against ADR-19 as clarified (#7); prose: elements created on demand by the pack gallery (R-WEB-004) |
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |

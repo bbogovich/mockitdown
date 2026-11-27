@@ -1,6 +1,6 @@
 ---
 title: "Decisions: web variant and design tools"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: ADR.3
@@ -23,6 +23,8 @@ implementation can adopt them unchanged.
 
 **Consequences.** The editing core is built in one language; nothing in the Python variant changes for
 it, except the edit-mode rendering, which is a rendering change (ADR-22).
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Constrains.** R-EDIT-001, R-EDIT-002, R-EDIT-003
 
@@ -50,6 +52,8 @@ its stable id after each parse (R-EDIT-006.C9).
 **Consequences.** The cost is small (both renderers open role elements through one tag builder), there is
 one rendering truth, and the corpus grows by a handful of edit-mode cases.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **Constrains.** R-EDIT-004, R-REPO-004
 
 | | Statement |
@@ -65,4 +69,6 @@ one rendering truth, and the corpus grows by a handful of edit-mode cases.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.0 | 2026-11-26 | Page created (ING-1) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

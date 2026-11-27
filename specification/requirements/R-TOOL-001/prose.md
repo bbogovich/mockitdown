@@ -5,3 +5,5 @@ outline remains the primary means of selection.
 
 Elements that a loop, a condition or a component produced select the construct they came from and show a
 "derived" badge, because editing them means editing that construct.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

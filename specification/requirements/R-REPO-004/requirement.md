@@ -2,12 +2,12 @@
 id: R-REPO-004
 title: Conformance corpus
 status: active
-version: 0.10.0
-rev: 3
+version: 0.10.3
+rev: 4
 page: REPO.1
 slot: reqs
 order: 4
-hash: bdf2a711604e
+hash: f6e9189cf46c
 source: [SRC-8, SRC-12]
 realizes: [F-16]
 requires: [R-REPO-003]

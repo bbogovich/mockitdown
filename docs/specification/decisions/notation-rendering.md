@@ -1,8 +1,8 @@
 ---
 title: "Decisions: notation and rendering"
-spec_version: 0.3.0
+spec_version: 0.10.3
 status: draft
-updated: 2026-11-24
+updated: 2026-11-26
 page_id: ADR.1
 ---
 
@@ -48,6 +48,8 @@ functions, initialisers, generics or mutation. Metadata and identifiers become S
 **Consequences.** The grammar is larger than the prototype's but familiar; the language reference
 documents the exact subset, and unsupported Swift fails with a clear syntax error.
 
+Checked at 0.10.1: R-EVAL-011 and R-MDX-004 changed after this decision only by clarifications that dropped known-deviation notes (0.2.1); the decision stands.
+
 **Constrains.** R-LANG-001, R-LANG-003, R-LANG-004, R-EVAL-010, R-EVAL-011
 
 | | Statement |
@@ -77,6 +79,8 @@ superfences fences, but not MkDocs plugins.
 **Consequences.** One integration for every Python-Markdown host. The cost is C3: Python-Markdown
 does not tell an extension which file it is converting.
 
+Checked at 0.10.1: R-MDX-004 changed after this decision only by a clarification that dropped a known-deviation note (0.2.1); the decision stands.
+
 **Constrains.** R-MDX-001, R-MDX-004, R-MDX-005
 
 | | Statement |
@@ -100,6 +104,8 @@ looks* (a pack, data).
 
 **Consequences.** The role set must be broad enough for all frameworks; the role catalogue is
 therefore normative.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Constrains.** R-PACK-001, R-PACK-002, R-PACK-003, R-PACK-004, R-REND-002
 
@@ -199,6 +205,8 @@ enlarge beyond their logical size.
 
 **Consequences.** One extra layer per decorated element; unique anchor names per figure.
 
+Checked at 0.10.1 after R-ANN-003.C6 (marks inside a dialog): the screen-level layer and its inline fallback are kept, only positioned within the dialog; D1, D2 and C1 stand.
+
 **Constrains.** R-ANN-003
 
 | | Statement |
@@ -214,6 +222,8 @@ enlarge beyond their logical size.
 
 | Version | Date | Change |
 |---|---|---|
-| 0.3.0 | 2026-11-24 | New ADR-15: Annotation marks use CSS anchor positioning with an inline fallback |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |

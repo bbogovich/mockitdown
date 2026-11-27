@@ -2,16 +2,17 @@
 id: R-EDIT-005
 title: The design document module
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 5
-hash: 1197bd8bd572
+hash: 6ba0aae4bd02
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-WEB-001]
 constrained_by: [A-WEB-4, M-EDIT-1, M-EDIT-2]
+refs: [M-EDIT-1, M-EDIT-2]
 ---
 
 C1: The package MUST provide the module `dist/design.js`, exported as the subpath `mockitdown/design`, which MUST run in Node 22 and in browsers without access to the DOM, the network or the file system.

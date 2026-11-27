@@ -2,14 +2,15 @@
 id: ADR-3
 title: Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.2
+rev: 1
 page: ADR.1
 slot: decisions
 order: 3
 source: [SRC-2, SRC-3]
 constrains: [R-MDX-001, R-MDX-004, R-MDX-005]
-hash: 67e6966a0a23
+hash: 2d8d5462f4a3
+refs: [ADR-9]
 ---
 
 D1: mockitdown integrates with documentation sites as a Python-Markdown extension (configuration, per-page CSS) plus a `pymdownx.superfences` custom fence (rendering, logging, strict failure), and ships no MkDocs plugin.

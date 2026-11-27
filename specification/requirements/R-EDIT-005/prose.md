@@ -23,3 +23,5 @@ A mockup may name its own pack (to compare Fluent and Material side by side); on
 `defaults.pack`. The file is meant to be read and diffed without the designer, so the key order is fixed,
 code is kept byte for byte, and keys written by a newer tool survive a round trip through an older one.
 Markdown, HTML and folder export stay in the shell for now.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

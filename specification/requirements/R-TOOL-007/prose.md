@@ -5,3 +5,5 @@ inspector: a small grey label above a full-width input (SRC-12#s15).
 Edits apply as the designer types, debounced, and a burst of typing is one undo step. An invalid value is
 never written: a value the control rejects, or one whose rendering would add a diagnostic at the node,
 stays red with the message until corrected.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

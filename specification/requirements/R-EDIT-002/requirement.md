@@ -2,16 +2,17 @@
 id: R-EDIT-002
 title: "Edit API: insert, remove and move"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 2
-hash: e9cff79d04e5
+hash: 585ace592927
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-001]
 constrained_by: [A-WEB-1, M-EDIT-3, ADR-21]
+refs: [M-EDIT-3, R-EDIT-001]
 ---
 
 C1: The package MUST export `edit(source, op)`, which applies one edit operation to a source and returns `{edits, source, tree}` — the text edits (M-EDIT-3) in ascending, non-overlapping order, the edited source and its tree (R-EDIT-001.C9) — or `{error}` with a message and no edits when the operation is refused.

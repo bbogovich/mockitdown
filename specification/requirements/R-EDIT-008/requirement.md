@@ -2,16 +2,17 @@
 id: R-EDIT-008
 title: "Commands: duplicate, clipboard, move and multi-select"
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 8
-hash: b6b3314e5672
+hash: 765ed85f2c5f
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-007]
 constrained_by: [A-WEB-4, A-WEB-5]
+refs: [R-EDIT-007, R-PACK-016]
 ---
 
 C1: `session.duplicate()` MUST insert a copy of each selected node directly after it and select the copies.

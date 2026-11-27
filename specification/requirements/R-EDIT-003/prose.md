@@ -10,3 +10,5 @@ its neighbours, and its own formatting outside the changed span, untouched.
 
 `setName` is the basis of the Convert command (R-EDIT-009); which arguments survive a conversion is the
 command's business, not the operation's.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

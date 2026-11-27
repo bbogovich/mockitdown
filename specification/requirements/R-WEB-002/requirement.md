@@ -2,12 +2,12 @@
 id: R-WEB-002
 title: The mockitdown-mockup element
 status: active
-version: 0.10.0
-rev: 4
+version: 0.10.3
+rev: 5
 page: WEB.1
 slot: reqs
 order: 2
-hash: 063171fe3d72
+hash: d993c109b33d
 source: [SRC-8, SRC-12]
 realizes: [F-17]
 requires: [R-WEB-001]

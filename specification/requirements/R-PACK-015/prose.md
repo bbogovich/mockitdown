@@ -12,3 +12,5 @@ large title on the sidebar and content columns and inline on the detail; on a de
 is small and secondary until the macOS floating sidebar of R-DEV-010.C3 replaces it. `.balanced` keeps
 the columns side by side as `.automatic` does; `.prominentDetail` floats the sidebar as a glass panel
 over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog takes the alert's card.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.

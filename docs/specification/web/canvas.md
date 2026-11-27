@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.10.0
+spec_version: 0.10.3
 status: draft
 updated: 2026-11-26
 page_id: WEB.5
@@ -20,6 +20,8 @@ canvas reads and writes its state through the design document (R-EDIT-005).
 
 The infinite canvas of SRC-15 (SRC-12#s10). Mockups are HTML, so they stay sharp at every zoom level:
 frames are scaled with transforms up to 200 % and laid out again beyond, where a scaled bitmap would blur.
+
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **R-TOOL-011.TC-1 — Zoom and pan**
 
@@ -60,6 +62,8 @@ Each mockup is a frame with its name above it (SRC-15#p1.c1). The name is the ke
 import a mockup by, so it is unique, kept exactly as written, and a default name earns a warning in the
 Mockups list (SRC-12#s10).
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-012.TC-1 — Rename refused**
 
 Browser test on `pages/designer.html` with mockups `Sign in`, `Inbox`, `Message`: double-click
@@ -98,6 +102,8 @@ One mockup at a time is editable (SRC-12#s10, SRC-15#p1.c2): it is the one the o
 the inspector act on. The others render as plain previews, which keeps large canvases fast. New,
 duplicate and delete are session commands, so a host's Mockup menu can offer them (SRC-16 D39).
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-013.TC-1 — Activation**
 
 Browser test on `pages/designer.html`: clicking the `Inbox` frame makes it active; the outline shows
@@ -131,6 +137,8 @@ Optional named rectangles behind groups of mockups (SRC-12#s10), for example "On
 Markdown export can turn into headings. The canvas's own state — zoom, position, active mockup — is part
 of the document, so a designer reopens it where they left off.
 
+Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
 **R-TOOL-014.TC-1 — Round trip**
 
 Browser test (`canvas.spec.mjs`) on `pages/designer.html` covering F-20.AC1–AC4 together: three
@@ -160,4 +168,6 @@ outside; resizing and renaming work and each undoes in one step.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
+| 0.10.0 | 2026-11-26 | Page created (ING-1) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

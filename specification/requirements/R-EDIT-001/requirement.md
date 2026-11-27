@@ -2,16 +2,17 @@
 id: R-EDIT-001
 title: Source spans and node identities
 status: active
-version: 0.10.0
-rev: 0
+version: 0.10.3
+rev: 1
 page: WEB.3
 slot: reqs
 order: 1
-hash: c93cfe40a290
+hash: e7537bcdbf01
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-WEB-001]
 constrained_by: [A-WEB-1, ADR-21]
+refs: [M-EDIT-3, R-EDIT-002]
 ---
 
 C1: The TypeScript parser MUST record, for every syntax node, its start and end offsets in the source text (UTF-16 code units, end exclusive) in addition to its line and column.

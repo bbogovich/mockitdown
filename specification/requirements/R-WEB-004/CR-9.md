@@ -2,7 +2,7 @@
 id: R-WEB-004.CR-9
 target: R-WEB-004
 kind: clarification
-version: pending
+version: 0.10.2
 date: 2026-11-26
 issue: 51
 summary: "TC-9 step 5 checks /definition/ and /demos/ (the root only redirects); TC-10 ties C3, C6-C8, C11, C12 to their tests (audit #51)"

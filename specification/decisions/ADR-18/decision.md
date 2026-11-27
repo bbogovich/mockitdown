@@ -2,12 +2,12 @@
 id: ADR-18
 title: The web variant is a TypeScript port held to the Python output
 status: active
-version: 0.6.0
-rev: 0
+version: 0.10.3
+rev: 2
 page: ADR.2
 slot: decisions
 order: 999
-hash: 645ec0ba7b8d
+hash: 3c1ec11298bc
 source: [SRC-8]
 constrains: [R-WEB-001, R-REPO-004]
 ---
