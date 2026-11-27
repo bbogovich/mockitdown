@@ -13,7 +13,11 @@
       "Bash(sio-docs:*)",
       "Bash(sio-policy:*)",
       "Bash(sio-vault:*)",
-      "Bash(sio:*)"
+      "Bash(sio:*)",
+      "Bash(vio-cost:*)",
+      "Bash(vio-docs:*)",
+      "Bash(vio-policy:*)",
+      "Bash(vio:*)"
     ]
   }
 }
