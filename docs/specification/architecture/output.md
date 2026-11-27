@@ -1,8 +1,8 @@
 ---
 title: "Architecture: output and integration modules"
-spec_version: 0.2.0
+spec_version: 0.10.4
 status: draft
-updated: 2026-11-24
+updated: 2026-11-27
 page_id: ARCH.2
 ---
 
@@ -12,13 +12,13 @@ The modules that turn an evaluated screen into HTML and CSS, resolve images and 
 
 #### A-REND-1 — HTML renderer
 
-The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004.
+The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004. `render/html.py` holds the dispatch and the infrastructure every family shares (the element root, slots, icons, decorations, overlays, presentations); each family's roles and the helpers only it uses sit in `render/roles/<family>.py`, so a change to one family's markup stays in one file.
 
 **Level.** module
 
 | | Statement |
 |---|---|
-| P1 | provides: `Renderer` with one `r_<role>` method per render role, presentation layers, and the escaping and inline-Markdown helpers (`mockitdown.render.html`) |
+| P1 | provides: `Renderer` (`mockitdown.render.html`) with one `r_<role>` method per render role, inherited from one mixin per role family in `mockitdown.render.roles` (layout, content, controls, navigation, containers, components, annotations), presentation layers, and the escaping and inline-Markdown helpers (`mockitdown.render._util`, re-exported by `mockitdown.render.html`) |
 | U1 | uses A-REND-3 — inline styles, data attributes and classes from modifiers |
 | U2 | uses A-ASSET-1 — image sources |
 | U3 | uses A-ASSET-2 — icon SVG |
@@ -148,4 +148,6 @@ Realizes R-CLI-001 to R-CLI-006.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.4 | 2026-11-27 | as built: the r_<role> methods live in role-family mixins under mockitdown.render.roles and the shared helpers in mockitdown.render._util; Renderer in mockitdown.render.html inherits them (#48) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

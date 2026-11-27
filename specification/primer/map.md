@@ -13,7 +13,7 @@ A-MDX-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Superfences fence
 A-OPT-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Render options
 A-PACK-1 | architecture | active | 0.2.0 r0 | ARCH.1 | Pack registry
 A-PACK-2 | architecture | active | 0.2.0 r0 | ARCH.1 | Built-in packs
-A-REND-1 | architecture | active | 0.2.0 r0 | ARCH.2 | HTML renderer
+A-REND-1 | architecture | active | 0.10.4 r1 | ARCH.2 | HTML renderer
 A-REND-2 | architecture | active | 0.2.0 r0 | ARCH.2 | Figure assembly and chrome
 A-REND-3 | architecture | active | 0.2.0 r0 | ARCH.2 | Style builder
 A-REPO-1 | architecture | active | 0.6.1 r1 | ARCH.3 | Shared asset tree

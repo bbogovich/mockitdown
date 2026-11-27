@@ -1,8 +1,8 @@
 ---
 title: TypeScript core
-impl_version: 0.3.6
+impl_version: 0.3.20
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: IMPL.TS
 ---
 
@@ -32,8 +32,8 @@ module for module, held to the Python output by the conformance corpus.
 | `core/vocabulary.ts` | `vocabulary.py` | `RENDERED`, `IGNORED`, `NEUTRAL_MODULES` (filled from `vocabulary.json`) |
 | `core/styles.ts` | `styles.py` | `scalePx`, `tokenCss`, `packCss`, `minifyCss`, `buildStylesheet` |
 | `core/assets.ts` | — | `loadAssets`: the shared assets handed to the core as data |
-| `core/render/html.ts` | `render/html.py` | `Renderer`: one function per role in `ROLES`, decorations, overlays, presentations |
-| `core/render/util.ts` | `render/html.py` (module functions) | `esc`, `textHtml`, `fmt`/`num`/`name`/`bool`, dates and `calendar`, code highlighting, cursors, map art |
+| `core/render/html.ts` | `render/html.py`, `render/roles/*.py` | `Renderer`: one function per role in `ROLES`, decorations, overlays, presentations |
+| `core/render/util.ts` | `render/_util.py`, module functions of `render/roles/*.py` | `esc`, `textHtml`, `fmt`/`num`/`name`/`bool`, dates and `calendar`, code highlighting, cursors, map art |
 | `core/render/style.ts` | `render/style.py` | `StyleBuilder` (modifiers → style, data, classes), `cssColor`, `u`, `fontStyle` |
 | `core/render/charts.ts` | `render/charts.py` | `ChartSpec`, `renderChart`, `niceTicks` |
 | `core/render/chrome.ts` | `render/chrome.py` | `CHROME_KINDS`, `top`, `bottom` |
@@ -179,3 +179,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.14 | 2026-11-25 | `windowed` option and attribute, `titlebarMode` (#13) |
 | 0.3.15 | 2026-11-25 | `core/render/menubar.ts`, `menubar` and `app` options and attributes, `MENUBAR` vocabulary data (#14) |
 | 0.3.20 | 2026-11-26 | Audit: module table lists `elements/mockup.ts`; the entry defines the elements (stale "will define") |
+| 0.3.20 | 2026-11-27 | The Python renderer's role families and `_util.py` in the module table (#48) |

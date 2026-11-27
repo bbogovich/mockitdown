@@ -1,8 +1,8 @@
 ---
 title: Architecture overview
-impl_version: 0.1.0
+impl_version: 0.3.20
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.ARCH
 ---
 
@@ -38,7 +38,9 @@ python/src/mockitdown/
   render/
     __init__.py    render_screen: figure, frames, Elements table   A-REND-2
     chrome.py      device chrome markup                            A-REND-2
-    html.py        Renderer: one r_<role> method per role          A-REND-1
+    html.py        Renderer: dispatch, root tag, slots, overlays   A-REND-1
+    _util.py       esc, text_html, value coercion (shared)         A-REND-1
+    roles/         one mixin of r_<role> methods per role family   A-REND-1
     style.py       StyleBuilder: modifiers → CSS, colours, fonts   A-REND-3
   styles.py        stylesheet assembly, px scaling, token rules    A-STYLE-1
   page.css         (copy) shared/css/page.css: figure, frame unit   A-STYLE-1
@@ -116,3 +118,4 @@ output holds the figures and consumes the collected packs (R-MDX-004). Each fix 
 | 0.1.1 | 2026-11-24 | Deviations #1–#3 and #5 fixed |
 | 0.3.2 | 2026-11-25 | Package path python/src/mockitdown; copies of shared/ marked (#1) |
 | 0.3.4 | 2026-11-25 | Pointer to the TypeScript core (#3) |
+| 0.3.20 | 2026-11-27 | `render/_util.py` and `render/roles/` in the module map (#48) |

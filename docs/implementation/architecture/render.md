@@ -1,8 +1,8 @@
 ---
 title: Rendering
-impl_version: 0.3.15
+impl_version: 0.3.20
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.REND
 ---
 
@@ -102,19 +102,36 @@ Debugging: render with `mockitdown render x.mockitdown --device desktop --menuba
 a dropdown that does not blur the window under it means an ancestor has `backdrop-filter` (it becomes
 the backdrop root) — the bar deliberately has none.
 
-## Renderer — `render/html.py`
+## Renderer — `render/html.py`, `render/roles/`, `render/_util.py`
 
 `Renderer(pack, diagnostics, assets)` dispatches `view(v)` to `r_<role>` (`getattr`), falling back
-to `r_unknown` with a `role` error. Shared helpers:
+to `r_unknown` with a `role` error. `html.py` holds the dispatch and the infrastructure every role
+family uses; the `r_<role>` methods are in one mixin class per role family, which `Renderer`
+inherits, so a change to one family's markup stays in one file:
+
+| Module | Mixin | Roles, and the helpers only that family uses |
+|---|---|---|
+| `roles/layout.py` | `LayoutRoles` | stacks, scroll, grid, spacer, divider, shape, colour; `_stack` |
+| `roles/content.py` | `ContentRoles` | text, label, image, icon, avatar, badge, chip, link, progress, rating, placeholder, chart; `GAUGE_ARC` |
+| `roles/controls.py` | `ControlRoles` | button, fab, toggle, checkbox, radio, segmented, text field, select, radio group, slider, stepper, date picker, calendar, drop zone; `_options`, `_option_tags`, `_selected_index`, `_field`, `_wheel`, `_date_style`, `_calendar`, the picker and date constants, `_parse_date`, `_parse_time`, `_format_date` |
+| `roles/navigation.py` | `NavigationRoles` | navigation stack, split, tabs, tab, app bar, sidebar, nav item, breadcrumb, pagination, steps; `_find_mod`, `_toolbar_items`, `_PLACEMENT` |
+| `roles/containers.py` | `ContainerRoles` | card, section, list, form, list item, labeled, table, toolbar, accordion, dialog, menu, menu item, tooltip, toast, alert; `_rows`, `_tr`, `_cell`, `TOOLTIP_PLACEHOLDER`, `ACTION_DIALOGS` |
+| `roles/components.py` | `ComponentRoles` | spreadsheet, sticky note, board, kanban card, code, message, tree, timeline, gantt, schedule, kbd, skeleton, swatches, canvas, media, empty state, stat, map; the cell-range, hour, code-highlighting and map helpers |
+| `roles/annotations.py` | `AnnotationRoles` | callout, pointer, marquee |
+
+Shared helpers:
 
 | Helper | Purpose |
 |---|---|
 | `open(v, role, tag, cls=, data=, style=, attrs=)` | the root tag: `mkd-<role>` class, `data-el`, `data-component`, `PASSTHROUGH` attributes (allow-listed by `_SAFE_TOKEN`), `data-state`, `data-selected`, modifier style/data/classes, `title` from `.help` |
-| `text_html`, `esc` | escaping and the inline Markdown subset (`_INLINE_MD`) |
+| `text_html`, `esc` (`_util.py`, re-exported by `html.py`) | escaping and the inline Markdown subset (`_INLINE_MD`) |
+| `_fmt`, `_num`, `_name`, `_bool`, `initials`, `PH`, `_cursor_svg` (`_util.py`) | value coercion and markup used by several families and by `html.py` |
 | `content`, `slot`, `text_or_slot`, `has` | read text-or-views attributes and slots |
 | `icon`, `leading_visual`, `avatar_html`, `badge_html` | shared visuals |
-| `_wrap_overlays`, `_collect_presentations` | `.overlay`/`.background` content; alert, sheet, … layers |
-| `_options`, `_selected_index`, `_field`, `_rows`, `_toolbar_items` | shared logic of pickers, fields, lists, toolbars |
+| `_decorations`, `_wrap_overlays`, `_collect_presentations` | decoration modifiers; `.overlay`/`.background` content; alert, sheet, … layers |
+
+A module-level helper lives with the one family that uses it; one that several modules use goes to
+`_util.py`, which imports nothing from `html.py` or `roles/`, so the mixins never import `html.py`.
 
 The 66 `r_<role>` methods are the [role catalogue](../../specification/rendering/roles.md). A role
 method reads attributes leniently (several framework spellings) and emits fixed markup.
@@ -202,7 +219,7 @@ axes or grid with no data. `r_chart` warns `"<Element> has no data"` with code `
 
 ## SwiftUI control markup — `r_select`, `r_datepicker`, `r_progress`, `r_toolbar`, `r_list` (R-PACK-014)
 
-Both renderers (`render/html.py`, `typescript/src/core/render/html.ts`) add markup keyed on the
+Both renderers (`render/roles/*.py`, `typescript/src/core/render/html.ts`) add markup keyed on the
 SwiftUI style names, which no other pack uses:
 
 - `r_select`: options come from children of the option roles or any child with a `tag`
@@ -250,7 +267,7 @@ Both renderers, for every pack:
 
 ## Adding a role
 
-1. Add `r_<role>` to `Renderer` (and BEM parts) — R-REND-002.
+1. Add `r_<role>` to the mixin of its family in `render/roles/` (and BEM parts) — R-REND-002.
 2. Style its structure in `packs/base/pack.css`.
 3. Add it to the role catalogue in the specification (a specification change).
 4. Map elements onto it in packs; `test_every_element_renders` covers it.
@@ -268,3 +285,4 @@ Both renderers, for every pack:
 | 0.3.13 | 2026-11-25 | Presentations and navigation: alert actions from Button children, popover anchor and arrow, split view columns and titles, lone tabs (#12) |
 | 0.3.14 | 2026-11-25 | Platform chrome: `windowed`, the macOS title bar modes, the iPadOS home indicator, the split view toggle and column toolbars (#13) |
 | 0.3.15 | 2026-11-25 | The macOS menu bar: `render/menubar.py`, `.mkd-window` under the bar (#14) |
+| 0.3.20 | 2026-11-27 | `render/html.py` split into role-family mixins under `render/roles/` and shared helpers in `render/_util.py`, no change in output (#48) |

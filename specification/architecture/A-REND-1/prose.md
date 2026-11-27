@@ -1,1 +1,1 @@
-The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004.
+The markup contract in code. Realizes R-REND-002 to R-REND-009 and R-ASSET-004. `render/html.py` holds the dispatch and the infrastructure every family shares (the element root, slots, icons, decorations, overlays, presentations); each family's roles and the helpers only it uses sit in `render/roles/<family>.py`, so a change to one family's markup stays in one file.
