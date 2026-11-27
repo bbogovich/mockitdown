@@ -1,7 +1,7 @@
 {
   "project": "mockitdown",
   "kind": "prototype",
-  "forge": "none",
+  "forge": "github",
   "docs": {
     "branch": "docs",
     "worktree": "../mockitdown.docs",
@@ -76,5 +76,7 @@
       "branch": "docs",
       "worktree": "../mockitdown.docs"
     }
-  }
+  },
+  "owner": "bbogovich",
+  "repo": "mockitdown"
 }
