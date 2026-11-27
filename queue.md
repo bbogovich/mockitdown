@@ -436,11 +436,11 @@ entries:
   - seq: 49
     issue: 54
     action: implement
-    state: waiting
+    state: in-progress
     run: vibe-20261127-181318
     queued: 2026-11-27T06:16:24Z
     queued-by: agent:claude
-    started:
+    started: 2026-11-27T23:13:45Z
     finished:
   - seq: 50
     issue: 55
