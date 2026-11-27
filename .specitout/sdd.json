@@ -36,7 +36,11 @@
   },
   "health": {
     "audit_every": 10,
-    "thresholds": "defaults"
+    "thresholds": {
+      "large_file_limits": {
+        "shared/packs/*/pack.css": 2000
+      }
+    }
   },
   "labels": [
     {
