@@ -4,6 +4,12 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
+## Changes pending (1)
+
+| Requirement | Title | Implemented | Specification | Date | Issue |
+|---|---|---|---|---|---|
+| R-WEB-004 | Pack gallery test page | 0.8.14 | 0.9.0 | 2026-11-25 | #16 |
+
 ## Not started (84)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
@@ -93,30 +99,29 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 
-## Implemented (23)
+## Implemented (22)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
-| [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
-| [R-CLI-002](../ledger/R-CLI-002.md) | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-DEV-005](../ledger/R-DEV-005.md) | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| [R-DEV-009](../ledger/R-DEV-009.md) | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
-| [R-DEV-010](../ledger/R-DEV-010.md) | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
-| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
-| [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| [R-REND-014](../ledger/R-REND-014.md) | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
-| [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
-| [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
-| [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
-| [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
-| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.8.14 | 0.8.14 | 2026-11-25 | #16 |
-| [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| R-ANN-003 | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
+| R-CLI-002 | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-DEV-005 | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
+| R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-DIAG-003 | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| R-PACK-013 | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
+| R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
+| R-PACK-015 | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| R-REND-013 | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| R-REND-014 | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| R-REPO-001 | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
+| R-REPO-002 | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
+| R-REPO-003 | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
+| R-REPO-004 | Conformance corpus | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-WEB-001 | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
+| R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-WEB-003 | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| R-WEB-005 | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
