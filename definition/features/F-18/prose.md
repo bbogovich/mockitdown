@@ -15,3 +15,5 @@ pack — so a reader learns the vocabulary from working layouts and can copy one
 **Published (SRC-17).** The gallery was reachable only through the development server, so a reader of
 the published documentation could not find it. It is now published beside the documentation and the
 demo site, with a Gallery header tab on both sites.
+
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.

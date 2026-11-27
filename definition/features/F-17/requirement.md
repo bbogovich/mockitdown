@@ -2,12 +2,12 @@
 id: F-17
 title: Mockups embedded in web pages
 status: active
-version: 0.5.0
-rev: 0
+version: 0.9.2
+rev: 1
 page: FEAT.3
 slot: features
 order: 2
-hash: 2c9169e2d23d
+hash: cd1139598f60
 family: web
 source: [SRC-8]
 requires: [F-16]

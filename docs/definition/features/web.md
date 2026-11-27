@@ -53,6 +53,8 @@ the rules and types of its role, and a pack overrides them only where one of its
 </mockitdown-mockup>
 ```
 
+**Re-checked at definition 0.9.1.** F-16.CR-1 adds role rules and typed parameters as shared data that only the design tools read; embedding a mockup in a web page is unchanged.
+
 **F-17.UC-1 — Show a mockup in a web application**
 
 **Actor:** web developer.
@@ -84,6 +86,8 @@ pack — so a reader learns the vocabulary from working layouts and can copy one
 **Published (SRC-17).** The gallery was reachable only through the development server, so a reader of
 the published documentation could not find it. It is now published beside the documentation and the
 demo site, with a Gallery header tab on both sites.
+
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
 
 **F-18.UC-1 — Review a pack in the browser**
 
@@ -150,6 +154,8 @@ selection has the commands of a structured editor: delete, duplicate, the clipbo
 (which also pastes into a Markdown fence), move, wrap, unwrap, convert and extract component. Each is
 one undo step that restores the selection, and a host can put the same commands in its menus.
 
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
+
 **F-19.UC-1 — Build a screen visually**
 
 **Actor:** UX designer.
@@ -190,6 +196,10 @@ designer and imported by SpecItOut tools mockup by mockup. A mockup may use its 
 side-by-side comparisons possible; the document names the default. One small module in the mockitdown
 package reads and writes the format for the components and for a desktop shell alike; Markdown and
 folder export stay in the shell for now.
+
+**Re-checked at definition 0.9.1.** F-19.CR-3 only adds F-21 to its prerequisites; the canvas depends on the design tools as before.
+
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.
 
 **F-20.UC-1 — Lay out a flow of screens**
 

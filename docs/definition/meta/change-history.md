@@ -12,6 +12,8 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.9.3 | 2026-11-26 | `FEAT.3` | audit: F-18, F-19 and F-20 re-checked against F-17 |
+| 0.9.2 | 2026-11-26 | `FEAT.3` | audit: F-17 and F-20 re-checked against their changed prerequisites |
 | 0.9.1 | 2026-11-26 | `FEAT.2`, `FEAT.3` | definition audit: F-19 requires F-21, F-18 requires F-3, F-14 tab bar lists Gallery, Sources page lists SRC-4..17 (#47) |
 | 0.9.0 | 2026-11-26 | `FEAT.1`, `FEAT.2`, `FEAT.3` | ING-1 (MockItDown Designer components): F-21 structural editing; F-16.CR-1 role rules and typed parameters; F-12.CR-1 unknown labelled arguments warned; F-19.CR-1 design session, composite designer and host events; F-19.CR-2 structural commands; F-20.CR-1 the .mkdesign document; F-15.CR-1 overlay callouts; F-2.CR-1 dotted names; F-18.CR-4 gallery published on GitHub Pages (SRC-17) |
 | 0.8.0 | 2026-11-26 | `FEAT.3` | show source on gallery examples (SRC-11) |

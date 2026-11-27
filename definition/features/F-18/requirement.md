@@ -2,12 +2,12 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.9.1
-rev: 5
+version: 0.9.3
+rev: 6
 page: FEAT.3
 slot: features
 order: 3
-hash: 5d36a98956e0
+hash: a9742bf1f771
 family: web
 source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
 requires: [F-17, F-3]

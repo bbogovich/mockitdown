@@ -9,3 +9,5 @@
   </script>
 </mockitdown-mockup>
 ```
+
+**Re-checked at definition 0.9.1.** F-16.CR-1 adds role rules and typed parameters as shared data that only the design tools read; embedding a mockup in a web page is unchanged.

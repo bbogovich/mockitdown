@@ -15,3 +15,5 @@ windows stay with the host.
 selection has the commands of a structured editor: delete, duplicate, the clipboard as mockitdown text
 (which also pastes into a Markdown fence), move, wrap, unwrap, convert and extract component. Each is
 one undo step that restores the selection, and a host can put the same commands in its menus.
+
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.

@@ -10,11 +10,11 @@ F-13 | requirements | active | 0.2.0 r0 | FEAT.2 | Command-line tool
 F-14 | requirements | active | 0.9.1 r2 | FEAT.2 | Example site as demo and end-to-end test
 F-15 | requirements | active | 0.9.0 r1 | FEAT.2 | Annotations and overlays
 F-16 | requirements | active | 0.9.0 r1 | FEAT.3 | Shared language and packs for the Python and web variants
-F-17 | requirements | active | 0.5.0 r0 | FEAT.3 | Mockups embedded in web pages
-F-18 | requirements | active | 0.9.1 r5 | FEAT.3 | Web pack gallery test page
-F-19 | requirements | active | 0.9.1 r3 | FEAT.3 | Visual mockup editing components
+F-17 | requirements | active | 0.9.2 r1 | FEAT.3 | Mockups embedded in web pages
+F-18 | requirements | active | 0.9.3 r6 | FEAT.3 | Web pack gallery test page
+F-19 | requirements | active | 0.9.3 r4 | FEAT.3 | Visual mockup editing components
 F-2 | requirements | active | 0.9.0 r1 | FEAT.1 | SwiftUI-syntax notation
-F-20 | requirements | active | 0.9.0 r1 | FEAT.3 | Infinite canvas of named mockups
+F-20 | requirements | active | 0.9.3 r3 | FEAT.3 | Infinite canvas of named mockups
 F-21 | requirements | active | 0.9.0 r0 | FEAT.3 | Structural editing of mockup source
 F-3 | requirements | active | 0.6.0 r2 | FEAT.1 | Framework design packs
 F-4 | requirements | active | 0.2.0 r0 | FEAT.1 | Custom reusable components

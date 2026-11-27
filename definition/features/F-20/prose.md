@@ -8,3 +8,7 @@ designer and imported by SpecItOut tools mockup by mockup. A mockup may use its 
 side-by-side comparisons possible; the document names the default. One small module in the mockitdown
 package reads and writes the format for the components and for a desktop shell alike; Markdown and
 folder export stay in the shell for now.
+
+**Re-checked at definition 0.9.1.** F-19.CR-3 only adds F-21 to its prerequisites; the canvas depends on the design tools as before.
+
+**Re-checked at definition 0.9.2.** The F-17 clarification changed no obligation; this feature is unaffected.

@@ -2,12 +2,12 @@
 id: F-20
 title: Infinite canvas of named mockups
 status: active
-version: 0.9.0
-rev: 1
+version: 0.9.3
+rev: 3
 page: FEAT.3
 slot: features
 order: 5
-hash: 0b45edc1cbe4
+hash: f3f1faa9b401
 family: design-tools
 source: [SRC-8, SRC-12, SRC-15]
 requires: [F-19]
