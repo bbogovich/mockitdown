@@ -166,246 +166,246 @@ entries:
   - seq: 19
     issue: 20
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 20
     issue: 21
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 21
     issue: 22
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 22
     issue: 23
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 23
     issue: 24
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 24
     issue: 25
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 25
     issue: 26
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 26
     issue: 27
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 27
     issue: 28
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 28
     issue: 29
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 29
     issue: 30
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 30
     issue: 31
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 31
     issue: 32
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 32
     issue: 33
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 33
     issue: 34
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 34
     issue: 35
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 35
     issue: 36
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 36
     issue: 37
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 37
     issue: 38
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 38
     issue: 39
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 39
     issue: 40
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 40
     issue: 41
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 41
     issue: 42
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 42
     issue: 43
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 43
     issue: 44
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 44
     issue: 45
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 45
     issue: 46
     action: implement
-    state: waiting
+    state: cancelled
     run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
-    finished:
+    finished: 2026-11-27T06:15:40Z
   - seq: 46
     issue: 48
     action: implement
