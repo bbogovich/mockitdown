@@ -18,20 +18,27 @@
 //   tab(name)       select a tab (an unknown name selects "elements"); resolves when it is shown
 //   renderAll()     create every mockup of the selected pack, in both tabs, wait for all `rendered`,
 //                   and resolve with {pack, elements, patterns, mockups, empty, errors}
+//   source(id)      the snippet reproducing example `id` in the selected pack (snippet.js), or null
+//                   when the pack does not show that example (C26)
 //
 // A pattern entry of shared/patterns/index.json without `packs` is a core pattern, shown for every pack;
 // one with `packs` is shown only for those packs. Any entry's `device`, `chrome`, `menubar`, `app` and
 // `windowed` become the mockup's attributes of the same name (R-WEB-004.C14); without them a pattern
 // takes the pack's default device and chrome (C9). The complex layouts name `device: "desktop"`, so
 // the phone packs show them in their desktop form.
+//
+// Each example has a Show source toggle (C21-C25): a block below its mockup, hidden until the toggle
+// opens it, holding the snippet of snippet.js with a Copy button and a polite live region. The block is
+// built with the card and only its `hidden` changes, so the mockup is never touched.
 
 import "../dist/mockitdown.js";
+import { patternAttributes, snippet } from "./snippet.js";
 
 const REFERENCE = "../shared/reference/";
 const PATTERNS = "../shared/patterns/";
 const APPEARANCE_KEY = "mockitdown.gallery.appearance";
-/** Pattern entry keys passed to the mockup element as attributes of the same name (R-WEB-004.C14). */
-const PATTERN_ATTRIBUTES = ["device", "chrome", "menubar", "app", "windowed"];
+/** How long the Copy button's "Copied" announcement stays (ms). */
+const COPIED_MS = 2000;
 /** The main area's tabs (C16), the first the default. */
 const TABS = [["elements", "Elements"], ["examples", "Examples"]];
 
@@ -92,6 +99,7 @@ const gallery = {
   observer: null,
   select,
   renderAll,
+  source,
 };
 // The tab hook is `tab(name)` (C18); the selected tab is read as `selectedTab`.
 gallery.tab = showTab;
@@ -248,12 +256,64 @@ function patternShown(p, pack) {
 }
 
 function patternCard(p, pack) {
-  const attrs = { pack, caption: "false", label: `pattern ${p.id}` };
-  for (const k of PATTERN_ATTRIBUTES) if (p[k] !== undefined && p[k] !== null) attrs[k] = String(p[k]);
+  // The attributes of the snippet (C22), plus the gallery-only caption and label.
+  const attrs = { ...Object.fromEntries(patternAttributes(p, pack)), caption: "false", label: `pattern ${p.id}` };
   const specific = Array.isArray(p.packs);
+  const block = `source-${p.id}`;
   return h("section", { class: "pattern", id: `example-${p.id}`, dataset: specific ? { pattern: p.id, specific: "true" } : { pattern: p.id } },
-    h("h3", { tabindex: "-1" }, p.title, specific ? h("span", { class: "own" }, p.device ?? "example") : null),
-    h("div", { class: "stage" }, slot(p.source, attrs)));
+    h("div", { class: "pattern-head" },
+      h("h3", { tabindex: "-1" }, p.title, specific ? h("span", { class: "own" }, p.device ?? "example") : null),
+      h("button", { type: "button", class: "show-source", "aria-expanded": "false", "aria-controls": block }, "Show source")),
+    h("div", { class: "stage" }, slot(p.source, attrs)),
+    h("div", { class: "source", id: block, hidden: true },
+      h("div", { class: "source-tools" },
+        h("span", { class: "source-label" }, "Source"),
+        h("span", { class: "copy-status", role: "status", "aria-live": "polite" }),
+        h("button", { type: "button", class: "copy" }, "Copy")),
+      h("pre", { tabindex: "0", "aria-label": `Source of ${p.title}` }, h("code", {}, snippet(p, p.source, pack)))));
+}
+
+/** Show or hide an example's source block (C21); only the block and the button change (C25). */
+function toggleSource(button) {
+  const block = document.getElementById(button.getAttribute("aria-controls"));
+  if (!block) return;
+  const open = block.hidden;
+  block.hidden = !open;
+  button.setAttribute("aria-expanded", String(open));
+  button.textContent = open ? "Hide source" : "Show source";
+}
+
+/**
+ * Copy a source block's snippet (C24): to the clipboard, announcing Copied; where there is no clipboard,
+ * or writing to it is refused, select the snippet's text so the reader can copy it.
+ */
+async function copySource(button) {
+  const block = button.closest(".source");
+  const code = block?.querySelector("pre code");
+  if (!code) return;
+  const status = block.querySelector(".copy-status");
+  const text = code.textContent;
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error("no clipboard");
+    await navigator.clipboard.writeText(text);
+    status.textContent = "Copied";
+    clearTimeout(status.timer);
+    status.timer = setTimeout(() => { status.textContent = ""; }, COPIED_MS);
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents(code);
+    const selection = getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+}
+
+/** The snippet of example `id` in the selected pack, or null when the pack does not show it (C26). */
+async function source(id) {
+  await gallery.current?.promise;
+  const pack = gallery.current?.id ?? gallery.pack;
+  const p = gallery.patterns.find((q) => q.id === id);
+  return p && pack && patternShown(p, pack) ? snippet(p, p.source, pack) : null;
 }
 
 /** A placeholder holding what the mockup will need. */
@@ -384,6 +444,10 @@ async function init() {
   main.addEventListener("click", (e) => {
     const tab = e.target.closest('[role="tab"]');
     if (tab) { setTab(tab.dataset.tab); tab.focus(); return; }
+    const toggle = e.target.closest(".pattern .show-source");
+    if (toggle) { toggleSource(toggle); return; }
+    const copy = e.target.closest(".source .copy");
+    if (copy) { copySource(copy); return; }
     const link = e.target.closest("#example-index a[data-example]");
     if (link) {
       e.preventDefault();

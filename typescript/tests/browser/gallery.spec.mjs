@@ -664,3 +664,139 @@ for (let c = 0; c < CHUNKS; c++) {
     expect(errors).toEqual([]);
   });
 }
+
+// R-WEB-004 TC-8 (C21–C26): every example of the Examples tab has a Show source toggle whose block holds the
+// snippet reproducing the example in the selected pack, with Copy; toggling never touches the mockup.
+const SNIPPET_KEYS = ["device", "chrome", "menubar", "app", "windowed"];
+const escapeAttr = (v) => String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+/** The snippet of C22, built here from the index entry and the pattern file, independently of the page. */
+function expectedSnippet(p, pack) {
+  const text = readFileSync(new URL(`../../../shared/patterns/${p.file}`, import.meta.url), "utf8").replace(/\r?\n$/, "");
+  const attrs = [["pack", pack], ...SNIPPET_KEYS.filter((k) => p[k] !== undefined && p[k] !== null).map((k) => [k, p[k]])];
+  return `<mockitdown-mockup${attrs.map(([k, v]) => ` ${k}="${escapeAttr(v)}"`).join("")}>\n`
+    + `<script type="text/mockitdown">\n${text}\n</script>\n</mockitdown-mockup>`;
+}
+
+for (const pack of ["base", "swiftui"]) {
+  test(`TC-8: ${pack} — Show source on every example, with the reproducing snippet and Copy (C21–C26)`, async ({ page }) => {
+    test.setTimeout(180_000);
+    const errors = await open(page, `#pack=${pack}&tab=examples`);
+    const summary = await page.evaluate(() => window.packGallery.renderAll());
+    expect(summary.errors).toEqual([]);
+    const ids = patternsFor(pack).map((p) => p.id);
+    expect(summary.patterns).toEqual(ids);
+    // Watch every example's mockup: a re-render replaces its shadow root's content (C25).
+    await page.evaluate(() => {
+      window.__mutations = {};
+      for (const sec of document.querySelectorAll(".pattern")) {
+        const m = sec.querySelector("mockitdown-mockup");
+        m.__probe = sec.dataset.pattern;
+        window.__mutations[sec.dataset.pattern] = 0;
+        new MutationObserver((list) => { window.__mutations[sec.dataset.pattern] += list.length; })
+          .observe(m.shadowRoot, { childList: true, subtree: true, attributes: true, characterData: true });
+        new MutationObserver((list) => { window.__mutations[sec.dataset.pattern] += list.length; })
+          .observe(m, { attributes: true });
+      }
+    });
+    const box = (id) => page.evaluate((pid) => {
+      const m = document.querySelector(`.pattern[data-pattern="${pid}"] mockitdown-mockup`);
+      const r = m.getBoundingClientRect();
+      return { probe: m.__probe, left: r.left + scrollX, top: r.top + scrollY, width: r.width, height: r.height };
+    }, id);
+
+    for (const p of patternsFor(pack)) {
+      const section = page.locator(`.pattern[data-pattern="${p.id}"]`);
+      const button = section.getByRole("button", { name: /^(Show|Hide) source$/ });
+      // 1. one Show source button, collapsed, controlling a hidden block (C21)
+      await expect(button).toHaveCount(1);
+      await expect(button).toHaveText("Show source");
+      await expect(button).toHaveAttribute("aria-expanded", "false");
+      const controls = await button.getAttribute("aria-controls");
+      expect(controls, p.id).toBeTruthy();
+      const block = page.locator(`[id="${controls}"]`);
+      await expect(block).toBeHidden();
+      expect(await section.locator(`[id="${controls}"]`).count(), `${p.id}: the block is in its example`).toBe(1);
+
+      // 2. showing it: Hide source, expanded, the snippet (C21, C22, C26)
+      const before = await box(p.id);
+      await button.click();
+      await expect(button).toHaveAttribute("aria-expanded", "true");
+      await expect(button).toHaveText("Hide source");
+      await expect(block).toBeVisible();
+      const expected = expectedSnippet(p, pack);
+      expect(await block.locator("pre").textContent(), p.id).toBe(expected);
+      expect(await page.evaluate((id) => window.packGallery.source(id), p.id), p.id).toBe(expected);
+      for (const k of ["caption", "label", "appearance"]) expect(expected.includes(` ${k}=`)).toBe(false);
+      // the block is below the mockup
+      const blockTop = await block.evaluate((b) => b.getBoundingClientRect().top + scrollY);
+      expect(blockTop, p.id).toBeGreaterThanOrEqual(before.top + before.height - 1);
+
+      // 3. the same mockup, not re-rendered, not resized (C25)
+      expect(await box(p.id), p.id).toEqual(before);
+      expect(await page.evaluate((id) => window.__mutations[id], p.id), `${p.id}: mockup mutations`).toBe(0);
+
+      // 6. hiding it again
+      await button.click();
+      await expect(button).toHaveAttribute("aria-expanded", "false");
+      await expect(button).toHaveText("Show source");
+      await expect(block).toBeHidden();
+      expect(await box(p.id), p.id).toEqual(before);
+      expect(await page.evaluate((id) => window.__mutations[id], p.id), `${p.id}: mockup mutations`).toBe(0);
+    }
+
+    // 4. monospaced, line breaks kept, scrolls sideways, follows the appearance (C23)
+    const last = patternsFor(pack).at(-1);
+    const section = page.locator(`.pattern[data-pattern="${last.id}"]`);
+    await section.getByRole("button", { name: "Show source" }).click();
+    const pre = section.locator(".source pre");
+    const style = () => pre.evaluate((el) => {
+      const s = getComputedStyle(el);
+      return { whiteSpace: s.whiteSpace, overflowX: s.overflowX, font: s.fontFamily, bg: s.backgroundColor, fg: s.color };
+    });
+    const light = await style();
+    expect(light.whiteSpace).toBe("pre");
+    expect(["auto", "scroll"]).toContain(light.overflowX);
+    expect(light.font).toMatch(/mono/i);
+    await page.selectOption("#appearance", "dark");
+    const dark = await style();
+    expect(dark.bg).not.toBe(light.bg);
+    expect(dark.fg).not.toBe(light.fg);
+    await page.selectOption("#appearance", "light");
+    // a long line scrolls inside the block instead of widening the example
+    const widths = await section.evaluate((sec) => {
+      const p = sec.querySelector(".source pre");
+      p.querySelector("code").textContent += "\n" + "x".repeat(2000);
+      return { pre: p.clientWidth, scroll: p.scrollWidth, card: sec.clientWidth, page: document.documentElement.scrollWidth, view: innerWidth };
+    });
+    expect(widths.scroll).toBeGreaterThan(widths.pre);
+    expect(widths.pre).toBeLessThanOrEqual(widths.card);
+    expect(widths.page).toBeLessThanOrEqual(widths.view);
+    await section.evaluate((sec, text) => { sec.querySelector(".source pre code").textContent = text; }, expectedSnippet(last, pack));
+
+    // 5. Copy writes the snippet and announces Copied; without a clipboard it selects the text (C24)
+    await page.evaluate(() => {
+      window.__copied = null;
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true, value: { writeText: async (t) => { window.__copied = t; } },
+      });
+    });
+    const copy = section.getByRole("button", { name: "Copy" });
+    const status = section.locator('.source [role="status"]');
+    await expect(status).toHaveAttribute("aria-live", "polite");
+    await copy.click();
+    await expect(status).toHaveText("Copied");
+    expect(await page.evaluate(() => window.__copied)).toBe(expectedSnippet(last, pack));
+    await page.evaluate(() => {
+      Object.defineProperty(navigator, "clipboard", { configurable: true, value: undefined });
+      getSelection().removeAllRanges();
+    });
+    await copy.click();
+    expect(await page.evaluate(() => getSelection().toString())).toBe(expectedSnippet(last, pack));
+
+    // 7. source(id) of an example the pack does not show is null (C26)
+    const other = PATTERNS.find((p) => p.packs && !p.packs.includes(pack)) ?? null;
+    if (other) expect(await page.evaluate((id) => window.packGallery.source(id), other.id)).toBeNull();
+    expect(await page.evaluate(() => window.packGallery.source("no-such-example"))).toBeNull();
+    expect(errors).toEqual([]);
+  });
+}
