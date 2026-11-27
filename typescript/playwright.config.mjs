@@ -10,6 +10,8 @@ const PORT = Number(process.env.PORT || 8173);
 export default defineConfig({
   testDir: "tests/browser",
   testMatch: "**/*.spec.mjs",
+  // The published-site test runs only in the Pages workflow (playwright.published.config.mjs).
+  testIgnore: "**/published.spec.mjs",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

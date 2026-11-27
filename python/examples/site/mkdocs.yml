@@ -101,6 +101,7 @@ nav:
         - Windows XP, Luna (2001): retro/winxp.md
         - Windows Vista, Aero (2007): retro/vista.md
     - Recommended next packs: roadmap.md
+  - Gallery: https://bbogovich.github.io/mockitdown/gallery/
   - Definition: https://bbogovich.github.io/mockitdown/definition/
   - Specification: https://bbogovich.github.io/mockitdown/specification/
   - Implementation: https://bbogovich.github.io/mockitdown/implementation/
