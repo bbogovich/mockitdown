@@ -2,12 +2,12 @@
 id: R-WEB-004
 title: Pack gallery test page
 status: active
-version: 0.10.0
-rev: 7
+version: 0.10.1
+rev: 8
 page: WEB.2
 slot: reqs
 order: 2
-hash: 152e6443330b
+hash: abb4cf5070bf
 source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17]
 realizes: [F-18]
 requires: [R-WEB-002, R-WEB-003, R-REPO-003]
@@ -37,7 +37,7 @@ C20: The Examples tab MUST list the examples in the order of `shared/patterns/in
 C21: Each example of the Examples tab MUST have a Show source toggle button, with `aria-expanded` and `aria-controls`, that shows or hides a source block below the example's mockup; the source block MUST be hidden by default and the button's label MUST read Hide source while it is shown.
 C22: The source block MUST show the snippet that reproduces the example in the selected pack: a `<mockitdown-mockup>` opening tag carrying `pack` and every attribute the gallery passes from the index entry (C14), in the order `pack`, `device`, `chrome`, `menubar`, `app`, `windowed`, then a `<script type="text/mockitdown">` child (R-WEB-002) holding the pattern file's text unchanged (its indentation and line breaks kept, without a trailing newline), then the closing tags; the gallery-only attributes `caption`, `label` and `appearance` MUST NOT appear.
 C23: The source block MUST be monospaced, keep its line breaks, scroll horizontally rather than wrap, and follow the page's light or dark appearance.
-C24: The source block MUST have a Copy button that writes the snippet to the clipboard and announces Copied through a polite live region; where the clipboard is unavailable it MUST select the snippet's text instead.
+C24: The source block MUST have a Copy button that writes the snippet to the clipboard and announces Copied through a polite live region; where the clipboard is unavailable or refuses the write it MUST select the snippet's text instead.
 C25: Showing or hiding an example's source MUST NOT re-create, re-render or resize that example's mockup.
 C26: `window.packGallery` MUST offer `source(patternId)`, which resolves with the snippet of C22 for that example in the selected pack, or `null` when the selected pack does not show that example.
 V1: The browser tests select every pack and fail on any error diagnostic, any mockup without rendered content, or any pattern missing.

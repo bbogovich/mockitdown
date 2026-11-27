@@ -191,5 +191,5 @@ R-TOOL-014 | requirements | active | 0.10.0 r0 | WEB.5 | Sections and the canvas
 R-WEB-001 | requirements | active | 0.10.0 r3 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.10.0 r4 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.6.5 r1 | WEB.2 | Development server
-R-WEB-004 | requirements | active | 0.10.0 r7 | WEB.2 | Pack gallery test page
+R-WEB-004 | requirements | active | 0.10.1 r8 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.6.5 r2 | WEB.2 | Web test suites

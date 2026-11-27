@@ -30,7 +30,8 @@ reader would paste into a page to get the same example in the same pack: the `mo
 with `pack` (and, for the platform examples, `device`, `chrome`, `menubar`, `app`, `windowed`) around a
 `<script type="text/mockitdown">` child holding the pattern file verbatim. Attributes that only serve the
 gallery (`caption`, `label`, `appearance`) are left out. The block has a Copy button and scrolls sideways
-for long lines; opening it never re-renders the example.
+for long lines; opening it never re-renders the example. A Copy the browser refuses (no permission,
+an insecure page) falls back to selecting the text, as a missing clipboard does.
 
 **Published (SRC-17).** The Pages workflow builds the package and copies the test pages, the built
 package and the shared `reference/` and `patterns/` folders under `/gallery/` in the same layout as

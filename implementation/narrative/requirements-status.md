@@ -4,17 +4,23 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `sio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (1)
+## Changes pending (7)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
-| R-WEB-004 | Pack gallery test page | 0.8.14 | 0.9.0 | 2026-11-25 | #16 |
+| [R-ANN-003](../ledger/R-ANN-003.md) | Overlay placement and free positioning | 0.6.2 | 0.10.0 | 2026-11-25 | #2 |
+| [R-DIAG-003](../ledger/R-DIAG-003.md) | Diagnostic codes | 0.8.3 | 0.10.0 | 2026-11-25 | #9 |
+| [R-REPO-002](../ledger/R-REPO-002.md) | Shared assets are the single source | 0.6.1 | 0.10.0 | 2026-11-25 | #1 |
+| [R-REPO-004](../ledger/R-REPO-004.md) | Conformance corpus | 0.8.9 | 0.10.0 | 2026-11-25 | #13 |
+| [R-WEB-001](../ledger/R-WEB-001.md) | TypeScript package and core | 0.6.4 | 0.10.0 | 2026-11-25 | #4 |
+| [R-WEB-002](../ledger/R-WEB-002.md) | The mockitdown-mockup element | 0.8.9 | 0.10.0 | 2026-11-25 | #13 |
+| [R-WEB-004](../ledger/R-WEB-004.md) | Pack gallery test page | 0.10.0 | 0.10.1 | 2026-11-26 | #17 |
 
-## Not started (84)
+## Not started (109)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
-| R-ANN-001 | Numbered callouts | — | 0.3.0 |  |  |
+| R-ANN-001 | Numbered callouts | — | 0.10.0 |  |  |
 | R-ANN-002 | Pointers, selections, highlights and taps | — | 0.3.0 |  |  |
 | R-ANN-004 | Callout references in prose | — | 0.3.0 |  |  |
 | R-API-001 | render | — | 0.2.0 |  |  |
@@ -44,10 +50,19 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
 | R-DIAG-004 | The error box | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
+| R-EDIT-001 | Source spans and node identities | — | 0.10.0 |  |  |
+| R-EDIT-002 | Edit API: insert, remove and move | — | 0.10.0 |  |  |
+| R-EDIT-003 | Edit API: arguments, modifiers and identifiers | — | 0.10.0 |  |  |
+| R-EDIT-004 | Edit-mode rendering | — | 0.10.0 |  |  |
+| R-EDIT-005 | The design document module | — | 0.10.0 |  |  |
+| R-EDIT-006 | The design session and its events | — | 0.10.0 |  |  |
+| R-EDIT-007 | Undo and redo history | — | 0.10.0 |  |  |
+| R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.10.0 |  |  |
+| R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.10.0 |  |  |
 | R-EVAL-001 | Evaluation always completes | — | 0.2.0 |  |  |
 | R-EVAL-002 | What a block renders | — | 0.2.0 |  |  |
-| R-EVAL-003 | Name resolution for views | — | 0.2.0 |  |  |
-| R-EVAL-004 | Binding element arguments | — | 0.2.0 |  |  |
+| R-EVAL-003 | Name resolution for views | — | 0.10.0 |  |  |
+| R-EVAL-004 | Binding element arguments | — | 0.10.0 |  |  |
 | R-EVAL-005 | Instantiating struct components | — | 0.2.0 |  |  |
 | R-EVAL-006 | ForEach | — | 0.2.0 |  |  |
 | R-EVAL-007 | Conditionals and local bindings | — | 0.2.0 |  |  |
@@ -67,7 +82,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-LANG-004 | Struct declarations | — | 0.2.0 |  |  |
 | R-LANG-005 | Statements | — | 0.2.0 |  |  |
 | R-LANG-006 | Expressions and operators | — | 0.2.1 |  |  |
-| R-LANG-007 | Calls, modifier chains and closures | — | 0.2.0 |  |  |
+| R-LANG-007 | Calls, modifier chains and closures | — | 0.10.0 |  |  |
 | R-LANG-008 | Collection and tuple literals | — | 0.2.0 |  |  |
 | R-LANG-009 | Syntax errors | — | 0.2.0 |  |  |
 | R-MDX-001 | Integration points | — | 0.2.0 |  |  |
@@ -86,7 +101,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-008 | Shipped packs | — | 0.5.0 |  |  |
 | R-PACK-009 | The core vocabulary | — | 0.2.0 |  |  |
 | R-PACK-010 | Hidden packs | — | 0.3.0 |  |  |
-| R-PACK-012 | Pack reference gallery and site sections | — | 0.8.5 |  |  |
+| R-PACK-012 | Pack reference gallery and site sections | — | 0.10.0 |  |  |
+| R-PACK-016 | Role rules | — | 0.10.0 |  |  |
+| R-PACK-017 | Typed parameters and modifiers | — | 0.10.0 |  |  |
 | R-REND-001 | Figure structure | — | 0.2.0 |  |  |
 | R-REND-002 | Role markup | — | 0.2.0 |  |  |
 | R-REND-003 | Attributes on the markup | — | 0.2.0 |  |  |
@@ -98,30 +115,38 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-009 | Presentations and navigation composition | — | 0.2.0 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
 | R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
+| R-TOOL-001 | The editable view: mockitdown-editor | — | 0.10.0 |  |  |
+| R-TOOL-002 | The outline: mockitdown-outline | — | 0.10.0 |  |  |
+| R-TOOL-003 | The composite designer and its test page | — | 0.10.0 |  |  |
+| R-TOOL-004 | The gallery: mockitdown-gallery | — | 0.10.0 |  |  |
+| R-TOOL-005 | Drag and drop onto the outline and the view | — | 0.10.0 |  |  |
+| R-TOOL-006 | New elements: sample arguments and first-text editing | — | 0.10.0 |  |  |
+| R-TOOL-007 | The inspector: mockitdown-inspector | — | 0.10.0 |  |  |
+| R-TOOL-008 | The code view: mockitdown-code | — | 0.10.0 |  |  |
+| R-TOOL-009 | Two-way editing and Code mode | — | 0.10.0 |  |  |
+| R-TOOL-010 | The diagnostics list: mockitdown-diagnostics | — | 0.10.0 |  |  |
+| R-TOOL-011 | The canvas: mockitdown-canvas | — | 0.10.0 |  |  |
+| R-TOOL-012 | Mockup frames: labels, moving, renaming and placement | — | 0.10.0 |  |  |
+| R-TOOL-013 | The active mockup and inactive previews | — | 0.10.0 |  |  |
+| R-TOOL-014 | Sections and the canvas round trip | — | 0.10.0 |  |  |
 
-## Implemented (22)
+## Implemented (16)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
-| R-ANN-003 | Overlay placement and free positioning | 0.6.2 | 0.6.2 | 2026-11-25 | #2 |
-| R-CLI-002 | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-DEV-005 | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
-| R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-DIAG-003 | Diagnostic codes | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| R-PACK-013 | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
-| R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
-| R-PACK-015 | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-REND-013 | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| R-REND-014 | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-REPO-001 | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
-| R-REPO-002 | Shared assets are the single source | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
-| R-REPO-003 | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
-| R-REPO-004 | Conformance corpus | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-WEB-001 | TypeScript package and core | 0.6.4 | 0.6.4 | 2026-11-25 | #4 |
-| R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
-| R-WEB-003 | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
-| R-WEB-005 | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| [R-CLI-002](../ledger/R-CLI-002.md) | Rendering options on the command line | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-DEV-005](../ledger/R-DEV-005.md) | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-DEV-008](../ledger/R-DEV-008.md) | Fit frames: natural width and presentations | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-DEV-009](../ledger/R-DEV-009.md) | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
+| [R-DEV-010](../ledger/R-DEV-010.md) | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-PACK-011](../ledger/R-PACK-011.md) | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-PACK-013](../ledger/R-PACK-013.md) | Element samples | 0.8.4 | 0.8.4 | 2026-11-25 | #10 |
+| [R-PACK-014](../ledger/R-PACK-014.md) | SwiftUI control styles | 0.8.13 | 0.8.13 | 2026-11-25 | #15 |
+| [R-PACK-015](../ledger/R-PACK-015.md) | SwiftUI presentations and navigation | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| [R-REND-012](../ledger/R-REND-012.md) | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| [R-REND-013](../ledger/R-REND-013.md) | Rows without overlap | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| [R-REND-014](../ledger/R-REND-014.md) | Shape framing | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| [R-REPO-001](../ledger/R-REPO-001.md) | Repository layout | 0.6.0 | 0.6.0 | 2026-11-25 | #1 |
+| [R-REPO-003](../ledger/R-REPO-003.md) | The Python variant after the move | 0.6.1 | 0.6.1 | 2026-11-25 | #1 |
+| [R-WEB-003](../ledger/R-WEB-003.md) | Development server | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
+| [R-WEB-005](../ledger/R-WEB-005.md) | Web test suites | 0.6.5 | 0.6.5 | 2026-11-25 | #5 |
