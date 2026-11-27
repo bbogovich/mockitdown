@@ -1,7 +1,7 @@
 """Fit frames and presentations drawn whole (R-DEV-008), in the Python variant.
 
-The sizes themselves are measured in a browser (`typescript/tests/browser/gallery.spec.mjs`, TC-4 of
-R-WEB-004 and the TC-1/TC-2 tests of R-DEV-008 and R-REND-013); here each presenting element renders,
+The sizes themselves are measured in a browser (`typescript/tests/browser/gallery-packs.spec.mjs`, TC-4 of
+R-WEB-004, and `gallery-render.spec.mjs`, the TC-1/TC-2 tests of R-DEV-008 and R-REND-013); here each presenting element renders,
 alone at `fit` in every shipped pack, the markup those measurements rely on.
 """
 

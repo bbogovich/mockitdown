@@ -1,7 +1,7 @@
 """Shape framing (R-REND-014 TC-1) and charts drawn from values (R-REND-012 TC-3), in the Python variant.
 
 The geometry itself (a 96 × 96 circle centred in a 160 × 96 frame, the ellipse's 50% radii) is measured in a
-browser in every shipped pack (`typescript/tests/browser/gallery.spec.mjs`); here the markup and the base
+browser in every shipped pack (`typescript/tests/browser/gallery-render.spec.mjs`); here the markup and the base
 stylesheet rules those measurements rely on.
 """
 

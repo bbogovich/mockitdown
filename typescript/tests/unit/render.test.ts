@@ -131,7 +131,7 @@ describe("positional arguments and presentations alone (R-PACK-011.C3, R-DEV-008
   });
 });
 
-// R-REND-014 TC-1: shape framing (the geometry is measured in the browser, gallery.spec.mjs).
+// R-REND-014 TC-1: shape framing (the geometry is measured in the browser, gallery-render.spec.mjs).
 describe("shape framing (R-REND-014)", () => {
   const shape = (src: string): string => {
     const r = core.render(src, { device: "fit" });
@@ -208,7 +208,7 @@ describe("charts from values (R-REND-012.C6, C7)", () => {
 });
 
 // R-DEV-010 TC-1/TC-2 (IT-21): chrome per form, the macOS title bar, the sidebar toggle and the windowed iPad
-// app in the TypeScript variant (geometry: gallery.spec.mjs).
+// app in the TypeScript variant (geometry: gallery-chrome.spec.mjs).
 describe("multi-platform chrome for SwiftUI (R-DEV-010)", () => {
   const V1 = 'NavigationSplitView {\n  List {\n    Label("Inbox", systemImage: "tray")\n  }.navigationTitle("Mail")\n} detail: {\n  Text("Select a message")\n}';
   const sw = (src: string, opts: Record<string, unknown> = {}): string => {
@@ -260,7 +260,7 @@ describe("multi-platform chrome for SwiftUI (R-DEV-010)", () => {
   });
 });
 
-// R-DEV-009 TC-1/TC-2 (IT-22): the macOS menu bar in the TypeScript variant (geometry: gallery.spec.mjs).
+// R-DEV-009 TC-1/TC-2 (IT-22): the macOS menu bar in the TypeScript variant (geometry: gallery-chrome.spec.mjs).
 describe("the macOS menu bar (R-DEV-009)", () => {
   const SPLIT = 'NavigationSplitView {\n  List {\n    Label("Inbox", systemImage: "tray")\n  }.navigationTitle("Mail")\n} detail: {\n  Text("Select a message")\n}';
   const V1 = `${SPLIT}\n.commands {\n  CommandMenu("Shapes") {\n    Button("Circle").keyboardShortcut("c", modifiers: [.shift, .command])\n  }\n}`;

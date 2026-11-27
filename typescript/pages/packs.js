@@ -10,7 +10,7 @@
 //
 // Mockups are created lazily: each card holds an empty slot, and a <mockitdown-mockup> replaces it
 // when the slot comes near the viewport (IntersectionObserver). `window.packGallery` exposes the
-// state and two hooks for the browser tests (tests/browser/gallery.spec.mjs):
+// state and two hooks for the browser tests (tests/browser/gallery-*.spec.mjs):
 //   state           "loading" | "ready" (the side panel and the first pack are built) | "failed"
 //   pack            the selected pack id
 //   selectedTab     the selected tab, "elements" | "examples"

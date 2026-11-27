@@ -2,7 +2,7 @@
 TC-2 (the base samples carry content), in the Python variant.
 
 The browser half of TC-2 — every chart card of the base gallery draws at least one mark — is in
-`typescript/tests/browser/gallery.spec.mjs`.
+`typescript/tests/browser/gallery-render.spec.mjs`.
 """
 
 import importlib.util
