@@ -409,11 +409,11 @@ entries:
   - seq: 46
     issue: 48
     action: implement
-    state: waiting
+    state: in-progress
     run: vibe-20261127-000002
     queued: 2026-11-27T04:51:08Z
     queued-by: agent:code-auditor
-    started:
+    started: 2026-11-27T05:00:24Z
     finished:
   - seq: 47
     issue: 49
