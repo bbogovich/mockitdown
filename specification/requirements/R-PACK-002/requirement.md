@@ -2,8 +2,8 @@
 id: R-PACK-002
 title: pack.json keys
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: PACK.1
 slot: reqs
 order: 2
@@ -12,7 +12,8 @@ realizes: [F-3]
 constrained_by: [A-PACK-1, M-PACK-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 1c1efdbffdad
+hash: 0778cd19aea1
+refs: [R-DEV-006, R-EVAL-009, R-PACK-004]
 ---
 
 C1: The pack registry MUST read these `pack.json` keys, all optional except as stated: `id` (default: the directory name), `name` (default: the id), `framework`, `version`, `extends`, `modules`, `device`, `chrome`, `tokens`, `elements`, `modifiers`, `fonts`, `sizes`, `icons`; other keys MUST be ignored.

@@ -2,12 +2,12 @@
 id: R-TOOL-014
 title: Sections and the canvas round trip
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.5
 slot: reqs
 order: 4
-hash: 2f2f76a54997
+hash: 85c0f185462e
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-013, R-EDIT-005]

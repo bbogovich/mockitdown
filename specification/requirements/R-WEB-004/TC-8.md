@@ -4,7 +4,7 @@ title: Show source on every example
 verifies: [C21, C22, C23, C24, C25, C26]
 ---
 
-Browser test (Chromium, `gallery.spec.mjs`), for the `base` pack (core patterns) and for `swiftui`
+Browser test (Chromium, `gallery-examples.spec.mjs`), for the `base` pack (core patterns) and for `swiftui`
 (including the Mac example with `device`, `chrome`, `menubar` and `app`):
 
 1. On the Examples tab every `.pattern` has one Show source button with `aria-expanded="false"`, and its

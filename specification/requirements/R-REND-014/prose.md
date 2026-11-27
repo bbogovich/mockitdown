@@ -1,3 +1,5 @@
 SwiftUI fits a circle into its frame and draws an ellipse as an ellipse; neither is ever a capsule (SRC-9, SRC-9#ellipse). The base stylesheet gave circle, ellipse and capsule the same 9999-pixel radius, so every pack drew both as capsules.
 
 As built, the circle's frame is laid out at its full size and the circle itself is drawn inside it, centred, at the shorter side; a stroke or shadow on a circle therefore follows the circle (C5), and the pencil-drawn Sketch pack draws its stroke and hatching on that circle instead of wobbling the outline. A `Capsule` keeps a very large corner radius, which the browser reduces to exactly half the shorter side. `.clipShape(Circle())` on content that is not square still clips to a capsule; R-REND-014 does not cover it.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.

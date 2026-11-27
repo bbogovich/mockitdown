@@ -2,12 +2,12 @@
 id: R-EDIT-004
 title: Edit-mode rendering
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 3
 page: WEB.3
 slot: reqs
 order: 4
-hash: ab3ad9117a22
+hash: a4291c5aaa06
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-001]

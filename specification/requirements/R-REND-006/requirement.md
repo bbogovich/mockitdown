@@ -2,8 +2,8 @@
 id: R-REND-006
 title: Output safety
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 2
 page: REND.1
 slot: reqs
 order: 6
@@ -12,7 +12,8 @@ realizes: [F-8]
 constrained_by: [A-REND-1, A-REND-3, A-ASSET-1]
 decisions: [ADR-5]
 reverse_engineered: true
-hash: 30b7a53ed551
+hash: f9d9ea66946c
+refs: [R-ASSET-001, R-REND-004]
 ---
 
 C1: The renderer MUST HTML-escape (including quotes) every value it writes into an attribute or text node.

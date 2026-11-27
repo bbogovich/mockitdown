@@ -2,12 +2,12 @@
 id: R-TOOL-004
 title: "The gallery: mockitdown-gallery"
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.4
 slot: reqs
 order: 4
-hash: 1759b63f3582
+hash: 8b023faa0ee6
 source: [SRC-12, SRC-14]
 realizes: [F-19]
 requires: [R-PACK-016, R-EDIT-006, R-WEB-002]

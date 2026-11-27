@@ -2,8 +2,8 @@
 id: R-DEV-008
 title: "Fit frames: natural width and presentations"
 status: active
-version: 0.8.1
-rev: 1
+version: 0.10.6
+rev: 2
 page: REND.2
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-8, F-10]
 constrained_by: [A-REND-2]
 requires: [R-DEV-001]
-hash: fd80e22c90b7
+hash: 99b83b3a96e9
 ---
 
 C1: At device `fit`, the frame MUST take the max-content width and height of its content and MUST NOT be squeezed or scaled by a narrower host; the figure cell MUST then scroll horizontally (`overflow-x: auto`).

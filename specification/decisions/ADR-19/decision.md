@@ -2,12 +2,12 @@
 id: ADR-19
 title: The mockup element carries its code in a script child
 status: active
-version: 0.10.3
-rev: 3
+version: 0.10.8
+rev: 4
 page: ADR.2
 slot: decisions
 order: 999
-hash: ac574347260a
+hash: 674caaf942d6
 source: [SRC-8]
 constrains: [R-WEB-002]
 refs: [R-WEB-002]

@@ -1,0 +1,26 @@
+---
+id: R-REND-013.CR-2
+target: R-REND-013
+kind: clarification
+version: 0.10.7
+date: 2026-11-27
+issue: 53
+summary: "re-checked after the renderer split and the gallery spec split: unaffected (#53)"
+from: 6413f808c068
+to: d9da48236a57
+---
+
+## Clauses
+
+(none)
+
+## Files
+
+```diff
+--- a/prose.md
++++ b/prose.md
+@@ -9 +9,3 @@
+ margin on purpose; the geometry test leaves those pairs out.
++
++**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+```

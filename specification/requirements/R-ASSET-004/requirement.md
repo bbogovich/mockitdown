@@ -2,8 +2,8 @@
 id: R-ASSET-004
 title: Image-bearing attributes
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.7
+rev: 1
 page: ASSET.1
 slot: reqs
 order: 4
@@ -11,7 +11,8 @@ source: [SRC-2]
 realizes: [F-5]
 constrained_by: [A-REND-1, A-ASSET-1]
 reverse_engineered: true
-hash: 9b1db18e932d
+hash: 6df0f5018888
+refs: [R-ASSET-005]
 ---
 
 C1: The renderer MUST resolve as asset references: the `image` role's `name`, `url`, `src` or `source` attribute (first present); the `avatar` role's `image`, `src` or `url`; and the `image` or `thumbnail` attribute that roles use for a leading visual.

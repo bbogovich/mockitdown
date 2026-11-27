@@ -2,12 +2,12 @@
 id: R-EDIT-001
 title: Source spans and node identities
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 3
 page: WEB.3
 slot: reqs
 order: 1
-hash: e7537bcdbf01
+hash: f10afa0e8394
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-WEB-001]

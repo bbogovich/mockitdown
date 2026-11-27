@@ -2,12 +2,12 @@
 id: R-TOOL-003
 title: The composite designer and its test page
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.4
 slot: reqs
 order: 3
-hash: edfad8a7b755
+hash: 9c01ed707ba1
 source: [SRC-12, SRC-13, SRC-16]
 realizes: [F-19, F-20]
 requires: [R-TOOL-001, R-TOOL-002]

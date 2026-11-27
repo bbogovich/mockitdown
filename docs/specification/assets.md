@@ -1,8 +1,8 @@
 ---
 title: "Assets and icons"
-spec_version: 0.2.0
+spec_version: 0.10.7
 status: draft
-updated: 2026-11-24
+updated: 2026-11-27
 page_id: ASSET.1
 ---
 
@@ -76,6 +76,8 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_imports_and_assets
 Any attribute that names a picture goes through the same resolver, so the rules of R-ASSET-001 to
 R-ASSET-003 apply uniformly.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
 **Realizes.** F-5
 
 | | Statement |
@@ -110,4 +112,6 @@ covers mockup needs; names map to the closest glyph rather than to an exact copy
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
+| 0.2.0 | 2026-11-24 | Page created |
 | 0.2.0 | 2026-11-24 | Page created |

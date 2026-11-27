@@ -2,15 +2,15 @@
 id: R-REND-014
 title: Shape framing
 status: active
-version: 0.8.3
-rev: 1
+version: 0.10.7
+rev: 2
 page: REND.1
 slot: reqs
 order: 999
 source: [SRC-9]
 realizes: [F-8]
 constrained_by: [A-REND-1]
-hash: eddbb178ba17
+hash: 0793372eb8b8
 ---
 
 C1: A `Circle` given a frame of w × h MUST be drawn as a circle of diameter min(w, h) centred in that frame; the frame MUST keep w × h for layout.

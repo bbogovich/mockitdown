@@ -2,8 +2,8 @@
 id: R-PACK-003
 title: Pack inheritance
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: PACK.1
 slot: reqs
 order: 3
@@ -12,7 +12,7 @@ realizes: [F-3, F-7]
 constrained_by: [A-PACK-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 535241d14537
+hash: a1345accc671
 ---
 
 C1: A pack MUST extend the pack named by `extends`; when `extends` is absent, every pack other than `base` MUST extend `base`, and `base` MUST extend nothing.

@@ -12,6 +12,9 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.10.8 | 2026-11-27 | `ADR.1`, `ADR.2`, `ADR.3`, `ANN.1`, `LANG.2`, `MDX.1`, `PACK.1`, `PACK.3`, `REND.1`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | audit follow-up: the chain of items citing the re-checked requirements, re-checked in one release |
+| 0.10.7 | 2026-11-27 | `ANN.1`, `ASSET.1`, `MDX.1`, `PACK.1`, `REND.1`, `WEB.3` | audit follow-up: requirements re-checked after the renderer split |
+| 0.10.6 | 2026-11-27 | `PACK.1`, `REND.2`, `WEB.2` | audit follow-up: suspects from the renderer split cleared; test cases name the split gallery specs |
 | 0.10.5 | 2026-11-27 | `ARCH.2`, `ARCH.3` | A-WEB-1 and A-REND-1 as built: the TypeScript role functions live in role-family modules under core/render/roles/, mirroring the Python split (#49) |
 | 0.10.4 | 2026-11-27 | `ARCH.2` | A-REND-1 as built: Renderer inherits its r_<role> methods from role-family mixins in mockitdown.render.roles; shared helpers in mockitdown.render._util (#48) |
 | 0.10.3 | 2026-11-26 | `ADR.1`, `ADR.2`, `ADR.3`, `PACK.1`, `PACK.3`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | specification audit: items re-stamped together so the prose clarifications leave no suspect citation (#51) |

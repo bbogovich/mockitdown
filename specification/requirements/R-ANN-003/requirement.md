@@ -2,8 +2,8 @@
 id: R-ANN-003
 title: Overlay placement and free positioning
 status: active
-version: 0.10.0
-rev: 2
+version: 0.10.8
+rev: 4
 page: ANN.1
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-4, SRC-12]
 constrained_by: [A-REND-1]
 decisions: [ADR-15]
 reverse_engineered: true
-hash: d2b8478a1a2a
+hash: 4519fe184a78
 refs: [R-ANN-001, R-ANN-002]
 ---
 

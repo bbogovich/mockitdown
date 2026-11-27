@@ -1,8 +1,8 @@
 ---
 title: "Language: semantics"
-spec_version: 0.10.0
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: LANG.2
 ---
 
@@ -238,6 +238,8 @@ same `.buttonStyle(.bordered)` becomes `data-variant="bordered"` in every pack. 
 are interpreted by the renderer (layout, typography, colour, navigation, presentation). Behaviour
 modifiers have no visual effect and are accepted so that real SwiftUI code can be pasted.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-EVAL-009.TC-1 — Modifiers become style and data attributes; unknown ones warn**
 
 Automated by `tests/test_render.py::EvaluateRenderTests::test_modifiers_become_style_and_data` and
@@ -300,8 +302,10 @@ accepted and dropped; `@State` values become the state the mockup shows.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

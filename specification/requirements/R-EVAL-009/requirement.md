@@ -2,8 +2,8 @@
 id: R-EVAL-009
 title: Modifiers
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: LANG.2
 slot: reqs
 order: 9
@@ -12,7 +12,7 @@ realizes: [F-2, F-3]
 constrained_by: [A-EVAL-1, A-PACK-1, M-VIEW-2]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 1cf7e4fd01d5
+hash: 9bca08846df3
 ---
 
 C1: When a modifier call `.name(…)` is applied to views, the evaluator MUST evaluate the base expression first and apply the modifier to every view the base produced.

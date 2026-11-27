@@ -1,8 +1,8 @@
 ---
 title: "Decisions: notation and rendering"
-spec_version: 0.10.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: ADR.1
 ---
 
@@ -22,6 +22,8 @@ static picture — is delivered by the HTML output itself: no scripts, embedded 
 
 **Consequences.** One renderer to maintain; realism is a matter of CSS per pack. A mockup is
 printed or exported by the browser like the rest of the page.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Constrains.** R-REND-001, R-REND-007
 
@@ -107,6 +109,8 @@ therefore normative.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-PACK-001, R-PACK-002, R-PACK-003, R-PACK-004, R-REND-002
 
 | | Statement |
@@ -134,6 +138,8 @@ impractical in a documentation page.
 **Consequences.** mockitdown owns the fidelity of every pack; the example site is the visual
 regression reference.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-REND-006, R-REND-007, R-MDX-006, R-PACK-007
 
 | | Statement |
@@ -157,6 +163,8 @@ generated token rules.
 
 **Consequences.** A frame can be light inside a dark page and vice versa; `auto` tracks the
 documentation theme live, without scripts.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Constrains.** R-APP-001, R-APP-002, R-PACK-006, R-PACK-007
 
@@ -207,6 +215,8 @@ enlarge beyond their logical size.
 
 Checked at 0.10.1 after R-ANN-003.C6 (marks inside a dialog): the screen-level layer and its inline fallback are kept, only positioned within the dialog; D1, D2 and C1 stand.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-ANN-003
 
 | | Statement |
@@ -222,8 +232,10 @@ Checked at 0.10.1 after R-ANN-003.C6 (marks inside a dialog): the screen-level l
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |

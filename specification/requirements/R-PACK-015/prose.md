@@ -14,3 +14,5 @@ the columns side by side as `.automatic` does; `.prominentDetail` floats the sid
 over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog takes the alert's card.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.

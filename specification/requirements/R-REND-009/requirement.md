@@ -2,8 +2,8 @@
 id: R-REND-009
 title: Presentations and navigation composition
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.7
+rev: 1
 page: REND.1
 slot: reqs
 order: 9
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-2, F-8]
 constrained_by: [A-REND-1]
 reverse_engineered: true
-hash: 9c31292bc700
+hash: 9a8909d5165d
 ---
 
 C1: When a view carries `.alert`, `.confirmationDialog`, `.sheet`, `.fullScreenCover`, `.popover` or `.inspector` and its `isPresented:` (or `item:`) argument is absent or truthy, the renderer MUST draw the presentation as a `div.mkd-layer[data-kind]` appended to the screen after the views.

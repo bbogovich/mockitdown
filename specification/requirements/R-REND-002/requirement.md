@@ -2,8 +2,8 @@
 id: R-REND-002
 title: Role markup
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 2
 page: REND.1
 slot: reqs
 order: 2
@@ -12,7 +12,7 @@ realizes: [F-3, F-8]
 constrained_by: [A-REND-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 9fc903ed609c
+hash: 589c7b4b39e0
 ---
 
 C1: The renderer MUST render every view through its element's render role, and every role MUST produce a root element with the class `mkd-<role>`.

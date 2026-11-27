@@ -2,12 +2,12 @@
 id: R-EDIT-007
 title: Undo and redo history
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.3
 slot: reqs
 order: 7
-hash: 28d42a9bd0e6
+hash: 15488a1acb0b
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-006]

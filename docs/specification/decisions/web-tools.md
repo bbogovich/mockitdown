@@ -1,8 +1,8 @@
 ---
 title: "Decisions: web variant and design tools"
-spec_version: 0.10.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: ADR.3
 ---
 
@@ -25,6 +25,8 @@ implementation can adopt them unchanged.
 it, except the edit-mode rendering, which is a rendering change (ADR-22).
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Constrains.** R-EDIT-001, R-EDIT-002, R-EDIT-003
 
@@ -54,6 +56,8 @@ one rendering truth, and the corpus grows by a handful of edit-mode cases.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-EDIT-004, R-REPO-004
 
 | | Statement |
@@ -69,6 +73,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

@@ -7,3 +7,5 @@ at word boundaries first and breaks a long word only when it must. At `fit` a `M
 conversation's width (300 points) so that its 75 % bubble holds a short text on one line and wraps a
 long one. Segments of a control group that share a border, and avatar stacks, overlap by a negative
 margin on purpose; the geometry test leaves those pairs out.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.

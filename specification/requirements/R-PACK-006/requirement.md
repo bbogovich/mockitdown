@@ -2,8 +2,8 @@
 id: R-PACK-006
 title: Design tokens
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: PACK.1
 slot: reqs
 order: 6
@@ -12,7 +12,8 @@ realizes: [F-3, F-9]
 constrained_by: [A-PACK-1, A-STYLE-1]
 decisions: [ADR-6]
 reverse_engineered: true
-hash: 2ce414775763
+hash: 2d7708e9158c
+refs: [R-APP-002]
 ---
 
 C1: Every pack MUST define light tokens for at least every light token name of `base`, and MUST define at least one dark token.

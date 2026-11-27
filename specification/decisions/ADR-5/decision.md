@@ -2,14 +2,14 @@
 id: ADR-5
 title: Static CSS replicas, no framework runtime, no scripts, no network
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: ADR.1
 slot: decisions
 order: 5
 source: [SRC-2, SRC-3]
 constrains: [R-REND-006, R-REND-007, R-MDX-006, R-PACK-007]
-hash: cbe83e4dcae7
+hash: a04c27658f6f
 ---
 
 D1: Each pack imitates its framework with static CSS over mockitdown's own markup; mockups use no framework runtime, no web components, no JavaScript, no CDN and no web fonts.

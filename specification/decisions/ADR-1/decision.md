@@ -2,14 +2,15 @@
 id: ADR-1
 title: HTML and CSS is the only renderer; the SVG renderer is retired
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: ADR.1
 slot: decisions
 order: 1
 source: [SRC-3]
 constrains: [R-REND-001, R-REND-007]
-hash: 9f3fe9db6a6b
+hash: bc6a96ca48dc
+refs: [ADR-001]
 ---
 
 D1: mockitdown renders mockups only as HTML with CSS; the prototype's SVG renderer is not carried over.

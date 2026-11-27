@@ -2,8 +2,8 @@
 id: R-REND-005
 title: Text content and inline Markdown
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.7
+rev: 1
 page: REND.1
 slot: reqs
 order: 5
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-8]
 constrained_by: [A-REND-1]
 reverse_engineered: true
-hash: 2298580d57e4
+hash: a71d15d523e0
 ---
 
 C1: The renderer MUST HTML-escape all text content before applying inline formatting.

@@ -2,8 +2,8 @@
 id: R-PACK-007
 title: Pack stylesheet rules
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: PACK.1
 slot: reqs
 order: 7
@@ -12,7 +12,8 @@ realizes: [F-3, F-8]
 constrained_by: [A-STYLE-1]
 decisions: [ADR-5, ADR-6, ADR-7]
 reverse_engineered: true
-hash: 307ff0e5b8f0
+hash: 3236d943ac6d
+refs: [R-DEV-005, R-REND-002, R-REND-003]
 ---
 
 C1: Every selector in a non-base pack's `pack.css` MUST start with `.mkd-pack-<id>` (the pack's figure class), so a pack's rules never apply outside its own figures.

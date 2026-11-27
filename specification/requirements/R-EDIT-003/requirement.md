@@ -2,12 +2,12 @@
 id: R-EDIT-003
 title: "Edit API: arguments, modifiers and identifiers"
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 3
 page: WEB.3
 slot: reqs
 order: 3
-hash: 39da5aea6af9
+hash: 9d4f106c3764
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-002]

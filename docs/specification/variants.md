@@ -166,6 +166,8 @@ edit API (ADR-21) and is outside the render cases' rules.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-REPO-004.TC-1 — Python matches the corpus**
 
 Automated by `python/tests/test_conformance.py`.

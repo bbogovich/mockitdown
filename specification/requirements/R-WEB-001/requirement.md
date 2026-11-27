@@ -2,12 +2,12 @@
 id: R-WEB-001
 title: TypeScript package and core
 status: active
-version: 0.10.3
-rev: 4
+version: 0.10.8
+rev: 5
 page: WEB.1
 slot: reqs
 order: 1
-hash: 53394804d67d
+hash: 44d6c858dd5b
 source: [SRC-8, SRC-12]
 realizes: [F-16, F-17]
 requires: [R-REPO-004]

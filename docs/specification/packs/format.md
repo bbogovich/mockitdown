@@ -1,8 +1,8 @@
 ---
 title: "Pack format"
-spec_version: 0.10.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: PACK.1
 ---
 
@@ -15,6 +15,8 @@ What a design pack is, how packs are found, inherited and selected, and the rule
 Packs are plain files so that a site can add or replace one without code (ADR-4). Because the
 site's directories are searched first, a site can also override a shipped pack by reusing its
 identifier.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-3, F-7 · **Decisions.** ADR-4
 
@@ -34,6 +36,8 @@ identifier.
 `pack.json` is the whole vocabulary of a framework as data. The specification's
 [Pack format](format.md) page documents every key with an example; the built-in `base` pack is the
 reference instance.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-3 · **Decisions.** ADR-4
 
@@ -59,6 +63,8 @@ Inheritance is what keeps the core vocabulary portable: `VStack`, `Text`, `Butto
 `base` elements exist in every pack, styled by each pack's CSS, and a framework pack only adds what
 is specific to it.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Realizes.** F-3, F-7 · **Decisions.** ADR-4
 
 | | Statement |
@@ -81,6 +87,8 @@ The element definition is the whole mapping from a framework's component to mock
 Fluent's `InfoBar("Saved")` render through the shared `alert` role, restyled by the Fluent CSS.
 
 Checked at 0.10.1 after M-PACK-2.F7 and F8 (`rules`, `types`; R-PACK-016.C5, R-PACK-017.C3): both are optional and read only by the design tools, so C1 to C5 and the contract test are unchanged; C2 lists the keys that rendering uses.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **R-PACK-004.TC-1 — Pack contract — roles and rendering**
 
@@ -106,6 +114,8 @@ The order goes from the most specific to the most general: the page author's fen
 then what the code itself says, then site policy. `import SwiftUI` is what a pasted Swift file
 already contains, so SwiftUI code selects the SwiftUI pack with no extra attribute.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-PACK-005.TC-1 — Unique module names**
 
 Automated by `tests/test_packs.py::PackTests::test_module_names_are_unique`.
@@ -129,6 +139,8 @@ Tokens are the bridge between a pack's data and its CSS and the mechanism of lig
 pack CSS says `background: var(--mkd-surface)`, and the frame's appearance decides which value
 that is. The complete base token list, with values, is on the [Pack format](format.md) page.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-PACK-006.TC-1 — Tokens for light and dark**
 
 Automated by `tests/test_packs.py::PackTests::test_tokens_have_light_and_dark`.
@@ -150,6 +162,8 @@ Automated by `tests/test_packs.py::PackTests::test_tokens_have_light_and_dark`.
 Scoping lets several packs share one page — a Fluent and a Material mockup side by side — and
 keeps mockitdown's CSS from leaking into the documentation theme. Writing plain `px` keeps pack
 CSS ordinary; scaling is applied when the stylesheet is assembled.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **R-PACK-007.TC-1 — Scoped, appearance-neutral pack CSS**
 
@@ -202,6 +216,8 @@ Release 0.4 adds four web kits from the recommended-next list (Ant Design, Tailw
 The core vocabulary is SwiftUI's own names plus the cross-framework components SwiftUI lacks
 (`Card`, `Chip`, `Breadcrumb`, `Table`, `Toast` …). A block written with it renders in every pack —
 which is what makes imported component libraries portable (F-4.C6).
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-3 · **Decisions.** ADR-4
 
@@ -319,7 +335,7 @@ Also: a declared sample of an element with variants that is not a call of the el
 
 Python test over `shared/reference/base.json`: the listed elements' samples contain the required arguments; browser gallery test asserts each chart sample draws at least one mark.
 
-IT-18: `python/tests/test_samples.py` (`BaseSampleTests`, every chart sample rendered with at least one mark) and `typescript/tests/browser/gallery.spec.mjs` ("R-PACK-013 TC-2").
+IT-18: `python/tests/test_samples.py` (`BaseSampleTests`, every chart sample rendered with at least one mark) and `typescript/tests/browser/gallery-render.spec.mjs` ("R-PACK-013 TC-2").
 
 **Realizes.** F-18, F-14
 
@@ -357,6 +373,8 @@ macOS columns form shows as the row's label.
 A selected table row wins over the Mac's alternating row stripes: the gallery's Mac example (#15) selects the second, striped row, which used to keep its stripe under white text.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
@@ -408,6 +426,8 @@ the columns side by side as `.automatic` does; `.prominentDetail` floats the sid
 over the full-width detail. On iPadOS and macOS chrome, a confirmation dialog takes the alert's card.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **R-PACK-015.TC-1 — SwiftUI presentations**
 
@@ -584,6 +604,9 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
+| 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | six header tabs with Gallery next to Demo (SRC-17): C6, TC-1 (ING-1) |
@@ -601,6 +624,9 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs; New R-PACK-010: Hidden packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
+| 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | six header tabs with Gallery next to Demo (SRC-17): C6, TC-1 (ING-1) |
 | 0.8.13 | 2026-11-25 | as built: a selected Table row is accent with white text also on a striped desktop row (C14, #15) |

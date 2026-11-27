@@ -1,8 +1,8 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.8.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: REND.1
 ---
 
@@ -15,6 +15,8 @@ The HTML a mockup renders to: the figure, role markup, attributes, modifier styl
 The figure is the stable outer contract: documentation themes, tests and pack CSS rely on these
 classes. The markup is described in full, with an annotated example, on the [Markup](markup.md)
 page and in the [Markup and CSS contract](css-contract.md).
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-8, F-9, F-10 · **Decisions.** ADR-1
 
@@ -36,6 +38,10 @@ page and in the [Markup and CSS contract](css-contract.md).
 One markup for all packs is what makes packs data: a pack never generates HTML, it only restyles
 the roles. The [Role catalogue](roles.md) lists each role with the attributes it reads.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Realizes.** F-3, F-8 · **Decisions.** ADR-4
 
 | | Statement |
@@ -54,6 +60,8 @@ the roles. The [Role catalogue](roles.md) lists each role with the attributes it
 Pack CSS keys on these attributes — `.mkd-pack-fluent .mkd-button[data-variant="accent"]` — which
 is how one element takes on a framework's variants, sizes and states. The allow-list pattern keeps
 arbitrary text out of attribute selectors.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **Realizes.** F-3, F-6, F-8
 
@@ -100,6 +108,8 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_modifiers_become_s
 SwiftUI's `Text` supports a small Markdown subset; mockitdown supports the same everywhere text is
 shown. Links never navigate — the mockup is a picture.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
 **R-REND-005.TC-1 — Text is escaped**
 
 Automated by `tests/test_render.py::EvaluateRenderTests::test_text_is_escaped`.
@@ -122,6 +132,10 @@ Documentation sites render untrusted contributions in pull-request previews; a m
 a way to inject script or style. Every path from source text to HTML goes through escaping or an
 allow-list.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Realizes.** F-8 · **Decisions.** ADR-5
 
 | | Statement |
@@ -140,6 +154,10 @@ allow-list.
 Determinism keeps documentation diffs and caches stable; static markup keeps pages light and lets
 them work with instant navigation, where a script-initialised widget would not re-initialise.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Realizes.** F-8, F-11 · **Decisions.** ADR-5
 
 | | Statement |
@@ -157,6 +175,8 @@ them work with instant navigation, where a script-initialised widget would not r
 A placeholder in place shows the author exactly which element is wrong while keeping the rest of
 the screen readable.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
 **Realizes.** F-12
 
 | | Statement |
@@ -173,6 +193,8 @@ the screen readable.
 SwiftUI attaches navigation chrome and presentations to the content, not to the container; the
 renderer reassembles them the way SwiftUI would draw them, so idiomatic code yields the expected
 screen.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **R-REND-009.TC-1 — Navigation, tabs and alerts**
 
@@ -239,6 +261,8 @@ conversation's width (300 points) so that its 75 % bubble holds a short text on 
 long one. Segments of a control group that share a border, and avatar stacks, overlap by a negative
 margin on purpose; the geometry test leaves those pairs out.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
 **R-REND-013.TC-1 — No overlapping siblings**
 
 Browser test over every pack's element samples and variants (gallery `renderAll`): for each row container, child bounding boxes pairwise do not intersect (1-pixel tolerance); repeated inside a `device=phone` frame. A pair whose second child has a negative leading margin (C5) is left out. (`typescript/tests/browser/geometry.mjs`.)
@@ -265,6 +289,8 @@ Render `MessageBubble` with a long text in every pack: the text's box is inside 
 SwiftUI fits a circle into its frame and draws an ellipse as an ellipse; neither is ever a capsule (SRC-9, SRC-9#ellipse). The base stylesheet gave circle, ellipse and capsule the same 9999-pixel radius, so every pack drew both as capsules.
 
 As built, the circle's frame is laid out at its full size and the circle itself is drawn inside it, centred, at the shorter side; a stroke or shadow on a circle therefore follows the circle (C5), and the pencil-drawn Sketch pack draws its stroke and hatching on that circle instead of wobbling the outline. A `Capsule` keeps a very large corner radius, which the browser reduces to exactly half the shorter side. `.clipShape(Circle())` on content that is not square still clips to a capsule; R-REND-014 does not cover it.
+
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **R-REND-014.TC-1 — Circle in a wide frame**
 
@@ -323,10 +349,14 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
+| 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
 | 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |

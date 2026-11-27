@@ -2,15 +2,15 @@
 id: R-REND-013
 title: Rows without overlap
 status: active
-version: 0.8.1
-rev: 1
+version: 0.10.7
+rev: 2
 page: REND.1
 slot: reqs
 order: 999
 source: [SRC-9]
 realizes: [F-8]
 constrained_by: [A-REND-1]
-hash: 6413f808c068
+hash: d9da48236a57
 ---
 
 C1: In an `HStack`, toolbar, control group or form row, a child that is not text MUST NOT be laid out narrower than its min-content width.

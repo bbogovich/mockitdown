@@ -1,8 +1,8 @@
 ---
 title: "Markdown extension and fence"
-spec_version: 0.10.2
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: MDX.1
 ---
 
@@ -116,6 +116,10 @@ The prototype emitted declarative shadow DOM and SAPUI5 web components, which do
 script-inserted HTML, and warned about instant navigation (SRC-3). Static markup removes the
 problem.
 
+**Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Realizes.** F-11 · **Decisions.** ADR-5
 
 | | Statement |
@@ -128,8 +132,12 @@ problem.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
+| 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

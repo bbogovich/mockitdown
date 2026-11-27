@@ -6,3 +6,5 @@ Typing coalesces: each keystroke in an inspector field or in the code view is ap
 merge while the same field keeps changing, so one undo removes the whole word or value.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

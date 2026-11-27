@@ -1,8 +1,8 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.10.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: ADR.2
 ---
 
@@ -231,6 +231,8 @@ Checked at 0.10.1 after R-WEB-001.C13/C17 and R-REPO-004.C6/C15: the reference d
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-WEB-001, R-REPO-004
 
 | | Statement |
@@ -252,6 +254,8 @@ Checked at 0.10.1 after R-WEB-002.C13 (the boolean `edit` attribute): the code s
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-WEB-002
 
 | | Statement |
@@ -271,6 +275,8 @@ Checked at 0.10.1 after R-WEB-001.C13/C17 (reference data copied by the build sc
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **Constrains.** R-WEB-001, R-WEB-003, R-WEB-005
 
 | | Statement |
@@ -286,11 +292,13 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |

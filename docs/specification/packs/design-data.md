@@ -1,8 +1,8 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.10.3
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: PACK.3
 ---
 
@@ -38,6 +38,8 @@ for now; a Python warning for a misplaced role can follow once the rules have be
 gallery.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **R-PACK-016.TC-1 — Every role has a rule**
 
@@ -89,6 +91,8 @@ that reads it changes.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-PACK-017.TC-1 — Types complete**
 
 Shared test in both suites (`test_types.py`, `types.test.ts`): every rule has `params` with valid
@@ -118,6 +122,8 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

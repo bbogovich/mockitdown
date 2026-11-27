@@ -2,12 +2,12 @@
 id: R-TOOL-002
 title: "The outline: mockitdown-outline"
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.4
 slot: reqs
 order: 2
-hash: 78f9cb97438b
+hash: 8895d7d56036
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-EDIT-006]

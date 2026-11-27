@@ -2,8 +2,8 @@
 id: R-PACK-005
 title: Pack selection
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: PACK.1
 slot: reqs
 order: 5
@@ -12,7 +12,8 @@ realizes: [F-3]
 constrained_by: [A-EVAL-1, A-PACK-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 2ee093e53b38
+hash: e7f94f78fd37
+refs: [R-EVAL-011]
 ---
 
 C1: The evaluator MUST select a mockup's pack by the first of: the `pack` fence attribute or render option; the first `import <Module>` whose module name a pack declares (compared case-insensitively); the `pack` argument of `@Screen`; the configured default pack (`default_pack`, default `base`).

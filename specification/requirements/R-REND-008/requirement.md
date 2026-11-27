@@ -2,8 +2,8 @@
 id: R-REND-008
 title: Unknown elements and roles
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.7
+rev: 1
 page: REND.1
 slot: reqs
 order: 8
@@ -11,7 +11,8 @@ source: [SRC-3]
 realizes: [F-12]
 constrained_by: [A-REND-1, A-EVAL-1]
 reverse_engineered: true
-hash: bd3b728839fc
+hash: 903055857cd3
+refs: [R-PACK-004]
 ---
 
 C1: The renderer MUST render an `unknown` view as `div.mkd-unknown[data-el=<name>]` containing `span.mkd-unknown__name` with the name, followed by the view's children.

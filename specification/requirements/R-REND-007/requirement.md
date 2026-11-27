@@ -2,8 +2,8 @@
 id: R-REND-007
 title: Static, deterministic output
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 2
 page: REND.1
 slot: reqs
 order: 7
@@ -12,7 +12,7 @@ realizes: [F-8, F-11]
 constrained_by: [A-REND-1, A-REND-2]
 decisions: [ADR-5]
 reverse_engineered: true
-hash: 371148391256
+hash: c72bea6f2e86
 ---
 
 C1: Rendered mockups MUST be static: controls MUST be non-interactive elements carrying ARIA roles (`button`, `switch`, `checkbox`, `radio`, `textbox`, `link`, …) and MUST NOT require JavaScript.

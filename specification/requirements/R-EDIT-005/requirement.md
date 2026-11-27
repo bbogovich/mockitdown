@@ -2,12 +2,12 @@
 id: R-EDIT-005
 title: The design document module
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 2
 page: WEB.3
 slot: reqs
 order: 5
-hash: 6ba0aae4bd02
+hash: 8fea0512d628
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-WEB-001]

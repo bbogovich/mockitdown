@@ -10,3 +10,5 @@ file in `pages/`. Responses carry `Cache-Control: no-store`, so a rebuild shows 
 Checked at 0.10.1 after R-WEB-001.C13 and C17 (reference data in `dist/shared/reference/`): the server already serves `dist/` and `shared/` as they are (C5), so it needs no change.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

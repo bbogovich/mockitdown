@@ -6,3 +6,5 @@ impractical in a documentation page.
 
 **Consequences.** mockitdown owns the fidelity of every pack; the example site is the visual
 regression reference.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

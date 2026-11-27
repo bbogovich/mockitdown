@@ -1,8 +1,8 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.8.11
+spec_version: 0.10.8
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: REND.2
 ---
 
@@ -14,6 +14,8 @@ Light and dark appearance, device sizes, the frame unit that scales a mockup to 
 
 `auto` is the natural default for a documentation site with a light/dark toggle; `both` is for
 reviewing a screen's two modes together.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-9 · **Decisions.** ADR-6
 
@@ -32,6 +34,8 @@ reviewing a screen's two modes together.
 All appearance logic is in four generated rule sets per pack; pack CSS itself never branches on
 appearance (R-PACK-007.C2). An `auto` frame on a Material/Zensical page follows the page's own
 toggle rather than the operating system, because that is what the reader chose.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Realizes.** F-9 · **Decisions.** ADR-6
 
@@ -188,7 +192,7 @@ keep a pack's framework width where it has one (Material snackbars' 288 or 344 p
 
 **R-DEV-008.TC-1 — Fit frames keep their width and hold presentations**
 
-Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth. Every element sample and variant of the gallery (R-WEB-004 TC-4) is checked the same way, open menus and pickers included. (`python/tests/test_fit.py`, `typescript/tests/browser/gallery.spec.mjs`.)
+Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth. Every element sample and variant of the gallery (R-WEB-004 TC-4) is checked the same way, open menus and pickers included. (`python/tests/test_fit.py`, `typescript/tests/browser/gallery-render.spec.mjs`.)
 
 **R-DEV-008.TC-2 — Sheet and tooltip at fit**
 
@@ -369,6 +373,8 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
+| 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.8.11 | 2026-11-25 | as built (#14): empty menubar value draws the bar; status items in macOS order (battery, Wi-Fi, Control Center, clock); every SwiftUI command placement; warnings for an unknown menu title (C10) and placement (C11); icons, section headers and cascading submenus (C12) |
 | 0.8.10 | 2026-11-25 | re-based on R-DEV-010@0.8.9: the window keeps its form below the menu bar |
 | 0.8.9 | 2026-11-25 | as built: unified title bar rules (C7, C13), icon-only toolbar buttons sharing a glass capsule (C8, C14), macOS sidebar toggle and titles in the toolbar row (C9, C15, C16), windowed ignored without iPadOS chrome (C10), iPad toggle (C11), split column toolbar (C12), windowed on CLI and element (C4) (#13); as built: ipados draws a home indicator; macos title bar unified per R-DEV-010 (#13) |
@@ -379,6 +385,8 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
+| 0.8.11 | 2026-11-25 | as built (#14): empty menubar value draws the bar; status items in macOS order (battery, Wi-Fi, Control Center, clock); every SwiftUI command placement; warnings for an unknown menu title (C10) and placement (C11); icons, section headers and cascading submenus (C12) |
 | 0.8.10 | 2026-11-25 | re-based on R-DEV-010@0.8.9: the window keeps its form below the menu bar |
 | 0.8.9 | 2026-11-25 | as built: unified title bar rules (C7, C13), icon-only toolbar buttons sharing a glass capsule (C8, C14), macOS sidebar toggle and titles in the toolbar row (C9, C15, C16), windowed ignored without iPadOS chrome (C10), iPad toggle (C11), split column toolbar (C12), windowed on CLI and element (C4) (#13); as built: ipados draws a home indicator; macos title bar unified per R-DEV-010 (#13) |
 | 0.8.8 | 2026-11-25 | C6: iPadOS 26 floating glass sidebar (review of #12) |

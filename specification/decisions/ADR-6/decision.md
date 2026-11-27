@@ -2,14 +2,15 @@
 id: ADR-6
 title: Token-driven appearance
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: ADR.1
 slot: decisions
 order: 6
 source: [SRC-2]
 constrains: [R-APP-001, R-APP-002, R-PACK-006, R-PACK-007]
-hash: c855f2fa66f4
+hash: e1aa2e7fd128
+refs: [ADR-5]
 ---
 
 D1: Each pack defines light and dark token sets; pack CSS uses only tokens for appearance-dependent values and never branches on appearance.

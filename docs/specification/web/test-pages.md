@@ -29,6 +29,8 @@ Checked at 0.10.1 after R-WEB-001.C13 and C17 (reference data in `dist/shared/re
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-WEB-003.TC-1 — Static server**
 
 Automated by `typescript/tests/unit/serve.test.ts`.
@@ -96,9 +98,11 @@ Test pages added later (the designer test page) are published by the same copy.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
 **R-WEB-004.TC-1 — Every pack renders**
 
-Automated by `typescript/tests/browser/gallery.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
+Automated by `typescript/tests/browser/gallery-packs.spec.mjs`: for every pack, select it, render and wait for all mockups (`window.packGallery.renderAll()`), and fail on any error diagnostic, any empty shadow root or zero-sized visible mockup, any element of `shared/reference/<pack>.json` or pattern of `shared/patterns/index.json` missing.
 
 **R-WEB-004.TC-10 — Gallery page behaviour**
 
@@ -107,14 +111,14 @@ Automated, in the files named; no step is new behaviour, the case only ties the 
 1. `typescript/tests/unit/patterns.test.ts`: `shared/patterns/index.json` lists, in order, the patterns of
    C3 (sign-in form, list and detail, settings, dashboard with charts, data table with toolbar and
    filters, wizard), each entry with `id`, `title` and `file`, and each file imports no module (C8).
-2. `gallery.spec.mjs`, "light and dark appearance, and the element-name filter": choosing dark sets the
+2. `gallery-packs.spec.mjs`, "light and dark appearance, and the element-name filter": choosing dark sets the
    page and every mockup to dark, and typing `chart` in the filter hides every element card whose name
    does not contain it, and clearing it shows all (C6).
-3. `gallery.spec.mjs`, "under 720 px the side panel collapses into a menu": at 600 px wide the side panel
+3. `gallery-packs.spec.mjs`, "under 720 px the side panel collapses into a menu": at 600 px wide the side panel
    is hidden behind the menu button, which opens it, and choosing a pack closes it; at 1200 px the panel
    is shown and the button hidden (C7). The 720 px boundary itself is not tested.
-4. `gallery.spec.mjs`, "a missing or unknown #pack= selects the first pack of the side panel" (C12).
-5. `gallery.spec.mjs`, TC-1 uses `window.packGallery.state`, `select(id)` and `renderAll()` for every
+4. `gallery-packs.spec.mjs`, "a missing or unknown #pack= selects the first pack of the side panel" (C12).
+5. `gallery-packs.spec.mjs`, TC-1 uses `window.packGallery.state`, `select(id)` and `renderAll()` for every
    pack (C11).
 
 Not covered by an automated test at 0.10.1: C9 (render with `device="fit"`; patterns with the device and
@@ -126,19 +130,19 @@ Automated by `typescript/tests/unit/patterns.test.ts`: `render` each pattern und
 
 **R-WEB-004.TC-3 — Deep link**
 
-Automated by `typescript/tests/browser/gallery.spec.mjs`: opening `packs.html#pack=carbon` shows Carbon selected; selecting MUI from the side panel sets `#pack=mui`, survives a reload, and Back returns to Carbon.
+Automated by `typescript/tests/browser/gallery-packs.spec.mjs`: opening `packs.html#pack=carbon` shows Carbon selected; selecting MUI from the side panel sets `#pack=mui`, survives a reload, and Back returns to Carbon.
 
 **R-WEB-004.TC-4 — Variants seen whole**
 
-`gallery.spec.mjs`: for every pack, after `renderAll()`, no two variant cells intersect, every `fit` frame's width ≥ its scrollWidth, a card whose mockup is wider than the card scrolls (scrollWidth > clientWidth), presentation surfaces meet the minimum size.
+`gallery-packs.spec.mjs`: for every pack, after `renderAll()`, no two variant cells intersect, every `fit` frame's width ≥ its scrollWidth, a card whose mockup is wider than the card scrolls (scrollWidth > clientWidth), presentation surfaces meet the minimum size.
 
 **R-WEB-004.TC-5 — SwiftUI per-platform examples**
 
-`gallery.spec.mjs`: at `#pack=swiftui` the examples include patterns with device phone, tablet and desktop, the desktop one showing a menu bar with an open menu; patterns with `packs` are not shown for other packs; `patterns.test.ts` and `test_patterns.py` render each pack-specific pattern in its packs without an error diagnostic.
+`gallery-examples.spec.mjs`: at `#pack=swiftui` the examples include patterns with device phone, tablet and desktop, the desktop one showing a menu bar with an open menu; patterns with `packs` are not shown for other packs; `patterns.test.ts` and `test_patterns.py` render each pack-specific pattern in its packs without an error diagnostic.
 
 **R-WEB-004.TC-6 — Elements and Examples tabs**
 
-`gallery.spec.mjs`: default tab Elements; `#pack=carbon&tab=examples` opens Examples with the first example in the viewport and no element card visible; switching pack keeps the tab; the index links scroll to each example; `packGallery.tab()` resolves.
+`gallery-examples.spec.mjs`: default tab Elements; `#pack=carbon&tab=examples` opens Examples with the first example in the viewport and no element card visible; switching pack keeps the tab; the index links scroll to each example; `packGallery.tab()` resolves.
 
 **R-WEB-004.TC-7 — Complex layout examples render everywhere**
 
@@ -146,7 +150,7 @@ Automated by `typescript/tests/browser/gallery.spec.mjs`: opening `packs.html#pa
 
 **R-WEB-004.TC-8 — Show source on every example**
 
-Browser test (Chromium, `gallery.spec.mjs`), for the `base` pack (core patterns) and for `swiftui`
+Browser test (Chromium, `gallery-examples.spec.mjs`), for the `base` pack (core patterns) and for `swiftui`
 (including the Mac example with `device`, `chrome`, `menubar` and `app`):
 
 1. On the Examples tab every `.pattern` has one Show source button with `aria-expanded="false"`, and its
@@ -240,6 +244,8 @@ workflow is `.github/workflows/ci.yml`, with one job per variant; it publishes n
 overlap `pages.yml` and `release.yml`.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **R-WEB-005.TC-1 — Browser smoke test**
 

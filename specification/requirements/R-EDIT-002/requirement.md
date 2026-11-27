@@ -2,12 +2,12 @@
 id: R-EDIT-002
 title: "Edit API: insert, remove and move"
 status: active
-version: 0.10.3
-rev: 1
+version: 0.10.8
+rev: 3
 page: WEB.3
 slot: reqs
 order: 2
-hash: 585ace592927
+hash: 07024f5f3325
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-001]

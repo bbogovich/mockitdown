@@ -8,3 +8,5 @@ static picture — is delivered by the HTML output itself: no scripts, embedded 
 
 **Consequences.** One renderer to maintain; realism is a matter of CSS per pack. A mockup is
 printed or exported by the browser like the rest of the page.
+
+**Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

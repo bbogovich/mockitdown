@@ -2,8 +2,8 @@
 id: R-REND-001
 title: Figure structure
 status: active
-version: 0.2.0
-rev: 0
+version: 0.10.8
+rev: 1
 page: REND.1
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-8, F-9, F-10]
 constrained_by: [A-REND-2]
 decisions: [ADR-1]
 reverse_engineered: true
-hash: 10a15a3e88c1
+hash: f0780c3216df
 ---
 
 C1: The figure assembler MUST render a mockup as one `div.mkd-figure.mkd-pack-<id>` with `role="figure"`, an `aria-label` (the title, else the id, else "<pack name> mockup"), and `data-pack`, `data-device` and `data-appearance` attributes.
