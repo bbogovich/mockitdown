@@ -148,8 +148,8 @@ entries:
   - seq: 17
     issue: 17
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-26T20:40:21Z
     queued-by: agent:claude
     started:
@@ -157,8 +157,8 @@ entries:
   - seq: 18
     issue: 19
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -166,8 +166,8 @@ entries:
   - seq: 19
     issue: 20
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -175,8 +175,8 @@ entries:
   - seq: 20
     issue: 21
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -184,8 +184,8 @@ entries:
   - seq: 21
     issue: 22
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -193,8 +193,8 @@ entries:
   - seq: 22
     issue: 23
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -202,8 +202,8 @@ entries:
   - seq: 23
     issue: 24
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -211,8 +211,8 @@ entries:
   - seq: 24
     issue: 25
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -220,8 +220,8 @@ entries:
   - seq: 25
     issue: 26
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -229,8 +229,8 @@ entries:
   - seq: 26
     issue: 27
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -238,8 +238,8 @@ entries:
   - seq: 27
     issue: 28
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -247,8 +247,8 @@ entries:
   - seq: 28
     issue: 29
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -256,8 +256,8 @@ entries:
   - seq: 29
     issue: 30
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -265,8 +265,8 @@ entries:
   - seq: 30
     issue: 31
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -274,8 +274,8 @@ entries:
   - seq: 31
     issue: 32
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -283,8 +283,8 @@ entries:
   - seq: 32
     issue: 33
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -292,8 +292,8 @@ entries:
   - seq: 33
     issue: 34
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -301,8 +301,8 @@ entries:
   - seq: 34
     issue: 35
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -310,8 +310,8 @@ entries:
   - seq: 35
     issue: 36
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -319,8 +319,8 @@ entries:
   - seq: 36
     issue: 37
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -328,8 +328,8 @@ entries:
   - seq: 37
     issue: 38
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -337,8 +337,8 @@ entries:
   - seq: 38
     issue: 39
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -346,8 +346,8 @@ entries:
   - seq: 39
     issue: 40
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -355,8 +355,8 @@ entries:
   - seq: 40
     issue: 41
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -364,8 +364,8 @@ entries:
   - seq: 41
     issue: 42
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -373,8 +373,8 @@ entries:
   - seq: 42
     issue: 43
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -382,8 +382,8 @@ entries:
   - seq: 43
     issue: 44
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -391,8 +391,8 @@ entries:
   - seq: 44
     issue: 45
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
@@ -400,8 +400,8 @@ entries:
   - seq: 45
     issue: 46
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261126-223356
     queued: 2026-11-27T03:08:09Z
     queued-by: agent:claude
     started:
