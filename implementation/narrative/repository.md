@@ -1,6 +1,6 @@
 ---
 title: Repository layout and shared assets
-impl_version: 0.3.23
+impl_version: 0.3.24
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REPO
@@ -31,8 +31,9 @@ mockitdown/                    (main branch)
     scripts/assemble-gallery.mjs  lays the gallery out as static files for /gallery/ (R-WEB-004.C27)
     pages/                     test pages and the pack gallery (packs.html, packs.js, snippet.js, packs.css)
     playwright.config.mjs, playwright.published.config.mjs   browser tests; the second checks the assembled site
+    playwright.migration.config.mjs   the stylesheet-migration screenshots (IT-27), on demand; baseline in migration-baseline/
     tests/unit/, tests/browser/  node:test suites (IT-9, IT-10 …) compiled to test-build/; Playwright specs
-    dist/, test-build/, node_modules/, LICENSE   build output and copies, ignored by git
+    dist/, test-build/, node_modules/, LICENSE, migration-baseline/   build output, copies and baselines, ignored by git
   shared/                      the single source of what both variants publish
     packs/<id>/pack.json, pack.css
     packs/_partials/<name>.css stylesheet partials a pack.css includes (R-PACK-018); no pack.json, never copied
@@ -136,6 +137,40 @@ in both.
   `PackRegistry.get` for a pack found in a `pack_paths` directory (`_refuse_import`), in TypeScript by
   `registerPack` — both with `pack 'x': @import is resolved only in built-in packs`.
 
+### The partials and the duplicate check (C9, C10)
+
+| Partial | Included by | Holds |
+|---|---|---|
+| `mac-1bit.css` | `lisa`, `mac-classic` | the whole common 1-bit stylesheet: dither patterns, windows, scroll bars, controls, icons, paint tools |
+| `material3.css` | `android`, `angular-material` | the M3 text button and its state layer |
+| `win-button.css` | `winxp`, `vista` | the 75 × 23 px push button |
+| `crt.css` | `nls`, `phosphor` | the layer over the screen that the scan lines and vignette are painted on |
+
+A pack's own `pack.css` keeps its header comment, the include line and only what differs: `lisa`'s
+overrides (title bars, thick dialog borders, LisaWrite and LisaCalc), `mac-classic`'s hollow scroll
+arrows, each pack's button height and padding. Two techniques keep one partial for two packs that differ
+in detail without changing either's rendering:
+
+- **Both names in one selector.** Where the packs name a window variant or an icon element differently,
+  the partial lists both (`.mkd-card:is([data-variant="finder"], [data-variant="folder"])`); `:is()` of
+  attribute selectors has the specificity of one, and a pack only emits the names its `pack.json`
+  declares.
+- **A custom property as the hook.** Where a pack draws a part differently, the partial reads a custom
+  property with an empty fallback (`var(--mc-arrow-up,)` in the scroll-bar background layers) that the
+  pack sets on its frame (`--mc-arrow-up: <two layers>,`).
+
+The same techniques removed runs repeated inside one stylesheet: in `win95` the Start menu and message
+boxes share one rule for the raised window face, menu-bar items and menu-bar triggers one rule; in
+`hologram` cards and buttons read the chamfer from `--ho-clip` and `--ho-cuts`. Nothing is common to every
+pack, so `base` gained no rule.
+
+`test_packs.py` `test_no_duplicated_css_runs` (R-PACK-018.TC-2) keeps it so: it normalises every line of
+`shared/packs/*/pack.css` and `_partials/*.css` as the VibeItOut health report does (trimmed, white space
+collapsed, lines under four characters or without a word character dropped) and fails listing every run
+of six kept lines found twice. A move of rules is checked by screenshots (R-PACK-018.TC-3,
+[Testing](testing.md) IT-27): a baseline of the gallery for every pack whose stylesheet changes, before
+the change, compared pixel for pixel after it.
+
 ## Element reference JSON
 
 `python/tools/gen_reference.py` computes each listed pack's element samples once and writes both the
@@ -182,3 +217,4 @@ the sample once per variant (at most eight, `.variant("…")`), each captioned, 
 | 0.3.16 | 2026-11-25 | pack-specific patterns in `shared/patterns/` (#15) |
 | 0.3.20 | 2026-11-26 | Audit: layout lists elements/, scripts/, pages/ and the Playwright configs |
 | 0.3.23 | 2026-11-27 | Stylesheet partials: `shared/packs/_partials/`, resolution in both builds, errors, run-time refusal (R-PACK-018) (#54) |
+| 0.3.24 | 2026-11-27 | The four partials, the two ways one partial serves packs that differ, the duplicate check (R-PACK-018.C9, C10) (#55) |

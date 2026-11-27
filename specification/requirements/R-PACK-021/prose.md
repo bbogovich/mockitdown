@@ -4,4 +4,4 @@ coloured icons and aliases, desk accessories, Control Panel, Teach and the shut-
 
 **Verification.** TC-1 (automated), TC-M1 (side by side with the GUI Gallery's screenshots).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.

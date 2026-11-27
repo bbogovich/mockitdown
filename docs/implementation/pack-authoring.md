@@ -1,6 +1,6 @@
 ---
 title: Pack authoring guide
-impl_version: 0.3.23
+impl_version: 0.3.24
 status: draft
 updated: 2026-11-27
 page_id: IMPL.PACKAUTH
@@ -78,6 +78,12 @@ Then, in this order:
   (`shared/packs/_partials/<name>.css`, every selector starting with `.mkd-scope`), included by both
   with `@import "../_partials/<name>.css";` at the top of their `pack.css`; the builds resolve it into
   each copy. A site pack (`-P packs`) cannot use partials: its `@import` is refused at load.
+- `test_no_duplicated_css_runs` fails when six consecutive lines of a built-in `pack.css` or partial
+  appear again, in another stylesheet or the same one. Move the rules into a partial (or into `base`,
+  for a rule every pack needs); where the two packs differ in a name, list both names in the partial's
+  selector, and where they differ in a value, let the partial read a custom property the pack sets.
+  Inside one stylesheet, give the two selectors one rule. Check the move with the migration screenshots
+  (`typescript/tests/browser/css-migration.spec.mjs`, see [Testing](testing.md) IT-27).
 
 Inspect the markup a role emits with `mockitdown render`:
 
@@ -124,3 +130,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 | 0.3.9 | 2026-11-25 | Fit padding token, rows and popups at fit, tooltip arrows (#8) |
 | 0.3.11 | 2026-11-25 | Declared element samples (`sample`) (#10) |
 | 0.3.23 | 2026-11-27 | Stylesheet partials for built-in packs (R-PACK-018) (#54) |
+| 0.3.24 | 2026-11-27 | The duplicate check and how to resolve it (R-PACK-018.C9) (#55) |

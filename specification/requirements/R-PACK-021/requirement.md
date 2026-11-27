@@ -2,8 +2,8 @@
 id: R-PACK-021
 title: Apple IIgs GS/OS beyond the Finder window
 status: active
-version: 0.12.4
-rev: 2
+version: 0.12.6
+rev: 3
 page: PACK.5
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 29a67857e902
+hash: 2c680dd2a002
 refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 

@@ -27,12 +27,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
 
-## Partly implemented (1)
-
-| Requirement | Title | Implemented | Specification | Date | Issue |
-|---|---|---|---|---|---|
-| R-PACK-018 | Stylesheet partials | 0.12.4 | 0.12.4 | 2026-11-27 | #54 |
-
 ## Not started (125)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
@@ -163,7 +157,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
 | R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
 
-## Implemented (6)
+## Implemented (7)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -171,5 +165,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.5 | 2026-11-27 | #55 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.4 | 2026-11-27 | #54 |

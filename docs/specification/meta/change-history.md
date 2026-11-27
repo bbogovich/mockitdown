@@ -12,6 +12,8 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.6 | 2026-11-27 | `PACK.5` | #55: the requirements standing on R-PACK-018 (R-PACK-019 to R-PACK-029) re-checked after its as-built records; no obligation changed |
+| 0.12.5 | 2026-11-27 | `PACK.4` | #55 as built: R-PACK-018 TC-2 names the measure's own test, TC-3 its configuration, MIGRATION_PACKS and the capture of packs the gallery does not list; prose names the four partials; no obligation changed |
 | 0.12.4 | 2026-11-27 | `ADR.2`, `PACK.3`, `PACK.4`, `PACK.5`, `REPO.1` | #54 as-built records released together with their re-checks (R-PACK-018, R-REPO-002, ADR-17 and the requirements standing on them): no obligation changed |
 | 0.12.3 | 2026-11-27 | `ADR.2`, `PACK.3`, `PACK.5`, `REPO.1` | re-checks after the #54 as-built records: ADR-17, R-PACK-016, R-REPO-003 and R-PACK-019 to R-PACK-029 unchanged in obligation |
 | 0.12.2 | 2026-11-27 | `PACK.4`, `REPO.1` | as built (#54): R-PACK-018 C6 (an @import sharing its line fails), C8 (only an @import outside comments is refused) and TC-1 (tests, fixture copies, dist/shared/packs/); R-REPO-002.TC-4 names its tests |

@@ -1,6 +1,6 @@
 ---
 title: "Shared stylesheet rules"
-spec_version: 0.12.4
+spec_version: 0.12.5
 status: draft
 updated: 2026-11-27
 page_id: PACK.4
@@ -50,6 +50,18 @@ one line.
 
 **As built (#54).** The build also fails on an include that shares its line with other text (C6), and only an `@import` outside a comment is refused at run time (C8). Re-checked against ADR-17 as re-checked in the same release: no obligation changed.
 
+**As built (#55).** Four partials hold rules two packs share: `mac-1bit.css` (lisa and mac-classic: the
+whole common stylesheet), `material3.css` (android and angular-material: the text button and its state
+layer), `win-button.css` (winxp and vista: the push button) and `crt.css` (nls and phosphor: the layer
+the tube's scan lines are painted on). No rule was common to every pack, so `base` is unchanged.
+Where the two packs of `mac-1bit.css` name the same window or icon differently (`finder` and `folder`,
+`noGrow` and `tool`, `dBox` and `dialog`), the partial's selectors list both names; a pack only emits its
+own. Where they draw a part differently, the partial reads a custom property the pack sets (mac-classic's
+hollow scroll arrows: `--mc-arrow-up`, `-down`, `-left`, `-right` on its frame). Runs repeated inside one
+stylesheet (win95, hologram) became one rule with both selectors, or custom properties (`--ho-clip`,
+`--ho-cuts`). TC-3 captured the ten changed packs (hologram and phosphor, which the gallery does not list,
+as its step 3 says); every capture was identical.
+
 **R-PACK-018.TC-1 — Partials resolved by both builds**
 
 Unit tests in both variants over one fixture set, `python/tests/fixtures/partials/` read by
@@ -84,6 +96,8 @@ Python unit test `python/tests/test_packs.py::test_no_duplicated_css_runs`: norm
 `shared/packs/*/pack.css` and `shared/packs/_partials/*.css` (trim, collapse white space, drop lines
 shorter than four characters or without a word character), hash every run of six consecutive kept
 lines, and fail listing file and line of every run that occurs twice (in two files or within one).
+`test_duplicated_runs_measure` checks the measure itself on small inputs: a copied six-line run is
+found across two files and within one, and six lines that differ in one line are not (V1).
 The same measure as the VibeItOut health report's duplicate blocks, so that after the migration the
 report counts no duplicated block in a pack stylesheet.
 
@@ -97,8 +111,13 @@ Run once by the issue that moves rules, and again by any later issue that moves 
    whose `pack.css` will change, in light and dark appearance, at 1280 × 800; after the change, capture
    them again and compare pixel by pixel (`expect(page).toHaveScreenshot` with `maxDiffPixels: 0`
    against the baseline taken before). Any difference fails. The script is
-   `typescript/tests/browser/css-migration.spec.mjs`, run with `MIGRATION_BASELINE=1` to record the
-   baseline; it is not part of `npm test`.
+   `typescript/tests/browser/css-migration.spec.mjs`, run with its own configuration
+   (`npx playwright test -c playwright.migration.config.mjs`, after `npm run build`) and
+   `MIGRATION_PACKS=<id>,…` naming the packs whose `pack.css` changes; `MIGRATION_BASELINE=1` records the
+   baseline in `typescript/migration-baseline/` (git-ignored). It is not part of `npm test`.
+3. A pack the gallery does not list (an easter egg, F-3.C9) cannot be opened there: it is captured on the
+   same page, the gallery hidden, from its conformance sample (`shared/conformance/pack-<id>.mockitdown`)
+   and one card per element (`Name("Sample")` at `device: fit`), in light and dark, compared the same way.
 
 **Realizes.** F-3, F-16
 
@@ -120,8 +139,10 @@ Run once by the issue that moves rules, and again by any later issue that moves 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.5 | 2026-11-27 | as built: TC-2 names the measure's own test, TC-3 its configuration, MIGRATION_PACKS and the capture of packs the gallery does not list; prose names the partials #55 wrote (#55); prose: the as-built paragraph counts the four partials (#55) |
 | 0.12.4 | 2026-11-27 | prose names the as-built C6 and C8 details; re-checked against ADR-17 (#54) |
 | 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.4 | 2026-11-27 | prose names the as-built C6 and C8 details; re-checked against ADR-17 (#54) |
 | 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |

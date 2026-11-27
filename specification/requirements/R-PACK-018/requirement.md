@@ -2,8 +2,8 @@
 id: R-PACK-018
 title: Stylesheet partials
 status: active
-version: 0.12.4
-rev: 2
+version: 0.12.5
+rev: 4
 page: PACK.4
 slot: reqs
 order: 1
@@ -11,7 +11,7 @@ source: [SRC-18]
 realizes: [F-3, F-16]
 constrained_by: [A-REPO-1, ADR-17]
 requires: [R-PACK-007, R-REPO-002]
-hash: 06ba8496c1ad
+hash: a1b408652edb
 refs: [R-PACK-007, R-REPO-004]
 ---
 

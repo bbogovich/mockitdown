@@ -1,6 +1,6 @@
 ---
 title: "Retro and handheld packs"
-spec_version: 0.12.4
+spec_version: 0.12.6
 status: draft
 updated: 2026-11-27
 page_id: PACK.5
@@ -42,7 +42,7 @@ the shipped Windows 95, NeXTSTEP and CDE packs.
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-019.TC-1 — The amiga pack, automated**
 
@@ -97,7 +97,7 @@ the developer's screenshot, SRC-18#image1; the monochrome look stays as the dark
 **Verification.** TC-1 (automated, including the colours of C3 and C4 as computed styles), TC-M1
 (side by side with the screenshot).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-020.TC-1 — The win1 pack, automated**
 
@@ -151,7 +151,7 @@ coloured icons and aliases, desk accessories, Control Panel, Teach and the shut-
 
 **Verification.** TC-1 (automated), TC-M1 (side by side with the GUI Gallery's screenshots).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-021.TC-1 — The gsos pack, automated**
 
@@ -205,7 +205,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-022.TC-1 — The gem pack, automated**
 
@@ -258,7 +258,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-023.TC-1 — The geos pack, automated**
 
@@ -311,7 +311,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-024.TC-1 — The riscos pack, automated**
 
@@ -364,7 +364,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-025.TC-1 — The beos pack, automated**
 
@@ -417,7 +417,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-026.TC-1 — The newton pack, automated**
 
@@ -470,7 +470,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-027.TC-1 — The palm pack, automated**
 
@@ -523,7 +523,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-028.TC-1 — The wince pack, automated**
 
@@ -576,7 +576,7 @@ clause).
 **Verification.** TC-1 (automated: definition, tokens, rendering, generated reference and gallery,
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
-Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time): no obligation of this requirement changed.
+Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
 **R-PACK-029.TC-1 — The blackberry pack, automated**
 
@@ -622,8 +622,10 @@ clause).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.6 | 2026-11-27 | re-checked after the #55 as-built records of R-PACK-018 |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |

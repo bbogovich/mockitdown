@@ -161,18 +161,18 @@ R-PACK-014 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.11.0 r8 | PACK.1 | SwiftUI presentations and navigation
 R-PACK-016 | requirements | active | 0.12.4 r5 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.11.0 r3 | PACK.3 | Typed parameters and modifiers
-R-PACK-018 | requirements | active | 0.12.4 r2 | PACK.4 | Stylesheet partials
-R-PACK-019 | requirements | active | 0.12.4 r2 | PACK.5 | Amiga Workbench pack
-R-PACK-020 | requirements | active | 0.12.4 r2 | PACK.5 | Windows 1.0 in its default colours
-R-PACK-021 | requirements | active | 0.12.4 r2 | PACK.5 | Apple IIgs GS/OS beyond the Finder window
-R-PACK-022 | requirements | active | 0.12.4 r2 | PACK.5 | Atari ST GEM pack
-R-PACK-023 | requirements | active | 0.12.4 r2 | PACK.5 | GEOS pack
-R-PACK-024 | requirements | active | 0.12.4 r2 | PACK.5 | RISC OS pack
-R-PACK-025 | requirements | active | 0.12.4 r2 | PACK.5 | BeOS pack
-R-PACK-026 | requirements | active | 0.12.4 r2 | PACK.5 | Apple Newton pack
-R-PACK-027 | requirements | active | 0.12.4 r2 | PACK.5 | Palm OS pack
-R-PACK-028 | requirements | active | 0.12.4 r2 | PACK.5 | Windows CE (Pocket PC) pack
-R-PACK-029 | requirements | active | 0.12.4 r2 | PACK.5 | BlackBerry pack
+R-PACK-018 | requirements | active | 0.12.5 r4 | PACK.4 | Stylesheet partials
+R-PACK-019 | requirements | active | 0.12.6 r3 | PACK.5 | Amiga Workbench pack
+R-PACK-020 | requirements | active | 0.12.6 r3 | PACK.5 | Windows 1.0 in its default colours
+R-PACK-021 | requirements | active | 0.12.6 r3 | PACK.5 | Apple IIgs GS/OS beyond the Finder window
+R-PACK-022 | requirements | active | 0.12.6 r3 | PACK.5 | Atari ST GEM pack
+R-PACK-023 | requirements | active | 0.12.6 r3 | PACK.5 | GEOS pack
+R-PACK-024 | requirements | active | 0.12.6 r3 | PACK.5 | RISC OS pack
+R-PACK-025 | requirements | active | 0.12.6 r3 | PACK.5 | BeOS pack
+R-PACK-026 | requirements | active | 0.12.6 r3 | PACK.5 | Apple Newton pack
+R-PACK-027 | requirements | active | 0.12.6 r3 | PACK.5 | Palm OS pack
+R-PACK-028 | requirements | active | 0.12.6 r3 | PACK.5 | Windows CE (Pocket PC) pack
+R-PACK-029 | requirements | active | 0.12.6 r3 | PACK.5 | BlackBerry pack
 R-PACK-030 | requirements | active | 0.12.0 r0 | PACK.1 | User guide: installation and defined terms
 R-REND-001 | requirements | active | 0.10.8 r1 | REND.1 | Figure structure
 R-REND-002 | requirements | active | 0.10.8 r2 | REND.1 | Role markup

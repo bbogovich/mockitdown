@@ -22,3 +22,15 @@ one line.
 **Verification.** TC-1 (resolution in both builds), TC-2 (the duplicate check), TC-3 (rendering unchanged).
 
 **As built (#54).** The build also fails on an include that shares its line with other text (C6), and only an `@import` outside a comment is refused at run time (C8). Re-checked against ADR-17 as re-checked in the same release: no obligation changed.
+
+**As built (#55).** Four partials hold rules two packs share: `mac-1bit.css` (lisa and mac-classic: the
+whole common stylesheet), `material3.css` (android and angular-material: the text button and its state
+layer), `win-button.css` (winxp and vista: the push button) and `crt.css` (nls and phosphor: the layer
+the tube's scan lines are painted on). No rule was common to every pack, so `base` is unchanged.
+Where the two packs of `mac-1bit.css` name the same window or icon differently (`finder` and `folder`,
+`noGrow` and `tool`, `dBox` and `dialog`), the partial's selectors list both names; a pack only emits its
+own. Where they draw a part differently, the partial reads a custom property the pack sets (mac-classic's
+hollow scroll arrows: `--mc-arrow-up`, `-down`, `-left`, `-right` on its frame). Runs repeated inside one
+stylesheet (win95, hologram) became one rule with both selectors, or custom properties (`--ho-clip`,
+`--ho-cuts`). TC-3 captured the ten changed packs (hologram and phosphor, which the gallery does not list,
+as its step 3 says); every capture was identical.
