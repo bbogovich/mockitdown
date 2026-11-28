@@ -239,6 +239,43 @@ def _frame(spec: ChartSpec, labels_below: bool = True) -> tuple[float, float, fl
     return left, 8, spec.width - 8, spec.height - bottom
 
 
+def _bar_group(spec: ChartSpec, plot: _Plot, bar_series: list[list[float]], i: int, start: float, band: float,
+               horizontal: bool) -> list[str]:
+    """The bars of category ``i``, whose band begins at ``start`` on the category axis.
+
+    The value axis runs along x when ``horizontal``, along y otherwise; grouped bars sit side by
+    side across the band, stacked bars share one slot and pile up from zero.
+    """
+    pad, fill = (0.15, 0.7) if horizontal else (0.16, 0.68)
+    thick = band * fill / (1 if spec.stacked else max(len(bar_series), 1))
+    value_at = plot.x if horizontal else plot.y
+    out = []
+    acc = 0.0
+    for si, s in enumerate(bar_series):
+        if i >= len(s):
+            continue
+        v = s[i]
+        if spec.stacked:
+            a, b = value_at(acc), value_at(acc + v)
+            acc += v
+            c = start + band * pad
+        else:
+            a, b = value_at(0), value_at(v)
+            c = start + band * pad + si * thick
+        style = f'rx="2" style="fill:{color(si)};--mkd-series:{color(si)}"/>'
+        if horizontal:
+            out.append(f'<rect class="mkd-chart__bar" x="{min(a, b):.1f}" y="{c:.1f}" width="{abs(b - a):.1f}" '
+                       f'height="{thick:.1f}" {style}')
+            if spec.show_values and not spec.stacked:
+                out.append(_text(max(a, b) + 4, c + thick / 2 + 3.5, _fmt(v), "start"))
+        else:
+            out.append(f'<rect class="mkd-chart__bar" x="{c:.1f}" y="{min(a, b):.1f}" width="{max(thick - 1, 1):.1f}" '
+                       f'height="{abs(b - a):.1f}" {style}')
+            if spec.show_values and not spec.stacked:
+                out.append(_text(c + thick / 2, min(a, b) - 3, _fmt(v), size=9))
+    return out
+
+
 def _bars(spec: ChartSpec) -> str:
     series = spec.series or [[]]
     n = max((len(s) for s in series), default=0)
@@ -255,52 +292,16 @@ def _bars(spec: ChartSpec) -> str:
         for i in range(n):
             yb = plot.y0 + i * band
             out.append(_text(plot.x0 - 6, yb + band / 2 + 3.5, labels[i], "end"))
-            groups = 1 if spec.stacked else len(bar_series)
-            h = band * 0.7 / groups
-            acc = 0.0
-            for si, s in enumerate(bar_series):
-                if i >= len(s):
-                    continue
-                v = s[i]
-                if spec.stacked:
-                    x0, x1 = plot.x(acc), plot.x(acc + v)
-                    acc += v
-                    y = yb + band * 0.15
-                else:
-                    x0, x1 = plot.x(0), plot.x(v)
-                    y = yb + band * 0.15 + si * h
-                out.append(f'<rect class="mkd-chart__bar" x="{min(x0, x1):.1f}" y="{y:.1f}" width="{abs(x1 - x0):.1f}" '
-                           f'height="{h:.1f}" rx="2" style="fill:{color(si)};--mkd-series:{color(si)}"/>')
-                if spec.show_values and not spec.stacked:
-                    out.append(_text(max(x0, x1) + 4, y + h / 2 + 3.5, _fmt(v), "start"))
+            out += _bar_group(spec, plot, bar_series, i, yb, band, horizontal=True)
         return _svg(spec, "".join(out)) + _legend(spec, spec.names if len(series) > 1 else [])
     x0, y0, x1, y1 = _frame(spec)
     plot = _Plot(x0, y0, x1, y1, lo, hi)
     out.append(_axes(spec, plot))
     band = (x1 - x0) / max(n, 1)
-    groups = 1 if spec.stacked else max(len(bar_series), 1)
-    w = band * 0.68 / groups
     for i in range(n):
         xb = x0 + i * band
         out.append(_text(xb + band / 2, y1 + 13, labels[i]))
-        acc = 0.0
-        for si, s in enumerate(bar_series):
-            if i >= len(s):
-                continue
-            v = s[i]
-            if spec.stacked:
-                ya, yb = plot.y(acc), plot.y(acc + v)
-                acc += v
-                x = xb + band * 0.16
-                ww = band * 0.68
-            else:
-                ya, yb = plot.y(0), plot.y(v)
-                x = xb + band * 0.16 + si * w
-                ww = w
-            out.append(f'<rect class="mkd-chart__bar" x="{x:.1f}" y="{min(ya, yb):.1f}" width="{max(ww - 1, 1):.1f}" '
-                       f'height="{abs(yb - ya):.1f}" rx="2" style="fill:{color(si)};--mkd-series:{color(si)}"/>')
-            if spec.show_values and not spec.stacked:
-                out.append(_text(x + ww / 2, min(ya, yb) - 3, _fmt(v), size=9))
+        out += _bar_group(spec, plot, bar_series, i, xb, band, horizontal=False)
     if 0 <= spec.line_series < len(series):
         s = series[spec.line_series]
         pts = " ".join(f"{x0 + (i + .5) * band:.1f},{plot.y(v):.1f}" for i, v in enumerate(s))

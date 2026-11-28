@@ -260,6 +260,44 @@ function strLen(s: string): number {
   return Array.from(s).length;
 }
 
+/** The bars of category `i`, whose band begins at `start` on the category axis. The value axis
+ *  runs along x when `horizontal`, along y otherwise; grouped bars sit side by side across the band,
+ *  stacked bars share one slot and pile up from zero. */
+function barGroup(spec: ChartSpec, plot: Plot, barSeries: number[][], i: number, start: number, band: number,
+  horizontal: boolean): string[] {
+  const [pad, fill] = horizontal ? [0.15, 0.7] : [0.16, 0.68];
+  const thick = band * fill / (spec.stacked ? 1 : Math.max(barSeries.length, 1));
+  const valueAt = horizontal ? (v: number) => plot.x(v) : (v: number) => plot.y(v);
+  const out: string[] = [];
+  let acc = 0.0;
+  barSeries.forEach((s, si) => {
+    if (i >= s.length) return;
+    const v = s[i];
+    let a: number, b: number, c: number;
+    if (spec.stacked) {
+      a = valueAt(acc);
+      b = valueAt(acc + v);
+      acc += v;
+      c = start + band * pad;
+    } else {
+      a = valueAt(0);
+      b = valueAt(v);
+      c = start + band * pad + si * thick;
+    }
+    const style = `rx="2" style="fill:${color(si)};--mkd-series:${color(si)}"/>`;
+    if (horizontal) {
+      out.push(`<rect class="mkd-chart__bar" x="${f1(pyMin(a, b))}" y="${f1(c)}" width="${f1(Math.abs(b - a))}" `
+        + `height="${f1(thick)}" ${style}`);
+      if (spec.show_values && !spec.stacked) out.push(text(pyMax(a, b) + 4, c + thick / 2 + 3.5, fmt(v), "start"));
+    } else {
+      out.push(`<rect class="mkd-chart__bar" x="${f1(c)}" y="${f1(pyMin(a, b))}" width="${f1(pyMax(thick - 1, 1))}" `
+        + `height="${f1(Math.abs(b - a))}" ${style}`);
+      if (spec.show_values && !spec.stacked) out.push(text(c + thick / 2, pyMin(a, b) - 3, fmt(v), "middle", "9"));
+    }
+  });
+  return out;
+}
+
 function bars(spec: ChartSpec): string {
   const series = spec.series.length ? spec.series : [[]];
   const n = series.length ? maxOf(series.map((s) => s.length)) : 0;
@@ -278,27 +316,7 @@ function bars(spec: ChartSpec): string {
     for (let i = 0; i < n; i++) {
       const yb = plot.y0 + i * band;
       out.push(text(plot.x0 - 6, yb + band / 2 + 3.5, labels[i], "end"));
-      const groups = spec.stacked ? 1 : barSeries.length;
-      const h = band * 0.7 / groups;
-      let acc = 0.0;
-      barSeries.forEach((s, si) => {
-        if (i >= s.length) return;
-        const v = s[i];
-        let x0: number, x1: number, y: number;
-        if (spec.stacked) {
-          x0 = plot.x(acc);
-          x1 = plot.x(acc + v);
-          acc += v;
-          y = yb + band * 0.15;
-        } else {
-          x0 = plot.x(0);
-          x1 = plot.x(v);
-          y = yb + band * 0.15 + si * h;
-        }
-        out.push(`<rect class="mkd-chart__bar" x="${f1(pyMin(x0, x1))}" y="${f1(y)}" width="${f1(Math.abs(x1 - x0))}" `
-          + `height="${f1(h)}" rx="2" style="fill:${color(si)};--mkd-series:${color(si)}"/>`);
-        if (spec.show_values && !spec.stacked) out.push(text(pyMax(x0, x1) + 4, y + h / 2 + 3.5, fmt(v), "start"));
-      });
+      out.push(...barGroup(spec, plot, barSeries, i, yb, band, true));
     }
     return svg(spec, out.join("")) + legend(spec, series.length > 1 ? spec.names : []);
   }
@@ -306,32 +324,10 @@ function bars(spec: ChartSpec): string {
   const plot = new Plot(x0, y0, x1, y1, lo, hi);
   out.push(axes(spec, plot));
   const band = (x1 - x0) / Math.max(n, 1);
-  const groups = spec.stacked ? 1 : Math.max(barSeries.length, 1);
-  const w = band * 0.68 / groups;
   for (let i = 0; i < n; i++) {
     const xb = x0 + i * band;
     out.push(text(xb + band / 2, y1 + 13, labels[i]));
-    let acc = 0.0;
-    barSeries.forEach((s, si) => {
-      if (i >= s.length) return;
-      const v = s[i];
-      let ya: number, yb: number, x: number, ww: number;
-      if (spec.stacked) {
-        ya = plot.y(acc);
-        yb = plot.y(acc + v);
-        acc += v;
-        x = xb + band * 0.16;
-        ww = band * 0.68;
-      } else {
-        ya = plot.y(0);
-        yb = plot.y(v);
-        x = xb + band * 0.16 + si * w;
-        ww = w;
-      }
-      out.push(`<rect class="mkd-chart__bar" x="${f1(x)}" y="${f1(pyMin(ya, yb))}" width="${f1(pyMax(ww - 1, 1))}" `
-        + `height="${f1(Math.abs(yb - ya))}" rx="2" style="fill:${color(si)};--mkd-series:${color(si)}"/>`);
-      if (spec.show_values && !spec.stacked) out.push(text(x + ww / 2, pyMin(ya, yb) - 3, fmt(v), "middle", "9"));
-    });
+    out.push(...barGroup(spec, plot, barSeries, i, xb, band, false));
   }
   if (spec.line_series >= 0 && spec.line_series < series.length) {
     const s = series[spec.line_series];
