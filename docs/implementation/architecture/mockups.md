@@ -1,6 +1,6 @@
 ---
 title: The active mockup and the mockup commands
-impl_version: 0.3.59
+impl_version: 0.3.68
 status: draft
 updated: 2026-11-28
 page_id: IMPL.MOCKUPS
@@ -47,8 +47,9 @@ flowchart LR
   (`data-active`, outlined) holds the slot with the designer's `mockitdown-editor`, the others a
   read-only `mockitdown-mockup` with the mockup's options ([The canvas](canvas.md)).
 - **duplicateMockup** (C5): a `structuredClone` of the mockup (code, options and every key the tools do
-  not know), named by `duplicateMockupName` (`<name> copy`, else `<name> copy <n>`, the smallest free
-  `n` from 2, case-sensitive) and placed by `newMockupPlace` with the copied mockup's box as the
+  not know), named by `duplicateMockupName` (`<name>-copy`, else `<name>-copy-<n>`, the smallest free
+  `n` from 2, case-sensitive; the designer renames it afterwards), which calls `copyName` in
+  `design/frames.ts`, the rule element copies' identifiers share ([Commands](commands.md)) and placed by `newMockupPlace` with the copied mockup's box as the
   reference (the active one by default, so exactly as a new mockup), the boxes measured as for
   `newMockup` ([Mockup frames](frames.md)). `addMockup` appends it, records one step of kind
   `mockups` (snapshots with the list before and after), notifies `change` and makes it active.
@@ -70,12 +71,12 @@ flowchart LR
 ## Use
 
 ```js
-session.run("duplicateMockup");                  // {mockup: "Inbox copy"}, now active
-session.duplicateMockup("Sign in");              // {mockup: "Sign in copy"} beside Sign in
+session.run("duplicateMockup");                  // {mockup: "Inbox-copy"}, now active
+session.duplicateMockup("Sign in");              // {mockup: "Sign in-copy"} beside Sign in
 session.deleteMockup();                          // the active one; its neighbour becomes active
 session.commands.filter((c) => c.name.endsWith("Mockup"));
 import { duplicateMockupName } from "mockitdown/design";
-duplicateMockupName(["Inbox", "Inbox copy"], "Inbox");   // "Inbox copy 2"
+duplicateMockupName(["Inbox", "Inbox-copy"], "Inbox");   // "Inbox-copy-2"
 ```
 
 ## Tests
@@ -98,3 +99,4 @@ designer on `pages/designer.html`). See [Testing](../testing.md).
 | Version | Date | Change |
 |---|---|---|
 | 0.3.59 | 2026-11-28 | Page written: activation from frames and the Mockups list, `duplicateMockup`, `deleteMockup`, the mockup commands in `session.commands`, IT-71 (#43) |
+| 0.3.68 | 2026-11-28 | Copies named `<name>-copy`, then `<name>-copy-<n>`, through `copyName` (R-TOOL-013.C5; #88) |

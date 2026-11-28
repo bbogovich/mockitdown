@@ -1,6 +1,6 @@
 ---
 title: Commands on the selection
-impl_version: 0.3.59
+impl_version: 0.3.68
 status: draft
 updated: 2026-11-28
 page_id: IMPL.COMMANDS
@@ -54,8 +54,10 @@ flowchart LR
   lines, with a comment trailing its last line when it owns its lines) and re-indents them so its first
   line is at column 0. The nodes are taken in source order.
 - **Identifiers** (C2, C11): `usedIdentifiers` collects every `.id` of the mockup; `freshIdentifiers`
-  parses the copy and renames, with the `rename` operation, each `.id("x")` already used to `x-<n>`,
-  the smallest free `n` from 2, adding every identifier it keeps or makes to the set, so several copies
+  parses the copy and renames, with the `rename` operation, each `.id("x")` already used to `x-copy`, else
+  `x-copy-<n>` with the smallest free `n` from 2 (`copyName` in `design/frames.ts`, shared with
+  `duplicateMockupName`), so duplicating `ok` gives `ok-copy`, then `ok-copy-2`, and duplicating
+  `ok-copy` gives `ok-copy-copy`; adding every identifier it keeps or makes to the set, so several copies
   in one command never collide. A duplicate always renames (its ids are the originals'); a paste after a
   cut keeps them.
 - **Duplicate** (C1, C12): each copy is inserted at the original's statement index + 1 under its
@@ -111,7 +113,7 @@ flowchart LR
 
 ```js
 const s = designer.session;
-s.select([button]); s.duplicate();            // Button("A").id("ok-2") after it, selected
+s.select([button]); s.duplicate();            // Button("A").id("ok-copy") after it, selected
 const { text } = s.cut();                     // removed; the next sibling selected
 s.select([stack]); s.paste(text);             // the stack's last child
 s.moveUp(); s.moveDown();                     // nothing at the edge, no step
@@ -156,3 +158,4 @@ and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). IT-65:
 | 0.3.52 | 2026-11-28 | Page written: the selection commands, multi-select, the designer's command keys and clipboard, IT-64 (#36) |
 | 0.3.53 | 2026-11-28 | Wrap, unwrap, convert and extract component, `commands` and `run`, Cmd/Ctrl+G and Shift+Cmd/Ctrl+G, IT-65 (R-EDIT-009, #37) |
 | 0.3.59 | 2026-11-28 | The mockup commands in `commands` and `run` (R-EDIT-009.C8, R-TOOL-013.C4; #43) |
+| 0.3.68 | 2026-11-28 | Copied identifiers named `x-copy`, then `x-copy-<n>`, through `copyName` (R-EDIT-008.C2, C11; #88) |

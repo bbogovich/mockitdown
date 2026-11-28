@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.14.0
+spec_version: 0.14.4
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -773,7 +773,7 @@ the selection; in the view, Shift-click from the card's text to its button selec
 toggles the button, a Cmd/Ctrl-click on the title replaces the selection. With the card selected,
 Cmd/Ctrl+C puts exactly `fixtures/copied-card.mockitdown` (written by hand) on the clipboard; a Python
 test (`python/tests/test_clipboard.py`) renders that text in a `mockitdown` fence with no diagnostic
-(F-19.AC10). Cmd/Ctrl+D duplicates the card (`open-2`), Cmd/Ctrl+X cuts it and Cmd/Ctrl+V pastes it
+(F-19.AC10). Cmd/Ctrl+D duplicates the card (`open-copy`), Cmd/Ctrl+X cuts it and Cmd/Ctrl+V pastes it
 after the ForEach, Alt+Down and Alt+Up move the title below the list and back, each against hand-written
 code; Cmd/Ctrl+D in the gallery's search field changes nothing. With `readText` refusing, Cmd/Ctrl+C then
 Cmd/Ctrl+V on the title pastes the designer's own copy after it.
@@ -881,6 +881,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.4 | 2026-11-28 | as built (#88): TC-2's Cmd/Ctrl+D duplicate of the card names the button's copy open-copy (C2), not open-2 |
 | 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
@@ -903,6 +904,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |

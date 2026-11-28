@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.14.4 | 2026-11-28 | `WEB.3` | as built (#88): R-EDIT-008 TC-2 names the duplicated card's button open-copy |
 | 0.14.3 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared session link (#89) |
 | 0.14.2 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared render scheduler (#87) |
 | 0.14.1 | 2026-11-28 | `ARCH.3` | A-WEB-3 as built: the shared page chrome stylesheet (#86) |
