@@ -8,7 +8,10 @@
 //
 // dist/shared/ layout (the same names as in the Python package):
 //   page.css  icons.json  vocabulary.json  roles.json  packs/<id>/pack.json  packs/<id>/pack.css
-//   manifest.json   {"packs": [ids, sorted], "files": [every copied path]} for loaders
+//   reference/index.json  reference/<id>.json   the element reference data (R-WEB-001.C17), which the
+//                   gallery element reads (R-TOOL-004.C2) and loadAssetsFromUrl does not
+//   manifest.json   {"packs": [ids, sorted], "files": [every copied path a loader loads],
+//                    "reference": [the reference paths]} (R-WEB-001.C13)
 //
 // Files are copied byte for byte, except a pack.css that includes stylesheet partials
 // (`@import "../_partials/<name>.css";` lines at its top, R-PACK-018): its copy has each import
@@ -29,6 +32,8 @@ const FIXED = {
   "language/roles.json": "roles.json",
 };
 const PACK_FILES = ["pack.json", "pack.css"];
+/** The reference data folder: index.json and one <pack>.json per pack, written by gen_reference.py. */
+const REFERENCE = "reference";
 
 // ---- stylesheet partials (R-PACK-018) --------------------------------------------------------------
 
@@ -270,8 +275,21 @@ function pairs() {
       if (existsSync(src)) out.push([src, join(OUT, "packs", id, name)]);
     }
   }
+  out.push(...referencePairs());
   return out;
 }
+
+/** reference/index.json and every reference/<pack>.json of shared/, sorted (C17). */
+function referencePairs() {
+  const dir = join(SHARED, REFERENCE);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .sort()
+    .map((f) => [join(dir, f), join(OUT, REFERENCE, f)]);
+}
+
+const rel = (d) => d.slice(OUT.length + 1).split("\\").join("/");
 
 /** The pack ids of a packs folder: its directories holding a pack.json (so never `_partials`, C1). */
 export function packIds(packs = join(SHARED, "packs")) {
@@ -281,8 +299,10 @@ export function packIds(packs = join(SHARED, "packs")) {
 }
 
 function manifest() {
-  const files = pairs().filter(([, d]) => d.startsWith(OUT)).map(([, d]) => d.slice(OUT.length + 1).split("\\").join("/"));
-  return JSON.stringify({ packs: packIds(), files }, null, 2) + "\n";
+  const reference = referencePairs().map(([, d]) => rel(d));
+  const listed = new Set(reference);
+  const files = pairs().filter(([, d]) => d.startsWith(OUT)).map(([, d]) => rel(d)).filter((f) => !listed.has(f));
+  return JSON.stringify({ packs: packIds(), files, reference }, null, 2) + "\n";
 }
 
 function same(data, b) {
@@ -301,10 +321,14 @@ function main() {
     for (const p of bad) console.log(`differs or missing: ${p}`);
     return bad.length ? 1 : 0;
   }
-  // Remove packs that left shared/, then copy what differs.
+  // Remove packs and reference files that left shared/, then copy what differs.
   if (existsSync(join(OUT, "packs"))) {
     const keep = new Set(packIds());
     for (const d of readdirSync(join(OUT, "packs"))) if (!keep.has(d)) rmSync(join(OUT, "packs", d), { recursive: true });
+  }
+  if (existsSync(join(OUT, REFERENCE))) {
+    const keep = new Set(referencePairs().map(([, d]) => basename(d)));
+    for (const f of readdirSync(join(OUT, REFERENCE))) if (!keep.has(f)) rmSync(join(OUT, REFERENCE, f), { recursive: true });
   }
   let n = 0;
   for (const [src, dst] of pairs()) {

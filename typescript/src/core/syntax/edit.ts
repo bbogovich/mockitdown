@@ -23,10 +23,13 @@ export type NodeRef = string | number;
 /** A position among a parent's statement children: 0 to their count, or `end`. */
 export type EditIndex = number | "end";
 
-/** Insert one view's code as a child of `parent` (C4). */
+/**
+ * Insert one view's code as a child of `parent` (C4), or, with `parent` null, as a statement of the
+ * top level (the root of the mockup), `index` counting its view statements.
+ */
 export interface InsertOp {
   op: "insert";
-  parent: NodeRef;
+  parent: NodeRef | null;
   index: EditIndex;
   code: string;
 }
@@ -246,6 +249,8 @@ class Editor {
   private readonly contentOf = new Map<ViewNode, Body[]>();
   /** Nodes that are an `else if`: the statement of a branch without braces. */
   private readonly elseIf = new Set<ViewNode>();
+  /** The top level's statements. */
+  private top: Body | null = null;
 
   constructor(tree: SyntaxTree) {
     this.tree = tree;
@@ -282,6 +287,10 @@ class Editor {
   // --- operations ----------------------------------------------------------------------------------
 
   private insert(op: InsertOp): Plan {
+    if (op.parent === null) {
+      const lines = this.codeLines(op.code);
+      return { edits: [this.placeTop(op.index, lines)] };
+    }
     const parent = this.node(op.parent);
     const lines = this.codeLines(op.code);
     return { edits: [this.place(parent, op.index, [lines])] };
@@ -663,6 +672,41 @@ class Editor {
     return { start: close, end: close, text };
   }
 
+  /**
+   * Where code inserted at the top level goes: before its view statement `index` (on its own line, or
+   * inline before it as `place` does), else on a new line after the last top-level statement, else at
+   * the end of the source. Top-level code takes the indentation of the first top-level view, else none.
+   */
+  private placeTop(index: EditIndex, lines: string[]): TextEdit {
+    const body = this.top!;
+    const children = body.children;
+    if (index !== "end" && !(Number.isInteger(index) && index >= 0 && index <= children.length)) {
+      throw new Refusal(`index ${JSON.stringify(index ?? null)} is out of range for the top level: 0 to ${children.length}, or "end"`);
+    }
+    const first = children[0];
+    let indent = "";
+    if (first) {
+      const ls = lineStart(this.src, first.first);
+      if (blank(this.src.slice(ls, first.first))) indent = this.src.slice(ls, first.first);
+    }
+    const block = reindent(lines, indent).join("\n");
+    const k = index === "end" ? children.length : index;
+    if (k < children.length) {
+      const target = children[k];
+      const ls = lineStart(this.src, target.span.start);
+      if (blank(this.src.slice(ls, target.span.start))) return { start: ls, end: ls, text: `${block}\n` };
+      return { start: target.span.start, end: target.span.start, text: `${block.trimStart()}; ` };
+    }
+    const last = body.stmts[body.stmts.length - 1];
+    if (last) {
+      const at = lineEnd(this.src, last.end!);
+      return { start: at, end: at, text: `\n${block}` };
+    }
+    const end = this.src.length;
+    if (end === 0 || this.src.endsWith("\n")) return { start: end, end, text: `${block}\n` };
+    return { start: end, end, text: `\n${block}\n` };
+  }
+
   /** C10: the indentation of the parent's first child when it starts its line, else the parent line's plus one unit. */
   private childIndent(parent: ViewNode, children: readonly ViewNode[]): string {
     const first = children[0];
@@ -759,7 +803,7 @@ class Editor {
       return b;
     };
     const m = this.tree.module;
-    body(m.statements, null, null, null);
+    this.top = body(m.statements, null, null, null);
     for (const s of m.structs) if (s.body) body(s.body, null, null, null);
     for (const n of this.tree.nodes) {
       const content: Body[] = [];

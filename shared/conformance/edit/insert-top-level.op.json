@@ -1,0 +1,9 @@
+{
+  "op": "insert",
+  "parent": null,
+  "index": "end",
+  "code": "Toggle()",
+  "covers": [
+    "insert:top-level"
+  ]
+}

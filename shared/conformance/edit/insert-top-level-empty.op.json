@@ -1,0 +1,9 @@
+{
+  "op": "insert",
+  "parent": null,
+  "index": 0,
+  "code": "HStack {\n    Text(\"Left\")\n}",
+  "covers": [
+    "insert:top-level"
+  ]
+}

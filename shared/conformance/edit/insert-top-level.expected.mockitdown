@@ -1,0 +1,13 @@
+// insert at the end of the top level (parent null): after the last statement, before a struct declared below it
+let names = ["Ana", "Ben"]
+
+VStack {
+    Text("Header")
+}
+Toggle()
+
+struct Row: View {
+    var body: some View {
+        Text("Row")
+    }
+}

@@ -25,7 +25,7 @@ const diagKey = (d: { severity: string; code: string; message: string }): string
 
 /** The situations C16 asks the corpus to cover, as the `covers` tags of the cases' op.json. */
 const REQUIRED = [
-  "insert:first", "insert:middle", "insert:last", "insert:empty", "insert:no-closure",
+  "insert:first", "insert:middle", "insert:last", "insert:empty", "insert:no-closure", "insert:top-level",
   "remove:first", "remove:middle", "remove:last", "remove:all",
   "move:first", "move:middle", "move:last", "move:empty", "move:no-closure",
   "source:comments", "source:blank-lines", "source:let", "source:foreach", "source:if", "source:struct",

@@ -249,8 +249,22 @@ export class DesignSession {
     return this.applyOp({ op: "remove", nodes: [...this.selected] }, next ? [next.id] : []);
   }
 
-  /** Apply an operation; `select`, when given, is the selection after it (else the nodes kept). */
-  private applyOp(op: EditOp, select?: readonly string[]): EditResult | EditRefusal {
+  /**
+   * Insert one view's code as the last child of `parent` (a node id of the active mockup), by default of
+   * the first selected node, else at the end of the mockup's top level (`parent` null), the command
+   * behind the gallery's Add (R-TOOL-004.C8). The new node becomes the selection: one `change`, then
+   * `insert`, then `select`. Refused, changing nothing, as {@link apply} refuses an insert.
+   */
+  insert(code: string, parent?: string | null): EditResult | EditRefusal {
+    const at = parent === undefined ? this.selected[0] ?? null : parent;
+    return this.applyOp({ op: "insert", parent: at, index: "end", code }, "inserted");
+  }
+
+  /**
+   * Apply an operation; `select`, when given, is the selection after it (else the nodes kept), or
+   * `inserted` for the node an insert added.
+   */
+  private applyOp(op: EditOp, select?: readonly string[] | "inserted"): EditResult | EditRefusal {
     const name = this.activeName;
     if (name === null) return { error: "there is no active mockup", diagnostics: [] };
     const state = this.state(name)!;
@@ -266,11 +280,13 @@ export class DesignSession {
     state.code = result.source;
     state.tree = result.tree;
     this.notify({ kind: "change", detail: { kind: "code", mockup: name, edits: result.edits, code: result.source } });
+    let next = select === "inserted" ? undefined : select;
     if (op.op === "insert") {
       const node = insertedNode(before, result.tree);
       if (node) this.notify({ kind: "insert", detail: { mockup: name, node: node.id, element: node.name } });
+      if (select === "inserted" && node) next = [node.id];
     }
-    this.afterCodeChange(name, state, select);
+    this.afterCodeChange(name, state, next);
     return result;
   }
 

@@ -20,6 +20,10 @@ export {
   type DesignerLayout, type DesignerLayoutUpdate, type DesignerMode, type PreviewAppearance,
 } from "./elements/designer.js";
 export { OUTLINE_ATTRIBUTES, OUTLINE_INDENT, OUTLINE_TAG, OutlineElement, type OutlineRow } from "./elements/outline.js";
+export {
+  CATEGORY_TITLES, GALLERY_ATTRIBUTES, GALLERY_TAG, GalleryElement, galleryState, insertCode, loadReference, matchesFilter,
+  PREVIEW_MARGIN, referenceUrl, type GalleryCard, type GalleryState, type ReferenceData, type ReferenceElement,
+} from "./elements/gallery.js";
 export { defineElements, ELEMENT_TAGS } from "./elements/define.js";
 
 defineElements();

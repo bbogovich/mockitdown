@@ -31,7 +31,13 @@ export interface SharedAssets {
 /** `dist/shared/manifest.json`: what the package publishes, for loaders. */
 export interface SharedManifest {
   packs: string[];
+  /** The files a loader loads into the core. */
   files: string[];
+  /**
+   * The element reference data (`reference/index.json`, `reference/<pack>.json`, R-WEB-001.C17), which
+   * the gallery element fetches when it needs a pack's (R-TOOL-004.C2) and loaders do not load.
+   */
+  reference?: string[];
 }
 
 let page = "";

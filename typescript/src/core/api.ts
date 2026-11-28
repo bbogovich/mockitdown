@@ -27,6 +27,11 @@ export interface Evaluation {
   /** The evaluated screen, or null after a syntax error. */
   screen: Screen | null;
   diagnostics: Diagnostics;
+  /**
+   * The structs the source declares or imports, by name (imported first, in import order, then
+   * declared); empty after a syntax error. The gallery's Components group lists them (R-TOOL-004.C5).
+   */
+  structs: string[];
 }
 
 /** Parse and evaluate `source`. The screen is null on a syntax error. */
@@ -42,7 +47,7 @@ export function evaluate(source: string, options?: Partial<RenderOptions> | null
   } catch (e) {
     if (e instanceof MockitdownSyntaxError) {
       diags.extend([e.diagnostic]);
-      return { screen: null, diagnostics: diags };
+      return { screen: null, diagnostics: diags, structs: [] };
     }
     throw e;
   }
@@ -52,7 +57,8 @@ export function evaluate(source: string, options?: Partial<RenderOptions> | null
     imports: { search_paths: [...opts.import_paths], base_dir: baseDir, resolver: opts.import_resolver },
     edit: opts.edit,
   });
-  return { screen: ev.evaluate(module), diagnostics: diags };
+  const screen = ev.evaluate(module);
+  return { screen, diagnostics: diags, structs: [...ev.structs.keys()] };
 }
 
 /** CSS for the given pack ids (all known packs when null), their ancestors included once. */

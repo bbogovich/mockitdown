@@ -1,0 +1,33 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Gallery",
+  "defaults": {
+    "pack": "base",
+    "caption": false
+  },
+  "mockups": [
+    {
+      "name": "Toolbar",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "device": "fit"
+      },
+      "code": "struct Badge: View {\n  var body: some View {\n    Text(\"New\")\n  }\n}\n\nVStack {\n  Text(\"Settings\")\n  HStack {\n    Button(\"Cancel\")\n  }.id(\"actions\")\n}\n"
+    },
+    {
+      "name": "Cards",
+      "x": 600,
+      "y": 0,
+      "options": {
+        "pack": "vuetify",
+        "device": "fit"
+      },
+      "code": "VCard {\n  VBtn(\"Save\")\n}\n"
+    }
+  ],
+  "view": {
+    "active": "Toolbar"
+  }
+}

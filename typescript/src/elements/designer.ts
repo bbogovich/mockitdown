@@ -27,15 +27,16 @@
  * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
  * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code;
  * the code view itself comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
- * view delete the selection through `session.delete()`. The gallery and the properties panel hold
- * placeholders until their components exist (R-TOOL-004 and the inspector). The designer holds no
- * editing rule of its own (A-WEB-5.K2).
+ * view delete the selection through `session.delete()`. The gallery panel holds `mockitdown-gallery`
+ * (R-TOOL-004); the properties panel holds a placeholder until the inspector exists. The designer holds
+ * no editing rule of its own (A-WEB-5.K2).
  */
 
 import { FENCE_OPTIONS, registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 import { EDITOR_TAG } from "./editor.js";
+import { GALLERY_TAG } from "./gallery.js";
 import { MOCKUP_TAG } from "./mockup.js";
 import { OUTLINE_TAG } from "./outline.js";
 
@@ -82,7 +83,10 @@ export class DesignOpenError extends Error {
   }
 }
 
+/** The components whose focus makes Delete and Backspace delete the selection (C11). */
 const COMPONENT_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG]);
+/** The package's components that join the designer's session (R-EDIT-006.C11). */
+const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG]);
 
 const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13px/1.4 system-ui,sans-serif;color:var(--mkd-designer-color,#1d1d22);background:var(--mkd-designer-background,#fff)}
 :host([hidden]){display:none}
@@ -100,7 +104,9 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__left,.mkd-designer__right{display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden;box-sizing:border-box}
 .mkd-designer__left[hidden],.mkd-designer__right[hidden],.mkd-designer__resizer[hidden]{display:none}
 .mkd-designer__outline{flex:3 1 0;min-height:0;display:flex;flex-direction:column}
-.mkd-designer__gallery{flex:2 1 0;min-height:0;border-top:1px solid var(--mkd-designer-border,#d0d0d7);overflow:auto}
+.mkd-designer__gallery{flex:2 1 0;min-height:0;border-top:1px solid var(--mkd-designer-border,#d0d0d7);display:flex;flex-direction:column;overflow:hidden}
+.mkd-designer__gallery>slot{display:contents}
+.mkd-designer__gallery ::slotted(*),.mkd-designer__gallery>slot>mockitdown-gallery{flex:1 1 auto;min-height:0}
 .mkd-designer__outline ::slotted(*),.mkd-designer__outline>slot>mockitdown-outline{flex:1 1 auto;min-height:0}
 .mkd-designer__outline>slot{display:contents}
 .mkd-designer__right{overflow:auto}
@@ -144,7 +150,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__main" part="main">`
   + `<div class="mkd-designer__left" part="left">`
   + `<div class="mkd-designer__outline"><slot name="outline"><mockitdown-outline part="outline"></mockitdown-outline></slot></div>`
-  + `<div class="mkd-designer__gallery" part="gallery"><slot name="gallery"><section class="mkd-designer__placeholder"><h2>Gallery</h2><p>The element gallery is not available yet.</p></section></slot></div>`
+  + `<div class="mkd-designer__gallery" part="gallery"><slot name="gallery"><mockitdown-gallery></mockitdown-gallery></slot></div>`
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--left" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the outline" tabindex="0" data-panel="left"></div>`
   + `<div class="mkd-designer__center" part="center">`
@@ -189,7 +195,7 @@ export class DesignerElement extends Base {
     view: HTMLElement; code: HTMLElement; preview: HTMLElement; previewList: HTMLElement; frames: HTMLElement;
     appearance: HTMLElement; name: HTMLElement; pack: HTMLElement; device: HTMLElement;
     diagnostics: HTMLElement; breadcrumb: HTMLElement; selected: HTMLElement;
-    editor: HTMLElement; outline: HTMLElement;
+    editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement;
   };
 
   constructor() {
@@ -205,7 +211,7 @@ export class DesignerElement extends Base {
       appearance: q(".mkd-designer__appearance"), name: q(".mkd-designer__name"), pack: q(".mkd-designer__pack"),
       device: q(".mkd-designer__device"), diagnostics: q(".mkd-designer__diagnostics"),
       breadcrumb: q(".mkd-designer__breadcrumb"), selected: q(".mkd-designer__selected"),
-      editor: q("mockitdown-editor"), outline: q("mockitdown-outline"),
+      editor: q("mockitdown-editor"), outline: q("mockitdown-outline"), gallery: q("mockitdown-gallery"),
     };
     this.#session = new DesignSession(newDesign(DESIGNER_TAG));
     this.#subscribe();
@@ -287,7 +293,7 @@ export class DesignerElement extends Base {
   /** A promise that resolves once the outline, the view and, in Preview mode, the previews are rendered. */
   get rendered(): Promise<void> {
     const parts: Promise<void>[] = [];
-    for (const el of [this.#el.editor, this.#el.outline]) {
+    for (const el of [this.#el.editor, this.#el.outline, this.#el.gallery]) {
       const r = (el as unknown as { rendered?: Promise<void> }).rendered;
       if (r) parts.push(r);
     }
@@ -354,8 +360,8 @@ export class DesignerElement extends Base {
 
   /** The package's components inside the designer re-join its session: reading `session` re-attaches them. */
   #rejoin(): void {
-    const parts: Element[] = [this.#el.editor, this.#el.outline];
-    for (const el of this.querySelectorAll("*")) if (COMPONENT_TAGS.has(el.localName)) parts.push(el);
+    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery];
+    for (const el of this.querySelectorAll("*")) if (SESSION_TAGS.has(el.localName)) parts.push(el);
     for (const el of parts) void (el as unknown as { session?: unknown }).session;
   }
 
@@ -576,7 +582,7 @@ export class DesignerElement extends Base {
     for (const base of ["import-base", "asset-base"]) {
       const v = this.getAttribute(base);
       const targets: Element[] = [this.#el.editor, ...this.#el.frames.querySelectorAll(MOCKUP_TAG)];
-      if (base === "import-base") targets.push(this.#el.outline);
+      if (base === "import-base") targets.push(this.#el.outline, this.#el.gallery);
       for (const t of targets) {
         if (v === null) t.removeAttribute(base);
         else t.setAttribute(base, v);

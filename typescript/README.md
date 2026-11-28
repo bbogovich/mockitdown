@@ -38,8 +38,10 @@ release after the GitHub release exists is followed by the next patch version (A
 - `dist/design.js` (`mockitdown/design`) — design documents (`.mkdesign`) and the design session, for
   design tools and for hosts such as a desktop shell; no DOM, network or file system.
 - `dist/shared/` — the packs (`packs/<id>/pack.json`, `pack.css`), `page.css`, `icons.json`,
-  `vocabulary.json`, `roles.json` (the role rules) and `manifest.json` (the pack ids and files, for loaders), copied from `shared/` at
-  build time.
+  `vocabulary.json`, `roles.json` (the role rules), `reference/index.json` and `reference/<pack>.json`
+  (each pack's elements, roles, doc lines and samples, which the gallery reads) and `manifest.json`
+  (`{packs, files, reference}`: the pack ids, the files loaders load, and the reference files, which they
+  do not), copied from `shared/` at build time.
 
 The core (`src/core/`) touches no DOM, network or file system: the shared assets reach it as data,
 once, through `loadAssets`.
@@ -85,7 +87,8 @@ const { tree } = parseTree(source);
 const r = edit(tree, { op: "insert", parent: "n1", index: "end", code: 'Toggle("Remember me")' });
 if ("error" in r) console.warn(r.error);
 else apply(r.edits);                                  // [{start, end, text}], ascending; r.source, r.tree
-// also { op: "remove", nodes: ["n3"] } and { op: "move", nodes: ["n3"], parent: "n2", index: 0 }
+// also { op: "remove", nodes: ["n3"] } and { op: "move", nodes: ["n3"], parent: "n2", index: 0 };
+// parent null inserts at the top level (the root of the mockup)
 ```
 
 The inspector's operations change one node and leave its neighbours as written:
@@ -152,6 +155,7 @@ session.subscribe(({ kind, detail }) => { /* select, hover, change, insert, acti
 session.apply({ op: "remove", nodes: ["n3"] });       // one "change" with the text edits
 session.setCode("Inbox", code);                       // code typed as text; the last valid tree is kept
 session.delete();                                     // the selection, then select its next sibling, else previous, else parent
+session.insert("Toggle()");                           // last child of the selected node, else at the end of the top level; selects it
 writeDesign(session.document);                        // stable key order, unknown keys kept, code verbatim
 mockupOptions(session.document, "Inbox");             // defaults under the mockup's options, with its pack
 ```
@@ -232,8 +236,31 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
   `{left: {size, collapsed}, right: {size, collapsed}}` and may be set in part
   (`d.layout = {right: {collapsed: true}}`).
 - Slots `toolbar`, `outline`, `gallery`, `view`, `inspector` and `status` replace a panel; the slotted
-  element is given the session (`el.session = d.session`). The gallery and properties panels hold
-  placeholders until their components exist. The test page is `pages/designer.html`.
+  element is given the session (`el.session = d.session`). The gallery panel holds
+  `mockitdown-gallery`; the properties panel holds a placeholder until the inspector exists. The test
+  page is `pages/designer.html`.
+
+### The gallery element
+
+`<mockitdown-gallery>` lists the elements a session's selection may hold, as cards with a live preview
+and an Add button. Inside a designer it joins the designer's session; elsewhere set `gallery.session`.
+
+- The elements of the active mockup's pack, read from `dist/shared/reference/<pack>.json` beside the
+  assets `loadAssetsFromUrl` loads: the pack's own first, then the inherited core vocabulary, in groups
+  by role category (Frames, Bars, Layouts, Collections, Content, Overlays, Annotations), after a
+  Components group of the structs the mockup declares or imports.
+- Nothing selected: what the root of a mockup accepts; one node selected: what its element accepts
+  (`allowedChildren`). The footer "Hidden here (n)" lists the others under the reason the role rules give.
+- The search field, mirrored by `gallery.filter`, keeps the cards whose name, role or doc line contains
+  the text, ignoring case.
+- Previews are `mockitdown-mockup device="fit"` of each element's sample, created when a card comes
+  within 200 px of the gallery's visible part.
+- Add, a double-click on a card or Enter on the focused card (Up, Down, Home, End move between cards)
+  inserts `<Name>()` through `session.insert(code)`: as the last child of the selected node, else at the
+  end of the mockup's top level, then selects it; the session notifies `insert` (`mockitdown-insert`).
+  `gallery.add(name)` does the same from a host's menu.
+- `gallery.state` (`{mockup, pack, parent, cards, hidden}`), `gallery.rendered`; parts `search`, `list`,
+  `group`, `card`, `name`, `add`, `preview`, `hidden`, `reason`.
 
 ## Development
 

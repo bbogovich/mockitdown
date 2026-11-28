@@ -296,3 +296,37 @@ test("delete removes the selection as one change, then selects the next sibling,
   assert.deepEqual(none.seen, [], "a refused delete notifies nothing");
   assert.equal(none.s.code("Nested"), NESTED);
 });
+
+test("insert adds a view as the last child of the selected node, else at the end of the top level, and selects it (R-TOOL-004.C8)", () => {
+  const code = 'VStack {\n  HStack {\n    Text("a")\n  }\n}\n';
+  const session = (): DesignSession => {
+    const d = newDesign("Insert");
+    d.mockups.push({ name: "M", x: 0, y: 0, code });
+    return new DesignSession(d);
+  };
+
+  // Expected code and notifications written by hand from the code above.
+  const s = session();
+  assert.equal(why(s.select([idOf(s, "n2")])), "applied");
+  const seen = recorder(s);
+  const r = s.insert("Toggle()");
+  assert.equal(why(r), "applied");
+  assert.equal(s.code("M"), 'VStack {\n  HStack {\n    Text("a")\n    Toggle()\n  }\n}\n');
+  assert.deepEqual(kinds(seen).filter((k) => k !== "diagnostics"), ["change", "insert", "select"]);
+  const inserted = seen.find((n) => n.kind === "insert")!;
+  assert.deepEqual(inserted.detail, { mockup: "M", node: idOf(s, "n4"), element: "Toggle" });
+  assert.deepEqual(s.selection, [idOf(s, "n4")], "the new node is selected");
+
+  const top = session();
+  const topSeen = recorder(top);
+  assert.equal(why(top.insert("Text(\"b\")")), "applied");
+  assert.equal(top.code("M"), 'VStack {\n  HStack {\n    Text("a")\n  }\n}\nText("b")\n', "no selection: the end of the top level");
+  assert.deepEqual(kinds(topSeen).filter((k) => k !== "diagnostics"), ["change", "insert", "select"]);
+  assert.deepEqual(top.selection, [idOf(top, "n4")]);
+
+  const bad = session();
+  const badSeen = recorder(bad);
+  assert.match(why(bad.insert("Text(")), /does not parse/);
+  assert.deepEqual(badSeen, [], "a refused insert notifies nothing");
+  assert.equal(bad.code("M"), code);
+});

@@ -53,6 +53,14 @@
       "op": "insert"
     },
     {
+      "name": "insert-top-level",
+      "op": "insert"
+    },
+    {
+      "name": "insert-top-level-empty",
+      "op": "insert"
+    },
+    {
       "name": "insert-no-closure",
       "op": "insert"
     },
