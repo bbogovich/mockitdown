@@ -15,7 +15,7 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
-**As built (#29).** The inserted code is the bare call `<Name>()`; R-TOOL-006 gives it the sample's
-arguments. Inserting at the root uses the top-level `insert` of R-EDIT-002 (`parent: null`) through the
+**As built (#29).** The inserted code was the bare call `<Name>()`; since #31 it is the sample's call
+of R-TOOL-006.C1 (`Toggle("Label")` in the base pack), and a struct is still `<Name>()`. Inserting at the root uses the top-level `insert` of R-EDIT-002 (`parent: null`) through the
 session's `insert` command, so the gallery itself holds no editing rule (A-WEB-5.K2). Components are
 listed by the structs the edit-mode evaluation knows (`evaluate(…).structs`), declared or imported.

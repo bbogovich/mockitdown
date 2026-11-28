@@ -1,6 +1,6 @@
 ---
 title: The editor element
-impl_version: 0.3.46
+impl_version: 0.3.47
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDITOR
@@ -115,6 +115,14 @@ flowchart TD
 - **Focus** (C21): the editor sets `tabindex="0"` unless the page set one, and focuses itself on a
   click (`preventScroll`), so Esc and Enter reach its `keydown` listener.
 
+### The first text of a new element (R-TOOL-006)
+
+After an `insert` notification for the mockup it shows, the editor opens an inline `<input>` (part
+`text-field`, `.mkd-editor__field`) over the new element once it has rendered, when
+`session.firstText(node)` gives a string: focused, its text selected. Enter or `blur` commits through
+`session.setText`, Esc closes it; its keys never reach the editor's Esc and Enter or the designer's Delete.
+See [New elements](new-elements.md).
+
 ## Debugging
 
 - `npm run serve`, open `http://127.0.0.1:8173/pages/editor.html`; the readout beside the editor shows
@@ -136,3 +144,4 @@ flowchart TD
 | 0.3.41 | 2026-11-28 | Page written: `mockitdown-editor`, its session, pointer and key handling, overlay, `pages/editor.html`, IT-53 (#25) |
 | 0.3.42 | 2026-11-28 | `pages/editor.html` also holds the outline, which shares the editor's session (#26) |
 | 0.3.46 | 2026-11-28 | The editor as a drop target: container, insertion bar, `drop-target` and `drop-bar` parts (#30) |
+| 0.3.47 | 2026-11-28 | The inline text field opened after an insertion (part `text-field`, R-TOOL-006) (#31) |

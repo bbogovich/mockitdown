@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.9
+spec_version: 0.13.10
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -309,8 +309,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
-**As built (#29).** The inserted code is the bare call `<Name>()`; R-TOOL-006 gives it the sample's
-arguments. Inserting at the root uses the top-level `insert` of R-EDIT-002 (`parent: null`) through the
+**As built (#29).** The inserted code was the bare call `<Name>()`; since #31 it is the sample's call
+of R-TOOL-006.C1 (`Toggle("Label")` in the base pack), and a struct is still `<Name>()`. Inserting at the root uses the top-level `insert` of R-EDIT-002 (`parent: null`) through the
 session's `insert` command, so the gallery itself holds no editing rule (A-WEB-5.K2). Components are
 listed by the structs the edit-mode evaluation knows (`evaluate(…).structs`), declared or imported.
 
@@ -327,8 +327,8 @@ selected the frame and layout groups are shown with `NavigationSplitView` and `T
 `#actions` selected both are under "A frame cannot be placed inside a horizontal stack" (R-PACK-016's own
 example), the footer's `data-count` and "(n)" equal its listed elements, the first card has a
 `mockitdown-mockup` (`device="fit"`, `pack="base"`) and the last none until it is scrolled to; Add on
-`Toggle` gives the hand-written code with `Toggle()` as the stack's last child, selected, and one
-`mockitdown-insert` from the designer. A second test adds `Text` by double-click and `Divider` by Enter
+`Toggle` gives the hand-written code with `Toggle("Label")` (the base pack's sample since #31, R-TOOL-006.C1) as the stack's last child, selected, and one
+`mockitdown-insert` from the designer. A second test adds `Text` (as `Text("Content")`) by double-click and `Divider` (as `Divider()`) by Enter
 with nothing selected, each on a new line at the end of the top level.
 
 **R-TOOL-004.TC-2 — Data, search and components**
@@ -355,7 +355,7 @@ before the inherited ones.
 | C5 | A Components group, first, MUST list the structs the active mockup declares or imports that the selection may hold, as cards with their name and no preview. |
 | C6 | With no selection the gallery MUST show the elements allowed at the root of a mockup, and with a selection only those the first selected node's element may contain (`allowedChildren`, R-PACK-016.C7). |
 | C7 | A footer group, Hidden here, MUST give the number of elements the selection filters out and list them under their reasons. |
-| C8 | An Add button on each card, a double-click on the card or Enter on the focused card MUST insert `<Name>()` through `session.insert` (R-EDIT-006.C20): as the last child of the first selected node, else at the end of the mockup's top level, select the new node and dispatch `mockitdown-insert` (R-EDIT-006.C5). |
+| C8 | An Add button on each card, a double-click on the card or Enter on the focused card MUST insert the element as R-TOOL-006.C1 writes it (its sample's call, else `<Name>()`) through `session.insert` (R-EDIT-006.C20): as the last child of the first selected node, else at the end of the mockup's top level, select the new node and dispatch `mockitdown-insert` (R-EDIT-006.C5). |
 | V1 | With an `HStack` selected, the gallery shows no `NavigationSplitView` and no `TabView`, lists them under Hidden here, and Add on `Toggle` appends a `Toggle(…)` as the stack's last child (F-19.AC2). |
 | C9 | The cards MUST be one tab stop, Up, Down, Home and End moving the focus among them. |
 | C10 | The gallery MUST join a session as R-EDIT-006.C11 says and dispatch, as DOM events, only the notifications of a session of its own (R-EDIT-006.C8). |
@@ -403,7 +403,7 @@ As built (#30): `typescript/tests/browser/drag-drop.spec.mjs` opens the hand-wri
 `HStack` of two buttons) in the designer of `pages/designer.html` and drags with the pointer
 (`page.mouse`). Over the gap between the texts the VStack's box is the `drop-target` and the
 `drop-bar` is horizontal (`data-orientation`), wider than tall and between the two texts, with the
-`grabbing` cursor; the drop gives the hand-written code with `Text()` second, selected, after exactly
+`grabbing` cursor; the drop gives the hand-written code with `Text("Content")` (the base pack's sample, R-TOOL-006.C1; `Text()` before #31) second, selected, after exactly
 one code `change`. Over the gap between the buttons the bar is vertical; Esc removes the ghost, the
 shield and the bar, and releasing afterwards changes nothing. There is no undo yet (R-EDIT-007): the
 undo step is checked as the one `change`.
@@ -434,7 +434,7 @@ positions, checks through a `ForEach`, refusals, one change per drop) is also te
 | C2 | Over an outline row, the outline MUST show a drop indicator before the row, after it or inside it, chosen by the pointer's position in the upper, lower or middle third of the row, and below the last row a drop indicator at the end of the mockup's top level. |
 | C3 | Over the editor, the editor MUST outline the innermost container under the pointer (`session.isContainer`, C10), else the mockup's top level, and show an insertion bar at the gap between its children nearest the pointer, across the axis along which its children are laid out: horizontal in a `VStack`, vertical in an `HStack`. |
 | C4 | A drop position whose parent cannot contain the dragged element (R-PACK-016.C6), that lies inside a dragged row's own subtree, or that the edit operation refuses MUST show the `not-allowed` cursor, the indicator in the refused colour and the reason next to the pointer, and a drop there MUST do nothing. |
-| C5 | Dropping a gallery card MUST insert `<Name>()` at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8), keeping their node ids and selecting them. |
+| C5 | Dropping a gallery card MUST insert the element as R-TOOL-006.C1 writes it (its sample's call, else `<Name>()`) at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8), keeping their node ids and selecting them. |
 | C6 | Each drop MUST be one edit operation of the session, notifying one `change` (one undo step once the history of R-EDIT-007 exists), and Esc MUST cancel a drag, changing nothing. |
 | V1 | Dragging `Text` from the gallery into a `VStack` in the view inserts `Text(…)` at the position of the insertion bar (F-19.AC1). |
 | C7 | A drag MUST be a pointer drag that starts once the pointer has moved 4 CSS pixels from where it was pressed and shows, next to the pointer, the name of what is dragged; releasing the pointer where no component shows a position, or a cancelled pointer, MUST end the drag with nothing changed. |
@@ -453,6 +453,16 @@ positions, checks through a `ForEach`, refusals, one change per drop) is also te
 Naming a new element takes one keystroke sequence (SRC-12#s6): it arrives with its sample's arguments,
 as in the Reference pages, and its first text opens for editing at once.
 
+**As built (#31).** The sample is the one the pack's reference data publishes (R-PACK-013), so the
+text depends on the pack: in the base pack a `Button` arrives as `Button("Label")` and a `Toggle` as
+`Toggle("Label")`, in swiftui as `Button("Share", systemImage: "square.and.arrow.up")`. The rule
+applies to every insertion from the gallery, Add and a drop alike (R-TOOL-004.C8, R-TOOL-005.C5), and
+the editor opens the field after any insertion into the mockup it shows. The gallery holds no rule of
+its own: `sampleCall` is in the core, `firstText` and `setText` in the session (A-WEB-5.K2). The field
+is an `<input>` in the editor's shadow root (`part="text-field"`), drawn above the outlines with the
+rendered element's font; its keys stay in it, so the designer's Delete and the editor's Esc and Enter
+do not act on the selection while typing.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
@@ -464,19 +474,49 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-TOOL-006.TC-1 — Sample arguments and inline edit**
 
-Browser test on `pages/designer.html`: Add on `Button` inserts `Button("Button")` and opens a focused
+Browser test on `pages/designer.html`: Add on `Button` inserts `Button("Label")` and opens a focused
 field with the text selected; typing `Save` and Enter gives `Button("Save")`; undo restores
-`Button("Button")` and a second undo removes the button; Add on `List` inserts its sample call without
+`Button("Label")` and a second undo removes the button; Add on `List` inserts its sample call without
 the sample's rows; Esc keeps the sample text.
+
+As built (#31): `typescript/tests/browser/new-element.spec.mjs` (IT-59) opens the hand-written
+`tests/browser/fixtures/new-element-sample.mkdesign` (base pack, a `VStack` holding `Text("Sign in")`)
+in the designer and selects the stack. Add on `Button` inserts `Button("Label")`, the base pack's
+sample; the field `.mkd-editor__field` holds `Label`, is focused with characters 0 to 5 selected and
+sits over the new button's element; typing `Save` and Enter closes it and gives `Button("Save")`, the
+code changes being exactly the insertion's and then the text's, with the button still selected. Add
+on `List` gives `List()` and opens no field. Add on `Text` opens `Content`; typing then Esc closes it,
+keeps `Text("Content")` and adds no change; Add on `Toggle`, typing `Wi-Fi` and a click into the
+gallery's search field commits `Toggle("Wi-Fi")`. With `Hello` typed into the field of a new
+`Text`, a host's `session.insert('Button("Go")', …)` commits `Text("Hello")` and opens the field
+again on `Go`; replacing the code as text without the button closes the field with nothing committed. There is no undo yet (R-EDIT-007): the undo step is
+checked as a change of its own. The expected code was written by hand from the fixture and
+`shared/reference/base.json`.
+
+**R-TOOL-006.TC-2 — The insertion code and the session's text**
+
+Unit test `typescript/tests/unit/sample.test.ts`: `sampleCall` keeps a sample call's arguments and
+modifiers and drops its trailing closures (`List() { … }` gives `List()`, `NavigationSplitView { … }
+detail: { … }` gives `NavigationSplitView()`, a modifier after the closure is kept, a closure passed as
+an argument is kept), and gives `<Name>()` for a sample shown inside another element, two statements,
+a `let`, a bare identifier, code that does not parse and no sample; over `shared/reference/base.json`
+Button, Toggle, List and VStack give `Button("Label")`, `Toggle("Label")`, `List()` and `VStack()`.
+`firstText` reads plain string literals only (not an interpolation, a label or a variable). On a
+session, `setText` with the same text has no edits and no notification, a new text with quotes is
+written escaped as one `change` keeping the node's id, and a node without a first text is refused
+(`n3 has no text as its first argument`). All expected values were written by hand.
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
 | C1 | An element inserted from the gallery MUST be written as the top-level call of its reference sample (R-PACK-013) with that call's arguments and modifiers and without its trailing closures, or as `<Name>()` when the sample is not a call of the element. |
-| C2 | After an insertion, when the new call's first positional argument is a string literal, the editor MUST open an inline text field over the rendered element holding that string, focused with its text selected. |
-| C3 | Enter or leaving the field MUST commit the text with `setArgument` (R-EDIT-003.C1) as one change and one undo step, separate from the insertion; Esc MUST close the field and keep the sample's text. |
-| V1 | Adding a `Button` inserts `Button("Button")`, opens a field holding `Button`, and typing `Save` then Enter gives `Button("Save")`; one undo restores `Button("Button")`. |
+| C2 | After an insertion into the mockup it shows, when the new call's first positional argument is a string literal without interpolation, the editor MUST open an inline text field over the new element's first rendered element holding that string, focused with its text selected. |
+| C3 | Enter or leaving the field MUST commit the text with `setArgument` (R-EDIT-003.C1) as one change of the session, separate from the insertion's (one undo step once the history of R-EDIT-007 exists); Esc MUST close the field and keep the sample's text. |
+| V1 | In the base pack, adding a `Button` inserts `Button("Label")`, opens a field holding `Label`, and typing `Save` then Enter gives `Button("Save")` in a second change after the insertion's. |
+| C4 | The design session MUST provide `firstText(node)`, the text of a node's first positional argument when it is a string literal without interpolation, else null, and `setText(node, text)`, which sets that argument to the string literal of the text as one change, changes nothing and notifies nothing for the same text, and is refused for a node without such an argument. |
+| C5 | An insertion that arrives while the field is open MUST first commit the field's text, and a field whose node no longer has a first text after a render MUST close without committing. |
+| C6 | The code of C1 MUST be computed by the core (`sampleCall(name, sample)`), which gives `<Name>()` for a missing sample, a sample that does not parse, one with more than one top-level statement, a declaration or an import, and one whose single statement is not a call of the element. |
 
 ---
 
@@ -676,6 +716,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
@@ -687,6 +728,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
 | 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |

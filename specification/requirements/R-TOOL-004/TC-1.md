@@ -15,6 +15,6 @@ selected the frame and layout groups are shown with `NavigationSplitView` and `T
 `#actions` selected both are under "A frame cannot be placed inside a horizontal stack" (R-PACK-016's own
 example), the footer's `data-count` and "(n)" equal its listed elements, the first card has a
 `mockitdown-mockup` (`device="fit"`, `pack="base"`) and the last none until it is scrolled to; Add on
-`Toggle` gives the hand-written code with `Toggle()` as the stack's last child, selected, and one
-`mockitdown-insert` from the designer. A second test adds `Text` by double-click and `Divider` by Enter
+`Toggle` gives the hand-written code with `Toggle("Label")` (the base pack's sample since #31, R-TOOL-006.C1) as the stack's last child, selected, and one
+`mockitdown-insert` from the designer. A second test adds `Text` (as `Text("Content")`) by double-click and `Divider` (as `Divider()`) by Enter
 with nothing selected, each on a new line at the end of the top level.

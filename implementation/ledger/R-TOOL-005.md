@@ -2,9 +2,9 @@
 requirement: R-TOOL-005
 title: Drag and drop onto the outline and the view
 status: implemented
-version: 0.13.9
+version: 0.13.10
 date: 2026-11-28
-issue: 30
+issue: 31
 ---
 
 # R-TOOL-005 — Drag and drop onto the outline and the view
@@ -13,4 +13,5 @@ issue: 30
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.13.10 | 2026-11-28 | implemented | #31 | C5: a dropped card is the sample's call of R-TOOL-006.C1 | [Drag and drop](../narrative/architecture/drag-drop.md), [New elements](../narrative/architecture/new-elements.md) |
 | 0.13.9 | 2026-11-28 | implemented | #30 | Pointer drag and drop (typescript/src/elements/drag.ts): gallery cards onto the outline and the editor, outline rows within the outline; row-third and insertion-bar indicators, refusals with not-allowed and the reason; drops through session.drop; drag-drop.spec.mjs (TC-1, TC-2), IT-58 | [Drag and drop](../narrative/architecture/drag-drop.md), [The outline element](../narrative/architecture/outline.md), [The editor element](../narrative/architecture/editor.md), [The gallery element](../narrative/architecture/gallery-element.md), [Testing](../narrative/testing.md) |

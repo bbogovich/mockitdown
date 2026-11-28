@@ -1,6 +1,6 @@
 ---
 title: Drag and drop
-impl_version: 0.3.46
+impl_version: 0.3.47
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DRAGDROP
@@ -22,7 +22,7 @@ drop are the design session's (R-TOOL-005.C8 to C10, R-EDIT-006.C20, C21), which
 | File (`typescript/`) | What |
 |---|---|
 | `src/elements/drag.ts` | the pointer drag: `armDrag(pointerdown, start)`, `registerDropTarget(host, {over, leave, drop})`, `dragging()`, `DRAG_THRESHOLD` (4 px); the shield (`data-mkd-drag-shield`, the cursor) and the ghost (`data-mkd-drag-ghost`, `data-mkd-drag-label`, `data-mkd-drag-reason`) |
-| `src/elements/gallery.ts` | `pointerdown` on a card (not its Add button) arms a drag of `{kind: "element", name, code: insertCode(name)}` |
+| `src/elements/gallery.ts` | `pointerdown` on a card (not its Add button) arms a drag of `{kind: "element", name, code: insertCode(name, sample)}`, the element's sample call (R-TOOL-006.C1, [New elements](new-elements.md)) |
 | `src/elements/outline.ts` | `pointerdown` on a row that is not derived arms a drag of `{kind: "nodes", mockup, nodes}` (the selection when the row is one of several selected rows); drop target: `#dragOver` (row thirds, the tree's end), `#markDrop` (`data-drop`, `.mkd-outline__row--drop-*`), `#dragDrop`; `#pack` from the evaluation |
 | `src/elements/editor.ts` | drop target: `#dragOver` (innermost container, children's boxes inside it, `layoutAxis`, `insertionBar`), the `drop-target` and `drop-bar` parts drawn by `#drawOverlay`, `#dragDrop`; `#pack` from the render |
 | `src/design/session.ts` | `DragSource`, `DropPosition`, `DropZone`, `DropCheck`; `childrenOf`, `isContainer`, `dropPosition`, `checkDrop`, `drop`; `insert(code, parent?, index = "end")`, `move(nodes, parent, index)` |
@@ -105,3 +105,4 @@ sequenceDiagram
 | Version | Date | Change |
 |---|---|---|
 | 0.3.46 | 2026-11-28 | Page written: pointer drag and drop between the gallery, the outline and the editor, the session's drop API, the top-level move, IT-58 (#30) |
+| 0.3.47 | 2026-11-28 | A dropped card is its sample's call (`insertCode(name, sample)`, R-TOOL-006.C1) (#31) |

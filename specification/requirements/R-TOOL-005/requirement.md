@@ -2,24 +2,24 @@
 id: R-TOOL-005
 title: Drag and drop onto the outline and the view
 status: active
-version: 0.13.9
-rev: 5
+version: 0.13.10
+rev: 6
 page: WEB.4
 slot: reqs
 order: 5
-hash: fadec81c97a2
+hash: 2fcfca24fb3e
 source: [SRC-12, SRC-14]
 realizes: [F-19]
 requires: [R-TOOL-004, R-TOOL-001, R-TOOL-002]
 constrained_by: [A-WEB-5]
-refs: [A-WEB-5, F-19, R-EDIT-002, R-EDIT-007, R-PACK-016]
+refs: [A-WEB-5, F-19, R-EDIT-002, R-EDIT-007, R-PACK-016, R-TOOL-006]
 ---
 
 C1: A gallery card MUST be draggable onto the outline and onto the editor, and an outline row of a view that is not derived MUST be draggable within the outline, carrying every selected node when the row is one of several selected rows.
 C2: Over an outline row, the outline MUST show a drop indicator before the row, after it or inside it, chosen by the pointer's position in the upper, lower or middle third of the row, and below the last row a drop indicator at the end of the mockup's top level.
 C3: Over the editor, the editor MUST outline the innermost container under the pointer (`session.isContainer`, C10), else the mockup's top level, and show an insertion bar at the gap between its children nearest the pointer, across the axis along which its children are laid out: horizontal in a `VStack`, vertical in an `HStack`.
 C4: A drop position whose parent cannot contain the dragged element (R-PACK-016.C6), that lies inside a dragged row's own subtree, or that the edit operation refuses MUST show the `not-allowed` cursor, the indicator in the refused colour and the reason next to the pointer, and a drop there MUST do nothing.
-C5: Dropping a gallery card MUST insert `<Name>()` at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8), keeping their node ids and selecting them.
+C5: Dropping a gallery card MUST insert the element as R-TOOL-006.C1 writes it (its sample's call, else `<Name>()`) at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8), keeping their node ids and selecting them.
 C6: Each drop MUST be one edit operation of the session, notifying one `change` (one undo step once the history of R-EDIT-007 exists), and Esc MUST cancel a drag, changing nothing.
 V1: Dragging `Text` from the gallery into a `VStack` in the view inserts `Text(…)` at the position of the insertion bar (F-19.AC1).
 C7: A drag MUST be a pointer drag that starts once the pointer has moved 4 CSS pixels from where it was pressed and shows, next to the pointer, the name of what is dragged; releasing the pointer where no component shows a position, or a cancelled pointer, MUST end the drag with nothing changed.

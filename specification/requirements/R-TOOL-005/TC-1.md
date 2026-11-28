@@ -14,7 +14,7 @@ As built (#30): `typescript/tests/browser/drag-drop.spec.mjs` opens the hand-wri
 `HStack` of two buttons) in the designer of `pages/designer.html` and drags with the pointer
 (`page.mouse`). Over the gap between the texts the VStack's box is the `drop-target` and the
 `drop-bar` is horizontal (`data-orientation`), wider than tall and between the two texts, with the
-`grabbing` cursor; the drop gives the hand-written code with `Text()` second, selected, after exactly
+`grabbing` cursor; the drop gives the hand-written code with `Text("Content")` (the base pack's sample, R-TOOL-006.C1; `Text()` before #31) second, selected, after exactly
 one code `change`. Over the gap between the buttons the bar is vertical; Esc removes the ghost, the
 shield and the bar, and releasing afterwards changes nothing. There is no undo yet (R-EDIT-007): the
 undo step is checked as the one `change`.

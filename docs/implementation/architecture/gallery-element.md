@@ -1,6 +1,6 @@
 ---
 title: The gallery element
-impl_version: 0.3.46
+impl_version: 0.3.47
 status: draft
 updated: 2026-11-28
 page_id: IMPL.GALLERYEL
@@ -17,13 +17,15 @@ which uses the top-level `insert` of R-EDIT-002 ([Editing core](editing.md)) whe
 [The designer](designer.md) holds it in its gallery panel (R-TOOL-003.C16).
 
 
-Drag and drop (R-TOOL-005, #30): a card dragged onto the outline or the editor inserts `<Name>()` where it is dropped; see [Drag and drop](drag-drop.md).
+Drag and drop (R-TOOL-005, #30): a card dragged onto the outline or the editor inserts the element where it is dropped; see [Drag and drop](drag-drop.md).
+
+New elements (R-TOOL-006, #31): Add and a drop insert the element's sample call (`Toggle("Label")`, `List()`), and the editor opens its first text; see [New elements](new-elements.md).
 
 ## Files
 
 | File (`typescript/`) | What |
 |---|---|
-| `src/elements/gallery.ts` | `GalleryElement`, `GALLERY_TAG`, `GALLERY_ATTRIBUTES` (`import-base`), `PREVIEW_MARGIN` (200), `CATEGORY_TITLES`; `referenceUrl(pack, base?)`, `loadReference(pack, base?)` (one fetch per URL, a failure forgotten), `galleryState(pack, parent, reference, structs)` (the cards and the hidden groups, pure), `matchesFilter(card, text)`, `insertCode(name)` (`<Name>()`) |
+| `src/elements/gallery.ts` | `GalleryElement`, `GALLERY_TAG`, `GALLERY_ATTRIBUTES` (`import-base`), `PREVIEW_MARGIN` (200), `CATEGORY_TITLES`; `referenceUrl(pack, base?)`, `loadReference(pack, base?)` (one fetch per URL, a failure forgotten), `galleryState(pack, parent, reference, structs)` (the cards and the hidden groups, pure), `matchesFilter(card, text)`, `insertCode(name, sample?)` (the sample's call, `sampleCall`, else `<Name>()`) |
 | `scripts/copy-shared.mjs` | copies `shared/reference/*.json` into `dist/shared/reference/` and lists them under `reference` in `manifest.json`, not under `files` (R-WEB-001.C13, C17); `--check` covers them; reference files that left `shared/` are removed |
 | `src/core/assets.ts` | `SharedManifest.reference` (optional) |
 | `src/core/api.ts` | `Evaluation.structs`: the structs an evaluation knows, imported first, then declared (the Components group) |
@@ -59,7 +61,7 @@ flowchart TD
   S --> AC["allowedChildren(pack, parent)<br/>(canContain for names the pack lacks)"]
   S --> D["#draw: search filter → groups → cards → Hidden here"]
   D --> IO["IntersectionObserver (root: the list, 200 px)<br/>→ mockitdown-mockup device=fit pack=…"]
-  U["Add · double-click · Enter"] --> INS["session.insert('Name()')"]
+  U["Add · double-click · Enter"] --> INS["session.insert(insertCode(name, sample))"]
   INS --> NOT["change → insert → select"]
 ```
 
@@ -81,7 +83,7 @@ flowchart TD
   pack and name, so a redraw after a selection moves the existing previews instead of rendering again.
   The box is 72 px high and shows the preview at half size, with no pointer events.
 - **Insert** (C8): Add, `dblclick` on a card and Enter on a focused card call `add(name)`, which calls
-  `session.insert(insertCode(name))`. The session inserts as the last child of the first selected node,
+  `session.insert(insertCode(name, sample))` with the shown pack's sample (R-TOOL-006.C1). The session inserts as the last child of the first selected node,
   else at the end of the top level (`parent: null`), and selects the inserted node: `change`, `insert`,
   `select`. The gallery dispatches them only for a session of its own (R-EDIT-006.C8); in the designer the
   designer does.
@@ -104,3 +106,4 @@ flowchart TD
 |---|---|---|
 | 0.3.45 | 2026-11-28 | Page written: `mockitdown-gallery`, the reference data in the package, `session.insert`, the top-level insert, IT-57 (#29) |
 | 0.3.46 | 2026-11-28 | Cards draggable onto the outline and the editor (#30) |
+| 0.3.47 | 2026-11-28 | Add and a drop insert the sample's call (`insertCode(name, sample)` = `sampleCall`, R-TOOL-006) (#31) |

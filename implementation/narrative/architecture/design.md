@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.46
+impl_version: 0.3.47
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -80,6 +80,7 @@ mockup is first needed; one whose mockup's code was changed outside the session 
 | `setOptions(name, options)`, `moveMockup(name, x, y)` | options replaced (null removes them); position set | `change` of kind `options` or `move`, no edits; `diagnostics` after options |
 | `select(ids)`, `hover(id)` | ids of the active mockup's tree; siblings share a parent node, else the struct or top level they stand in | `select`, `hover` |
 | `setActive(name)` | selection and hover cleared | `active`, then `select`, `hover` when they were set |
+| `firstText(node)`, `setText(node, text)` | the first positional argument as a plain string, or null; `setArgument` of position 0 to the escaped literal (R-TOOL-006.C4), nothing for the same text, refused without a first text | one `change`; the editor's inline field ([New elements](new-elements.md)) |
 | `insert(code, parent?)` | `insert` of one view as the last child of `parent`, by default the first selected node, else at the end of the top level (`parent: null`, R-EDIT-006.C20); the inserted node becomes the selection | `change`, `insert`, then `select` of the new node; the gallery's Add ([The gallery element](gallery-element.md)) |
 | `delete()` | `remove` of the selection (R-EDIT-006.C19); the next selection is the statement after the last removed node in its body (`bodySiblings`), else the one before, else the parent, else none; refused when nothing is selected | `change`, then one `select` with the new selection, `hover` and `diagnostics` as for `apply` |
 
@@ -127,3 +128,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.43 | 2026-11-28 | `session.delete()` (R-EDIT-006.C19) and `applyOp(op, select)`; the designer dispatches the events of its session once each and components inside it join it (C7, C8, C11); see [The designer element](designer.md) (#27) |
 | 0.3.45 | 2026-11-28 | `session.insert(code, parent?)` (R-EDIT-006.C20), `applyOp(op, "inserted")`; the gallery joins a session as the other components do (#29) |
 | 0.3.46 | 2026-11-28 | `insert` index, `move`, the drop API (#30) |
+| 0.3.47 | 2026-11-28 | `firstText(node)` and `setText(node, text)` (R-TOOL-006.C4) (#31) |

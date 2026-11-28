@@ -195,9 +195,9 @@ R-REPO-004 | requirements | active | 0.12.17 r9 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.13.4 r6 | WEB.4 | The editable view: mockitdown-editor
 R-TOOL-002 | requirements | active | 0.13.5 r5 | WEB.4 | The outline: mockitdown-outline
 R-TOOL-003 | requirements | active | 0.13.8 r6 | WEB.4 | The composite designer and its test page
-R-TOOL-004 | requirements | active | 0.13.8 r6 | WEB.4 | The gallery: mockitdown-gallery
-R-TOOL-005 | requirements | active | 0.13.9 r5 | WEB.4 | Drag and drop onto the outline and the view
-R-TOOL-006 | requirements | active | 0.12.12 r4 | WEB.4 | New elements: sample arguments and first-text editing
+R-TOOL-004 | requirements | active | 0.13.10 r7 | WEB.4 | The gallery: mockitdown-gallery
+R-TOOL-005 | requirements | active | 0.13.10 r6 | WEB.4 | Drag and drop onto the outline and the view
+R-TOOL-006 | requirements | active | 0.13.10 r5 | WEB.4 | New elements: sample arguments and first-text editing
 R-TOOL-007 | requirements | active | 0.12.12 r4 | WEB.4 | The inspector: mockitdown-inspector
 R-TOOL-008 | requirements | active | 0.12.12 r4 | WEB.4 | The code view: mockitdown-code
 R-TOOL-009 | requirements | active | 0.12.12 r4 | WEB.4 | Two-way editing and Code mode
