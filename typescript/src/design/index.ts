@@ -1,6 +1,6 @@
 /**
  * The design document and session module (A-WEB-4): `readDesign`, `writeDesign`, `newDesign`,
- * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync` and the diagnostics list's model. No DOM, network or file system (A-WEB-4.K1), so that a desktop
+ * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync`, the diagnostics list's model and the canvas's view geometry. No DOM, network or file system (A-WEB-4.K1), so that a desktop
  * shell's main process can use it in Node as the design tools use it in a browser.
  */
 
@@ -21,6 +21,11 @@ export {
   activateDiagnostic, diagnosticEntries, diagnosticOffset, diagnosticTarget, NO_PROBLEMS, REVEAL_EVENT,
   type DiagnosticEntry, type DiagnosticLike, type DiagnosticTarget,
 } from "./diagnostics.js";
+export {
+  centreAt, clampZoom, FIT_MARGIN, fitView, fromMinimap, minimapMapping, stepZoom, toMinimap, TRANSFORM_MAX, unionBox, viewBox,
+  ZOOM_MAX, ZOOM_MIN, ZOOM_STEPS, zoomAt, zoomRendering,
+  type CanvasBox, type CanvasView, type MinimapMapping,
+} from "./canvas.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
 export {

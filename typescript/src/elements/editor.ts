@@ -73,10 +73,10 @@ const EDITOR_CSS = `:host{position:relative;outline:none}
 .mkd-editor__view[data-readonly]{opacity:.55}
 .mkd-editor__readonly{margin:0 0 8px;font:12px/1.4 system-ui,sans-serif;color:var(--mkd-readonly-color,#9a5b00)}
 .mkd-editor__overlay{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2147483647}
-.mkd-editor__box{position:absolute;box-sizing:border-box;border:2px solid var(--mkd-selection-color,#ff8a00);border-radius:2px}
-.mkd-editor__box--hover{border:1px solid var(--mkd-hover-color,#2f80ed)}
-.mkd-editor__tag,.mkd-editor__badge{position:absolute;font:500 11px/16px system-ui,sans-serif;white-space:nowrap;padding:0 5px;border-radius:3px;color:#fff}
-.mkd-editor__tag{left:-1px;bottom:100%;margin-bottom:2px;background:var(--mkd-hover-color,#2f80ed)}
+.mkd-editor__box{position:absolute;box-sizing:border-box;border:calc(2px / var(--mkd-editor-scale,1)) solid var(--mkd-selection-color,#ff8a00);border-radius:2px}
+.mkd-editor__box--hover{border:calc(1px / var(--mkd-editor-scale,1)) solid var(--mkd-hover-color,#2f80ed)}
+.mkd-editor__tag,.mkd-editor__badge{position:absolute;font:500 calc(11px / var(--mkd-editor-scale,1))/calc(16px / var(--mkd-editor-scale,1)) system-ui,sans-serif;white-space:nowrap;padding:0 calc(5px / var(--mkd-editor-scale,1));border-radius:3px;color:#fff}
+.mkd-editor__tag{left:-1px;bottom:100%;margin-bottom:calc(2px / var(--mkd-editor-scale,1));background:var(--mkd-hover-color,#2f80ed)}
 .mkd-editor__tag--inside{bottom:auto;top:1px;margin:0}
 .mkd-editor__badge{right:-2px;top:-2px;transform:translateY(-100%);background:var(--mkd-selection-color,#ff8a00)}
 .mkd-editor__badge--inside{transform:none;top:0;right:0}
@@ -505,12 +505,13 @@ export class EditorElement extends Base {
     const el = field ? this.#elementsOf(field.node)[0] : undefined;
     if (!field || !el) return;
     const host = this.getBoundingClientRect();
+    const k = this.#scale(host);
     const r = el.getBoundingClientRect();
     const st = field.input.style;
-    st.left = `${r.left - host.left}px`;
-    st.top = `${r.top - host.top}px`;
-    st.width = `${Math.max(r.width, 64)}px`;
-    st.height = `${Math.max(r.height, 20)}px`;
+    st.left = `${(r.left - host.left) / k}px`;
+    st.top = `${(r.top - host.top) / k}px`;
+    st.width = `${Math.max(r.width / k, 64)}px`;
+    st.height = `${Math.max(r.height / k, 20)}px`;
     if (typeof getComputedStyle === "function") st.font = getComputedStyle(el).font;
   }
 
@@ -702,7 +703,8 @@ export class EditorElement extends Base {
       }
     }
     const host = this.getBoundingClientRect();
-    const rel = (r: DOMRect | Box): Box => ({ left: r.left - host.left, top: r.top - host.top, width: r.width, height: r.height });
+    const scale = this.#scale(host);
+    const rel = (r: DOMRect | Box): Box => ({ left: (r.left - host.left) / scale, top: (r.top - host.top) / scale, width: r.width / scale, height: r.height / scale });
     const children = session.childrenOf(parent);
     const rects: { index: number; box: Box }[] = [];
     children.forEach((id, index) => {
@@ -710,8 +712,8 @@ export class EditorElement extends Base {
       if (box) rects.push({ index, box: rel(box) });
     });
     const axis = layoutAxis(containerEl, rects.map((r) => r.box));
-    const px = x - host.left;
-    const py = y - host.top;
+    const px = (x - host.left) / scale;
+    const py = (y - host.top) / scale;
     const centre = (b: Box): number => (axis === "vertical" ? b.top + b.height / 2 : b.left + b.width / 2);
     const k = rects.findIndex((r) => centre(r.box) > (axis === "vertical" ? py : px));
     const index = k < 0 ? (rects.length ? rects[rects.length - 1]!.index + 1 : "end") : rects[k]!.index;
@@ -739,6 +741,19 @@ export class EditorElement extends Base {
     this.#drawOverlay();
     // C5, C6: one session operation — an insert, selected, or a move of the dragged nodes.
     if (mark?.allowed) this.session.drop(drag.source, mark.position, this.#pack);
+  }
+
+  /**
+   * How many client pixels one of the editor's CSS pixels covers: 1, except inside a scaled or zoomed
+   * ancestor such as `mockitdown-canvas` (R-TOOL-011.C8), where the overlay's boxes are divided by it.
+   */
+  #scale(host: DOMRect): number {
+    // The overlay (absolute, inset 0) is a block box even when the host is inline.
+    const probe = this.#overlay;
+    const w = probe ? probe.offsetWidth : this.offsetWidth;
+    const shown = probe ? probe.getBoundingClientRect().width : host.width;
+    const k = w > 0 && shown > 0 ? shown / w : 1;
+    return Number.isFinite(k) && k > 0 ? k : 1;
   }
 
   /** The box around a child node's outermost elements inside a container element, or null when it has none there. */
@@ -801,13 +816,17 @@ export class EditorElement extends Base {
     const name = this.mockup;
     if (!session || name === null || !this.#view) return;
     const host = this.getBoundingClientRect();
+    // Inside a zoomed canvas (R-TOOL-011) client pixels are k of the editor's own CSS pixels.
+    const k = this.#scale(host);
+    overlay.style.setProperty("--mkd-editor-scale", String(k));
     const box = (el: Element, kind: "selection" | "hover"): [HTMLElement, DOMRect] => {
-      const r = el.getBoundingClientRect();
+      const c = el.getBoundingClientRect();
+      const r = new DOMRect((c.left - host.left) / k, (c.top - host.top) / k, c.width / k, c.height / k);
       const b = document.createElement("div");
       b.className = `mkd-editor__box mkd-editor__box--${kind}`;
       b.setAttribute("part", kind);
-      b.style.left = `${r.left - host.left}px`;
-      b.style.top = `${r.top - host.top}px`;
+      b.style.left = `${r.left}px`;
+      b.style.top = `${r.top}px`;
       b.style.width = `${r.width}px`;
       b.style.height = `${r.height}px`;
       overlay.append(b);
@@ -818,7 +837,7 @@ export class EditorElement extends Base {
       span.className = cls;
       span.setAttribute("part", cls === "mkd-editor__tag" ? "tag" : "badge");
       span.textContent = text;
-      if (r.top - host.top < LABEL_ROOM) span.classList.add(`${cls}--inside`);
+      if (r.top * k < LABEL_ROOM) span.classList.add(`${cls}--inside`);
       b.append(span);
     };
     const active = session.active === name;

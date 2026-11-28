@@ -299,8 +299,8 @@ the editor does; to share an editor's, set it: `outline.session = editor.session
 ### The designer element
 
 `<mockitdown-designer>` composes the design tools over one design document: a toolbar (Design, Preview
-and Code; Undo and Redo; Outline and Properties toggles; the active mockup, its pack and device), the outline above the
-gallery on the left (240 px), the editable view, the properties panel on the right (260 px) and a
+and Code; Undo and Redo; Outline and Properties toggles; the zoom control; the active mockup, its pack and device), the outline above the
+gallery on the left (240 px), the view (a `mockitdown-canvas` of every mockup, the active one editable), the properties panel on the right (260 px) and a
 status bar (diagnostic count and a breadcrumb whose crumbs select their node).
 
 ```html
@@ -325,8 +325,8 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
   paste (the system clipboard holds the code as `text/plain`; when it cannot be read, Cmd/Ctrl+V pastes
   what the designer copied last), Alt+Up and Alt+Down move the selection. Shift-click and Cmd/Ctrl-click
   in the outline and the view select several siblings. Not in a text field, nor in Preview mode.
-- `mode` (attribute and property): `design` (default), `preview` (every mockup read-only through
-  `mockitdown-mockup` with its options, a list of the mockups and a Light, Dark, Both toggle) or `code`
+- `mode` (attribute and property): `design` (default), `preview` (the canvas with every mockup read-only through
+  `mockitdown-mockup` with its options, a list of the mockups revealing each on the canvas, and a Light, Dark, Both toggle) or `code`
   (the active mockup's code, editable, with the outline, gallery and inspector live). An unknown value
   means `design`. In Design mode the toolbar's Dock code toggle (part `dock`; the `docked` attribute and
   property) shows the same code view below the view; `d.codeView` is that `mockitdown-code`.
@@ -525,6 +525,38 @@ list.addEventListener("mockitdown-reveal", (e) => codeView.reveal(e.detail.range
 - The rules are in `mockitdown/design`: `diagnosticEntries(session)`, `diagnosticTarget(session, d)`,
   `activateDiagnostic(session, index)` and `diagnosticOffset(code, line, col)`, where the column is
   counted in code points as the lexer counts it.
+
+### The canvas
+
+`<mockitdown-canvas>` shows every mockup of its session's document as a frame (part `frame`,
+`data-mockup`) at the mockup's `x` and `y`, one canvas unit per CSS pixel at 100 %, with its name above
+it (part `label`). The active mockup's frame shows the canvas's child element (in the designer, the
+editor); the others, and all of them with the `preview` attribute, show a read-only
+`mockitdown-mockup` (`appearance`, `import-base` and `asset-base` attributes pass on to them). A click on
+an inactive frame makes it the active mockup. The designer uses it as its view in Design and Preview
+modes (`designer.canvas`).
+
+```js
+canvas.session = session;          // or inside a mockitdown-designer: its session
+canvas.zoom = 1.5;                 // clamped to 0.1 … 4, about the viewport's centre
+canvas.fit();                      // every frame, 40 px margins
+canvas.reveal("Inbox");            // centre and fit one mockup; throws for an unknown name
+canvas.view;                       // {zoom, x, y}: the canvas point at the viewport's top left corner
+canvas.addEventListener("mockitdown-view", (e) => show(e.detail.zoom));
+```
+
+- Zoom: Cmd/Ctrl with the wheel or a pinch, about the pointer; Cmd/Ctrl+plus and minus step through
+  10, 25, 50, 75, 100, 150, 200, 300 and 400 %; Cmd/Ctrl+0 fits all, Cmd/Ctrl+1 is 100 %, Shift+2 fits
+  the selected element, else the active mockup (`fitSelection()`). The designer's toolbar has the
+  same steps and Fit in its zoom control (part `zoom`).
+- Pan: the wheel or trackpad scroll (Shift turns a vertical wheel horizontal), a drag with the space
+  bar held, a drag with the middle button, or the minimap (part `minimap`, bottom right): a click
+  centres the viewport there, a drag moves it.
+- Up to 200 % the frames are scaled with a CSS transform; above it they are laid out again with CSS
+  `zoom`, so text is drawn at its zoomed size. A frame is as wide as its rendering's device (or a fit
+  rendering's own width).
+- The view starts as the document's `view` and is not written back to it. The arithmetic (`zoomAt`,
+  `stepZoom`, `fitView`, `minimapMapping`, …) is in `mockitdown/design`.
 
 ## Development
 

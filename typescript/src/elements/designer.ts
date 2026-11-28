@@ -2,9 +2,10 @@
  * `<mockitdown-designer>`: the composite designer (R-TOOL-003, A-WEB-5). It owns a design session
  * (R-EDIT-006) that its components join, and lays the design tools out in panels:
  *
- *   ┌ toolbar: mode switch · Undo, Redo · panel toggles · mockup, pack and device ───────────┐
+ *   ┌ toolbar: mode switch · Undo, Redo · panel toggles · zoom · mockup, pack and device ────┐
  *   │ outline (240 px)  │                                    │ properties (260 px)          │
- *   │ gallery           │ the editable view                  │                              │
+ *   │ gallery           │ the canvas, the active mockup      │                              │
+ *   │                   │ editable                           │                              │
  *   └ status bar: diagnostic count · breadcrumb ──────────────────────────────────────────────┘
  *
  *   <mockitdown-designer id="d"></mockitdown-designer>
@@ -23,9 +24,12 @@
  *
  * `open(json)` reads a design document with `readDesign` and starts a new session over it (rejecting
  * with a {@link DesignOpenError} and keeping the current document when it is not valid); `toJSON()` and
- * `document` return the session's live document with every edit applied. `mode` is `design` (the
- * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
- * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code in a
+ * `document` return the session's live document with every edit applied. In Design and Preview modes
+ * the view is a `mockitdown-canvas` (R-TOOL-011.C9, `canvas`) holding every mockup as a frame, the
+ * active one shown by the designer's editor; the toolbar's zoom control (part `zoom`) offers its zoom
+ * steps and Fit. `mode` is `design` (the
+ * default), `preview` (every mockup read-only on the canvas through `mockitdown-mockup`, the side panels hidden, a
+ * list of the mockups revealing each on the canvas and a light, dark and both appearance toggle) or `code` (the active mockup's code in a
  * `mockitdown-code` in the centre, R-TOOL-008, with the outline, the gallery and the inspector kept live).
  * The code view is joined to the session by a `CodeSync` (R-TOOL-009): typing is applied 300 ms after
  * the last keystroke (or when the focus leaves it), the caret moved by the pointer or a navigation key
@@ -50,17 +54,18 @@
  * editing rule of its own (A-WEB-5.K2).
  */
 
-import { FENCE_OPTIONS, registry } from "../core/index.js";
+import { registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
 import { CodeSync } from "../design/code-sync.js";
 import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
 import { REVEAL_EVENT } from "../design/diagnostics.js";
+import { ZOOM_STEPS } from "../design/canvas.js";
+import { CANVAS_TAG, VIEW_EVENT, type CanvasElement } from "./canvas.js";
 import { CODE_TAG, type CodeElement } from "./code.js";
 import { DIAGNOSTICS_TAG } from "./diagnostics.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
 import { EDIT_IN_CODE_EVENT, INSPECTOR_TAG } from "./inspector.js";
-import { MOCKUP_TAG } from "./mockup.js";
 import { OUTLINE_TAG } from "./outline.js";
 
 export const DESIGNER_TAG = "mockitdown-designer";
@@ -107,9 +112,9 @@ export class DesignOpenError extends Error {
 }
 
 /** The components whose focus makes Delete and Backspace delete the selection (C11). */
-const COMPONENT_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG]);
+const COMPONENT_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, CANVAS_TAG]);
 /** The package's components that join the designer's session (R-EDIT-006.C11). */
-const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG, DIAGNOSTICS_TAG]);
+const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG, DIAGNOSTICS_TAG, CANVAS_TAG]);
 
 const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13px/1.4 system-ui,sans-serif;color:var(--mkd-designer-color,#1d1d22);background:var(--mkd-designer-background,#fff)}
 :host([hidden]){display:none}
@@ -138,20 +143,19 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__resizer{background:var(--mkd-designer-border,#d0d0d7);background-clip:content-box;padding:0 2px;cursor:col-resize;touch-action:none;outline:none}
 .mkd-designer__resizer:hover,.mkd-designer__resizer:focus-visible,.mkd-designer__resizer--dragging{background-color:var(--mkd-selection-color,#ff8a00)}
 .mkd-designer__center{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:var(--mkd-designer-canvas-background,#f0f1f4)}
-.mkd-designer__view{flex:1 1 auto;min-height:0;overflow:auto;padding:24px}
-.mkd-designer__view[hidden],.mkd-designer__code[hidden],.mkd-designer__preview[hidden]{display:none}
-.mkd-designer__view mockitdown-editor{display:block;max-width:100%}
+.mkd-designer__view{flex:1 1 auto;min-height:0;display:flex;overflow:clip}
+.mkd-designer__view>slot{display:contents}
+.mkd-designer__view[hidden],.mkd-designer__code[hidden],.mkd-designer__preview-list[hidden],.mkd-designer__zoom[hidden]{display:none}
+.mkd-designer__view mockitdown-canvas{flex:1 1 auto;min-width:0;min-height:0}
+.mkd-designer__view mockitdown-canvas>mockitdown-editor{display:block}
+.mkd-designer__zoom{font:inherit;color:inherit;background:var(--mkd-designer-background,#fff);border:1px solid var(--mkd-designer-border,#d0d0d7);border-radius:5px;padding:1px 4px}
 .mkd-designer__code{display:block;flex:1 1 auto;height:auto;min-height:0;--mkd-code-background:var(--mkd-designer-background,#fff)}
 .mkd-designer__code--docked{flex:0 0 40%;border-top:1px solid var(--mkd-designer-border,#d0d0d7)}
-.mkd-designer__preview{flex:1 1 auto;min-height:0;overflow:auto;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start}
 .mkd-designer__status-message{color:var(--mkd-designer-error-color,#d12f2f);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .mkd-designer__status-message:empty{display:none}
-.mkd-designer__preview-list{display:flex;flex-direction:column;gap:2px;padding:8px;border-right:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-background,#fff)}
+.mkd-designer__preview-list{flex:0 0 auto;display:flex;flex-direction:column;gap:2px;padding:8px;overflow:auto;border-right:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-background,#fff)}
 .mkd-designer__preview-list button{font:inherit;color:inherit;text-align:left;background:none;border:0;border-radius:5px;padding:3px 10px;cursor:pointer;white-space:nowrap}
 .mkd-designer__preview-list button[aria-current="true"]{font-weight:600;background:var(--mkd-outline-selected-background,rgba(255,138,0,.22))}
-.mkd-designer__frames{display:flex;flex-direction:column;gap:24px;padding:24px}
-.mkd-designer__frame{margin:0}
-.mkd-designer__frame>figcaption{font-weight:600;margin:0 0 6px}
 .mkd-designer__status{display:flex;align-items:center;gap:12px;padding:2px 8px;border-top:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-bar-background,#f6f6f8);min-height:24px;box-sizing:border-box;font-size:12px}
 .mkd-designer__breadcrumb{display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden}
 .mkd-designer__crumb{font:inherit;color:inherit;background:none;border:0;border-radius:4px;padding:0 4px;cursor:pointer}
@@ -175,6 +179,10 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="left" aria-pressed="true" title="Show or hide the outline and the gallery">Outline</button>`
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="right" aria-pressed="true" title="Show or hide the properties">Properties</button>`
   + `<button type="button" class="mkd-designer__dock" part="dock" aria-pressed="false" title="Show or hide the code below the view">Dock code</button>`
+  + `<select class="mkd-designer__zoom" part="zoom" aria-label="Zoom" title="Zoom (Cmd/Ctrl+plus and minus; Cmd/Ctrl+0 fits, Cmd/Ctrl+1 is 100 %, Shift+2 fits the selection)">`
+  + `<option value="current" hidden></option>`
+  + ZOOM_STEPS.map((z) => `<option value="${z}">${zoomLabel(z)}</option>`).join("")
+  + `<option value="fit">Fit</option></select>`
   + `<div class="mkd-designer__appearance" role="group" aria-label="Appearance" hidden>`
   + PREVIEW_APPEARANCES.map((a) => `<button type="button" part="appearance" data-appearance="${a}" aria-pressed="false">${a[0]!.toUpperCase()}${a.slice(1)}</button>`).join("")
   + `</div><span class="mkd-designer__spacer"></span>`
@@ -188,9 +196,9 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--left" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the outline" tabindex="0" data-panel="left"></div>`
   + `<div class="mkd-designer__center" part="center">`
-  + `<div class="mkd-designer__view" part="view"><slot name="view"><mockitdown-editor part="editor"></mockitdown-editor></slot></div>`
+  + `<div class="mkd-designer__view" part="view"><nav class="mkd-designer__preview-list" part="mockups" aria-label="Mockups" hidden></nav>`
+  + `<slot name="view"><${CANVAS_TAG} part="canvas"><mockitdown-editor part="editor"></mockitdown-editor></${CANVAS_TAG}></slot></div>`
   + `<${CODE_TAG} class="mkd-designer__code" part="code" hidden></${CODE_TAG}>`
-  + `<div class="mkd-designer__preview" part="preview" hidden><nav class="mkd-designer__preview-list" part="mockups" aria-label="Mockups"></nav><div class="mkd-designer__frames"></div></div>`
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--right" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the properties" tabindex="0" data-panel="right"></div>`
   + `<div class="mkd-designer__right" part="right"><slot name="inspector"><mockitdown-inspector part="inspector"></mockitdown-inspector></slot></div>`
@@ -204,6 +212,11 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `</div>`;
 
 const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLElement : class {}) as typeof HTMLElement;
+
+/** A zoom factor as the zoom control shows it: `10%`, `150%`. */
+function zoomLabel(zoom: number): string {
+  return `${Math.round(zoom * 100)}%`;
+}
 
 /** A mode attribute's value as a mode: an unknown value (or none) is `design` (C8). */
 export function designerMode(value: string | null | undefined): DesignerMode {
@@ -227,13 +240,9 @@ export class DesignerElement extends Base {
   #appearance: PreviewAppearance | null = null;
   /** The text the designer copied or cut last (R-EDIT-008.C3), pasted when the clipboard cannot be read. */
   #copied = "";
-  #previewsFor: DesignSession | null = null;
-  #previewsDirty = true;
-  /** The appearance each preview's own options give it, which the toggle overrides. */
-  #ownAppearance = new WeakMap<Element, string>();
   #el: {
     main: HTMLElement; left: HTMLElement; right: HTMLElement; leftEdge: HTMLElement; rightEdge: HTMLElement;
-    view: HTMLElement; code: HTMLElement; preview: HTMLElement; previewList: HTMLElement; frames: HTMLElement;
+    view: HTMLElement; code: HTMLElement; previewList: HTMLElement; canvas: HTMLElement; zoom: HTMLSelectElement;
     appearance: HTMLElement; name: HTMLElement; pack: HTMLElement; device: HTMLElement;
     undo: HTMLButtonElement; redo: HTMLButtonElement;
     diagnostics: HTMLElement; statusMessage: HTMLElement; breadcrumb: HTMLElement; dock: HTMLElement;
@@ -249,8 +258,8 @@ export class DesignerElement extends Base {
     this.#el = {
       main: q(".mkd-designer__main"), left: q(".mkd-designer__left"), right: q(".mkd-designer__right"),
       leftEdge: q(".mkd-designer__resizer--left"), rightEdge: q(".mkd-designer__resizer--right"),
-      view: q(".mkd-designer__view"), code: q(".mkd-designer__code"), preview: q(".mkd-designer__preview"),
-      previewList: q(".mkd-designer__preview-list"), frames: q(".mkd-designer__frames"),
+      view: q(".mkd-designer__view"), code: q(".mkd-designer__code"), canvas: q(CANVAS_TAG), zoom: q(".mkd-designer__zoom"),
+      previewList: q(".mkd-designer__preview-list"),
       appearance: q(".mkd-designer__appearance"), name: q(".mkd-designer__name"), pack: q(".mkd-designer__pack"),
       device: q(".mkd-designer__device"), diagnostics: q(".mkd-designer__diagnostics"),
       undo: q(".mkd-designer__undo"), redo: q(".mkd-designer__redo"),
@@ -282,6 +291,15 @@ export class DesignerElement extends Base {
     this.#el.dock.addEventListener("click", () => {
       this.docked = !this.docked;
     });
+    // R-TOOL-011.C3: the zoom control offers the canvas's zoom steps and fit.
+    this.#el.zoom.addEventListener("change", () => {
+      const canvas = this.canvas;
+      const value = this.#el.zoom.value;
+      if (canvas && value === "fit") canvas.fit();
+      else if (canvas && value !== "current") canvas.zoom = Number(value);
+      this.#drawZoom();
+    });
+    this.#el.canvas.addEventListener(VIEW_EVENT, () => this.#drawZoom());
     this.addEventListener(EDIT_IN_CODE_EVENT, (e) => this.#editInCode(e as CustomEvent));
     this.addEventListener(REVEAL_EVENT, (e) => this.#reveal(e as CustomEvent));
     this.#el.diagnostics.addEventListener("click", () => {
@@ -303,6 +321,7 @@ export class DesignerElement extends Base {
     this.#drawLayout();
     this.#drawMode();
     this.#drawState();
+    this.#drawZoom();
   }
 
   // --- properties ---------------------------------------------------------------------------------
@@ -355,6 +374,17 @@ export class DesignerElement extends Base {
     if (on) this.#el.problemsList.focus();
   }
 
+  /**
+   * The canvas (R-TOOL-011) that is the view in Design and Preview modes, once its custom element is
+   * defined (upgraded first when the designer is not connected yet), else null.
+   */
+  get canvas(): CanvasElement | null {
+    const el = this.#el.canvas;
+    const registry = (globalThis as { customElements?: CustomElementRegistry }).customElements;
+    if (registry?.get(CANVAS_TAG)) registry.upgrade(el);
+    return typeof (el as unknown as Partial<CanvasElement>).fit === "function" ? (el as unknown as CanvasElement) : null;
+  }
+
   /** The code view (R-TOOL-008) of Code mode and of the dock. */
   get codeView(): CodeElement {
     return this.#el.code as unknown as CodeElement;
@@ -378,15 +408,9 @@ export class DesignerElement extends Base {
   /** A promise that resolves once the outline, the view and, in Preview mode, the previews are rendered. */
   get rendered(): Promise<void> {
     const parts: Promise<void>[] = [];
-    for (const el of [this.#el.editor, this.#el.outline, this.#el.gallery]) {
+    for (const el of [this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.canvas]) {
       const r = (el as unknown as { rendered?: Promise<void> }).rendered;
       if (r) parts.push(r);
-    }
-    if (this.mode === "preview") {
-      for (const m of this.#el.frames.querySelectorAll(MOCKUP_TAG)) {
-        const r = (m as unknown as { rendered?: Promise<void> }).rendered;
-        if (r) parts.push(r);
-      }
     }
     return Promise.all(parts).then(() => undefined);
   }
@@ -431,11 +455,11 @@ export class DesignerElement extends Base {
     this.#unsubscribe?.();
     this.#session = new DesignSession(read.document);
     this.#subscribe();
-    this.#previewsDirty = true;
     this.#rejoin();
     for (const slot of this.#root.querySelectorAll("slot")) this.#giveSlotted(slot);
     this.#drawState();
-    if (this.mode === "preview") this.#drawPreviews();
+    this.#drawZoom();
+    if (this.mode === "preview") this.#drawPreviewList();
   }
 
   #subscribe(): void {
@@ -477,7 +501,7 @@ export class DesignerElement extends Base {
 
   /** The package's components inside the designer re-join its session: reading `session` re-attaches them. */
   #rejoin(): void {
-    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.inspector, this.#el.problemsList];
+    const parts: Element[] = [this.#el.canvas, this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.inspector, this.#el.problemsList];
     for (const el of this.querySelectorAll("*")) if (SESSION_TAGS.has(el.localName)) parts.push(el);
     for (const el of parts) void (el as unknown as { session?: unknown }).session;
   }
@@ -506,14 +530,16 @@ export class DesignerElement extends Base {
     if (session !== this.#session) return;
     switch (n.kind) {
       case "change":
-        if (n.detail.kind !== "move") this.#previewsDirty = true;
         this.#drawState();
-        if (this.mode === "preview" && n.detail.kind !== "move") this.#drawPreviews();
+        if (this.mode === "preview" && n.detail.kind === "mockups") this.#drawPreviewList();
+        break;
+      case "rename":
+        this.#drawState();
+        if (this.mode === "preview") this.#drawPreviewList();
         break;
       case "active":
       case "select":
       case "diagnostics":
-      case "rename":
         this.#drawState();
         break;
     }
@@ -705,75 +731,50 @@ export class DesignerElement extends Base {
       b.tabIndex = on ? 0 : -1;
     }
     const docked = mode === "design" && this.docked;
-    this.#el.view.hidden = mode !== "design";
+    // R-TOOL-011.C9: the canvas is the view in Design and Preview modes, read-only in Preview.
+    this.#el.view.hidden = mode === "code";
+    this.#el.canvas.toggleAttribute("preview", mode === "preview");
+    this.#el.zoom.hidden = mode === "code";
     this.#el.code.hidden = mode !== "code" && !docked;
     this.#el.code.classList.toggle("mkd-designer__code--docked", docked);
     this.#el.dock.hidden = mode !== "design";
     this.#el.dock.setAttribute("aria-pressed", String(this.docked));
-    this.#el.preview.hidden = mode !== "preview";
+    this.#el.previewList.hidden = mode !== "preview";
     this.#el.appearance.hidden = mode !== "preview";
     for (const b of this.#root.querySelectorAll<HTMLElement>(".mkd-designer__toggle")) b.hidden = mode === "preview";
     this.#drawLayout();
     this.#drawHistory();
-    if (mode === "preview") this.#drawPreviews();
-    else this.#el.frames.replaceChildren();
-    if (mode !== "preview") {
-      this.#el.previewList.replaceChildren();
-      this.#previewsFor = null;
-    }
+    if (mode === "preview") this.#drawPreviewList();
+    else this.#el.previewList.replaceChildren();
+    this.#drawAppearance();
   }
 
-  /** Preview mode (C9): every mockup read-only through a `mockitdown-mockup` with its options. */
-  #drawPreviews(): void {
-    if (!this.#previewsDirty && this.#previewsFor === this.#session && this.#el.frames.childElementCount) return;
+  /**
+   * Preview mode (C9): the canvas shows every mockup read-only through a `mockitdown-mockup` with its
+   * options; beside it, the list of the mockups by name, each revealing its frame when activated.
+   */
+  #drawPreviewList(): void {
     const session = this.#session;
-    const doc = session.document;
     const list = this.#el.previewList;
-    const frames = this.#el.frames;
     list.replaceChildren();
-    frames.replaceChildren();
-    for (const m of doc.mockups) {
+    for (const m of session.document.mockups) {
       const b = document.createElement("button");
       b.type = "button";
       b.dataset.mockup = m.name;
       b.textContent = m.name;
       if (m.name === session.active) b.setAttribute("aria-current", "true");
       list.append(b);
-      const figure = document.createElement("figure");
-      figure.className = "mkd-designer__frame";
-      figure.dataset.mockup = m.name;
-      const caption = document.createElement("figcaption");
-      caption.textContent = m.name;
-      const mockup = document.createElement(MOCKUP_TAG) as HTMLElement & { code: string };
-      const options = mockupOptions(doc, m.name) ?? {};
-      for (const [key, value] of Object.entries(options)) {
-        if (!FENCE_OPTIONS.has(key) || value === null || value === undefined) continue;
-        mockup.setAttribute(key, typeof value === "string" ? value : String(value));
-      }
-      this.#ownAppearance.set(mockup, typeof options.appearance === "string" ? options.appearance : "");
-      for (const base of ["import-base", "asset-base"]) {
-        const v = this.getAttribute(base);
-        if (v !== null) mockup.setAttribute(base, v);
-      }
-      mockup.code = m.code;
-      figure.append(caption, mockup);
-      frames.append(figure);
     }
-    this.#previewsFor = session;
-    this.#previewsDirty = false;
-    this.#drawAppearance();
   }
 
+  /** The appearance toggle (C9) sets every preview's `appearance` through the canvas, in Preview mode only. */
   #drawAppearance(): void {
     for (const b of this.#el.appearance.querySelectorAll<HTMLElement>("button")) {
       b.setAttribute("aria-pressed", String(b.dataset.appearance === this.#appearance));
     }
-    for (const m of this.#el.frames.querySelectorAll<HTMLElement>(MOCKUP_TAG)) {
-      const own = this.#ownAppearance.get(m) ?? "";
-      const value = this.#appearance ?? own;
-      if (value) m.setAttribute("appearance", value);
-      else m.removeAttribute("appearance");
-    }
+    const value = this.mode === "preview" ? this.#appearance : null;
+    if (value) this.#el.canvas.setAttribute("appearance", value);
+    else this.#el.canvas.removeAttribute("appearance");
   }
 
   #showPreview(name: string): void {
@@ -781,14 +782,27 @@ export class DesignerElement extends Base {
       if (b.dataset.mockup === name) b.setAttribute("aria-current", "true");
       else b.removeAttribute("aria-current");
     }
-    const figure = Array.from(this.#el.frames.children).find((f) => (f as HTMLElement).dataset.mockup === name);
-    if (figure && typeof (figure as HTMLElement).scrollIntoView === "function") (figure as HTMLElement).scrollIntoView({ block: "start" });
+    if (this.#session.mockup(name)) this.canvas?.reveal(name);
+  }
+
+  /** The zoom control shows the canvas's zoom: its step, else the zoom itself in the hidden first option. */
+  #drawZoom(): void {
+    const zoom = this.canvas?.zoom ?? 1;
+    const select = this.#el.zoom;
+    const step = ZOOM_STEPS.find((z) => Math.abs(z - zoom) < 1e-9);
+    const current = select.options[0]!;
+    if (step !== undefined) {
+      select.value = String(step);
+    } else {
+      current.textContent = zoomLabel(zoom);
+      select.value = "current";
+    }
   }
 
   #passBases(): void {
     for (const base of ["import-base", "asset-base"]) {
       const v = this.getAttribute(base);
-      const targets: Element[] = [this.#el.editor, ...this.#el.frames.querySelectorAll(MOCKUP_TAG)];
+      const targets: Element[] = [this.#el.editor, this.#el.canvas];
       if (base === "import-base") targets.push(this.#el.outline, this.#el.gallery);
       for (const t of targets) {
         if (v === null) t.removeAttribute(base);

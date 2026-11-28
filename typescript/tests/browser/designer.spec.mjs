@@ -245,7 +245,8 @@ test("TC-2: layout, slots, toolbar, status bar and modes (C2-C4, C8-C10, C12)", 
   await expect(page.locator(`${D} .mkd-designer__preview-list button`)).toHaveText(["Sign in", "Inbox"]);
   const same = await page.evaluate(async () => {
     const d = document.querySelector("#designer");
-    const previews = [...d.shadowRoot.querySelectorAll(".mkd-designer__preview mockitdown-mockup")];
+    // R-TOOL-011.C9: the previews are the canvas's read-only frames.
+    const previews = [...d.canvas.shadowRoot.querySelectorAll("[part=frame] mockitdown-mockup")];
     await Promise.all(previews.map((p) => p.rendered));
     const out = [];
     for (const p of previews) {
@@ -266,7 +267,7 @@ test("TC-2: layout, slots, toolbar, status bar and modes (C2-C4, C8-C10, C12)", 
   // The appearance toggle: light, dark and both.
   await expect(page.locator(`${D} .mkd-designer__appearance button`)).toHaveText(["Light", "Dark", "Both"]);
   await page.click(`${D} .mkd-designer__appearance button >> text=Dark`);
-  expect(await page.evaluate(() => [...document.querySelector("#designer").shadowRoot.querySelectorAll(".mkd-designer__preview mockitdown-mockup")]
+  expect(await page.evaluate(() => [...document.querySelector("#designer").canvas.shadowRoot.querySelectorAll("[part=frame] mockitdown-mockup")]
     .map((p) => p.getAttribute("appearance")))).toEqual(["dark", "dark"]);
 
   // Code mode shows the active mockup's code, with the outline still there; Design brings the view back.

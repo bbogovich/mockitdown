@@ -1,0 +1,735 @@
+/**
+ * `<mockitdown-canvas>`: the infinite canvas of a design session's mockups (R-TOOL-011, A-WEB-5).
+ *
+ *   <mockitdown-canvas>
+ *     <mockitdown-editor></mockitdown-editor>   <!-- optional: shown in the active mockup's frame -->
+ *   </mockitdown-canvas>
+ *   <script type="module">
+ *     canvas.session = session;
+ *     canvas.fit();
+ *     canvas.reveal("Inbox");
+ *   </script>
+ *
+ * Every mockup of the session's document is a frame (part `frame`, `data-mockup`) at the mockup's `x`
+ * and `y`, one canvas unit being one CSS pixel at 100 %, with its name above it (part `label`, drawn at
+ * the same size at every zoom) (C1). The active mockup's frame (`data-active`) shows the canvas's
+ * slotted child, an editor in the designer; every other frame, and every frame with the `preview`
+ * attribute, shows the mockup read-only through a `mockitdown-mockup` whose attributes are the fence
+ * options among the mockup's options, its `appearance` replaced by the canvas's `appearance` attribute
+ * when it has one, and the canvas's `import-base` and `asset-base`. A click on an inactive frame makes
+ * its mockup the active one (F-20.C5).
+ *
+ * The view (`view`: `{zoom, x, y}`, the canvas point at the viewport's top left corner) starts as the
+ * document's `view` and is never written back to it. `zoom` holds the zoom factor, clamped to 0.1 to 4
+ * (C2). Cmd/Ctrl with the wheel or a pinch zooms about the pointer, Cmd/Ctrl+plus and minus step
+ * through 10, 25, 50, 75, 100, 150, 200, 300 and 400 % about the viewport's centre (C3); `fit()` and
+ * Cmd/Ctrl+0 fit every frame with 40 px margins, Cmd/Ctrl+1 sets 100 %, Shift+2 fits the selected
+ * element, else the active mockup (`fitSelection()`) (C4); `reveal(name)` centres and fits a mockup
+ * and throws for a name the document does not hold (C5). The wheel or trackpad scroll pans (Shift turns
+ * a vertical wheel horizontal), and so does a drag with the space bar held or with the middle button
+ * (C6). The minimap (part `minimap`, bottom right) shows every frame (part `minimap-frame`) and the
+ * viewport's rectangle (part `minimap-viewport`); a click there centres the viewport on that point
+ * and dragging pans (C7). Up to 200 % the frames are scaled by a CSS transform; above it they are laid
+ * out again with the CSS `zoom` at the zoomed size and not scaled, so text stays sharp (C8). Every view
+ * change dispatches `mockitdown-view` (bubbling, composed, `detail: {zoom, x, y}`).
+ *
+ * The geometry is `mockitdown/design`'s canvas.ts. The canvas holds no editing rule (A-WEB-5.K2): the
+ * only change it makes to the session is the active mockup. Its session is the nearest enclosing
+ * designer's, else the one its host sets, else an empty one of its own (R-EDIT-006.C11).
+ *
+ * Parts: `viewport`, `world`, `frame`, `label`, `body`, `minimap`, `minimap-frame`, `minimap-viewport`.
+ * Custom properties: `--mkd-canvas-background`, `--mkd-canvas-label-color`, `--mkd-selection-color`,
+ * `--mkd-canvas-minimap-background`, `--mkd-canvas-minimap-frame`, `--mkd-canvas-minimap-viewport`.
+ */
+
+import { FENCE_OPTIONS } from "../core/index.js";
+import {
+  clampZoom, fitView, fromMinimap, minimapMapping, stepZoom, toMinimap, unionBox, viewBox, zoomAt, zoomRendering,
+  type CanvasBox, type CanvasView, type MinimapMapping,
+} from "../design/canvas.js";
+import { mockupOptions, newDesign } from "../design/document.js";
+import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { MOCKUP_TAG } from "./mockup.js";
+
+export const CANVAS_TAG = "mockitdown-canvas";
+/** The attributes the canvas observes. */
+export const CANVAS_ATTRIBUTES: readonly string[] = ["preview", "appearance", "import-base", "asset-base"];
+/** The event of every view change: `detail: {zoom, x, y}`. */
+export const VIEW_EVENT = "mockitdown-view";
+/** The minimap's size in CSS pixels (C7). */
+export const MINIMAP_WIDTH = 160;
+export const MINIMAP_HEIGHT = 110;
+const DESIGNER_TAG = "mockitdown-designer";
+/** Wheel zoom: the factor per pixel of wheel delta, and the largest delta one event counts. */
+const WHEEL_ZOOM = 0.005;
+const WHEEL_ZOOM_MAX = 60;
+const BASES = ["import-base", "asset-base"] as const;
+
+const CANVAS_CSS = `:host{display:block;position:relative;overflow:clip;min-width:0;min-height:0;outline:none;background:var(--mkd-canvas-background,#f0f1f4)}
+:host([hidden]){display:none}
+:host(:focus-visible){box-shadow:inset 0 0 0 2px var(--mkd-selection-color,#ff8a00)}
+.mkd-canvas{position:absolute;inset:0;overflow:clip;touch-action:none}
+.mkd-canvas--grab{cursor:grab}
+.mkd-canvas--panning,.mkd-canvas--panning *{cursor:grabbing !important}
+.mkd-canvas__world{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0}
+.mkd-canvas__frame{position:absolute;width:max-content}
+.mkd-canvas__frame[data-active]{outline:calc(2px / var(--mkd-canvas-zoom,1)) solid var(--mkd-selection-color,#ff8a00);outline-offset:calc(4px / var(--mkd-canvas-zoom,1))}
+.mkd-canvas__frame:not([data-active]) .mkd-canvas__body{cursor:pointer}
+.mkd-canvas__body>mockitdown-mockup{display:block}
+.mkd-canvas__label{position:absolute;left:0;bottom:100%;white-space:nowrap;font:500 calc(12px / var(--mkd-canvas-zoom,1))/1.3 system-ui,sans-serif;padding-bottom:calc(6px / var(--mkd-canvas-zoom,1));color:var(--mkd-canvas-label-color,#5b5d66)}
+.mkd-canvas__frame[data-active] .mkd-canvas__label{color:var(--mkd-selection-color,#ff8a00)}
+.mkd-canvas__minimap{position:absolute;right:8px;bottom:8px;width:${MINIMAP_WIDTH}px;height:${MINIMAP_HEIGHT}px;box-sizing:border-box;overflow:hidden;z-index:2;border:1px solid var(--mkd-designer-border,#d0d0d7);border-radius:6px;background:var(--mkd-canvas-minimap-background,rgba(255,255,255,.92));cursor:pointer;touch-action:none}
+.mkd-canvas__minimap[hidden]{display:none}
+.mkd-canvas__mini-frame{position:absolute;border-radius:1px;background:var(--mkd-canvas-minimap-frame,#c4c7d0)}
+.mkd-canvas__mini-frame[data-active]{background:var(--mkd-selection-color,#ff8a00)}
+.mkd-canvas__mini-viewport{position:absolute;box-sizing:border-box;border:1.5px solid var(--mkd-canvas-minimap-viewport,#2f80ed);background:rgba(47,128,237,.08);cursor:grab}`;
+
+const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLElement : class {}) as typeof HTMLElement;
+
+interface Frame {
+  el: HTMLElement;
+  label: HTMLElement;
+  body: HTMLElement;
+  mockup: (HTMLElement & { code: string; rendered?: Promise<void> }) | null;
+}
+
+const isTextField = (t: EventTarget | undefined): boolean => t instanceof HTMLElement
+  && (t.isContentEditable || t.localName === "input" || t.localName === "textarea" || t.localName === "select");
+
+export class CanvasElement extends Base {
+  static get observedAttributes(): string[] {
+    return [...CANVAS_ATTRIBUTES];
+  }
+
+  #root: ShadowRoot;
+  #viewport: HTMLElement;
+  #world: HTMLElement;
+  #minimap: HTMLElement;
+  #miniViewport: HTMLElement;
+  #slot: HTMLSlotElement;
+  #frames = new Map<string, Frame>();
+  #miniFrames = new Map<string, HTMLElement>();
+  #session: DesignSession | null = null;
+  #given: DesignSession | null = null;
+  #own: DesignSession | null = null;
+  #unsubscribe: (() => void) | null = null;
+  #view: CanvasView = { zoom: 1, x: 0, y: 0 };
+  #space = false;
+  #pan: { id: number; x: number; y: number; view: CanvasView; button: number } | null = null;
+  #suppressClick = false;
+  #mini: { id: number; x: number; y: number; view: CanvasView; map: MinimapMapping } | null = null;
+  #gesture: number | null = null;
+  #resize: ResizeObserver | null = null;
+  #minimapQueued = false;
+  /** The latest measuring of the frames' widths, which waits for their renderings. */
+  #measured: Promise<void> = Promise.resolve();
+  #measuring = 0;
+
+  constructor() {
+    super();
+    this.#root = this.attachShadow({ mode: "open" });
+    this.#root.innerHTML = `<style>${CANVAS_CSS}</style><div class="mkd-canvas" part="viewport">`
+      + `<div class="mkd-canvas__world" part="world"></div>`
+      + `<div class="mkd-canvas__minimap" part="minimap" aria-hidden="true" hidden><div class="mkd-canvas__mini-viewport" part="minimap-viewport"></div></div>`
+      + `</div>`;
+    this.#viewport = this.#root.querySelector(".mkd-canvas")!;
+    this.#world = this.#root.querySelector(".mkd-canvas__world")!;
+    this.#minimap = this.#root.querySelector(".mkd-canvas__minimap")!;
+    this.#miniViewport = this.#root.querySelector(".mkd-canvas__mini-viewport")!;
+    this.#slot = document.createElement("slot");
+    this.#viewport.addEventListener("wheel", (e) => this.#onWheel(e), { passive: false });
+    this.#viewport.addEventListener("gesturestart", (e) => this.#onGesture(e, "start"));
+    this.#viewport.addEventListener("gesturechange", (e) => this.#onGesture(e, "change"));
+    this.#viewport.addEventListener("gestureend", (e) => this.#onGesture(e, "end"));
+    this.addEventListener("keydown", (e) => this.#onKey(e));
+    this.addEventListener("keyup", (e) => {
+      if (e.key === " ") this.#setSpace(false);
+    });
+    this.addEventListener("focusout", (e) => {
+      if (!e.relatedTarget || !this.contains(e.relatedTarget as Node) && !this.#root.contains(e.relatedTarget as Node)) this.#setSpace(false);
+    });
+    // Pans take the pointer before the editor inside sees it (capture on the host).
+    this.addEventListener("pointerdown", (e) => this.#onPanStart(e), { capture: true });
+    this.addEventListener("pointermove", (e) => this.#onPanMove(e));
+    this.addEventListener("pointerup", (e) => this.#onPanEnd(e));
+    this.addEventListener("pointercancel", (e) => this.#onPanEnd(e));
+    this.addEventListener("mousedown", (e) => {
+      if (e.button === 1) e.preventDefault();
+    }, { capture: true });
+    this.addEventListener("click", (e) => {
+      if (!this.#suppressClick) return;
+      this.#suppressClick = false;
+      e.preventDefault();
+      e.stopPropagation();
+    }, { capture: true });
+    this.#world.addEventListener("click", (e) => this.#onFrameClick(e));
+    this.#minimap.addEventListener("pointerdown", (e) => this.#onMiniDown(e));
+    this.#minimap.addEventListener("pointermove", (e) => this.#onMiniMove(e));
+    this.#minimap.addEventListener("pointerup", (e) => this.#onMiniEnd(e));
+    this.#minimap.addEventListener("pointercancel", (e) => this.#onMiniEnd(e));
+    if (typeof ResizeObserver === "function") {
+      this.#resize = new ResizeObserver((entries) => {
+        // Shown again (from display: none): the frames are measured now that they are laid out.
+        if (entries.some((e) => e.target === this.#viewport && e.contentRect.width > 0)) this.#remeasure();
+        this.#queueMinimap();
+      });
+    }
+    this.#resize?.observe(this.#viewport);
+  }
+
+  // --- properties ---------------------------------------------------------------------------------
+
+  /** The design session whose mockups it shows (R-EDIT-006.C11); setting it gives the host's. */
+  get session(): DesignSession {
+    return this.#attach();
+  }
+
+  set session(value: DesignSession | null) {
+    this.#given = value instanceof DesignSession ? value : null;
+    this.#attach();
+  }
+
+  /** The zoom factor (C2), clamped to 0.1 to 4; setting it zooms about the viewport's centre. */
+  get zoom(): number {
+    return this.#view.zoom;
+  }
+
+  set zoom(value: number) {
+    const [w, h] = this.#size();
+    this.#setView(zoomAt(this.#view, clampZoom(Number(value)), w / 2, h / 2));
+  }
+
+  /** The view: the zoom and the canvas point at the viewport's top left corner. Setting it changes the parts it names. */
+  get view(): CanvasView {
+    return { ...this.#view };
+  }
+
+  set view(value: Partial<CanvasView>) {
+    const v = { ...this.#view };
+    if (typeof value?.zoom === "number") v.zoom = clampZoom(value.zoom);
+    if (typeof value?.x === "number" && Number.isFinite(value.x)) v.x = value.x;
+    if (typeof value?.y === "number" && Number.isFinite(value.y)) v.y = value.y;
+    this.#setView(v);
+  }
+
+  /** The frames' boxes in canvas units, by mockup name, in document order. */
+  get frames(): { name: string; x: number; y: number; w: number; h: number }[] {
+    const out: { name: string; x: number; y: number; w: number; h: number }[] = [];
+    for (const [name, box] of this.#boxes()) out.push({ name, ...box });
+    return out;
+  }
+
+  /** A promise that resolves once every frame is rendered and sized. */
+  get rendered(): Promise<void> {
+    return Promise.all([...this.#contents().map((c) => c.rendered), this.#measured]).then(() => undefined);
+  }
+
+  /** Fit every frame in the viewport with a margin of 40 CSS pixels (C4); nothing without frames. */
+  fit(): void {
+    const all = unionBox([...this.#boxes().values()]);
+    if (all) this.#fitBox(all);
+  }
+
+  /** Centre and fit the named mockup (C5); throws for a name the document does not hold. */
+  reveal(name: string): void {
+    const box = this.#boxes().get(name);
+    if (!box) throw new Error(`there is no mockup named ${JSON.stringify(name)}`);
+    this.#fitBox(box);
+  }
+
+  /** Fit the selected element (its rendered elements), else the active mockup (C4, Shift+2). */
+  fitSelection(): void {
+    const box = this.#selectionBox();
+    if (box) return this.#fitBox(box);
+    const active = this.session.active;
+    if (active !== null && this.#boxes().has(active)) this.reveal(active);
+  }
+
+  // --- lifecycle ----------------------------------------------------------------------------------
+
+  connectedCallback(): void {
+    if (!this.hasAttribute("tabindex")) this.tabIndex = 0;
+    this.#attach();
+    this.#draw();
+  }
+
+  attributeChangedCallback(name: string, old: string | null, value: string | null): void {
+    if (old === value) return;
+    if (this.#session) this.#draw();
+    void name;
+  }
+
+  #attach(): DesignSession {
+    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(CANVAS_TAG)));
+    if (next !== this.#session) {
+      this.#unsubscribe?.();
+      this.#session = next;
+      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
+      const v = next.document.view;
+      this.#view = {
+        zoom: clampZoom(typeof v?.zoom === "number" ? v.zoom : 1),
+        x: typeof v?.x === "number" && Number.isFinite(v.x) ? v.x : 0,
+        y: typeof v?.y === "number" && Number.isFinite(v.y) ? v.y : 0,
+      };
+      for (const f of this.#frames.values()) f.el.remove();
+      this.#frames.clear();
+      this.#draw();
+    }
+    return next;
+  }
+
+  #designerSession(): DesignSession | null {
+    let node: Node | null = this.parentNode;
+    while (node) {
+      if (node instanceof Element && node.localName === DESIGNER_TAG) {
+        const s = (node as unknown as { session?: unknown }).session;
+        if (s instanceof DesignSession) return s;
+      }
+      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
+    }
+    return null;
+  }
+
+  #notified(n: DesignNotification): void {
+    switch (n.kind) {
+      case "change":
+        if (n.detail.kind === "move") this.#place();
+        else this.#draw();
+        break;
+      case "diagnostics":
+        // A render the session's change caused has new content to size.
+        this.#remeasure();
+        break;
+      case "rename": {
+        const f = this.#frames.get(n.detail.from);
+        if (f) {
+          this.#frames.delete(n.detail.from);
+          this.#frames.set(n.detail.to, f);
+        }
+        this.#draw();
+        break;
+      }
+      case "active":
+        this.#draw();
+        break;
+    }
+    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
+      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
+      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
+    }
+  }
+
+  // --- frames -------------------------------------------------------------------------------------
+
+  /** Bring the frames in line with the document: one per mockup, in document order, the active one holding the slot. */
+  #draw(): void {
+    const session = this.#session;
+    if (!session) return;
+    const doc = session.document;
+    const preview = this.hasAttribute("preview");
+    const seen = new Set<string>();
+    const order: HTMLElement[] = [];
+    for (const m of doc.mockups) {
+      seen.add(m.name);
+      let f = this.#frames.get(m.name);
+      if (!f) {
+        const el = document.createElement("div");
+        el.className = "mkd-canvas__frame";
+        el.setAttribute("part", "frame");
+        const label = document.createElement("div");
+        label.className = "mkd-canvas__label";
+        label.setAttribute("part", "label");
+        const body = document.createElement("div");
+        body.className = "mkd-canvas__body";
+        body.setAttribute("part", "body");
+        el.append(label, body);
+        f = { el, label, body, mockup: null };
+        this.#frames.set(m.name, f);
+        this.#resize?.observe(el);
+      }
+      f.el.dataset.mockup = m.name;
+      f.label.textContent = m.name;
+      const editable = !preview && m.name === session.active;
+      f.el.toggleAttribute("data-active", !preview && m.name === session.active);
+      if (editable) {
+        if (this.#slot.parentNode !== f.body) f.body.replaceChildren(this.#slot);
+      } else {
+        const mockup = (f.mockup ??= document.createElement(MOCKUP_TAG) as Frame["mockup"] & HTMLElement);
+        this.#mockupAttributes(mockup, mockupOptions(doc, m.name) ?? {});
+        if (mockup.code !== m.code) mockup.code = m.code;
+        if (mockup.parentNode !== f.body) f.body.replaceChildren(mockup);
+      }
+      order.push(f.el);
+    }
+    this.#remeasure();
+    for (const [name, f] of [...this.#frames]) {
+      if (seen.has(name)) continue;
+      this.#resize?.unobserve(f.el);
+      f.el.remove();
+      this.#frames.delete(name);
+    }
+    const current = Array.from(this.#world.children);
+    if (current.length !== order.length || current.some((el, k) => el !== order[k])) {
+      for (const el of order) if (el.parentNode !== this.#world || this.#world.lastElementChild !== el) this.#world.append(el);
+    }
+    this.#place();
+  }
+
+  /** What each frame shows, by mockup name: its read-only mockup or the slotted editor, with its `rendered` promise. */
+  #contents(): { name: string; el: Element; rendered: Promise<void> }[] {
+    const out: { name: string; el: Element; rendered: Promise<void> }[] = [];
+    for (const [name, f] of this.#frames) {
+      const el = f.body.firstElementChild === this.#slot ? this.#slot.assignedElements()[0] : f.mockup;
+      if (!el?.isConnected) continue;
+      const r = (el as unknown as { rendered?: Promise<void> }).rendered;
+      out.push({ name, el, rendered: r instanceof Promise ? r : Promise.resolve() });
+    }
+    return out;
+  }
+
+  /**
+   * Size every frame once what it shows is rendered (C1): a rendering fills the width it is given, its
+   * device frames shrinking to fit it, so the frame is given the rendering's natural width — the device
+   * widths (or a fit frame's own width) of its cells and the gaps between them — at one canvas unit per
+   * CSS pixel. Runs after the other listeners of the notification that called it.
+   */
+  #remeasure(): void {
+    const ticket = ++this.#measuring;
+    this.#measured = Promise.resolve().then(async () => {
+      await Promise.all(this.#contents().map((c) => c.rendered));
+      // Not laid out (hidden): nothing to measure; the resize observer measures once it is shown.
+      if (ticket !== this.#measuring || !this.#viewport.clientWidth) return;
+      for (const c of this.#contents()) {
+        const f = this.#frames.get(c.name);
+        const w = naturalWidth(c.el.shadowRoot);
+        if (f && w !== null && w > 0) {
+          const width = `${Math.ceil(w)}px`;
+          if (f.el.style.width !== width) f.el.style.width = width;
+        }
+      }
+      this.#drawMinimap();
+    });
+  }
+
+  /** A read-only mockup's attributes: the fence options among the mockup's options, the canvas's appearance and bases. */
+  #mockupAttributes(el: HTMLElement, options: Record<string, unknown>): void {
+    const want = new Map<string, string>();
+    for (const [key, value] of Object.entries(options)) {
+      if (!FENCE_OPTIONS.has(key) || value === null || value === undefined) continue;
+      want.set(key, typeof value === "string" ? value : String(value));
+    }
+    const appearance = this.getAttribute("appearance");
+    if (appearance) want.set("appearance", appearance);
+    for (const base of BASES) {
+      const v = this.getAttribute(base);
+      if (v !== null) want.set(base, v);
+    }
+    for (const a of el.getAttributeNames()) if (!want.has(a) && (FENCE_OPTIONS.has(a) || (BASES as readonly string[]).includes(a))) el.removeAttribute(a);
+    for (const [k, v] of want) if (el.getAttribute(k) !== v) el.setAttribute(k, v);
+  }
+
+  /** Position the frames and draw the view. */
+  #place(): void {
+    const session = this.#session;
+    if (!session) return;
+    for (const m of session.document.mockups) {
+      const f = this.#frames.get(m.name);
+      if (!f) continue;
+      f.el.style.left = `${m.x}px`;
+      f.el.style.top = `${m.y}px`;
+    }
+    this.#applyView();
+  }
+
+  /** The frames' boxes in canvas units: the mockup's position and the frame's laid-out size. */
+  #boxes(): Map<string, CanvasBox> {
+    const out = new Map<string, CanvasBox>();
+    const session = this.#session;
+    if (!session) return out;
+    for (const m of session.document.mockups) {
+      const f = this.#frames.get(m.name);
+      out.set(m.name, { x: m.x, y: m.y, w: f?.el.offsetWidth ?? 0, h: f?.el.offsetHeight ?? 0 });
+    }
+    return out;
+  }
+
+  /** The box of the selected nodes' elements in the active frame, in canvas units, or null. */
+  #selectionBox(): CanvasBox | null {
+    const session = this.session;
+    const name = session.active;
+    const tree = name === null ? null : session.tree(name);
+    const shown = this.#slot.assignedElements()[0];
+    const root = shown?.shadowRoot;
+    if (!tree || !root || !this.#slot.isConnected || !session.selection.length) return null;
+    const vp = this.#viewport.getBoundingClientRect();
+    const z = this.#view.zoom;
+    const boxes: CanvasBox[] = [];
+    for (const id of session.selection) {
+      const node = tree.byId(id);
+      if (!node) continue;
+      for (const el of root.querySelectorAll(`[data-mkd-node="${node.ordinal}"],[data-mkd-derived="${node.ordinal}"]`)) {
+        const r = el.getBoundingClientRect();
+        if (!r.width && !r.height) continue;
+        boxes.push({ x: this.#view.x + (r.left - vp.left) / z, y: this.#view.y + (r.top - vp.top) / z, w: r.width / z, h: r.height / z });
+      }
+    }
+    return unionBox(boxes);
+  }
+
+  #onFrameClick(e: MouseEvent): void {
+    if (this.hasAttribute("preview")) return;
+    const frame = e.composedPath().find((t) => t instanceof HTMLElement && t.classList.contains("mkd-canvas__frame")) as HTMLElement | undefined;
+    const name = frame?.dataset.mockup;
+    if (name === undefined || frame!.hasAttribute("data-active")) return;
+    this.session.setActive(name);
+  }
+
+  // --- the view -----------------------------------------------------------------------------------
+
+  #size(): [number, number] {
+    return [this.#viewport.clientWidth || this.clientWidth, this.#viewport.clientHeight || this.clientHeight];
+  }
+
+  #fitBox(box: CanvasBox): void {
+    const [w, h] = this.#size();
+    this.#setView(fitView(box, w, h));
+  }
+
+  #setView(v: CanvasView): void {
+    const next = { zoom: clampZoom(v.zoom), x: v.x, y: v.y };
+    if (!Number.isFinite(next.x) || !Number.isFinite(next.y)) return;
+    const old = this.#view;
+    if (old.zoom === next.zoom && old.x === next.x && old.y === next.y) return;
+    this.#view = next;
+    this.#applyView();
+    this.dispatchEvent(new CustomEvent(VIEW_EVENT, { bubbles: true, composed: true, detail: { ...next } }));
+  }
+
+  /** Draw the view (C8): a transform up to 200 %, the frames laid out again with `zoom` above it. */
+  #applyView(): void {
+    const { zoom: z, x, y } = this.#view;
+    const r = zoomRendering(z);
+    this.#world.style.transform = `translate(${-x * z}px, ${-y * z}px) scale(${r.transform})`;
+    this.#world.style.setProperty("--mkd-canvas-zoom", String(z));
+    const layout = r.layout === 1 ? "" : String(r.layout);
+    for (const f of this.#frames.values()) if (f.el.style.zoom !== layout) f.el.style.zoom = layout;
+    this.#drawMinimap();
+  }
+
+  // --- input --------------------------------------------------------------------------------------
+
+  #local(e: { clientX: number; clientY: number }): [number, number] {
+    const r = this.#viewport.getBoundingClientRect();
+    return [e.clientX - r.left, e.clientY - r.top];
+  }
+
+  /** Cmd/Ctrl+wheel and a pinch zoom about the pointer (C3); the wheel alone pans (C6). */
+  #onWheel(e: WheelEvent): void {
+    e.preventDefault();
+    const [, h] = this.#size();
+    const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? h : 1;
+    const v = this.#view;
+    if (e.ctrlKey || e.metaKey) {
+      const dy = Math.max(-WHEEL_ZOOM_MAX, Math.min(WHEEL_ZOOM_MAX, e.deltaY * unit));
+      const [px, py] = this.#local(e);
+      this.#setView(zoomAt(v, v.zoom * Math.exp(-dy * WHEEL_ZOOM), px, py));
+      return;
+    }
+    let dx = e.deltaX * unit;
+    let dy = e.deltaY * unit;
+    if (e.shiftKey && !dx) {
+      dx = dy;
+      dy = 0;
+    }
+    this.#setView({ zoom: v.zoom, x: v.x + dx / v.zoom, y: v.y + dy / v.zoom });
+  }
+
+  /** Safari's pinch: gesture events with a scale since the gesture began (C3). */
+  #onGesture(e: Event, phase: "start" | "change" | "end"): void {
+    const g = e as Event & { scale?: number; clientX?: number; clientY?: number };
+    e.preventDefault();
+    if (phase === "start") this.#gesture = this.#view.zoom;
+    else if (phase === "end") this.#gesture = null;
+    else if (this.#gesture !== null && typeof g.scale === "number") {
+      const [px, py] = this.#local({ clientX: g.clientX ?? 0, clientY: g.clientY ?? 0 });
+      this.#setView(zoomAt(this.#view, this.#gesture * g.scale, px, py));
+    }
+  }
+
+  /** The zoom keys (C3, C4) and the space bar of a pan (C6); none in a text field. */
+  #onKey(e: KeyboardEvent): void {
+    if (e.defaultPrevented || isTextField(e.composedPath()[0])) return;
+    const command = e.ctrlKey || e.metaKey;
+    const [w, h] = this.#size();
+    if (command && !e.altKey) {
+      const v = this.#view;
+      if (e.key === "=" || e.key === "+" || e.code === "NumpadAdd") this.#setView(zoomAt(v, stepZoom(v.zoom, 1), w / 2, h / 2));
+      else if (e.key === "-" || e.key === "_" || e.code === "NumpadSubtract") this.#setView(zoomAt(v, stepZoom(v.zoom, -1), w / 2, h / 2));
+      else if (e.key === "0" || e.code === "Digit0" || e.code === "Numpad0") this.fit();
+      else if (e.key === "1" || e.code === "Digit1" || e.code === "Numpad1") this.#setView(zoomAt(v, 1, w / 2, h / 2));
+      else return;
+      e.preventDefault();
+      return;
+    }
+    if (e.shiftKey && !command && !e.altKey && e.code === "Digit2") {
+      e.preventDefault();
+      this.fitSelection();
+      return;
+    }
+    if (e.key === " " && !command && !e.altKey) {
+      e.preventDefault();
+      this.#setSpace(true);
+    }
+  }
+
+  #setSpace(on: boolean): void {
+    this.#space = on;
+    this.#viewport.classList.toggle("mkd-canvas--grab", on);
+  }
+
+  /** A drag with the space bar held or with the middle button pans (C6); the editor never sees it. */
+  #onPanStart(e: PointerEvent): void {
+    if (e.button === 0 && this.#mini === null && e.composedPath().includes(this.#minimap)) return;
+    if (!(e.button === 1 || (e.button === 0 && this.#space))) return;
+    e.preventDefault();
+    e.stopPropagation();
+    this.focus({ preventScroll: true });
+    this.setPointerCapture?.(e.pointerId);
+    this.#pan = { id: e.pointerId, x: e.clientX, y: e.clientY, view: { ...this.#view }, button: e.button };
+    this.#viewport.classList.add("mkd-canvas--panning");
+  }
+
+  #onPanMove(e: PointerEvent): void {
+    const p = this.#pan;
+    if (!p || p.id !== e.pointerId) return;
+    const z = p.view.zoom;
+    this.#setView({ zoom: z, x: p.view.x - (e.clientX - p.x) / z, y: p.view.y - (e.clientY - p.y) / z });
+  }
+
+  #onPanEnd(e: PointerEvent): void {
+    const p = this.#pan;
+    if (!p || p.id !== e.pointerId) return;
+    this.#pan = null;
+    this.releasePointerCapture?.(e.pointerId);
+    this.#viewport.classList.remove("mkd-canvas--panning");
+    if (p.button === 0) this.#suppressClick = true;
+    // A click that never comes (the pointer was released elsewhere) must not swallow the next one.
+    setTimeout(() => {
+      this.#suppressClick = false;
+    }, 0);
+  }
+
+  // --- the minimap --------------------------------------------------------------------------------
+
+  #queueMinimap(): void {
+    if (this.#minimapQueued) return;
+    this.#minimapQueued = true;
+    const run = (): void => {
+      this.#minimapQueued = false;
+      this.#drawMinimap();
+    };
+    if (typeof requestAnimationFrame === "function") requestAnimationFrame(run);
+    else setTimeout(run, 0);
+  }
+
+  #mapping(): MinimapMapping | null {
+    if (this.#mini) return this.#mini.map;
+    const boxes = [...this.#boxes().values()];
+    if (!boxes.length) return null;
+    const [w, h] = this.#size();
+    return minimapMapping(boxes, viewBox(this.#view, w, h), MINIMAP_WIDTH, MINIMAP_HEIGHT);
+  }
+
+  /** The minimap (C7): every frame and the viewport's rectangle. */
+  #drawMinimap(): void {
+    const map = this.#mapping();
+    this.#minimap.hidden = map === null;
+    if (!map) return;
+    const session = this.#session!;
+    const seen = new Set<string>();
+    for (const [name, b] of this.#boxes()) {
+      seen.add(name);
+      let el = this.#miniFrames.get(name);
+      if (!el) {
+        el = document.createElement("div");
+        el.className = "mkd-canvas__mini-frame";
+        el.setAttribute("part", "minimap-frame");
+        this.#miniFrames.set(name, el);
+      }
+      el.dataset.mockup = name;
+      el.toggleAttribute("data-active", name === session.active);
+      const p = toMinimap(map, b.x, b.y);
+      Object.assign(el.style, { left: `${p.x}px`, top: `${p.y}px`, width: `${Math.max(1, b.w * map.scale)}px`, height: `${Math.max(1, b.h * map.scale)}px` });
+      if (el.parentNode !== this.#minimap) this.#minimap.insertBefore(el, this.#miniViewport);
+    }
+    for (const [name, el] of [...this.#miniFrames]) {
+      if (seen.has(name)) continue;
+      el.remove();
+      this.#miniFrames.delete(name);
+    }
+    const [w, h] = this.#size();
+    const vb = viewBox(this.#view, w, h);
+    const p = toMinimap(map, vb.x, vb.y);
+    Object.assign(this.#miniViewport.style, { left: `${p.x}px`, top: `${p.y}px`, width: `${vb.w * map.scale}px`, height: `${vb.h * map.scale}px` });
+  }
+
+  /** A press in the minimap: on the viewport's rectangle it starts a drag; elsewhere it centres the viewport there first (C6, C7). */
+  #onMiniDown(e: PointerEvent): void {
+    if (e.button !== 0 || this.#pan) return;
+    const map = this.#mapping();
+    if (!map) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const r = this.#minimap.getBoundingClientRect();
+    const mx = e.clientX - r.left - this.#minimap.clientLeft;
+    const my = e.clientY - r.top - this.#minimap.clientTop;
+    if (!e.composedPath().includes(this.#miniViewport)) {
+      const c = fromMinimap(map, mx, my);
+      const [w, h] = this.#size();
+      this.#setView({ zoom: this.#view.zoom, x: c.x - w / 2 / this.#view.zoom, y: c.y - h / 2 / this.#view.zoom });
+    }
+    this.#minimap.setPointerCapture?.(e.pointerId);
+    this.#mini = { id: e.pointerId, x: e.clientX, y: e.clientY, view: { ...this.#view }, map };
+  }
+
+  #onMiniMove(e: PointerEvent): void {
+    const m = this.#mini;
+    if (!m || m.id !== e.pointerId) return;
+    this.#setView({ zoom: m.view.zoom, x: m.view.x + (e.clientX - m.x) / m.map.scale, y: m.view.y + (e.clientY - m.y) / m.map.scale });
+  }
+
+  #onMiniEnd(e: PointerEvent): void {
+    const m = this.#mini;
+    if (!m || m.id !== e.pointerId) return;
+    this.#mini = null;
+    this.#minimap.releasePointerCapture?.(e.pointerId);
+    this.#drawMinimap();
+  }
+}
+
+/**
+ * The natural width of a rendering in a shadow root, in its own CSS pixels: the sum of its cells' frame
+ * widths (the device width `--mkd-w`, or a fit frame's laid-out width) and the gaps between them; null
+ * when it shows no frame.
+ */
+function naturalWidth(root: ShadowRoot | null): number | null {
+  const stage = root?.querySelector(".mkd-stage");
+  if (!stage) return null;
+  let total = 0;
+  let n = 0;
+  for (const frame of stage.querySelectorAll<HTMLElement>(":scope > .mkd-cell > .mkd-frame")) {
+    const device = Number.parseFloat(frame.style.getPropertyValue("--mkd-w"));
+    const w = frame.dataset.fit === "true" || !Number.isFinite(device) ? frame.offsetWidth : device;
+    total += w;
+    n++;
+  }
+  if (!n) return null;
+  const gap = typeof getComputedStyle === "function" ? Number.parseFloat(getComputedStyle(stage).columnGap) : 0;
+  return total + (Number.isFinite(gap) ? gap : 0) * (n - 1);
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "mockitdown-canvas": CanvasElement;
+  }
+}

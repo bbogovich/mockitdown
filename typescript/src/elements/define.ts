@@ -4,6 +4,7 @@
  * `customElements`.
  */
 
+import { CANVAS_TAG, CanvasElement } from "./canvas.js";
 import { CODE_TAG, CodeElement } from "./code.js";
 import { DESIGNER_TAG, DesignerElement } from "./designer.js";
 import { DIAGNOSTICS_TAG, DiagnosticsElement } from "./diagnostics.js";
@@ -14,12 +15,13 @@ import { MOCKUP_TAG, MockupElement } from "./mockup.js";
 import { OUTLINE_TAG, OutlineElement } from "./outline.js";
 
 /** The tags of every custom element the package defines (each begins with `mockitdown-`). */
-export const ELEMENT_TAGS: readonly string[] = [MOCKUP_TAG, DESIGNER_TAG, EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG, CODE_TAG, DIAGNOSTICS_TAG];
+export const ELEMENT_TAGS: readonly string[] = [MOCKUP_TAG, DESIGNER_TAG, EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG, CODE_TAG, DIAGNOSTICS_TAG, CANVAS_TAG];
 
 const CLASSES: readonly [string, CustomElementConstructor][] = [
   // The designer first, so that components inside it find its session when they connect.
   [MOCKUP_TAG, MockupElement], [DESIGNER_TAG, DesignerElement], [EDITOR_TAG, EditorElement], [OUTLINE_TAG, OutlineElement],
   [GALLERY_TAG, GalleryElement], [INSPECTOR_TAG, InspectorElement], [CODE_TAG, CodeElement], [DIAGNOSTICS_TAG, DiagnosticsElement],
+  [CANVAS_TAG, CanvasElement],
 ];
 
 /** Define the package's custom elements, where the host has `customElements`; idempotent. */
