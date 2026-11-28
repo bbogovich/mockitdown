@@ -2,8 +2,8 @@
 id: R-ASSET-001
 title: Classifying image references
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: ASSET.1
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-5]
 constrained_by: [A-ASSET-1]
 decisions: [ADR-9]
 reverse_engineered: true
-hash: f6b2ecf714a7
+hash: fc070b6b7ba3
 ---
 
 C1: The asset resolver MUST pass through unchanged a reference starting with `http://`, `https://` or `//` (case-insensitive).

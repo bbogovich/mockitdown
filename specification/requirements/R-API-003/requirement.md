@@ -2,8 +2,8 @@
 id: R-API-003
 title: Render options
 status: active
-version: 0.10.2
-rev: 1
+version: 0.12.7
+rev: 2
 page: API.1
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-11, F-13]
 constrained_by: [A-OPT-1, M-OPT-1]
 reverse_engineered: true
-hash: cdd098018d12
+hash: d64089f0538b
 refs: [M-OPT-1]
 ---
 

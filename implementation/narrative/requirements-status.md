@@ -27,25 +27,12 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
 
-## Not started (125)
+## Not started (112)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-001 | Numbered callouts | — | 0.10.0 |  |  |
-| R-ANN-002 | Pointers, selections, highlights and taps | — | 0.3.0 |  |  |
-| R-ANN-004 | Callout references in prose | — | 0.3.0 |  |  |
-| R-API-001 | render | — | 0.2.0 |  |  |
-| R-API-002 | check, evaluate and stylesheet | — | 0.2.0 |  |  |
-| R-API-003 | Render options | — | 0.10.2 |  |  |
-| R-API-004 | Dependencies and platform | — | 0.2.0 |  |  |
-| R-APP-001 | Appearance selection | — | 0.10.8 |  |  |
-| R-APP-002 | Token application by appearance | — | 0.10.8 |  |  |
-| R-APP-003 | Side-by-side appearances | — | 0.2.0 |  |  |
-| R-ASSET-001 | Classifying image references | — | 0.2.0 |  |  |
-| R-ASSET-002 | Finding local images | — | 0.2.0 |  |  |
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
-| R-ASSET-004 | Image-bearing attributes | — | 0.10.7 |  |  |
-| R-ASSET-005 | Built-in icons | — | 0.2.0 |  |  |
 | R-CLI-001 | Commands | — | 0.2.0 |  |  |
 | R-CLI-003 | render | — | 0.2.0 |  |  |
 | R-CLI-004 | check | — | 0.2.0 |  |  |
@@ -117,17 +104,17 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-010 | Hidden packs | — | 0.11.0 |  |  |
 | R-PACK-016 | Role rules | — | 0.12.4 |  |  |
 | R-PACK-017 | Typed parameters and modifiers | — | 0.11.0 |  |  |
-| R-PACK-019 | Amiga Workbench pack | — | 0.12.4 |  |  |
-| R-PACK-020 | Windows 1.0 in its default colours | — | 0.12.4 |  |  |
-| R-PACK-021 | Apple IIgs GS/OS beyond the Finder window | — | 0.12.4 |  |  |
-| R-PACK-022 | Atari ST GEM pack | — | 0.12.4 |  |  |
-| R-PACK-023 | GEOS pack | — | 0.12.4 |  |  |
-| R-PACK-024 | RISC OS pack | — | 0.12.4 |  |  |
-| R-PACK-025 | BeOS pack | — | 0.12.4 |  |  |
-| R-PACK-026 | Apple Newton pack | — | 0.12.4 |  |  |
-| R-PACK-027 | Palm OS pack | — | 0.12.4 |  |  |
-| R-PACK-028 | Windows CE (Pocket PC) pack | — | 0.12.4 |  |  |
-| R-PACK-029 | BlackBerry pack | — | 0.12.4 |  |  |
+| R-PACK-019 | Amiga Workbench pack | — | 0.12.6 |  |  |
+| R-PACK-020 | Windows 1.0 in its default colours | — | 0.12.6 |  |  |
+| R-PACK-021 | Apple IIgs GS/OS beyond the Finder window | — | 0.12.6 |  |  |
+| R-PACK-022 | Atari ST GEM pack | — | 0.12.6 |  |  |
+| R-PACK-023 | GEOS pack | — | 0.12.6 |  |  |
+| R-PACK-024 | RISC OS pack | — | 0.12.6 |  |  |
+| R-PACK-025 | BeOS pack | — | 0.12.6 |  |  |
+| R-PACK-026 | Apple Newton pack | — | 0.12.6 |  |  |
+| R-PACK-027 | Palm OS pack | — | 0.12.6 |  |  |
+| R-PACK-028 | Windows CE (Pocket PC) pack | — | 0.12.6 |  |  |
+| R-PACK-029 | BlackBerry pack | — | 0.12.6 |  |  |
 | R-PACK-030 | User guide: installation and defined terms | — | 0.12.0 |  |  |
 | R-REND-001 | Figure structure | — | 0.10.8 |  |  |
 | R-REND-002 | Role markup | — | 0.10.8 |  |  |
@@ -157,10 +144,23 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
 | R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
 
-## Implemented (7)
+## Implemented (20)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
+| R-ANN-002 | Pointers, selections, highlights and taps | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-ANN-004 | Callout references in prose | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-API-001 | render | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-API-002 | check, evaluate and stylesheet | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-API-003 | Render options | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-API-004 | Dependencies and platform | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-APP-001 | Appearance selection | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-APP-002 | Token application by appearance | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-APP-003 | Side-by-side appearances | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-ASSET-001 | Classifying image references | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-ASSET-002 | Finding local images | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-ASSET-004 | Image-bearing attributes | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-ASSET-005 | Built-in icons | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
 | R-DEV-005 | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |

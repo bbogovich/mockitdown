@@ -2,8 +2,8 @@
 id: R-API-004
 title: Dependencies and platform
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: API.1
 slot: reqs
 order: 4
@@ -12,7 +12,7 @@ realizes: [F-11, F-13]
 constrained_by: [A-API-1]
 decisions: [ADR-12]
 reverse_engineered: true
-hash: 905bb1ed3202
+hash: abbe874c95dd
 ---
 
 C1: The core package (language, evaluation, packs, rendering, stylesheets, assets, icons, CLI) MUST have no runtime dependencies outside the Python standard library.

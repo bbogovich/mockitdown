@@ -2,8 +2,8 @@
 id: R-APP-002
 title: Token application by appearance
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.7
+rev: 2
 page: REND.2
 slot: reqs
 order: 2
@@ -12,7 +12,7 @@ realizes: [F-9]
 constrained_by: [A-STYLE-1]
 decisions: [ADR-6]
 reverse_engineered: true
-hash: 0caba4633f1d
+hash: 97471928f814
 ---
 
 C1: The stylesheet assembler MUST declare a pack's light tokens, and `color-scheme: light`, on `.mkd-pack-<id> .mkd-frame`.

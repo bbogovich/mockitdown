@@ -2,8 +2,8 @@
 id: R-APP-001
 title: Appearance selection
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.7
+rev: 2
 page: REND.2
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-9]
 constrained_by: [A-REND-2]
 decisions: [ADR-6]
 reverse_engineered: true
-hash: 1d17d5bf1baa
+hash: 09b87ad2b17e
 ---
 
 C1: The appearance MUST be one of `light`, `dark`, `auto` and `both`.

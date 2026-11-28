@@ -54,7 +54,7 @@ M-DIAG-1 | model | active | 0.2.0 r0 | MODEL.1 | Diagnostic
 M-EDIT-1 | model | active | 0.10.0 r0 | MODEL.1 | DesignDocument
 M-EDIT-2 | model | active | 0.10.0 r0 | MODEL.1 | DesignMockup
 M-EDIT-3 | model | active | 0.10.0 r0 | MODEL.1 | TextEdit
-M-OPT-1 | model | active | 0.12.0 r2 | MODEL.1 | RenderOptions
+M-OPT-1 | model | active | 0.12.7 r3 | MODEL.1 | RenderOptions
 M-PACK-1 | model | active | 0.2.0 r0 | MODEL.1 | Pack
 M-PACK-2 | model | active | 0.10.0 r1 | MODEL.1 | ElementDef
 M-PACK-3 | model | active | 0.10.0 r0 | MODEL.1 | RoleRule
@@ -64,21 +64,21 @@ M-VIEW-2 | model | active | 0.2.0 r0 | MODEL.1 | Modifier
 M-VIEW-3 | model | active | 0.2.0 r0 | MODEL.1 | Screen
 M-VIEW-4 | model | active | 0.2.0 r0 | MODEL.1 | Value
 R-ANN-001 | requirements | active | 0.10.0 r1 | ANN.1 | Numbered callouts
-R-ANN-002 | requirements | active | 0.3.0 r0 | ANN.1 | Pointers, selections, highlights and taps
+R-ANN-002 | requirements | active | 0.12.7 r1 | ANN.1 | Pointers, selections, highlights and taps
 R-ANN-003 | requirements | active | 0.10.8 r4 | ANN.1 | Overlay placement and free positioning
-R-ANN-004 | requirements | active | 0.3.0 r0 | ANN.1 | Callout references in prose
-R-API-001 | requirements | active | 0.2.0 r0 | API.1 | render
-R-API-002 | requirements | active | 0.2.0 r0 | API.1 | check, evaluate and stylesheet
-R-API-003 | requirements | active | 0.10.2 r1 | API.1 | Render options
-R-API-004 | requirements | active | 0.2.0 r0 | API.1 | Dependencies and platform
-R-APP-001 | requirements | active | 0.10.8 r1 | REND.2 | Appearance selection
-R-APP-002 | requirements | active | 0.10.8 r1 | REND.2 | Token application by appearance
-R-APP-003 | requirements | active | 0.2.0 r0 | REND.2 | Side-by-side appearances
-R-ASSET-001 | requirements | active | 0.2.0 r0 | ASSET.1 | Classifying image references
-R-ASSET-002 | requirements | active | 0.2.0 r0 | ASSET.1 | Finding local images
+R-ANN-004 | requirements | active | 0.12.7 r1 | ANN.1 | Callout references in prose
+R-API-001 | requirements | active | 0.12.7 r1 | API.1 | render
+R-API-002 | requirements | active | 0.12.7 r1 | API.1 | check, evaluate and stylesheet
+R-API-003 | requirements | active | 0.12.7 r2 | API.1 | Render options
+R-API-004 | requirements | active | 0.12.7 r1 | API.1 | Dependencies and platform
+R-APP-001 | requirements | active | 0.12.7 r2 | REND.2 | Appearance selection
+R-APP-002 | requirements | active | 0.12.7 r2 | REND.2 | Token application by appearance
+R-APP-003 | requirements | active | 0.12.7 r1 | REND.2 | Side-by-side appearances
+R-ASSET-001 | requirements | active | 0.12.7 r1 | ASSET.1 | Classifying image references
+R-ASSET-002 | requirements | active | 0.12.7 r1 | ASSET.1 | Finding local images
 R-ASSET-003 | requirements | active | 0.2.0 r0 | ASSET.1 | Embedding local images
-R-ASSET-004 | requirements | active | 0.10.7 r1 | ASSET.1 | Image-bearing attributes
-R-ASSET-005 | requirements | active | 0.2.0 r0 | ASSET.1 | Built-in icons
+R-ASSET-004 | requirements | active | 0.12.7 r2 | ASSET.1 | Image-bearing attributes
+R-ASSET-005 | requirements | active | 0.12.7 r1 | ASSET.1 | Built-in icons
 R-CLI-001 | requirements | active | 0.2.0 r0 | CLI.1 | Commands
 R-CLI-002 | requirements | active | 0.12.0 r3 | CLI.1 | Rendering options on the command line
 R-CLI-003 | requirements | active | 0.2.0 r0 | CLI.1 | render

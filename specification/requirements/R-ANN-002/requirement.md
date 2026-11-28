@@ -2,15 +2,15 @@
 id: R-ANN-002
 title: Pointers, selections, highlights and taps
 status: active
-version: 0.3.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: ANN.1
 slot: reqs
 order: 999
 source: [SRC-4]
 realizes: [F-15]
 reverse_engineered: true
-hash: 7eca90db0097
+hash: 5b6d643fced6
 ---
 
 C1: `.pointer(kind, alignment:)` (alias `.cursor`) MUST draw a mouse pointer of kind arrow (default), hand, ibeam, grab, crosshair or touch over the view at the named alignment.

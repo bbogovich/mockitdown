@@ -1,6 +1,6 @@
 ---
 title: Architecture overview
-impl_version: 0.3.20
+impl_version: 0.3.25
 status: draft
 updated: 2026-11-27
 page_id: IMPL.ARCH
@@ -110,6 +110,10 @@ stylesheet: Zensical runs nested `convert()` calls (headings) mid-page and reuse
 instance without `reset()`, so the postprocessor now emits the CSS only in the conversion whose
 output holds the figures and consumes the collected packs (R-MDX-004). Each fix has a test.
 
+Fixed in 0.3.25 (#56): `render` and `check` take `source` and `options` positional only
+(`def render(source, options=None, /, **overrides)`), so the render option `source` can be given as a
+keyword override (`render(src, source=True)` raised `TypeError`; R-API-001.C2, IT-28).
+
 ## Revision history
 
 | Version | Date | Change |
@@ -119,3 +123,4 @@ output holds the figures and consumes the collected packs (R-MDX-004). Each fix 
 | 0.3.2 | 2026-11-25 | Package path python/src/mockitdown; copies of shared/ marked (#1) |
 | 0.3.4 | 2026-11-25 | Pointer to the TypeScript core (#3) |
 | 0.3.20 | 2026-11-27 | `render/_util.py` and `render/roles/` in the module map (#48) |
+| 0.3.25 | 2026-11-27 | `render` and `check`: positional-only `source` and `options` (#56) |

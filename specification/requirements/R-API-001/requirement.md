@@ -2,8 +2,8 @@
 id: R-API-001
 title: render
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: API.1
 slot: reqs
 order: 1
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-13, F-11]
 constrained_by: [A-API-1, M-API-1]
 reverse_engineered: true
-hash: d66ed75ab2f6
+hash: 4c49cd480695
 ---
 
 C1: The library API MUST provide `render(source, options=None, **overrides)` returning a render result with `html` (the fragment, without CSS), `diagnostics`, `packs` (the ids of the selected pack's lineage, root first; empty when nothing rendered) and `screen` (the evaluated screen or `None`).

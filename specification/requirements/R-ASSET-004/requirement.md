@@ -2,8 +2,8 @@
 id: R-ASSET-004
 title: Image-bearing attributes
 status: active
-version: 0.10.7
-rev: 1
+version: 0.12.7
+rev: 2
 page: ASSET.1
 slot: reqs
 order: 4
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-5]
 constrained_by: [A-REND-1, A-ASSET-1]
 reverse_engineered: true
-hash: 6df0f5018888
+hash: d3d16429e964
 refs: [R-ASSET-005]
 ---
 

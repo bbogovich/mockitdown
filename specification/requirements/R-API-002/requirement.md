@@ -2,8 +2,8 @@
 id: R-API-002
 title: check, evaluate and stylesheet
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: API.1
 slot: reqs
 order: 2
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-13]
 constrained_by: [A-API-1]
 reverse_engineered: true
-hash: f27f25799de0
+hash: 72c8d7e74c86
 ---
 
 C1: The library API MUST provide `check(source, options=None, **overrides)` returning every diagnostic of a full render.

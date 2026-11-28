@@ -1,6 +1,6 @@
 ---
 title: "Model"
-spec_version: 0.12.0
+spec_version: 0.12.7
 status: draft
 updated: 2026-11-27
 page_id: MODEL.1
@@ -70,6 +70,11 @@ erDiagram
     bool show_warnings
     bool edit
     map libraries
+    str default_device
+    str window
+    bool windowed
+    bool menubar
+    str app
   }
   Pack {
     str id PK
@@ -310,6 +315,10 @@ Everything that can be set for one mockup, from the site, the fence or the CLI.
 
 `edit` is a library option (R-EDIT-004.C10); the fence and the command line do not offer it.
 
+`default_device`, `window`, `windowed`, `menubar` and `app` were options of the library before this
+list named them; they were added as built (#56). `None` for `windowed`, `menubar` and `app` means the
+value comes from `@Screen` or the default.
+
 **Level.** entity
 
 | | Statement |
@@ -337,6 +346,11 @@ Everything that can be set for one mockup, from the site, the fence or the CLI.
 | F21 | show_warnings: bool — show warnings in the page (default false) |
 | F22 | edit: bool — edit-mode rendering, `data-mkd-node` and `data-mkd-derived` on role roots (default false; R-EDIT-004) |
 | F23 | libraries: map — the page's library blocks, name → source (R-IMP-008.C9) |
+| F24 | default_device: str · optional — device form when neither the options nor `@Screen(device:)` name one (R-DEV-002.C1) |
+| F25 | window: str · optional — window kind of packs that draw window frames, emitted as `data-window` (fence `window`) |
+| F26 | windowed: bool · optional — the app drawn as an iPadOS window over a wallpaper (fence `windowed`; R-DEV-010.C4) |
+| F27 | menubar: bool or str · optional — the macOS menu bar, or the title of the menu drawn open (fence `menubar`; R-DEV-009.C1) |
+| F28 | app: str · optional — the application name in the macOS menu bar (fence `app`; R-DEV-009.C4) |
 | I1 | Render options MUST be immutable; overrides produce a new value. |
 
 ---
@@ -448,8 +462,10 @@ A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and c
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.7 | 2026-11-27 | as built: F24-F28 default_device, window, windowed, menubar and app, render options the library already had (#56) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-PACK-3: RoleRule; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-PACK-3: RoleRule; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |

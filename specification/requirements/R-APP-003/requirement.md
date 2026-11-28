@@ -2,8 +2,8 @@
 id: R-APP-003
 title: Side-by-side appearances
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: REND.2
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-2]
 realizes: [F-9]
 constrained_by: [A-REND-2]
 reverse_engineered: true
-hash: 81f46e6ba1b2
+hash: 33b070570340
 ---
 
 C1: When the appearance is `both`, the figure assembler MUST render the screen twice from the same evaluated views, in two cells labelled `Light` and `Dark`.

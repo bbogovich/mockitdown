@@ -2,8 +2,8 @@
 id: R-ASSET-005
 title: Built-in icons
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: ASSET.1
 slot: reqs
 order: 5
@@ -12,7 +12,7 @@ realizes: [F-5, F-8]
 constrained_by: [A-ASSET-2]
 decisions: [ADR-11]
 reverse_engineered: true
-hash: b376d0d460b9
+hash: 8ed6b18ce7b7
 ---
 
 C1: mockitdown MUST ship its own icon set of original 24 × 24 line glyphs, drawn with `currentColor` strokes, and MUST NOT bundle or download a third-party icon font.

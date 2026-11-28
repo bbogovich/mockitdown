@@ -2,14 +2,14 @@
 id: M-OPT-1
 title: RenderOptions
 status: active
-version: 0.12.0
-rev: 2
+version: 0.12.7
+rev: 3
 page: MODEL.1
 slot: entities
 order: 8
 level: entity
-hash: 34498b699462
-refs: [R-EDIT-004, R-IMP-002, R-IMP-008]
+hash: 658416cf9bf6
+refs: [R-DEV-002, R-DEV-009, R-DEV-010, R-EDIT-004, R-IMP-002, R-IMP-008]
 ---
 
 F1: pack: str · optional — forced pack (fence `pack`)
@@ -35,4 +35,9 @@ F20: source_path: path · optional — file the source came from
 F21: show_warnings: bool — show warnings in the page (default false)
 F22: edit: bool — edit-mode rendering, `data-mkd-node` and `data-mkd-derived` on role roots (default false; R-EDIT-004)
 F23: libraries: map — the page's library blocks, name → source (R-IMP-008.C9)
+F24: default_device: str · optional — device form when neither the options nor `@Screen(device:)` name one (R-DEV-002.C1)
+F25: window: str · optional — window kind of packs that draw window frames, emitted as `data-window` (fence `window`)
+F26: windowed: bool · optional — the app drawn as an iPadOS window over a wallpaper (fence `windowed`; R-DEV-010.C4)
+F27: menubar: bool or str · optional — the macOS menu bar, or the title of the menu drawn open (fence `menubar`; R-DEV-009.C1)
+F28: app: str · optional — the application name in the macOS menu bar (fence `app`; R-DEV-009.C4)
 I1: Render options MUST be immutable; overrides produce a new value.

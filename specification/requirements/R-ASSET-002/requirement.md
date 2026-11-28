@@ -2,8 +2,8 @@
 id: R-ASSET-002
 title: Finding local images
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: ASSET.1
 slot: reqs
 order: 2
@@ -12,7 +12,7 @@ realizes: [F-5]
 constrained_by: [A-ASSET-1]
 decisions: [ADR-9]
 reverse_engineered: true
-hash: b95f75d5c911
+hash: 8a33bf00a3d8
 ---
 
 C1: The asset resolver MUST search a local reference, with any `?query` or `#fragment` removed, relative to the directory of the file the block came from (when known), then relative to each configured asset directory (`asset_paths`) in order, and MUST use the first existing file.

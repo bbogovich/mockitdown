@@ -1,6 +1,6 @@
 ---
 title: Annotations and overlays
-spec_version: 0.10.8
+spec_version: 0.12.7
 status: draft
 updated: 2026-11-27
 page_id: ANN.1
@@ -52,6 +52,31 @@ the expected HTML. Browser test: each mark is visible and centred on its overlay
 ### R-ANN-002 — Pointers, selections, highlights and taps
 
 Workflow illustrations show what the user does: where the pointer is, what is dragged across, what is tapped. These marks are part of the mockup so they stay attached when the layout changes.
+
+**R-ANN-002.TC-1 — Pointer, selection, highlight and tap marks**
+
+Python unit tests `python/tests/test_annotations.py` `PointerSelectionTests`:
+`.pointer(.<kind>, alignment: .topTrailing)` for each of arrow, hand, ibeam, grab, crosshair and touch
+draws `span.mkd-deco__pointer[data-align=topTrailing]` holding `span.mkd-pointer[data-kind=<kind>]`
+with that kind's own drawing (six different drawings); `.pointer()` draws an arrow at `center`;
+`.cursor` renders as `.pointer` (C1). `List { … }.dragSelect()` draws `span.mkd-deco__marquee` in the
+anchored and the fallback layer; `.dragSelect(.green)` and `.marquee(.green)` set `--mkd-marquee`; the
+base stylesheet gives the mark a negative inset, a border and a `color-mix` tint of `--mkd-marquee`
+(C2, V1). `.highlight()` and `.highlight(.red)` draw `span.mkd-deco__highlight` (a solid ring);
+`.tap()` and `.tap(alignment: .leading)` draw `span.mkd-deco__tap` at the alignment (C3). On a canvas,
+`SelectionRect().frame(width: 60, height: 40).position(x: 50, y: 50)` and `Pointer(.hand).position(…)`
+render `.mkd-marquee` and `.mkd-pointer` sized by the frame and centred at the position, with the same
+drawing and stylesheet rule as the modifiers' marks (C4).
+The conformance cases `annotate-pointer-*`, `annotate-cursor-alias`, `annotate-drag-select`,
+`annotate-marquee-color`, `annotate-highlight`, `annotate-tap` and `annotate-free-elements` hold the
+same output byte for byte in both variants (IT-8, IT-10).
+
+**R-ANN-002.TC-2 — The selection rectangle surrounds the view**
+
+Browser test (Chromium) `typescript/tests/browser/annotations.spec.mjs`: a `List` of two rows with
+`.dragSelect()`, rendered with the package's Node entry and put on a blank page with its stylesheet.
+The visible selection rectangle lies outside the list's box on all four sides, by more than 0 and less
+than 16 px, with a border wider than 0 and a translucent background colour (V1).
 
 **Realizes.** F-15
 
@@ -105,6 +130,15 @@ the stylesheet's `@supports` branch).
 
 Prose and picture refer to each other with the same numbered circle, so a reader can follow steps without hunting for them.
 
+**R-ANN-004.TC-1 — Callout references in prose**
+
+Python unit tests `python/tests/test_annotations.py` `CalloutReferenceTests`, through Python-Markdown
+with the `mockitdown` extension: `Enter the name (#1).` holds `<span class="mkd-ref">1</span>` (V1);
+`(#12)` and `(#A)` become circles, while `(#123)`, `(#a)`, `(#AB)`, `(# 1)` and a bare `#1` do not;
+with `callout_refs: false` nothing is converted (C1). `(#2 <colour>)` for each of the ten colours gives
+`data-color="<colour>"`, which `page.css` styles, and `(#2 magenta)` is not converted (C2).
+`Go to [the field](#1) and (#2).` keeps the link `<a href="#1">` and converts only `(#2)` (C3).
+
 **Realizes.** F-15
 
 | | Statement |
@@ -118,11 +152,13 @@ Prose and picture refer to each other with the same numbered circle, so a reader
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | marks inside a dialog are placed at their views (F-15.C6): C6, TC-1 (ING-1); overlays keep their marks (F-15.C5): C6, TC-1 (ING-1) |
 | 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |
 | 0.3.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | marks inside a dialog are placed at their views (F-15.C6): C6, TC-1 (ING-1); overlays keep their marks (F-15.C5): C6, TC-1 (ING-1) |
 | 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |

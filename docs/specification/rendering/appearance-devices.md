@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.10.8
+spec_version: 0.12.7
 status: draft
 updated: 2026-11-27
 page_id: REND.2
@@ -16,6 +16,19 @@ Light and dark appearance, device sizes, the frame unit that scales a mockup to 
 reviewing a screen's two modes together.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**R-APP-001.TC-1 — Appearance selection**
+
+Python unit tests `python/tests/test_appearance.py` `AppearanceSelectionTests`: `APPEARANCES` is
+light, dark, auto, both; each is accepted as a fence attribute, `appearance="dim"` is refused with
+"appearance must be one of light, dark, auto, both", and `--appearance dim` is a CLI usage error (C1).
+`@Screen(appearance: .dark)` renders dark unless the option says `light`; without either the
+configured `default_appearance` applies, `light` by default (C2, V1). `@Screen(appearance: "dim")` gives
+exactly the warning "unknown appearance 'dim'; using light" with code `appearance` and a light frame, as
+does the option `sepia` (C3, V1). `light`, `dark` and `auto` render one frame with that
+`data-appearance`; `both` renders two, light then dark (C4).
+The conformance cases `appearance-*` and `diag-unknown-appearance` hold the same output in both
+variants (IT-8, IT-10).
 
 **Realizes.** F-9 · **Decisions.** ADR-6
 
@@ -37,6 +50,24 @@ toggle rather than the operating system, because that is what the reader chose.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**R-APP-002.TC-1 — Token rules per appearance**
+
+Python unit tests `python/tests/test_appearance.py` `TokenTests`, for base, fluent and mui: the
+stylesheet declares `color-scheme: light` and every light token on `.mkd-pack-<id> .mkd-frame` (C1);
+`color-scheme: dark` and every token of the light set overridden by the dark set on
+`…[data-appearance="dark"]` (C2), on `[data-md-color-scheme="slate"] … [data-appearance="auto"]` (C3)
+and on `body:not([data-md-color-scheme]) … [data-appearance="auto"]` inside
+`@media (prefers-color-scheme: dark)` (C4). An `auto` figure and the stylesheet hold no script (C5).
+
+**R-APP-002.TC-2 — An auto frame follows the page**
+
+Browser tests (Chromium) `typescript/tests/browser/appearance.spec.mjs`: `auto`, `light` and `dark`
+frames rendered with the package's Node entry on a page without any script, with the base stylesheet.
+With `data-md-color-scheme="default"` on the body the auto frame's `--mkd-bg` is base's light value;
+setting the attribute to `slate` turns it to the dark value and its `color-scheme` to dark, while the
+light frame stays light, and back (C3, C5, V1). Without the attribute the auto frame follows
+`prefers-color-scheme` as the browser emulates light and dark; adding the attribute takes over (C4, C5).
+
 **Realizes.** F-9 · **Decisions.** ADR-6
 
 | | Statement |
@@ -53,6 +84,20 @@ toggle rather than the operating system, because that is what the reader chose.
 ### R-APP-003 — Side-by-side appearances
 
 Both renderings come from one evaluation, so they are guaranteed to show the same state.
+
+**R-APP-003.TC-1 — Two cells from the same views**
+
+Python unit tests `python/tests/test_appearance.py` `SideBySideTests`: a SwiftUI phone mockup with
+`appearance="both"` renders a stage of two cells, the light frame labelled `Light` then the dark frame
+labelled `Dark`, whose frame contents are identical (C1). `page.css` makes the stage a flex row with a
+gap and each cell `flex: 1 1 0`, `min-width: 0` and its own inline-size container, so each frame
+shrinks to its half (C2).
+
+**R-APP-003.TC-2 — Side by side in a column**
+
+Browser test (Chromium) `typescript/tests/browser/appearance.spec.mjs`: an `appearance="both"` phone
+mockup in a 700 px column shows two frames of equal width and height on one row, light left of dark,
+each at most and within 2 px of half the column minus the stage's gap, labelled Light and Dark (V1).
 
 **Realizes.** F-9
 
@@ -373,6 +418,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.8.11 | 2026-11-25 | as built (#14): empty menubar value draws the bar; status items in macOS order (battery, Wi-Fi, Control Center, clock); every SwiftUI command placement; warnings for an unknown menu title (C10) and placement (C11); icons, section headers and cascading submenus (C12) |
@@ -385,6 +431,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.8.11 | 2026-11-25 | as built (#14): empty menubar value draws the bar; status items in macOS order (battery, Wi-Fi, Control Center, clock); every SwiftUI command placement; warnings for an unknown menu title (C10) and placement (C11); icons, section headers and cascading submenus (C12) |
 | 0.8.10 | 2026-11-25 | re-based on R-DEV-010@0.8.9: the window keeps its form below the menu bar |

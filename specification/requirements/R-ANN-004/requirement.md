@@ -2,15 +2,15 @@
 id: R-ANN-004
 title: Callout references in prose
 status: active
-version: 0.3.0
-rev: 0
+version: 0.12.7
+rev: 1
 page: ANN.1
 slot: reqs
 order: 999
 source: [SRC-4]
 realizes: [F-15]
 reverse_engineered: true
-hash: 0ea118cfccaf
+hash: 4cdd9b314c97
 ---
 
 C1: With the extension option `callout_refs` (default true), the Markdown extension MUST render `(#n)` in prose — n a number of one or two digits or a capital letter — as an inline numbered circle (`span.mkd-ref`) matching a mockup's `.callout(n)`.

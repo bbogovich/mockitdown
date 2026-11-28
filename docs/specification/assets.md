@@ -1,6 +1,6 @@
 ---
 title: "Assets and icons"
-spec_version: 0.10.7
+spec_version: 0.12.7
 status: draft
 updated: 2026-11-27
 page_id: ASSET.1
@@ -13,6 +13,21 @@ Images referenced from a mockup, and the built-in icon set.
 ### R-ASSET-001 — Classifying image references
 
 Only images, and only through schemes that cannot run code, reach the `src` attribute.
+
+**R-ASSET-001.TC-1 — Classifying image references**
+
+Python unit tests `python/tests/test_assets.py` `ClassifyTests`: `https://`, `http://`, upper-case
+`HTTPS://` and `//` references are kept as the `img` source with no diagnostic (C1, V1); a
+`data:image/png;charset=x;base64,…` URI is kept, `data:text/html,…` and `DATA:application/json,…` warn
+"only data:image/… URIs are accepted" (code `asset`) and render the placeholder (C2, V1);
+`javascript:`, `file:`, `ftp:` and `mailto:` references warn "unsupported asset scheme in 'x'" and are
+never emitted (C3, V1); the resolver trims a local path and a remote URL, and an empty or blank
+reference resolves to nothing without a diagnostic (C4); a refused or missing image draws
+`.mkd-image--placeholder` with the photo glyph and the alt text or the reference as label, a card its
+`mkd-card__media--missing` block with the glyph and a list row its `mkd-thumb--missing` (C5).
+The conformance cases `image-remote`, `image-protocol-relative`, `image-data-uri`,
+`diag-image-data-not-image`, `diag-image-scheme` and `diag-image-missing` hold the same output in both
+variants (IT-8, IT-10).
 
 **Realizes.** F-5 · **Decisions.** ADR-9
 
@@ -36,6 +51,17 @@ repository: a mockup may only embed files the site deliberately exposes.
 the fence which page it is rendering), so in a site build only the configured asset directories are
 searched; resolution against the block's own directory applies to the command line and the library
 API when a source path is given.
+
+**R-ASSET-002.TC-1 — Finding local images**
+
+Python unit tests `python/tests/test_assets.py` `LocalImageTests`, in a temporary tree with the block's
+file in `src/` and the asset paths `one/` and `two/`: `pic.svg` in `src/` and `one/` is taken from
+`src/`, from `one/` without a source file, `other.svg` only in `two/` from `two/`, and
+`pic.svg?v=2#top` finds `pic.svg` (C1). `../outside/secret.svg`, the absolute path of that file and a
+symbolic link in `one/` pointing to it are not found, never embedded, and warn (C2, V1). A missing file
+warns exactly "asset 'nope.png' not found (searched <src>, <one>, <two>)" with code `asset` (C3). With
+the working directory at the tree's root, `asset_paths: [docs]` finds
+`docs/assets/images/logo.svg` for `Image("assets/images/logo.svg")` (C4, V1).
 
 **Realizes.** F-5 · **Decisions.** ADR-9
 
@@ -78,6 +104,16 @@ R-ASSET-003 apply uniformly.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
+**R-ASSET-004.TC-1 — Image-bearing attributes**
+
+Python unit tests `python/tests/test_assets.py` `ImageAttributeTests`: `Image` takes its image from the
+first argument, `url:`, `src:` or `source:`; `Avatar` from `image:`, `src:` or `url:`, and without one
+draws the initials `AL` for "Ana Lima"; a list row's leading `image:` or `thumbnail:` becomes
+`img.mkd-thumb` (C1, V1). `Card` with `cover:`, `media:` or `image:` draws `img.mkd-card__media` (C2).
+`Image(systemName:)`, `Image(icon:)` and `Image(symbol:)` render the icon glyph and no `img` (C3). An
+image renders as `<img class="mkd-image" … src alt>` with `alt` from `alt:`, `label:` or
+`accessibilityLabel:`, and `alt=""` without one (C4, V1).
+
 **Realizes.** F-5
 
 | | Statement |
@@ -96,6 +132,23 @@ Framework icon sets cannot be shipped: SF Symbols' licence forbids redistributio
 Material, Fluent and SAP fonts are large. An own set of about 120 glyphs with about 400 aliases
 covers mockup needs; names map to the closest glyph rather than to an exact copy.
 
+**R-ASSET-005.TC-1 — Built-in icons**
+
+Python unit tests `python/tests/test_assets.py` `IconTests`: `shared/icons/icons.json` holds over a
+hundred glyphs, none referring to an image, text or URL; an icon is a 24 × 24 `svg` with
+`fill="none" stroke="currentColor"`; no font file exists under `shared/` or the package and no pack or
+page stylesheet declares `@font-face` or imports a font (C1). A pack's `icons` map is applied first
+(antd), then an exact glyph, an exact alias, the normalised name (`Star24Regular`), the name without
+`.circle` or `.fill`, a normalised alias (`more_vert`) and the first segment (`trash.slash.fill`) (C2).
+`normalize` strips `sap-icon://`, splits camelCase, digits, `_`, `-`, `/` and spaces, lower-cases and
+drops the size and style tokens (C3). SF Symbols, Material, Fluent and SAP names resolve (C4, V1).
+`xyzzy` renders the question-mark glyph with `data-icon="unknown"` and exactly the warning
+"unknown icon 'xyzzy'" (code `icon`) (C5, V1). The `svg` carries `viewBox="0 0 24 24"`,
+`aria-hidden="true"` and `focusable="false"`, and the base stylesheet sets its `stroke-width` from
+`--mkd-icon-stroke`, a base token (C6).
+The conformance cases `image-icon-names`, `image-system-name` and `diag-unknown-icon` hold the same
+output in both variants (IT-8, IT-10).
+
 **Realizes.** F-5, F-8 · **Decisions.** ADR-11
 
 | | Statement |
@@ -112,6 +165,8 @@ covers mockup needs; names map to the closest glyph rather than to an exact copy
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.2.0 | 2026-11-24 | Page created |
