@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.10
+spec_version: 0.13.14
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -541,42 +541,72 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#35).** The model is `mockitdown/design`'s `inspect.ts`: `inspect(session, pack)` gives the
+groups, the fields (each with its control, value, code as written and where it is written) and the Add
+lists, and `setField` turns a typed value into an edit operation, checks it with the edit API and with
+the diagnostics its code would add at the node, and applies it through the session with the coalescing
+key `<node>:<field>`; the element only draws the model and debounces the inputs. A state argument is
+edited where it is written, so `Button("Sign in").variant("outlined")` and `Button("Sign in", variant:
+"outlined")` both show `outlined`; a new one becomes the pack's modifier (`.disabled(true)`) when the
+pack has one. Values the typed controls cannot show (`maxWidth: .infinity`, a variable) are edited as
+code. The negative width of V1 is refused by the number field itself: the vocabulary gives the `.frame`
+sizes a `min` of 0 (C16), since the renderer does not warn about them. Renaming the mockup stays with the
+canvas (R-TOOL-012), so the Mockup tab shows the name; Edit in code (C11) comes with the code view
+(R-TOOL-008).
+
 **R-TOOL-007.TC-1 — Variant change and undo**
 
-Browser test (`inspector.spec.mjs`) on `pages/designer.html`: select a `Button` with declared variants;
-the variant choice lists exactly those; choosing another changes the code's `.variant(…)` and the
-rendered class within 500 ms; Undo restores both (F-19.AC4). Typing a label in the text field forms one
-undo step.
+Browser test (`tests/browser/inspector.spec.mjs`, IT-63) on `pages/designer.html`: in the sample's
+"Sign in" mockup (mui), select the `Button`, whose pack declares the variants text, outlined and
+contained; the inspector shows the four groups; the variant choice lists exactly those after the unset
+choice; choosing outlined adds `.variant("outlined")` to the code and the rendered `data-variant` within
+500 ms, as one change; Undo restores both (F-19.AC4). Typing " now" at the end of the label field gives
+`Button("Sign in now")` with the focus kept in the field, and one Undo gives the sample back with
+nothing left to undo (R-EDIT-007.C5).
 
 **R-TOOL-007.TC-2 — Typed controls and validation**
 
-Browser test: each type of R-PACK-017.C2 gets its control; Add argument offers only unused labels;
-Add modifier omits modifiers in the chain; `.frame(width: -10)` is shown invalid with its message and the
-code is unchanged; an unknown label `bogus:` shows "not understood by this pack" and can be removed; a
-duplicate `.id` is refused; two selected nodes show "2 selected".
+`node:test` (`tests/unit/inspect.test.ts`, IT-63) and a browser test (`tests/browser/inspector.spec.mjs`)
+on the hand-written `fixtures/inspector-sample.mkdesign` (base): a `Button` with a label, `systemImage`,
+`color`, `role`, `loading`, `elevation` and an unknown `bogus:`, `.frame(width: 80)`,
+`.padding(.horizontal, 8)` and `.id("save")`, a `Breadcrumb(items: [...])` and a `Text` with
+`.id("taken")`. Each type of R-PACK-017.C2 gets its control and the unknown label a code field; a
+parameter written with its label is listed once; Add argument offers only unused labels, sorted; Add
+modifier omits modifiers in the chain and `.id`; `.frame(width: -10)`, a non-number and a bad colour
+are shown invalid with their messages and the code is unchanged; an unknown icon is refused with the
+diagnostic's text; `bogus:` shows "not understood by this pack" and can be removed; a duplicate `.id` is
+refused; values, a state modifier, a comment, references, an added argument and modifier are written as
+hand-written code expects, each one change; two selected nodes show "2 selected" and no fields.
 
 **R-TOOL-007.TC-3 — Mockup tab and Edit in code**
 
-Browser test: with nothing selected, changing the device in the Mockup tab changes the mockup's
-`options.device` and the rendering, undoable; on a derived row, Edit in code switches to Code mode with
-the node's span selected.
+`node:test` (`tests/unit/inspect.test.ts`) and a browser test (`tests/browser/inspector.spec.mjs`,
+IT-63): with nothing selected the Mockup tab shows the mockup's name and its options with the inherited
+values; changing the device changes the mockup's `options.device` as one `options` change, a height of 0
+or an unknown device is refused, and each option edit is undone on its own. Edit in code (C11) on a
+derived row, switching to Code mode with the node's span selected, is tested with the code view
+(R-TOOL-008).
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
 | C1 | The package MUST define the custom element `mockitdown-inspector`, which shows the properties of the single selected node in four groups: Arguments, Variant and state, Modifiers, and Identity. |
-| C2 | Arguments MUST list the element's positional parameters in order, then the labelled arguments in use, and an Add argument control MUST offer the labels of the element's parameter types (R-PACK-017.C6) that are not in use. |
+| C2 | Arguments MUST list the element's positional parameters in order, a parameter written with its label listed once as that labelled argument, then the labelled arguments in use, and an Add argument control MUST offer, sorted, the labels of the element's parameter types (R-PACK-017.C6) that are not in use, are not its positional parameters and are not offered by Variant and state, adding the chosen one with the default value of its type. |
 | C3 | Each argument and modifier argument MUST be edited with the control of its type: a text field for `text`, a number field for `number`, a switch for `bool`, a choice of its values for `enum`, a colour field accepting names and hexadecimal values for `color`, a text field suggesting icon names for `icon` and a list editor for `array`. |
-| C4 | Variant and state MUST offer `variant` with only the variants the element declares (M-PACK-2.F5), and the state arguments `selected`, `disabled`, `checked` and `value` its role's parameters name. |
-| C5 | Modifiers MUST list the node's modifier chain grouped by the modifier groups of the vocabulary (R-PACK-017.C5), and an Add modifier control MUST offer only rendered modifiers that are not already in the chain. |
+| C4 | Variant and state MUST offer `variant` with only the variants the element declares (M-PACK-2.F5), and the state arguments `selected`, `disabled`, `checked` and `value` its parameter types name, each edited where it is written (a labelled argument, or a modifier of its name, or for `variant` a pack modifier setting the `variant` attribute), else added as the pack's modifier of that name when the pack has one, else as a labelled argument. |
+| C5 | Modifiers MUST list the node's modifier chain, without `.id`, `.ref` and the modifiers Variant and state edits, grouped by the modifier groups of the vocabulary (R-PACK-017.C5) with a modifier the vocabulary does not list under `other`, each modifier with a field per argument the vocabulary lists and a remove control, and an Add modifier control MUST offer only rendered modifiers that are not already in the chain, other than `.id` and `.ref`, adding the chosen one with no arguments at the end of the chain. |
 | C6 | Identity MUST edit the node's `.id` (R-EDIT-003.C8), showing a refusal for an identifier in use, its `.ref` list (R-EDIT-003.C10) and its comment (R-EDIT-003.C11). |
 | C7 | A labelled argument the element does not understand (R-EVAL-004.C7) MUST be listed under Arguments with the note "not understood by this pack" and a remove control. |
-| C8 | An edit MUST be applied 150 ms after the last input in its control, as one operation coalesced per node and field (R-EDIT-007.C5). |
-| C9 | A value that its control cannot accept, or whose application would add a diagnostic located at the node, MUST be shown with `aria-invalid` and the diagnostic's text, and MUST NOT be applied. |
-| C10 | When nothing is selected, the inspector MUST show a Mockup tab that edits the active mockup's name, pack, device, width, height, appearance, title, caption and Elements table option, each edit one undo step with the change kind `options`. |
+| C8 | An edit MUST be applied 150 ms after the last input in its control, or at once when the control loses the focus, as one operation coalesced per node and field (R-EDIT-007.C5) with the key `<node>:<field>`. |
+| C9 | A value that its control cannot accept, that the edit operation refuses, or whose application would add a diagnostic located at the node, MUST be shown with `aria-invalid`, its typed text kept and the reason (the diagnostic's text) beside it, and MUST NOT be applied. |
+| C10 | When nothing is selected, the inspector MUST show a Mockup tab that shows the active mockup's name and edits its pack, device, width, height, appearance, title, caption and Elements table option, each edit one undo step with the change kind `options` coalesced with the key `mockup:<name>:<option>`, renaming the mockup being left to the canvas (R-TOOL-012.C3). |
 | C11 | When the selected node is derived or has a construct the controls cannot express, the inspector MUST offer Edit in code, which switches the designer to Code mode and reveals the node's span (R-TOOL-008.C1). |
-| C12 | With several nodes selected, the inspector MUST show their number and no fields. |
+| C12 | With several nodes selected, the inspector MUST show their number as "<n> selected" and no fields. |
+| C13 | A value that none of the controls of C3 can show (a variable, an expression, a value outside its `enum`) MUST be edited as its code in a text field, and a modifier whose written arguments do not match the vocabulary's MUST be edited as the code of its arguments. |
+| C14 | The inspector's number field MUST refuse a value below the `min` or above the `max` its type names (R-PACK-017.C2). |
+| C15 | The inspector MUST hold no editing rule of its own (A-WEB-5.K2): `mockitdown/design` MUST export the model it renders, `inspect(session, pack)` and `setField`, `removeField`, `addArgument`, `addModifier`, `removeModifier` and `setOption`, each returning `{ok: true}` or `{ok: false, error, diagnostics}`. |
+| C16 | The vocabulary's `.frame` entry (R-PACK-017.C5) MUST give its width, height, minimum, maximum and ideal width and height arguments a `min` of 0. |
 | V1 | Changing a button's variant in the inspector changes the code and the rendering, and undo restores both (F-19.AC4); a negative width is shown as invalid and not applied. |
 
 ---
@@ -716,6 +746,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
@@ -728,6 +759,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |

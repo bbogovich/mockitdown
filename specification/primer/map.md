@@ -198,7 +198,7 @@ R-TOOL-003 | requirements | active | 0.13.8 r6 | WEB.4 | The composite designer 
 R-TOOL-004 | requirements | active | 0.13.10 r7 | WEB.4 | The gallery: mockitdown-gallery
 R-TOOL-005 | requirements | active | 0.13.10 r6 | WEB.4 | Drag and drop onto the outline and the view
 R-TOOL-006 | requirements | active | 0.13.10 r5 | WEB.4 | New elements: sample arguments and first-text editing
-R-TOOL-007 | requirements | active | 0.12.12 r4 | WEB.4 | The inspector: mockitdown-inspector
+R-TOOL-007 | requirements | active | 0.13.14 r5 | WEB.4 | The inspector: mockitdown-inspector
 R-TOOL-008 | requirements | active | 0.12.12 r4 | WEB.4 | The code view: mockitdown-code
 R-TOOL-009 | requirements | active | 0.12.12 r4 | WEB.4 | Two-way editing and Code mode
 R-TOOL-010 | requirements | active | 0.12.12 r4 | WEB.4 | The diagnostics list: mockitdown-diagnostics

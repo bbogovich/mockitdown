@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.50
+impl_version: 0.3.51
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -50,7 +50,7 @@ flowchart TD
   RD -- document --> NS["new DesignSession(document)"]
   NS --> RJ["#rejoin: shadow editor/outline and package components inside read .session<br/>#giveSlotted: slotted elements get .session"]
   NS -- notifications --> N["#notified"]
-  N --> ST["#drawState: name, pack, device, diagnostic count, breadcrumb, placeholder"]
+  N --> ST["#drawState: name, pack, device, diagnostic count, breadcrumb"]
   N --> PV["Preview: #drawPreviews (mockitdown-mockup per mockup)"]
   N --> EV["dispatch mockitdown-select, -change, -insert, -rename, -diagnostics"]
   K["keydown Delete/Backspace<br/>(path through a joined editor or outline)"] --> DEL["session.delete()"]
@@ -62,7 +62,7 @@ flowchart TD
   `<slot>`, so a slotted element replaces it. The left column holds the `outline` slot (a
   `mockitdown-outline`) above the `gallery` slot (a `mockitdown-gallery`, R-TOOL-003.C16 as built in #29, which also takes `import-base` and counts in `rendered`), the centre the `view` slot (a
   `mockitdown-editor`), the code `<pre>` and the preview pane, the right column the `inspector` slot
-  (placeholder naming the selection).
+  (a `mockitdown-inspector`, #35, which joins the session like the gallery).
 - **Session** (C1, C5, R-EDIT-006.C11): the constructor makes a session over an empty document; `open`
   makes a new one per document. The editor, the outline and the gallery find it themselves (`#designerSession`
   walks up through the shadow host); after `open` the designer reads `session` on each of them, which
@@ -108,3 +108,4 @@ flowchart TD
 | 0.3.43 | 2026-11-28 | Page written: `mockitdown-designer`, layout, slots, modes, Delete through `session.delete()`, the designer test page, IT-55 (#27) |
 | 0.3.45 | 2026-11-28 | The gallery panel holds `mockitdown-gallery`, which joins the session and takes `import-base` (R-TOOL-003.C16); see [The gallery element](gallery-element.md) (#29) |
 | 0.3.50 | 2026-11-28 | Undo and Redo in the toolbar (parts `undo`, `redo`, enabled by `canUndo` and `canRedo`, disabled in Preview), Cmd/Ctrl+Z, Shift+Cmd/Ctrl+Z and Ctrl+Y outside text fields (R-EDIT-007.C10); see [Undo and redo history](undo.md) (#34) |
+| 0.3.51 | 2026-11-28 | The properties panel holds `mockitdown-inspector` instead of the placeholder, joined like the other components; see [The inspector element](inspector.md) (#35) |

@@ -1,6 +1,6 @@
 ---
 title: Undo and redo history
-impl_version: 0.3.50
+impl_version: 0.3.51
 status: draft
 updated: 2026-11-28
 page_id: IMPL.UNDO
@@ -11,8 +11,8 @@ page_id: IMPL.UNDO
 Realizes the history of **A-WEB-4** (P1 "`DesignSession` with its history", K2: a mockup's code
 changes only through operations, commands and code changes the session records) and implements
 **R-EDIT-007** C1 to C4 and C6 to C13 (#34), with the designer's keys and toolbar buttons (C10). C5,
-the coalescing keys of the inspector and the code view, comes with those components (R-TOOL-007,
-R-TOOL-009); the session already takes any key.
+the coalescing keys: the inspector passes `<node>:<field>` (and `mockup:<name>:<option>` on its Mockup
+tab) since #35 ([The inspector element](inspector.md)); the code view's `code` comes with R-TOOL-009.
 
 ## Data flow
 
@@ -96,3 +96,4 @@ IT-62: `typescript/tests/unit/undo.test.ts` (R-EDIT-007 TC-1, TC-2 with a fake c
 | Version | Date | Change |
 |---|---|---|
 | 0.3.50 | 2026-11-28 | Page written: the session's undo history, coalescing, the designer's Undo and Redo, IT-62 (#34) |
+| 0.3.51 | 2026-11-28 | C5 for the inspector: its key `<node>:<field>` (#35) |

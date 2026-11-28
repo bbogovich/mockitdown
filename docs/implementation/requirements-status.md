@@ -28,7 +28,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (52)
+## Not started (51)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -76,7 +76,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-TOOL-007 | The inspector: mockitdown-inspector | — | 0.12.12 |  |  |
 | R-TOOL-008 | The code view: mockitdown-code | — | 0.12.12 |  |  |
 | R-TOOL-009 | Two-way editing and Code mode | — | 0.12.12 |  |  |
 | R-TOOL-010 | The diagnostics list: mockitdown-diagnostics | — | 0.12.12 |  |  |
@@ -85,7 +84,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (79)
+## Implemented (80)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -122,7 +121,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | 0.12.18 | 0.12.18 | 2026-11-27 | #22 |
 | R-EDIT-005 | The design document module | 0.13.3 | 0.13.3 | 2026-11-28 | #24 |
 | R-EDIT-006 | The design session and its events | 0.13.9 | 0.13.9 | 2026-11-28 | #30 |
-| R-EDIT-007 | Undo and redo history | 0.12.12 | 0.12.12 | 2026-11-28 | #34 |
+| R-EDIT-007 | Undo and redo history | 0.13.13 | 0.13.13 | 2026-11-28 | #35 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-004 | Binding element arguments | 0.13.12 | 0.13.12 | 2026-11-28 | #33 |
@@ -164,6 +163,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-004 | The gallery: mockitdown-gallery | 0.13.10 | 0.13.10 | 2026-11-28 | #31 |
 | R-TOOL-005 | Drag and drop onto the outline and the view | 0.13.10 | 0.13.10 | 2026-11-28 | #31 |
 | R-TOOL-006 | New elements: sample arguments and first-text editing | 0.13.10 | 0.13.10 | 2026-11-28 | #31 |
+| R-TOOL-007 | The inspector: mockitdown-inspector | 0.13.14 | 0.13.14 | 2026-11-28 | #35 |
 | R-WEB-001 | TypeScript package and core | 0.13.8 | 0.13.8 | 2026-11-28 | #29 |
 | R-WEB-002 | The mockitdown-mockup element | 0.12.12 | 0.12.12 | 2026-11-28 | #23 |
 | R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
