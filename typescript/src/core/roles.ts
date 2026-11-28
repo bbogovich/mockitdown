@@ -23,7 +23,7 @@
  */
 
 import { MockitdownError } from "./diagnostics.js";
-import { registry, type Pack } from "./packs/registry.js";
+import { registry, type ElementDef, type Pack } from "./packs/registry.js";
 import { typeMap, type TypeSpec } from "./paramtypes.js";
 
 export const ROLE_CATEGORIES = ["frame", "bar", "layout", "collection", "content", "overlay", "annotation"] as const;
@@ -124,6 +124,24 @@ export function parameterTypes(pack: string | Pack, element: string): Record<str
   for (const [k, t] of el?.types ?? []) out[k] = t;
   if (el && el.variants.length) out.variant = Object.freeze({ type: "enum", values: Object.freeze([...el.variants]) });
   return out;
+}
+
+/** Labels of an action closure: understood by every element, the closure discarded (R-EVAL-004.C7). */
+export const ACTION_LABELS: ReadonlySet<string> = new Set(["action", "onCommit", "onEditingChanged", "perform"]);
+
+/**
+ * Whether an element of `pack` understands a labelled argument whatever its value (R-EVAL-004.C7): its
+ * params or defaults name it, an argument alias of the element or its pack renames it, its role reads it
+ * (or no rules are loaded, or the role lists none), its pack types it for the element, or it is an
+ * action. The evaluator adds the value's cases (a closure, views, a binding); convert keeps the labels
+ * this accepts (R-EDIT-009.C5).
+ */
+export function labelUnderstood(pack: Pack, el: ElementDef, label: string): boolean {
+  const read = roleReads(el.role);
+  if (read === null || read.has(label) || ACTION_LABELS.has(label)) return true;
+  if (el.params.includes(label) || el.defaults.some(([k]) => k === label) || el.attrs.some(([k]) => k === label)) return true;
+  if (el.types.has(label)) return true;
+  return pack.attrs.has(label);
 }
 
 /** The roles an `accepts` list names, `@category` entries expanded. */

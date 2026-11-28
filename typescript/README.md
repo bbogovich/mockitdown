@@ -231,6 +231,27 @@ A paste that does not parse, or holds anything but views (an import, a struct, a
 its diagnostics and changes nothing. A pasted `.id` the mockup already uses gets the next free suffix, as
 in a duplicate; one that is free (after a cut) is kept.
 
+#### Restructuring commands
+
+Wrap, unwrap, convert and extract component (R-EDIT-009) are one undo step each too, and are refused,
+changing nothing, with a sentence saying why (the role rule's, for wrap and unwrap):
+
+```js
+session.wrap("HStack");              // the selected siblings into HStack { … } at the first one's place; selected
+session.unwrap();                    // the one selected container replaced by its children; they are selected
+session.convert("VBtn");             // same role only; keeps the labels VBtn understands and its params' positions
+session.extractComponent("OrderCard"); // struct OrderCard: View { var body: some View { … } }, called as OrderCard()
+
+session.commands;                    // [{name, label, shortcut, enabled}, …] for a host's menus, 13 commands
+session.run("wrap", { name: "VStack" }); // any command by name: {name} for wrap/convert/extract, {text} for paste
+```
+
+Unwrap is refused for a node whose content declares a closure parameter (a `ForEach`) or a `let`, and
+extract for a selection that uses a `let`, closure parameter or struct property declared outside it,
+and for a name that is a struct, a pack element or already called in the mockup (so the new struct
+never embeds itself). Convert selects the converted node, which has a new id. The composite designer binds
+Cmd/Ctrl+G to wrap in a `VStack` and Shift+Cmd/Ctrl+G to unwrap.
+
 ### The editor element
 
 `<mockitdown-editor>` (from the package entry) is the editable view of one mockup of a design session:

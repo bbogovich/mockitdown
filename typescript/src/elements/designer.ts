@@ -39,7 +39,7 @@
 
 import { FENCE_OPTIONS, registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
 import { INSPECTOR_TAG } from "./inspector.js";
@@ -428,7 +428,8 @@ export class DesignerElement extends Base {
    * Delete or Backspace with the focus in the outline or the view deletes the selection (C11);
    * Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y redo anywhere in the designer (R-EDIT-007.C10).
    * With the focus in the outline or the view (R-EDIT-008.C9): Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C and
-   * V cut, copy and paste through the clipboard, Alt+Up and Alt+Down move the selection. None of them
+   * V cut, copy and paste through the clipboard, Alt+Up and Alt+Down move the selection, and
+   * Cmd/Ctrl+G wraps it in a `VStack` and Shift+Cmd/Ctrl+G unwraps it (R-EDIT-009.C9). None of them
    * in a text field, nor in Preview mode.
    */
   #onKey(e: KeyboardEvent): void {
@@ -457,6 +458,13 @@ export class DesignerElement extends Base {
     if (e.ctrlKey && !e.metaKey && !e.shiftKey && key === "y") {
       e.preventDefault();
       this.#history("redo");
+      return;
+    }
+    if (command && key === "g") {
+      if (!inTools() || !session.selection.length) return;
+      e.preventDefault();
+      if (e.shiftKey) session.unwrap();
+      else session.wrap(WRAP_DEFAULT);
       return;
     }
     if (command && !e.shiftKey && ["d", "x", "c", "v"].includes(key)) {

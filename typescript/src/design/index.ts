@@ -10,8 +10,8 @@ export {
   type DesignDocument, type DesignError, type DesignMockup, type DesignSection, type DesignView, type ReadResult,
 } from "./document.js";
 export {
-  COALESCE_MS, DESIGN_EVENTS, DesignSession, HISTORY_LIMIT,
-  type ChangeKind, type CutResult, type HistoryOptions, type DesignListener, type DragSource, type DropCheck, type DropPosition, type DropZone, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
+  COALESCE_MS, DESIGN_EVENTS, DesignSession, HISTORY_LIMIT, WRAP_DEFAULT,
+  type ChangeKind, type CommandArgs, type CommandName, type DesignCommand, type CutResult, type HistoryOptions, type DesignListener, type DragSource, type DropCheck, type DropPosition, type DropZone, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
 } from "./session.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";

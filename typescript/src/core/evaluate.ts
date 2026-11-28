@@ -20,7 +20,7 @@ import {
   pyBool, pyCompare, PyDict, pyDiv, pyEq, PyError, PyFloat, pyLen, pyMul, pyNeg, pyStr, pySub, pyTypeName,
   strLen, strRepr, strTitle, toFloat, tuple, floatRepr, formatG, intStr,
 } from "./values.js";
-import { roleReads } from "./roles.js";
+import { ACTION_LABELS, labelUnderstood } from "./roles.js";
 import { IGNORED, NEUTRAL_MODULES, RENDERED } from "./vocabulary.js";
 
 export const MAX_DEPTH = 48;
@@ -28,7 +28,6 @@ export const MAX_ITERATIONS = 500;
 
 const MISSING = Symbol("missing");
 /** Closure-valued labelled arguments discarded without evaluation (R-EVAL-004.C5). */
-const ACTION_LABELS = new Set(["action", "onCommit", "onEditingChanged", "perform"]);
 const ONCE_MODIFIERS = new Set(["callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"]);
 
 export class Env {
@@ -545,12 +544,7 @@ export class Evaluator {
    * (`$name`) is never reported (C9).
    */
   private understood(el: ElementDef, arg: A.Arg, val: Value): boolean {
-    const label = arg.label!;
-    const read = roleReads(el.role);
-    if (read === null || read.has(label) || ACTION_LABELS.has(label)) return true;
-    if (el.params.includes(label) || el.defaults.some(([k]) => k === label) || el.attrs.some(([k]) => k === label)) return true;
-    if (el.types.has(label)) return true;
-    if (this.p.attrs.has(label)) return true;
+    if (labelUnderstood(this.p, el, arg.label!)) return true;
     if (val instanceof Thunk || val instanceof ViewList) return true;
     return arg.value.kind === "Ident" && arg.value.binding === true;
   }

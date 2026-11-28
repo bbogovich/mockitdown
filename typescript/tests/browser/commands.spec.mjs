@@ -187,3 +187,42 @@ test("TC-2: when the clipboard cannot be read, Cmd/Ctrl+V pastes what the design
   await expect.poll(() => code(page)).toBe(INBOX.replace('  Text("Inbox").font(.title)\n', '  Text("Inbox").font(.title)\n  Text("Inbox").font(.title)\n'));
   expect(errors).toEqual([]);
 });
+
+// R-EDIT-009 TC-2 (C9), IT-65: the restructuring keys. The expected code is the sample's Inbox with the
+// title and the list put into a VStack by hand, indented one level more.
+const WRAPPED_IN_VSTACK = [
+  "// The inbox, with its folders",
+  'let folders = ["Alpha", "Beta", "Gamma"]',
+  "",
+  "VStack(spacing: 12) {",
+  "  VStack {",
+  '    Text("Inbox").font(.title)',
+  "    List {",
+  "      Card {",
+  '        Text("Quarterly report")',
+  '        Button("Open") {}.id("open")',
+  "      }",
+  "      ForEach(folders) { name in",
+  "        Text(name)",
+  "      }",
+  "    }",
+  "  }",
+  "}",
+  "",
+].join("\n");
+
+test("TC-2 (R-EDIT-009): Cmd/Ctrl+G wraps the selection in a VStack and Shift+Cmd/Ctrl+G unwraps it (C9)", async ({ page }) => {
+  const errors = await open(page);
+  await row(page, "Text", "Inbox").click();
+  await row(page, "List").click({ modifiers: ["Shift"] });
+  expect(await selected(page)).toEqual(['Text "Inbox"', "List"]);
+  await page.keyboard.press("ControlOrMeta+g");
+  await expect.poll(() => code(page)).toBe(WRAPPED_IN_VSTACK);
+  expect(await selected(page)).toEqual(["VStack"]);
+  await page.keyboard.press("ControlOrMeta+Shift+g");
+  await expect.poll(() => code(page)).toBe(INBOX);
+  expect(await selected(page)).toEqual(['Text "Inbox"', "List"]);
+  await page.keyboard.press("ControlOrMeta+z");
+  await expect.poll(() => code(page)).toBe(WRAPPED_IN_VSTACK);
+  expect(errors).toEqual([]);
+});

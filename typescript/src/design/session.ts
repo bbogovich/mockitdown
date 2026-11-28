@@ -25,8 +25,9 @@ import { assetsLoaded } from "../core/assets.js";
 import { Diagnostic, MockitdownError } from "../core/diagnostics.js";
 import type { RenderOptions } from "../core/options.js";
 import { registry } from "../core/packs/registry.js";
-import { canContain, holdsChildren, rolesLoaded } from "../core/roles.js";
-import { bodySiblings, edit, identifiersOf, nodeCode, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { canContain, holdsChildren, labelUnderstood, roleRule, rolesLoaded } from "../core/roles.js";
+import type * as A from "../core/syntax/ast.js";
+import { bodySiblings, edit, identifiersOf, indentUnit, nodeCode, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup } from "./document.js";
@@ -88,11 +89,73 @@ const TRANSPARENT = new Set(["ForEach"]);
 /** What `cut` returns: the applied removal and the text it copied (R-EDIT-008.C4). */
 export type CutResult = EditResult & { text: string };
 
+/** Text edits a command makes beside its edit operations (the struct `extractComponent` declares). */
+interface TextStep {
+  op: "text";
+  edits: TextEdit[];
+}
+
 /**
  * One operation of a command, made from the tree as the command's earlier operations left it and the
  * views they inserted so far.
  */
-type OpOf = (tree: SyntaxTree, inserted: readonly string[]) => EditOp | EditRefusal;
+type OpOf = (tree: SyntaxTree, inserted: readonly string[]) => EditOp | TextStep | EditRefusal;
+
+/** The selection after a command: ids, the inserted views, or ids read from the tree it made. */
+type SelectAfter = readonly string[] | "inserted" | ((tree: SyntaxTree, inserted: readonly string[]) => string[]);
+
+/** A planned command: its operations and the selection after it. */
+interface CommandPlan {
+  ops: OpOf[];
+  select: SelectAfter;
+}
+
+/** The names of the session's commands (R-EDIT-009.C8), in menu order. */
+export type CommandName =
+  | "delete" | "duplicate" | "cut" | "copy" | "paste" | "moveUp" | "moveDown"
+  | "wrap" | "unwrap" | "convert" | "extractComponent" | "undo" | "redo";
+
+/**
+ * A command as a host's menu shows it (R-EDIT-009.C8): its name for {@link DesignSession.run}, its label,
+ * the composite designer's shortcut (`Mod` is Cmd on macOS, Ctrl elsewhere; null for none) and whether
+ * it is enabled for the current selection.
+ */
+export interface DesignCommand {
+  name: CommandName;
+  label: string;
+  shortcut: string | null;
+  enabled: boolean;
+}
+
+/** The arguments of {@link DesignSession.run}: `name` for wrap, convert and extract, `text` for paste. */
+export interface CommandArgs {
+  name?: string;
+  text?: string;
+}
+
+/** The element wrap's menu entry and shortcut wrap in (R-EDIT-009.C9). */
+export const WRAP_DEFAULT = "VStack";
+
+const COMMANDS: readonly { name: CommandName; label: string; shortcut: string | null }[] = [
+  { name: "delete", label: "Delete", shortcut: "Delete" },
+  { name: "duplicate", label: "Duplicate", shortcut: "Mod+D" },
+  { name: "cut", label: "Cut", shortcut: "Mod+X" },
+  { name: "copy", label: "Copy", shortcut: "Mod+C" },
+  { name: "paste", label: "Paste", shortcut: "Mod+V" },
+  { name: "moveUp", label: "Move Up", shortcut: "Alt+ArrowUp" },
+  { name: "moveDown", label: "Move Down", shortcut: "Alt+ArrowDown" },
+  { name: "wrap", label: "Wrap in Stack", shortcut: "Mod+G" },
+  { name: "unwrap", label: "Unwrap", shortcut: "Mod+Shift+G" },
+  { name: "convert", label: "Convert To…", shortcut: null },
+  { name: "extractComponent", label: "Extract Component…", shortcut: null },
+  { name: "undo", label: "Undo", shortcut: "Mod+Z" },
+  { name: "redo", label: "Redo", shortcut: "Mod+Shift+Z" },
+];
+
+/** An element name as `setName` takes it (R-EDIT-003.C12). */
+const ELEMENT_NAME = /^\p{Lu}[\p{L}\p{N}_]*(?:\.\p{Lu}[\p{L}\p{N}_]*)*$/u;
+/** A component name: an identifier beginning with an uppercase letter (R-EDIT-009.C7). */
+const COMPONENT_NAME = /^\p{Lu}[\p{L}\p{N}_]*$/u;
 
 /** A refused session request: why. */
 export interface Refused {
@@ -583,6 +646,292 @@ export class DesignSession {
     return this.applyOps(name, ops, [...this.selected]);
   }
 
+  // --- restructuring commands (R-EDIT-009) --------------------------------------------------------
+
+  /**
+   * Wrap the selected siblings in one new call `<name> { … }` (C1) at the place of the first of them,
+   * holding them in their order (they keep their ids), as one step, and select the new call. Refused,
+   * changing nothing, with the role rule's sentence when `name` cannot hold one of the nodes or the
+   * parent (past an `if` or a `ForEach`) cannot hold `name` in the active mockup's pack (C2), and when
+   * nothing is selected or a selected node is not placed among its parent's children.
+   */
+  wrap(name: string): EditResult | EditRefusal {
+    return this.runPlan((tree, pack) => this.planWrap(tree, pack, name));
+  }
+
+  /**
+   * Replace the one selected node by its statement children (C3), its arguments, modifiers and other
+   * closures removed with it, as one step, and select the children (they keep their ids). Refused when
+   * the node has no children, when the parent cannot hold one of them, and when its content declares a
+   * closure parameter or a `let` its children could use (C11).
+   */
+  unwrap(): EditResult | EditRefusal {
+    return this.runPlan((tree, pack) => this.planUnwrap(tree, pack));
+  }
+
+  /**
+   * Replace the one selected node's element name by `name` (C4) through `setName` (R-EDIT-003.C12),
+   * when both are elements of the active mockup's pack with the same role, and remove the labelled
+   * arguments the new element does not understand (R-EVAL-004.C7; a closure, a view or a binding is
+   * kept) and the positional ones past the number of its `params` (C5). One step; the converted node,
+   * which `setName` gives a new id, is selected.
+   */
+  convert(name: string): EditResult | EditRefusal {
+    return this.runPlan((tree, pack) => this.planConvert(tree, pack, name));
+  }
+
+  /**
+   * Declare `struct <name>: View` whose `body` holds the selected nodes (C6), after the mockup's last
+   * struct declaration, else before its first view statement, and replace the nodes by the call
+   * `<name>()`, which is selected; one step. Refused when `name` is not an identifier beginning with an
+   * uppercase letter, is a struct of the mockup, an element of its pack or a name the mockup already
+   * calls (so that the struct can never embed itself, R-EVAL-005.C10), and when the selection uses a
+   * `let`, a closure parameter or a struct property declared outside it (C7).
+   */
+  extractComponent(name: string): EditResult | EditRefusal {
+    return this.runPlan((tree, pack) => this.planExtract(tree, pack, name));
+  }
+
+  /**
+   * The session's commands for a host's menus (C8): every command in menu order with its label, its
+   * shortcut in the composite designer and whether it is enabled for the current selection — wrap for
+   * {@link WRAP_DEFAULT}, convert for one selected element of the pack, extract for a selection it could
+   * extract under a free name, paste whenever the active mockup's code parses.
+   */
+  get commands(): DesignCommand[] {
+    const name = this.activeName;
+    const state = name === null ? null : this.state(name);
+    const tree = state && state.tree && state.tree.source === state.code ? state.tree : null;
+    const pack = name === null ? "base" : mockupPack(this.document, name) ?? "base";
+    const nodes = tree ? this.selectedNodes(tree) : [];
+    const placed = !!tree && nodes.length > 0 && nodes.every((n) => statementChildren(tree, n.parent).includes(n));
+    const ok = (p: CommandPlan | ViewNode[] | EditRefusal | null): boolean => !!p && !("error" in p);
+    const enabled = (c: CommandName): boolean => {
+      if (c === "undo") return this.canUndo;
+      if (c === "redo") return this.canRedo;
+      if (!tree) return false;
+      switch (c) {
+        case "paste": return true;
+        case "delete": case "cut": case "copy": return nodes.length > 0;
+        case "duplicate": return placed;
+        case "moveUp": case "moveDown": {
+          if (!placed) return false;
+          const children = statementChildren(tree, nodes[0]!.parent);
+          return c === "moveUp" ? children.indexOf(nodes[0]!) > 0 : children.indexOf(nodes[nodes.length - 1]!) < children.length - 1;
+        }
+        case "wrap": return ok(this.planWrap(tree, pack, WRAP_DEFAULT));
+        case "unwrap": return ok(this.planUnwrap(tree, pack));
+        case "convert": return nodes.length === 1 && nodes[0]!.kind !== "if" && this.packElement(pack, nodes[0]!.name) !== null;
+        case "extractComponent": return ok(this.checkExtractSelection(tree));
+      }
+      return false;
+    };
+    return COMMANDS.map((c) => ({ ...c, enabled: enabled(c.name) }));
+  }
+
+  /**
+   * Run a command by its name (C8) with its arguments: `{name}` for wrap (default {@link WRAP_DEFAULT}),
+   * convert and extractComponent, `{text}` for paste. Returns what the command's method returns; copy
+   * returns `{text}`. An unknown name is refused.
+   */
+  run(command: string, args: CommandArgs = {}): EditResult | EditRefusal | CutResult | { text: string } | { mockup: string; edits: TextEdit[] } | Refused {
+    const a = args ?? {};
+    switch (command) {
+      case "delete": return this.delete();
+      case "duplicate": return this.duplicate();
+      case "cut": return this.cut();
+      case "copy": return { text: this.copy() };
+      case "paste": return this.paste(a.text as string);
+      case "moveUp": return this.moveUp();
+      case "moveDown": return this.moveDown();
+      case "wrap": return this.wrap(a.name as string);
+      case "unwrap": return this.unwrap();
+      case "convert": return this.convert(a.name as string);
+      case "extractComponent": return this.extractComponent(a.name as string);
+      case "undo": return this.undo();
+      case "redo": return this.redo();
+    }
+    return { error: `unknown command ${JSON.stringify(command)}: expected ${COMMANDS.map((c) => c.name).join(", ")}` };
+  }
+
+  /** Plan a command on the active mockup's tree with its pack, and apply the plan as one step. */
+  private runPlan(plan: (tree: SyntaxTree, pack: string) => CommandPlan | EditRefusal): EditResult | EditRefusal {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (name === null || !tree) return { error: "there is no active mockup", diagnostics: [] };
+    const p = plan(tree, mockupPack(this.document, name) ?? "base");
+    if ("error" in p) return p;
+    return this.applyOps(name, p.ops, p.select);
+  }
+
+  /** The selected nodes, when there are some and each is placed among its parent's statement children. */
+  private placedSelection(tree: SyntaxTree): ViewNode[] | EditRefusal {
+    const nodes = this.selectedNodes(tree);
+    if (!nodes.length) return { error: "nothing is selected", diagnostics: [] };
+    for (const n of nodes) if (statementChildren(tree, n.parent).indexOf(n) < 0) return { error: notPlaced(n), diagnostics: [] };
+    return nodes;
+  }
+
+  /** Whether the role rules of `pack` can be asked. */
+  private rulesFor(pack: string): boolean {
+    return rolesLoaded() && registry.ids().includes(pack);
+  }
+
+  /** An element of `pack`, or null (also when the pack is not loaded). */
+  private packElement(pack: string, name: string) {
+    return registry.ids().includes(pack) ? registry.get(pack).element(name) ?? null : null;
+  }
+
+  private planWrap(tree: SyntaxTree, pack: string, name: string): CommandPlan | EditRefusal {
+    if (typeof name !== "string" || !ELEMENT_NAME.test(name)) {
+      return { error: `${JSON.stringify(name ?? null)} is not an element name: a capitalised identifier, or several joined by dots`, diagnostics: [] };
+    }
+    const nodes = this.placedSelection(tree);
+    if ("error" in nodes) return nodes;
+    const parent = nodes[0]!.parent;
+    if (this.rulesFor(pack)) {
+      const r = canContain(pack, holderOf(parent)?.name ?? null, name);
+      if (!r.ok) return { error: r.reason, diagnostics: [] };
+      for (const n of nodes) {
+        const c = canContain(pack, name, n.name);
+        if (!c.ok) return { error: c.reason, diagnostics: [] };
+      }
+    }
+    const index = statementChildren(tree, parent).indexOf(nodes[0]!);
+    const parentId = parent?.id ?? null;
+    const ids = nodes.map((n) => n.id);
+    const ops: OpOf[] = [
+      () => ({ op: "insert", parent: parentId, index, code: `${name} {\n}` }),
+      (_t, inserted) => ({ op: "move", nodes: ids, parent: inserted[0]!, index: "end" }),
+    ];
+    return { ops, select: "inserted" };
+  }
+
+  private planUnwrap(tree: SyntaxTree, pack: string): CommandPlan | EditRefusal {
+    const nodes = this.placedSelection(tree);
+    if ("error" in nodes) return nodes;
+    if (nodes.length !== 1) return { error: "unwrap needs one selected node", diagnostics: [] };
+    const n = nodes[0]!;
+    const children = n.kind === "call" ? statementChildren(tree, n) : [];
+    if (!children.length) return { error: `${n.name} has no children to unwrap`, diagnostics: [] };
+    const content = (n.syntax as A.Call).trailing.find(([label]) => label === null)?.[1];
+    if (content?.params.length) {
+      return { error: `${n.name} declares the parameter ${content.params.join(", ")} for its children, so they cannot stand without it`, diagnostics: [] };
+    }
+    if (content?.body.some((st) => st.kind === "LetStmt")) {
+      return { error: `${n.name} declares a let for its children, so they cannot stand without it`, diagnostics: [] };
+    }
+    if (this.rulesFor(pack)) {
+      const holder = holderOf(n.parent)?.name ?? null;
+      for (const c of children) {
+        const r = canContain(pack, holder, c.name);
+        if (!r.ok) return { error: r.reason, diagnostics: [] };
+      }
+    }
+    const index = statementChildren(tree, n.parent).indexOf(n);
+    const parentId = n.parent?.id ?? null;
+    const ids = children.map((c) => c.id);
+    return {
+      ops: [
+        () => ({ op: "move", nodes: ids, parent: parentId, index }),
+        () => ({ op: "remove", nodes: [n.id] }),
+      ],
+      select: ids,
+    };
+  }
+
+  private planConvert(tree: SyntaxTree, pack: string, name: string): CommandPlan | EditRefusal {
+    const nodes = this.selectedNodes(tree);
+    if (!nodes.length) return { error: "nothing is selected", diagnostics: [] };
+    if (nodes.length !== 1) return { error: "convert needs one selected node", diagnostics: [] };
+    const n = nodes[0]!;
+    if (n.kind === "if") return { error: `${n.ordinal} is an if statement, not an element`, diagnostics: [] };
+    if (typeof name !== "string" || !ELEMENT_NAME.test(name)) {
+      return { error: `${JSON.stringify(name ?? null)} is not an element name: a capitalised identifier, or several joined by dots`, diagnostics: [] };
+    }
+    if (!registry.ids().includes(pack)) return { error: `pack '${pack}' is not loaded`, diagnostics: [] };
+    const p = registry.get(pack);
+    const from = p.element(n.name);
+    const to = p.element(name);
+    if (!from) return { error: `${n.name} is not an element of pack '${pack}'`, diagnostics: [] };
+    if (!to) return { error: `${name} is not an element of pack '${pack}'`, diagnostics: [] };
+    if (from.role !== to.role) {
+      const title = (role: string) => roleRule(role)?.title ?? role;
+      return { error: `${n.name} is ${article(title(from.role))} and ${name} ${article(title(to.role))} in pack '${pack}': convert keeps the role`, diagnostics: [] };
+    }
+    const index = n.index;
+    const at = (t: SyntaxTree) => t.byOrdinal(index)!.id;
+    const ops: OpOf[] = [(t) => ({ op: "setName", node: at(t), name })];
+    if (n.kind === "call") {
+      const call = n.syntax as A.Call;
+      const viewArgs = new Set(n.children.map((c) => c.expr));
+      for (const arg of call.args) {
+        if (arg.label === null) continue;
+        const v = arg.value;
+        if (v.kind === "Closure" || viewArgs.has(v) || (v.kind === "Ident" && v.binding === true)) continue;
+        if (labelUnderstood(p, to, arg.label)) continue;
+        const label = arg.label;
+        ops.push((t) => ({ op: "setArgument", node: at(t), label, value: null }));
+      }
+      const positional = call.args.filter((a) => a.label === null).length;
+      for (let k = positional - 1; k >= to.params.length; k--) {
+        ops.push((t) => ({ op: "setArgument", node: at(t), label: null, position: k, value: null }));
+      }
+    }
+    return { ops, select: (t) => [at(t)] };
+  }
+
+  /** What extract asks of the selection whatever the name (C7): placed nodes using nothing declared outside them. */
+  private checkExtractSelection(tree: SyntaxTree): ViewNode[] | EditRefusal {
+    const nodes = this.placedSelection(tree);
+    if ("error" in nodes) return nodes;
+    const inside = (at: number | undefined) => at !== undefined && nodes.some((n) => n.span.start <= at && at < n.span.end);
+    const outside = new Set<string>();
+    collectDeclarations(tree.module, (name, at) => {
+      if (!inside(at)) outside.add(name);
+    });
+    const struct = tree.module.structs.find((st) => st.start !== undefined && st.end !== undefined && st.start <= nodes[0]!.first && nodes[0]!.first < st.end);
+    for (const prop of struct?.properties ?? []) outside.add(prop.name);
+    const used = new Set<string>();
+    for (const n of nodes) freeNames(n.expr, new Set(), used);
+    const bad = [...used].find((u) => outside.has(u));
+    if (bad !== undefined) return { error: `the selection uses ${bad}, declared outside it`, diagnostics: [] };
+    return nodes;
+  }
+
+  private planExtract(tree: SyntaxTree, pack: string, name: string): CommandPlan | EditRefusal {
+    if (typeof name !== "string" || !COMPONENT_NAME.test(name)) {
+      return { error: `${JSON.stringify(name ?? null)} is not a component name: an identifier beginning with an uppercase letter`, diagnostics: [] };
+    }
+    if (tree.module.structs.some((st) => st.name === name)) return { error: `${name} is already a struct of this mockup`, diagnostics: [] };
+    if (this.packElement(pack, name)) return { error: `${name} is an element of pack '${pack}'`, diagnostics: [] };
+    if (tree.nodes.some((n) => n.name === name)) {
+      return { error: `the mockup already uses ${name}, so the struct would change what it shows`, diagnostics: [] };
+    }
+    const nodes = this.checkExtractSelection(tree);
+    if ("error" in nodes) return nodes;
+    const unit = indentUnit(tree.source);
+    const body = nodes.flatMap((n) => nodeCode(tree, n).split("\n").map((l) => (l ? unit + unit + l : l)));
+    const decl = [`struct ${name}: View {`, `${unit}var body: some View {`, ...body, `${unit}}`, "}"].join("\n");
+    const parent = nodes[0]!.parent;
+    const parentId = parent?.id ?? null;
+    const index = statementChildren(tree, parent).indexOf(nodes[0]!);
+    const ids = nodes.map((n) => n.id);
+    const ops: OpOf[] = [
+      () => ({ op: "remove", nodes: ids }),
+      () => ({ op: "insert", parent: parentId, index, code: `${name}()` }),
+      (t) => {
+        const structs = t.module.structs.filter((st) => st.end !== undefined);
+        const last = structs[structs.length - 1];
+        if (last) return { op: "text", edits: [{ start: last.end!, end: last.end!, text: `\n\n${decl}` }] };
+        const first = statementChildren(t, null)[0];
+        const at = first ? t.source.lastIndexOf("\n", first.span.start - 1) + 1 : t.source.length;
+        return { op: "text", edits: [{ start: at, end: at, text: `${decl}\n\n` }] };
+      },
+    ];
+    return { ops, select: "inserted" };
+  }
+
   /** The node of the active mockup a click names, and its tree. */
   private clicked(node: string): { tree: SyntaxTree; target: ViewNode } | Refused {
     const name = this.activeName;
@@ -611,7 +960,7 @@ export class DesignSession {
    * inserted view, then the selection (`inserted`: the inserted views in source order). Nothing
    * changes when any operation is refused.
    */
-  private applyOps(name: string, ops: readonly OpOf[], select: readonly string[] | "inserted"): EditResult | EditRefusal {
+  private applyOps(name: string, ops: readonly OpOf[], select: SelectAfter): EditResult | EditRefusal {
     const state = this.state(name)!;
     if (!state.tree || state.tree.source !== state.code) {
       return { error: `the code of mockup ${JSON.stringify(name)} does not parse`, diagnostics: state.diagnostics.filter((d) => d.severity === "error") };
@@ -622,6 +971,12 @@ export class DesignSession {
     for (const make of ops) {
       const op = make(tree, inserted);
       if ("error" in op) return op;
+      if (op.op === "text") {
+        const t = reparse(tree, op.edits);
+        if (!t.tree) return { error: "the edited source does not parse", diagnostics: t.diagnostics };
+        tree = t.tree;
+        continue;
+      }
       const r = edit(tree, op);
       if ("error" in r) return r;
       if (op.op === "insert") {
@@ -642,7 +997,8 @@ export class DesignSession {
     const final = tree;
     const added = inserted.map((id) => final.byId(id)).filter((n): n is ViewNode => !!n).sort((a, b) => a.first - b.first);
     for (const n of added) this.notify({ kind: "insert", detail: { mockup: name, node: n.id, element: n.name } });
-    this.afterCodeChange(name, state, select === "inserted" ? added.map((n) => n.id) : select);
+    const next = select === "inserted" ? added.map((n) => n.id) : typeof select === "function" ? select(final, inserted) : select;
+    this.afterCodeChange(name, state, next);
     this.settle(step);
     return { edits, source: tree.source, tree };
   }
@@ -1057,6 +1413,63 @@ function insertedNode(before: SyntaxTree, after: SyntaxTree): ViewNode | null {
     if (!before.byId(n.id) && (n.parent === null || before.byId(n.parent.id))) return n;
   }
   return null;
+}
+
+/** The node whose role rules hold a parent's children: past an `if` and a `ForEach`, null for the root. */
+function holderOf(parent: ViewNode | null): ViewNode | null {
+  let holder = parent;
+  while (holder && (holder.kind === "if" || TRANSPARENT.has(holder.name))) holder = holder.parent;
+  return holder;
+}
+
+/** A role title with its indefinite article. */
+function article(title: string): string {
+  return `${/^[aeiou]/i.test(title) ? "an" : "a"} ${title}`;
+}
+
+/** Every `let` and closure parameter a module declares, with the offset of its declaration. */
+function collectDeclarations(module: A.Module, found: (name: string, at: number | undefined) => void): void {
+  const walk = (x: unknown): void => {
+    if (Array.isArray(x)) {
+      for (const y of x) walk(y);
+      return;
+    }
+    if (!x || typeof x !== "object") return;
+    const node = x as { kind?: string; name?: string; params?: string[]; start?: number };
+    if (node.kind === "LetStmt") found(node.name!, node.start);
+    if (node.kind === "Closure") for (const p of node.params ?? []) found(p, node.start);
+    for (const [k, v] of Object.entries(x)) if (k !== "loc" && v && typeof v === "object") walk(v);
+  };
+  walk(module.statements);
+  for (const st of module.structs) {
+    walk(st.body);
+    for (const p of st.properties) walk(p.default);
+  }
+}
+
+/** The identifiers an expression uses that it does not declare itself (closure parameters, `let`s). */
+function freeNames(x: unknown, bound: ReadonlySet<string>, out: Set<string>): void {
+  if (Array.isArray(x)) {
+    // A list of statements: a `let` binds its name for the statements after it.
+    let b = bound;
+    for (const y of x) {
+      freeNames(y, b, out);
+      const let_ = y as { kind?: string; name?: string };
+      if (let_?.kind === "LetStmt") b = new Set([...b, let_.name!]);
+    }
+    return;
+  }
+  if (!x || typeof x !== "object") return;
+  const node = x as { kind?: string; name?: string; params?: string[]; body?: unknown; value?: unknown };
+  if (node.kind === "Ident") {
+    if (!bound.has(node.name!)) out.add(node.name!);
+    return;
+  }
+  if (node.kind === "Closure") {
+    freeNames(node.body, new Set([...bound, ...(node.params ?? [])]), out);
+    return;
+  }
+  for (const [k, v] of Object.entries(x)) if (k !== "loc" && v && typeof v === "object") freeNames(v, bound, out);
 }
 
 /** Why a command cannot act on a node that stands outside its parent's statement children. */
