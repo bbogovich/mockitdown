@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.43
+impl_version: 0.3.44
 status: draft
 updated: 2026-11-28
 page_id: IMPL.TS
@@ -30,8 +30,9 @@ module for module, held to the Python output by the conformance corpus.
 | `core/model.ts` | `model.py` | `View`, `Modifier`, `EnumValue`, `CallValue`, `Thunk`, `ViewList`, `Screen`, `walk` |
 | `core/evaluate.ts` | `evaluate.py` | `Evaluator`, `Env`, `formatValue`, `truthy` |
 | `core/components.ts` | `ImportContext`, `ImportCache` | component files as data: `registerComponents`, candidate paths, parse cache |
-| `core/packs/registry.ts` | `packs/__init__.py` | `PackRegistry`, `Pack`, `ElementDef`, `registerPack` |
+| `core/packs/registry.ts` | `packs/__init__.py` | `PackRegistry`, `Pack`, `ElementDef` (with `rules`, TypeScript only), `registerPack` |
 | `core/vocabulary.ts` | `vocabulary.py` | `RENDERED`, `IGNORED`, `NEUTRAL_MODULES` (filled from `vocabulary.json`) |
+| `core/roles.ts` | — | the role rules from `roles.json`: `canContain`, `allowedChildren`, `roleRule`, `setRoles` ([Role rules](roles.md)) |
 | `core/styles.ts` | `styles.py` | `scalePx`, `tokenCss`, `packCss`, `minifyCss`, `buildStylesheet` |
 | `core/assets.ts` | — | `loadAssets`: the shared assets handed to the core as data |
 | `core/render/html.ts` | `render/html.py` | `Renderer`: dispatch through `ROLES`, the root tag, slots, decorations, overlays, presentations and the option, field, calendar, toolbar and row helpers |
@@ -205,3 +206,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.41 | 2026-11-28 | `elements/editor.ts` and `elements/define.ts` in the module table (#25) |
 | 0.3.42 | 2026-11-28 | `elements/outline.ts` in the module table (#26) |
 | 0.3.43 | 2026-11-28 | `elements/designer.ts` in the module table (#27) |
+| 0.3.44 | 2026-11-28 | `core/roles.ts` in the module table; `ElementDef.rules`; `RENDER_ROLES` (#28) |

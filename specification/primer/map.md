@@ -57,7 +57,7 @@ M-EDIT-3 | model | active | 0.10.0 r0 | MODEL.1 | TextEdit
 M-OPT-1 | model | active | 0.12.7 r3 | MODEL.1 | RenderOptions
 M-PACK-1 | model | active | 0.2.0 r0 | MODEL.1 | Pack
 M-PACK-2 | model | active | 0.10.0 r1 | MODEL.1 | ElementDef
-M-PACK-3 | model | active | 0.10.0 r0 | MODEL.1 | RoleRule
+M-PACK-3 | model | active | 0.13.7 r1 | MODEL.1 | RoleRule
 M-SYN-1 | model | active | 0.2.0 r0 | MODEL.1 | Module
 M-VIEW-1 | model | active | 0.10.0 r1 | MODEL.1 | View
 M-VIEW-2 | model | active | 0.2.0 r0 | MODEL.1 | Modifier
@@ -159,7 +159,7 @@ R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery
 R-PACK-013 | requirements | active | 0.12.11 r5 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI presentations and navigation
-R-PACK-016 | requirements | active | 0.12.12 r6 | PACK.3 | Role rules
+R-PACK-016 | requirements | active | 0.13.7 r7 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.12.12 r5 | PACK.3 | Typed parameters and modifiers
 R-PACK-018 | requirements | active | 0.12.12 r5 | PACK.4 | Stylesheet partials
 R-PACK-019 | requirements | active | 0.12.12 r5 | PACK.5 | Amiga Workbench pack
@@ -189,7 +189,7 @@ R-REND-012 | requirements | active | 0.8.3 r2 | REND.2 | Charts
 R-REND-013 | requirements | active | 0.10.7 r2 | REND.1 | Rows without overlap
 R-REND-014 | requirements | active | 0.10.7 r2 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.12.11 r3 | REPO.1 | Repository layout
-R-REPO-002 | requirements | active | 0.12.12 r8 | REPO.1 | Shared assets are the single source
+R-REPO-002 | requirements | active | 0.13.7 r9 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.12.12 r8 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.12.17 r9 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.13.4 r6 | WEB.4 | The editable view: mockitdown-editor

@@ -1,8 +1,8 @@
 ---
 title: Web development server, test pages and browser tests
-impl_version: 0.3.8
+impl_version: 0.3.44
 status: draft
-updated: 2026-11-26
+updated: 2026-11-28
 page_id: IMPL.WEBDEV
 ---
 
@@ -51,7 +51,7 @@ methods other than `GET`/`HEAD` get 405 (C8); every response is `Cache-Control: 
 ## Loading assets in a browser
 
 `loadAssetsFromUrl(base)` resolves `base` against the page (`location.href`), fetches
-`manifest.json`, then `vocabulary.json`, `page.css`, `icons.json` and every pack's `pack.json` and
+`manifest.json`, then `vocabulary.json`, `page.css`, `icons.json`, `roles.json` and every pack's `pack.json` and
 listed `pack.css` in parallel, and calls `loadAssets` once. Calls with the same base share one
 promise; a failed load is dropped from the cache so a later call retries; an error names the URL
 and HTTP status. With no argument it loads the `shared/` folder beside the module, i.e. the
@@ -98,3 +98,4 @@ report. It publishes nothing; `pages.yml` and `release.yml` keep their own Pytho
 | 0.3.7 | 2026-11-25 | Mockup element page and tests listed (#6) |
 | 0.3.8 | 2026-11-25 | The pack gallery page and its files; IT-15 (#7) |
 | 0.3.20 | 2026-11-26 | Audit: assemble-gallery.mjs and the published Playwright config listed |
+| 0.3.44 | 2026-11-28 | `loadAssetsFromUrl` fetches `roles.json` too (#28) |

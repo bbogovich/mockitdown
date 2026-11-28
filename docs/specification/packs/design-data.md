@@ -1,8 +1,8 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.12.12
+spec_version: 0.13.7
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: PACK.3
 ---
 
@@ -33,6 +33,20 @@ the restructuring commands check it; each refusal comes with a sentence saying w
 | overlay | Dialog, Sheet, Alert, Toast | attached through a presentation modifier |
 | annotation | Callout, Pointer, highlight | attached as a modifier |
 
+Every rule also carries a `title`, the role's name in a refusal (`horizontal stack`, `list item`). The
+item roles of a collection (`listitem`, `treeitem`, `menuitem`, `tab`, …) are in the collection category,
+and layouts name the collections they hold one by one, so that a tree item is offered only inside a tree.
+The bars may stand in a vertical or horizontal stack or a group as well as in a frame or at the root,
+since the root stack cannot be told apart from any other stack by role alone. The root also accepts the
+overlays, so that a dialog or sheet can be drawn on its own. The sapui5 `ObjectPageLayout` narrows its
+role (`vstack`) to `section`.
+
+```js
+canContain("base", "HStack", "NavigationSplitView") // {ok: false, reason: "A frame cannot be placed inside a horizontal stack"}
+canContain("base", "Toolbar", "Text")              // {ok: false, reason: "A text cannot be placed inside a toolbar"}
+canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section"
+```
+
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
 gallery.
@@ -50,31 +64,49 @@ Re-checked after R-REPO-002 was recorded as built (#54, partials resolved into t
 
 **R-PACK-016.TC-1 — Every role has a rule**
 
-Shared test in both suites (`test_roles.py`, `roles.test.ts`): every role of the renderer's role table
-has a rule with a valid category and attach mode; every `accepts` entry is a role or `@category`; every
-pack's `rules` is a subset of its role's; SRC-12#s6.3's examples hold (a frame accepted at the root and
-refused in a stack, a Grid accepting only GridRow).
+Shared test in both suites (`python/tests/test_roles.py` `RoleTableTests`, `typescript/tests/unit/roles.test.ts`
+"TC-1: …"): every role of the renderer's role table (the Python `r_<role>` methods, the TypeScript
+`RENDER_ROLES`) has exactly one rule and no rule names a role the renderer lacks; every rule has a title,
+a valid category and the attach mode of its category; every `accepts` entry is a role or `@category`;
+every pack's `rules` is a subset of its role's; SRC-12#s6.3's examples hold (each frame accepted at the
+root and refused in a stack, a card and a list, a Grid accepting only GridRow, a toolbar only toolbar
+items, buttons, pickers and search fields, the item roles of List, Tree and Board, content leaves, a
+button or link holding its label, overlays and annotations refused in a stack), with the hand-written
+reasons of C14.
 
 **R-PACK-016.TC-2 — canContain and allowedChildren**
 
-`node:test`: the cases of V1; `allowedChildren("base", "HStack")` lists `Toggle` and not `TabView`,
-with `TabView` under its reason; an `unknown` parent accepts all. Python: the package holds `roles.json`
-and every conformance case's diagnostics are unchanged.
+`typescript/tests/unit/roles.test.ts` "TC-2: …" (`node:test`): the cases of V1, with the hand-written
+reasons; the sapui5 `ObjectPageLayout` accepts only section-role elements while a plain `VStack` of the
+same pack follows its role; a pack given as a `Pack`; `allowedChildren("base", "HStack")` lists `Toggle`
+and not `TabView`, with `TabView` under "A frame cannot be placed inside a horizontal stack", every
+element exactly once and one group per reason; a leaf parent refuses everything with one reason; an
+element name the pack does not define accepts all and is accepted by every parent holding children, but
+not by a leaf; `dist/shared/roles.json` equals `shared/language/roles.json` and is in the manifest; an
+unknown pack throws. Python (`python/tests/test_roles.py` `PackagedTableTests`): the package holds
+`roles.json` beside `vocabulary.json`, identical to `shared/`, and a mockup breaking a pack's rule
+renders without a diagnostic; every conformance case's diagnostics are unchanged (the conformance suites
+of both variants).
 
 **Realizes.** F-16
 
 | | Statement |
 |---|---|
-| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"root": {"accepts": […]}, "roles": {"<role>": {"category", "accepts", "attach"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`. |
+| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"root": {"accepts": […]}, "roles": {"<role>": {"title", "category", "accepts", "attach"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`, and the title the role's name in a refusal sentence. |
 | C2 | `accepts` MUST list the roles a role's views may hold as children, each entry a role name or a category written `@<category>`, and `root.accepts` MUST list those allowed at the root of a mockup. |
 | C3 | `attach` MUST be `child` for a view placed among its parent's children, `presentation` for an overlay attached through a presentation modifier (`.sheet`, `.alert`, `.overlay`) and `modifier` for an annotation attached as a modifier. |
-| C4 | The rules MUST follow SRC-12#s6.3: a frame only at the root, as a split-view column or as a tab's content; a bar inside a frame or the root stack, a toolbar holding only toolbar items, buttons, pickers and search fields; a layout holding layouts and content, a grid only grid rows; a collection only its item roles; content without children, except a button or link holding its label. |
+| C4 | The rules MUST follow SRC-12#s6.3: a frame only at the root, as a split-view column or as a tab's content; a bar inside a frame, the root, or a vertical or horizontal stack or group (standing in for the root stack), a toolbar holding only toolbar items, buttons, pickers and search fields; a layout holding layouts, content and the collections, a grid only grid rows; a collection only its item roles; content without children, except a button or link holding its label. |
 | C5 | An element definition in `pack.json` MAY carry `rules: {"accepts": […]}` (M-PACK-2), which MUST name a subset of what its role accepts and replaces the role's `accepts` for that element; a pack element without one MUST follow its role's rule. |
-| C6 | The TypeScript core MUST export `canContain(pack, parent, child)`, taking element names (or `null` for the root), which returns `{ok: true}` or `{ok: false, reason}`, the reason a sentence naming the rule that refuses (`A frame cannot be placed inside a horizontal stack`). |
-| C7 | The TypeScript core MUST export `allowedChildren(pack, parent)`, which returns the pack's elements the parent may hold and the others grouped by their reason. |
+| C6 | The TypeScript core MUST export `canContain(pack, parent, child)`, taking a pack id or a loaded pack and element names (or `null` for the root), which returns `{ok: true}` or `{ok: false, reason}`, the reason a sentence naming the rule that refuses (`A frame cannot be placed inside a horizontal stack`). |
+| C7 | The TypeScript core MUST export `allowedChildren(pack, parent)`, which returns `{allowed, refused}`: the names of the pack's elements the parent may hold, in the pack's order, and the others as `{reason, elements}` groups, one per reason. |
 | C8 | A parent view of role `unknown` MUST accept every child, and a child of role `unknown` MUST be accepted by every parent that accepts children. |
 | C9 | A shared test MUST fail when a render role of either variant has no rule, a rule names an unknown role or category, or a pack's `rules` widens its role's. |
 | C10 | The Python variant MUST package `roles.json` and MUST NOT report a diagnostic from it. |
+| C11 | The item roles of a collection (list item, table row and column, tree item, timeline item, board column, kanban card, menu item, tab, navigation item) MUST have the category `collection`, and a layout or the root MUST name the collections it holds by role, so that an item role is accepted only by its collection. |
+| C12 | `root.accepts` MUST accept the overlays, so that a mockup may show a dialog, sheet or toast on its own. |
+| C13 | An element name the pack does not define, and an element whose role has no rule, MUST be treated as role `unknown`. |
+| C14 | The reason MUST be `<A parent> cannot hold other elements` when the parent accepts nothing, `<A child> is attached through a presentation modifier (.sheet, .alert, .overlay), not placed inside <a parent>` for an overlay and `<A child> is attached as a modifier, not placed inside <a parent>` for an annotation, `<A child> cannot be placed inside <Element>, which its pack limits to <titles>` when the parent's pack narrows it, and otherwise `<A child> cannot be placed inside <a parent>` (`at the root of a mockup` for the root), the child named by its category when the parent accepts none of that category and by its title otherwise. |
+| C15 | If no role rules are loaded or the pack is unknown, then `canContain` and `allowedChildren` MUST throw a `MockitdownError`. |
 | V1 | `canContain("base", "HStack", "NavigationSplitView")` is refused with a reason, `canContain("vuetify", "VCard", "VBtn")` is allowed as for a card and a button, and a Fiori object page that narrows its rule accepts only sections. |
 
 ---
@@ -137,6 +169,7 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
@@ -145,6 +178,7 @@ pass with the types loaded.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |

@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (21)
+## Changes pending (20)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -23,14 +23,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-013 | Rows without overlap | 0.8.1 | 0.10.7 | 2026-11-25 | #8 |
 | R-REND-014 | Shape framing | 0.8.3 | 0.10.7 | 2026-11-25 | #9 |
 | R-REPO-001 | Repository layout | 0.6.0 | 0.12.11 | 2026-11-25 | #1 |
-| R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.12 | 2026-11-27 | #54 |
 | R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.12 | 2026-11-25 | #1 |
 | R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.12 | 2026-11-25 | #4 |
 | R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (59)
+## Not started (58)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -64,7 +63,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-005 | Pack selection | — | 0.10.8 |  |  |
 | R-PACK-006 | Design tokens | — | 0.10.8 |  |  |
 | R-PACK-007 | Pack stylesheet rules | — | 0.10.8 |  |  |
-| R-PACK-016 | Role rules | — | 0.12.12 |  |  |
 | R-PACK-017 | Typed parameters and modifiers | — | 0.12.12 |  |  |
 | R-PACK-019 | Amiga Workbench pack | — | 0.12.12 |  |  |
 | R-PACK-020 | Windows 1.0 in its default colours | — | 0.12.12 |  |  |
@@ -94,7 +92,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (70)
+## Implemented (72)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -153,6 +151,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-009 | The core vocabulary | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-PACK-010 | Hidden packs | 0.12.13 | 0.12.13 | 2026-11-27 | #61 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
+| R-PACK-016 | Role rules | 0.13.7 | 0.13.7 | 2026-11-28 | #28 |
 | R-REND-001 | Figure structure | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-002 | Role markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-003 | Attributes on the markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
@@ -161,6 +160,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| R-REPO-002 | Shared assets are the single source | 0.13.7 | 0.13.7 | 2026-11-28 | #28 |
 | R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-28 | #23 |
 | R-TOOL-001 | The editable view: mockitdown-editor | 0.13.4 | 0.13.4 | 2026-11-28 | #25 |
 | R-TOOL-002 | The outline: mockitdown-outline | 0.13.5 | 0.13.5 | 2026-11-28 | #26 |

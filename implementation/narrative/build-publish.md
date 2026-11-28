@@ -1,8 +1,8 @@
 ---
 title: Build and publish
-impl_version: 0.3.34
+impl_version: 0.3.44
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.BUILD
 ---
 
@@ -39,7 +39,7 @@ npm test               # build, build:tests, node:test unit suites, Playwright (
 
 `python/pyproject.toml` (setuptools ≥ 68): name `mockitdown`, `requires-python >= 3.11`, MIT, no
 dependencies, extra `markdown = ["Markdown>=3.6,<4", "pymdown-extensions>=10,<14"]`, console script
-`mockitdown`, package data `page.css`, `icons.json`, `vocabulary.json` and `packs/*/pack.{json,css}`.
+`mockitdown`, package data `page.css`, `icons.json`, `vocabulary.json`, `roles.json` and `packs/*/pack.{json,css}`.
 The package data are copies of `shared/`, written by `python/setup.py` (which runs
 `tools/sync_shared.py`) at every build from a checkout; the sdist carries them, so a wheel built
 from the sdist needs no `shared/`. The repository's `LICENSE` is copied beside `pyproject.toml` the
@@ -221,3 +221,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.29 | 2026-11-27 | Audit: vio-docs replaces sio-docs; Python 3.11+ interpreter named in the setup |
 | 0.3.33 | 2026-11-27 | The `/gallery/` redirect goes to the home page, `pages/index.html` (#62) |
 | 0.3.34 | 2026-11-27 | TypeScript releases: `release-ts.yml`, `ts-v` tags, the `npm pack` archive on a GitHub release (#63) |
+| 0.3.44 | 2026-11-28 | `roles.json` in the package data (#28) |

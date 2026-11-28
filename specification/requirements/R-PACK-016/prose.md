@@ -12,6 +12,20 @@ the restructuring commands check it; each refusal comes with a sentence saying w
 | overlay | Dialog, Sheet, Alert, Toast | attached through a presentation modifier |
 | annotation | Callout, Pointer, highlight | attached as a modifier |
 
+Every rule also carries a `title`, the role's name in a refusal (`horizontal stack`, `list item`). The
+item roles of a collection (`listitem`, `treeitem`, `menuitem`, `tab`, …) are in the collection category,
+and layouts name the collections they hold one by one, so that a tree item is offered only inside a tree.
+The bars may stand in a vertical or horizontal stack or a group as well as in a frame or at the root,
+since the root stack cannot be told apart from any other stack by role alone. The root also accepts the
+overlays, so that a dialog or sheet can be drawn on its own. The sapui5 `ObjectPageLayout` narrows its
+role (`vstack`) to `section`.
+
+```js
+canContain("base", "HStack", "NavigationSplitView") // {ok: false, reason: "A frame cannot be placed inside a horizontal stack"}
+canContain("base", "Toolbar", "Text")              // {ok: false, reason: "A text cannot be placed inside a toolbar"}
+canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section"
+```
+
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
 gallery.

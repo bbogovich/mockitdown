@@ -1,8 +1,8 @@
 ---
 title: Architecture overview
-impl_version: 0.3.25
+impl_version: 0.3.44
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.ARCH
 ---
 
@@ -31,6 +31,7 @@ python/src/mockitdown/
   evaluate.py      Evaluator: packs, imports, structs, values      A-EVAL-1
   vocabulary.py    RENDERED / IGNORED modifiers, neutral modules   A-EVAL-1
   vocabulary.json  (copy) shared/language/vocabulary.json          A-REPO-1
+  roles.json       (copy) shared/language/roles.json, read only by the TypeScript design tools ([Role rules](roles.md))
   model.py         View, Modifier, Screen, value types             (M-VIEW-*)
   packs/
     __init__.py    PackRegistry, Pack, ElementDef                  A-PACK-1
@@ -124,3 +125,4 @@ keyword override (`render(src, source=True)` raised `TypeError`; R-API-001.C2, I
 | 0.3.4 | 2026-11-25 | Pointer to the TypeScript core (#3) |
 | 0.3.20 | 2026-11-27 | `render/_util.py` and `render/roles/` in the module map (#48) |
 | 0.3.25 | 2026-11-27 | `render` and `check`: positional-only `source` and `options` (#56) |
+| 0.3.44 | 2026-11-28 | `roles.json` in the package layout (#28) |
