@@ -17,7 +17,7 @@ F-2 | requirements | active | 0.9.0 r1 | FEAT.1 | SwiftUI-syntax notation
 F-20 | requirements | active | 0.10.0 r4 | FEAT.3 | Infinite canvas of named mockups
 F-21 | requirements | active | 0.9.0 r0 | FEAT.3 | Structural editing of mockup source
 F-3 | requirements | active | 0.12.0 r5 | FEAT.1 | Framework design packs
-F-4 | requirements | active | 0.11.1 r2 | FEAT.1 | Custom reusable components
+F-4 | requirements | active | 0.13.0 r3 | FEAT.1 | Custom reusable components
 F-5 | requirements | active | 0.2.0 r0 | FEAT.1 | Embedded external assets
 F-6 | requirements | active | 0.2.0 r0 | FEAT.1 | Element identifiers and the Elements table
 F-7 | requirements | active | 0.11.1 r1 | FEAT.1 | Site-defined design packs

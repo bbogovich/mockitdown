@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.0 | 2026-11-27 | `FEAT.1` | Components may not embed themselves (F-4.C11, AC9; SRC-20) |
 | 0.12.0 | 2026-11-27 | `FEAT.1`, `FEAT.2`, `FEAT.3` | Definition audit (#80): pack coverage made measurable, viewport and link-test criteria, easter-egg use case, narrative pages approved |
 | 0.11.1 | 2026-11-27 | `FEAT.1`, `FEAT.2`, `FEAT.3` | definition audit (#80): requires, family, Gallery tab wording, C12/C7/C14 made observable, stale overview scope and glossary |
 | 0.11.0 | 2026-11-27 | `FEAT.1`, `FEAT.2` | SRC-19: F-4 import map, page library blocks, library-qualified names, components as templates; F-14 User guide with Installation |

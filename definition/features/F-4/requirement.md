@@ -2,14 +2,14 @@
 id: F-4
 title: Custom reusable components
 status: active
-version: 0.11.1
-rev: 2
+version: 0.13.0
+rev: 3
 page: FEAT.1
 slot: features
 order: 4
 family: authoring
-source: [SRC-2, SRC-3]
-hash: 92a7b9d431dd
+source: [SRC-2, SRC-3, SRC-20]
+hash: fc2be679c8e9
 refs: [UC-1, UC-2, UC-3, UC-4]
 requires: [F-2]
 ---
@@ -25,6 +25,7 @@ C7: The import map is defined in one place per integration — the Markdown exte
 C8: A block can declare a named library on its page; later blocks on that page import it by name without a separate file.
 C9: Each imported library has a name (its namespace, or an alias given in the import); a component is referred to as `Library.Name` when two loaded libraries define the same name, and by its plain name when it is unique.
 C10: A component can serve as a template: the design using it overrides its property values and fills its named content slots, and slots it leaves empty show the template's default content or nothing.
+C11: A component cannot contain itself, directly or through other components: recursion is not valid for a UI component. A component that does is reported as an error wherever it is used and renders nothing there, and the rest of the mockup still renders.
 AC1: A struct declared in a library under the site's import directory and imported by path renders wherever it is used.
 AC2: A missing library is reported with the directories that were searched.
 AC3: A block-local struct with the same name as an imported one takes precedence.
@@ -33,3 +34,4 @@ AC5: A component declared in a library block is usable by a later block on the s
 AC6: With two libraries both defining `Card`, `acme.Card` and `contoso.Card` render their own definitions, and a plain `Card` is reported as ambiguous, naming both libraries. (UC-3)
 AC7: A template with a default slot and named slots renders the design's content in each slot it fills, the default content in a slot with a default it leaves out, and nothing in an optional slot it leaves out. (UC-4)
 AC8: A site configuration still using the removed list of import directories fails with a message showing the equivalent import map.
+AC9: A component whose body uses itself, once, twice or through another component, is reported promptly with one error naming the cycle, and every other view in the block renders. (SRC-20)

@@ -1,8 +1,8 @@
 ---
 title: "Features: authoring"
-def_version: 0.12.0
+def_version: 0.13.0
 status: approved
-updated: 2026-11-24
+updated: 2026-11-27
 page_id: FEAT.1
 ---
 
@@ -284,6 +284,7 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.0 | 2026-11-27 | Definition audit (#80): C4 made measurable; C15 and AC9 moved to R-PACK-018
 AC9 added for C9 |
 | 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-2; AC10 makes C12 observable |
@@ -293,6 +294,8 @@ AC9 added for C9 |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | Definition audit (#80): C4 made measurable; C15 and AC9 moved to R-PACK-018
+AC9 added for C9 |
 | 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-2; AC10 makes C12 observable |
 | 0.11.0 | 2026-11-27 | import map replaces import directories; page library blocks; library-qualified names; components as templates with slots (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |

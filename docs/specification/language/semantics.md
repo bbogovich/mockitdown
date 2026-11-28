@@ -1,6 +1,6 @@
 ---
 title: "Language: semantics"
-spec_version: 0.12.9
+spec_version: 0.13.0
 status: draft
 updated: 2026-11-27
 page_id: LANG.2
@@ -178,6 +178,17 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_struct_component_w
 
 A struct with `@ViewBuilder var sidebar: some View = Text("Nav")` declared before `@ViewBuilder var content: some View` binds the trailing closure to `content`; a struct with slots `header` (defaulted) and `body2` (no default) and no `content` binds it to `body2`; a struct whose only view property is defaulted binds it there. Automated in both variants.
 
+**R-EVAL-005.TC-3 — Self-embedding components are rejected**
+
+**Given** three blocks, each with a `Text("after")` beside the component call:
+`struct Row: View { var body: some View { Row() } }`,
+`struct Row: View { var body: some View { VStack { Row(); Row() } } }`, and
+`struct A: View { var body: some View { B() } }` with `struct B: View { var body: some View { if false { A() } } }`;
+**when** each is checked and rendered in both variants, **then** each finishes promptly (well under a second, no memory growth) with exactly one error with code `recursion` whose message names the cycle (`Row → Row`, `Row → Row`, `A → B → A`), the component use renders nothing, and `Text("after")` renders.
+**And** a chain of 49 distinct structs, each using the next, reports "nests too deeply" with code `recursion` (C11).
+
+Automated in both variants (Python `tests/`, TypeScript `tests/unit/`); the implementer names the tests here.
+
 **Realizes.** F-4 · **Decisions.** ADR-10
 
 | | Statement |
@@ -191,8 +202,9 @@ A struct with `@ViewBuilder var sidebar: some View = Text("Nav")` declared befor
 | C7 | The evaluator MUST make each computed property a deferred view value evaluated in the struct's scope when used. |
 | C8 | If the struct has no body, then the evaluator MUST report "struct S has no `var body: some View { … }`" with code `struct` and produce no views. |
 | C9 | The evaluator MUST mark every top-level view of the body with the struct's name as its component, unless it already carries an inner component's name, and MUST record the struct in the screen's list of used components. |
-| C10 | If struct instantiation nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply (recursive?)" with code `recursion` and produce no views. |
-| V1 | `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a struct that instantiates itself stops at depth 48 with a `recursion` error. |
+| C10 | Before instantiating a struct, the evaluator MUST decide from the declarations whether the struct can reach itself through the struct names its body, computed properties and property defaults call, directly or through other structs (block-local or imported), counting branches that do not run; if it can, then the evaluator MUST report "struct S uses itself (S → T → S)" with code `recursion`, naming the cycle, once per struct per screen, and MUST produce no views for that use, without expanding it. |
+| C11 | If struct instantiation of structs that do not reach themselves nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply" with code `recursion` and produce no views. |
+| V1 | `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a `struct Row` whose body is `VStack { Row(); Row() }` reports one `recursion` error "struct Row uses itself (Row → Row)" at once, without expanding it. |
 | V2 | `struct Shell: View { @ViewBuilder var sidebar: some View = Text("Nav"); @ViewBuilder var content: some View; var body: some View { … } }` called as `Shell { Text("Hi") }` binds `content` to the closure and `sidebar` to its default, with no diagnostic. |
 
 ---
@@ -366,12 +378,14 @@ closures produce no views and no diagnostics (C5).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |

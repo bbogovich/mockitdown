@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.0 | 2026-11-27 | `LANG.2` | Self-embedding structs rejected by cycle detection (R-EVAL-005.C10, C11, TC-3) |
 | 0.12.18 | 2026-11-27 | `WEB.3` | R-EDIT-003 as built (#22): setArgument placement and refusals, setModifier placement and removal, rename as a string literal, leading comment lines, setName refusals and ids; TC-1 and TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | `REPO.1`, `WEB.3` | R-EDIT-002 as built (#21): edit takes a source or a tree, statement children, indentation unit, refusals C20-C24, line and separator rules C25-C29, covers tags C30; R-REPO-004 TC-4 verifies C15 |
 | 0.12.16 | 2026-11-27 | `WEB.3` | R-EDIT-001 as built (#20): view node rules, leading comment lines, id matching, RangeError on bad edits, token offsets, node fields; TC-1 and TC-2 name the tests |
