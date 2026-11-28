@@ -106,6 +106,12 @@ export interface Inspection {
   readonly addModifiers: readonly string[];
   /** The Mockup tab's fields (C10). */
   readonly options: readonly InspectorField[];
+  /**
+   * The node's span when the inspector offers Edit in code (C11): the node is derived (an `if`, a
+   * `ForEach` or a struct of the mockup, whose views the outline shows as derived) or has a value only a
+   * code field can show (C13); else null.
+   */
+  readonly editInCode: { readonly start: number; readonly end: number } | null;
 }
 
 /** The outcome of an inspector edit: applied (or nothing to change), or why not. */
@@ -133,7 +139,7 @@ export function inspect(session: DesignSession, pack?: string | null): Inspectio
   const packId = name === null ? null : pack ?? mockupPack(session.document, name);
   const base = {
     mockup: name, pack: packId, count: session.selection.length, node: null,
-    arguments: [], state: [], modifiers: [], identity: [], addArguments: [], addModifiers: [], options: [],
+    arguments: [], state: [], modifiers: [], identity: [], addArguments: [], addModifiers: [], options: [], editInCode: null,
   };
   if (name === null) return { ...base, view: "empty" };
   if (session.selection.length > 1) return { ...base, view: "multiple" };
@@ -143,7 +149,8 @@ export function inspect(session: DesignSession, pack?: string | null): Inspectio
   const p = packOf(packId);
   const info = { id: node.id, name: node.name, ordinal: node.ordinal, kind: node.kind };
   const identity = identityFields(tree, node);
-  if (node.kind === "if") return { ...base, view: "node", node: info, identity: identity.filter((f) => f.key === "comment") };
+  const span = { start: node.span.start, end: node.span.end };
+  if (node.kind === "if") return { ...base, view: "node", node: info, identity: identity.filter((f) => f.key === "comment"), editInCode: span };
   const types: Record<string, TypeSpec> = p && rolesLoaded() ? parameterTypes(p, node.name) : {};
   const el = p?.element(node.name) ?? null;
   const call = node.kind === "call" ? node.syntax as A.Call : null;
@@ -234,7 +241,11 @@ export function inspect(session: DesignSession, pack?: string | null): Inspectio
   const modifiers = MODIFIER_GROUPS.filter((g) => grouped.has(g)).map((g) => ({ group: g, modifiers: grouped.get(g)! }));
   const addModifiers = Object.keys(specs).filter((n) => !inChain.has(n) && !IDENTITY_MODIFIERS.has(n)).sort();
 
-  return { ...base, view: "node", node: info, arguments: argumentsOut, state, modifiers, identity, addArguments, addModifiers };
+  // Edit in code (C11): a derived node, or a value only a code field shows.
+  const derived = node.name === "ForEach" || tree.module.structs.some((st) => st.name === node.name);
+  const codeOnly = [...argumentsOut, ...state, ...modifiers.flatMap((g) => g.modifiers.flatMap((m) => m.fields))].some((f) => f.control === "code");
+  const editInCode = derived || codeOnly ? span : null;
+  return { ...base, view: "node", node: info, arguments: argumentsOut, state, modifiers, identity, addArguments, addModifiers, editInCode };
 }
 
 // --- writing --------------------------------------------------------------------------------------

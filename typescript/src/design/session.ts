@@ -326,6 +326,47 @@ export class DesignSession {
   }
 
   /**
+   * Whether a mockup's current code parses (R-TOOL-009.C3): its last valid tree is the tree of its code.
+   * While it does not, the visual tools show {@link validCode} read-only and every edit is refused.
+   */
+  parses(name: string): boolean {
+    const state = this.state(name);
+    return !!state?.tree && state.tree.source === state.code;
+  }
+
+  /**
+   * The code of a mockup's last valid tree (R-TOOL-009.C3): its code while it parses, else the code it
+   * last parsed from, else (it never parsed) its code; null when there is no such mockup.
+   */
+  validCode(name: string): string | null {
+    const state = this.state(name);
+    if (!state) return null;
+    return state.tree?.source ?? state.code;
+  }
+
+  /**
+   * The innermost view node of a mockup whose span holds `offset` (R-TOOL-009.C4, R-EDIT-001.C8), or
+   * null: none holds it, or the mockup's code does not parse (its tree's offsets are not the code's).
+   */
+  nodeAt(name: string, offset: number): string | null {
+    if (!this.parses(name)) return null;
+    return this.tree(name)?.atOffset(offset)?.id ?? null;
+  }
+
+  /**
+   * The span the selected nodes of the active mockup cover in its code (R-TOOL-009.C6): from the first
+   * one's start to the last one's end, or null when nothing is selected or the code does not parse.
+   */
+  selectionSpan(): { start: number; end: number } | null {
+    const name = this.activeName;
+    if (name === null || !this.selected.length || !this.parses(name)) return null;
+    const tree = this.tree(name)!;
+    const nodes = this.selected.map((id) => tree.byId(id)).filter((n): n is ViewNode => !!n);
+    if (!nodes.length) return null;
+    return { start: Math.min(...nodes.map((n) => n.span.start)), end: Math.max(...nodes.map((n) => n.span.end)) };
+  }
+
+  /**
    * The diagnostics a mockup would have with `code` instead of its own (C17), without changing
    * anything: what the inspector compares before it applies a value (R-TOOL-007.C9).
    */
@@ -1055,6 +1096,7 @@ export class DesignSession {
     const name = this.activeName;
     const tree = name === null ? null : this.tree(name);
     if (name === null || !tree) return { ok: false, reason: "There is no mockup to drop into" };
+    if (!this.parses(name)) return { ok: false, reason: "The code does not parse: fix it in the code view first" };
     const parent = position.parent === null ? null : tree.byId(position.parent);
     if (position.parent !== null && !parent) return { ok: false, reason: "The drop position is not in the mockup" };
     let dragged: string[];

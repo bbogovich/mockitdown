@@ -25,8 +25,16 @@
  * with a {@link DesignOpenError} and keeping the current document when it is not valid); `toJSON()` and
  * `document` return the session's live document with every edit applied. `mode` is `design` (the
  * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
- * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code and
- * diagnostics in a read-only `mockitdown-code`, R-TOOL-008; editing it comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
+ * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code in a
+ * `mockitdown-code` in the centre, R-TOOL-008, with the outline, the gallery and the inspector kept live).
+ * The code view is joined to the session by a `CodeSync` (R-TOOL-009): typing is applied 300 ms after
+ * the last keystroke (or when the focus leaves it), the caret moved by the pointer or a navigation key
+ * selects the innermost node holding it (so the gallery's Add inserts there), other components'
+ * changes reach it as text edits, and the selection's span is marked in it. While the code does not
+ * parse, the outline and the view keep its last valid version, read-only, and the status bar names the
+ * first error. In Design mode the toolbar's Dock code toggle (part `dock`, the `docked` attribute and
+ * property) shows the same code view below the view. The inspector's Edit in code
+ * (`mockitdown-edit-in-code`) switches to Code mode and reveals the node's span (R-TOOL-007.C11). Delete and Backspace with the focus in the outline or the
  * view delete the selection through `session.delete()`; there too Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C
  * and V cut, copy and paste with the system clipboard holding the code as `text/plain`, and Alt+Up and
  * Alt+Down move the selection among its siblings (R-EDIT-008). Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
@@ -39,17 +47,18 @@
 
 import { FENCE_OPTIONS, registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
+import { CodeSync } from "../design/code-sync.js";
 import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
-import { CODE_TAG } from "./code.js";
+import { CODE_TAG, type CodeElement } from "./code.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
-import { INSPECTOR_TAG } from "./inspector.js";
+import { EDIT_IN_CODE_EVENT, INSPECTOR_TAG } from "./inspector.js";
 import { MOCKUP_TAG } from "./mockup.js";
 import { OUTLINE_TAG } from "./outline.js";
 
 export const DESIGNER_TAG = "mockitdown-designer";
 /** The attributes the designer observes: `mode` and the two base URLs it passes to its components. */
-export const DESIGNER_ATTRIBUTES: readonly string[] = ["mode", "import-base", "asset-base"];
+export const DESIGNER_ATTRIBUTES: readonly string[] = ["mode", "docked", "import-base", "asset-base"];
 /** The designer's modes (C8); any other value of `mode` means `design`. */
 export const DESIGNER_MODES = ["design", "preview", "code"] as const;
 export type DesignerMode = (typeof DESIGNER_MODES)[number];
@@ -121,12 +130,15 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__right{overflow:auto}
 .mkd-designer__resizer{background:var(--mkd-designer-border,#d0d0d7);background-clip:content-box;padding:0 2px;cursor:col-resize;touch-action:none;outline:none}
 .mkd-designer__resizer:hover,.mkd-designer__resizer:focus-visible,.mkd-designer__resizer--dragging{background-color:var(--mkd-selection-color,#ff8a00)}
-.mkd-designer__center{position:relative;min-width:0;min-height:0;overflow:auto;background:var(--mkd-designer-canvas-background,#f0f1f4)}
-.mkd-designer__view{padding:24px}
+.mkd-designer__center{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:var(--mkd-designer-canvas-background,#f0f1f4)}
+.mkd-designer__view{flex:1 1 auto;min-height:0;overflow:auto;padding:24px}
 .mkd-designer__view[hidden],.mkd-designer__code[hidden],.mkd-designer__preview[hidden]{display:none}
 .mkd-designer__view mockitdown-editor{display:block;max-width:100%}
-.mkd-designer__code{display:block;height:100%;--mkd-code-background:var(--mkd-designer-background,#fff)}
-.mkd-designer__preview{display:grid;grid-template-columns:auto minmax(0,1fr);min-height:100%}
+.mkd-designer__code{display:block;flex:1 1 auto;height:auto;min-height:0;--mkd-code-background:var(--mkd-designer-background,#fff)}
+.mkd-designer__code--docked{flex:0 0 40%;border-top:1px solid var(--mkd-designer-border,#d0d0d7)}
+.mkd-designer__preview{flex:1 1 auto;min-height:0;overflow:auto;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start}
+.mkd-designer__status-message{color:var(--mkd-designer-error-color,#d12f2f);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.mkd-designer__status-message:empty{display:none}
 .mkd-designer__preview-list{display:flex;flex-direction:column;gap:2px;padding:8px;border-right:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-background,#fff)}
 .mkd-designer__preview-list button{font:inherit;color:inherit;text-align:left;background:none;border:0;border-radius:5px;padding:3px 10px;cursor:pointer;white-space:nowrap}
 .mkd-designer__preview-list button[aria-current="true"]{font-weight:600;background:var(--mkd-outline-selected-background,rgba(255,138,0,.22))}
@@ -151,6 +163,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `</div>`
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="left" aria-pressed="true" title="Show or hide the outline and the gallery">Outline</button>`
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="right" aria-pressed="true" title="Show or hide the properties">Properties</button>`
+  + `<button type="button" class="mkd-designer__dock" part="dock" aria-pressed="false" title="Show or hide the code below the view">Dock code</button>`
   + `<div class="mkd-designer__appearance" role="group" aria-label="Appearance" hidden>`
   + PREVIEW_APPEARANCES.map((a) => `<button type="button" part="appearance" data-appearance="${a}" aria-pressed="false">${a[0]!.toUpperCase()}${a.slice(1)}</button>`).join("")
   + `</div><span class="mkd-designer__spacer"></span>`
@@ -165,7 +178,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__resizer mkd-designer__resizer--left" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the outline" tabindex="0" data-panel="left"></div>`
   + `<div class="mkd-designer__center" part="center">`
   + `<div class="mkd-designer__view" part="view"><slot name="view"><mockitdown-editor part="editor"></mockitdown-editor></slot></div>`
-  + `<${CODE_TAG} class="mkd-designer__code" part="code" readonly hidden></${CODE_TAG}>`
+  + `<${CODE_TAG} class="mkd-designer__code" part="code" hidden></${CODE_TAG}>`
   + `<div class="mkd-designer__preview" part="preview" hidden><nav class="mkd-designer__preview-list" part="mockups" aria-label="Mockups"></nav><div class="mkd-designer__frames"></div></div>`
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--right" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the properties" tabindex="0" data-panel="right"></div>`
@@ -173,6 +186,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `</div>`
   + `<div class="mkd-designer__status" part="status"><slot name="status">`
   + `<span class="mkd-designer__diagnostics" part="diagnostics"></span>`
+  + `<span class="mkd-designer__status-message" part="status-message" role="status"></span>`
   + `<nav class="mkd-designer__breadcrumb" part="breadcrumb" aria-label="Path"></nav>`
   + `</slot></div></div>`;
 
@@ -194,6 +208,8 @@ export class DesignerElement extends Base {
   #root: ShadowRoot;
   #session: DesignSession;
   #unsubscribe: (() => void) | null = null;
+  /** The code view's join to the session (R-TOOL-009). */
+  #sync: CodeSync | null = null;
   #layout: DesignerLayout = structuredCloneLayout(DEFAULT_LAYOUT);
   #appearance: PreviewAppearance | null = null;
   /** The text the designer copied or cut last (R-EDIT-008.C3), pasted when the clipboard cannot be read. */
@@ -207,7 +223,7 @@ export class DesignerElement extends Base {
     view: HTMLElement; code: HTMLElement; preview: HTMLElement; previewList: HTMLElement; frames: HTMLElement;
     appearance: HTMLElement; name: HTMLElement; pack: HTMLElement; device: HTMLElement;
     undo: HTMLButtonElement; redo: HTMLButtonElement;
-    diagnostics: HTMLElement; breadcrumb: HTMLElement;
+    diagnostics: HTMLElement; statusMessage: HTMLElement; breadcrumb: HTMLElement; dock: HTMLElement;
     editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement; inspector: HTMLElement;
   };
 
@@ -224,7 +240,7 @@ export class DesignerElement extends Base {
       appearance: q(".mkd-designer__appearance"), name: q(".mkd-designer__name"), pack: q(".mkd-designer__pack"),
       device: q(".mkd-designer__device"), diagnostics: q(".mkd-designer__diagnostics"),
       undo: q(".mkd-designer__undo"), redo: q(".mkd-designer__redo"),
-      breadcrumb: q(".mkd-designer__breadcrumb"),
+      breadcrumb: q(".mkd-designer__breadcrumb"), statusMessage: q(".mkd-designer__status-message"), dock: q(".mkd-designer__dock"),
       editor: q("mockitdown-editor"), outline: q("mockitdown-outline"), gallery: q("mockitdown-gallery"),
       inspector: q("mockitdown-inspector"),
     };
@@ -249,6 +265,10 @@ export class DesignerElement extends Base {
         this.#drawAppearance();
       });
     }
+    this.#el.dock.addEventListener("click", () => {
+      this.docked = !this.docked;
+    });
+    this.addEventListener(EDIT_IN_CODE_EVENT, (e) => this.#editInCode(e as CustomEvent));
     this.#el.undo.addEventListener("click", () => this.#history("undo"));
     this.#el.redo.addEventListener("click", () => this.#history("redo"));
     for (const edge of [this.#el.leftEdge, this.#el.rightEdge]) this.#makeResizable(edge);
@@ -290,6 +310,20 @@ export class DesignerElement extends Base {
 
   set mode(value: string) {
     this.setAttribute("mode", designerMode(value));
+  }
+
+  /** Whether Design mode shows the code view below the view (R-TOOL-009.C8): the `docked` attribute. */
+  get docked(): boolean {
+    return this.hasAttribute("docked");
+  }
+
+  set docked(on: boolean) {
+    this.toggleAttribute("docked", Boolean(on));
+  }
+
+  /** The code view (R-TOOL-008) of Code mode and of the dock. */
+  get codeView(): CodeElement {
+    return this.#el.code as unknown as CodeElement;
   }
 
   /** The side panels' sizes and collapsed states (C3); setting it changes the parts it names. */
@@ -350,7 +384,7 @@ export class DesignerElement extends Base {
 
   attributeChangedCallback(name: string, old: string | null, value: string | null): void {
     if (old === value) return;
-    if (name === "mode") this.#drawMode();
+    if (name === "mode" || name === "docked") this.#drawMode();
     else this.#passBases();
   }
 
@@ -373,6 +407,27 @@ export class DesignerElement extends Base {
   #subscribe(): void {
     const session = this.#session;
     this.#unsubscribe = session.subscribe((n) => this.#notified(session, n));
+    // The code view joins the new session; text typed for the old one is applied to it first.
+    this.#sync?.dispose();
+    this.#sync = null;
+    const code = this.#el.code;
+    const registry = (globalThis as { customElements?: CustomElementRegistry }).customElements;
+    // The shadow root's elements are upgraded when the designer is connected; the code view is needed now.
+    if (registry?.get(CODE_TAG)) registry.upgrade(code);
+    if (typeof (code as unknown as Partial<CodeElement>).mark === "function") this.#sync = new CodeSync(session, code as unknown as CodeElement);
+    else registry?.whenDefined(CODE_TAG).then(() => {
+      if (this.#session !== session || this.#sync) return;
+      registry.upgrade(code);
+      this.#sync = new CodeSync(session, code as unknown as CodeElement);
+    });
+  }
+
+  /** Edit in code (R-TOOL-007.C11): Code mode, the node's span revealed in the code view. */
+  #editInCode(e: CustomEvent): void {
+    const d = e.detail as { mockup?: string | null; range?: { start: number; end: number } } | null;
+    if (!d?.range || (d.mockup ?? null) !== this.#session.active) return;
+    this.mode = "code";
+    (this.#el.code as unknown as CodeElement).reveal(d.range);
   }
 
   /** The package's components inside the designer re-join its session: reading `session` re-attaches them. */
@@ -596,8 +651,12 @@ export class DesignerElement extends Base {
       b.setAttribute("aria-checked", String(on));
       b.tabIndex = on ? 0 : -1;
     }
+    const docked = mode === "design" && this.docked;
     this.#el.view.hidden = mode !== "design";
-    this.#el.code.hidden = mode !== "code";
+    this.#el.code.hidden = mode !== "code" && !docked;
+    this.#el.code.classList.toggle("mkd-designer__code--docked", docked);
+    this.#el.dock.hidden = mode !== "design";
+    this.#el.dock.setAttribute("aria-pressed", String(this.docked));
     this.#el.preview.hidden = mode !== "preview";
     this.#el.appearance.hidden = mode !== "preview";
     for (const b of this.#root.querySelectorAll<HTMLElement>(".mkd-designer__toggle")) b.hidden = mode === "preview";
@@ -609,7 +668,6 @@ export class DesignerElement extends Base {
       this.#el.previewList.replaceChildren();
       this.#previewsFor = null;
     }
-    this.#drawCode();
   }
 
   /** Preview mode (C9): every mockup read-only through a `mockitdown-mockup` with its options. */
@@ -674,14 +732,6 @@ export class DesignerElement extends Base {
     if (figure && typeof (figure as HTMLElement).scrollIntoView === "function") (figure as HTMLElement).scrollIntoView({ block: "start" });
   }
 
-  #drawCode(): void {
-    if (this.mode !== "code") return;
-    const name = this.#session.active;
-    const view = this.#el.code as HTMLElement & { value: string; diagnostics: unknown };
-    view.value = name === null ? "" : this.#session.code(name) ?? "";
-    view.diagnostics = name === null ? [] : this.#session.diagnostics(name);
-  }
-
   #passBases(): void {
     for (const base of ["import-base", "asset-base"]) {
       const v = this.getAttribute(base);
@@ -718,6 +768,10 @@ export class DesignerElement extends Base {
     // C12: the diagnostic count and the breadcrumb of the selection.
     const count = name === null ? 0 : session.diagnostics(name).length;
     this.#el.diagnostics.textContent = `${count} diagnostic${count === 1 ? "" : "s"}`;
+    // R-TOOL-009.C3: while the code does not parse, its first error.
+    const error = name !== null && !session.parses(name) ? session.diagnostics(name).find((d) => d.severity === "error") : undefined;
+    const line = error?.location?.line;
+    this.#el.statusMessage.textContent = error ? `${line ? `Line ${line}: ` : ""}${error.message}` : "";
     const crumbs: Node[] = [];
     const tree = name === null ? null : session.tree(name);
     const sel = session.selection;
@@ -749,7 +803,6 @@ export class DesignerElement extends Base {
     }
     this.#el.breadcrumb.replaceChildren(...crumbs);
     this.#drawHistory();
-    this.#drawCode();
   }
 
   /** The toolbar's Undo and Redo follow `canUndo` and `canRedo` (R-EDIT-007.C10); disabled in Preview mode. */

@@ -29,6 +29,10 @@
  * document, whose notifications it dispatches as DOM events (R-EDIT-006.C7, C8). The outline holds no
  * editing rule (A-WEB-5.K2).
  *
+ * While the mockup's code does not parse (R-TOOL-009.C3), the rows stay those of its last valid version
+ * (`session.validCode`), the tree carries `data-readonly` and dimmed rows, and the note of part
+ * `readonly` says so; the session refuses every edit meanwhile.
+ *
  * Drag and drop (R-TOOL-005, `./drag.ts`): a row of a view that is not derived drags its node (the
  * selection, when the row is one of several selected rows); over a row the outline shows where a
  * drop goes — before the row, inside it or after it, by the upper, middle or lower third of the row —
@@ -40,6 +44,7 @@ import { assetsLoaded, ViewList, type Pack, type View } from "../core/index.js";
 import type { ViewNode } from "../core/syntax/tree.js";
 import { mockupOptions, newDesign } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification, type DropPosition, type DropZone } from "../design/session.js";
+import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { armDrag, registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, evaluateWithImports } from "./mockup.js";
@@ -93,6 +98,9 @@ const OUTLINE_CSS = `:host([hidden]){display:none}
 .mkd-outline__panel{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
 .mkd-outline__panel[hidden]{display:none}
 .mkd-outline__tree{flex:1 1 auto;min-height:0;overflow:auto;padding:4px;outline:none}
+.mkd-outline__tree[data-readonly] .mkd-outline__row{opacity:.55}
+.mkd-outline__readonly{margin:4px 8px 0;font-size:12px;color:var(--mkd-readonly-color,#9a5b00)}
+.mkd-outline__readonly[hidden]{display:none}
 .mkd-outline__tree:focus-visible{box-shadow:inset 0 0 0 2px var(--mkd-selection-color,#ff8a00)}
 .mkd-outline__row{display:flex;align-items:center;gap:4px;white-space:nowrap;padding:1px 6px 1px 0;border-radius:5px;cursor:default;user-select:none}
 .mkd-outline__row--hover{background:var(--mkd-outline-hover-background,rgba(47,128,237,.12))}
@@ -201,6 +209,7 @@ export class OutlineElement extends Base {
       + `<button type="button" class="mkd-outline__tab" role="tab" part="tab" id="tab-elements" aria-controls="panel-elements" data-tab="elements">Elements</button>`
       + `<button type="button" class="mkd-outline__tab" role="tab" part="tab" id="tab-mockups" aria-controls="panel-mockups" data-tab="mockups">Mockups</button></div>`
       + `<div class="mkd-outline__panel" role="tabpanel" id="panel-elements" aria-labelledby="tab-elements" part="elements">`
+      + `<p class="mkd-outline__readonly" part="readonly" role="status" hidden>${READ_ONLY_NOTE}</p>`
       + `<div class="mkd-outline__tree" role="tree" part="tree" aria-label="Elements" tabindex="0"></div></div>`
       + `<div class="mkd-outline__panel" role="tabpanel" id="panel-mockups" aria-labelledby="tab-mockups" part="mockups" hidden>`
       + `<ul class="mkd-outline__mockups" role="list"></ul></div>`;
@@ -375,7 +384,8 @@ export class OutlineElement extends Base {
         if (!assetsLoaded()) await loadAssetsFromUrl();
         if (stale()) return;
         const options = { ...(mockupOptions(session.document, name) ?? {}), edit: true };
-        const result = await evaluateWithImports(session.code(name) ?? "", options, baseUrls(this).importBase, stale);
+        // The last valid version while the code does not parse (R-TOOL-009.C3).
+        const result = await evaluateWithImports(session.validCode(name) ?? "", options, baseUrls(this).importBase, stale);
         if (result === null) return;
         if (result.screen) {
           roots = this.#rowsFrom(session, name, result.screen.views, result.screen.pack);
@@ -519,6 +529,12 @@ export class OutlineElement extends Base {
       }
       return el;
     });
+    // R-TOOL-009.C3: the last valid tree, read-only, while the code does not parse.
+    const readOnly = name !== null && !!session.mockup(name) && !session.parses(name);
+    const note = this.#root.querySelector<HTMLElement>(".mkd-outline__readonly");
+    if (note) note.hidden = !readOnly;
+    if (readOnly) tree.setAttribute("data-readonly", "");
+    else tree.removeAttribute("data-readonly");
     if (items.length) tree.replaceChildren(...items);
     else {
       const empty = doc.createElement("div");

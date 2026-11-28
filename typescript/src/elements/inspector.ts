@@ -23,7 +23,12 @@
  * holds no editing rule of its own (A-WEB-5.K2) and joins a session as the outline does
  * (R-EDIT-006.C11); only its own session's notifications become its DOM events (C7, C8).
  *
- * Parts: `inspector`, `header`, `tab`, `count`, `group` (with `data-group`), `heading`, `field` (with
+ * When the node is derived (an `if`, a `ForEach`, a struct of the mockup) or has a value only a code
+ * field shows, the header is followed by Edit in code (part `edit-in-code`, C11), which dispatches
+ * `mockitdown-edit-in-code` (bubbling, composed, `detail: {mockup, node, range}`); the designer
+ * switches to Code mode and reveals the range.
+ *
+ * Parts: `inspector`, `header`, `edit-in-code`, `tab`, `count`, `group` (with `data-group`), `heading`, `field` (with
  * `data-key`), `label`, `input`, `note`, `error`, `remove`, `modifier`, `add-argument`, `add-modifier`,
  * `add-item`. Custom properties: `--mkd-inspector-border`, `--mkd-inspector-field-background`,
  * `--mkd-inspector-label-color`, `--mkd-inspector-invalid-color`.
@@ -38,6 +43,8 @@ import {
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 
 export const INSPECTOR_TAG = "mockitdown-inspector";
+/** The event Edit in code dispatches (C11): `detail: {mockup, node, range: {start, end}}`. */
+export const EDIT_IN_CODE_EVENT = "mockitdown-edit-in-code";
 export { INSPECTOR_DEBOUNCE_MS };
 const DESIGNER_TAG = "mockitdown-designer";
 
@@ -75,7 +82,8 @@ const INSPECTOR_CSS = `:host{display:block;font:13px/1.4 system-ui,sans-serif;co
 .mkd-inspector__items{display:flex;flex-direction:column;gap:2px}
 .mkd-inspector__item{display:flex;gap:2px}
 .mkd-inspector__add-item{font:inherit;font-size:11px;align-self:flex-start;background:none;border:1px dashed var(--mkd-inspector-border,#d0d0d7);border-radius:4px;padding:0 6px;cursor:pointer}
-.mkd-inspector__add{margin-top:4px}`;
+.mkd-inspector__add{margin-top:4px}
+.mkd-inspector__code{font:inherit;font-size:12px;color:inherit;background:none;border:1px solid var(--mkd-inspector-border,#d0d0d7);border-radius:4px;padding:1px 8px;margin:0 0 6px;cursor:pointer}`;
 
 const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLElement : class {}) as typeof HTMLElement;
 
@@ -302,6 +310,14 @@ export class InspectorElement extends Base {
       const header = el(doc, "div", { class: "mkd-inspector__header", part: "header" });
       header.append(el(doc, "strong", {}, view.node.name), el(doc, "span", {}, view.node.ordinal));
       out.push(header);
+      if (view.editInCode) {
+        // C11: the host (the designer) switches to Code mode and reveals the span.
+        const range = { ...view.editInCode };
+        const detail = { mockup: view.mockup, node: view.node.id, range };
+        const button = el(doc, "button", { type: "button", class: "mkd-inspector__code", part: "edit-in-code" }, "Edit in code");
+        button.addEventListener("click", () => this.dispatchEvent(new CustomEvent(EDIT_IN_CODE_EVENT, { bubbles: true, composed: true, detail })));
+        out.push(button);
+      }
       if (this.#notice) out.push(el(doc, "p", { class: "mkd-inspector__error", part: "error", role: "alert" }, this.#notice));
       if (view.node.kind !== "if") {
         const args = this.#group(doc, "arguments", "Arguments");

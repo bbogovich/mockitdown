@@ -25,17 +25,24 @@
  * through `document.execCommand("insertText")`, so the browser's own undo keeps them; where it is
  * refused the text is replaced with `setRangeText`.
  *
+ * For the design tools (R-TOOL-009, joined to a session by `CodeSync` of `mockitdown/design`, which holds
+ * the rules): `applyEdits(edits)` applies another component's text edits, keeping the caret and the
+ * scroll position outside the edited ranges and dispatching no `input` event; `mark(range)` marks a
+ * range (part `span`) behind the text without moving the focus, scrolling it into view; and a
+ * `mockitdown-caret` event (bubbling, composed, `detail: {start, end}`) tells that the pointer or a
+ * navigation key (arrows, Home, End, Page Up, Page Down) moved the caret.
+ *
  * It imports only the core lexer: no editor library, no other component of the package, no find and
  * replace, folding or multiple cursors (C8).
  *
  * Attributes: `readonly` (the text cannot be changed; mirrored by `readOnly`), `appearance` (`light`,
  * `dark`, or the page's preference). Parts: `code`, `gutter`, `line` (with `data-line`, and
- * `data-severity` on a line holding a diagnostic), `highlight`, `text`, `message`. Custom properties:
+ * `data-severity` on a line holding a diagnostic), `highlight`, `mark`, `span`, `text`, `message`. Custom properties:
  * `--mkd-code-font`, `--mkd-code-background`, `--mkd-code-color`, `--mkd-code-gutter-background`,
  * `--mkd-code-gutter-color`, `--mkd-code-keyword`, `--mkd-code-name`, `--mkd-code-ident`,
  * `--mkd-code-modifier`, `--mkd-code-member`, `--mkd-code-string`, `--mkd-code-number`,
  * `--mkd-code-comment`, `--mkd-code-punct`, `--mkd-code-error`, `--mkd-code-warning`,
- * `--mkd-code-match`, `--mkd-code-selection`; each colour has a light and a dark default.
+ * `--mkd-code-match`, `--mkd-code-selection`, `--mkd-code-span`; each colour has a light and a dark default.
  */
 
 import { highlight, indentUnit, type Highlight } from "../core/syntax/lexer.js";
@@ -43,6 +50,18 @@ import { highlight, indentUnit, type Highlight } from "../core/syntax/lexer.js";
 export const CODE_TAG = "mockitdown-code";
 /** The attributes the code view observes. */
 export const CODE_ATTRIBUTES: readonly string[] = ["readonly"];
+
+/** The event the code view dispatches when the pointer or a navigation key moved the caret. */
+export const CODE_CARET_EVENT = "mockitdown-caret";
+/** The keys whose release reports a caret move. */
+const NAVIGATION_KEYS = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End", "PageUp", "PageDown"]);
+
+/** A text edit as `applyEdits` takes it: replace `[start, end)` of the current text with `text`. */
+export interface CodeEdit {
+  start: number;
+  end: number;
+  text: string;
+}
 
 /** A diagnostic as the code view reads it: the core's `Diagnostic`, or any object with these fields. */
 export interface CodeDiagnostic {
@@ -63,10 +82,10 @@ const CLOSE: Readonly<Record<string, string>> = { ")": "(", "}": "{", "]": "[" }
 
 const LIGHT = `--_bg:#fff;--_fg:#1f2328;--_gbg:#f6f7f9;--_gfg:#8a8f98;--_kw:#a626a4;--_name:#0b5cad;--_ident:#1f2328;
 --_mod:#8250df;--_mem:#0a7f7f;--_str:#2f7d32;--_num:#b35900;--_com:#6e7781;--_punct:#57606a;--_err:#d12f2f;--_warn:#b07800;
---_match:rgba(255,170,0,.35);--_sel:rgba(64,128,255,.28)`;
+--_match:rgba(255,170,0,.35);--_sel:rgba(64,128,255,.28);--_span:rgba(255,138,0,.14)`;
 const DARK = `--_bg:#1e1f22;--_fg:#d4d7dd;--_gbg:#25262a;--_gfg:#6f747d;--_kw:#d68cf0;--_name:#6cb6ff;--_ident:#d4d7dd;
 --_mod:#c4a7ff;--_mem:#56d4d4;--_str:#8fd68f;--_num:#f0a35e;--_com:#8b929b;--_punct:#a0a6ae;--_err:#ff6b6b;--_warn:#e3b341;
---_match:rgba(255,190,60,.3);--_sel:rgba(90,150,255,.35)`;
+--_match:rgba(255,190,60,.3);--_sel:rgba(90,150,255,.35);--_span:rgba(255,160,40,.18)`;
 
 const CODE_CSS = `:host{display:block;height:18em;min-height:3em;${LIGHT}}
 @media (prefers-color-scheme:dark){:host(:not([appearance=light])){${DARK}}}
@@ -82,8 +101,10 @@ text-align:right;user-select:none;-webkit-user-select:none;min-width:2.5em}
 .mkd-code__line[data-severity=error]{border-left-color:var(--mkd-code-error,var(--_err));color:var(--mkd-code-error,var(--_err));font-weight:600}
 .mkd-code__line[data-severity=warning]{border-left-color:var(--mkd-code-warning,var(--_warn));color:var(--mkd-code-warning,var(--_warn))}
 .mkd-code__body{position:relative;flex:1;min-width:0;overflow:hidden}
-.mkd-code__highlight,.mkd-code__text{margin:0;padding:8px 10px;border:0;font:inherit;letter-spacing:inherit;white-space:pre;tab-size:4;
+.mkd-code__highlight,.mkd-code__mark,.mkd-code__text{margin:0;padding:8px 10px;border:0;font:inherit;letter-spacing:inherit;white-space:pre;tab-size:4;
 box-sizing:border-box;word-wrap:normal;overflow-wrap:normal}
+.mkd-code__mark{position:absolute;top:0;left:0;min-width:100%;pointer-events:none;color:transparent}
+.mkd-code__span{background:var(--mkd-code-span,var(--_span));border-radius:2px}
 .mkd-code__highlight{position:absolute;top:0;left:0;min-width:100%;pointer-events:none;color:inherit}
 .mkd-code__text{position:absolute;inset:0;width:100%;height:100%;resize:none;background:transparent;color:transparent;
 caret-color:var(--mkd-code-color,var(--_fg));outline:none;overflow:auto}
@@ -150,6 +171,9 @@ export class CodeElement extends Base {
   #root: ShadowRoot;
   #text: HTMLTextAreaElement;
   #highlight: HTMLElement;
+  #markLayer: HTMLElement;
+  /** The range {@link mark} marks, or null. */
+  #marked: CodeRange | null = null;
   #gutter: HTMLElement;
   #lines: HTMLElement;
   #message: HTMLElement;
@@ -174,12 +198,13 @@ export class CodeElement extends Base {
     this.#root = this.attachShadow({ mode: "open" });
     this.#root.innerHTML = `<style>${CODE_CSS}</style><div class="mkd-code__wrap"><div class="mkd-code" part="code">`
       + `<div class="mkd-code__gutter" part="gutter" aria-hidden="true"><div class="mkd-code__lines"></div></div>`
-      + `<div class="mkd-code__body"><pre class="mkd-code__highlight" part="highlight" aria-hidden="true"></pre>`
+      + `<div class="mkd-code__body"><pre class="mkd-code__mark" part="mark" aria-hidden="true"></pre><pre class="mkd-code__highlight" part="highlight" aria-hidden="true"></pre>`
       + `<textarea class="mkd-code__text" part="text" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off"`
       + ` aria-label="Code" aria-describedby="message"></textarea></div></div>`
       + `<div class="mkd-code__message" part="message" id="message" role="status" aria-live="polite"></div></div>`;
     this.#text = this.#root.querySelector("textarea")!;
     this.#highlight = this.#root.querySelector(".mkd-code__highlight")!;
+    this.#markLayer = this.#root.querySelector(".mkd-code__mark")!;
     this.#gutter = this.#root.querySelector(".mkd-code__gutter")!;
     this.#lines = this.#root.querySelector(".mkd-code__lines")!;
     this.#message = this.#root.querySelector(".mkd-code__message")!;
@@ -192,6 +217,10 @@ export class CodeElement extends Base {
     this.#text.addEventListener("scroll", () => this.#scroll());
     this.#text.addEventListener("keydown", (e) => this.#keydown(e));
     for (const type of ["keyup", "mouseup", "focus", "select", "selectionchange"]) this.#text.addEventListener(type, () => this.#caret());
+    this.#text.addEventListener("mouseup", () => this.#moved());
+    this.#text.addEventListener("keyup", (e) => {
+      if (NAVIGATION_KEYS.has(e.key)) this.#moved();
+    });
     this.#render();
   }
 
@@ -263,6 +292,85 @@ export class CodeElement extends Base {
     const end = Math.max(start, Math.min(len, Math.floor(Number(range?.end ?? start) || 0)));
     this.#text.focus({ preventScroll: true });
     this.#text.setSelectionRange(start, end);
+    this.#scrollTo(start);
+    this.#caret();
+  }
+
+  /** The range {@link mark} marks, or null. */
+  get marked(): CodeRange | null {
+    return this.#marked ? { ...this.#marked } : null;
+  }
+
+  /**
+   * Mark the range `{start, end}` behind the text (part `span`), or nothing for null, without moving
+   * the focus or the caret; while the text area does not have the focus, a range out of view is
+   * scrolled into it (R-TOOL-009.C6).
+   */
+  mark(range: CodeRange | null): void {
+    const len = this.#text.value.length;
+    let next: CodeRange | null = null;
+    if (range) {
+      const start = Math.max(0, Math.min(len, Math.floor(Number(range.start) || 0)));
+      const end = Math.max(start, Math.min(len, Math.floor(Number(range.end ?? start) || 0)));
+      next = end > start ? { start, end } : null;
+    }
+    const same = next === this.#marked || (!!next && !!this.#marked && next.start === this.#marked.start && next.end === this.#marked.end);
+    this.#marked = next;
+    this.#drawMark();
+    // Scrolled into view only when the selection was made elsewhere: never under the typing caret.
+    if (next && !same && this.#root.activeElement !== this.#text) this.#scrollTo(next.start);
+  }
+
+  /**
+   * Apply text edits made elsewhere (R-TOOL-009.C5): ascending, not overlapping, offsets of the current
+   * text. The caret and the selection keep their place outside the edited ranges (inside one they move
+   * to its start), the scroll position keeps the lines in view, and no `input` event is dispatched.
+   */
+  applyEdits(edits: readonly CodeEdit[]): void {
+    const ta = this.#text;
+    const old = ta.value;
+    const sorted = [...edits].sort((a, b) => a.start - b.start);
+    let next = "";
+    let pos = 0;
+    for (const e of sorted) {
+      if (e.start < pos || e.end < e.start || e.end > old.length) throw new RangeError("edits out of order, overlapping or outside the text");
+      next += old.slice(pos, e.start) + e.text;
+      pos = e.end;
+    }
+    next += old.slice(pos);
+    if (next === old) return;
+    const map = (offset: number): number => {
+      let delta = 0;
+      for (const e of sorted) {
+        if (offset <= e.start) break;
+        if (offset < e.end) return e.start + delta;
+        delta += e.text.length - (e.end - e.start);
+      }
+      return offset + delta;
+    };
+    const { selectionStart: s, selectionEnd: f, selectionDirection: dir } = ta;
+    const top = ta.scrollTop;
+    const left = ta.scrollLeft;
+    const style = getComputedStyle(ta);
+    const lineHeight = parseFloat(style.lineHeight) || 18;
+    const firstShown = Math.max(0, Math.floor((top - (parseFloat(style.paddingTop) || 0)) / lineHeight));
+    const shownAt = this.#lineStarts[Math.min(firstShown, this.#lineStarts.length - 1)] ?? 0;
+    let lines = 0;
+    for (const e of sorted) {
+      if (e.end > shownAt) break;
+      lines += countLines(e.text) - countLines(old.slice(e.start, e.end));
+    }
+    ta.value = next;
+    ta.setSelectionRange(map(s), map(f), dir ?? "none");
+    this.#render();
+    ta.scrollTop = Math.max(0, top + lines * lineHeight);
+    ta.scrollLeft = left;
+    this.#scroll();
+  }
+
+  /** Scroll so that the text at `start` is in view; nothing while the view is not laid out. */
+  #scrollTo(start: number): void {
+    if (!this.#text.clientHeight) return;
     const style = getComputedStyle(this.#text);
     const lineHeight = parseFloat(style.lineHeight) || 18;
     const padTop = parseFloat(style.paddingTop) || 0;
@@ -280,7 +388,23 @@ export class CodeElement extends Base {
       this.#text.scrollLeft = Math.max(0, left - width / 3);
     }
     this.#scroll();
-    this.#caret();
+  }
+
+  /** Tell the host the pointer or a navigation key moved the caret. */
+  #moved(): void {
+    const { selectionStart: start, selectionEnd: end } = this.#text;
+    this.dispatchEvent(new CustomEvent(CODE_CARET_EVENT, { bubbles: true, composed: true, detail: { start, end } }));
+  }
+
+  /** The marked range as a transparent copy of the text up to its end, the range in a `span` part. */
+  #drawMark(): void {
+    const m = this.#marked;
+    const text = this.#text.value;
+    if (!m || m.end > text.length) {
+      if (this.#markLayer.firstChild) this.#markLayer.replaceChildren();
+      return;
+    }
+    this.#markLayer.innerHTML = `${escapeHtml(text.slice(0, m.start))}<span class="mkd-code__span" part="span">${escapeHtml(text.slice(m.start, m.end))}</span>`;
   }
 
   // --- drawing ------------------------------------------------------------------------------------
@@ -316,6 +440,7 @@ export class CodeElement extends Base {
     const starts = [0];
     for (let i = text.indexOf("\n"); i >= 0; i = text.indexOf("\n", i + 1)) starts.push(i + 1);
     this.#lineStarts = starts;
+    this.#drawMark();
     this.#drawGutter(false);
     this.#scroll();
     this.#caret();
@@ -345,6 +470,7 @@ export class CodeElement extends Base {
     const x = this.#text.scrollLeft;
     const y = this.#text.scrollTop;
     this.#highlight.style.transform = `translate(${-x}px, ${-y}px)`;
+    this.#markLayer.style.transform = `translate(${-x}px, ${-y}px)`;
     this.#lines.style.transform = `translateY(${-y}px)`;
   }
 
@@ -530,6 +656,13 @@ export class CodeElement extends Base {
     if (selStart !== undefined) ta.setSelectionRange(selStart, selEnd ?? selStart);
     this.#caret();
   }
+}
+
+/** The number of line feeds in a text. */
+function countLines(text: string): number {
+  let n = 0;
+  for (let i = text.indexOf("\n"); i >= 0; i = text.indexOf("\n", i + 1)) n += 1;
+  return n;
 }
 
 /** The text of the host's light DOM without the indentation its lines share. */

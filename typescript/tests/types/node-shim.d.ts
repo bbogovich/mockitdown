@@ -7,6 +7,8 @@ declare module "node:test" {
     test(name: string, options: Options, fn?: Fn): Promise<void>;
     todo(message?: string): void;
     skip(message?: string): void;
+    /** The test's mocks; only the fake timers are used (code-sync.test.ts). */
+    mock: { timers: { enable(options?: { apis?: string[]; now?: number }): void; tick(ms: number): void; reset(): void } };
   }
   export function test(name: string, fn: Fn): Promise<void>;
   export function test(name: string, options: Options, fn?: Fn): Promise<void>;

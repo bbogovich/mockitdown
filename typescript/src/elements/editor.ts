@@ -37,6 +37,10 @@
  * with it selected. Enter or leaving the field commits the text through `session.setText`
  * (`setArgument`, one change of its own after the insertion's); Esc closes it and keeps the text.
  *
+ * While the mockup's code does not parse (R-TOOL-009.C3), the editor shows its last valid version
+ * (`session.validCode`), dimmed, with `aria-readonly` on the `view` part and the note of part
+ * `readonly`; the session refuses every edit meanwhile, a drop included.
+ *
  * Drag and drop (R-TOOL-005, `./drag.ts`): while a gallery card or outline rows are dragged over the
  * view, the editor outlines the innermost container under the pointer (`session.isContainer`; the top
  * level when there is none) and draws an insertion bar at the gap between its children nearest the
@@ -49,6 +53,7 @@ import { assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS,
 import { mockupOptions, newDesign } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 import type { DropPosition } from "../design/session.js";
+import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, renderWithImports, SCRIPT_TYPE, scriptCode, showInShadow } from "./mockup.js";
@@ -65,6 +70,8 @@ const LABEL_ROOM = 18;
 const EDITOR_CSS = `:host{position:relative;outline:none}
 :host(:focus-visible){outline:2px solid var(--mkd-selection-color,#ff8a00);outline-offset:2px}
 .mkd-editor__view{cursor:default}
+.mkd-editor__view[data-readonly]{opacity:.55}
+.mkd-editor__readonly{margin:0 0 8px;font:12px/1.4 system-ui,sans-serif;color:var(--mkd-readonly-color,#9a5b00)}
 .mkd-editor__overlay{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2147483647}
 .mkd-editor__box{position:absolute;box-sizing:border-box;border:2px solid var(--mkd-selection-color,#ff8a00);border-radius:2px}
 .mkd-editor__box--hover{border:1px solid var(--mkd-hover-color,#2f80ed)}
@@ -386,6 +393,7 @@ export class EditorElement extends Base {
     let html = "";
     let packs: string[] = [];
     let diagnostics: Diagnostic[] = [];
+    let readOnly = false;
     try {
       if (!assetsLoaded()) await loadAssetsFromUrl();
       if (stale()) return;
@@ -394,7 +402,9 @@ export class EditorElement extends Base {
       if (name !== null && session.mockup(name)) {
         const { importBase, assetBase } = baseUrls(this);
         const options = { ...(mockupOptions(session.document, name) ?? {}), edit: true };
-        const result = await renderWithImports(session.code(name) ?? "", options, importBase, assetBase, stale);
+        // While the code does not parse, the last valid version is shown, read-only (R-TOOL-009.C3).
+        readOnly = !session.parses(name);
+        const result = await renderWithImports(session.validCode(name) ?? "", options, importBase, assetBase, stale);
         if (result === null) return;
         const fence = this.#session === this.#own
           ? this.#fenceOptions()[1].map((p) => new Diagnostic("error", p, new Location(), "fence"))
@@ -414,7 +424,8 @@ export class EditorElement extends Base {
     this.#replacing = true;
     try {
       showInShadow(this.#root, packs, html, EDITOR_CSS, (h) =>
-        `<div class="mkd-editor__view" part="view">${h}</div><div class="mkd-editor__overlay" part="overlay" aria-hidden="true"></div>`);
+        (readOnly ? `<p class="mkd-editor__readonly" part="readonly" role="status">${READ_ONLY_NOTE}</p>` : "")
+        + `<div class="mkd-editor__view" part="view"${readOnly ? ' aria-readonly="true" data-readonly=""' : ""}>${h}</div><div class="mkd-editor__overlay" part="overlay" aria-hidden="true"></div>`);
     } finally {
       this.#replacing = false;
     }

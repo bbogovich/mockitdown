@@ -155,7 +155,8 @@ test("TC-1: the designer's Code mode shows the active mockup's code in mockitdow
   expect(await page.evaluate(() => document.querySelector("#designer").shadowRoot.querySelector("mockitdown-code").value)).toBe(code);
   expect(await page.locator(`${view} [part="line"]`).count()).toBe(code.split("\n").length);
   expect(await page.locator(`${view} .t-name`).allTextContents()).toContain("Text");
-  await expect(page.locator(`${view} textarea`)).toHaveAttribute("readonly", "");
+  // Editable since R-TOOL-009 (#39): the designer's code view is joined to its session (sync.spec.mjs).
+  await expect(page.locator(`${view} textarea`)).not.toHaveAttribute("readonly", "");
   expect(errors).toEqual([]);
 });
 

@@ -327,7 +327,9 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
   in the outline and the view select several siblings. Not in a text field, nor in Preview mode.
 - `mode` (attribute and property): `design` (default), `preview` (every mockup read-only through
   `mockitdown-mockup` with its options, a list of the mockups and a Light, Dark, Both toggle) or `code`
-  (the active mockup's code). An unknown value means `design`.
+  (the active mockup's code, editable, with the outline, gallery and inspector live). An unknown value
+  means `design`. In Design mode the toolbar's Dock code toggle (part `dock`; the `docked` attribute and
+  property) shows the same code view below the view; `d.codeView` is that `mockitdown-code`.
 - Drag a side panel's inner edge (or use ← → on it) to resize it; `d.layout` is
   `{left: {size, collapsed}, right: {size, collapsed}}` and may be set in part
   (`d.layout = {right: {collapsed: true}}`).
@@ -445,8 +447,8 @@ setOption(session, "device", "tablet");
 `<mockitdown-code>` is a light code editor for mockitdown, built here with no editor library: a
 `<textarea>` with transparent text over a copy coloured from the core lexer (`highlight(source)` gives
 the ranges: keyword, name, ident, modifier, member, string, number, comment, punct, error). The
-designer's Code mode shows the active mockup in one, read-only for now (editing it is R-TOOL-009); it
-also works on its own (`pages/code.html` puts one beside a `mockitdown-mockup`).
+designer's Code mode (and its dock) edits the active mockup in one (see Two-way editing below); it also
+works on its own (`pages/code.html` puts one beside a `mockitdown-mockup`).
 
 ```js
 code.value = source;                              // no event
@@ -471,6 +473,36 @@ code.reveal({ start: 120, end: 128 });            // select the range and scroll
   `--mkd-code-number`, `--mkd-code-comment`, `--mkd-code-punct`, `--mkd-code-error`, `--mkd-code-warning`,
   `--mkd-code-match`, `--mkd-code-selection`, `--mkd-code-background`, `--mkd-code-color`,
   `--mkd-code-gutter-background`, `--mkd-code-gutter-color` and the font from `--mkd-code-font`.
+- For the design tools: `code.applyEdits(edits)` applies text edits made elsewhere, keeping the caret
+  and the scroll outside them (no event); `code.mark(range)` marks a range (part `span`,
+  `--mkd-code-span`) without moving the focus; `mockitdown-caret` (bubbling, composed, `detail: {start,
+  end}`) reports a caret moved by the pointer or a navigation key.
+
+### Two-way editing
+
+`CodeSync` (from `mockitdown/design`) joins a code view to a session's active mockup; the designer
+makes one for its code view, and a host composing its own tools does the same:
+
+```js
+import { CodeSync } from "mockitdown/design";
+const sync = new CodeSync(session, codeView);   // shows the active mockup's code and follows it
+```
+
+- Typing is applied 300 ms after the last keystroke (`CODE_SYNC_MS`), or at once when the focus leaves
+  the view, through `session.setCode(mockup, text, {coalesce: "code"})`: one change whose edit replaces
+  what lies between the common prefix and suffix, one undo step per burst.
+- Code that parses re-parses from the last valid tree, so the selection is kept by node id. Code that
+  does not keeps the last valid tree: `session.parses(name)` is false, the outline and the editor show
+  `session.validCode(name)` read-only (part `readonly` says so) and every edit, command and drop is
+  refused; the code view's gutter and the designer's status bar show the error.
+- The caret moved by the pointer or a navigation key selects the innermost node holding it
+  (`session.nodeAt(name, offset)`), so the gallery's Add inserts there; typing never selects.
+- A change made elsewhere reaches the view as its text edits; text typed and not applied yet is kept
+  and the edits are moved past it (the session's code wins where they overlap). The selection's span
+  (`session.selectionSpan()`) is marked in the view.
+- The inspector's Edit in code (part `edit-in-code`, for an `if`, a `ForEach`, a struct's call or a
+  value only a code field shows; `inspection.editInCode` is the span) dispatches
+  `mockitdown-edit-in-code`; the designer switches to Code mode and reveals the span.
 
 ## Development
 
