@@ -9,6 +9,21 @@ const { edits, source, tree } = edit(code, {
 // edits: [{ start: 58, end: 58, text: '  Toggle("Remember me")\n' }]
 ```
 
+Positions count a parent's *statement children*: the views standing as statements in its content
+closure (or in the braced branches of an `if`), so an index is what an outline shows, not an offset.
+Only such statements are removed or moved here; a view in an argument or a `let` value is changed by
+the argument operations (R-EDIT-003). A host that holds a tree passes it instead of the source, so the
+result continues its ids: a moved node keeps its id across the move, which a host's selection follows.
+
+```js
+const r = edit(tree, { op: "move", nodes: ["n4"], parent: "n1", index: 0 });
+if ("error" in r) showMessage(r.error);   // e.g. "cannot move n2 into n3, one of its descendants"
+```
+
+A node on lines of its own leaves with its lines, its leading comment lines and a comment trailing it;
+a node sharing a line leaves with its `;` separator. Blank lines that would end up against a brace go
+with it, so a removal never opens a gap that was not there.
+
 The printing rules for new code — indentation from the parent, one call per line, the indentation unit
 of the file — are fixed by the edit corpus rather than by prose alone. The corpus is data (a source, an
 operation, the expected text), so the Python variant can run the same cases if it ever gains the edit API

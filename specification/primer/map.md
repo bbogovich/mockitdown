@@ -101,7 +101,7 @@ R-DIAG-003 | requirements | active | 0.12.8 r3 | DIAG.1 | Diagnostic codes
 R-DIAG-004 | requirements | active | 0.12.8 r1 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EDIT-001 | requirements | active | 0.12.16 r7 | WEB.3 | Source spans and node identities
-R-EDIT-002 | requirements | active | 0.12.12 r5 | WEB.3 | Edit API: insert, remove and move
+R-EDIT-002 | requirements | active | 0.12.17 r6 | WEB.3 | Edit API: insert, remove and move
 R-EDIT-003 | requirements | active | 0.12.12 r5 | WEB.3 | Edit API: arguments, modifiers and identifiers
 R-EDIT-004 | requirements | active | 0.12.12 r6 | WEB.3 | Edit-mode rendering
 R-EDIT-005 | requirements | active | 0.12.12 r5 | WEB.3 | The design document module
@@ -191,7 +191,7 @@ R-REND-014 | requirements | active | 0.10.7 r2 | REND.1 | Shape framing
 R-REPO-001 | requirements | active | 0.12.11 r3 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.12.12 r8 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.12.12 r8 | REPO.1 | The Python variant after the move
-R-REPO-004 | requirements | active | 0.12.12 r8 | REPO.1 | Conformance corpus
+R-REPO-004 | requirements | active | 0.12.17 r9 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.12.12 r5 | WEB.4 | The editable view: mockitdown-editor
 R-TOOL-002 | requirements | active | 0.12.12 r4 | WEB.4 | The outline: mockitdown-outline
 R-TOOL-003 | requirements | active | 0.12.12 r4 | WEB.4 | The composite designer and its test page

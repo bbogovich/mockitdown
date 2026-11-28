@@ -234,6 +234,12 @@ Automated: `python tools/gen_conformance.py --check` runs in the Python test sui
 
 Automated by `test_coverage`, `test_layout` and `test_options_are_known` in `python/tests/test_conformance.py`.
 
+**R-REPO-004.TC-4 — The edit corpus is no set of render cases**
+
+Automated by `test_edit_corpus_is_ignored` in `python/tests/test_conformance.py`: `shared/conformance/edit/`
+exists, none of its files is counted as a corpus file, and in a copy of the corpus with an extra file
+under `edit/`, `gen_conformance.py --check` passes and the file is still there afterwards.
+
 **Realizes.** F-16
 
 | | Statement |

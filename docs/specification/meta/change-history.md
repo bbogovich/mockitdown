@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.17 | 2026-11-27 | `REPO.1`, `WEB.3` | R-EDIT-002 as built (#21): edit takes a source or a tree, statement children, indentation unit, refusals C20-C24, line and separator rules C25-C29, covers tags C30; R-REPO-004 TC-4 verifies C15 |
 | 0.12.16 | 2026-11-27 | `WEB.3` | R-EDIT-001 as built (#20): view node rules, leading comment lines, id matching, RangeError on bad edits, token offsets, node fields; TC-1 and TC-2 name the tests |
 | 0.12.15 | 2026-11-27 | `WEB.1` | R-WEB-007 as built (#63): C6 release notes list the commits that change typescript/ or shared/ |
 | 0.12.14 | 2026-11-27 | `WEB.2` | R-WEB-006 as built: C10, C11, TC-1 step 8 (#62) |

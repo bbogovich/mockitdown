@@ -12,6 +12,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.12.11 | 2026-11-25 | #8 |
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.12.12 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.12.11 | 2026-11-25 | #13 |
+| R-EDIT-001 | Source spans and node identities | 0.12.12 | 0.12.16 | 2026-11-27 | #20 |
 | R-PACK-012 | Pack reference gallery and site sections | 0.10.0 | 0.12.0 | 2026-11-26 | #19 |
 | R-PACK-013 | Element samples | 0.8.4 | 0.12.11 | 2026-11-25 | #10 |
 | R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.12.12 | 2026-11-25 | #15 |
@@ -22,14 +23,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REPO-001 | Repository layout | 0.6.0 | 0.12.11 | 2026-11-25 | #1 |
 | R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.12 | 2026-11-27 | #54 |
 | R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.12 | 2026-11-25 | #1 |
-| R-REPO-004 | Conformance corpus | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
 | R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.12 | 2026-11-25 | #4 |
 | R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
 | R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (68)
+## Not started (67)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -37,7 +37,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
-| R-EDIT-002 | Edit API: insert, remove and move | — | 0.12.12 |  |  |
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | — | 0.12.12 |  |  |
 | R-EDIT-004 | Edit-mode rendering | — | 0.12.12 |  |  |
 | R-EDIT-005 | The design document module | — | 0.12.12 |  |  |
@@ -102,7 +101,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (62)
+## Implemented (63)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -135,7 +134,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DIAG-002 | Collecting diagnostics | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-003 | Diagnostic codes | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-004 | The error box | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
-| R-EDIT-001 | Source spans and node identities | 0.12.12 | 0.12.12 | 2026-11-27 | #20 |
+| R-EDIT-002 | Edit API: insert, remove and move | 0.12.17 | 0.12.17 | 2026-11-27 | #21 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-008 | Values and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
@@ -166,5 +165,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
+| R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-27 | #21 |
 | R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
 | R-WEB-006 | Gallery home page | 0.12.14 | 0.12.14 | 2026-11-27 | #62 |

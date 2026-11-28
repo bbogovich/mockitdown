@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.12.16
+spec_version: 0.12.17
 status: draft
 updated: 2026-11-27
 page_id: WEB.3
@@ -139,6 +139,21 @@ const { edits, source, tree } = edit(code, {
 // edits: [{ start: 58, end: 58, text: '  Toggle("Remember me")\n' }]
 ```
 
+Positions count a parent's *statement children*: the views standing as statements in its content
+closure (or in the braced branches of an `if`), so an index is what an outline shows, not an offset.
+Only such statements are removed or moved here; a view in an argument or a `let` value is changed by
+the argument operations (R-EDIT-003). A host that holds a tree passes it instead of the source, so the
+result continues its ids: a moved node keeps its id across the move, which a host's selection follows.
+
+```js
+const r = edit(tree, { op: "move", nodes: ["n4"], parent: "n1", index: 0 });
+if ("error" in r) showMessage(r.error);   // e.g. "cannot move n2 into n3, one of its descendants"
+```
+
+A node on lines of its own leaves with its lines, its leading comment lines and a comment trailing it;
+a node sharing a line leaves with its `;` separator. Blank lines that would end up against a brace go
+with it, so a removal never opens a gap that was not there.
+
 The printing rules for new code — indentation from the parent, one call per line, the indentation unit
 of the file — are fixed by the edit corpus rather than by prose alone. The corpus is data (a source, an
 operation, the expected text), so the Python variant can run the same cases if it ever gains the edit API
@@ -163,34 +178,57 @@ for each case, `edit(source, op)` yields exactly `<name>.expected.mockitdown` (o
 with no diagnostic the original lacked. A meta-test fails when the corpus lacks one of the situations
 of C16 (each case's `op.json` carries a `covers` list).
 
+As built (#21): 61 cases (`insert-*`, `remove-*`, `move-*`, `refuse-*`), each source opening with a `//`
+line saying what it exercises. The meta-test requires the `covers` tags `insert:`, `remove:` and
+`move:` `first`/`middle`/`last`, `insert:empty`, `insert:no-closure`, `remove:all`, `move:empty`,
+`move:no-closure`, `source:comments`, `blank-lines`, `let`, `foreach`, `if`, `struct`, `indent:unit`,
+`tabs`, `relative`, and one `refuse:` tag per refusal (C3, C9, C14, C20 to C24); a refused case carries
+a `refuse:` tag and only a refused case does. It also fails on a file in `edit/` that belongs to no case.
+
 **R-EDIT-002.TC-2 — Refusals and ids**
 
-`node:test`: a node that is a modifier call or does not exist, a move into the moved node's own
+`node:test` (`typescript/tests/unit/edit.test.ts`): a node that is a modifier call or does not exist, a move into the moved node's own
 descendant and an insert of code with two views or a syntax error are refused with a message and no
 edits; after a move, the moved nodes keep their ids.
+Nodes are named by id, by `n6` and by 6 with the same result; an edit of a tree continues its ids,
+and inserted nodes get new ones; `indentUnit` gives two or three spaces, a tab, or four spaces for a
+source without indentation; an index past the children or negative, and a parent with only labelled
+closures, are refused.
 
 **Realizes.** F-21
 
 | | Statement |
 |---|---|
-| C1 | The package MUST export `edit(source, op)`, which applies one edit operation to a source and returns `{edits, source, tree}` — the text edits (M-EDIT-3) in ascending, non-overlapping order, the edited source and its tree (R-EDIT-001.C9) — or `{error}` with a message and no edits when the operation is refused. |
+| C1 | The package MUST export `edit(source, op)`, which applies one edit operation to a source, or to a syntax tree whose ids the result then continues, and returns `{edits, source, tree}` — the text edits (M-EDIT-3) in ascending, non-overlapping order, the edited source and its tree (R-EDIT-001.C9) — or `{error, diagnostics}` with a message, the syntax diagnostics when code did not parse, and no edits when the operation is refused. |
 | C2 | Applying the returned edits to the source MUST yield the returned source, and every character outside the edited ranges MUST be kept, comments, blank lines and the formatting of other calls included. |
-| C3 | An operation MUST name its nodes by node id or by ordinal, and MUST be refused when a named node is not a view node of the source. |
-| C4 | The operation `insert` MUST take a parent view node, an index among its children (or `end`) and the code of one view (a call with its modifier chain and closures), and insert that code as the parent's child at that position. |
+| C3 | An operation MUST name its nodes by node id or by ordinal (`n3`, or the number 3), and MUST be refused when a named node is not a view node of the source. |
+| C4 | The operation `insert` MUST take a parent view node, an index among its statement children (C19) (or `end`) and the code of one view (a call with its modifier chain and closures), and insert that code as the parent's child at that position. |
 | C5 | When the parent of an `insert` has no trailing closure, the edit MUST give it one, written ` {` after the call's arguments and `}` on its own line at the parent's indentation. |
 | C6 | The operation `remove` MUST take one or more sibling view nodes and delete each one's span with its line, so that no blank line is left where there was none. |
 | C7 | When `remove` deletes every child of a closure, the closure's braces MUST stay, with the `{` and the `}` on the lines they were on. |
-| C8 | The operation `move` MUST take one or more sibling view nodes, a new parent and an index, and move the nodes' spans there in their order; the moved nodes MUST keep their node ids. |
+| C8 | The operation `move` MUST take one or more sibling view nodes, a new parent and an index among the new parent's statement children before the move, and move the nodes' spans there in source order; the moved nodes and their descendants MUST keep their node ids. |
 | C9 | A `move` into one of the moved nodes or into one of their descendants MUST be refused. |
 | C10 | Inserted and moved code MUST be indented with the child indentation of its new parent: the indentation of the parent's first existing child, else the parent's line indentation plus one indentation unit. |
-| C11 | The indentation unit MUST be the smallest non-zero indentation step found in the source, else four spaces. |
+| C11 | The indentation unit MUST be a tab when the source's lines are indented with tabs, else the smallest increase of indentation between consecutive non-blank lines, else four spaces. |
 | C12 | Code given to `insert` MUST be re-indented line by line, its first line taking the child indentation and its other lines keeping their indentation relative to the first. |
 | C13 | Code written by an operation from parts (a new closure, a new argument, a new modifier) MUST put one view call per line, chain its modifiers on that line and put each closure child on its own line one unit deeper. |
-| C14 | An `insert` whose code does not parse as exactly one view MUST be refused with the syntax diagnostic. |
+| C14 | An `insert` whose code does not parse as exactly one view MUST be refused: with the syntax diagnostic when it does not parse, and with a message saying what it holds (several statements, no view, a `let`, an import, a directive or a struct) otherwise. |
 | C15 | `shared/conformance/edit/` MUST hold the edit corpus: cases named `<name>.mockitdown` (the source), `<name>.op.json` (the operation, its nodes named by ordinal) and `<name>.expected.mockitdown` (the edited source), listed in `shared/conformance/edit/index.json` as `{"cases": [{"name", "op"}, …]}`. |
 | C16 | The edit corpus MUST cover each operation at the first, a middle and the last position, into an empty parent and a parent without a closure, in sources with comments, blank lines, `let`, `ForEach`, `if` and struct declarations, and every refusal of this requirement. |
 | C17 | The TypeScript test suite MUST run every edit case under `node:test` and fail when the edited source differs from the expected file, or when the edited source renders with a diagnostic that the original source did not have. |
 | C18 | A case whose operation is refused MUST give `<name>.error.txt`, holding the expected message, in place of the expected source. |
+| C19 | The statement children of a view node MUST be the view nodes standing as statements in its content: the unlabelled trailing closure of a call, or the braced branches of an `if` in order, the then branch taking the indexes up to its number of children. |
+| C20 | A node named by `remove` or `move` MUST be a statement of a body (a closure, a braced `if` branch, a struct body or the top level of the source), and the operation MUST be refused for an argument, a `let` value or an `else if`. |
+| C21 | A `remove` or `move` MUST be refused when its nodes are not statements of one body, when a node is named twice, or when it names no node. |
+| C22 | An index MUST be an integer from 0 to the parent's number of statement children, or `end`, and any other index MUST be refused. |
+| C23 | An `insert` or `move` into a call whose only trailing closures are labelled MUST be refused. |
+| C24 | An unknown operation, and any operation on a source that does not parse, MUST be refused, the latter with the syntax diagnostic. |
+| C25 | When nothing precedes a node on its first line and at most a `;` and a comment follow it on its last line, `remove` MUST delete its whole lines, the trailing comment included, together with the blank lines that would be left directly after an opening `{` line, directly before a closing `}` line or at the end of the source. |
+| C26 | A node that shares a line with other code MUST be removed with the `;` and spaces after it, else with the `;` and spaces before it, else with the spaces that would be left around it at the end of its line. |
+| C27 | Code inserted before a statement child that does not start its line, or after the last statement of a closure whose `}` follows code on its line, MUST be written on that line, separated from its neighbour by `; `. |
+| C28 | An `insert` or `move` into an empty closure written on one line (`{}`) MUST put the code on lines of its own and the `}` on its own line at the parent's indentation. |
+| C29 | A moved node that stands on its own lines (C25) MUST carry the comment trailing its last line. |
+| C30 | Each `<name>.op.json` MUST carry a `covers` list naming the situations of C16 the case covers, and the TypeScript test suite MUST fail when a situation is covered by no case. |
 | V1 | Every case of `shared/conformance/edit/` passes, and each edited source renders without a new diagnostic. |
 
 ---
@@ -626,6 +664,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81); re-checked against R-WEB-001: unaffected (#81); re-checked against M-OPT-1: unaffected (#81) |
@@ -634,6 +673,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81); re-checked against R-WEB-001: unaffected (#81); re-checked against M-OPT-1: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-EDIT-008, R-PACK-016 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against ADR-21, R-WEB-001 (SRC-18): unaffected; re-checked against R-EDIT-002, R-EDIT-005 (SRC-18): unaffected; re-checked against R-EDIT-007 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-002 (SRC-18): unaffected; re-checked against ADR-22, R-EDIT-001 (SRC-18): unaffected; re-checked against R-WEB-001 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-001 (SRC-18): unaffected |

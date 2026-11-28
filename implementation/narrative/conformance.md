@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.32
+impl_version: 0.3.36
 status: draft
 updated: 2026-11-27
 page_id: IMPL.CONF
@@ -69,6 +69,10 @@ cd python
 ../.venv/bin/python tools/gen_conformance.py --list    # case names
 ```
 
+`shared/conformance/edit/` is the edit corpus (R-EDIT-002, [Editing core](architecture/editing.md#the-edit-corpus)), written by hand:
+the generator skips that folder (`EDIT_CORPUS`), so `--check` never calls its files stray and a
+regeneration never removes them (R-REPO-004.C15).
+
 The cases are defined in the generator (`build_cases()`); `role-*` and `pack-*-own-*` follow
 `shared/reference/*.json`, so run `tools/gen_reference.py` first after a pack change. The hidden packs
 have reference data too, so their own elements have `pack-<id>-own-<n>` cases (R-PACK-010.C5). The generator
@@ -100,3 +104,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.27 | 2026-11-27 | `lang-expressions` (#58) |
 | 0.3.28 | 2026-11-27 | Every text field's root gains `role="textbox"`: 182 cases regenerated, both variants (#59) |
 | 0.3.32 | 2026-11-27 | `pack-hologram-own-*`, `pack-lcars-own-*`, `pack-phosphor-own-*`: the hidden packs' own elements (683 cases) (#61) |
+| 0.3.36 | 2026-11-27 | `gen_conformance.py` skips `edit/`, the edit corpus (#21) |
