@@ -248,6 +248,14 @@ export class DesignSession {
   }
 
   /**
+   * The diagnostics a mockup would have with `code` instead of its own (C17), without changing
+   * anything: what the inspector compares before it applies a value (R-TOOL-007.C9).
+   */
+  diagnosticsOf(name: string, code: string): Diagnostic[] {
+    return this.mockup(name) ? this.check(name, code) : [];
+  }
+
+  /**
    * The id of the view node with this ordinal (`n3` or 3) in the mockup's current tree, or null (C9):
    * the node an element of an edit-mode rendering (`data-mkd-node`, R-EDIT-004.C4) stands for.
    */

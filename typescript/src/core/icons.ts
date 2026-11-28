@@ -41,6 +41,11 @@ function removeSuffix(s: string, suffix: string): string {
   return s.endsWith(suffix) && suffix ? s.slice(0, s.length - suffix.length) : s;
 }
 
+/** The names of the built-in glyphs, sorted: what a design tool suggests for an `icon` value (R-TOOL-007.C3). */
+export function iconNames(): string[] {
+  return [...tables().glyphs.keys()].sort();
+}
+
 /** The canonical glyph for `name`, or null when nothing matches. */
 export function resolveIcon(name: string): string | null {
   const { glyphs, aliases } = tables();

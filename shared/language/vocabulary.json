@@ -451,35 +451,59 @@
    "args": [
     {
      "label": "width",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "height",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "minWidth",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "minHeight",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "maxWidth",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "maxHeight",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "idealWidth",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "idealHeight",
-     "type": "number"
+     "type": {
+      "type": "number",
+      "min": 0
+     }
     },
     {
      "label": "alignment",

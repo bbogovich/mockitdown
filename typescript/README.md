@@ -288,8 +288,8 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
   (`d.layout = {right: {collapsed: true}}`).
 - Slots `toolbar`, `outline`, `gallery`, `view`, `inspector` and `status` replace a panel; the slotted
   element is given the session (`el.session = d.session`). The gallery panel holds
-  `mockitdown-gallery`; the properties panel holds a placeholder until the inspector exists. The test
-  page is `pages/designer.html`.
+  `mockitdown-gallery`, the properties panel `mockitdown-inspector`. The test page is
+  `pages/designer.html`.
 
 ### The gallery element
 
@@ -354,6 +354,46 @@ session.checkDrop({ kind: "element", name: "Text", code: "Text()" }, at, "base")
 session.drop({ kind: "nodes", mockup: "Drop", nodes: [id] }, at, "base");      // move; also insert(code, parent, index), move(nodes, parent, index)
 session.isContainer(nodeId, "base"); session.childrenOf(nodeId);       // what the editor's indicator uses
 ```
+
+### The inspector element
+
+`<mockitdown-inspector>` shows the properties of a session's selection; inside a designer it is the
+properties panel, elsewhere set `inspector.session`. Its fields come from the typed parameter data
+(`parameterTypes`, `modifierTypes`), so a new pack needs no inspector code.
+
+- One node selected: **Arguments** (the element's positional parameters in order, then the labelled
+  arguments in use, and Add argument with the unused labels of its types), **Variant and state**
+  (`variant` with the variants the element declares, and `selected`, `disabled`, `checked`, `value`
+  where its types name them; written where they are, else as the pack's modifier of that name, else as
+  an argument), **Modifiers** (the chain in the vocabulary's groups, each with its typed arguments and a
+  Remove, and Add modifier with the rendered modifiers not in the chain) and **Identity** (`.id`, `.ref`,
+  the comment).
+- Controls by type: a text field (`text`), a number field (`number`, with its `min` and `max`), a switch
+  (`bool`), a choice (`enum`), a colour field taking names and `#hex` (`color`), a text field suggesting
+  icon names (`icon`), a list editor (`array`). A value none of them can show (a variable, `.infinity`)
+  is edited as code. A labelled argument the pack does not understand says "not understood by this pack"
+  and has a Remove.
+- An edit is applied 150 ms after the last input (`INSPECTOR_DEBOUNCE_MS`), or when the control loses the
+  focus, as one undo step per node and field (`{coalesce: "<node>:<field>"}`): a burst of typing is one
+  step. A value the control cannot accept (`-10` for `.frame(width:)`), one the edit API refuses (an `.id`
+  already in use) or one whose code adds a diagnostic at the node (an unknown icon) keeps its text, gets
+  `aria-invalid="true"` and shows the reason (part `error`); nothing is applied.
+- Several nodes selected: "*n* selected". Nothing selected: the Mockup tab (the name, and the pack,
+  device, width, height, appearance, title, caption and Elements table options), each edit one
+  `options` step.
+- The model is `mockitdown/design`'s, usable without the element:
+
+```js
+import { inspect, setField, setOption, addArgument, addModifier, removeField } from "mockitdown/design";
+const view = inspect(session, "mui");           // {view, node, arguments, state, modifiers, identity, addArguments, addModifiers, options}
+setField(session, view.state.find((f) => f.label === "variant"), "outlined");   // {ok} | {ok: false, error, diagnostics}
+setOption(session, "device", "tablet");
+```
+
+- Parts: `inspector`, `header`, `tab`, `count`, `group` (`data-group`), `heading`, `field` (`data-key`,
+  `data-control`), `label`, `input`, `note`, `error`, `remove`, `modifier`, `add-argument`, `add-modifier`,
+  `add-item`; custom properties `--mkd-inspector-border`, `--mkd-inspector-field-background`,
+  `--mkd-inspector-label-color`, `--mkd-inspector-invalid-color`.
 
 ## Development
 

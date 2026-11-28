@@ -2,8 +2,8 @@
 // pages/designer.html, which opens pages/designer-sample.mkdesign. The expected documents are the
 // sample itself and fixtures/designer-deleted.mkdesign (the sample with the "Open" button's line
 // removed, written by hand for IT-55), so an undo must give back the sample byte for byte.
-// The inspector's part of TC-2 (typing a word in an inspector field, then one undo) waits for the
-// inspector (R-TOOL-007); here a delete is the change undone.
+// The inspector's part of TC-2 (typing a word in an inspector field, then one undo, C5) is in
+// inspector.spec.mjs (IT-63); here a delete is the change undone.
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";

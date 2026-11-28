@@ -31,8 +31,8 @@
  * redo (R-EDIT-007.C10) while the focus is in the designer but not in a text field, outside Preview
  * mode; the toolbar's Undo and Redo buttons are enabled by `session.canUndo` and `session.canRedo`.
  * The gallery panel holds `mockitdown-gallery`
- * (R-TOOL-004); the properties panel holds a placeholder until the inspector exists. The designer holds
- * no editing rule of its own (A-WEB-5.K2).
+ * (R-TOOL-004) and the properties panel `mockitdown-inspector` (R-TOOL-007). The designer holds no
+ * editing rule of its own (A-WEB-5.K2).
  */
 
 import { FENCE_OPTIONS, registry } from "../core/index.js";
@@ -40,6 +40,7 @@ import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, 
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
+import { INSPECTOR_TAG } from "./inspector.js";
 import { MOCKUP_TAG } from "./mockup.js";
 import { OUTLINE_TAG } from "./outline.js";
 
@@ -89,7 +90,7 @@ export class DesignOpenError extends Error {
 /** The components whose focus makes Delete and Backspace delete the selection (C11). */
 const COMPONENT_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG]);
 /** The package's components that join the designer's session (R-EDIT-006.C11). */
-const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG]);
+const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG]);
 
 const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13px/1.4 system-ui,sans-serif;color:var(--mkd-designer-color,#1d1d22);background:var(--mkd-designer-background,#fff)}
 :host([hidden]){display:none}
@@ -129,9 +130,6 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__frames{display:flex;flex-direction:column;gap:24px;padding:24px}
 .mkd-designer__frame{margin:0}
 .mkd-designer__frame>figcaption{font-weight:600;margin:0 0 6px}
-.mkd-designer__placeholder{padding:8px 10px}
-.mkd-designer__placeholder h2{font-size:11px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px;opacity:.7}
-.mkd-designer__placeholder p{margin:0;opacity:.7}
 .mkd-designer__status{display:flex;align-items:center;gap:12px;padding:2px 8px;border-top:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-bar-background,#f6f6f8);min-height:24px;box-sizing:border-box;font-size:12px}
 .mkd-designer__breadcrumb{display:flex;align-items:center;gap:2px;min-width:0;overflow:hidden}
 .mkd-designer__crumb{font:inherit;color:inherit;background:none;border:0;border-radius:4px;padding:0 4px;cursor:pointer}
@@ -168,7 +166,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__preview" part="preview" hidden><nav class="mkd-designer__preview-list" part="mockups" aria-label="Mockups"></nav><div class="mkd-designer__frames"></div></div>`
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--right" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the properties" tabindex="0" data-panel="right"></div>`
-  + `<div class="mkd-designer__right" part="right"><slot name="inspector"><section class="mkd-designer__placeholder" part="inspector"><h2>Properties</h2><p class="mkd-designer__selected">Nothing selected</p></section></slot></div>`
+  + `<div class="mkd-designer__right" part="right"><slot name="inspector"><mockitdown-inspector part="inspector"></mockitdown-inspector></slot></div>`
   + `</div>`
   + `<div class="mkd-designer__status" part="status"><slot name="status">`
   + `<span class="mkd-designer__diagnostics" part="diagnostics"></span>`
@@ -204,8 +202,8 @@ export class DesignerElement extends Base {
     view: HTMLElement; code: HTMLElement; preview: HTMLElement; previewList: HTMLElement; frames: HTMLElement;
     appearance: HTMLElement; name: HTMLElement; pack: HTMLElement; device: HTMLElement;
     undo: HTMLButtonElement; redo: HTMLButtonElement;
-    diagnostics: HTMLElement; breadcrumb: HTMLElement; selected: HTMLElement;
-    editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement;
+    diagnostics: HTMLElement; breadcrumb: HTMLElement;
+    editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement; inspector: HTMLElement;
   };
 
   constructor() {
@@ -221,8 +219,9 @@ export class DesignerElement extends Base {
       appearance: q(".mkd-designer__appearance"), name: q(".mkd-designer__name"), pack: q(".mkd-designer__pack"),
       device: q(".mkd-designer__device"), diagnostics: q(".mkd-designer__diagnostics"),
       undo: q(".mkd-designer__undo"), redo: q(".mkd-designer__redo"),
-      breadcrumb: q(".mkd-designer__breadcrumb"), selected: q(".mkd-designer__selected"),
+      breadcrumb: q(".mkd-designer__breadcrumb"),
       editor: q("mockitdown-editor"), outline: q("mockitdown-outline"), gallery: q("mockitdown-gallery"),
+      inspector: q("mockitdown-inspector"),
     };
     this.#session = new DesignSession(newDesign(DESIGNER_TAG));
     this.#subscribe();
@@ -373,7 +372,7 @@ export class DesignerElement extends Base {
 
   /** The package's components inside the designer re-join its session: reading `session` re-attaches them. */
   #rejoin(): void {
-    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery];
+    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.inspector];
     for (const el of this.querySelectorAll("*")) if (SESSION_TAGS.has(el.localName)) parts.push(el);
     for (const el of parts) void (el as unknown as { session?: unknown }).session;
   }
@@ -682,8 +681,6 @@ export class DesignerElement extends Base {
       crumbs.push(more);
     }
     this.#el.breadcrumb.replaceChildren(...crumbs);
-    // The properties placeholder names the selection.
-    this.#el.selected.textContent = first ? `${first.name}${sel.length > 1 ? ` and ${sel.length - 1} more` : ""}` : "Nothing selected";
     this.#drawHistory();
     this.#drawCode();
   }

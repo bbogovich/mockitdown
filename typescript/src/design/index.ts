@@ -15,3 +15,8 @@ export {
 } from "./session.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
+export {
+  addArgument, addModifier, fieldCode, iconSuggestions, inspect, INSPECTOR_DEBOUNCE_MS, NOT_UNDERSTOOD, removeField, removeModifier,
+  setField, setOption, STATE_LABELS,
+  type FieldResult, type FieldTarget, type FieldValue, type Inspection, type InspectorControl, type InspectorField, type InspectorModifier, type ValueForm,
+} from "./inspect.js";

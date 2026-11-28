@@ -1,0 +1,23 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Inspector",
+  "defaults": {
+    "pack": "base",
+    "caption": false
+  },
+  "mockups": [
+    {
+      "name": "Controls",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "device": "fit"
+      },
+      "code": "Button(\"Save\", systemImage: \"star\", color: .red, role: \"cancel\", loading: true, elevation: 2, bogus: 1)\n  .frame(width: 80)\n  .padding(.horizontal, 8)\n  .id(\"save\")\nBreadcrumb(items: [\"Home\", \"Docs\"])\nText(\"Other\").id(\"taken\")\n"
+    }
+  ],
+  "view": {
+    "active": "Controls"
+  }
+}

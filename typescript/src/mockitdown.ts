@@ -24,6 +24,7 @@ export {
   CATEGORY_TITLES, GALLERY_ATTRIBUTES, GALLERY_TAG, GalleryElement, galleryState, insertCode, loadReference, matchesFilter,
   PREVIEW_MARGIN, referenceUrl, type GalleryCard, type GalleryState, type ReferenceData, type ReferenceElement,
 } from "./elements/gallery.js";
+export { INSPECTOR_DEBOUNCE_MS, INSPECTOR_TAG, InspectorElement } from "./elements/inspector.js";
 export { defineElements, ELEMENT_TAGS } from "./elements/define.js";
 
 defineElements();
