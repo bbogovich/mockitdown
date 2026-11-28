@@ -65,6 +65,917 @@
   "underline",
   "zIndex"
  ],
+ "modifiers": {
+  "accentColor": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "alert": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    },
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "annotation": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    },
+    {
+     "label": null,
+     "type": "text"
+    },
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    },
+    {
+     "label": "color",
+     "type": "color"
+    },
+    {
+     "label": "inset",
+     "type": "bool"
+    },
+    {
+     "label": "labelSide",
+     "type": {
+      "type": "enum",
+      "values": [
+       "leading",
+       "trailing"
+      ]
+     }
+    }
+   ]
+  },
+  "aspectRatio": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    },
+    {
+     "label": "contentMode",
+     "type": {
+      "type": "enum",
+      "values": [
+       "fit",
+       "fill"
+      ]
+     }
+    }
+   ]
+  },
+  "background": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    },
+    {
+     "label": "in",
+     "type": {
+      "type": "enum",
+      "values": [
+       "rect",
+       "roundedRectangle",
+       "circle",
+       "capsule",
+       "ellipse"
+      ]
+     }
+    }
+   ]
+  },
+  "badge": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "bold": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": "bool"
+    }
+   ]
+  },
+  "border": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    },
+    {
+     "label": "width",
+     "type": "number"
+    }
+   ]
+  },
+  "callout": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    },
+    {
+     "label": null,
+     "type": "text"
+    },
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    },
+    {
+     "label": "color",
+     "type": "color"
+    },
+    {
+     "label": "inset",
+     "type": "bool"
+    },
+    {
+     "label": "labelSide",
+     "type": {
+      "type": "enum",
+      "values": [
+       "leading",
+       "trailing"
+      ]
+     }
+    }
+   ]
+  },
+  "class": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "clipShape": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "rect",
+       "roundedRectangle",
+       "circle",
+       "capsule",
+       "ellipse"
+      ]
+     }
+    }
+   ]
+  },
+  "commands": {
+   "group": "other",
+   "args": []
+  },
+  "confirmationDialog": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    },
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "cornerRadius": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    }
+   ]
+  },
+  "cursor": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "arrow",
+       "hand",
+       "ibeam",
+       "crosshair",
+       "grab",
+       "touch"
+      ]
+     }
+    },
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    }
+   ]
+  },
+  "dragSelect": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "fill": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "font": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "display",
+       "largeTitle",
+       "title",
+       "title2",
+       "title3",
+       "headline",
+       "subheadline",
+       "body",
+       "callout",
+       "footnote",
+       "caption",
+       "caption2",
+       "overline"
+      ]
+     }
+    }
+   ]
+  },
+  "fontDesign": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "default",
+       "monospaced",
+       "rounded",
+       "serif"
+      ]
+     }
+    }
+   ]
+  },
+  "fontWeight": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "ultraLight",
+       "thin",
+       "light",
+       "regular",
+       "medium",
+       "semibold",
+       "bold",
+       "heavy",
+       "black"
+      ]
+     }
+    }
+   ]
+  },
+  "foregroundColor": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "foregroundStyle": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "frame": {
+   "group": "layout",
+   "args": [
+    {
+     "label": "width",
+     "type": "number"
+    },
+    {
+     "label": "height",
+     "type": "number"
+    },
+    {
+     "label": "minWidth",
+     "type": "number"
+    },
+    {
+     "label": "minHeight",
+     "type": "number"
+    },
+    {
+     "label": "maxWidth",
+     "type": "number"
+    },
+    {
+     "label": "maxHeight",
+     "type": "number"
+    },
+    {
+     "label": "idealWidth",
+     "type": "number"
+    },
+    {
+     "label": "idealHeight",
+     "type": "number"
+    },
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    }
+   ]
+  },
+  "fullScreenCover": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "help": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "hidden": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": "bool"
+    }
+   ]
+  },
+  "highlight": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "id": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "imageScale": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "small",
+       "medium",
+       "large"
+      ]
+     }
+    }
+   ]
+  },
+  "inspector": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "italic": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": "bool"
+    }
+   ]
+  },
+  "keyboardShortcut": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    },
+    {
+     "label": "modifiers",
+     "type": {
+      "type": "array",
+      "items": {
+       "type": "enum",
+       "values": [
+        "command",
+        "option",
+        "shift",
+        "control"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "labelsHidden": {
+   "group": "other",
+   "args": []
+  },
+  "lineLimit": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "number",
+      "min": 1
+     }
+    }
+   ]
+  },
+  "marquee": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "monospaced": {
+   "group": "typography",
+   "args": []
+  },
+  "multilineTextAlignment": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "leading",
+       "center",
+       "trailing"
+      ]
+     }
+    }
+   ]
+  },
+  "navigationBarTitleDisplayMode": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "automatic",
+       "inline",
+       "large"
+      ]
+     }
+    }
+   ]
+  },
+  "navigationSubtitle": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "navigationTitle": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "offset": {
+   "group": "layout",
+   "args": [
+    {
+     "label": "x",
+     "type": "number"
+    },
+    {
+     "label": "y",
+     "type": "number"
+    }
+   ]
+  },
+  "opacity": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "number",
+      "min": 0,
+      "max": 1
+     }
+    }
+   ]
+  },
+  "overlay": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    }
+   ]
+  },
+  "padding": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "all",
+       "horizontal",
+       "vertical",
+       "top",
+       "bottom",
+       "leading",
+       "trailing"
+      ]
+     }
+    },
+    {
+     "label": null,
+     "type": "number"
+    }
+   ]
+  },
+  "pointer": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "arrow",
+       "hand",
+       "ibeam",
+       "crosshair",
+       "grab",
+       "touch"
+      ]
+     }
+    },
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    }
+   ]
+  },
+  "popover": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "position": {
+   "group": "layout",
+   "args": [
+    {
+     "label": "x",
+     "type": "number"
+    },
+    {
+     "label": "y",
+     "type": "number"
+    }
+   ]
+  },
+  "ref": {
+   "group": "other",
+   "args": [
+    {
+     "label": null,
+     "type": "text"
+    }
+   ]
+  },
+  "resizable": {
+   "group": "layout",
+   "args": []
+  },
+  "rotationEffect": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    }
+   ]
+  },
+  "scaledToFill": {
+   "group": "layout",
+   "args": []
+  },
+  "scaledToFit": {
+   "group": "layout",
+   "args": []
+  },
+  "searchable": {
+   "group": "other",
+   "args": [
+    {
+     "label": "text",
+     "type": "text"
+    },
+    {
+     "label": "prompt",
+     "type": "text"
+    }
+   ]
+  },
+  "shadow": {
+   "group": "colour",
+   "args": [
+    {
+     "label": "radius",
+     "type": "number"
+    },
+    {
+     "label": "color",
+     "type": "color"
+    },
+    {
+     "label": "y",
+     "type": "number"
+    }
+   ]
+  },
+  "sheet": {
+   "group": "presentation",
+   "args": [
+    {
+     "label": "isPresented",
+     "type": "bool"
+    }
+   ]
+  },
+  "strikethrough": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": "bool"
+    }
+   ]
+  },
+  "stroke": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    },
+    {
+     "label": "lineWidth",
+     "type": "number"
+    }
+   ]
+  },
+  "tabItem": {
+   "group": "other",
+   "args": []
+  },
+  "tap": {
+   "group": "annotations",
+   "args": [
+    {
+     "label": "alignment",
+     "type": {
+      "type": "enum",
+      "values": [
+       "topLeading",
+       "top",
+       "topTrailing",
+       "leading",
+       "center",
+       "trailing",
+       "bottomLeading",
+       "bottom",
+       "bottomTrailing"
+      ]
+     }
+    }
+   ]
+  },
+  "textCase": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": {
+      "type": "enum",
+      "values": [
+       "uppercase",
+       "lowercase"
+      ]
+     }
+    }
+   ]
+  },
+  "tint": {
+   "group": "colour",
+   "args": [
+    {
+     "label": null,
+     "type": "color"
+    }
+   ]
+  },
+  "toolbar": {
+   "group": "other",
+   "args": []
+  },
+  "underline": {
+   "group": "typography",
+   "args": [
+    {
+     "label": null,
+     "type": "bool"
+    }
+   ]
+  },
+  "zIndex": {
+   "group": "layout",
+   "args": [
+    {
+     "label": null,
+     "type": "number"
+    }
+   ]
+  }
+ },
  "ignored": [
   "accessibilityElement",
   "accessibilityHint",
@@ -179,7 +1090,7 @@
       "placement": "appSettings",
       "items": [
        {
-        "title": "Settings…",
+        "title": "Settings\u2026",
         "key": ","
        }
       ]
@@ -238,7 +1149,7 @@
         "key": "n"
        },
        {
-        "title": "Open…",
+        "title": "Open\u2026",
         "key": "o"
        },
        {
@@ -272,10 +1183,10 @@
         ]
        },
        {
-        "title": "Rename…"
+        "title": "Rename\u2026"
        },
        {
-        "title": "Move To…"
+        "title": "Move To\u2026"
        },
        {
         "title": "Revert To",
@@ -292,7 +1203,7 @@
       "placement": "printItem",
       "items": [
        {
-        "title": "Page Setup…",
+        "title": "Page Setup\u2026",
         "key": "p",
         "modifiers": [
          "shift",
@@ -300,7 +1211,7 @@
         ]
        },
        {
-        "title": "Print…",
+        "title": "Print\u2026",
         "key": "p"
        }
       ]
@@ -399,7 +1310,7 @@
         "submenu": true
        },
        {
-        "title": "Start Dictation…"
+        "title": "Start Dictation\u2026"
        },
        {
         "title": "Emoji & Symbols"
@@ -423,7 +1334,7 @@
         ]
        },
        {
-        "title": "Customize Toolbar…"
+        "title": "Customize Toolbar\u2026"
        }
       ]
      },

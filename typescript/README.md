@@ -140,14 +140,32 @@ allowedChildren("base", "HStack");                   // {allowed: ["VStack", "HS
 An element the pack does not define (a struct, a typo) has role `unknown`: as a parent it accepts
 everything, as a child it is accepted by any parent that holds children.
 
-The table also lists the labels each role reads (`reads`: the top-level list for every role, each
-rule's for its own; `roleReads(role)` gives both). Evaluation warns, with code `argument`, about a
-labelled argument of an element call that nothing understands — not a param or default of the element,
-an alias of the element or its pack, a label its role reads, a closure or views (a slot), an action, or
-a binding (`$x`) — and still renders the element, exactly as the Python variant does:
+The table also types the labels each role reads (`params`: the top-level map for every role, each
+rule's for its own; `roleReads(role)` gives the labels of both). Evaluation warns, with code `argument`,
+about a labelled argument of an element call that nothing understands — not a param or default of the
+element, an alias of the element or its pack, a label its role reads or its pack types for it, a closure
+or views (a slot), an action, or a binding (`$x`) — and still renders the element, exactly as the Python
+variant does:
 
 ```text
 Text("Hi", colour: .red)   →  warning [argument] 'colour' is not understood by Text in pack 'base' (1:12)
+```
+
+### Parameter and modifier types
+
+A type is one of `text`, `number`, `bool`, `color`, `icon`, `enum` (with `values`) and `array` (with
+`items`); a `number` may carry `min` and `max`. Types are kept by role, so a pack element needs none of
+its own; `types: {"<name>": <type>}` in its `pack.json` entry adds to or overrides its role's, and a
+label it types is understood. `vocabulary.json` types every rendered modifier and puts it in a group
+(`layout`, `typography`, `colour`, `presentation`, `annotations`, `other`). The lookups give each type
+in its object form; rendering never reads them:
+
+```js
+import { modifierTypes, parameterTypes } from "mockitdown";
+
+parameterTypes("base", "Toggle").isOn;     // {type: "bool"}: common params, then the role's, then the element's types
+parameterTypes("mui", "Button").variant;   // {type: "enum", values: ["text", "outlined", "contained"]}: its declared variants
+modifierTypes().padding;                   // {group: "layout", args: [{label: null, type: {type: "enum", values: ["all", …]}}, {label: null, type: {type: "number"}}]}
 ```
 
 ### Design documents

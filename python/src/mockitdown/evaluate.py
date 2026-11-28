@@ -583,15 +583,16 @@ class Evaluator:
 
     def _understood(self, el, arg: A.Arg, val: object) -> bool:
         """R-EVAL-004.C7: a labelled argument is understood when the element's params or defaults name it,
-        an argument alias of the element or its pack renames it, its role reads it, it is a closure or
-        views (a slot), or a discarded action; a binding (`$name`) is never reported (C9)."""
+        an argument alias of the element or its pack renames it, its role reads it, its pack types it for the
+        element (``types``, R-PACK-017.C3), it is a closure or views (a slot), or a discarded action; a
+        binding (`$name`) is never reported (C9)."""
         label = arg.label
         read = roles.reads(el.role)
         if read is None or label in read or label in _ACTION_LABELS:
             return True
         if label in el.params or any(k == label for k, _ in el.defaults) or any(k == label for k, _ in el.attrs):
             return True
-        if label in self.pack.attrs:
+        if label in el.typed or label in self.pack.attrs:
             return True
         if isinstance(val, (Thunk, ViewList)):
             return True

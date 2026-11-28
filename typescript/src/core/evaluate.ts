@@ -540,14 +540,16 @@ export class Evaluator {
 
   /**
    * R-EVAL-004.C7: a labelled argument is understood when the element's params or defaults name it, an
-   * argument alias of the element or its pack renames it, its role reads it, it is a closure or views
-   * (a slot), or a discarded action; a binding (`$name`) is never reported (C9).
+   * argument alias of the element or its pack renames it, its role reads it, its pack types it for the
+   * element (`types`, R-PACK-017.C3), it is a closure or views (a slot), or a discarded action; a binding
+   * (`$name`) is never reported (C9).
    */
   private understood(el: ElementDef, arg: A.Arg, val: Value): boolean {
     const label = arg.label!;
     const read = roleReads(el.role);
     if (read === null || read.has(label) || ACTION_LABELS.has(label)) return true;
     if (el.params.includes(label) || el.defaults.some(([k]) => k === label) || el.attrs.some(([k]) => k === label)) return true;
+    if (el.types.has(label)) return true;
     if (this.p.attrs.has(label)) return true;
     if (val instanceof Thunk || val instanceof ViewList) return true;
     return arg.value.kind === "Ident" && arg.value.binding === true;

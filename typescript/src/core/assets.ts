@@ -17,7 +17,7 @@ import { setVocabulary } from "./vocabulary.js";
 
 export interface SharedAssets {
   /** The text of `vocabulary.json` (or its parsed value). */
-  vocabulary: string | { rendered?: unknown; ignored?: unknown; neutral_modules?: unknown };
+  vocabulary: string | { rendered?: unknown; ignored?: unknown; neutral_modules?: unknown; modifiers?: unknown };
   /** The built-in packs, id → data. */
   packs: ReadonlyMap<string, PackData> | Record<string, PackData>;
   /** The text of `page.css`. */

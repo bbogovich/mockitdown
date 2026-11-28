@@ -53,6 +53,8 @@ class ElementDef:
     attrs: tuple[tuple[str, str], ...] = ()
     #: mockitdown source of one call showing the element doing its job, for the reference gallery (R-PACK-013).
     sample: str = ""
+    #: Names its ``types`` (R-PACK-017.C3, M-PACK-2.F8) gives a type: labels it understands besides its role's.
+    typed: frozenset[str] = frozenset()
 
     @property
     def default_attrs(self) -> dict[str, object]:
@@ -126,6 +128,7 @@ def _element(name: str, raw: dict, where: str) -> ElementDef:
         doc=raw.get("doc", ""),
         attrs=tuple(sorted(raw.get("attrs", {}).items())),
         sample=raw.get("sample", ""),
+        typed=frozenset(raw["types"]) if isinstance(raw.get("types"), dict) else frozenset(),
     )
 
 

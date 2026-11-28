@@ -7,21 +7,24 @@
  * (A-WEB-1.K1). Rendering never reads it: the design tools ask {@link canContain} and
  * {@link allowedChildren}, and each refusal comes with a sentence saying why.
  *
- *   {"reads": [...], "root": {"accepts": [...]},
- *    "roles": {"<role>": {"title", "category", "accepts", "attach", "reads"}, ...}}
+ *   {"params": {...}, "root": {"accepts": [...]},
+ *    "roles": {"<role>": {"title", "category", "accepts", "attach", "params"}, ...}}
  *
  * An `accepts` entry is a role or a category written `@<category>`. A pack element may narrow its
  * role's `accepts` with `rules: {"accepts": [...]}` in `pack.json` (C5, {@link ElementDef.rules}).
  * A parent of role `unknown` accepts every child, and a child of role `unknown` (an element the pack
  * does not define, a struct) is accepted by every parent that accepts children (C8).
  *
- * The `reads` lists (R-EVAL-004.C8) are the labels each role reads, the top-level list those every role
- * reads through the common element markup; the evaluator asks {@link roleReads} to warn about labelled
- * arguments nothing reads (R-EVAL-004.C9). The Python variant reads the same file.
+ * The `params` maps (R-PACK-017.C1) give each labelled argument a role reads its type, the top-level map
+ * those every role reads through the common element markup. Their labels, the keys, are what the
+ * evaluator asks {@link roleReads} to warn about labelled arguments nothing reads (R-EVAL-004.C8, C9);
+ * the design tools ask {@link parameterTypes} for the types, with a pack element's own `types` applied
+ * (R-PACK-017.C3, C6). The Python variant reads the same file.
  */
 
 import { MockitdownError } from "./diagnostics.js";
 import { registry, type Pack } from "./packs/registry.js";
+import { typeMap, type TypeSpec } from "./paramtypes.js";
 
 export const ROLE_CATEGORIES = ["frame", "bar", "layout", "collection", "content", "overlay", "annotation"] as const;
 export type RoleCategory = (typeof ROLE_CATEGORIES)[number];
@@ -52,19 +55,25 @@ const CATEGORY_NOUN: Record<RoleCategory, string> = {
 
 let rules = new Map<string, RoleRule>();
 let reads = new Map<string, ReadonlySet<string>>();
+let commonTypes = new Map<string, TypeSpec>();
+let roleTypes = new Map<string, ReadonlyMap<string, TypeSpec>>();
 let rootAccepts: readonly string[] = [];
 let loaded = false;
 const expanded = new WeakMap<readonly string[], Set<string>>();
 
 /** Install the role rules from the text (or parsed value) of `roles.json`. */
-export function setRoles(data: string | { reads?: unknown; root?: unknown; roles?: unknown }): void {
-  const raw = (typeof data === "string" ? JSON.parse(data) : data) as { reads?: unknown; root?: { accepts?: unknown }; roles?: Record<string, unknown> };
+export function setRoles(data: string | { params?: unknown; root?: unknown; roles?: unknown }): void {
+  const raw = (typeof data === "string" ? JSON.parse(data) : data) as { params?: unknown; root?: { accepts?: unknown }; roles?: Record<string, unknown> };
   const next = new Map<string, RoleRule>();
   const nextReads = new Map<string, ReadonlySet<string>>();
-  const common = strings(raw.reads);
+  const nextTypes = new Map<string, ReadonlyMap<string, TypeSpec>>();
+  const common = labels(raw.params);
   for (const [role, r] of Object.entries(raw.roles ?? {})) {
-    const own = (r as { reads?: unknown }).reads;
-    if (Array.isArray(own)) nextReads.set(role, new Set([...common, ...strings(own)]));
+    const own = (r as { params?: unknown }).params;
+    if (own && typeof own === "object" && !Array.isArray(own)) {
+      nextReads.set(role, new Set([...common, ...labels(own)]));
+      nextTypes.set(role, typeMap(own));
+    }
     const rule = r as Partial<RoleRule>;
     next.set(role, Object.freeze({
       role,
@@ -76,6 +85,8 @@ export function setRoles(data: string | { reads?: unknown; root?: unknown; roles
   }
   rules = next;
   reads = nextReads;
+  commonTypes = typeMap(raw.params);
+  roleTypes = nextTypes;
   rootAccepts = Object.freeze(strings(raw.root?.accepts));
   loaded = true;
 }
@@ -96,6 +107,23 @@ export function roleRule(role: string): RoleRule | null {
  */
 export function roleReads(role: string): ReadonlySet<string> | null {
   return reads.get(role) ?? null;
+}
+
+/**
+ * The types of the labelled arguments an element of `pack` (a pack id or a loaded pack) understands
+ * (R-PACK-017.C6): the common `params`, then its role's, then the element's own `types` (C3); `variant`
+ * is an `enum` of the element's declared variants when it declares some (C4). An element the pack does
+ * not define has the common ones. Each type is in its object form; the keys follow that order.
+ */
+export function parameterTypes(pack: string | Pack, element: string): Record<string, TypeSpec> {
+  const p = packOf(pack);
+  const el = p.element(element);
+  const out: Record<string, TypeSpec> = {};
+  for (const [k, t] of commonTypes) out[k] = t;
+  for (const [k, t] of (el && roleTypes.get(el.role)) || []) out[k] = t;
+  for (const [k, t] of el?.types ?? []) out[k] = t;
+  if (el && el.variants.length) out.variant = Object.freeze({ type: "enum", values: Object.freeze([...el.variants]) });
+  return out;
 }
 
 /** The roles an `accepts` list names, `@category` entries expanded. */
@@ -198,6 +226,10 @@ function check(pack: Pack, parent: string | null, child: string): ContainResult 
   const someOfCategory = [...allowed].some((r) => rules.get(r)?.category === c.category);
   const what = someOfCategory ? subject : cap(article(CATEGORY_NOUN[c.category]));
   return { ok: false, reason: `${what} cannot be placed ${place}` };
+}
+
+function labels(v: unknown): string[] {
+  return v && typeof v === "object" && !Array.isArray(v) ? Object.keys(v) : [];
 }
 
 function strings(v: unknown): string[] {

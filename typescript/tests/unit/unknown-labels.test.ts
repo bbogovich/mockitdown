@@ -44,12 +44,12 @@ test("TC-1: warnings follow the arguments in order; struct arguments are not ele
   assert.deepEqual(warnings('struct Card2: View { var title: String\n var body: some View { Text(title) } }\nCard2(title: "x")'), []);
 });
 
-test("TC-1: the role table's reads are the shared file's, the common labels included (C8)", () => {
+test("TC-1: the role table's reads are the labels of the shared file's params, the common ones included (C8)", () => {
   const table = JSON.parse(readFileSync(join(REPO, "shared/language/roles.json"), "utf8")) as
-    { reads: string[]; roles: Record<string, { reads: string[] }> };
+    { params: Record<string, unknown>; roles: Record<string, { params: Record<string, unknown> }> };
   assert.deepEqual(JSON.parse(readFileSync(join(PKG, "dist/shared/roles.json"), "utf8")), table);
   for (const [role, rule] of Object.entries(table.roles)) {
-    assert.deepEqual([...(core.roleReads(role) ?? [])].sort(), [...new Set([...table.reads, ...rule.reads])].sort(), role);
+    assert.deepEqual([...(core.roleReads(role) ?? [])].sort(), [...new Set([...Object.keys(table.params), ...Object.keys(rule.params)])].sort(), role);
   }
   assert.equal(core.roleReads("no-such-role"), null);
 });

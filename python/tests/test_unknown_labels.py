@@ -2,7 +2,7 @@
 
 The conformance case `diag-unknown-label` (hand-written expected `diag.json`) runs in both suites
 through test_conformance.py and conformance.test.ts. These tests add the single-element examples, the
-role table's `reads` (C8) against what the Python renderer actually reads, and the shipped content
+role table's `params` labels (C8) against what the Python renderer actually reads, and the shipped content
 (C10). typescript/tests/unit/unknown-labels.test.ts runs the same checks in the TypeScript core.
 """
 
@@ -66,13 +66,13 @@ class RoleReads(unittest.TestCase):
     """C8: the table lists every label each role reads; both variants load the same shared file."""
 
     def test_every_rule_has_reads(self):
+        """The labels are the keys of the typed `params` maps (R-PACK-017.C1; test_types.py checks the types)."""
         data = json.loads(resources.files("mockitdown").joinpath("roles.json").read_text(encoding="utf-8"))
         self.assertEqual(data, json.loads((SHARED / "language/roles.json").read_text(encoding="utf-8")))
-        self.assertTrue(data["reads"])
+        self.assertTrue(data["params"])
         for role, rule in data["roles"].items():
-            self.assertIsInstance(rule["reads"], list, role)
-            self.assertEqual(sorted(set(rule["reads"])), sorted(rule["reads"]), role)
-            self.assertFalse(set(rule["reads"]) & set(data["reads"]), f"{role}: repeats a common label")
+            self.assertIsInstance(rule["params"], dict, role)
+            self.assertFalse(set(rule["params"]) & set(data["params"]), f"{role}: repeats a common label")
         self.assertEqual(roles.reads("toggle") >= {"isOn", "variant"}, True)
 
     def test_the_renderer_reads_nothing_the_table_omits(self):

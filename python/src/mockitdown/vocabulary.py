@@ -1,6 +1,7 @@
 """Modifier vocabulary shared by every pack.
 
 * RENDERED: modifiers the HTML renderer interprets (layout, typography, colour, navigation …).
+* MODIFIERS: the group and argument types of each rendered modifier (R-PACK-017.C5), for the design tools.
 * IGNORED: behaviour-only SwiftUI modifiers accepted silently so real SwiftUI code can be pasted.
 * MENUBAR: the standard menus of the macOS menu bar (R-DEV-009).
 
@@ -20,6 +21,9 @@ _DATA = json.loads((Path(__file__).resolve().parent / "vocabulary.json").read_te
 
 RENDERED = frozenset(_DATA["rendered"])
 IGNORED = frozenset(_DATA["ignored"])
+
+#: Rendered modifier → ``{"group": str, "args": [{"label": str | None, "type": …}]}``; rendering never reads it.
+MODIFIERS: dict = _DATA.get("modifiers", {})
 
 #: The macOS menu bar's standard menus and clock (R-DEV-009.C3, C6): ``{"clock": str, "menus": [{"title",
 #: "id"?, "entries": ["-" | {"placement"?, "items": [{"title", "key"?, "modifiers"?, "submenu"?}]}]}]}``.

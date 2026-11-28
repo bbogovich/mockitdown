@@ -35,8 +35,11 @@ export {
 export { firstText, sampleCall } from "./syntax/sample.js";
 export * as pyformat from "./pyformat.js";
 export * as values from "./values.js";
-export { IGNORED, NEUTRAL_MODULES, RENDERED, setVocabulary } from "./vocabulary.js";
 export {
-  allowedChildren, canContain, expandAccepts, holdsChildren, ROLE_CATEGORIES, roleReads, roleRule, rolesLoaded, setRoles,
+  IGNORED, MODIFIER_GROUPS, modifierTypes, NEUTRAL_MODULES, RENDERED, setVocabulary, type ModifierGroup, type ModifierType,
+} from "./vocabulary.js";
+export { normalizeType, PARAM_TYPES, type ParamTypeName, type TypeSpec } from "./paramtypes.js";
+export {
+  allowedChildren, canContain, expandAccepts, holdsChildren, parameterTypes, ROLE_CATEGORIES, roleReads, roleRule, rolesLoaded, setRoles,
   type AllowedChildren, type ContainResult, type RoleAttach, type RoleCategory, type RoleRule,
 } from "./roles.js";

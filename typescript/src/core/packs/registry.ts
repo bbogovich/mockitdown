@@ -16,6 +16,7 @@
 
 import { MockitdownError } from "../diagnostics.js";
 import { parseJson } from "../json.js";
+import { typeMap, type TypeSpec } from "../paramtypes.js";
 import {
   compareStr, fromJs, PyDict, pyBool, pyInt, pyStr, strRepr,
 } from "../values.js";
@@ -42,10 +43,15 @@ export class ElementDef {
   readonly attrs: readonly (readonly [string, string])[];
   /** `rules` of its `pack.json` entry: the `accepts` narrowing its role's for this element (R-PACK-016.C5), or null. */
   readonly rules: { readonly accepts: readonly string[] } | null;
+  /**
+   * `types` of its `pack.json` entry: parameter name → type, adding to or overriding its role's `params`
+   * for this element (R-PACK-017.C3, M-PACK-2.F8); empty when it has none.
+   */
+  readonly types: ReadonlyMap<string, TypeSpec>;
 
   constructor(name: string, role: string, params: readonly string[] = [], defaults: readonly (readonly [string, Value])[] = [],
     variants: readonly string[] = [], doc = "", attrs: readonly (readonly [string, string])[] = [],
-    rules: { readonly accepts: readonly string[] } | null = null) {
+    rules: { readonly accepts: readonly string[] } | null = null, types: ReadonlyMap<string, TypeSpec> = new Map()) {
     this.name = name;
     this.role = role;
     this.params = params;
@@ -54,6 +60,7 @@ export class ElementDef {
     this.doc = doc;
     this.attrs = attrs;
     this.rules = rules;
+    this.types = types;
     Object.freeze(this);
   }
 
@@ -159,6 +166,7 @@ function makeElement(name: string, raw: unknown, where: string): ElementDef {
     d.get("doc", "") as string,
     sortedItems(dict(d.get("attrs", new PyDict()))) as [string, string][],
     elementRules(d.get("rules", null)),
+    typeMap(d.get("types", null)),
   );
 }
 
