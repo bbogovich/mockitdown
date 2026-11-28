@@ -1,6 +1,6 @@
 /**
  * Mockup frames on the canvas (R-TOOL-012): the rules for a mockup's name, a new mockup's name and
- * place, and the snapping of a moved frame. Plain values only, no DOM, so that the session, the canvas
+ * place, a copy's name (R-TOOL-013.C5), and the snapping of a moved frame. Plain values only, no DOM, so that the session, the canvas
  * and a desktop shell share them.
  */
 
@@ -30,6 +30,19 @@ export function newMockupName(names: Iterable<string>): string {
   let n = 1;
   while (taken.has(`Mockup ${n}`)) n++;
   return `Mockup ${n}`;
+}
+
+/**
+ * The name of a copy of mockup `name` among the document's `names` (R-TOOL-013.C5): `<name> copy`, else
+ * `<name> copy <n>` with the smallest free `n` from 2; names are case-sensitive.
+ */
+export function duplicateMockupName(names: Iterable<string>, name: string): string {
+  const taken = new Set(names);
+  const base = `${name} copy`;
+  if (!taken.has(base)) return base;
+  let n = 2;
+  while (taken.has(`${base} ${n}`)) n++;
+  return `${base} ${n}`;
 }
 
 /** The message refusing a name another mockup holds (C5). */

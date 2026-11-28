@@ -205,7 +205,8 @@ export class InspectorElement extends Base {
         break;
       case "change":
       case "diagnostics":
-        if (n.detail.mockup === this.#session?.active) this.#draw();
+        // Deleting the last mockup leaves none active and notifies no `active` (R-TOOL-013.C2).
+        if (n.detail.mockup === this.#session?.active || (n.kind === "change" && n.detail.kind === "mockups" && this.#session?.active === null)) this.#draw();
         break;
       case "rename":
         this.#draw();

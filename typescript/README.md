@@ -242,8 +242,9 @@ session.unwrap();                    // the one selected container replaced by i
 session.convert("VBtn");             // same role only; keeps the labels VBtn understands and its params' positions
 session.extractComponent("OrderCard"); // struct OrderCard: View { var body: some View { … } }, called as OrderCard()
 
-session.commands;                    // [{name, label, shortcut, enabled}, …] for a host's menus, 13 commands
-session.run("wrap", { name: "VStack" }); // any command by name: {name} for wrap/convert/extract, {text} for paste
+session.commands;                    // [{name, label, shortcut, enabled}, …] for a host's menus, 16 commands
+session.run("wrap", { name: "VStack" }); // any command by name: {name} for wrap/convert/extract, {text} for paste,
+                                     // {mockup} for duplicateMockup/deleteMockup
 ```
 
 Unwrap is refused for a node whose content declares a closure parameter (a `ForEach`) or a `let`, and
@@ -281,7 +282,8 @@ it renders the mockup in edit mode and turns clicks and hovers into the session'
 ### The outline element
 
 `<mockitdown-outline>` shows the element tree of a design session's active mockup, with two tabs:
-Elements (the tree) and Mockups (the document's mockups, the active one marked). It joins a session as
+Elements (the tree) and Mockups (the document's mockups, the active one marked; a click, or Enter or
+Space, on a row makes its mockup the active one). It joins a session as
 the editor does; to share an editor's, set it: `outline.session = editor.session`.
 
 - One row per view of the mockup's edit-mode evaluation, nested as the views are: the element name,
@@ -575,6 +577,24 @@ canvas.addEventListener("mockitdown-view", (e) => show(e.detail.zoom));
 session.renameMockup("Message", "Message detail");   // {mockup} or {error}
 session.newMockup();                                  // {mockup: "Mockup 1"}
 import { snapMove, newMockupPlace, newMockupName } from "mockitdown/design";
+```
+
+### The active mockup and the mockup commands
+
+One mockup is active: the one the outline, the gallery and the inspector show and follow. A click on a
+frame or on a row of the outline's Mockups tab makes it active (and clears the selection); the canvas
+shows it as the editor in a highlighted frame and every other mockup as a read-only `mockitdown-mockup`.
+
+New, duplicate and delete are session commands, listed in `session.commands` (labels "New Mockup",
+"Duplicate Mockup", "Delete Mockup", no shortcut) for a host's Mockup menu, each one undo step notifying
+`change` of kind `mockups`:
+
+```js
+session.duplicateMockup();          // {mockup: "Inbox copy"}, then "Inbox copy 2", …: beside it, active
+session.duplicateMockup("Sign in"); // a named mockup: code, options and every other key copied
+session.deleteMockup();             // the active one; the next in document order becomes active, else the one before
+session.run("deleteMockup", { mockup: "Inbox copy" });
+import { duplicateMockupName } from "mockitdown/design";
 ```
 
 ## Development

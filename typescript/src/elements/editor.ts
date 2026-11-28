@@ -320,6 +320,7 @@ export class EditorElement extends Base {
     switch (n.kind) {
       case "change":
         if (n.detail.mockup === name && n.detail.kind !== "move") this.#schedule();
+        else if (n.detail.kind === "mockups" && name === null) this.#schedule();
         break;
       case "active":
         if (!this.hasAttribute("mockup")) this.#schedule();

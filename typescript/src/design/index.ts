@@ -27,7 +27,7 @@ export {
   type CanvasBox, type CanvasView, type MinimapMapping,
 } from "./canvas.js";
 export {
-  DEFAULT_NAME_WARNING, EDGE_SNAP, EMPTY_NAME, GRID, isDefaultName, nameTaken, NEW_MOCKUP_CODE, NEW_MOCKUP_GAP, newMockupName, newMockupPlace,
+  DEFAULT_NAME_WARNING, duplicateMockupName, EDGE_SNAP, EMPTY_NAME, GRID, isDefaultName, nameTaken, NEW_MOCKUP_CODE, NEW_MOCKUP_GAP, newMockupName, newMockupPlace,
   renameRefusal, snapMove,
 } from "./frames.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";

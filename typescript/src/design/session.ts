@@ -31,7 +31,7 @@ import { bodySiblings, edit, identifiersOf, indentUnit, nodeCode, statementChild
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup } from "./document.js";
-import { NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
+import { duplicateMockupName, NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
 
 /** What a `change` notification changed (C5): the code, the options, the position, or the list of mockups. */
 export type ChangeKind = "code" | "options" | "move" | "mockups";
@@ -114,7 +114,8 @@ interface CommandPlan {
 /** The names of the session's commands (R-EDIT-009.C8), in menu order. */
 export type CommandName =
   | "delete" | "duplicate" | "cut" | "copy" | "paste" | "moveUp" | "moveDown"
-  | "wrap" | "unwrap" | "convert" | "extractComponent" | "undo" | "redo";
+  | "wrap" | "unwrap" | "convert" | "extractComponent" | "newMockup" | "duplicateMockup" | "deleteMockup"
+  | "undo" | "redo";
 
 /**
  * A command as a host's menu shows it (R-EDIT-009.C8): its name for {@link DesignSession.run}, its label,
@@ -128,10 +129,14 @@ export interface DesignCommand {
   enabled: boolean;
 }
 
-/** The arguments of {@link DesignSession.run}: `name` for wrap, convert and extract, `text` for paste. */
+/**
+ * The arguments of {@link DesignSession.run}: `name` for wrap, convert and extract, `text` for paste,
+ * `mockup` for duplicateMockup and deleteMockup (default: the active mockup).
+ */
 export interface CommandArgs {
   name?: string;
   text?: string;
+  mockup?: string;
 }
 
 /** The element wrap's menu entry and shortcut wrap in (R-EDIT-009.C9). */
@@ -149,6 +154,9 @@ const COMMANDS: readonly { name: CommandName; label: string; shortcut: string | 
   { name: "unwrap", label: "Unwrap", shortcut: "Mod+Shift+G" },
   { name: "convert", label: "Convert To…", shortcut: null },
   { name: "extractComponent", label: "Extract Component…", shortcut: null },
+  { name: "newMockup", label: "New Mockup", shortcut: null },
+  { name: "duplicateMockup", label: "Duplicate Mockup", shortcut: null },
+  { name: "deleteMockup", label: "Delete Mockup", shortcut: null },
   { name: "undo", label: "Undo", shortcut: "Mod+Z" },
   { name: "redo", label: "Redo", shortcut: "Mod+Shift+Z" },
 ];
@@ -767,7 +775,8 @@ export class DesignSession {
    * The session's commands for a host's menus (C8): every command in menu order with its label, its
    * shortcut in the composite designer and whether it is enabled for the current selection — wrap for
    * {@link WRAP_DEFAULT}, convert for one selected element of the pack, extract for a selection it could
-   * extract under a free name, paste whenever the active mockup's code parses.
+   * extract under a free name, paste whenever the active mockup's code parses; newMockup always,
+   * duplicateMockup and deleteMockup whenever there is an active mockup (R-TOOL-013.C4).
    */
   get commands(): DesignCommand[] {
     const name = this.activeName;
@@ -780,6 +789,8 @@ export class DesignSession {
     const enabled = (c: CommandName): boolean => {
       if (c === "undo") return this.canUndo;
       if (c === "redo") return this.canRedo;
+      if (c === "newMockup") return true;
+      if (c === "duplicateMockup" || c === "deleteMockup") return name !== null;
       if (!tree) return false;
       switch (c) {
         case "paste": return true;
@@ -802,10 +813,11 @@ export class DesignSession {
 
   /**
    * Run a command by its name (C8) with its arguments: `{name}` for wrap (default {@link WRAP_DEFAULT}),
-   * convert and extractComponent, `{text}` for paste. Returns what the command's method returns; copy
-   * returns `{text}`. An unknown name is refused.
+   * convert and extractComponent, `{text}` for paste, `{mockup}` for duplicateMockup and deleteMockup
+   * (newMockup takes none: a `VStack`). Returns what the command's method returns; copy returns
+   * `{text}`. An unknown name is refused.
    */
-  run(command: string, args: CommandArgs = {}): EditResult | EditRefusal | CutResult | { text: string } | { mockup: string; edits: TextEdit[] } | Refused {
+  run(command: string, args: CommandArgs = {}): EditResult | EditRefusal | CutResult | { text: string } | { mockup: string } | { mockup: string; edits: TextEdit[] } | Refused {
     const a = args ?? {};
     switch (command) {
       case "delete": return this.delete();
@@ -819,6 +831,9 @@ export class DesignSession {
       case "unwrap": return this.unwrap();
       case "convert": return this.convert(a.name as string);
       case "extractComponent": return this.extractComponent(a.name as string);
+      case "newMockup": return this.newMockup();
+      case "duplicateMockup": return this.duplicateMockup(a.mockup);
+      case "deleteMockup": return this.deleteMockup(a.mockup);
       case "undo": return this.undo();
       case "redo": return this.redo();
     }
@@ -1292,26 +1307,92 @@ export class DesignSession {
     if (typeof code !== "string") return { error: "code must be a string" };
     if (options !== undefined && (options === null || typeof options !== "object" || Array.isArray(options))) return { error: "options must be an object" };
     const name = newMockupName(this.document.mockups.map((m) => m.name));
-    const box = (m: DesignMockup) => {
-      const size = this.measure?.(m.name) ?? null;
-      const own = (key: "width" | "height"): number => {
-        const v = m.options?.[key];
-        return typeof v === "number" && Number.isFinite(v) ? v : 0;
-      };
-      return { x: m.x, y: m.y, w: size?.w ?? own("width"), h: size?.h ?? own("height") };
-    };
     const current = this.activeName === null ? null : this.mockup(this.activeName);
-    const at = newMockupPlace(current ? box(current) : null, this.document.mockups.map(box));
-    const mockup: DesignMockup = { name, x: at.x, y: at.y, ...(options ? { options: { ...options } } : {}), code };
-    const place = this.place();
-    const before: Snapshot = { name, list: [...this.document.mockups], code, tree: null, options: undefined, x: at.x, y: at.y };
-    this.document.mockups.push(mockup);
-    const pending: Pending = { mockup, kind: "mockups", before: { ...before, tree: this.stateOf(mockup).tree, options: mockup.options && structuredClone(mockup.options) }, place, key: undefined };
+    const at = newMockupPlace(current ? this.box(current) : null, this.document.mockups.map((m) => this.box(m)));
+    return this.addMockup({ name, x: at.x, y: at.y, ...(options ? { options: { ...options } } : {}), code });
+  }
+
+  /**
+   * Copy a mockup, the active one by default (R-TOOL-013.C5): its code, options and every other key,
+   * named `<name> copy` or `<name> copy <n>` ({@link duplicateMockupName}) and placed as a new mockup is
+   * placed, beside the mockup it copies (R-TOOL-012.C8); the copy becomes the active mockup. One
+   * `change` of kind `mockups`, then `active`; one undo step.
+   */
+  duplicateMockup(name?: string): { mockup: string } | Refused {
+    const target = name ?? this.activeName;
+    if (target === null) return { error: "there is no active mockup" };
+    const source = this.mockup(target);
+    if (!source) return { error: `there is no mockup named ${JSON.stringify(target)}` };
+    const copy = structuredClone(source);
+    copy.name = duplicateMockupName(this.document.mockups.map((m) => m.name), source.name);
+    const at = newMockupPlace(this.box(source), this.document.mockups.map((m) => this.box(m)));
+    copy.x = at.x;
+    copy.y = at.y;
+    return this.addMockup(copy);
+  }
+
+  /**
+   * Remove a mockup, the active one by default (R-TOOL-013.C4). Deleting the active mockup makes the
+   * next one in document order active, else the one before it, else none (the selection and the hover
+   * then cleared without an `active`). One `change` of kind `mockups`, then `active`, `select` and
+   * `hover` as they changed; one undo step, whose undo puts the mockup back where it was, active again
+   * when it was.
+   */
+  deleteMockup(name?: string): { mockup: string } | Refused {
+    const target = name ?? this.activeName;
+    if (target === null) return { error: "there is no active mockup" };
+    const mockup = this.mockup(target);
+    if (!mockup) return { error: `there is no mockup named ${JSON.stringify(target)}` };
+    const pending = this.begin(target, "mockups", {}, true);
+    const list = this.document.mockups;
+    const k = list.indexOf(mockup);
+    list.splice(k, 1);
     const step = this.record(pending, []);
-    this.notify({ kind: "change", detail: { kind: "mockups", mockup: name, edits: [], code } });
-    this.setActive(name);
+    // The active mockup moves on before the change is told, so that no listener reads a removed one.
+    const switched = this.activeName === target;
+    if (switched) this.activeName = (list[k] ?? list[k - 1])?.name ?? null;
+    this.notify({ kind: "change", detail: { kind: "mockups", mockup: target, edits: [], code: mockup.code } });
+    if (switched) {
+      const active = this.activeName ?? target;
+      if (this.activeName !== null) this.notify({ kind: "active", detail: { mockup: active } });
+      if (this.selected.length) {
+        this.selected = [];
+        this.notify({ kind: "select", detail: { mockup: active, nodes: [] } });
+      }
+      if (this.hoveredId !== null) {
+        this.hoveredId = null;
+        this.notify({ kind: "hover", detail: { mockup: active, node: null } });
+      }
+    }
     this.settle(step);
-    return { mockup: name };
+    return { mockup: target };
+  }
+
+  /** A mockup's frame for placing (R-TOOL-012.C8): its position and the size {@link measure} gives, else its options' `width` and `height`, else 0. */
+  private box(m: DesignMockup): { x: number; y: number; w: number; h: number } {
+    const size = this.measure?.(m.name) ?? null;
+    const own = (key: "width" | "height"): number => {
+      const v = m.options?.[key];
+      return typeof v === "number" && Number.isFinite(v) ? v : 0;
+    };
+    return { x: m.x, y: m.y, w: size?.w ?? own("width"), h: size?.h ?? own("height") };
+  }
+
+  /** Append a mockup to the document as one step of kind `mockups` and make it active. */
+  private addMockup(mockup: DesignMockup): { mockup: string } {
+    const place = this.place();
+    const list = [...this.document.mockups];
+    this.document.mockups.push(mockup);
+    const before: Snapshot = {
+      name: mockup.name, list, code: mockup.code, tree: this.stateOf(mockup).tree,
+      options: mockup.options && structuredClone(mockup.options), x: mockup.x, y: mockup.y,
+    };
+    const pending: Pending = { mockup, kind: "mockups", before, place, key: undefined };
+    const step = this.record(pending, []);
+    this.notify({ kind: "change", detail: { kind: "mockups", mockup: mockup.name, edits: [], code: mockup.code } });
+    this.setActive(mockup.name);
+    this.settle(step);
+    return { mockup: mockup.name };
   }
 
   // --- history (R-EDIT-007) -----------------------------------------------------------------------

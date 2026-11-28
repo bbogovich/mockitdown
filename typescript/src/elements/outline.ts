@@ -25,7 +25,9 @@
  *
  * Two tabs: Elements (the tree) and Mockups (the document's mockups by name, the active one marked with
  * `aria-current`, a default name `Mockup <n>` with `data-default-name` and a warning icon of part
- * `name-warning` whose title says that SpecItOut tools import mockups by name, R-TOOL-012.C9). The session is joined as the editor joins one (R-EDIT-006.C11): the nearest
+ * `name-warning` whose title says that SpecItOut tools import mockups by name, R-TOOL-012.C9; a click on
+ * a row, or Enter or Space on it, makes its mockup the active one through `session.setActive`,
+ * R-TOOL-013.C1). The session is joined as the editor joins one (R-EDIT-006.C11): the nearest
  * `mockitdown-designer`'s, else the host's `session` property, else one of its own over an empty
  * document, whose notifications it dispatches as DOM events (R-EDIT-006.C7, C8). The outline holds no
  * editing rule (A-WEB-5.K2).
@@ -125,7 +127,8 @@ const OUTLINE_CSS = `:host([hidden]){display:none}
 .mkd-outline__tree--drop-end{box-shadow:inset 0 -2px 0 var(--mkd-drop-color,#2f80ed)}
 .mkd-outline__tree--drop-end.mkd-outline__tree--drop-refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}
 .mkd-outline__mockups{list-style:none;margin:0;padding:4px;overflow:auto}
-.mkd-outline__mockup{padding:2px 8px;border-radius:5px}
+.mkd-outline__mockup{padding:2px 8px;border-radius:5px;cursor:pointer}
+.mkd-outline__mockup:focus-visible{outline:2px solid var(--mkd-selection-color,#ff8a00);outline-offset:-2px}
 .mkd-outline__mockup[data-default-name]{display:flex;align-items:center;gap:6px}
 .mkd-outline__name-warning{display:inline-block;width:14px;height:14px;flex:none;border-radius:50%;background:var(--mkd-outline-warning-color,#e8a200);cursor:help}
 .mkd-outline__name-warning::before{content:"!";display:block;font:700 10px/14px system-ui,sans-serif;text-align:center;color:#fff}
@@ -226,6 +229,13 @@ export class OutlineElement extends Base {
       tab.addEventListener("click", () => this.#showTab(tab.dataset.tab as "elements" | "mockups"));
       tab.addEventListener("keydown", (e) => this.#onTabKey(e));
     }
+    const mockupList = this.#mockupsPanel?.querySelector("ul");
+    mockupList?.addEventListener("click", (e) => this.#activateRow(e));
+    mockupList?.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      this.#activateRow(e);
+    });
     this.#tree?.addEventListener("click", (e) => this.#onClick(e));
     this.#tree?.addEventListener("keydown", (e) => this.#onKey(e));
     this.#tree?.addEventListener("pointerover", (e) => this.#onPointer(e));
@@ -315,7 +325,8 @@ export class OutlineElement extends Base {
     switch (n.kind) {
       case "change":
         if (n.detail.kind === "mockups") this.#drawMockups();
-        if (n.detail.mockup === session?.active && n.detail.kind !== "move") this.#schedule();
+        // Deleting the last mockup leaves none active and notifies no `active` (R-TOOL-013.C2).
+        if ((n.detail.mockup === session?.active && n.detail.kind !== "move") || (n.detail.kind === "mockups" && session?.active === null)) this.#schedule();
         break;
       case "active":
         this.#current = null;
@@ -570,6 +581,8 @@ export class OutlineElement extends Base {
       li.className = "mkd-outline__mockup";
       li.setAttribute("part", "mockup");
       li.textContent = m.name;
+      li.dataset.mockup = m.name;
+      li.tabIndex = 0;
       if (m.name === session.active) li.setAttribute("aria-current", "true");
       if (isDefaultName(m.name)) {
         li.toggleAttribute("data-default-name", true);
@@ -583,6 +596,17 @@ export class OutlineElement extends Base {
       }
       return li;
     }));
+  }
+
+  /** R-TOOL-013.C1: a Mockups row clicked, or Enter or Space on it, makes its mockup the active one. */
+  #activateRow(e: Event): void {
+    const row = e.composedPath().find((t) => t instanceof HTMLElement && t.classList.contains("mkd-outline__mockup")) as HTMLElement | undefined;
+    const name = row?.dataset.mockup;
+    if (name === undefined || !this.#session) return;
+    this.#session.setActive(name);
+    // The list is redrawn on `active`: keep the focus on the row of the mockup made active.
+    const again = this.#mockupsPanel?.querySelector<HTMLElement>(`[data-mockup="${CSS.escape(name)}"]`);
+    if (e.type === "keydown") again?.focus();
   }
 
   #showTab(tab: "elements" | "mockups"): void {
