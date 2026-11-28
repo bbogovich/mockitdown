@@ -177,6 +177,10 @@
       "op": "move"
     },
     {
+      "name": "move-top-level",
+      "op": "move"
+    },
+    {
       "name": "refuse-not-a-node",
       "op": "remove"
     },

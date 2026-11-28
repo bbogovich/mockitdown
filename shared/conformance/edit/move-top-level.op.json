@@ -1,0 +1,11 @@
+{
+  "op": "move",
+  "nodes": [
+    "n3"
+  ],
+  "parent": null,
+  "index": 1,
+  "covers": [
+    "move:top-level"
+  ]
+}

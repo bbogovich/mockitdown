@@ -26,13 +26,20 @@
  * `mockitdown-designer`'s, else the host's `session` property, else one of its own over an empty
  * document, whose notifications it dispatches as DOM events (R-EDIT-006.C7, C8). The outline holds no
  * editing rule (A-WEB-5.K2).
+ *
+ * Drag and drop (R-TOOL-005, `./drag.ts`): a row of a view that is not derived drags its node (the
+ * selection, when the row is one of several selected rows); over a row the outline shows where a
+ * drop goes — before the row, inside it or after it, by the upper, middle or lower third of the row —
+ * and marks a position the session refuses (`checkDrop`), whose reason the drag shows by the pointer.
+ * Below the last row a drop goes to the end of the mockup's top level. A drop calls `session.drop`.
  */
 
 import { assetsLoaded, ViewList, type Pack, type View } from "../core/index.js";
 import type { ViewNode } from "../core/syntax/tree.js";
 import { mockupOptions, newDesign } from "../design/document.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DESIGN_EVENTS, DesignSession, type DesignNotification, type DropPosition, type DropZone } from "../design/session.js";
 import { loadAssetsFromUrl } from "./assets.js";
+import { armDrag, registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, evaluateWithImports } from "./mockup.js";
 
 export const OUTLINE_TAG = "mockitdown-outline";
@@ -64,6 +71,14 @@ export interface OutlineRow {
   readonly children: OutlineRow[];
 }
 
+/** The drop position an outline shows during a drag: its row (null: the end of the top level), zone and answer. */
+interface DropMark {
+  key: string | null;
+  zone: DropZone | "end";
+  position: DropPosition | null;
+  allowed: boolean;
+}
+
 const LINK_SVG = '<svg class="mkd-outline__link" part="link" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">'
   + '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
   + 'd="M6.5 9.5l3-3M7 4.5l1.2-1.2a2.6 2.6 0 0 1 3.7 3.7L10.7 8.2M9 11.5l-1.2 1.2a2.6 2.6 0 0 1-3.7-3.7L5.3 7.8"/></svg>';
@@ -91,6 +106,12 @@ const OUTLINE_CSS = `:host([hidden]){display:none}
 .mkd-outline__label::before{content:"\\201C"}
 .mkd-outline__label::after{content:"\\201D"}
 .mkd-outline__chip{flex:none;font:11px/16px ui-monospace,monospace;padding:0 4px;border-radius:3px;background:var(--mkd-outline-chip-background,#eceef2)}
+.mkd-outline__row--drop-before{box-shadow:inset 0 2px 0 var(--mkd-drop-color,#2f80ed)}
+.mkd-outline__row--drop-after{box-shadow:inset 0 -2px 0 var(--mkd-drop-color,#2f80ed)}
+.mkd-outline__row--drop-inside{box-shadow:inset 0 0 0 2px var(--mkd-drop-color,#2f80ed)}
+.mkd-outline__row--drop-refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}
+.mkd-outline__tree--drop-end{box-shadow:inset 0 -2px 0 var(--mkd-drop-color,#2f80ed)}
+.mkd-outline__tree--drop-end.mkd-outline__tree--drop-refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}
 .mkd-outline__mockups{list-style:none;margin:0;padding:4px;overflow:auto}
 .mkd-outline__mockup{padding:2px 8px;border-radius:5px}
 .mkd-outline__mockup[aria-current="true"]{font-weight:600;background:var(--mkd-outline-selected-background,rgba(255,138,0,.22))}
@@ -158,6 +179,10 @@ export class OutlineElement extends Base {
   #current: string | null = null;
   /** The node whose rows to scroll into view after the next draw. */
   #reveal: string | null = null;
+  /** The pack of the active mockup's evaluation, whose role rules a drop is checked by. */
+  #pack = "";
+  /** The drop position shown during a drag: the row (null: the end of the top level), the zone, the session's answer. */
+  #drop: DropMark | null = null;
   #typed = "";
   #typedAt = 0;
   #generation = 0;
@@ -189,6 +214,12 @@ export class OutlineElement extends Base {
     this.#tree?.addEventListener("keydown", (e) => this.#onKey(e));
     this.#tree?.addEventListener("pointerover", (e) => this.#onPointer(e));
     this.#tree?.addEventListener("pointerleave", () => this.#setHover(null));
+    this.#tree?.addEventListener("pointerdown", (e) => this.#onPointerDown(e));
+    registerDropTarget(this, {
+      over: (drag, x, y) => this.#dragOver(drag, x, y),
+      leave: () => this.#showDrop(null),
+      drop: (drag) => this.#dragDrop(drag),
+    });
     this.#showTab("elements");
   }
 
@@ -344,7 +375,10 @@ export class OutlineElement extends Base {
         const options = { ...(mockupOptions(session.document, name) ?? {}), edit: true };
         const result = await evaluateWithImports(session.code(name) ?? "", options, baseUrls(this).importBase, stale);
         if (result === null) return;
-        if (result.screen) roots = this.#rowsFrom(session, name, result.screen.views, result.screen.pack);
+        if (result.screen) {
+          roots = this.#rowsFrom(session, name, result.screen.views, result.screen.pack);
+          this.#pack = result.screen.pack.id;
+        }
       } else {
         roots = [];
       }
@@ -490,6 +524,7 @@ export class OutlineElement extends Base {
       empty.textContent = name === null ? "No mockup" : "No elements";
       tree.replaceChildren(empty);
     }
+    this.#markDrop();
     const current = items.find((el) => el.dataset.key === this.#current);
     if (current) tree.setAttribute("aria-activedescendant", current.id);
     else tree.removeAttribute("aria-activedescendant");
@@ -621,6 +656,103 @@ export class OutlineElement extends Base {
         }
       }
     }
+  }
+
+  // --- drag and drop (R-TOOL-005) -----------------------------------------------------------------
+
+  /** C1: a row of a view that is not derived drags its node, or the selection it is part of. */
+  #onPointerDown(e: PointerEvent): void {
+    const row = this.#rowAt(e);
+    if (!row || row.derived || row.node === null) return;
+    if (e.composedPath().some((t) => t instanceof HTMLElement && t.classList.contains("mkd-outline__twisty"))) return;
+    const mockup = this.#rowsOf;
+    const node = row.node;
+    armDrag(e, () => {
+      const session = this.session;
+      if (mockup === null || session.active !== mockup) return null;
+      const sel = session.selection;
+      const nodes = sel.length > 1 && sel.includes(node) ? [...sel] : [node];
+      const label = nodes.length > 1 ? `${row.name} + ${nodes.length - 1}` : row.name;
+      return { session, source: { kind: "nodes", mockup, nodes }, label };
+    });
+  }
+
+  /** C2, C4: the drop position at a point — before, inside or after the row by its thirds — and the session's answer. */
+  #dragOver(drag: Drag, x: number, y: number): DropAnswer | null {
+    const session = this.#session;
+    if (!session || drag.session !== session || session.active === null || session.active !== this.#rowsOf || this.#tab !== "elements") {
+      this.#showDrop(null);
+      return null;
+    }
+    const root = this.#root as ShadowRoot & { elementsFromPoint?: (x: number, y: number) => Element[] };
+    const hits = typeof root.elementsFromPoint === "function" ? root.elementsFromPoint(x, y) : [];
+    const el = hits.find((h): h is HTMLElement => h instanceof HTMLElement && h.getAttribute("role") === "treeitem");
+    const row = el ? this.#all.find((r) => r.key === el.dataset.key) : undefined;
+    let state: DropMark;
+    let reason: string | undefined;
+    if (row && el && row.node !== null) {
+      const r = el.getBoundingClientRect();
+      const zone: DropZone = y < r.top + r.height / 3 ? "before" : y > r.top + (2 * r.height) / 3 ? "after" : "inside";
+      const position = session.dropPosition(row.node, zone);
+      if ("error" in position) {
+        state = { key: row.key, zone, position: null, allowed: false };
+        reason = position.error;
+      } else {
+        const check = session.checkDrop(drag.source, position, this.#pack);
+        state = { key: row.key, zone, position, allowed: check.ok };
+        if (!check.ok) reason = check.reason;
+      }
+    } else if (hits.includes(this.#tree!) && !row) {
+      const position: DropPosition = { parent: null, index: "end" };
+      const check = session.checkDrop(drag.source, position, this.#pack);
+      state = { key: null, zone: "end", position, allowed: check.ok };
+      if (!check.ok) reason = check.reason;
+    } else {
+      this.#showDrop(null);
+      return null;
+    }
+    this.#showDrop(state);
+    return state.allowed ? { allowed: true } : { allowed: false, reason };
+  }
+
+  #dragDrop(drag: Drag): void {
+    const state = this.#drop;
+    this.#showDrop(null);
+    if (!state?.allowed || !state.position) return;
+    // C5, C6: one session operation — an insert, selected, or a move of the dragged nodes.
+    this.session.drop(drag.source, state.position, this.#pack);
+  }
+
+  #showDrop(state: DropMark | null): void {
+    this.#drop = state;
+    this.#markDrop();
+  }
+
+  /** Mark the row (or the tree's end) where the drop goes. */
+  #markDrop(): void {
+    const tree = this.#tree;
+    if (!tree) return;
+    const zones = ["before", "inside", "after"];
+    for (const el of Array.from(tree.querySelectorAll<HTMLElement>("[data-drop]"))) {
+      el.removeAttribute("data-drop");
+      for (const z of zones) el.classList.remove(`mkd-outline__row--drop-${z}`);
+      el.classList.remove("mkd-outline__row--drop-refused");
+    }
+    tree.classList.remove("mkd-outline__tree--drop-end", "mkd-outline__tree--drop-refused");
+    tree.removeAttribute("data-drop");
+    const d = this.#drop;
+    if (!d) return;
+    if (d.key === null) {
+      tree.dataset.drop = d.allowed ? "end" : "end refused";
+      tree.classList.add("mkd-outline__tree--drop-end");
+      if (!d.allowed) tree.classList.add("mkd-outline__tree--drop-refused");
+      return;
+    }
+    const el = tree.querySelector<HTMLElement>(`[data-key="${CSS.escape(d.key)}"]`);
+    if (!el) return;
+    el.dataset.drop = d.allowed ? d.zone : `${d.zone} refused`;
+    el.classList.add(`mkd-outline__row--drop-${d.zone}`);
+    if (!d.allowed) el.classList.add("mkd-outline__row--drop-refused");
   }
 
   #onPointer(e: Event): void {

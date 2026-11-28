@@ -1,4 +1,4 @@
-// IT-56 · R-PACK-016 TC-1 (C1 to C4, C9) and TC-2 (C5 to C8): the role rule table shared/language/roles.json,
+// IT-56 · R-PACK-016 TC-1 (C1 to C4, C9) and TC-2 (C5 to C8, C16): the role rule table shared/language/roles.json,
 // loaded with the shared assets, and canContain / allowedChildren. python/tests/test_roles.py checks the
 // same table against the Python renderer. Expected answers and reasons are written by hand from the
 // rules of SRC-12#s6.3 (R-PACK-016.C4) and the reason sentence of C6.
@@ -133,4 +133,16 @@ test("TC-2: the package copy beside vocabulary.json (R-REPO-002.C8), and an unkn
   const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { files: string[] };
   assert.ok(manifest.files.includes("roles.json"));
   assert.throws(() => core.canContain("nosuchpack", "VStack", "Text"), /unknown pack/);
+});
+
+test("TC-2: holdsChildren — whether an element holds any child, the pack's narrowing and unknown names included (C16)", () => {
+  // Expected answers written by hand from SRC-12#s6.3: stacks and lists hold children, text is a leaf,
+  // a name the pack does not define (a struct) holds children as C8 accepts it everywhere.
+  assert.equal(core.holdsChildren("base", "VStack"), true);
+  assert.equal(core.holdsChildren("base", "HStack"), true);
+  assert.equal(core.holdsChildren("base", "List"), true);
+  assert.equal(core.holdsChildren("base", "Text"), false);
+  assert.equal(core.holdsChildren("base", "Divider"), false);
+  assert.equal(core.holdsChildren("base", "ProfileCard"), true);
+  assert.equal(core.holdsChildren("sapui5", "ObjectPageLayout"), true, "narrowed to sections, still a container");
 });

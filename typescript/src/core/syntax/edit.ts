@@ -40,11 +40,15 @@ export interface RemoveOp {
   nodes: NodeRef[];
 }
 
-/** Move sibling view nodes under `parent`, before its statement child `index` (C8). */
+/**
+ * Move sibling view nodes under `parent`, before its statement child `index` (C8), or, with `parent`
+ * null, to the top level before its view statement `index`. `index` counts the children as they are
+ * before the move.
+ */
 export interface MoveOp {
   op: "move";
   nodes: NodeRef[];
-  parent: NodeRef;
+  parent: NodeRef | null;
   index: EditIndex;
 }
 
@@ -168,6 +172,15 @@ export function bodySiblings(tree: SyntaxTree, node: ViewNode): ViewNode[] | nul
   return new Editor(tree).bodyFor(node);
 }
 
+/**
+ * The statement children of a node, which `index` of an insert or a move counts: the view statements
+ * of its unlabelled trailing closure or its braced `if` branches, in source order (empty when it has
+ * none); with `parent` null, the view statements of the top level.
+ */
+export function statementChildren(tree: SyntaxTree, parent: ViewNode | null): ViewNode[] {
+  return new Editor(tree).childrenOf(parent);
+}
+
 class Refusal extends Error {
   readonly diagnostics: Diagnostic[];
   constructor(message: string, diagnostics: Diagnostic[] = []) {
@@ -267,6 +280,12 @@ class Editor {
     return body ? [...body.children] : null;
   }
 
+  /** The statement children `place` counts, or the top level's with null. */
+  childrenOf(parent: ViewNode | null): ViewNode[] {
+    if (parent === null) return [...this.top!.children];
+    return (this.contentOf.get(parent) ?? []).flatMap((b) => b.children);
+  }
+
   plan(op: EditOp): Plan {
     const kind = (op as { op?: unknown } | null)?.op;
     if (kind === "insert") return this.insert(op as InsertOp);
@@ -303,16 +322,17 @@ class Editor {
 
   private move(op: MoveOp): Plan {
     const nodes = this.siblings(op.nodes);
-    const parent = this.node(op.parent);
+    const parent = op.parent === null ? null : this.node(op.parent);
     for (let p: ViewNode | null = parent; p; p = p.parent) {
       if (nodes.includes(p)) {
         throw new Refusal(p === parent
           ? `cannot move ${p.ordinal} into itself`
-          : `cannot move ${p.ordinal} into ${parent.ordinal}, one of its descendants`);
+          : `cannot move ${p.ordinal} into ${parent!.ordinal}, one of its descendants`);
       }
     }
     const removals = mergeRanges(nodes.map((n) => this.removal(n)));
-    let insertion = this.place(parent, op.index, nodes.map((n) => this.nodeLines(n)));
+    const blocks = nodes.map((n) => this.nodeLines(n));
+    let insertion = parent === null ? this.placeTop(op.index, blocks.flat()) : this.place(parent, op.index, blocks);
     // An insertion point inside a removed range (an inline node removed with the separator before it)
     // moves to the end of that range, the code following a separator.
     for (const r of removals) {

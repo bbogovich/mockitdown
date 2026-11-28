@@ -25,7 +25,8 @@
  * (IntersectionObserver) and kept for the pack. Add, a double-click on the card or Enter on the focused
  * card inserts `<Name>()` through `session.insert` (R-EDIT-006): as the last child of the first selected
  * node, else at the end of the mockup's top level, then selects it; the session notifies `insert`.
- * Up, Down, Home and End move the focus among the cards. The session is joined as the outline joins
+ * Up, Down, Home and End move the focus among the cards. A card dragged onto the outline or the
+ * editor inserts its element where it is dropped (R-TOOL-005, `./drag.ts`). The session is joined as the outline joins
  * one (R-EDIT-006.C11), and only the gallery's own session's notifications become its DOM events
  * (C7, C8). The gallery holds no editing rule (A-WEB-5.K2): the role rules are the core's.
  */
@@ -35,6 +36,7 @@ import { mockupOptions, mockupPack, newDesign } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 import type { EditRefusal, EditResult } from "../core/syntax/edit.js";
 import { defaultAssetsUrl, loadAssetsFromUrl } from "./assets.js";
+import { armDrag } from "./drag.js";
 import { baseUrls, evaluateWithImports, MOCKUP_TAG } from "./mockup.js";
 
 export const GALLERY_TAG = "mockitdown-gallery";
@@ -174,7 +176,7 @@ const GALLERY_CSS = `:host([hidden]){display:none}
 .mkd-gallery__list{flex:1 1 auto;min-height:0;overflow:auto;padding:0 6px 8px}
 .mkd-gallery__group>h3{font-size:11px;letter-spacing:.04em;text-transform:uppercase;margin:10px 2px 4px;opacity:.7;font-weight:600}
 .mkd-gallery__cards{display:flex;flex-direction:column;gap:6px}
-.mkd-gallery__card{border:1px solid var(--mkd-gallery-border,#d0d0d7);border-radius:6px;background:var(--mkd-gallery-card-background,#fff);outline:none;cursor:default;user-select:none}
+.mkd-gallery__card{border:1px solid var(--mkd-gallery-border,#d0d0d7);border-radius:6px;background:var(--mkd-gallery-card-background,#fff);outline:none;cursor:grab;user-select:none;touch-action:none}
 .mkd-gallery__card:focus-visible{box-shadow:0 0 0 2px var(--mkd-selection-color,#ff8a00)}
 .mkd-gallery__head{display:flex;align-items:center;gap:6px;padding:3px 4px 3px 8px}
 .mkd-gallery__name{flex:1 1 auto;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -239,6 +241,13 @@ export class GalleryElement extends Base {
       if (card && !(e.target as Element).closest?.(".mkd-gallery__add")) this.#addFrom(card);
     });
     this.#list.addEventListener("keydown", (e) => this.#onKey(e));
+    this.#list.addEventListener("pointerdown", (e) => {
+      const card = this.#cardAt(e);
+      const name = card?.dataset.name;
+      if (!card || !name || (e.target as Element).closest?.(".mkd-gallery__add")) return;
+      // R-TOOL-005.C1: the card drags its element; the drop inserts `<Name>()` (as Add does).
+      armDrag(e, () => ({ session: this.session, source: { kind: "element", name, code: insertCode(name) }, label: name }));
+    });
   }
 
   // --- properties ---------------------------------------------------------------------------------

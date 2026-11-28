@@ -28,12 +28,21 @@
  * layout nor its attributes, coloured by `--mkd-selection-color` (default `#ff8a00`) and
  * `--mkd-hover-color` (default `#2f80ed`). The editor holds no editing rule (A-WEB-5.K2): every
  * change goes through the session.
+ *
+ * Drag and drop (R-TOOL-005, `./drag.ts`): while a gallery card or outline rows are dragged over the
+ * view, the editor outlines the innermost container under the pointer (`session.isContainer`; the top
+ * level when there is none) and draws an insertion bar at the gap between its children nearest the
+ * pointer, across the axis its children are laid out along (horizontal for a `VStack`, vertical for an
+ * `HStack`). A position the session refuses (`checkDrop`) is drawn in the refused colour; a drop calls
+ * `session.drop`. Only the session's active mockup takes drops.
  */
 
 import { assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS, Location } from "../core/index.js";
 import { mockupOptions, newDesign } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import type { DropPosition } from "../design/session.js";
 import { loadAssetsFromUrl } from "./assets.js";
+import { registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, renderWithImports, SCRIPT_TYPE, scriptCode, showInShadow } from "./mockup.js";
 
 export const EDITOR_TAG = "mockitdown-editor";
@@ -55,7 +64,31 @@ const EDITOR_CSS = `:host{position:relative;outline:none}
 .mkd-editor__tag{left:-1px;bottom:100%;margin-bottom:2px;background:var(--mkd-hover-color,#2f80ed)}
 .mkd-editor__tag--inside{bottom:auto;top:1px;margin:0}
 .mkd-editor__badge{right:-2px;top:-2px;transform:translateY(-100%);background:var(--mkd-selection-color,#ff8a00)}
-.mkd-editor__badge--inside{transform:none;top:0;right:0}`;
+.mkd-editor__badge--inside{transform:none;top:0;right:0}
+.mkd-editor__drop{position:absolute;box-sizing:border-box;border:2px dashed var(--mkd-drop-color,#2f80ed);border-radius:3px}
+.mkd-editor__bar{position:absolute;background:var(--mkd-drop-color,#2f80ed);border-radius:2px}
+.mkd-editor__drop--refused,.mkd-editor__bar--refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}`;
+
+/** The thickness of the insertion bar, in CSS pixels (R-TOOL-005.C3). */
+const BAR = 3;
+
+/** A rectangle relative to the editor's host. */
+interface Box {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+/** The drop position the editor shows during a drag: its container, the bar and the session's answer. */
+interface DropMark {
+  position: DropPosition;
+  allowed: boolean;
+  container: Box;
+  bar: Box;
+  /** The axis the container's children are laid out along; the bar runs across it. */
+  axis: "vertical" | "horizontal";
+}
 
 /** The element name an outline's tag shows: the role root's `data-el`, else its tag name. */
 export function elementName(el: Element): string {
@@ -94,6 +127,9 @@ export class EditorElement extends Base {
   #expect: string[] | null = null;
   /** The last Alt-click's stack of nodes and the position in it (C7). */
   #cycle: { stack: string[]; index: number } | null = null;
+  /** The pack of the last render, whose role rules a drop is checked by. */
+  #pack = "";
+  #drop: DropMark | null = null;
   #generation = 0;
   #dirty = true;
   #queued = false;
@@ -109,6 +145,15 @@ export class EditorElement extends Base {
     this.#root.addEventListener("scroll", () => this.#drawOverlay(), true);
     this.addEventListener("pointerleave", () => this.#onLeave());
     this.addEventListener("keydown", (e) => this.#onKey(e));
+    registerDropTarget(this, {
+      over: (drag, x, y) => this.#dragOver(drag, x, y),
+      leave: () => {
+        if (this.#drop === null) return;
+        this.#drop = null;
+        this.#drawOverlay();
+      },
+      drop: (drag) => this.#dragDrop(drag),
+    });
   }
 
   // --- properties ---------------------------------------------------------------------------------
@@ -334,6 +379,7 @@ export class EditorElement extends Base {
         diagnostics = [...result.diagnostics, ...fence];
         html = (fence.length ? errorHtml(fence) : "") + result.html;
         packs = result.packs;
+        this.#pack = result.screen?.pack.id ?? this.#pack;
       }
     } catch (e) {
       if (stale()) return;
@@ -491,6 +537,93 @@ export class EditorElement extends Base {
     if (session && name !== null && session.active === name) session.hover(id);
   }
 
+  // --- drag and drop (R-TOOL-005) -----------------------------------------------------------------
+
+  /** C3, C4: the innermost container under a point, the gap nearest it, and the session's answer. */
+  #dragOver(drag: Drag, x: number, y: number): DropAnswer | null {
+    const session = this.#session;
+    const view = this.#view;
+    const name = this.mockup;
+    if (!session || !view || drag.session !== session || name === null || session.active !== name) return this.#clearDrop();
+    const root = this.#root as ShadowRoot & { elementsFromPoint?: (x: number, y: number) => Element[] };
+    const hits = typeof root.elementsFromPoint === "function" ? root.elementsFromPoint(x, y) : [];
+    if (!hits.some((h) => h === view || view.contains(h))) return this.#clearDrop();
+    let containerEl: Element = view;
+    let parent: string | null = null;
+    for (const h of hits) {
+      if (h === view || !view.contains(h) || !h.hasAttribute("data-mkd-node")) continue;
+      const id = session.nodeFor(name, h.getAttribute("data-mkd-node")!);
+      if (id !== null && session.isContainer(id, this.#pack)) {
+        containerEl = h;
+        parent = id;
+        break;
+      }
+    }
+    const host = this.getBoundingClientRect();
+    const rel = (r: DOMRect | Box): Box => ({ left: r.left - host.left, top: r.top - host.top, width: r.width, height: r.height });
+    const children = session.childrenOf(parent);
+    const rects: { index: number; box: Box }[] = [];
+    children.forEach((id, index) => {
+      const box = this.#boxWithin(containerEl, id);
+      if (box) rects.push({ index, box: rel(box) });
+    });
+    const axis = layoutAxis(containerEl, rects.map((r) => r.box));
+    const px = x - host.left;
+    const py = y - host.top;
+    const centre = (b: Box): number => (axis === "vertical" ? b.top + b.height / 2 : b.left + b.width / 2);
+    const k = rects.findIndex((r) => centre(r.box) > (axis === "vertical" ? py : px));
+    const index = k < 0 ? (rects.length ? rects[rects.length - 1]!.index + 1 : "end") : rects[k]!.index;
+    const container = rel(containerEl.getBoundingClientRect());
+    const prev = k < 0 ? rects[rects.length - 1]?.box : k > 0 ? rects[k - 1]!.box : undefined;
+    const next = k < 0 ? undefined : rects[k]!.box;
+    const position: DropPosition = { parent, index: index === "end" || index >= children.length ? "end" : index };
+    const check = session.checkDrop(drag.source, position, this.#pack);
+    this.#drop = { position, allowed: check.ok, container, bar: insertionBar(axis, container, prev, next), axis };
+    this.#drawOverlay();
+    return check.ok ? { allowed: true } : { allowed: false, reason: check.reason };
+  }
+
+  #clearDrop(): null {
+    if (this.#drop !== null) {
+      this.#drop = null;
+      this.#drawOverlay();
+    }
+    return null;
+  }
+
+  #dragDrop(drag: Drag): void {
+    const mark = this.#drop;
+    this.#drop = null;
+    this.#drawOverlay();
+    // C5, C6: one session operation — an insert, selected, or a move of the dragged nodes.
+    if (mark?.allowed) this.session.drop(drag.source, mark.position, this.#pack);
+  }
+
+  /** The box around a child node's outermost elements inside a container element, or null when it has none there. */
+  #boxWithin(container: Element, id: string): Box | null {
+    const name = this.mockup;
+    const node = name === null ? null : this.session.tree(name)?.byId(id);
+    if (!node) return null;
+    const sel = `[data-mkd-node="${node.ordinal}"],[data-mkd-derived="${node.ordinal}"]`;
+    const found = Array.from(container.querySelectorAll(sel));
+    const outer = found.filter((el) => !found.some((o) => o !== el && o.contains(el)));
+    let box: Box | null = null;
+    for (const el of outer) {
+      const r = el.getBoundingClientRect();
+      if (!r.width && !r.height) continue;
+      if (!box) box = { left: r.left, top: r.top, width: r.width, height: r.height };
+      else {
+        const right = Math.max(box.left + box.width, r.right);
+        const bottom = Math.max(box.top + box.height, r.bottom);
+        box.left = Math.min(box.left, r.left);
+        box.top = Math.min(box.top, r.top);
+        box.width = right - box.left;
+        box.height = bottom - box.top;
+      }
+    }
+    return box;
+  }
+
   // --- outlines -----------------------------------------------------------------------------------
 
   /**
@@ -563,7 +696,57 @@ export class EditorElement extends Base {
       const [b, r] = box(el, "hover");
       if (i === 0) label(b, r, "mkd-editor__tag", sizeTag(elementName(el), r.width, r.height));
     });
+    const drop = this.#drop;
+    if (drop) {
+      const place = (cls: string, part: string, at: Box): HTMLElement => {
+        const d = document.createElement("div");
+        d.className = `${cls}${drop.allowed ? "" : ` ${cls}--refused`}`;
+        d.setAttribute("part", part);
+        d.style.left = `${at.left}px`;
+        d.style.top = `${at.top}px`;
+        d.style.width = `${at.width}px`;
+        d.style.height = `${at.height}px`;
+        overlay.append(d);
+        return d;
+      };
+      place("mkd-editor__drop", "drop-target", drop.container).dataset.refused = String(!drop.allowed);
+      const bar = place("mkd-editor__bar", "drop-bar", drop.bar);
+      bar.dataset.orientation = drop.axis === "vertical" ? "horizontal" : "vertical";
+      bar.dataset.refused = String(!drop.allowed);
+    }
   }
+}
+
+/**
+ * The axis a container lays its children out along: by the first two children's boxes (side by side
+ * is horizontal), else by the container's flex direction, else vertical.
+ */
+function layoutAxis(container: Element, boxes: readonly Box[]): "vertical" | "horizontal" {
+  if (boxes.length >= 2) {
+    const [a, b] = [boxes[0]!, boxes[1]!];
+    const sideBySide = b.left >= a.left + a.width - 1 || a.left >= b.left + b.width - 1;
+    const stacked = b.top >= a.top + a.height - 1 || a.top >= b.top + b.height - 1;
+    if (sideBySide && !stacked) return "horizontal";
+    return "vertical";
+  }
+  const style = typeof getComputedStyle === "function" ? getComputedStyle(container) : null;
+  if (style && /flex/.test(style.display) && style.flexDirection.startsWith("row")) return "horizontal";
+  return "vertical";
+}
+
+/**
+ * The insertion bar (C3): across the axis, spanning the container, at the middle of the gap between
+ * the children before and after the position, at the edge of the one there is, or at the container's start.
+ */
+function insertionBar(axis: "vertical" | "horizontal", c: Box, prev: Box | undefined, next: Box | undefined): Box {
+  if (axis === "vertical") {
+    const y = prev && next ? (prev.top + prev.height + next.top) / 2
+      : next ? next.top - 1 : prev ? prev.top + prev.height + 1 : c.top + 4;
+    return { left: c.left + 2, top: Math.round(y - BAR / 2), width: Math.max(c.width - 4, 8), height: BAR };
+  }
+  const x = prev && next ? (prev.left + prev.width + next.left) / 2
+    : next ? next.left - 1 : prev ? prev.left + prev.width + 1 : c.left + 4;
+  return { left: Math.round(x - BAR / 2), top: c.top + 2, width: BAR, height: Math.max(c.height - 4, 8) };
 }
 
 function sameList(a: readonly string[], b: readonly string[]): boolean {

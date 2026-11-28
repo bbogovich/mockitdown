@@ -88,7 +88,7 @@ const r = edit(tree, { op: "insert", parent: "n1", index: "end", code: 'Toggle("
 if ("error" in r) console.warn(r.error);
 else apply(r.edits);                                  // [{start, end, text}], ascending; r.source, r.tree
 // also { op: "remove", nodes: ["n3"] } and { op: "move", nodes: ["n3"], parent: "n2", index: 0 };
-// parent null inserts at the top level (the root of the mockup)
+// parent null inserts at (or moves to) the top level (the root of the mockup)
 ```
 
 The inspector's operations change one node and leave its neighbours as written:
@@ -261,6 +261,32 @@ and an Add button. Inside a designer it joins the designer's session; elsewhere 
   `gallery.add(name)` does the same from a host's menu.
 - `gallery.state` (`{mockup, pack, parent, cards, hidden}`), `gallery.rendered`; parts `search`, `list`,
   `group`, `card`, `name`, `add`, `preview`, `hidden`, `reason`.
+
+### Drag and drop
+
+A gallery card can be dragged onto the outline or the editor, and an outline row (not a derived one)
+within the outline; a row that is one of several selected rows drags them all. It is a pointer drag:
+it starts after 4 px, a ghost by the pointer names what is dragged, and Esc cancels it.
+
+- Over an outline row the drop goes before the row, inside it or after it, by the upper, middle or
+  lower third of the row (the row's `data-drop`: `before`, `inside`, `after`); below the last row, to
+  the end of the top level.
+- Over the editor the innermost container under the pointer is outlined (`.mkd-editor__drop`, part
+  `drop-target`) and a bar (`.mkd-editor__bar`, part `drop-bar`, `data-orientation`) marks the gap
+  between its children nearest the pointer: horizontal in a `VStack`, vertical in an `HStack`.
+- A position the role rules refuse, or one inside a dragged row's own subtree, is drawn in
+  `--mkd-drop-refused-color` (default `#d93025`), with the `not-allowed` cursor and the reason by the
+  pointer (`data-drop="inside refused"`); a drop there does nothing. Allowed positions use
+  `--mkd-drop-color` (default `#2f80ed`).
+- A drop is one session operation, one `change`: a card is inserted as `<Name>()` and selected, rows
+  are moved and stay selected with their node ids. The components only point; the session decides:
+
+```js
+const at = session.dropPosition(nodeId, "before");                     // {parent, index} | {error}
+session.checkDrop({ kind: "element", name: "Text", code: "Text()" }, at, "base"); // {ok} | {ok: false, reason}
+session.drop({ kind: "nodes", mockup: "Drop", nodes: [id] }, at, "base");      // move; also insert(code, parent, index), move(nodes, parent, index)
+session.isContainer(nodeId, "base"); session.childrenOf(nodeId);       // what the editor's indicator uses
+```
 
 ## Development
 

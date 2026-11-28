@@ -1,0 +1,7 @@
+// move a nested view out to the top level (parent null), before the view after its stack
+
+VStack {
+    Text("Title")
+    Button("Go")
+}
+Divider()

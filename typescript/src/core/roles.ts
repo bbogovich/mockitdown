@@ -121,6 +121,18 @@ export function allowedChildren(pack: string | Pack, parent: string | null): All
   return { allowed, refused: [...groups].map(([reason, elements]) => ({ reason, elements })) };
 }
 
+/**
+ * Whether an element of `pack` holds children at all: its role (or its pack's narrowing, C5) accepts
+ * some role; an element the pack does not define (role `unknown`, a struct) does. The editor takes the
+ * elements that do as the containers a drop goes into (R-TOOL-005.C3).
+ */
+export function holdsChildren(pack: string | Pack, name: string): boolean {
+  const p = packOf(pack);
+  const rule = ruleOf(p, name);
+  if (rule.role === "unknown") return true;
+  return expandAccepts(p.element(name)?.rules?.accepts ?? rule.accepts).size > 0;
+}
+
 function packOf(pack: string | Pack): Pack {
   if (!loaded) throw new MockitdownError("no role rules are loaded: call loadAssets() (or mockitdown/node's loadSharedAssets()) first");
   return typeof pack === "string" ? registry.get(pack) : pack;

@@ -15,7 +15,8 @@ import { assetsLoaded } from "../core/assets.js";
 import { Diagnostic, MockitdownError } from "../core/diagnostics.js";
 import type { RenderOptions } from "../core/options.js";
 import { registry } from "../core/packs/registry.js";
-import { bodySiblings, edit, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { canContain, holdsChildren, rolesLoaded } from "../core/roles.js";
+import { bodySiblings, edit, statementChildren, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, type DesignDocument, type DesignMockup } from "./document.js";
 
@@ -49,6 +50,29 @@ export const DESIGN_EVENTS = {
   rename: "mockitdown-rename",
   diagnostics: "mockitdown-diagnostics",
 } as const satisfies Partial<Record<DesignNotificationKind, string>>;
+
+/**
+ * What a drag carries (R-TOOL-005.C1): an element or struct of the gallery, inserted as `code`, or
+ * sibling view nodes of a mockup, moved.
+ */
+export type DragSource =
+  | { kind: "element"; name: string; code: string }
+  | { kind: "nodes"; mockup: string; nodes: string[] };
+
+/** Where a drop goes: before statement child `index` of `parent` (a node id), or of the top level with null. */
+export interface DropPosition {
+  parent: string | null;
+  index: EditIndex;
+}
+
+/** Where a drop over an outline row goes relative to the row's node (R-TOOL-005.C2). */
+export type DropZone = "before" | "inside" | "after";
+
+/** Whether a drop may go to a position: `{ok: true}`, or the sentence saying why not (R-TOOL-005.C4). */
+export type DropCheck = { ok: true } | { ok: false; reason: string };
+
+/** Calls that place their content in their parent's: the role rules of the element above them apply. */
+const TRANSPARENT = new Set(["ForEach"]);
 
 /** A refused session request: why. */
 export interface Refused {
@@ -255,9 +279,115 @@ export class DesignSession {
    * behind the gallery's Add (R-TOOL-004.C8). The new node becomes the selection: one `change`, then
    * `insert`, then `select`. Refused, changing nothing, as {@link apply} refuses an insert.
    */
-  insert(code: string, parent?: string | null): EditResult | EditRefusal {
+  insert(code: string, parent?: string | null, index: EditIndex = "end"): EditResult | EditRefusal {
     const at = parent === undefined ? this.selected[0] ?? null : parent;
-    return this.applyOp({ op: "insert", parent: at, index: "end", code }, "inserted");
+    return this.applyOp({ op: "insert", parent: at, index, code }, "inserted");
+  }
+
+  /**
+   * Move sibling nodes of the active mockup before statement child `index` of `parent` (null: the top
+   * level) as one change (R-EDIT-002.C8); the moved nodes keep their ids and become the selection.
+   */
+  move(nodes: readonly string[], parent: string | null, index: EditIndex): EditResult | EditRefusal {
+    return this.applyOp({ op: "move", nodes: [...nodes], parent, index }, [...nodes]);
+  }
+
+  // --- drag and drop (R-TOOL-005) -----------------------------------------------------------------
+
+  /**
+   * The statement children of a node of the active mockup (null: of its top level) that a drop
+   * position's `index` counts, as node ids; empty when there is no such node.
+   */
+  childrenOf(parent: string | null): string[] {
+    const tree = this.activeName === null ? null : this.tree(this.activeName);
+    if (!tree) return [];
+    const node = parent === null ? null : tree.byId(parent);
+    if (parent !== null && !node) return [];
+    return statementChildren(tree, node ?? null).map((n) => n.id);
+  }
+
+  /**
+   * Whether a node of the active mockup is a container that a drop in the view goes into
+   * (R-TOOL-005.C3): an element call (not a `ForEach`) that already has statement children, or whose
+   * element holds children in `pack` (R-PACK-016).
+   */
+  isContainer(node: string, pack: string): boolean {
+    const tree = this.activeName === null ? null : this.tree(this.activeName);
+    const n = tree?.byId(node);
+    if (!tree || !n || n.kind !== "call" || TRANSPARENT.has(n.name)) return false;
+    if (statementChildren(tree, n).length) return true;
+    return rolesLoaded() && registry.ids().includes(pack) && holdsChildren(pack, n.name);
+  }
+
+  /**
+   * The drop position relative to a node of the active mockup (R-TOOL-005.C2): before or after it among
+   * its parent's statement children, or as the last child inside it. Refused when the node stands
+   * where no statement goes beside it (an argument, a modifier's content, a struct body).
+   */
+  dropPosition(node: string, zone: DropZone): DropPosition | Refused {
+    const tree = this.activeName === null ? null : this.tree(this.activeName);
+    const n = tree?.byId(node);
+    if (!tree || !n) return { error: `${JSON.stringify(node)} is not a node of the active mockup` };
+    if (zone === "inside") return { parent: n.id, index: "end" };
+    const k = statementChildren(tree, n.parent).indexOf(n);
+    if (k < 0) return { error: `${n.name} is not placed among its parent's children, so nothing can be dropped beside it` };
+    return { parent: n.parent?.id ?? null, index: zone === "before" ? k : k + 1 };
+  }
+
+  /**
+   * Whether a drag may drop at a position of the active mockup (R-TOOL-005.C4): the parent element must
+   * accept every dragged element by the role rules of `pack` (R-PACK-016.C6; a `ForEach` or an `if`
+   * defers to the element above it), moved nodes may not go inside themselves or their descendants,
+   * and the edit operation must accept the drop. Each refusal is a sentence for the user.
+   */
+  checkDrop(source: DragSource, position: DropPosition, pack: string): DropCheck {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (name === null || !tree) return { ok: false, reason: "There is no mockup to drop into" };
+    const parent = position.parent === null ? null : tree.byId(position.parent);
+    if (position.parent !== null && !parent) return { ok: false, reason: "The drop position is not in the mockup" };
+    let dragged: string[];
+    if (source.kind === "nodes") {
+      if (source.mockup !== name) return { ok: false, reason: `Elements of ${source.mockup} cannot be moved into ${name}` };
+      const nodes = source.nodes.map((id) => tree.byId(id));
+      if (!nodes.length || nodes.some((n) => !n)) return { ok: false, reason: "The dragged elements are no longer in the mockup" };
+      for (let p = parent; p; p = p.parent) {
+        const own = nodes.find((n) => n === p);
+        if (own) {
+          return { ok: false, reason: p === parent
+            ? `Cannot move ${own.name} into itself`
+            : `Cannot move ${own.name} into one of its own descendants` };
+        }
+      }
+      dragged = nodes.map((n) => n!.name);
+    } else dragged = [source.name];
+    if (rolesLoaded() && registry.ids().includes(pack)) {
+      let holder = parent;
+      while (holder && (holder.kind === "if" || TRANSPARENT.has(holder.name))) holder = holder.parent;
+      for (const child of dragged) {
+        const r = canContain(pack, holder ? holder.name : null, child);
+        if (!r.ok) return { ok: false, reason: r.reason };
+      }
+    }
+    const op: EditOp = source.kind === "element"
+      ? { op: "insert", parent: position.parent, index: position.index, code: source.code }
+      : { op: "move", nodes: [...source.nodes], parent: position.parent, index: position.index };
+    const r = edit(tree, op);
+    if ("error" in r) return { ok: false, reason: sentence(r.error) };
+    return { ok: true };
+  }
+
+  /**
+   * Drop a drag at a position of the active mockup (R-TOOL-005.C5, C6), checked as {@link checkDrop}
+   * says with the role rules of `pack`: an element is inserted there and selected, nodes are moved
+   * there and stay selected. One edit operation, so one `change`; nothing when refused.
+   */
+  drop(source: DragSource, position: DropPosition, pack: string): EditResult | EditRefusal {
+    const check = this.checkDrop(source, position, pack);
+    if (!check.ok) return { error: check.reason, diagnostics: [] };
+    return source.kind === "element"
+      ? this.insert(source.code, position.parent, position.index)
+      : this.move(source.nodes, position.parent, position.index);
   }
 
   /**
@@ -435,6 +565,11 @@ function insertedNode(before: SyntaxTree, after: SyntaxTree): ViewNode | null {
     if (!before.byId(n.id) && (n.parent === null || before.byId(n.parent.id))) return n;
   }
   return null;
+}
+
+/** An edit refusal as a sentence: its first letter capitalised. */
+function sentence(text: string): string {
+  return text ? text[0]!.toUpperCase() + text.slice(1) : text;
 }
 
 function sameList(a: readonly string[], b: readonly string[]): boolean {

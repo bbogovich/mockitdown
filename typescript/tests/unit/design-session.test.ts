@@ -330,3 +330,71 @@ test("insert adds a view as the last child of the selected node, else at the end
   assert.deepEqual(badSeen, [], "a refused insert notifies nothing");
   assert.equal(bad.code("M"), code);
 });
+
+test("drop positions, checks and drops: insert where dropped, move with ids kept, refusals with reasons (R-TOOL-005.C2, C4, C5, C6)", () => {
+  // n1 VStack, n2 Text, n3 HStack, n4 Button, n5 ForEach, n6 Text inside it.
+  const code = 'VStack {\n  Text("A")\n  HStack {\n    Button("B")\n  }\n  ForEach(1...2) { i in\n    Text("Row")\n  }\n}\n';
+  const session = (): DesignSession => {
+    const d = newDesign("Drop");
+    d.mockups.push({ name: "M", x: 0, y: 0, code });
+    return new DesignSession(d);
+  };
+  const el = (name: string) => ({ kind: "element" as const, name, code: `${name}()` });
+
+  // Expected positions, code, reasons and notifications written by hand from the code above.
+  const s = session();
+  const [vstack, text, hstack, button, forEach] = ["n1", "n2", "n3", "n4", "n5"].map((o) => idOf(s, o));
+  assert.deepEqual(s.childrenOf(null), [vstack]);
+  assert.deepEqual(s.childrenOf(vstack), [text, hstack, forEach]);
+  assert.deepEqual(s.dropPosition(text, "before"), { parent: vstack, index: 0 });
+  assert.deepEqual(s.dropPosition(text, "after"), { parent: vstack, index: 1 });
+  assert.deepEqual(s.dropPosition(hstack, "inside"), { parent: hstack, index: "end" });
+  assert.deepEqual(s.dropPosition(vstack, "after"), { parent: null, index: 1 });
+  assert.equal(s.isContainer(vstack, "base"), true);
+  assert.equal(s.isContainer(hstack, "base"), true);
+  assert.equal(s.isContainer(text, "base"), false);
+  assert.equal(s.isContainer(forEach, "base"), false, "a ForEach is no container of its own");
+
+  // C4: the role rules (R-PACK-016.C6's own example), through a ForEach to the element above it.
+  assert.deepEqual(s.checkDrop(el("NavigationSplitView"), { parent: hstack, index: 0 }, "base"),
+    { ok: false, reason: "A frame cannot be placed inside a horizontal stack" });
+  assert.deepEqual(s.checkDrop(el("Text"), { parent: hstack, index: 0 }, "base"), { ok: true });
+  const intoText = s.checkDrop(el("Toggle"), { parent: text, index: "end" }, "base");
+  assert.ok(!intoText.ok && /cannot hold other elements/.test(intoText.reason), JSON.stringify(intoText));
+  // C4: a dragged row's own subtree.
+  const nodes = (ids: string[]) => ({ kind: "nodes" as const, mockup: "M", nodes: ids });
+  assert.deepEqual(s.checkDrop(nodes([hstack]), { parent: hstack, index: "end" }, "base"), { ok: false, reason: "Cannot move HStack into itself" });
+  assert.deepEqual(s.checkDrop(nodes([vstack]), { parent: hstack, index: 0 }, "base"),
+    { ok: false, reason: "Cannot move VStack into one of its own descendants" });
+  assert.deepEqual(s.checkDrop(nodes([text]), { parent: hstack, index: 0 }, "base"), { ok: true });
+  assert.deepEqual(s.checkDrop({ kind: "nodes", mockup: "Other", nodes: [text] }, { parent: hstack, index: 0 }, "base"),
+    { ok: false, reason: "Elements of Other cannot be moved into M" });
+
+  // A refused drop changes nothing and notifies nothing.
+  const refusedSeen = recorder(s);
+  assert.equal(why(s.drop(el("NavigationSplitView"), { parent: hstack, index: 0 }, "base")), "A frame cannot be placed inside a horizontal stack");
+  assert.deepEqual(refusedSeen, []);
+  assert.equal(s.code("M"), code);
+
+  // C5, C6: a card dropped before the Button: one change, the insert, the new node selected.
+  const seen = recorder(s);
+  assert.equal(why(s.drop(el("Text"), { parent: hstack, index: 0 }, "base")), "applied");
+  assert.equal(s.code("M"), 'VStack {\n  Text("A")\n  HStack {\n    Text()\n    Button("B")\n  }\n  ForEach(1...2) { i in\n    Text("Row")\n  }\n}\n');
+  assert.deepEqual(kinds(seen).filter((k) => k !== "diagnostics"), ["change", "insert", "select"]);
+  const added = s.tree("M")!.byId(s.selection[0]!)!;
+  assert.equal(added.name, "Text");
+  assert.equal(added.parent?.id, hstack);
+
+  // C5, C6: the first Text moved after the HStack: one change, its id kept and selected.
+  const m = session();
+  const mText = idOf(m, "n2");
+  const mHStack = idOf(m, "n3");
+  const moveSeen = recorder(m);
+  const at = m.dropPosition(mHStack, "after");
+  assert.ok(!("error" in at));
+  assert.equal(why(m.drop(nodes([mText]), at as { parent: string; index: number }, "base")), "applied");
+  assert.equal(m.code("M"), 'VStack {\n  HStack {\n    Button("B")\n  }\n  Text("A")\n  ForEach(1...2) { i in\n    Text("Row")\n  }\n}\n');
+  assert.equal(moveSeen.filter((n) => n.kind === "change").length, 1);
+  assert.deepEqual(m.selection, [mText]);
+  assert.equal(m.tree("M")!.byId(mText)!.name, "Text");
+});

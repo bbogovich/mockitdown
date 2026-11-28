@@ -11,7 +11,7 @@ export {
 } from "./document.js";
 export {
   DESIGN_EVENTS, DesignSession,
-  type ChangeKind, type DesignListener, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
+  type ChangeKind, type DesignListener, type DragSource, type DropCheck, type DropPosition, type DropZone, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
 } from "./session.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
