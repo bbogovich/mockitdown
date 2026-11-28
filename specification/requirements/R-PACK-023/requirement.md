@@ -2,7 +2,7 @@
 id: R-PACK-023
 title: GEOS pack
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: PACK.5
 slot: reqs

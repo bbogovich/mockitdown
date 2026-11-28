@@ -2,7 +2,7 @@
 id: R-PACK-017
 title: Typed parameters and modifiers
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: PACK.3
 slot: reqs

@@ -2,7 +2,7 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.3
 slot: reqs

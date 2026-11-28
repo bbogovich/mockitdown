@@ -2,7 +2,7 @@
 id: R-PACK-015
 title: SwiftUI presentations and navigation
 status: active
-version: pending
+version: 0.12.12
 rev: 9
 page: PACK.1
 slot: reqs

@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: PACK.3
@@ -137,6 +137,7 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
@@ -144,6 +145,7 @@ pass with the types loaded.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | re-checked against A-REPO-1, R-PACK-016 (SRC-18): unaffected; re-checked against A-REPO-1, R-REPO-002 (SRC-18): unaffected |

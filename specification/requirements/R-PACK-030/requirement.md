@@ -2,7 +2,7 @@
 id: R-PACK-030
 title: "User guide: installation and defined terms"
 status: active
-version: pending
+version: 0.12.12
 rev: 1
 page: PACK.1
 slot: reqs

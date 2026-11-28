@@ -2,7 +2,7 @@
 id: R-TOOL-009
 title: Two-way editing and Code mode
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.4
 slot: reqs

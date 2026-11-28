@@ -2,7 +2,7 @@
 id: R-REPO-004
 title: Conformance corpus
 status: active
-version: pending
+version: 0.12.12
 rev: 8
 page: REPO.1
 slot: reqs

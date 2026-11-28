@@ -1,6 +1,6 @@
 ---
 title: "Shared stylesheet rules"
-spec_version: 0.12.5
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: PACK.4
@@ -142,10 +142,12 @@ Run once by the issue that moves rules, and again by any later issue that moves 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.5 | 2026-11-27 | as built: TC-2 names the measure's own test, TC-3 its configuration, MIGRATION_PACKS and the capture of packs the gallery does not list; prose names the partials #55 wrote (#55); prose: the as-built paragraph counts the four partials (#55) |
 | 0.12.4 | 2026-11-27 | prose names the as-built C6 and C8 details; re-checked against ADR-17 (#54) |
 | 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.5 | 2026-11-27 | as built: TC-2 names the measure's own test, TC-3 its configuration, MIGRATION_PACKS and the capture of packs the gallery does not list; prose names the partials #55 wrote (#55); prose: the as-built paragraph counts the four partials (#55) |
 | 0.12.4 | 2026-11-27 | prose names the as-built C6 and C8 details; re-checked against ADR-17 (#54) |
 | 0.12.2 | 2026-11-27 | as built (#54): C6 also fails an @import that shares its line; C8 refuses an @import outside comments only; TC-1 names the tests, the fixture's expected copies and dist/shared/packs/ for step 4 |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |

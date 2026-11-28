@@ -2,7 +2,7 @@
 id: R-TOOL-001
 title: "The editable view: mockitdown-editor"
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: WEB.4
 slot: reqs

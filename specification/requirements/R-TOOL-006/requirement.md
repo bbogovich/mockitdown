@@ -2,7 +2,7 @@
 id: R-TOOL-006
 title: "New elements: sample arguments and first-text editing"
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.4
 slot: reqs

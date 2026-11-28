@@ -1,6 +1,6 @@
 ---
 title: "Retro and handheld packs"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: PACK.5
@@ -688,11 +688,13 @@ clause).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-008: unaffected (#81) |
 | 0.12.6 | 2026-11-27 | re-checked after the #55 as-built records of R-PACK-018 |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-008: unaffected (#81) |
 | 0.12.6 | 2026-11-27 | re-checked after the #55 as-built records of R-PACK-018 |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |

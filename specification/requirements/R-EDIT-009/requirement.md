@@ -2,7 +2,7 @@
 id: R-EDIT-009
 title: "Commands: wrap, unwrap, convert and extract component"
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: WEB.3
 slot: reqs

@@ -2,7 +2,7 @@
 id: R-TOOL-003
 title: The composite designer and its test page
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.4
 slot: reqs

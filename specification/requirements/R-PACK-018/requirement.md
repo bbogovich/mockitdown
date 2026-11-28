@@ -2,7 +2,7 @@
 id: R-PACK-018
 title: Stylesheet partials
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: PACK.4
 slot: reqs

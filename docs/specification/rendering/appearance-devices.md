@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: REND.2
@@ -516,6 +516,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-DEV-001: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | as built: C6 fixed colours where the real thing keeps its colour, radii fixed in base; TC-1 verifies C1-C6 (#59) |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
@@ -531,6 +532,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.11 | 2026-11-27 | re-checked against R-DEV-001: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | as built: C6 fixed colours where the real thing keeps its colour, radii fixed in base; TC-1 verifies C1-C6 (#59) |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |

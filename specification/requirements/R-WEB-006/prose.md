@@ -8,3 +8,6 @@ the end, so their links sit at the end of the page, generated from the index so 
 behind the packs.
 
 **Verification.** TC-1.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.

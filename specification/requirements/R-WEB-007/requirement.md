@@ -2,8 +2,8 @@
 id: R-WEB-007
 title: TypeScript release builds on GitHub
 status: active
-version: 0.12.11
-rev: 1
+version: 0.12.12
+rev: 2
 page: WEB.1
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-18]
 realizes: [F-17]
 requires: [R-WEB-001, R-WEB-005]
 decisions: [ADR-23]
-hash: da12e80117fb
+hash: 8bdda81a0868
 ---
 
 C1: Pushing a tag `ts-vX.Y.Z` MUST run the workflow `.github/workflows/release-ts.yml`, and only such a tag; the Python release workflow (tags `vX.Y.Z`) MUST NOT run for it.

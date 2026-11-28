@@ -2,7 +2,7 @@
 id: R-PACK-015.CR-9
 target: R-PACK-015
 kind: clarification
-version: pending
+version: 0.12.12
 date: 2026-11-27
 issue: 81
 summary: "re-checked with the items it cites after the #81 audit: unaffected (#81)"

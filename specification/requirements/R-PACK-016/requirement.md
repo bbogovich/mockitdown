@@ -2,7 +2,7 @@
 id: R-PACK-016
 title: Role rules
 status: active
-version: pending
+version: 0.12.12
 rev: 6
 page: PACK.3
 slot: reqs

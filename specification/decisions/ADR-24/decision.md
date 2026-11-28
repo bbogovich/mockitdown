@@ -2,7 +2,7 @@
 id: ADR-24
 title: An import map of named libraries replaces import directories
 status: active
-version: pending
+version: 0.12.12
 rev: 2
 page: ADR.2
 slot: decisions

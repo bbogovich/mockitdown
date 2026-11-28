@@ -2,7 +2,7 @@
 id: ADR-23
 title: TypeScript releases under their own tags, as GitHub release assets
 status: active
-version: pending
+version: 0.12.12
 rev: 1
 page: ADR.3
 slot: decisions

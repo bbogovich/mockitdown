@@ -2,7 +2,7 @@
 id: R-TOOL-007
 title: "The inspector: mockitdown-inspector"
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.4
 slot: reqs

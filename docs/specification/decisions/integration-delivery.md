@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: ADR.2
@@ -380,6 +380,7 @@ templates whose users override values and fill content. SwiftUI already has the 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81); re-checked against R-PACK-008: unaffected (#81); re-checked against R-ASSET-005: unaffected (#81); re-checked against R-IMP-001, R-IMP-003: unaffected (#81); constrains list dropped: R-REPO-001..003 carry constrained_by ADR-17, ending the mutual citation (#81); re-checked against R-WEB-002: unaffected (#81); re-checked against R-ASSET-001, R-ASSET-002: unaffected (#81); re-checked against R-CLI-005, R-MDX-004: unaffected (#81); re-checked against R-MDX-002: unaffected (#81); re-checked against R-API-004: unaffected (#81); re-checked against R-MDX-001: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-check sentence names R-PACK-018 too, released with R-REPO-002 and R-PACK-018 (#54) |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
@@ -391,6 +392,7 @@ templates whose users override values and fill content. SwiftUI already has the 
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81); re-checked against R-PACK-008: unaffected (#81); re-checked against R-ASSET-005: unaffected (#81); re-checked against R-IMP-001, R-IMP-003: unaffected (#81); constrains list dropped: R-REPO-001..003 carry constrained_by ADR-17, ending the mutual citation (#81); re-checked against R-WEB-002: unaffected (#81); re-checked against R-ASSET-001, R-ASSET-002: unaffected (#81); re-checked against R-CLI-005, R-MDX-004: unaffected (#81); re-checked against R-MDX-002: unaffected (#81); re-checked against R-API-004: unaffected (#81); re-checked against R-MDX-001: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-check sentence names R-PACK-018 too, released with R-REPO-002 and R-PACK-018 (#54) |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |

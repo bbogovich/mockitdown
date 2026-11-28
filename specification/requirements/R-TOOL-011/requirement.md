@@ -2,12 +2,12 @@
 id: R-TOOL-011
 title: "The canvas: mockitdown-canvas"
 status: active
-version: 0.11.0
-rev: 3
+version: 0.12.12
+rev: 4
 page: WEB.5
 slot: reqs
 order: 1
-hash: eaed0462d7ee
+hash: a6dc8632060c
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-003]

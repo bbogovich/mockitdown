@@ -2,7 +2,7 @@
 id: ADR-19
 title: The mockup element carries its code in a script child
 status: active
-version: pending
+version: 0.12.12
 rev: 7
 page: ADR.2
 slot: decisions

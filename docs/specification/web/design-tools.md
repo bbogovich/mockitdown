@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: WEB.4
@@ -498,6 +498,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-TOOL-009 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-010.TC-1 — Diagnostics lead to their element**
 
 Browser test on `pages/designer.html`: a mockup with `Text("A", bogus: 1)` and an unknown element shows
@@ -519,11 +522,13 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |

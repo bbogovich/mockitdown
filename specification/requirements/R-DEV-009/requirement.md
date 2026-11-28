@@ -2,7 +2,7 @@
 id: R-DEV-009
 title: The macOS menu bar
 status: active
-version: pending
+version: 0.12.12
 rev: 3
 page: REND.2
 slot: reqs

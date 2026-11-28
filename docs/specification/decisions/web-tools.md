@@ -1,6 +1,6 @@
 ---
 title: "Decisions: web variant and design tools"
-spec_version: 0.11.0
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: ADR.3
@@ -112,10 +112,12 @@ the same workflow.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-EDIT-001, R-EDIT-002, R-EDIT-003 (SRC-18): unaffected; re-checked against R-EDIT-004, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.11.0 | 2026-11-27 | re-checked against R-EDIT-001, R-EDIT-002, R-EDIT-003 (SRC-18): unaffected; re-checked against R-EDIT-004, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

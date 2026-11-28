@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.12.11
+spec_version: 0.12.12
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -754,6 +754,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-012: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
@@ -778,6 +779,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-012: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |

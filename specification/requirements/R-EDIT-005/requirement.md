@@ -2,7 +2,7 @@
 id: R-EDIT-005
 title: The design document module
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: WEB.3
 slot: reqs

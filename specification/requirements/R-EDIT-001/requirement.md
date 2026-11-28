@@ -2,7 +2,7 @@
 id: R-EDIT-001
 title: Source spans and node identities
 status: active
-version: pending
+version: 0.12.12
 rev: 6
 page: WEB.3
 slot: reqs

@@ -2,7 +2,7 @@
 id: ADR-22
 title: The edit-mode rendering exists in both variants, with per-parse node ordinals
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: ADR.3
 slot: decisions

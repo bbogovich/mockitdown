@@ -2,12 +2,12 @@
 id: R-WEB-003
 title: Development server
 status: active
-version: 0.12.11
-rev: 6
+version: 0.12.12
+rev: 7
 page: WEB.2
 slot: reqs
 order: 1
-hash: a9fc884bed6e
+hash: 25812b711917
 source: [SRC-8]
 realizes: [F-18]
 requires: [R-WEB-001]

@@ -2,7 +2,7 @@
 id: R-EDIT-003
 title: "Edit API: arguments, modifiers and identifiers"
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: WEB.3
 slot: reqs

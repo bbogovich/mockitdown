@@ -2,12 +2,12 @@
 id: R-TOOL-012
 title: "Mockup frames: labels, moving, renaming and placement"
 status: active
-version: 0.11.0
-rev: 3
+version: 0.12.12
+rev: 4
 page: WEB.5
 slot: reqs
 order: 2
-hash: cbfb2605cfea
+hash: c280ba9539a9
 source: [SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-011, R-EDIT-007]

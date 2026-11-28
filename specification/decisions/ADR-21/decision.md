@@ -2,7 +2,7 @@
 id: ADR-21
 title: The edit API is TypeScript-only, with a language-neutral edit corpus
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: ADR.3
 slot: decisions

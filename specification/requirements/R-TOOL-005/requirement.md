@@ -2,7 +2,7 @@
 id: R-TOOL-005
 title: Drag and drop onto the outline and the view
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.4
 slot: reqs

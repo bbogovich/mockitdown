@@ -2,7 +2,7 @@
 id: R-TOOL-004
 title: "The gallery: mockitdown-gallery"
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: WEB.4
 slot: reqs

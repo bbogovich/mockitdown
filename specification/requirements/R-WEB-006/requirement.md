@@ -2,15 +2,16 @@
 id: R-WEB-006
 title: Gallery home page
 status: active
-version: 0.11.0
-rev: 0
+version: 0.12.12
+rev: 1
 page: WEB.2
 slot: reqs
 order: 4
 source: [SRC-18]
 realizes: [F-18]
 requires: [R-WEB-004, R-PACK-010]
-hash: 82e2af337638
+hash: 339dd1ed8976
+refs: [R-WEB-004, R-WEB-007]
 ---
 
 C1: `typescript/pages/index.html` (with its script `index.js` and stylesheet `index.css` beside it) MUST be the gallery home page; the published `/gallery/index.html` redirects to it (R-WEB-004.C29), and the development server serves it at `/pages/index.html`.

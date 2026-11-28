@@ -2,7 +2,7 @@
 id: R-PACK-028
 title: Windows CE (Pocket PC) pack
 status: active
-version: pending
+version: 0.12.12
 rev: 5
 page: PACK.5
 slot: reqs

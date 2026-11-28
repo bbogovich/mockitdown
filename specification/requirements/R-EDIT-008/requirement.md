@@ -2,7 +2,7 @@
 id: R-EDIT-008
 title: "Commands: duplicate, clipboard, move and multi-select"
 status: active
-version: pending
+version: 0.12.12
 rev: 4
 page: WEB.3
 slot: reqs
