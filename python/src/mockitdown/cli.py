@@ -64,9 +64,9 @@ def _common(p: argparse.ArgumentParser) -> None:
     p.add_argument("--no-embed", action="store_true", help="link local images instead of inlining them")
 
 
-def _print_diags(diags, file=sys.stderr) -> None:
+def _print_diags(diags, file=None) -> None:
     for d in diags:
-        print(str(d), file=file)
+        print(str(d), file=file or sys.stderr)
 
 
 def cmd_render(a: argparse.Namespace) -> int:

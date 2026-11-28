@@ -221,7 +221,7 @@ class Evaluator:
             elif isinstance(st, A.ExprStmt):
                 out.extend(self.views(st.expr, local))
             else:  # pragma: no cover - parser produces only the above
-                self.diags.error("unsupported statement", st.loc)
+                self.diags.error("unsupported statement", st.loc, "view")
         return out
 
     def run_thunk(self, thunk: Thunk, args: list | None = None) -> list[View]:
