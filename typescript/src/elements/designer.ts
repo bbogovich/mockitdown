@@ -25,8 +25,8 @@
  * with a {@link DesignOpenError} and keeping the current document when it is not valid); `toJSON()` and
  * `document` return the session's live document with every edit applied. `mode` is `design` (the
  * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
- * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code;
- * the code view itself comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
+ * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code and
+ * diagnostics in a read-only `mockitdown-code`, R-TOOL-008; editing it comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
  * view delete the selection through `session.delete()`; there too Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C
  * and V cut, copy and paste with the system clipboard holding the code as `text/plain`, and Alt+Up and
  * Alt+Down move the selection among its siblings (R-EDIT-008). Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
@@ -40,6 +40,7 @@
 import { FENCE_OPTIONS, registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
+import { CODE_TAG } from "./code.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
 import { INSPECTOR_TAG } from "./inspector.js";
@@ -124,7 +125,7 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__view{padding:24px}
 .mkd-designer__view[hidden],.mkd-designer__code[hidden],.mkd-designer__preview[hidden]{display:none}
 .mkd-designer__view mockitdown-editor{display:block;max-width:100%}
-.mkd-designer__code{margin:0;padding:16px 20px;font:12px/1.55 ui-monospace,monospace;white-space:pre;background:var(--mkd-designer-background,#fff);min-height:100%;box-sizing:border-box}
+.mkd-designer__code{display:block;height:100%;--mkd-code-background:var(--mkd-designer-background,#fff)}
 .mkd-designer__preview{display:grid;grid-template-columns:auto minmax(0,1fr);min-height:100%}
 .mkd-designer__preview-list{display:flex;flex-direction:column;gap:2px;padding:8px;border-right:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-background,#fff)}
 .mkd-designer__preview-list button{font:inherit;color:inherit;text-align:left;background:none;border:0;border-radius:5px;padding:3px 10px;cursor:pointer;white-space:nowrap}
@@ -164,7 +165,7 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__resizer mkd-designer__resizer--left" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the outline" tabindex="0" data-panel="left"></div>`
   + `<div class="mkd-designer__center" part="center">`
   + `<div class="mkd-designer__view" part="view"><slot name="view"><mockitdown-editor part="editor"></mockitdown-editor></slot></div>`
-  + `<pre class="mkd-designer__code" part="code" hidden></pre>`
+  + `<${CODE_TAG} class="mkd-designer__code" part="code" readonly hidden></${CODE_TAG}>`
   + `<div class="mkd-designer__preview" part="preview" hidden><nav class="mkd-designer__preview-list" part="mockups" aria-label="Mockups"></nav><div class="mkd-designer__frames"></div></div>`
   + `</div>`
   + `<div class="mkd-designer__resizer mkd-designer__resizer--right" part="resizer" role="separator" aria-orientation="vertical" aria-label="Resize the properties" tabindex="0" data-panel="right"></div>`
@@ -676,7 +677,9 @@ export class DesignerElement extends Base {
   #drawCode(): void {
     if (this.mode !== "code") return;
     const name = this.#session.active;
-    this.#el.code.textContent = name === null ? "" : this.#session.code(name) ?? "";
+    const view = this.#el.code as HTMLElement & { value: string; diagnostics: unknown };
+    view.value = name === null ? "" : this.#session.code(name) ?? "";
+    view.diagnostics = name === null ? [] : this.#session.diagnostics(name);
   }
 
   #passBases(): void {

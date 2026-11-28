@@ -14,7 +14,9 @@
 
 import { Diagnostic, Location } from "../diagnostics.js";
 import type * as A from "./ast.js";
-import { Lexer, type Token } from "./lexer.js";
+import { indentUnit, Lexer, type Token } from "./lexer.js";
+
+export { indentUnit };
 import { parseTree, reparseCarrying, type CarriedRange, type SyntaxTree, type TextEdit, type ViewNode } from "./tree.js";
 
 /** A node named by its id (`id12`) or its ordinal (`n3` or 3) (R-EDIT-002.C3). */
@@ -935,22 +937,6 @@ function reindent(lines: readonly string[], indent: string): string[] {
     if (l.startsWith(first)) return indent + l.slice(first.length);
     return indent + l.trimStart();
   });
-}
-
-/** C11: the smallest increase of indentation between consecutive non-blank lines, else four spaces; a tab when lines are indented with tabs. */
-export function indentUnit(source: string): string {
-  let prev = 0;
-  let step = 0;
-  let tabs = false;
-  for (const line of source.split("\n")) {
-    if (blank(line)) continue;
-    const ws = /^[ \t]*/.exec(line)![0];
-    if (ws.includes("\t")) tabs = true;
-    if (ws.length > prev && (step === 0 || ws.length - prev < step)) step = ws.length - prev;
-    prev = ws.length;
-  }
-  if (tabs) return "\t";
-  return step ? " ".repeat(step) : "    ";
 }
 
 /** A string literal for `text`, as the lexer reads it back. */

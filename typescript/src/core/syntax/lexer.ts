@@ -148,8 +148,8 @@ export class Lexer {
 
   /** `src.startswith(text, at)`. */
   private startsWith(text: string, at: number): boolean {
-    const t = Array.from(text);
-    for (let k = 0; k < t.length; k++) if (this.cps[at + k] !== t[k]) return false;
+    // Every caller passes ASCII text, whose code units are its code points.
+    for (let k = 0; k < text.length; k++) if (this.cps[at + k] !== text[k]) return false;
     return true;
   }
 
@@ -252,6 +252,51 @@ export class Lexer {
       }
       if (!matched) throw err(`unexpected character ${strRepr(c)}`, this.loc());
     }
+  }
+
+  /**
+   * Every token and comment of the source without ever throwing, for colouring (R-TOOL-008.C2). Where
+   * a token cannot be read, an `ERROR` token takes the rest of its line (an unterminated string) or
+   * one character, and an unterminated block comment runs to the end of the source as a comment.
+   * NEWLINE tokens are kept; there is no EOF token.
+   */
+  scan(): Token[] {
+    const out: Token[] = [];
+    const src = this.cps;
+    while (this.i < src.length) {
+      const c = src[this.i];
+      const s = this.off;
+      const i = this.i;
+      const line = this.line;
+      const col = this.col;
+      const nc = this.comments.length;
+      const n = out.length;
+      try {
+        this.token(out, c);
+      } catch (e) {
+        if (!(e instanceof MockitdownSyntaxError)) throw e;
+        out.length = n;
+        this.comments.length = nc;
+        this.i = i;
+        this.off = s;
+        this.line = line;
+        this.col = col;
+        const at = this.loc();
+        if (this.startsWith("/*", i)) {
+          this.advance(src.length - i);
+          this.comments.push({ start: s, end: this.off, line: at.line, col: at.col, block: true });
+          continue;
+        }
+        if (c === '"') while (this.i < src.length && src[this.i] !== "\n") this.advance();
+        else this.advance();
+        out.push(new Token("ERROR", this.slice(i, this.i), at));
+      }
+      for (let k = n; k < out.length; k++) {
+        out[k].start = s;
+        out[k].end = this.off;
+      }
+    }
+    return out;
   }
 
   private number(): Token {
@@ -379,4 +424,81 @@ function dedentMultiline(parts: StringPart[]): StringPart[] {
 
 export function tokenize(src: string, source = ""): Token[] {
   return new Lexer(src, source).tokens();
+}
+
+/** The colour classes of {@link highlight} (R-TOOL-008.C2). */
+export type HighlightKind =
+  | "keyword" | "name" | "ident" | "modifier" | "member" | "string" | "number" | "comment" | "punct" | "error";
+
+/** One coloured range of a source: UTF-16 offsets, end exclusive. */
+export interface Highlight {
+  start: number;
+  end: number;
+  kind: HighlightKind;
+}
+
+/** Tokens after which `.name` is an implicit member (`.font(.title)`), not a modifier of a chain. */
+const MEMBER_AFTER: ReadonlySet<string> = new Set([
+  "LPAREN", "LBRACKET", "LBRACE", "COMMA", "COLON", "SEMI", "ASSIGN", "EQ", "NE", "AND", "OR", "LE", "GE", "LT", "GT",
+  "BANG", "QUESTION", "PLUS", "MINUS", "STAR", "SLASH", "ARROW", "RANGE_HALF", "RANGE_CLOSED", "KEYWORD", "AMP",
+]);
+
+/**
+ * The coloured ranges of a source, in order, from the lexer's tokens and comments (R-TOOL-008.C2):
+ * keywords; element and type names (identifiers starting with a capital letter); a lower-case name
+ * after a `.` that continues a chain (a modifier) or that starts a value (`.title`, a member); other
+ * identifiers; strings; numbers; comments; punctuation; and `error` for what the lexer cannot read.
+ * It never throws; blanks and line feeds are not ranges.
+ */
+export function highlight(source: string): Highlight[] {
+  const lexer = new Lexer(source);
+  const tokens = lexer.scan();
+  const comments = lexer.comments;
+  const out: Highlight[] = [];
+  let ci = 0;
+  let prev: Token | null = null;
+  let beforeDot: Token | null = null;
+  for (const t of tokens) {
+    while (ci < comments.length && comments[ci].start < t.start) {
+      out.push({ start: comments[ci].start, end: comments[ci].end, kind: "comment" });
+      ci += 1;
+    }
+    if (t.kind !== "NEWLINE") {
+      let kind: HighlightKind;
+      if (t.kind === "KEYWORD") kind = "keyword";
+      else if (t.kind === "STRING") kind = "string";
+      else if (t.kind === "NUMBER") kind = "number";
+      else if (t.kind === "ERROR") kind = "error";
+      else if (t.kind === "IDENT") {
+        const first = t.text.charAt(0);
+        if (first !== first.toLowerCase()) kind = "name";
+        else if (prev?.kind === "DOT") kind = beforeDot === null || MEMBER_AFTER.has(beforeDot.kind) ? "member" : "modifier";
+        else kind = "ident";
+      } else kind = "punct";
+      out.push({ start: t.start, end: t.end, kind });
+    }
+    if (t.kind === "DOT") beforeDot = prev;
+    prev = t;
+  }
+  for (; ci < comments.length; ci++) out.push({ start: comments[ci].start, end: comments[ci].end, kind: "comment" });
+  return out;
+}
+
+/**
+ * The source's indentation unit (R-EDIT-002.C11): a tab when its lines are indented with tabs, else
+ * the smallest increase of indentation between consecutive non-blank lines, else four spaces.
+ */
+export function indentUnit(source: string): string {
+  let prev = 0;
+  let step = 0;
+  let tabs = false;
+  for (const line of source.split("\n")) {
+    if (/^[ \t\r]*$/.test(line)) continue;
+    const ws = /^[ \t]*/.exec(line)![0];
+    if (ws.includes("\t")) tabs = true;
+    if (ws.length > prev && (step === 0 || ws.length - prev < step)) step = ws.length - prev;
+    prev = ws.length;
+  }
+  if (tabs) return "\t";
+  return step ? " ".repeat(step) : "    ";
 }

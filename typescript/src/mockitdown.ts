@@ -1,7 +1,7 @@
 /**
  * The `mockitdown` package entry (A-WEB-2). It re-exports the core and the browser asset loader
  * `loadAssetsFromUrl`, and — where the host has `customElements` — defines the custom elements
- * (`mockitdown-mockup`, R-WEB-002.C1; `mockitdown-editor`, R-TOOL-001; `mockitdown-outline`, R-TOOL-002; `mockitdown-designer`, R-TOOL-003). Importing it in Node defines nothing.
+ * (`mockitdown-mockup`, R-WEB-002.C1; `mockitdown-editor`, R-TOOL-001; `mockitdown-outline`, R-TOOL-002; `mockitdown-designer`, R-TOOL-003; `mockitdown-code`, R-TOOL-008). Importing it in Node defines nothing.
  */
 
 import { defineElements } from "./elements/define.js";
@@ -25,6 +25,7 @@ export {
   PREVIEW_MARGIN, referenceUrl, type GalleryCard, type GalleryState, type ReferenceData, type ReferenceElement,
 } from "./elements/gallery.js";
 export { INSPECTOR_DEBOUNCE_MS, INSPECTOR_TAG, InspectorElement } from "./elements/inspector.js";
+export { CODE_ATTRIBUTES, CODE_TAG, CodeElement, type CodeDiagnostic, type CodeRange } from "./elements/code.js";
 export { defineElements, ELEMENT_TAGS } from "./elements/define.js";
 
 defineElements();

@@ -23,7 +23,7 @@ export {
 export { ElementDef, Pack, PackRegistry, registerPack, registry, type PackData } from "./packs/registry.js";
 export { buildStylesheet, minifyCss, packCss, scalePx, tokenCss } from "./styles.js";
 export * as ast from "./syntax/ast.js";
-export { Interpolation, Lexer, Token, tokenize, type Comment } from "./syntax/lexer.js";
+export { highlight, Interpolation, Lexer, Token, tokenize, type Comment, type Highlight, type HighlightKind } from "./syntax/lexer.js";
 export { parse, Parser } from "./syntax/parser.js";
 export {
   applyEdits, parseTree, reparse, SyntaxTree, type CarriedRange, ViewNode, type Span, type TextEdit, type TreeResult, type ViewNodeKind,

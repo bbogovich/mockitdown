@@ -440,6 +440,38 @@ setOption(session, "device", "tablet");
   `add-item`; custom properties `--mkd-inspector-border`, `--mkd-inspector-field-background`,
   `--mkd-inspector-label-color`, `--mkd-inspector-invalid-color`.
 
+### The code view element
+
+`<mockitdown-code>` is a light code editor for mockitdown, built here with no editor library: a
+`<textarea>` with transparent text over a copy coloured from the core lexer (`highlight(source)` gives
+the ranges: keyword, name, ident, modifier, member, string, number, comment, punct, error). The
+designer's Code mode shows the active mockup in one, read-only for now (editing it is R-TOOL-009); it
+also works on its own (`pages/code.html` puts one beside a `mockitdown-mockup`).
+
+```js
+code.value = source;                              // no event
+code.diagnostics = check(source);                 // gutter marks; the caret line's messages below
+code.addEventListener("input", () => mockup.code = code.value);   // one per keystroke or command
+code.reveal({ start: 120, end: 128 });            // select the range and scroll it into view
+```
+
+- Line numbers in a gutter; a line holding a diagnostic is marked with its severity (`data-severity`)
+  and its messages as the tooltip, and the messages of the caret's line are shown in the `message` part.
+- The bracket next to the caret and its match are highlighted (`t-match`); an unmatched bracket is
+  marked (`t-unmatched`). Brackets in strings and comments do not count.
+- Enter keeps the line's indentation, one unit more after `{` or `(`; `}` first on a line takes one
+  unit off; Tab and Shift+Tab indent and outdent the selected lines (Tab alone inserts a unit); Esc then
+  Tab leaves the view. The unit is the source's (`indentUnit`). The keys go through the browser's
+  `insertText` command, so its own undo keeps them.
+- No find and replace, folding or multiple cursors. Re-colouring a 1000-line source takes about 10 ms
+  in Chromium.
+- Attributes `readonly`, `appearance` (`light`, `dark`, else the page's preference). Parts `code`,
+  `gutter`, `line` (`data-line`), `highlight`, `text`, `message`; colours from `--mkd-code-keyword`,
+  `--mkd-code-name`, `--mkd-code-ident`, `--mkd-code-modifier`, `--mkd-code-member`, `--mkd-code-string`,
+  `--mkd-code-number`, `--mkd-code-comment`, `--mkd-code-punct`, `--mkd-code-error`, `--mkd-code-warning`,
+  `--mkd-code-match`, `--mkd-code-selection`, `--mkd-code-background`, `--mkd-code-color`,
+  `--mkd-code-gutter-background`, `--mkd-code-gutter-color` and the font from `--mkd-code-font`.
+
 ## Development
 
 Node 22 or later.

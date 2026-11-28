@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code view element</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 1.5rem; max-width: 72rem; }
+    code { background: #f2f2f5; padding: 0 .25em; border-radius: 3px; }
+    .row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+    mockitdown-code { flex: 1 1 32rem; height: 22rem; border: 1px solid #d0d0d7; border-radius: 6px; overflow: hidden; }
+    mockitdown-mockup { flex: 0 1 20rem; }
+  </style>
+  <script type="module" src="../dist/mockitdown.js"></script>
+</head>
+<body>
+  <!-- The code view test page (R-TOOL-008): a bare mockitdown-code beside a mockitdown-mockup that
+       renders what it holds, with the diagnostics of check() in its gutter. The browser tests
+       (code.spec.mjs) drive it. -->
+  <h1>Code view element</h1>
+  <p>
+    <code>&lt;mockitdown-code&gt;</code> is a light code editor for mockitdown: coloured text, line numbers,
+    diagnostics in the gutter (the message of the caret's line below), bracket matching and auto-indent.
+    <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> indent and outdent the selected lines; press
+    <kbd>Esc</kbd> then <kbd>Tab</kbd> to leave it.
+  </p>
+
+  <div class="row">
+    <mockitdown-code id="code">
+      VStack(spacing: 12) {
+        // The header
+        Text("Inbox").font(.title)
+        List {
+          Card {
+            Text("Quarterly report")
+            Button("Open") {}.id("open")
+          }
+        }
+      }
+    </mockitdown-code>
+    <mockitdown-mockup id="mockup" pack="base" device="fit" caption="false"></mockitdown-mockup>
+  </div>
+  <p><button id="after" type="button">After the code view</button></p>
+
+  <script type="module">
+    import { check, loadAssetsFromUrl } from "../dist/mockitdown.js";
+    await customElements.whenDefined("mockitdown-code");
+    await loadAssetsFromUrl();
+    const code = document.getElementById("code");
+    const mockup = document.getElementById("mockup");
+    const show = () => {
+      mockup.code = code.value;
+      code.diagnostics = check(code.value, { pack: "base" });
+    };
+    code.addEventListener("input", show);
+    show();
+    window.mockitdownDemo = "rendered";
+  </script>
+</body>
+</html>
