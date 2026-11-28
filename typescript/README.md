@@ -242,9 +242,11 @@ session.unwrap();                    // the one selected container replaced by i
 session.convert("VBtn");             // same role only; keeps the labels VBtn understands and its params' positions
 session.extractComponent("OrderCard"); // struct OrderCard: View { var body: some View { … } }, called as OrderCard()
 
-session.commands;                    // [{name, label, shortcut, enabled}, …] for a host's menus, 16 commands
+session.commands;                    // [{name, label, shortcut, enabled}, …] for a host's menus, 18 commands
 session.run("wrap", { name: "VStack" }); // any command by name: {name} for wrap/convert/extract, {text} for paste,
-                                     // {mockup} for duplicateMockup/deleteMockup
+                                     // {mockup} for duplicateMockup/deleteMockup, {name} for newSection,
+                                     // {section} for deleteSection
+designer.run("newSection");          // as session.run; without a name: "Section <n>", named in the inline field
 ```
 
 Unwrap is refused for a node whose content declares a closure parameter (a `ForEach`) or a `let`, and
@@ -609,7 +611,15 @@ its top left corner (part `section-label`) and a resize handle on every edge and
   units wide and high). Double-click the label to rename it (an empty name is refused beside the field;
   section names need not be unique). Each is one undo step notifying `change` of kind `sections`, whose
   `mockup` and `code` are empty.
-- `session.newSection(name)` adds a section enclosing the active mockup's frame with a 40-unit margin.
+- `session.newSection(name)` adds a section enclosing the active mockup's frame with a 40-unit margin
+  and makes it the current section; a click on a section's label makes it current too
+  (`session.setCurrentSection(index)`, `session.currentSection`; `data-current` on its `section` part,
+  none in Preview mode). `session.deleteSection(index)` removes a section, the current one by default,
+  leaving every frame where it is (one undo step); deleting the last section of a document that opened
+  without `sections` removes the key, so a section added and deleted leaves the document as it was.
+- `session.commands` offers both as New Section and Delete Section; `designer.run("newSection")` without a
+  name adds `Section <n>` and opens the inline field over its label (Enter names it; an empty name or Esc
+  keeps `Section <n>`); `canvas.editSectionName(index)` opens that field on any section.
 - `designer.toJSON()` writes the canvas's zoom and position and the active mockup's name to the
   document's `view` (`session.saveView(canvas.view)`), and `open` restores them; when neither differs
   from what the document opened with, the document is left as it was read, so opening and writing back
@@ -620,6 +630,7 @@ session.newSection("Onboarding");             // {section: 1} or {error}
 session.moveSection(1, 400, 0);               // the frames inside move with it
 session.resizeSection(1, { x: 400, y: 0, w: 900, h: 700 });
 session.renameSection(1, "Onboarding flow");
+session.deleteSection();                      // the current section; {section: 1} or {error}
 import { sectionAround, framesInside, snapSectionMove, resizeSectionBox, documentView } from "mockitdown/design";
 ```
 

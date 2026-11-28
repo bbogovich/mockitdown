@@ -57,7 +57,8 @@
 import { registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
 import { CodeSync } from "../design/code-sync.js";
-import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
+import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type CommandArgs, type DesignNotification } from "../design/session.js";
+import { newSectionName } from "../design/sections.js";
 import { REVEAL_EVENT } from "../design/diagnostics.js";
 import { ZOOM_STEPS } from "../design/canvas.js";
 import { CANVAS_TAG, VIEW_EVENT, type CanvasElement } from "./canvas.js";
@@ -329,6 +330,19 @@ export class DesignerElement extends Base {
   /** The design session the designer owns and its components join (C1); a new one with each `open`. */
   get session(): DesignSession {
     return this.#session;
+  }
+
+  /**
+   * Run one of the session's commands by its name for a host's menu (R-EDIT-009.C8), as `session.run`
+   * does, except New Section without a name (R-TOOL-014.C14): the section is added as `Section <n>`
+   * ({@link newSectionName}) and the canvas's inline field opens over its label to name it, an empty or
+   * cancelled name keeping `Section <n>`.
+   */
+  run(command: string, args: CommandArgs = {}): ReturnType<DesignSession["run"]> {
+    if (command !== "newSection" || (args && typeof args.name === "string")) return this.#session.run(command, args);
+    const result = this.#session.newSection(newSectionName(this.#session.sections));
+    if (!("error" in result)) this.canvas?.editSectionName(result.section);
+    return result;
   }
 
   /** The opened document with every edit applied (C6): what {@link toJSON} returns; setting it opens it. */

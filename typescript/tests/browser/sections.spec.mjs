@@ -22,6 +22,14 @@
 //     units. The written document holds those positions and names, the section unchanged, and the view
 //     {zoom 0.75, x, y of the canvas, active "Sign in"}; a fresh designer opening it shows the same view
 //     and active mockup and writes the same text; the sample opened and written back is the sample.
+//   - TC-3, current section: at 100 % with the view at (-100, -100), a click on Flow's label gives
+//     Flow's section part `data-current`, which Preview mode removes and Design mode shows again.
+//   - TC-3, New Section and Delete Section, on DOC without its section (BARE): designer.run("newSection")
+//     adds "Section 1" around Inbox and opens the inline field over its label; "Checkout" and Enter name
+//     it. A second run opens the field holding "Section 2"; Esc keeps that name, and it is current.
+//     designer.run("deleteSection") removes it and its rectangle: one section (Checkout) left, the frames
+//     at (0, 0), (485, 0), (0, 1200), no section current. BARE with a section added and deleted writes back
+//     as it was opened (F-20.AC8).
 import { expect, test } from "@playwright/test";
 
 const D = "#designer";
@@ -216,5 +224,76 @@ test("TC-1: the canvas's view, active mockup, frames and sections survive toJSON
     return { same: out === text, labels };
   });
   expect(sample).toEqual({ same: true, labels: ["Main"] });
+  expect(errors).toEqual([]);
+});
+
+const BARE = (() => {
+  const d = { ...DOC };
+  delete d.sections;
+  return d;
+})();
+
+test("TC-3: a click on a section's label makes it the current section, which Preview mode hides (C11)", async ({ page }) => {
+  const errors = await open(page);
+  await expect(section(page, 0)).not.toHaveAttribute("data-current");
+  await setView(page, { zoom: 1, x: -100, y: -100 });
+  const box = await sectionLabel(page, 0).boundingBox();
+  await page.mouse.click(box.x + Math.min(10, box.width / 2), box.y + box.height / 2);
+  await expect(section(page, 0)).toHaveAttribute("data-current", "");
+  expect(await page.evaluate(() => document.querySelector("#designer").session.currentSection)).toBe(0);
+  await page.evaluate(() => { document.querySelector("#designer").mode = "preview"; });
+  await expect(section(page, 0)).not.toHaveAttribute("data-current");
+  await page.evaluate(() => { document.querySelector("#designer").mode = "design"; });
+  await expect(section(page, 0)).toHaveAttribute("data-current", "");
+  expect(errors).toEqual([]);
+});
+
+test("TC-3: New Section names its section in the inline field, Delete Section removes the current one (C12, C14)", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(String(e)));
+  await page.goto("/pages/designer.html");
+  await page.waitForFunction(() => window.mockitdownDemo === "rendered");
+  await page.evaluate(async (doc) => {
+    const d = document.querySelector("#designer");
+    await d.open(doc);
+    await d.rendered;
+  }, BARE);
+  const run = (name, args) => page.evaluate(([n, a]) => document.querySelector("#designer").run(n, a), [name, args]);
+  expect(await run("newSection")).toEqual({ section: 0 });
+  const field0 = sectionLabel(page, 0).locator(`[part="rename-field"]`);
+  await expect(field0).toBeFocused();
+  await expect(field0).toHaveValue("Section 1");
+  await field0.fill("Checkout");
+  await field0.press("Enter");
+  await expect(field0).toBeHidden();
+  await expect(sectionLabel(page, 0)).toHaveText("Checkout");
+  expect(await run("newSection")).toEqual({ section: 1 });
+  const field1 = sectionLabel(page, 1).locator(`[part="rename-field"]`);
+  await expect(field1).toHaveValue("Section 2");
+  await field1.press("Escape");
+  await expect(field1).toBeHidden();
+  await expect(sectionLabel(page, 1)).toHaveText("Section 2");
+  await expect(section(page, 1)).toHaveAttribute("data-current", "");
+  expect((await sections(page)).map((s) => s.name)).toEqual(["Checkout", "Section 2"]);
+
+  expect(await run("deleteSection")).toEqual({ section: 1 });
+  await expect(page.locator(`${D} mockitdown-canvas [part="section"]`)).toHaveCount(1);
+  await expect(page.locator(`${D} mockitdown-canvas [part="section"][data-current]`)).toHaveCount(0);
+  expect((await sections(page)).map((s) => s.name)).toEqual(["Checkout"]);
+  expect(await positions(page)).toEqual([["Sign in", 0, 0], ["Inbox", 485, 0], ["Message", 0, 1200]]);
+  expect(await page.evaluate(() => document.querySelector("#designer").session.currentSection)).toBe(null);
+
+  // F-20.AC8: a section added and then deleted leaves the document as it was opened.
+  const same = await page.evaluate(async (doc) => {
+    const { writeDesign } = await import("/dist/design.js");
+    const d = document.querySelector("#designer");
+    await d.open(doc);
+    await d.rendered;
+    const before = writeDesign(d.toJSON());
+    d.session.newSection("Flow");
+    d.session.deleteSection();
+    return writeDesign(d.toJSON()) === before;
+  }, BARE);
+  expect(same).toBe(true);
   expect(errors).toEqual([]);
 });

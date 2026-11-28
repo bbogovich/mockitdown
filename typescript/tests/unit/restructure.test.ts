@@ -341,27 +341,28 @@ test("TC-1: extract component is refused for a taken or invalid name and for a s
   refused(s, s.extractComponent("ItemRows"), /^nothing is selected$/);
 });
 
-test("TC-2: session.commands lists the sixteen commands with labels, shortcuts and whether each is enabled (C8)", () => {
+test("TC-2: session.commands lists the eighteen commands with labels, shortcuts and whether each is enabled (C8)", () => {
   const s = session(BUTTONS);
   const names = s.commands.map((c) => c.name);
-  assert.deepEqual(names, ["delete", "duplicate", "cut", "copy", "paste", "moveUp", "moveDown", "wrap", "unwrap", "convert", "extractComponent", "newMockup", "duplicateMockup", "deleteMockup", "undo", "redo"]);
+  assert.deepEqual(names, ["delete", "duplicate", "cut", "copy", "paste", "moveUp", "moveDown", "wrap", "unwrap", "convert", "extractComponent", "newMockup", "duplicateMockup", "deleteMockup", "newSection", "deleteSection", "undo", "redo"]);
   assert.deepEqual(s.commands.map((c) => [c.label, c.shortcut]), [
     ["Delete", "Delete"], ["Duplicate", "Mod+D"], ["Cut", "Mod+X"], ["Copy", "Mod+C"], ["Paste", "Mod+V"],
     ["Move Up", "Alt+ArrowUp"], ["Move Down", "Alt+ArrowDown"], ["Wrap in Stack", "Mod+G"], ["Unwrap", "Mod+Shift+G"],
     ["Convert To…", null], ["Extract Component…", null], ["New Mockup", null], ["Duplicate Mockup", null], ["Delete Mockup", null],
+    ["New Section", null], ["Delete Section", null],
     ["Undo", "Mod+Z"], ["Redo", "Mod+Shift+Z"],
   ]);
   const enabled = () => Object.fromEntries(s.commands.map((c) => [c.name, c.enabled]));
   assert.deepEqual(enabled(), {
     delete: false, duplicate: false, cut: false, copy: false, paste: true, moveUp: false, moveDown: false,
     wrap: false, unwrap: false, convert: false, extractComponent: false,
-    newMockup: true, duplicateMockup: true, deleteMockup: true, undo: false, redo: false,
+    newMockup: true, duplicateMockup: true, deleteMockup: true, newSection: true, deleteSection: false, undo: false, redo: false,
   }, "nothing selected");
   s.select([node(s, 'Text("Title")')]);
   assert.deepEqual(enabled(), {
     delete: true, duplicate: true, cut: true, copy: true, paste: true, moveUp: false, moveDown: true,
     wrap: true, unwrap: false, convert: true, extractComponent: true,
-    newMockup: true, duplicateMockup: true, deleteMockup: true, undo: false, redo: false,
+    newMockup: true, duplicateMockup: true, deleteMockup: true, newSection: true, deleteSection: false, undo: false, redo: false,
   }, "a leaf at the first position");
   s.select([node(s, "VStack")]);
   assert.equal(enabled().unwrap, true, "a container");

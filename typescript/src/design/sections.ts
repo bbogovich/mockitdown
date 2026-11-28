@@ -63,6 +63,14 @@ export function resizeSectionBox(section: CanvasBox, edge: SectionEdge, dx: numb
   return { x: left, y: top, w: right - left, h: bottom - top };
 }
 
+/**
+ * The name the composite designer gives a section New Section adds without one (R-TOOL-014.C14):
+ * `Section <n>`, `<n>` one more than the number of sections before it.
+ */
+export function newSectionName(sections: readonly unknown[]): string {
+  return `Section ${sections.length + 1}`;
+}
+
 /** Why a section may not be named `name`: an empty name, or one that is not a string; null when it may. */
 export function sectionNameRefusal(name: unknown): string | null {
   return typeof name === "string" && name !== "" ? null : EMPTY_SECTION_NAME;

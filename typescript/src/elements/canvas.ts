@@ -47,7 +47,10 @@
  * `section-label`). Dragging the label moves the section and the frames lying wholly inside it (its
  * corner snapped to the grid, freely with Alt) through `session.moveSection`; dragging an edge or corner
  * (part `section-handle`, `data-edge`) resizes it through `session.resizeSection`; a double-click on the
- * label renames it through `session.renameSection` in the same inline field as a frame's. Each is one
+ * label renames it through `session.renameSection` in the same inline field as a frame's; a click on
+ * the label makes it the session's current section (`session.setCurrentSection`), marked
+ * `data-current` on its `section` part outside Preview mode; `editSectionName(index)` opens the inline
+ * field on a section's label, as the designer's New Section does. Each is one
  * undo step; none in Preview mode.
  *
  * The geometry is `mockitdown/design`'s canvas.ts, frames.ts and sections.ts. The canvas holds no editing
@@ -60,7 +63,8 @@
  * `minimap-frame`, `minimap-viewport`.
  * Custom properties: `--mkd-canvas-background`, `--mkd-canvas-label-color`, `--mkd-selection-color`,
  * `--mkd-canvas-minimap-background`, `--mkd-canvas-minimap-frame`, `--mkd-canvas-minimap-viewport`,
- * `--mkd-canvas-section-background`, `--mkd-canvas-section-border`, `--mkd-canvas-section-label-color`.
+ * `--mkd-canvas-section-background`, `--mkd-canvas-section-border`, `--mkd-canvas-section-label-color`,
+ * `--mkd-canvas-section-current-border`.
  */
 
 import { FENCE_OPTIONS } from "../core/index.js";
@@ -110,6 +114,7 @@ const CANVAS_CSS = `:host{display:block;position:relative;overflow:clip;min-widt
 .mkd-canvas__frame[data-active] .mkd-canvas__label{color:var(--mkd-selection-color,#ff8a00)}
 .mkd-canvas__sections{position:absolute;left:0;top:0;width:0;height:0}
 .mkd-canvas__section{position:absolute;box-sizing:border-box;pointer-events:none;border:calc(1px / var(--mkd-canvas-zoom,1)) solid var(--mkd-canvas-section-border,rgba(47,128,237,.45));border-radius:calc(8px / var(--mkd-canvas-zoom,1));background:var(--mkd-canvas-section-background,rgba(47,128,237,.06))}
+.mkd-canvas__section[data-current]{border-color:var(--mkd-canvas-section-current-border,rgba(47,128,237,.9));box-shadow:0 0 0 calc(1px / var(--mkd-canvas-zoom,1)) var(--mkd-canvas-section-current-border,rgba(47,128,237,.9))}
 .mkd-canvas__section-label{position:absolute;left:0;top:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;box-sizing:border-box;pointer-events:auto;font:600 calc(13px / var(--mkd-canvas-zoom,1))/1.3 system-ui,sans-serif;padding:calc(6px / var(--mkd-canvas-zoom,1)) calc(10px / var(--mkd-canvas-zoom,1));color:var(--mkd-canvas-section-label-color,#2f5fa8);user-select:none;-webkit-user-select:none;touch-action:none}
 :host(:not([preview])) .mkd-canvas__section-label{cursor:grab}
 .mkd-canvas__section-handle{position:absolute;pointer-events:auto;touch-action:none;--t:calc(8px / var(--mkd-canvas-zoom,1))}
@@ -193,7 +198,7 @@ export class CanvasElement extends Base {
   /** The frame being moved by its label (R-TOOL-012.C1, C2). */
   #move: { id: number; name: string; sx: number; sy: number; x: number; y: number; w: number; h: number; others: CanvasBox[]; at: { x: number; y: number } | null } | null = null;
   /** The rename field open on a mockup's label (R-TOOL-012.C3, C5) or, with `section`, a section's (R-TOOL-014.C3). */
-  #rename: { name: string; label: HTMLElement; input: HTMLInputElement; error: HTMLElement; section?: number } | null = null;
+  #rename: { name: string; label: HTMLElement; input: HTMLInputElement; error: HTMLElement; section?: number; keepEmpty?: boolean } | null = null;
   /** What the canvas gives its session as `measure`: its frames' sizes. */
   readonly #measure: FrameMeasure = (name) => {
     const box = this.#boxes().get(name);
@@ -370,6 +375,9 @@ export class CanvasElement extends Base {
       case "active":
         this.#draw();
         break;
+      case "section":
+        this.#drawSections();
+        break;
     }
     this.#link.forward(n);
   }
@@ -438,7 +446,9 @@ export class CanvasElement extends Base {
    * `data-edge`).
    */
   #drawSections(): void {
-    const sections = this.#link.current?.sections ?? [];
+    const session = this.#link.current;
+    const sections = session?.sections ?? [];
+    const current = this.hasAttribute("preview") ? null : session?.currentSection ?? null;
     while (this.#sectionEls.length > sections.length) this.#sectionEls.pop()!.remove();
     sections.forEach((s, k) => {
       let el = this.#sectionEls[k];
@@ -461,6 +471,7 @@ export class CanvasElement extends Base {
         this.#sectionEls[k] = el;
       }
       el.dataset.section = String(k);
+      el.toggleAttribute("data-current", k === current);
       const label = el.firstElementChild as HTMLElement;
       if (this.#rename?.label !== label && label.textContent !== s.name) label.textContent = s.name;
       this.#placeSection(el, s);
@@ -643,8 +654,23 @@ export class CanvasElement extends Base {
     this.#openRename(hit.label, hit.name, "Mockup name");
   }
 
-  /** Open the rename field on a mockup's label, or with `section` on that section's label. */
-  #openRename(label: HTMLElement, name: string, aria: string, section?: number): void {
+  /**
+   * Open the inline field on section `index`'s label to name it (R-TOOL-014.C14), as the designer's New
+   * Section does: Enter renames it through `session.renameSection`; an empty name, Esc or leaving the
+   * field keeps its name. Nothing in Preview mode or for an index no section has.
+   */
+  editSectionName(index: number): void {
+    const el = this.#sectionEls[index];
+    const section = this.#link.current?.sections[index];
+    if (this.hasAttribute("preview") || !el || !section) return;
+    this.#openRename(el.firstElementChild as HTMLElement, section.name, "Section name", index, true);
+  }
+
+  /**
+   * Open the rename field on a mockup's label, or with `section` on that section's label; `keepEmpty`
+   * makes an empty name keep the name instead of being refused.
+   */
+  #openRename(label: HTMLElement, name: string, aria: string, section?: number, keepEmpty = false): void {
     const hit = { label, name };
     this.#closeRename();
     const input = document.createElement("input");
@@ -661,7 +687,7 @@ export class CanvasElement extends Base {
     error.setAttribute("role", "alert");
     error.hidden = true;
     hit.label.replaceChildren(input, error);
-    const rename = { name: hit.name, label: hit.label, input, error, ...(section !== undefined ? { section } : {}) };
+    const rename = { name: hit.name, label: hit.label, input, error, ...(section !== undefined ? { section } : {}), keepEmpty };
     this.#rename = rename;
     input.addEventListener("keydown", (k) => {
       if (k.key === "Enter") {
@@ -692,7 +718,7 @@ export class CanvasElement extends Base {
   #commitRename(leaving: boolean): void {
     const r = this.#rename;
     if (!r) return;
-    const result = r.input.value === r.name ? { mockup: r.name }
+    const result = r.input.value === r.name || (r.keepEmpty && r.input.value === "") ? { mockup: r.name }
       : r.section !== undefined ? this.session.renameSection(r.section, r.input.value)
       : this.session.renameMockup(r.name, r.input.value);
     if ("error" in result) {
@@ -779,7 +805,11 @@ export class CanvasElement extends Base {
     if (!d || d.id !== e.pointerId) return;
     const at = d.at ? this.#sectionAt(e) : null;
     this.#sectionDrag = null;
-    if (!at) return;
+    if (!at) {
+      // A click on the label, not a drag: the section becomes current (R-TOOL-014.C11).
+      if (!cancelled && !d.edge) this.session.setCurrentSection(d.index);
+      return;
+    }
     this.#suppressClick = true;
     setTimeout(() => {
       this.#suppressClick = false;

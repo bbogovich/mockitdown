@@ -32,7 +32,7 @@ export {
 } from "./frames.js";
 export {
   documentView, EMPTY_SECTION_NAME, framesInside, liesInside, resizeSectionBox, SECTION_EDGES, SECTION_MARGIN, SECTION_MIN, sectionAround,
-  sectionNameRefusal, snapSectionMove,
+  newSectionName, sectionNameRefusal, snapSectionMove,
   type SectionEdge,
 } from "./sections.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";

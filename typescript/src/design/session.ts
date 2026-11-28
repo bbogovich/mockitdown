@@ -49,6 +49,7 @@ export type DesignNotification =
   | { kind: "insert"; detail: { mockup: string; node: string; element: string } }
   | { kind: "rename"; detail: { from: string; to: string } }
   | { kind: "active"; detail: { mockup: string } }
+  | { kind: "section"; detail: { section: number | null } }
   | { kind: "diagnostics"; detail: { mockup: string; diagnostics: Diagnostic[] } };
 
 export type DesignNotificationKind = DesignNotification["kind"];
@@ -58,8 +59,8 @@ export type DesignListener = (notification: DesignNotification) => void;
 
 /**
  * The DOM event each notification kind a component dispatches to its host becomes (C7): bubbling and
- * composed, with the notification's detail as the event's `detail`. `hover` and `active` stay inside
- * the design tools.
+ * composed, with the notification's detail as the event's `detail`. `hover`, `active` and `section`
+ * (the current section, R-TOOL-014.C11) stay inside the design tools.
  */
 export const DESIGN_EVENTS = {
   select: "mockitdown-select",
@@ -120,7 +121,7 @@ interface CommandPlan {
 export type CommandName =
   | "delete" | "duplicate" | "cut" | "copy" | "paste" | "moveUp" | "moveDown"
   | "wrap" | "unwrap" | "convert" | "extractComponent" | "newMockup" | "duplicateMockup" | "deleteMockup"
-  | "undo" | "redo";
+  | "newSection" | "deleteSection" | "undo" | "redo";
 
 /**
  * A command as a host's menu shows it (R-EDIT-009.C8): its name for {@link DesignSession.run}, its label,
@@ -135,13 +136,15 @@ export interface DesignCommand {
 }
 
 /**
- * The arguments of {@link DesignSession.run}: `name` for wrap, convert and extract, `text` for paste,
- * `mockup` for duplicateMockup and deleteMockup (default: the active mockup).
+ * The arguments of {@link DesignSession.run}: `name` for wrap, convert, extract and newSection, `text`
+ * for paste, `mockup` for duplicateMockup and deleteMockup (default: the active mockup), `section` for
+ * deleteSection (default: the current section).
  */
 export interface CommandArgs {
   name?: string;
   text?: string;
   mockup?: string;
+  section?: number;
 }
 
 /** The element wrap's menu entry and shortcut wrap in (R-EDIT-009.C9). */
@@ -162,6 +165,8 @@ const COMMANDS: readonly { name: CommandName; label: string; shortcut: string | 
   { name: "newMockup", label: "New Mockup", shortcut: null },
   { name: "duplicateMockup", label: "Duplicate Mockup", shortcut: null },
   { name: "deleteMockup", label: "Delete Mockup", shortcut: null },
+  { name: "newSection", label: "New Section", shortcut: null },
+  { name: "deleteSection", label: "Delete Section", shortcut: null },
   { name: "undo", label: "Undo", shortcut: "Mod+Z" },
   { name: "redo", label: "Redo", shortcut: "Mod+Shift+Z" },
 ];
@@ -325,6 +330,10 @@ export class DesignSession {
   private cursor = 0;
   /** The step a coalescing change may still merge into: the latest, until an undo or a redo. */
   private open: Step | null = null;
+  /** The current section (R-TOOL-014.C11), held as the object so that it follows its index. */
+  private current: DesignSection | null = null;
+  /** Whether the document was opened with `sections`, which deleting its last section then keeps (R-TOOL-014.C15). */
+  private readonly openedWithSections: boolean;
 
   /**
    * A session over `document`. The active mockup is the one the document's `view.active` names, else
@@ -336,6 +345,7 @@ export class DesignSession {
     this.now = options.now ?? Date.now;
     this.measure = options.measure ?? null;
     this.historyLimit = Math.max(HISTORY_LIMIT, Math.floor(options.historyLimit ?? HISTORY_LIMIT));
+    this.openedWithSections = document.sections !== undefined;
     const viewActive = document.view?.active;
     this.activeName = typeof viewActive === "string" && findMockup(document, viewActive)
       ? viewActive
@@ -807,7 +817,8 @@ export class DesignSession {
    * shortcut in the composite designer and whether it is enabled for the current selection — wrap for
    * {@link WRAP_DEFAULT}, convert for one selected element of the pack, extract for a selection it could
    * extract under a free name, paste whenever the active mockup's code parses; newMockup always,
-   * duplicateMockup and deleteMockup whenever there is an active mockup (R-TOOL-013.C4).
+   * duplicateMockup and deleteMockup whenever there is an active mockup (R-TOOL-013.C4), newSection
+   * whenever there is an active mockup and deleteSection whenever a section is current (R-TOOL-014.C13).
    */
   get commands(): DesignCommand[] {
     const name = this.activeName;
@@ -821,7 +832,8 @@ export class DesignSession {
       if (c === "undo") return this.canUndo;
       if (c === "redo") return this.canRedo;
       if (c === "newMockup") return true;
-      if (c === "duplicateMockup" || c === "deleteMockup") return name !== null;
+      if (c === "duplicateMockup" || c === "deleteMockup" || c === "newSection") return name !== null;
+      if (c === "deleteSection") return this.currentSection !== null;
       if (!tree) return false;
       switch (c) {
         case "paste": return true;
@@ -845,10 +857,11 @@ export class DesignSession {
   /**
    * Run a command by its name (C8) with its arguments: `{name}` for wrap (default {@link WRAP_DEFAULT}),
    * convert and extractComponent, `{text}` for paste, `{mockup}` for duplicateMockup and deleteMockup
-   * (newMockup takes none: a `VStack`). Returns what the command's method returns; copy returns
+   * (newMockup takes none: a `VStack`), `{name}` for newSection and `{section}` for deleteSection
+   * (R-TOOL-014.C13). Returns what the command's method returns; copy returns
    * `{text}`. An unknown name is refused.
    */
-  run(command: string, args: CommandArgs = {}): EditResult | EditRefusal | CutResult | { text: string } | { mockup: string } | { mockup: string; edits: TextEdit[] } | Refused {
+  run(command: string, args: CommandArgs = {}): EditResult | EditRefusal | CutResult | { text: string } | { mockup: string } | { mockup: string; edits: TextEdit[] } | { section: number } | Refused {
     const a = args ?? {};
     switch (command) {
       case "delete": return this.delete();
@@ -865,6 +878,8 @@ export class DesignSession {
       case "newMockup": return this.newMockup();
       case "duplicateMockup": return this.duplicateMockup(a.mockup);
       case "deleteMockup": return this.deleteMockup(a.mockup);
+      case "newSection": return this.newSection(a.name as string);
+      case "deleteSection": return this.deleteSection(a.section);
       case "undo": return this.undo();
       case "redo": return this.redo();
     }
@@ -1444,10 +1459,59 @@ export class DesignSession {
     if (refused !== null) return { error: refused };
     const active = this.activeName === null ? null : this.mockup(this.activeName);
     if (!active) return { error: "there is no active mockup" };
+    const section: DesignSection = { name, ...sectionAround(this.box(active)) };
     return this.changeSections((list) => {
-      list.push({ name, ...sectionAround(this.box(active)) });
+      list.push(section);
       return list.length - 1;
-    });
+    }, section);
+  }
+
+  /**
+   * The current section's index (R-TOOL-014.C11), the one a click on its label chose or newSection
+   * added, which deleteSection removes by default; null when none is.
+   */
+  get currentSection(): number | null {
+    const k = this.current ? this.sections.indexOf(this.current) : -1;
+    return k < 0 ? null : k;
+  }
+
+  /**
+   * Make section `index` the current section, or none with null (C11): notifies `section` when it
+   * changes; no step of the history. Refused for an index no section has.
+   */
+  setCurrentSection(index: number | null): { section: number | null } | Refused {
+    if (index === null) {
+      this.makeCurrent(null);
+      return { section: null };
+    }
+    const section = this.sections[index];
+    if (!section) return { error: `there is no section ${index}` };
+    this.makeCurrent(section);
+    return { section: index };
+  }
+
+  /**
+   * Delete section `index`, the current section by default (C12): the section leaves the document's
+   * `sections` (and the key with its last section when the document opened without one, C15), every
+   * frame stays where it is, and no section is current. One `change` of kind `sections`; one undo step.
+   * Refused, changing nothing, for an index no section has and, without one, with no current section.
+   */
+  deleteSection(index?: number): { section: number } | Refused {
+    const k = index ?? this.currentSection;
+    if (k === null) return { error: "no section is current" };
+    if (!this.sections[k]) return { error: `there is no section ${k}` };
+    return this.changeSections((list) => {
+      list.splice(k, 1);
+      return k;
+    }, null);
+  }
+
+  /** Make `section` (or none) the current section, notifying `section` when that changes. */
+  private makeCurrent(section: DesignSection | null): void {
+    const before = this.currentSection;
+    this.current = section;
+    const after = this.currentSection;
+    if (after !== before) this.notify({ kind: "section", detail: { section: after } });
   }
 
   /**
@@ -1528,12 +1592,18 @@ export class DesignSession {
     return target;
   }
 
-  /** Change the sections as one step of the history: `change` the document's list of sections, notify, settle. */
-  private changeSections(change: (list: DesignSection[]) => number): { section: number } {
+  /**
+   * Change the sections as one step of the history: `change` the document's list of sections, notify,
+   * settle. With `current` (a section, or null for none) the current section becomes it before `change`
+   * is notified, which then also stands for the change of the current section.
+   */
+  private changeSections(change: (list: DesignSection[]) => number, current?: DesignSection | null): { section: number } {
     const place = this.place();
     const before = this.sectionsSnapshot();
     const list = (this.document.sections ??= []);
     const index = change(list);
+    if (list.length === 0 && !this.openedWithSections) delete this.document.sections;
+    if (current !== undefined) this.current = current;
     const step: SectionStep = {
       mockup: null, kind: "sections", before, after: this.sectionsSnapshot(), placeBefore: place, placeAfter: place, key: undefined, time: this.now(),
     };
@@ -1566,6 +1636,8 @@ export class DesignSession {
       m.x = x;
       m.y = y;
     }
+    // A current section the snapshot does not hold is current no more.
+    if (this.currentSection === null) this.current = null;
     this.notify({ kind: "change", detail: { kind: "sections", mockup: "", edits: [], code: "" } });
     return { mockup: "", edits: [] };
   }

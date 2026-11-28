@@ -201,7 +201,8 @@ test("TC-2: session.commands lists the mockup commands, enabled as there is an a
     ["deleteMockup", "Delete Mockup", null, true],
   ]);
   const order = s.commands.map((c) => c.name);
-  assert.equal(order.indexOf("deleteMockup") + 1, order.indexOf("undo"));
+  assert.equal(order.indexOf("deleteMockup") + 1, order.indexOf("newSection"), "the section commands follow (R-TOOL-014.C13)");
+  assert.equal(order.indexOf("deleteSection") + 1, order.indexOf("undo"));
   const empty = new DesignSession(newDesign("Empty"));
   const enabled = Object.fromEntries(empty.commands.map((c) => [c.name, c.enabled]));
   assert.equal(enabled.newMockup, true);
