@@ -24,11 +24,11 @@
 
 import { newDesign } from "../design/document.js";
 import { activateDiagnostic, diagnosticEntries, NO_PROBLEMS, REVEAL_EVENT } from "../design/diagnostics.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DesignSession, type DesignNotification } from "../design/session.js";
+import { SessionLink } from "./session-link.js";
 
 export const DIAGNOSTICS_TAG = "mockitdown-diagnostics";
 export { NO_PROBLEMS, REVEAL_EVENT };
-const DESIGNER_TAG = "mockitdown-designer";
 
 const DIAGNOSTICS_CSS = `:host{display:block;font:12px/1.4 system-ui,sans-serif;color:inherit;min-width:0}
 :host([hidden]){display:none}
@@ -47,10 +47,11 @@ const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLEleme
 export class DiagnosticsElement extends Base {
   #root: ShadowRoot;
   #body: HTMLElement;
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => new DesignSession(newDesign(DIAGNOSTICS_TAG)),
+    notified: (n) => this.#notified(n),
+    joined: () => this.#draw(),
+  });
 
   constructor() {
     super();
@@ -65,12 +66,11 @@ export class DiagnosticsElement extends Base {
 
   /** The design session whose active mockup it lists (R-EDIT-006.C11); setting it gives the host's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** Resolves once the list shows the session's state: it draws synchronously. */
@@ -94,45 +94,19 @@ export class DiagnosticsElement extends Base {
   }
 
   connectedCallback(): void {
-    this.#attach();
+    this.#link.attach();
     this.#draw();
   }
 
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(DIAGNOSTICS_TAG)));
-    if (next !== this.#session) {
-      this.#unsubscribe?.();
-      this.#session = next;
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#draw();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
-  }
-
   #notified(n: DesignNotification): void {
-    if (n.kind === "active" || (n.kind === "diagnostics" && n.detail.mockup === this.#session?.active)) this.#draw();
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    if (n.kind === "active" || (n.kind === "diagnostics" && n.detail.mockup === this.#link.current?.active)) this.#draw();
+    this.#link.forward(n);
   }
 
   #draw(): void {
-    if (!this.#session) return;
+    if (!this.#link.current) return;
     const doc = this.#root.ownerDocument ?? document;
-    const entries = diagnosticEntries(this.#session);
+    const entries = diagnosticEntries(this.#link.current);
     const focused = (this.#root.activeElement as HTMLElement | null)?.dataset?.index;
     if (!entries.length) {
       const p = doc.createElement("p");

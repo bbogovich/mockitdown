@@ -47,19 +47,19 @@ import { assetsLoaded, ViewList, type Pack, type View } from "../core/index.js";
 import type { ViewNode } from "../core/syntax/tree.js";
 import { mockupOptions, newDesign } from "../design/document.js";
 import { DEFAULT_NAME_WARNING, isDefaultName } from "../design/frames.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification, type DropPosition, type DropZone } from "../design/session.js";
+import { DesignSession, type DesignNotification, type DropPosition, type DropZone } from "../design/session.js";
 import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { armDrag, registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, evaluateWithImports } from "./mockup.js";
 import { RenderScheduler } from "./scheduler.js";
+import { SessionLink } from "./session-link.js";
 
 export const OUTLINE_TAG = "mockitdown-outline";
 /** The attributes the outline observes: the base URL its mockups' imports resolve against. */
 export const OUTLINE_ATTRIBUTES: readonly string[] = ["import-base"];
 /** The indent of one level of the tree, in CSS pixels (C3). */
 export const OUTLINE_INDENT = 14;
-const DESIGNER_TAG = "mockitdown-designer";
 /** Typed characters within this many milliseconds of each other form one search (C5). */
 const TYPEAHEAD_MS = 600;
 
@@ -178,10 +178,14 @@ export class OutlineElement extends Base {
   }
 
   #root: ShadowRoot;
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => new DesignSession(newDesign(OUTLINE_TAG)),
+    notified: (n) => this.#notified(n),
+    joined: () => {
+      this.#current = null;
+      this.#scheduler.schedule();
+    },
+  });
   #tree: HTMLElement | null = null;
   #mockupsPanel: HTMLElement | null = null;
   #treePanel: HTMLElement | null = null;
@@ -249,12 +253,11 @@ export class OutlineElement extends Base {
 
   /** The design session the outline shows (R-EDIT-006.C11); setting it makes the host's session the outline's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** The rows of the active mockup's tree, in document order (visible or not). */
@@ -281,7 +284,7 @@ export class OutlineElement extends Base {
   // --- lifecycle ----------------------------------------------------------------------------------
 
   connectedCallback(): void {
-    this.#attach();
+    this.#link.attach();
     this.#scheduler.schedule();
   }
 
@@ -291,32 +294,8 @@ export class OutlineElement extends Base {
 
   // --- the session --------------------------------------------------------------------------------
 
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(OUTLINE_TAG)));
-    if (next !== this.#session) {
-      this.#unsubscribe?.();
-      this.#session = next;
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#current = null;
-      this.#scheduler.schedule();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
-  }
-
   #notified(n: DesignNotification): void {
-    const session = this.#session;
+    const session = this.#link.current;
     switch (n.kind) {
       case "change":
         if (n.detail.kind === "mockups") this.#drawMockups();
@@ -347,10 +326,7 @@ export class OutlineElement extends Base {
         this.#draw();
         break;
     }
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    this.#link.forward(n);
   }
 
   // --- building the rows --------------------------------------------------------------------------
@@ -456,7 +432,7 @@ export class OutlineElement extends Base {
 
   #draw(): void {
     const tree = this.#tree;
-    const session = this.#session;
+    const session = this.#link.current;
     if (!tree || !session) return;
     const name = session.active;
     const shown = name !== null && name === this.#rowsOf;
@@ -539,7 +515,7 @@ export class OutlineElement extends Base {
 
   #drawMockups(): void {
     const list = this.#mockupsPanel?.querySelector("ul");
-    const session = this.#session;
+    const session = this.#link.current;
     if (!list || !session) return;
     const doc = list.ownerDocument;
     list.replaceChildren(...session.document.mockups.map((m) => {
@@ -568,8 +544,8 @@ export class OutlineElement extends Base {
   #activateRow(e: Event): void {
     const row = e.composedPath().find((t) => t instanceof HTMLElement && t.classList.contains("mkd-outline__mockup")) as HTMLElement | undefined;
     const name = row?.dataset.mockup;
-    if (name === undefined || !this.#session) return;
-    this.#session.setActive(name);
+    if (name === undefined || !this.#link.current) return;
+    this.#link.current.setActive(name);
     // The list is redrawn on `active`: keep the focus on the row of the mockup made active.
     const again = this.#mockupsPanel?.querySelector<HTMLElement>(`[data-mockup="${CSS.escape(name)}"]`);
     if (e.type === "keydown") again?.focus();
@@ -710,7 +686,7 @@ export class OutlineElement extends Base {
 
   /** C2, C4: the drop position at a point — before, inside or after the row by its thirds — and the session's answer. */
   #dragOver(drag: Drag, x: number, y: number): DropAnswer | null {
-    const session = this.#session;
+    const session = this.#link.current;
     if (!session || drag.session !== session || session.active === null || session.active !== this.#rowsOf || this.#tab !== "elements") {
       this.#showDrop(null);
       return null;
@@ -792,7 +768,7 @@ export class OutlineElement extends Base {
   }
 
   #setHover(id: string | null): void {
-    const session = this.#session;
+    const session = this.#link.current;
     if (!session || session.active === null || session.active !== this.#rowsOf) return;
     if (session.hovered !== id) session.hover(id);
   }

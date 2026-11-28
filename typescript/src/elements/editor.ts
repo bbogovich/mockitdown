@@ -51,20 +51,20 @@
 
 import { assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS, Location } from "../core/index.js";
 import { mockupOptions, newDesign } from "../design/document.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DesignSession, type DesignNotification } from "../design/session.js";
 import type { DropPosition } from "../design/session.js";
 import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, renderWithImports, SCRIPT_TYPE, scriptCode, showInShadow } from "./mockup.js";
 import { RenderScheduler, renderFailure } from "./scheduler.js";
+import { SessionLink } from "./session-link.js";
 
 export const EDITOR_TAG = "mockitdown-editor";
 /** The attributes the editor observes: `mockup`, the fence attributes (its own session's defaults) and the two base URLs. */
 export const EDITOR_ATTRIBUTES: readonly string[] = ["mockup", ...FENCE_OPTIONS.keys(), "import-base", "asset-base"];
 /** The name of the mockup of an editor's own session when its `mockup` attribute names none. */
 const OWN_MOCKUP = "Mockup";
-const DESIGNER_TAG = "mockitdown-designer";
 /** Below this distance from the editor's top edge a tag or badge is drawn inside its outline. */
 const LABEL_ROOM = 18;
 
@@ -127,10 +127,16 @@ export class EditorElement extends Base {
   }
 
   #root: ShadowRoot;
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => this.#ownSession(),
+    notified: (n) => this.#notified(n),
+    joined: () => {
+      this.#trail = [];
+      this.#cycle = null;
+      this.#hoverEl = null;
+      this.#scheduler.schedule();
+    },
+  });
   #observer: MutationObserver | null = null;
   #resize: ResizeObserver | null = null;
   #view: HTMLElement | null = null;
@@ -178,12 +184,11 @@ export class EditorElement extends Base {
 
   /** The design session the editor shows (R-EDIT-006.C11); setting it makes the host's session the editor's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** The name of the mockup shown: the `mockup` attribute, else the session's active mockup. */
@@ -233,7 +238,7 @@ export class EditorElement extends Base {
       this.#resize ??= new ResizeObserver(() => this.#drawOverlay());
       this.#resize.observe(this);
     }
-    this.#attach();
+    this.#link.attach();
     this.#scheduler.schedule();
   }
 
@@ -244,38 +249,11 @@ export class EditorElement extends Base {
 
   attributeChangedCallback(name: string, old: string | null, value: string | null): void {
     if (old === value) return;
-    if (this.#own && this.#session === this.#own && FENCE_OPTIONS.has(name)) this.#own.document.defaults = this.#fenceOptions()[0];
+    if (this.#link.own && this.#link.isOwn && FENCE_OPTIONS.has(name)) this.#link.own.document.defaults = this.#fenceOptions()[0];
     this.#scheduler.schedule();
   }
 
   // --- the session --------------------------------------------------------------------------------
-
-  /** Join the nearest designer's session, else the host's, else one of its own; subscribe when it changed. */
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= this.#ownSession());
-    if (next !== this.#session) {
-      this.#unsubscribe?.();
-      this.#session = next;
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#trail = [];
-      this.#cycle = null;
-      this.#hoverEl = null;
-      this.#scheduler.schedule();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
-  }
 
   #ownSession(): DesignSession {
     const doc = newDesign(EDITOR_TAG);
@@ -305,9 +283,9 @@ export class EditorElement extends Base {
 
   /** The script child changed: an editor with its own session takes it as the mockup's new code. */
   #scriptChanged(): void {
-    if (!this.#own || this.#session !== this.#own) return;
-    const name = this.#own.document.mockups[0]?.name;
-    if (name !== undefined) this.#own.setCode(name, this.#scriptCode());
+    if (!this.#link.own || !this.#link.isOwn) return;
+    const name = this.#link.own.document.mockups[0]?.name;
+    if (name !== undefined) this.#link.own.setCode(name, this.#scriptCode());
   }
 
   #notified(n: DesignNotification): void {
@@ -337,10 +315,7 @@ export class EditorElement extends Base {
         }
         break;
     }
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    this.#link.forward(n);
   }
 
   /** Make the shown mockup the session's active one; null when there is none. */
@@ -373,7 +348,7 @@ export class EditorElement extends Base {
         readOnly = !session.parses(name);
         const result = await renderWithImports(session.validCode(name) ?? "", options, importBase, assetBase, stale);
         if (result === null) return;
-        const fence = this.#session === this.#own
+        const fence = this.#link.isOwn
           ? this.#fenceOptions()[1].map((p) => new Diagnostic("error", p, new Location(), "fence"))
           : [];
         diagnostics = [...result.diagnostics, ...fence];
@@ -640,7 +615,7 @@ export class EditorElement extends Base {
   }
 
   #setHover(id: string | null): void {
-    const session = this.#session;
+    const session = this.#link.current;
     const name = this.mockup;
     if (session && name !== null && session.active === name) session.hover(id);
   }
@@ -649,7 +624,7 @@ export class EditorElement extends Base {
 
   /** C3, C4: the innermost container under a point, the gap nearest it, and the session's answer. */
   #dragOver(drag: Drag, x: number, y: number): DropAnswer | null {
-    const session = this.#session;
+    const session = this.#link.current;
     const view = this.#view;
     const name = this.mockup;
     if (!session || !view || drag.session !== session || name === null || session.active !== name) return this.#clearDrop();
@@ -777,7 +752,7 @@ export class EditorElement extends Base {
     const overlay = this.#overlay;
     if (!overlay) return;
     overlay.replaceChildren();
-    const session = this.#session;
+    const session = this.#link.current;
     const name = this.mockup;
     if (!session || name === null || !this.#view) return;
     const host = this.getBoundingClientRect();

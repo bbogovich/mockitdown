@@ -40,13 +40,13 @@ import {
   addArgument, addModifier, inspect, INSPECTOR_DEBOUNCE_MS, removeField, removeModifier, setField,
   type FieldResult, type Inspection, type InspectorField,
 } from "../design/inspect.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DesignSession, type DesignNotification } from "../design/session.js";
+import { SessionLink } from "./session-link.js";
 
 export const INSPECTOR_TAG = "mockitdown-inspector";
 /** The event Edit in code dispatches (C11): `detail: {mockup, node, range: {start, end}}`. */
 export const EDIT_IN_CODE_EVENT = "mockitdown-edit-in-code";
 export { INSPECTOR_DEBOUNCE_MS };
-const DESIGNER_TAG = "mockitdown-designer";
 
 /** The headings of the vocabulary's modifier groups (R-PACK-017.C5). */
 const GROUP_TITLES: Record<string, string> = {
@@ -107,10 +107,15 @@ interface Pending {
 export class InspectorElement extends Base {
   #root: ShadowRoot;
   #body: HTMLElement;
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => new DesignSession(newDesign(INSPECTOR_TAG)),
+    notified: (n) => this.#notified(n),
+    leaving: () => this.flush(),
+    joined: () => {
+      this.#pending.clear();
+      this.#draw();
+    },
+  });
   #view: Inspection | null = null;
   /** Typed values by field key: waiting for their debounce, or refused (C8, C9). */
   #pending = new Map<string, Pending>();
@@ -129,12 +134,11 @@ export class InspectorElement extends Base {
 
   /** The design session the inspector edits (R-EDIT-006.C11); setting it makes the host's session the inspector's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** What the inspector shows now: the model of `inspect` (C1, C10, C12). */
@@ -157,7 +161,7 @@ export class InspectorElement extends Base {
   // --- lifecycle ----------------------------------------------------------------------------------
 
   connectedCallback(): void {
-    this.#attach();
+    this.#link.attach();
     this.#draw();
   }
 
@@ -166,31 +170,6 @@ export class InspectorElement extends Base {
   }
 
   // --- the session --------------------------------------------------------------------------------
-
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(INSPECTOR_TAG)));
-    if (next !== this.#session) {
-      this.flush();
-      this.#unsubscribe?.();
-      this.#session = next;
-      this.#pending.clear();
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#draw();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
-  }
 
   #notified(n: DesignNotification): void {
     switch (n.kind) {
@@ -206,16 +185,13 @@ export class InspectorElement extends Base {
       case "change":
       case "diagnostics":
         // Deleting the last mockup leaves none active and notifies no `active` (R-TOOL-013.C2).
-        if (n.detail.mockup === this.#session?.active || (n.kind === "change" && n.detail.kind === "mockups" && this.#session?.active === null)) this.#draw();
+        if (n.detail.mockup === this.#link.current?.active || (n.kind === "change" && n.detail.kind === "mockups" && this.#link.current?.active === null)) this.#draw();
         break;
       case "rename":
         this.#draw();
         break;
     }
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    this.#link.forward(n);
   }
 
   /** The pack the active mockup renders in: the one its evaluation selects, else its document pack. */
@@ -292,8 +268,8 @@ export class InspectorElement extends Base {
   // --- drawing ------------------------------------------------------------------------------------
 
   #draw(): void {
-    if (!this.#session) return;
-    const view = inspect(this.#session, this.#pack());
+    if (!this.#link.current) return;
+    const view = inspect(this.#link.current, this.#pack());
     this.#view = view;
     const focus = this.#focusState();
     const doc = this.#body.ownerDocument;

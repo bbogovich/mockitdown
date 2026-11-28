@@ -71,8 +71,9 @@ import {
 import { mockupOptions, newDesign } from "../design/document.js";
 import { snapMove } from "../design/frames.js";
 import { documentView, framesInside, resizeSectionBox, SECTION_EDGES, snapSectionMove, type SectionEdge } from "../design/sections.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification, type FrameMeasure } from "../design/session.js";
+import { DesignSession, type DesignNotification, type FrameMeasure } from "../design/session.js";
 import { MOCKUP_TAG } from "./mockup.js";
+import { SessionLink } from "./session-link.js";
 
 export const CANVAS_TAG = "mockitdown-canvas";
 /** The attributes the canvas observes. */
@@ -82,7 +83,6 @@ export const VIEW_EVENT = "mockitdown-view";
 /** The minimap's size in CSS pixels (C7). */
 export const MINIMAP_WIDTH = 160;
 export const MINIMAP_HEIGHT = 110;
-const DESIGNER_TAG = "mockitdown-designer";
 /** Wheel zoom: the factor per pixel of wheel delta, and the largest delta one event counts. */
 const WHEEL_ZOOM = 0.005;
 const WHEEL_ZOOM_MAX = 60;
@@ -162,10 +162,23 @@ export class CanvasElement extends Base {
     box: CanvasBox; inside: { name: string; x: number; y: number }[]; at: CanvasBox | null;
   } | null = null;
   #miniFrames = new Map<string, HTMLElement>();
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => new DesignSession(newDesign(CANVAS_TAG)),
+    notified: (n) => this.#notified(n),
+    leaving: (previous) => {
+      if (previous?.measure === this.#measure) previous.measure = null;
+      this.#closeRename();
+    },
+    joined: (session) => {
+      session.measure = this.#measure;
+      this.#view = documentView(session.document.view);
+      for (const f of this.#frames.values()) f.el.remove();
+      this.#frames.clear();
+      for (const el of this.#sectionEls) el.remove();
+      this.#sectionEls = [];
+      this.#draw();
+    },
+  });
   #view: CanvasView = { zoom: 1, x: 0, y: 0 };
   #space = false;
   #pan: { id: number; x: number; y: number; view: CanvasView; button: number } | null = null;
@@ -257,12 +270,11 @@ export class CanvasElement extends Base {
 
   /** The design session whose mockups it shows (R-EDIT-006.C11); setting it gives the host's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** The zoom factor (C2), clamped to 0.1 to 4; setting it zooms about the viewport's centre. */
@@ -325,45 +337,14 @@ export class CanvasElement extends Base {
 
   connectedCallback(): void {
     if (!this.hasAttribute("tabindex")) this.tabIndex = 0;
-    this.#attach();
+    this.#link.attach();
     this.#draw();
   }
 
   attributeChangedCallback(name: string, old: string | null, value: string | null): void {
     if (old === value) return;
-    if (this.#session) this.#draw();
+    if (this.#link.current) this.#draw();
     void name;
-  }
-
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(CANVAS_TAG)));
-    if (next !== this.#session) {
-      this.#unsubscribe?.();
-      if (this.#session?.measure === this.#measure) this.#session.measure = null;
-      this.#closeRename();
-      this.#session = next;
-      next.measure = this.#measure;
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#view = documentView(next.document.view);
-      for (const f of this.#frames.values()) f.el.remove();
-      this.#frames.clear();
-      for (const el of this.#sectionEls) el.remove();
-      this.#sectionEls = [];
-      this.#draw();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
   }
 
   #notified(n: DesignNotification): void {
@@ -390,17 +371,14 @@ export class CanvasElement extends Base {
         this.#draw();
         break;
     }
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    this.#link.forward(n);
   }
 
   // --- frames -------------------------------------------------------------------------------------
 
   /** Bring the frames in line with the document: one per mockup, in document order, the active one holding the slot. */
   #draw(): void {
-    const session = this.#session;
+    const session = this.#link.current;
     if (!session) return;
     const doc = session.document;
     const preview = this.hasAttribute("preview");
@@ -460,7 +438,7 @@ export class CanvasElement extends Base {
    * `data-edge`).
    */
   #drawSections(): void {
-    const sections = this.#session?.sections ?? [];
+    const sections = this.#link.current?.sections ?? [];
     while (this.#sectionEls.length > sections.length) this.#sectionEls.pop()!.remove();
     sections.forEach((s, k) => {
       let el = this.#sectionEls[k];
@@ -548,7 +526,7 @@ export class CanvasElement extends Base {
 
   /** Position the frames and draw the view. */
   #place(): void {
-    const session = this.#session;
+    const session = this.#link.current;
     if (!session) return;
     for (const m of session.document.mockups) {
       const f = this.#frames.get(m.name);
@@ -562,7 +540,7 @@ export class CanvasElement extends Base {
   /** The frames' boxes in canvas units: the mockup's position and the frame's laid-out size. */
   #boxes(): Map<string, CanvasBox> {
     const out = new Map<string, CanvasBox>();
-    const session = this.#session;
+    const session = this.#link.current;
     if (!session) return out;
     for (const m of session.document.mockups) {
       const f = this.#frames.get(m.name);
@@ -733,7 +711,7 @@ export class CanvasElement extends Base {
     if (!r) return;
     this.#rename = null;
     const name = r.section !== undefined
-      ? this.#session?.sections[r.section]?.name ?? r.name
+      ? this.#link.current?.sections[r.section]?.name ?? r.name
       : (r.label.parentElement as HTMLElement | null)?.dataset.mockup ?? r.name;
     r.label.textContent = name;
   }
@@ -987,7 +965,7 @@ export class CanvasElement extends Base {
     const map = this.#mapping();
     this.#minimap.hidden = map === null;
     if (!map) return;
-    const session = this.#session!;
+    const session = this.#link.current!;
     const seen = new Set<string>();
     for (const [name, b] of this.#boxes()) {
       seen.add(name);

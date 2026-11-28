@@ -35,19 +35,19 @@
 
 import { allowedChildren, assetsLoaded, canContain, registry, roleRule, ROLE_CATEGORIES, sampleCall, type Pack, type RoleCategory } from "../core/index.js";
 import { mockupOptions, mockupPack, newDesign } from "../design/document.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { DesignSession, type DesignNotification } from "../design/session.js";
 import type { EditRefusal, EditResult } from "../core/syntax/edit.js";
 import { defaultAssetsUrl, loadAssetsFromUrl } from "./assets.js";
 import { armDrag } from "./drag.js";
 import { baseUrls, evaluateWithImports, MOCKUP_TAG } from "./mockup.js";
 import { RenderScheduler } from "./scheduler.js";
+import { SessionLink } from "./session-link.js";
 
 export const GALLERY_TAG = "mockitdown-gallery";
 /** The attributes the gallery observes: the base URL its mockups' imports resolve against. */
 export const GALLERY_ATTRIBUTES: readonly string[] = ["import-base"];
 /** How far outside the gallery's visible part a card gets its preview, in CSS pixels (C3). */
 export const PREVIEW_MARGIN = 200;
-const DESIGNER_TAG = "mockitdown-designer";
 
 /** The heading of each role category's group (C1). */
 export const CATEGORY_TITLES: Readonly<Record<RoleCategory, string>> = {
@@ -206,10 +206,11 @@ export class GalleryElement extends Base {
   }
 
   #root: ShadowRoot;
-  #session: DesignSession | null = null;
-  #given: DesignSession | null = null;
-  #own: DesignSession | null = null;
-  #unsubscribe: (() => void) | null = null;
+  readonly #link = new SessionLink(this, {
+    own: () => new DesignSession(newDesign(GALLERY_TAG)),
+    notified: (n) => this.#notified(n),
+    joined: () => this.#scheduler.schedule(),
+  });
   #search: HTMLInputElement;
   #list: HTMLElement;
   #filter = "";
@@ -259,12 +260,11 @@ export class GalleryElement extends Base {
 
   /** The design session the gallery inserts into (R-EDIT-006.C11); setting it makes the host's session the gallery's. */
   get session(): DesignSession {
-    return this.#attach();
+    return this.#link.attach();
   }
 
   set session(value: DesignSession | null) {
-    this.#given = value instanceof DesignSession ? value : null;
-    this.#attach();
+    this.#link.give(value);
   }
 
   /** The search text (C4), mirrored by the search field. */
@@ -307,7 +307,7 @@ export class GalleryElement extends Base {
   // --- lifecycle ----------------------------------------------------------------------------------
 
   connectedCallback(): void {
-    this.#attach();
+    this.#link.attach();
     this.#scheduler.schedule();
   }
 
@@ -322,34 +322,10 @@ export class GalleryElement extends Base {
 
   // --- the session --------------------------------------------------------------------------------
 
-  #attach(): DesignSession {
-    const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(GALLERY_TAG)));
-    if (next !== this.#session) {
-      this.#unsubscribe?.();
-      this.#session = next;
-      this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#scheduler.schedule();
-    }
-    return next;
-  }
-
-  #designerSession(): DesignSession | null {
-    let node: Node | null = this.parentNode;
-    while (node) {
-      if (node instanceof Element && node.localName === DESIGNER_TAG) {
-        const s = (node as unknown as { session?: unknown }).session;
-        if (s instanceof DesignSession) return s;
-      }
-      node = node.parentNode ?? (node instanceof ShadowRoot ? node.host : null);
-    }
-    return null;
-  }
-
   #notified(n: DesignNotification): void {
-    const session = this.#session;
     switch (n.kind) {
       case "change":
-        if (n.detail.kind !== "move" && (n.detail.mockup === session?.active || n.detail.kind === "mockups")) this.#scheduler.schedule();
+        if (n.detail.kind !== "move" && (n.detail.mockup === this.#link.current?.active || n.detail.kind === "mockups")) this.#scheduler.schedule();
         break;
       case "active":
       case "select":
@@ -357,10 +333,7 @@ export class GalleryElement extends Base {
         this.#scheduler.schedule();
         break;
     }
-    if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
-      const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
-      this.dispatchEvent(new CustomEvent(type, { bubbles: true, composed: true, detail: n.detail }));
-    }
+    this.#link.forward(n);
   }
 
   // --- building -----------------------------------------------------------------------------------
