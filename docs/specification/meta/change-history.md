@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.15 | 2026-11-27 | `WEB.1` | R-WEB-007 as built (#63): C6 release notes list the commits that change typescript/ or shared/ |
 | 0.12.14 | 2026-11-27 | `WEB.2` | R-WEB-006 as built: C10, C11, TC-1 step 8 (#62) |
 | 0.12.13 | 2026-11-27 | `PACK.1` | R-PACK-010 as built (#61): C4 group null for a hidden pack's reference file, C5 hidden packs' own-element conformance cases |
 | 0.12.12 | 2026-11-27 | `ADR.2`, `ADR.3`, `PACK.1`, `PACK.3`, `PACK.4`, `PACK.5`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | specification audit, second pass: the items that cite the re-checked ones re-recorded in the same release, so no suspect citation remains (#81) |

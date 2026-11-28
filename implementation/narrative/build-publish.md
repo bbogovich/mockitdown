@@ -1,6 +1,6 @@
 ---
 title: Build and publish
-impl_version: 0.3.33
+impl_version: 0.3.34
 status: draft
 updated: 2026-11-27
 page_id: IMPL.BUILD
@@ -160,6 +160,37 @@ The regular browser suite (`npm test`) ignores `published.spec.mjs`; the publish
 version, runs the tests, builds the sdist and wheel (`python/dist/`) and publishes them through PyPI
 Trusted Publishing (R-REPO-003.C4).
 
+## TypeScript releases
+
+The TypeScript package has its own version line (`version` in `typescript/package.json`), its own
+tags `ts-vX.Y.Z` and its own workflow, `.github/workflows/release-ts.yml` (R-WEB-007, ADR-23). The
+Python workflow's `v*` filter does not match `ts-v…` (GitHub tag filters are anchored), so a
+TypeScript tag never starts a PyPI release, and a Python tag never starts this one.
+
+| Step (in `typescript/`) | What it does |
+|---|---|
+| Check the tag | `ts-v` + `version` of `package.json` must equal `GITHUB_REF_NAME`, else `exit 1` before anything is installed (C2); sets `VERSION` |
+| Install, audit | Node 22, `npm ci`, `npm audit --audit-level=high` (C3) |
+| Test | `npx playwright install --with-deps chromium`, `npm test` (C3) |
+| Pack | `npm pack` → `mockitdown-X.Y.Z.tgz`: `package.json`, `README.md`, `LICENSE`, `dist/` with `dist/shared/` (the `files` of `package.json`; C4) |
+| Release | `gh release create ts-vX.Y.Z mockitdown-X.Y.Z.tgz --title "mockitdown TypeScript X.Y.Z" --verify-tag`, with `GH_TOKEN` = the workflow's `GITHUB_TOKEN` (`permissions: contents: write`; C5) |
+
+The notes give the install command
+`npm install https://github.com/bbogovich/mockitdown/releases/download/ts-vX.Y.Z/mockitdown-X.Y.Z.tgz`
+(built from `GITHUB_REPOSITORY`) and the commits since the previous `ts-v` tag (all of them for the
+first release) that touch `typescript/` or `shared/`, one `- <sha> <subject>` line each (C6; the
+checkout fetches full history for this). Nothing is published to the npm registry and no secret
+but `GITHUB_TOKEN` is used (C7). `typescript/README.md` says how to install a release (C8).
+
+To release: set `version` in `typescript/package.json`, commit and push `main`, then
+`git tag -a ts-vX.Y.Z -m "mockitdown TypeScript X.Y.Z" && git push origin ts-vX.Y.Z`, and follow the
+run with `gh run watch`. A pushed tag is never moved or reused (ADR-23.C1). Before tagging, the same
+archive can be checked locally: `npm pack --pack-destination <dir>`, then `npm install <dir>/mockitdown-X.Y.Z.tgz`
+in an empty project and import `mockitdown` or `mockitdown/node`.
+
+`typescript/tests/unit/package.test.ts` (IT-46) reads both release workflows and `npm pack --dry-run --json`
+in `npm test`, so a change that breaks the tag filters, the step order or the archive's content fails CI.
+
 ## Continuous integration
 
 `.github/workflows/ci.yml` (on `main` only; the `docs` branch has no code to test) runs on every push
@@ -189,3 +220,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.20 | 2026-11-26 | Audit: development setup covers the TypeScript build and test |
 | 0.3.29 | 2026-11-27 | Audit: vio-docs replaces sio-docs; Python 3.11+ interpreter named in the setup |
 | 0.3.33 | 2026-11-27 | The `/gallery/` redirect goes to the home page, `pages/index.html` (#62) |
+| 0.3.34 | 2026-11-27 | TypeScript releases: `release-ts.yml`, `ts-v` tags, the `npm pack` archive on a GitHub release (#63) |

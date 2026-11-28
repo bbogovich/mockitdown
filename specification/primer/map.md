@@ -212,4 +212,4 @@ R-WEB-003 | requirements | active | 0.12.12 r7 | WEB.2 | Development server
 R-WEB-004 | requirements | active | 0.12.12 r15 | WEB.2 | Pack gallery test page
 R-WEB-005 | requirements | active | 0.12.12 r6 | WEB.2 | Web test suites
 R-WEB-006 | requirements | active | 0.12.14 r2 | WEB.2 | Gallery home page
-R-WEB-007 | requirements | active | 0.12.12 r2 | WEB.1 | TypeScript release builds on GitHub
+R-WEB-007 | requirements | active | 0.12.15 r3 | WEB.1 | TypeScript release builds on GitHub

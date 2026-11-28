@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (19)
+## Changes pending (20)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -27,8 +27,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
 | R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
+| R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (71)
+## Not started (69)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -101,10 +102,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-012 | Mockup frames: labels, moving, renaming and placement | — | 0.12.12 |  |  |
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
-| R-WEB-006 | Gallery home page | — | 0.12.12 |  |  |
-| R-WEB-007 | TypeScript release builds on GitHub | — | 0.12.12 |  |  |
 
-## Implemented (60)
+## Implemented (61)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -167,4 +166,5 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #61 |
+| R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
+| R-WEB-006 | Gallery home page | 0.12.14 | 0.12.14 | 2026-11-27 | #62 |

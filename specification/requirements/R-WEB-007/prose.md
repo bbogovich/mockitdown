@@ -4,6 +4,9 @@ tests, packs the package with `npm pack` and attaches the archive to a GitHub re
 **Rationale.** SRC-18#gallery asks for release builds of the packaged TypeScript library on GitHub so
 projects can use it; F-17.C7. Why its own tags and no npm registry: ADR-23.
 
+**As built (#63).** The notes list only the commits that change `typescript/` or `shared/`, since the
+repository's other commits (the Python variant, its tools and site) do not change the archive.
+
 **Verification.** TC-1 (the workflow, checked on a real tag), TC-2 (the archive's content, in `npm test`).
 
 

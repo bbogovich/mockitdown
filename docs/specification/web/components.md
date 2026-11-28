@@ -1,6 +1,6 @@
 ---
 title: "Web components"
-spec_version: 0.12.12
+spec_version: 0.12.15
 status: draft
 updated: 2026-11-27
 page_id: WEB.1
@@ -219,6 +219,9 @@ tests, packs the package with `npm pack` and attaches the archive to a GitHub re
 **Rationale.** SRC-18#gallery asks for release builds of the packaged TypeScript library on GitHub so
 projects can use it; F-17.C7. Why its own tags and no npm registry: ADR-23.
 
+**As built (#63).** The notes list only the commits that change `typescript/` or `shared/`, since the
+repository's other commits (the Python variant, its tools and site) do not change the archive.
+
 **Verification.** TC-1 (the workflow, checked on a real tag), TC-2 (the archive's content, in `npm test`).
 
 
@@ -261,7 +264,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 | C3 | The workflow MUST install with `npm ci` in `typescript/`, run `npm audit --audit-level=high` and `npm test` (with Chromium installed for the browser tests), and stop at the first failure. |
 | C4 | The workflow MUST build the package archive with `npm pack` in `typescript/`, giving `mockitdown-X.Y.Z.tgz`, which holds `package.json`, `README.md`, `LICENSE` and `dist/` with `dist/shared/` and its `manifest.json`, and no test, source or page file. |
 | C5 | The workflow MUST create a GitHub release for the tag, titled `mockitdown TypeScript X.Y.Z`, with the archive attached, using only the workflow's own `GITHUB_TOKEN` (permission `contents: write`). |
-| C6 | The release notes MUST give the install command `npm install https://github.com/bbogovich/mockitdown/releases/download/ts-vX.Y.Z/mockitdown-X.Y.Z.tgz` and list the commits since the previous `ts-v` tag. |
+| C6 | The release notes MUST give the install command `npm install https://github.com/bbogovich/mockitdown/releases/download/ts-vX.Y.Z/mockitdown-X.Y.Z.tgz` and list the commits since the previous `ts-v` tag (every earlier commit for the first release) that change `typescript/` or `shared/`. |
 | C7 | The workflow MUST NOT publish to the npm registry. |
 | C8 | `typescript/README.md` MUST describe installing a release from its GitHub release archive, with the install command of C6. |
 | V1 | A tag `ts-v0.1.0` on a commit whose `typescript/package.json` says 0.1.0 produces a release with `mockitdown-0.1.0.tgz`; installing that archive into an empty project and importing `mockitdown` works. |
@@ -270,6 +273,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.15 | 2026-11-27 | as built (#63): C6 release notes list the commits since the previous ts-v tag that change typescript/ or shared/ |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
@@ -282,6 +286,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
