@@ -504,6 +504,28 @@ const sync = new CodeSync(session, codeView);   // shows the active mockup's cod
   value only a code field shows; `inspection.editInCode` is the span) dispatches
   `mockitdown-edit-in-code`; the designer switches to Code mode and reveals the span.
 
+### The diagnostics list
+
+`<mockitdown-diagnostics>` lists the active mockup's diagnostics in the session's order: one button per
+diagnostic (part `entry`, `data-severity`) with its severity, message and `line:col` (parts `severity`,
+`message`, `location`), or "No problems" (part `empty`). It redraws on every `diagnostics` and `active`
+notification and joins a session as the inspector does.
+
+```js
+list.session = session;
+list.addEventListener("mockitdown-reveal", (e) => codeView.reveal(e.detail.range));
+```
+
+- A click or Enter on an entry selects the innermost node whose span holds the diagnostic's location
+  (an unknown argument selects the element carrying it). With no such node, which is the case for a
+  syntax error, it dispatches `mockitdown-reveal` (`detail: {mockup, range}`) instead.
+- In the designer, the status bar's count (part `diagnostics`) opens the list above the status bar
+  (part `problems`, `designer.diagnosticsOpen`) and Esc closes it. A `mockitdown-reveal` is shown in
+  the code view: the docked one in Design mode with `docked`, otherwise in Code mode.
+- The rules are in `mockitdown/design`: `diagnosticEntries(session)`, `diagnosticTarget(session, d)`,
+  `activateDiagnostic(session, index)` and `diagnosticOffset(code, line, col)`, where the column is
+  counted in code points as the lexer counts it.
+
 ## Development
 
 Node 22 or later.

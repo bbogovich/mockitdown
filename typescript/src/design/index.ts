@@ -1,6 +1,6 @@
 /**
  * The design document and session module (A-WEB-4): `readDesign`, `writeDesign`, `newDesign`,
- * `mockupOptions`, `DesignSession`, the inspector's model and `CodeSync`. No DOM, network or file system (A-WEB-4.K1), so that a desktop
+ * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync` and the diagnostics list's model. No DOM, network or file system (A-WEB-4.K1), so that a desktop
  * shell's main process can use it in Node as the design tools use it in a browser.
  */
 
@@ -17,6 +17,10 @@ export {
   applyTo, CARET_EVENT, CODE_COALESCE, CODE_SYNC_MS, CodeSync, READ_ONLY_NOTE,
   type CodeSpan, type CodeSyncOptions, type CodeViewLike,
 } from "./code-sync.js";
+export {
+  activateDiagnostic, diagnosticEntries, diagnosticOffset, diagnosticTarget, NO_PROBLEMS, REVEAL_EVENT,
+  type DiagnosticEntry, type DiagnosticLike, type DiagnosticTarget,
+} from "./diagnostics.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
 export {

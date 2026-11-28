@@ -34,7 +34,12 @@
  * parse, the outline and the view keep its last valid version, read-only, and the status bar names the
  * first error. In Design mode the toolbar's Dock code toggle (part `dock`, the `docked` attribute and
  * property) shows the same code view below the view. The inspector's Edit in code
- * (`mockitdown-edit-in-code`) switches to Code mode and reveals the node's span (R-TOOL-007.C11). Delete and Backspace with the focus in the outline or the
+ * (`mockitdown-edit-in-code`) switches to Code mode and reveals the node's span (R-TOOL-007.C11). The
+ * status bar's diagnostic count is a button (part `diagnostics`, `aria-expanded`) that opens the
+ * diagnostics list, a `mockitdown-diagnostics` above the status bar (part `problems`,
+ * `diagnosticsOpen`), and Esc closes it (R-TOOL-010.C4); an entry with no node
+ * (`mockitdown-reveal`) is revealed in the code view, the dock in Design mode with `docked`, else in
+ * Code mode. Delete and Backspace with the focus in the outline or the
  * view delete the selection through `session.delete()`; there too Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C
  * and V cut, copy and paste with the system clipboard holding the code as `text/plain`, and Alt+Up and
  * Alt+Down move the selection among its siblings (R-EDIT-008). Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
@@ -49,7 +54,9 @@ import { FENCE_OPTIONS, registry } from "../core/index.js";
 import { mockupOptions, mockupPack, readDesign, newDesign, type DesignDocument, type DesignError } from "../design/document.js";
 import { CodeSync } from "../design/code-sync.js";
 import { DESIGN_EVENTS, DesignSession, WRAP_DEFAULT, type DesignNotification } from "../design/session.js";
+import { REVEAL_EVENT } from "../design/diagnostics.js";
 import { CODE_TAG, type CodeElement } from "./code.js";
+import { DIAGNOSTICS_TAG } from "./diagnostics.js";
 import { EDITOR_TAG } from "./editor.js";
 import { GALLERY_TAG } from "./gallery.js";
 import { EDIT_IN_CODE_EVENT, INSPECTOR_TAG } from "./inspector.js";
@@ -102,7 +109,7 @@ export class DesignOpenError extends Error {
 /** The components whose focus makes Delete and Backspace delete the selection (C11). */
 const COMPONENT_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG]);
 /** The package's components that join the designer's session (R-EDIT-006.C11). */
-const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG]);
+const SESSION_TAGS = new Set([EDITOR_TAG, OUTLINE_TAG, GALLERY_TAG, INSPECTOR_TAG, DIAGNOSTICS_TAG]);
 
 const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13px/1.4 system-ui,sans-serif;color:var(--mkd-designer-color,#1d1d22);background:var(--mkd-designer-background,#fff)}
 :host([hidden]){display:none}
@@ -150,7 +157,11 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__crumb{font:inherit;color:inherit;background:none;border:0;border-radius:4px;padding:0 4px;cursor:pointer}
 .mkd-designer__crumb:hover{background:var(--mkd-designer-pressed-background,#e2e4ea)}
 .mkd-designer__crumb[aria-current="true"]{font-weight:600}
-.mkd-designer__sep{opacity:.5}`;
+.mkd-designer__sep{opacity:.5}
+.mkd-designer__diagnostics{font:inherit;color:inherit;background:none;border:1px solid transparent;border-radius:4px;padding:0 6px;cursor:pointer;white-space:nowrap}
+.mkd-designer__diagnostics:hover,.mkd-designer__diagnostics[aria-expanded="true"]{background:var(--mkd-designer-pressed-background,#e2e4ea)}
+.mkd-designer__problems{position:absolute;left:8px;bottom:28px;z-index:5;width:min(32rem,calc(100% - 16px));max-height:40%;overflow:auto;box-sizing:border-box;background:var(--mkd-designer-background,#fff);border:1px solid var(--mkd-designer-border,#d0d0d7);border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.16)}
+.mkd-designer__problems[hidden]{display:none}`;
 
 const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" part="designer">`
   + `<div class="mkd-designer__toolbar" part="toolbar"><slot name="toolbar">`
@@ -185,10 +196,12 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__right" part="right"><slot name="inspector"><mockitdown-inspector part="inspector"></mockitdown-inspector></slot></div>`
   + `</div>`
   + `<div class="mkd-designer__status" part="status"><slot name="status">`
-  + `<span class="mkd-designer__diagnostics" part="diagnostics"></span>`
+  + `<button type="button" class="mkd-designer__diagnostics" part="diagnostics" aria-expanded="false" aria-controls="mkd-designer-problems" title="Show the diagnostics (Esc closes them)"></button>`
   + `<span class="mkd-designer__status-message" part="status-message" role="status"></span>`
   + `<nav class="mkd-designer__breadcrumb" part="breadcrumb" aria-label="Path"></nav>`
-  + `</slot></div></div>`;
+  + `</slot></div>`
+  + `<div class="mkd-designer__problems" id="mkd-designer-problems" part="problems" role="dialog" aria-label="Diagnostics" hidden><${DIAGNOSTICS_TAG}></${DIAGNOSTICS_TAG}></div>`
+  + `</div>`;
 
 const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLElement : class {}) as typeof HTMLElement;
 
@@ -225,6 +238,7 @@ export class DesignerElement extends Base {
     undo: HTMLButtonElement; redo: HTMLButtonElement;
     diagnostics: HTMLElement; statusMessage: HTMLElement; breadcrumb: HTMLElement; dock: HTMLElement;
     editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement; inspector: HTMLElement;
+    problems: HTMLElement; problemsList: HTMLElement;
   };
 
   constructor() {
@@ -242,7 +256,7 @@ export class DesignerElement extends Base {
       undo: q(".mkd-designer__undo"), redo: q(".mkd-designer__redo"),
       breadcrumb: q(".mkd-designer__breadcrumb"), statusMessage: q(".mkd-designer__status-message"), dock: q(".mkd-designer__dock"),
       editor: q("mockitdown-editor"), outline: q("mockitdown-outline"), gallery: q("mockitdown-gallery"),
-      inspector: q("mockitdown-inspector"),
+      inspector: q("mockitdown-inspector"), problems: q(".mkd-designer__problems"), problemsList: q(DIAGNOSTICS_TAG),
     };
     this.#session = new DesignSession(newDesign(DESIGNER_TAG));
     this.#subscribe();
@@ -269,6 +283,10 @@ export class DesignerElement extends Base {
       this.docked = !this.docked;
     });
     this.addEventListener(EDIT_IN_CODE_EVENT, (e) => this.#editInCode(e as CustomEvent));
+    this.addEventListener(REVEAL_EVENT, (e) => this.#reveal(e as CustomEvent));
+    this.#el.diagnostics.addEventListener("click", () => {
+      this.diagnosticsOpen = !this.diagnosticsOpen;
+    });
     this.#el.undo.addEventListener("click", () => this.#history("undo"));
     this.#el.redo.addEventListener("click", () => this.#history("redo"));
     for (const edge of [this.#el.leftEdge, this.#el.rightEdge]) this.#makeResizable(edge);
@@ -319,6 +337,22 @@ export class DesignerElement extends Base {
 
   set docked(on: boolean) {
     this.toggleAttribute("docked", Boolean(on));
+  }
+
+  /**
+   * Whether the diagnostics list (R-TOOL-010.C4) is open above the status bar: activating the status
+   * bar's diagnostic count toggles it, Esc closes it. Opening it focuses its first entry.
+   */
+  get diagnosticsOpen(): boolean {
+    return !this.#el.problems.hidden;
+  }
+
+  set diagnosticsOpen(open: boolean) {
+    const on = Boolean(open);
+    if (on === this.diagnosticsOpen) return;
+    this.#el.problems.hidden = !on;
+    this.#el.diagnostics.setAttribute("aria-expanded", String(on));
+    if (on) this.#el.problemsList.focus();
   }
 
   /** The code view (R-TOOL-008) of Code mode and of the dock. */
@@ -430,9 +464,20 @@ export class DesignerElement extends Base {
     (this.#el.code as unknown as CodeElement).reveal(d.range);
   }
 
+  /**
+   * A diagnostic with no node (R-TOOL-010.C2, `mockitdown-reveal`): its place revealed in the code view,
+   * docked below the view in Design mode, else in Code mode.
+   */
+  #reveal(e: CustomEvent): void {
+    const d = e.detail as { mockup?: string | null; range?: { start: number; end: number } } | null;
+    if (!d?.range || (d.mockup ?? null) !== this.#session.active) return;
+    if (!(this.mode === "design" && this.docked)) this.mode = "code";
+    (this.#el.code as unknown as CodeElement).reveal(d.range);
+  }
+
   /** The package's components inside the designer re-join its session: reading `session` re-attaches them. */
   #rejoin(): void {
-    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.inspector];
+    const parts: Element[] = [this.#el.editor, this.#el.outline, this.#el.gallery, this.#el.inspector, this.#el.problemsList];
     for (const el of this.querySelectorAll("*")) if (SESSION_TAGS.has(el.localName)) parts.push(el);
     for (const el of parts) void (el as unknown as { session?: unknown }).session;
   }
@@ -489,6 +534,14 @@ export class DesignerElement extends Base {
    * in a text field, nor in Preview mode.
    */
   #onKey(e: KeyboardEvent): void {
+    // R-TOOL-010.C4: Esc closes the diagnostics list, wherever the focus is in the designer.
+    if (e.key === "Escape" && this.diagnosticsOpen) {
+      e.preventDefault();
+      const inList = e.composedPath().includes(this.#el.problems);
+      this.diagnosticsOpen = false;
+      if (inList) this.#el.diagnostics.focus();
+      return;
+    }
     if (e.defaultPrevented) return;
     if (this.mode === "preview") return;
     const path = e.composedPath();
