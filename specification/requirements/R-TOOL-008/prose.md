@@ -2,7 +2,18 @@ A light editor built for this project (SRC-12#s9): a `<textarea>` over a coloure
 with line numbers, diagnostics in the gutter, bracket matching and auto-indent. It has no third-party
 editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no find and replace, folding
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
-beside a `mockitdown-mockup`.
+beside a `mockitdown-mockup` (the test page `pages/code.html` does that), and the designer's Code mode
+shows the active mockup in a read-only one until two-way editing (R-TOOL-009).
+
+**As built (#38).** The colouring comes from `highlight(source)` in the core lexer module, which scans
+tolerantly so that half-typed code is still coloured: `Text("abc` colours `"abc` as an error up to the
+line feed. A lower-case name after a `.` is a modifier when the dot continues a chain (after `)`, a name
+or a line feed) and an implicit member such as `.title` when it starts a value (after `(`, `,`, `:` or an
+operator). For keyboard users the messages of the caret's line appear below the text (the `message`
+part), so moving the caret to a marked line reads them out. The editing keys use the browser's
+`insertText` command, which keeps the browser's own undo; Chromium sends two `input` events for a line
+feed and its indentation, so the view holds those back and sends one. On a 1000-line source a keystroke
+re-colours in about 10 ms in Chromium.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 

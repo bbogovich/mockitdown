@@ -1,6 +1,6 @@
 ---
 title: Editing core
-impl_version: 0.3.46
+impl_version: 0.3.54
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDIT
@@ -41,7 +41,7 @@ flowchart LR
 | `typescript/src/core/syntax/parser.ts` | every AST node, `Import`, `Attribute`, `Property` and `StructDecl` gets `start`/`end` through `fin(node, start)`: from its first token to the end of the last token consumed, line breaks skipped. `Call.loc` is still the `(` (the renderer's columns are unchanged) |
 | `typescript/src/core/syntax/ast.ts` | `start?`, `end?` on the node types (optional because the evaluator synthesises nodes of its own) |
 | `typescript/src/core/syntax/tree.ts` | `parseTree`, `reparse`, `applyEdits`, `SyntaxTree`, `ViewNode`; `reparseCarrying` (internal) for moves |
-| `typescript/src/core/syntax/edit.ts` | `edit`, `indentUnit` and the operation types (`InsertOp`, `RemoveOp`, `MoveOp`, `SetArgumentOp`, `SetModifierOp`, `RenameOp`, `SetRefsOp`, `SetCommentOp`, `SetNameOp`, `EditResult`, `EditRefusal`) |
+| `typescript/src/core/syntax/edit.ts` | `edit`, `indentUnit` (defined in `lexer.ts` since #38, re-exported) and the operation types (`InsertOp`, `RemoveOp`, `MoveOp`, `SetArgumentOp`, `SetModifierOp`, `RenameOp`, `SetRefsOp`, `SetCommentOp`, `SetNameOp`, `EditResult`, `EditRefusal`) |
 | `shared/conformance/edit/` | the edit corpus: `<name>.mockitdown`, `.op.json`, `.expected.mockitdown` or `.error.txt`, `index.json` |
 
 The lexer still scans by code point (columns match Python's) and counts offsets in code units
@@ -234,7 +234,7 @@ add it to `index.json`, write the expected text by hand, and run `npm run test:u
 | `ViewNode` | `id`, `ordinal` (`"n3"`), `index` (3), `kind` (`call`, `ident`, `if`), `name`, `span`, `nameSpan`, `first`, `parent`, `children`, `syntax`, `expr`, `modifiers` |
 | `Token.start`, `Token.end`, `Lexer.comments`, `Comment` | offsets and comments (C1, C2, C17) |
 | `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}` (`parent: null`: a top-level statement, C31), `{op: "remove", nodes}`, `{op: "move", nodes, parent, index}`, `{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`, `{op: "rename", node, id}`, `{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` or `{op: "setName", node, name}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
-| `indentUnit(source)` | the indentation unit of C11 |
+| `indentUnit(source)` | the indentation unit of C11 (in `lexer.ts`, so that the code view can use it with nothing else) |
 | `render(source, {edit: true})` | edit-mode HTML (R-EDIT-004); `RenderOptions.edit` in both variants |
 | `viewNodeOrdinals(module)`, `structViewNodes(decl)` | internal (`tree.ts`): syntax node → ordinal, and an imported struct's view nodes |
 | `mockitdown.syntax.nodes.view_nodes(module)` | Python: `ViewNode(ordinal, kind, name, node)` in ordinal order; `struct_view_nodes(decl)` |
@@ -282,3 +282,4 @@ See [Testing](../testing.md).
 | 0.3.39 | 2026-11-28 | Edit-mode rendering in both variants: ordinals, `View.node`/`derived`, `Env.derived`, imported structs, the element's `edit` attribute (#23) |
 | 0.3.45 | 2026-11-28 | `insert` at the top level (`parent: null`, `placeTop`) and its two corpus cases (#29) |
 | 0.3.46 | 2026-11-28 | Top-level `move`, `statementChildren` (#30) |
+| 0.3.54 | 2026-11-28 | `indentUnit` moved to `lexer.ts` (re-exported by `edit.ts`) for the code view (#38) |

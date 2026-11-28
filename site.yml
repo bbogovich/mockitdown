@@ -140,6 +140,7 @@ nav:
           - The designer element: implementation/architecture/designer.md
           - The gallery element: implementation/architecture/gallery-element.md
           - The inspector element: implementation/architecture/inspector.md
+          - The code view element: implementation/architecture/code-view.md
           - Drag and drop: implementation/architecture/drag-drop.md
           - New elements: implementation/architecture/new-elements.md
           - Role rules: implementation/architecture/roles.md

@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.14
+spec_version: 0.13.17
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -220,7 +220,7 @@ session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-c
 `mockitdown-select` for the node selected after it.
 
 A host can replace any panel through its slot, for example to put its own inspector on the right; the
-replacement joins the designer's session. Code mode is specified with the code view (R-TOOL-009); undo
+replacement joins the designer's session. Code mode shows the active mockup in a read-only `mockitdown-code` (R-TOOL-008), with its diagnostics in the gutter; editing it comes with two-way editing (R-TOOL-009); undo
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
 (R-TOOL-011).
 
@@ -261,7 +261,8 @@ session, and a `mockitdown-outline` in the `outline` slot joins it; an unknown `
 Preview hides the side panels and the view, lists `Sign in` and `Inbox`, and renders `mockitdown-mockup`
 elements with each mockup's fence options whose shadow HTML equals that of a `mockitdown-mockup` alone
 with the same attributes and code; the Dark toggle sets `appearance="dark"` on every preview; Code mode
-shows the active mockup's code with the left column visible, and Design brings the view back.
+shows the active mockup's code in `mockitdown-code` with the left column visible (and `code.spec.mjs` checks that
+it is read-only and coloured, with a line number per line), and Design brings the view back.
 
 **Realizes.** F-19, F-20
 
@@ -281,7 +282,7 @@ shows the active mockup's code with the left column visible, and Design brings t
 | C12 | The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`) and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated. |
 | C13 | The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification. |
 | C14 | The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`. |
-| C15 | In Code mode the designer MUST show the active mockup's code read-only in place of the view, keeping the side panels, until the code view (R-TOOL-009) takes that place. |
+| C15 | In Code mode the designer MUST show the active mockup's code and its diagnostics in a read-only code view (R-TOOL-008) in place of the view, keeping the side panels, until editing that code (R-TOOL-009) takes that place. |
 | C16 | The gallery panel MUST hold a `mockitdown-gallery` (R-TOOL-004) that joins the designer's session and takes its `import-base`, and until the inspector exists the properties panel MUST hold a placeholder naming the first selected element. |
 | C17 | The designer MUST expose the property `rendered`, a promise that resolves once its outline, its view and, in Preview mode, its previews are rendered, and MUST pass its `import-base` and `asset-base` attributes on to its view, outline and previews. |
 | V1 | On `pages/designer.html`, deleting the selected button fires one `mockitdown-change` with its text edits, and `toJSON()` returns the sample document with only that button's lines removed. |
@@ -619,7 +620,18 @@ A light editor built for this project (SRC-12#s9): a `<textarea>` over a coloure
 with line numbers, diagnostics in the gutter, bracket matching and auto-indent. It has no third-party
 editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no find and replace, folding
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
-beside a `mockitdown-mockup`.
+beside a `mockitdown-mockup` (the test page `pages/code.html` does that), and the designer's Code mode
+shows the active mockup in a read-only one until two-way editing (R-TOOL-009).
+
+**As built (#38).** The colouring comes from `highlight(source)` in the core lexer module, which scans
+tolerantly so that half-typed code is still coloured: `Text("abc` colours `"abc` as an error up to the
+line feed. A lower-case name after a `.` is a modifier when the dot continues a chain (after `)`, a name
+or a line feed) and an implicit member such as `.title` when it starts a value (after `(`, `,`, `:` or an
+operator). For keyboard users the messages of the caret's line appear below the text (the `message`
+part), so moving the caret to a marked line reads them out. The editing keys use the browser's
+`insertText` command, which keeps the browser's own undo; Chromium sends two `input` events for a line
+feed and its indentation, so the view holds those back and sends one. On a 1000-line source a keystroke
+re-colours in about 10 ms in Chromium.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
@@ -632,31 +644,46 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-TOOL-008.TC-1 — Light editor**
 
-Browser test (`code.spec.mjs`) on `pages/designer.html` in Code mode and on a bare `mockitdown-code`:
-tokens get their colour classes; line numbers match the line count; a diagnostic on line 3 marks that
-gutter line with an accessible message; the caret after `{` highlights its `}`, an unmatched `)` is
-marked; Enter after `{` indents one unit, `}` outdents; Tab indents a selection; `reveal` selects the
-range; each typed character fires one `input` event.
+Browser test (`code.spec.mjs`, IT-66) on the bare `mockitdown-code` of `pages/code.html` and on
+`pages/designer.html` in Code mode, with hand-written expected values: the page's element starts with its
+own text dedented; names, strings, modifiers and members get their colour classes and the text area is
+transparent; one line number per line; a diagnostic on line 3 marks that gutter line (`data-severity`,
+the message as `title`) and, with the caret there, the `message` part reads "Line 3: error: …"; the
+caret after `{` highlights it and its `}`, an unmatched `)` and an unclosed `[` are marked, brackets in a
+string or comment are not; Enter after `{` indents one unit, after `)` keeps the indentation, after `(`
+with no indented line adds four spaces; `}` outdents; Tab and Shift+Tab indent and outdent a selection,
+Tab alone inserts a unit; Esc then Tab moves the focus to the next control; `reveal` selects the range
+and scrolls; each typed character and each editing key fires one bubbling, composed `input` event and
+setting `value` none; the designer's Code mode shows the active mockup's code, coloured and read-only.
 
-**R-TOOL-008.TC-2 — No library, speed**
+**R-TOOL-008.TC-2 — No library, speed, colouring ranges**
 
-`node:test` reads the compiled module graph of `mockitdown-code` and fails on an import outside the
-package's core lexer; a browser timing of 50 keystrokes in a 1000-line source reports the median
-re-colour time (warning above 16 ms).
+`node:test` (`code.test.ts`, IT-66) reads the compiled module graph of `dist/elements/code.js` and fails
+unless its only import is the core lexer and the whole graph is the lexer, `diagnostics`, `values` and
+`pyformat`; it checks `highlight` against ranges counted by hand (names, modifiers, a member, a chain
+continued on the next line, keywords, numbers, comments) and that an unterminated string, an
+unterminated block comment and an unreadable character are coloured without throwing. A browser timing
+(`code.spec.mjs`) of 50 keystrokes at the end of a 1000-line source in a code view of its own reports
+the median re-colour time as an annotation (a warning above 16 ms; about 10 ms in Chromium) and checks
+the line numbers and colours afterwards.
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
 | C1 | The package MUST define the custom element `mockitdown-code`, a plain text area with the properties `value` and `diagnostics` and the method `reveal(range)`, which scrolls to the range `{start, end}` (offsets) and selects it. |
-| C2 | The code view MUST colour the text from the TypeScript lexer's tokens (keywords, element and type names, identifiers, modifiers, strings, numbers, comments, punctuation) in a layer behind the transparent text area, with colours from custom properties for light and dark appearance. |
+| C2 | The code view MUST colour the text from the TypeScript lexer's tokens (keywords, element and type names, identifiers, modifiers, implicit members, strings, numbers, comments, punctuation and what the lexer cannot read) in a layer behind the transparent text area, with colours from custom properties for light and dark appearance. |
 | C3 | The code view MUST show line numbers in a gutter. |
-| C4 | The code view MUST mark each line holding a diagnostic in the gutter, with the severity's colour and the message available as text to pointer and keyboard users. |
-| C5 | When the caret is next to a bracket (`(`, `)`, `{`, `}`, `[`, `]`), the code view MUST highlight it and its match, and MUST mark an unmatched bracket. |
-| C6 | Enter MUST keep the current line's indentation and add one indentation unit (R-EDIT-002.C11) after a line ending in `{` or `(`; a `}` typed as a line's first character MUST remove one unit; Tab and Shift+Tab MUST indent and outdent the selected lines, and Esc followed by Tab MUST move the focus out. |
-| C7 | The code view MUST dispatch a bubbling, composed `input` event for every change of its value by the user. |
+| C4 | The code view MUST mark each line holding a diagnostic in the gutter, with the severity's colour and the messages as the line's tooltip, and MUST show the messages of the caret's line as text below the text area, which names that text as its description. |
+| C5 | When the caret is next to a bracket (`(`, `)`, `{`, `}`, `[`, `]`), the code view MUST highlight it and its match, and MUST mark an unmatched bracket; a bracket inside a string or a comment MUST NOT count. |
+| C6 | Enter MUST keep the current line's indentation and add one indentation unit (R-EDIT-002.C11) after a line ending in `{` or `(`; a `}` typed as a line's first character MUST remove one unit; Tab and Shift+Tab MUST indent and outdent the lines the selection touches, Tab with no selection MUST insert one unit, and Esc followed by Tab MUST move the focus out. |
+| C7 | The code view MUST dispatch exactly one bubbling, composed `input` event for every change of its value by the user (a keystroke, or an editing key of C6), and none when `value` is set. |
 | C8 | The code view MUST depend on no editor library and on no other design-tool component, and MUST NOT provide find and replace, folding or multiple cursors. |
 | C9 | Re-colouring after a keystroke SHOULD take less than 16 ms for a source of 1000 lines. |
+| C10 | The TypeScript core MUST export `highlight(source)`, the coloured ranges of C2 as `{start, end, kind}` in source order, which MUST NOT throw: an unterminated string MUST be coloured as an error to the end of its line, an unterminated block comment as a comment to the end of the source, and a character the lexer cannot read as an error. |
+| C11 | The `readonly` attribute (and the `readOnly` property) MUST make the text unchangeable, and the `appearance` attribute (`light`, `dark`) MUST choose the colours, the page's preference choosing them otherwise. |
+| C12 | The editing keys of C6 SHOULD change the text through the browser's text-insertion command, so that the browser's own undo keeps their changes. |
+| C13 | The text the element is written with, without the indentation its lines share, MUST be its value until a value is set. |
 | V1 | Typing in the code view of a 1000-line source keeps colouring, line numbers and bracket matching correct, and its module imports only the core lexer. |
 
 ---
@@ -746,6 +773,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.17 | 2026-11-28 | as built (#38): Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (R-TOOL-008) until R-TOOL-009 (C15); as built (#38): highlight(source) in the core lexer colours implicit members and unreadable text and never throws (C10); the caret line's messages shown as text (C4); brackets in strings and comments ignored (C5); Tab alone inserts a unit (C6); exactly one input event per change, none for value (C7); readonly and appearance (C11); the browser's insertText keeps native undo (C12); the written text is the first value (C13); TC-1, TC-2 name their tests (IT-66) |
 | 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
@@ -759,6 +787,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |

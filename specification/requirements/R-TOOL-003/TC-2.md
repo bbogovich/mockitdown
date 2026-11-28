@@ -16,4 +16,5 @@ session, and a `mockitdown-outline` in the `outline` slot joins it; an unknown `
 Preview hides the side panels and the view, lists `Sign in` and `Inbox`, and renders `mockitdown-mockup`
 elements with each mockup's fence options whose shadow HTML equals that of a `mockitdown-mockup` alone
 with the same attributes and code; the Dark toggle sets `appearance="dark"` on every preview; Code mode
-shows the active mockup's code with the left column visible, and Design brings the view back.
+shows the active mockup's code in `mockitdown-code` with the left column visible (and `code.spec.mjs` checks that
+it is read-only and coloured, with a line number per line), and Design brings the view back.
