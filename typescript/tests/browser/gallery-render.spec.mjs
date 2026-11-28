@@ -3,7 +3,7 @@
 // Geometry of presentations, message bubbles, shapes, charts and SwiftUI containers (R-DEV-008, R-REND-013, R-REND-014, R-PACK-013, R-PACK-015).
 import { expect, test } from "@playwright/test";
 import { inspectMockups, inspectShapes, mountMockups } from "./geometry.mjs";
-import { open, PACKS, REFERENCES } from "./gallery-helpers.mjs";
+import { open, PACKS, patternsFor, REFERENCES, renderPack } from "./gallery-helpers.mjs";
 
 const PRESENTING = ["Alert", "Dialog", "Sheet", "Popover", "Toast", "Tooltip", "ConfirmationDialog"];
 
@@ -213,5 +213,48 @@ test("R-PACK-015 TC-1/TC-2: SwiftUI presentations and navigation containers at f
   expect(m.split.title).toBe("Mail");
   expect(m.split.detail.l).toBeGreaterThanOrEqual(m.split.sidebar.r - 1);
   expect(m.prominent.detail.w).toBeGreaterThanOrEqual(m.prominent.split.w - 1);
+  expect(errors).toEqual([]);
+});
+
+// R-WEB-004 TC-11 step 2 (C9): element samples at device="fit"; an example takes the device and chrome
+// its index entry names, and otherwise neither attribute, so the pack's defaults apply.
+test("TC-11: element cards render at fit, examples with their index entry's device and chrome (C9)", async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = await open(page);
+  for (const id of ["base", "swiftui", "win95"]) {
+    const summary = await renderPack(page, id);
+    expect(summary.errors, id).toEqual([]);
+    const cards = await page.$$eval("main .element mockitdown-mockup", (els) => els.map((m) => ({
+      label: m.dataset.label, device: m.getAttribute("device") })));
+    const expected = REFERENCES[id].elements.length + REFERENCES[id].elements.filter((e) => e.variants_sample).length;
+    expect(cards.length, id).toBe(expected);
+    for (const c of cards) expect(c.device, `${id} ${c.label}`).toBe("fit");
+    const examples = await page.$$eval("main .pattern mockitdown-mockup", (els) => els.map((m) => ({
+      pattern: m.closest(".pattern").dataset.pattern,
+      device: m.getAttribute("device"), chrome: m.getAttribute("chrome") })));
+    const entries = patternsFor(id);
+    expect(examples.map((e) => e.pattern), id).toEqual(entries.map((p) => p.id));
+    for (const [i, p] of entries.entries()) {
+      expect(examples[i].device, `${id} ${p.id} device`).toBe(p.device ?? null);
+      expect(examples[i].chrome, `${id} ${p.id} chrome`).toBe(p.chrome ?? null);
+    }
+  }
+  expect(errors).toEqual([]);
+});
+
+// R-WEB-004 TC-11 step 3 (C10): a card's mockup is created only when the card comes near the viewport.
+test("TC-11: element cards create their mockups lazily, as they come near the viewport (C10)", async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 900 });
+  const errors = await open(page, "#pack=base&tab=elements");
+  await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+  const cards = await page.locator("main .element").count();
+  expect(cards).toBe(REFERENCES.base.elements.length);
+  const before = await page.locator("mockitdown-mockup").count();
+  expect(before, "mockups before scrolling").toBeLessThan(cards);
+  const last = page.locator("main .element").last();
+  await last.scrollIntoViewIfNeeded();
+  await expect(last.locator("mockitdown-mockup").first()).toBeAttached();
+  const after = await page.locator("mockitdown-mockup").count();
+  expect(after, "mockups after scrolling to the end").toBeGreaterThan(before);
   expect(errors).toEqual([]);
 });

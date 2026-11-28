@@ -101,6 +101,26 @@ test("under 720 px the side panel collapses into a menu (C7)", async ({ page }) 
   await expect(page.locator("#menu")).toBeHidden();
 });
 
+// R-WEB-004 TC-11 step 1 (C7): the boundary itself — 720 CSS pixels is wide, 719 narrow.
+test("TC-11: at 720 px the side panel is shown, at 719 px it is behind the menu button (C7)", async ({ page }) => {
+  await page.setViewportSize({ width: 720, height: 900 });
+  const errors = await open(page, "#pack=base");
+  const panel = page.locator("#packs");
+  const menu = page.locator("#menu");
+  await expect(panel).toBeVisible();
+  await expect(menu).toBeHidden();
+  await page.setViewportSize({ width: 719, height: 900 });
+  await expect(panel).toBeHidden();
+  await expect(menu).toBeVisible();
+  await menu.click();
+  await expect(panel).toBeVisible();
+  await page.setViewportSize({ width: 720, height: 900 });
+  await expect(panel).toBeVisible();
+  await expect(menu).toBeHidden();
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  expect(errors).toEqual([]);
+});
+
 test("a missing or unknown #pack= selects the first pack of the side panel (C12)", async ({ page }) => {
   await open(page);
   await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}&tab=elements$`));
