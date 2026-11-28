@@ -141,6 +141,7 @@ nav:
           - Drag and drop: implementation/architecture/drag-drop.md
           - New elements: implementation/architecture/new-elements.md
           - Role rules: implementation/architecture/roles.md
+          - Parameter and modifier types: implementation/architecture/types.md
           - The pack gallery: implementation/architecture/gallery.md
       - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md

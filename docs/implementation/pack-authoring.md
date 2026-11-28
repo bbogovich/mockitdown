@@ -1,6 +1,6 @@
 ---
 title: Pack authoring guide
-impl_version: 0.3.44
+impl_version: 0.3.49
 status: draft
 updated: 2026-11-28
 page_id: IMPL.PACKAUTH
@@ -70,6 +70,13 @@ Then, in this order:
     the design tools). To tighten them for one element, add `"rules": {"accepts": [...]}` with role
     names or `@category` entries; it may only narrow the role's list (a test fails otherwise), as the
     sapui5 `ObjectPageLayout` does with `["section"]`. Rendering ignores it.
+
+    Each argument's type comes from its role too ([types](architecture/types.md)), so an element
+    needs none of its own. When one of its parameters differs from its role's, or it takes one its
+    role does not read, add `"types": {"<name>": "<type>"}` (`text`, `number`, `bool`, `color`,
+    `icon`, or `{"type": "enum", "values": [...]}`, `{"type": "array", "items": ...}`,
+    `{"type": "number", "min": 0, "max": 10}`); a label it types is no longer warned as not
+    understood. `params` stays the list of positional names. A test fails on an unknown type.
 4. **Fonts, sizes, icons** when the framework's type names, device sizes or icon names differ.
 
 ## 3. Style the roles in `pack.css`
@@ -137,3 +144,4 @@ element catalogue into the specification's [Pack catalogue](../specification/pac
 | 0.3.23 | 2026-11-27 | Stylesheet partials for built-in packs (R-PACK-018) (#54) |
 | 0.3.24 | 2026-11-27 | The duplicate check and how to resolve it (R-PACK-018.C9) (#55) |
 | 0.3.44 | 2026-11-28 | Element `rules` narrowing the role rules (#28) |
+| 0.3.49 | 2026-11-28 | Element `types` (#33) |

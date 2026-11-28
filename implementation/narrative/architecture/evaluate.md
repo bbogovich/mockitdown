@@ -1,6 +1,6 @@
 ---
 title: Evaluation
-impl_version: 0.3.48
+impl_version: 0.3.49
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EVAL
@@ -54,13 +54,14 @@ Closures are captured as `Thunk(closure, env)` and run only where views are expe
   C3; `labelFor` in `evaluate.ts`).
 - Before binding a labelled argument, `_understood(el, arg, val)` decides whether anything reads it
   (R-EVAL-004.C7, #32): the element's `params` or `defaults`, an alias of the element (`el.attrs`) or of
-  its pack (`pack.attrs`), `roles.reads(el.role)` (the common `reads` of `roles.json` plus the role's
-  own, loaded by `roles.py`), an action label (`_ACTION_LABELS`), a `Thunk` or `ViewList` value, or a
+  its pack (`pack.attrs`), a name the element's `types` gives a type (`ElementDef.typed`, R-PACK-017.C3,
+  #33), `roles.reads(el.role)` (the keys of the common `params` of `roles.json` plus the role's own,
+  loaded by `roles.py`), an action label (`_ACTION_LABELS`), a `Thunk` or `ViewList` value, or a
   binding (`Ident.binding`, set by the parser for `$name`). Otherwise it warns
   `'<label>' is not understood by <Element> in pack '<id>'` with code `argument` at the label
   (`Arg.loc`, the label token's location) and binds the argument as before, so rendering is unchanged.
-  A role without `reads` (and, in TypeScript, no role rules loaded) warns nothing. TypeScript:
-  `understood`, `ACTION_LABELS` in `evaluate.ts`, `roleReads` in `roles.ts`, `Arg.loc` and
+  A role without `params` (and, in TypeScript, no role rules loaded) warns nothing. TypeScript:
+  `understood`, `ACTION_LABELS` in `evaluate.ts`, `roleReads` in `roles.ts`, `ElementDef.types`, `Arg.loc` and
   `Ident.binding` in `syntax/ast.ts`. Warnings come in argument order, before the element's children
   are evaluated, alike in both variants.
 - `_instantiate` first asks `_cycle(name)` whether the struct reaches itself (R-EVAL-005.C10): an
@@ -122,3 +123,4 @@ Where they relied on a label being dropped, the fix went where the label belonge
 | 0.3.27 | 2026-11-27 | Float formatting and continuous ranges described (R-EVAL-008 as built); IT-36 (#58) |
 | 0.3.38 | 2026-11-28 | Self-embedding structs rejected by cycle detection before expansion; the depth limit kept as a backstop (R-EVAL-005.C10, C11); IT-50 (#84) |
 | 0.3.48 | 2026-11-28 | Unknown labelled arguments warned in both variants (`_understood`, `roles.py`, `Arg.loc`, `Ident.binding`); the fixes that keep the shipped content clean; IT-60 (#32) |
+| 0.3.49 | 2026-11-28 | The labels come from the `params` keys; a label an element's `types` names is understood (#33) |

@@ -1,6 +1,6 @@
 ---
 title: "Model"
-spec_version: 0.13.11
+spec_version: 0.13.12
 status: draft
 updated: 2026-11-28
 page_id: MODEL.1
@@ -110,7 +110,6 @@ erDiagram
     str attach
     dict params
     str title
-    list reads
   }
   Module {
     str source
@@ -392,7 +391,7 @@ What `render` returns.
 
 #### M-PACK-3 — RoleRule
 
-One entry of `shared/language/roles.json` (R-PACK-016, R-PACK-017).
+One entry of `shared/language/roles.json` (R-PACK-016, R-PACK-017). The `reads` list it carried after #32 was folded into `params` (#33): the labels a role reads are the keys of its typed `params`.
 
 **Level.** entity
 
@@ -402,9 +401,8 @@ One entry of `shared/language/roles.json` (R-PACK-016, R-PACK-017).
 | F2 | category: str — frame &#124; bar &#124; layout &#124; collection &#124; content &#124; overlay &#124; annotation |
 | F3 | accepts: list — the roles, or `@category` names, its views may hold as children |
 | F4 | attach: str — child &#124; presentation &#124; modifier |
-| F5 | params: dict — labelled argument → type (`text`, `number`, `bool`, `color`, `icon`, `enum`, `array`) |
+| F5 | params: dict — labelled argument → type (`text`, `number`, `bool`, `color`, `icon`, `enum`, `array`); its keys are the labels the role reads besides those every role reads (the table's top-level `params`, R-EVAL-004.C8) |
 | F6 | title: str — the role's name in a refusal sentence (`horizontal stack`, `list item`) |
-| F7 | reads: list — the labels the role reads besides those every role reads (the table's top-level `reads`, R-EVAL-004.C8) |
 | I1 | Every render role MUST have exactly one rule. |
 
 ---
@@ -466,12 +464,14 @@ A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and c
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): F7 reads |
 | 0.13.7 | 2026-11-28 | as built (#28): F6 title, the role's name in a refusal; the root entry holds only accepts |
 | 0.12.7 | 2026-11-27 | as built: F24-F28 default_device, window, windowed, menubar and app, render options the library already had (#56) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.11 | 2026-11-28 | as built (#32): F7 reads |
 | 0.13.7 | 2026-11-28 | as built (#28): F6 title, the role's name in a refusal; the root entry holds only accepts |
 | 0.12.7 | 2026-11-27 | as built: F24-F28 default_device, window, windowed, menubar and app, render options the library already had (#56) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |

@@ -1,6 +1,6 @@
 ---
 title: Role rules
-impl_version: 0.3.48
+impl_version: 0.3.49
 status: draft
 updated: 2026-11-28
 page_id: IMPL.ROLES
@@ -12,8 +12,10 @@ Realizes **A-REPO-1** (P1: `language/roles.json`) with **M-PACK-3** and **M-PACK
 implements **R-PACK-016** and **R-REPO-002.C8** (#28): the role rule table that says which elements may
 go where, decided by render role so that a pack element inherits it, and the TypeScript queries the
 design tools use (`canContain`, `allowedChildren`). Rendering reads none of it in either variant.
-The `reads` lists (R-EVAL-004.C8, #32) are the evaluators' only use of the table: the labels each role
-reads, against which a labelled argument nothing understands is warned ([Evaluation](evaluate.md)).
+The labels of the `params` maps (R-EVAL-004.C8; `reads` lists in #32, typed `params` since #33) are
+the evaluators' only use of the table: the labels each role reads, against which a labelled argument
+nothing understands is warned ([Evaluation](evaluate.md)). Their types are described in
+[Parameter and modifier types](types.md).
 
 
 `holdsChildren(pack, name)` (R-PACK-016.C16, #30) tells whether an element holds any child; the editor's drop target takes such elements as containers ([Drag and drop](drag-drop.md)).
@@ -22,10 +24,10 @@ reads, against which a labelled argument nothing understands is warned ([Evaluat
 
 | File | What |
 |---|---|
-| `shared/language/roles.json` | the table: the common `reads`, `root.accepts`, and per role `title`, `category`, `accepts`, `attach`, `reads`; one line per rule |
-| `python/src/mockitdown/roles.py` | `COMMON_READS`, `ROLE_READS`, `reads(role)` from the packaged copy (R-EVAL-004.C8) |
+| `shared/language/roles.json` | the table: the common `params`, `root.accepts`, and per role `title`, `category`, `accepts`, `attach`, `params`; one line per rule |
+| `python/src/mockitdown/roles.py` | `COMMON_READS`, `ROLE_READS`, `reads(role)`: the `params` keys of the packaged copy (R-EVAL-004.C8) |
 | `shared/packs/sapui5/pack.json` | `ObjectPageLayout` narrows its role (`vstack`) with `rules: {"accepts": ["section"]}` |
-| `typescript/src/core/roles.ts` | `setRoles`, `rolesLoaded`, `roleRule`, `roleReads`, `expandAccepts`, `canContain`, `allowedChildren`, `ROLE_CATEGORIES` |
+| `typescript/src/core/roles.ts` | `setRoles`, `rolesLoaded`, `roleRule`, `roleReads`, `parameterTypes`, `expandAccepts`, `canContain`, `allowedChildren`, `ROLE_CATEGORIES` |
 | `typescript/src/core/packs/registry.ts` | `ElementDef.rules`: an element's `{accepts}` from `pack.json`, or `null` |
 | `typescript/src/core/assets.ts` | `SharedAssets.roles`: `loadAssets` hands the table to `setRoles` |
 | `typescript/src/node.ts`, `src/elements/assets.ts` | both loaders read or fetch `roles.json` when the manifest lists it |
@@ -36,13 +38,13 @@ reads, against which a labelled argument nothing understands is warned ([Evaluat
 
 ```text
 roles.json
-  reads  [color, density, design, direction, disabled, elevation, emphasis, error, kind, …]   (24: every role)
+  params {color: color, density: text, design: text, direction: text, disabled: bool, …}   (24: every role)
   root   {"accepts": [@frame, @layout, @content, @overlay, appbar, toolbar, sidebar, list, table, tree, …]}
   roles  <role> → {"title": "horizontal stack", "category": "layout", "accepts": [...], "attach": "child",
-                   "reads": ["align", "alignment", "gap", "spacing", "wrap"]}
+                   "params": {"align": "text", "alignment": "text", "gap": "number", "spacing": "number", "wrap": "bool"}}
 ```
 
-The `reads` lists were produced from the Python renderer (#32): every label a role's view is asked for
+The labels (the `reads` lists of #32, the `params` keys since #33) were produced from the Python renderer (#32): every label a role's view is asked for
 while the conformance corpus, the reference samples, the patterns and the example site render (a
 recording `attrs` dict), together with the labels each `r_<role>` method names in `v.attr`, `slot`,
 `has` and `text_or_slot`; the 24 labels every role reads through `Renderer.open` and the style builder
@@ -92,7 +94,7 @@ flowchart LR
 - `@category` lists are expanded once per `accepts` array (a `WeakMap`).
 - Both throw `MockitdownError` before `loadAssets` has installed the rules, and for an unknown pack.
 
-Python packages the table and the `rules` key and reads only the `reads` lists (`roles.py`, for the
+Python packages the table and the `rules` key and reads only the labels of the `params` maps (`roles.py`, for the
 evaluator's unknown-label warning): the pack registry ignores `rules`, so no diagnostic comes from the
 role rules (R-PACK-016.C10). A Python warning for a misplaced role is out of scope (Q9).
 
@@ -118,3 +120,4 @@ role rules (R-PACK-016.C10). A Python warning for a misplaced role is out of sco
 | 0.3.44 | 2026-11-28 | Page written: `roles.json`, the sapui5 narrowing, `canContain`, `allowedChildren`, IT-56 (#28) |
 | 0.3.46 | 2026-11-28 | `holdsChildren` (#30) |
 | 0.3.48 | 2026-11-28 | The `reads` lists, `roles.py`, `roleReads`, how the lists were produced (#32) |
+| 0.3.49 | 2026-11-28 | The `reads` lists became the keys of typed `params` maps; `parameterTypes` (#33) |

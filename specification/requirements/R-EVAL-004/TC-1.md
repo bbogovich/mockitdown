@@ -11,7 +11,7 @@ and on a pack element, `Switch(chekced:)`; an element alias `type:`, a default `
 expects the three warnings of `Color(red:green:blue:)`. `python/tests/test_unknown_labels.py` and
 `typescript/tests/unit/unknown-labels.test.ts` (IT-60) hold the same hand-written examples (F-12.AC4,
 the understood labels of C7, the order of several warnings, struct arguments not reported), check that
-both variants read `reads` from the shared file (C8, C11: no rule, no warning) and that the reference
+both variants read the labels of `params` from the shared file (C8, C11: no rule, no warning); `test_types.py` and `types.test.ts` (IT-61) check that a label a pack element's `types` names is understood (C7) and that the reference
 samples render without the warning; the Python suite also renders the whole corpus recording every
 label each role looks up and fails on one the table omits (C12). `test_examples.py` (example site and
 its component files) and the pattern tests (R-WEB-004.TC-7) fail on any diagnostic, `gen_reference.py

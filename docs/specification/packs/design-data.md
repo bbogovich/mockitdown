@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.13.11
+spec_version: 0.13.12
 status: draft
 updated: 2026-11-28
 page_id: PACK.3
@@ -49,8 +49,8 @@ canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLay
 
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
-gallery. The same file lists the labels each role reads (`reads`, R-EVAL-004.C8), which both evaluators
-use to warn about labelled arguments nothing understands.
+gallery. The same file types the labels each role reads (`params`, R-PACK-017), and their labels are the
+ones both evaluators use to warn about labelled arguments nothing understands (R-EVAL-004.C8).
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
@@ -96,7 +96,7 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 
 | | Statement |
 |---|---|
-| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"reads": […], "root": {"accepts": […]}, "roles": {"<role>": {"title", "category", "accepts", "attach", "reads"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`, the title the role's name in a refusal sentence, and the `reads` lists those of R-EVAL-004.C8. |
+| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"params": {…}, "root": {"accepts": […]}, "roles": {"<role>": {"title", "category", "accepts", "attach", "params"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`, the title the role's name in a refusal sentence, and the `params` maps those of R-PACK-017.C1, whose labels are the ones of R-EVAL-004.C8. |
 | C2 | `accepts` MUST list the roles a role's views may hold as children, each entry a role name or a category written `@<category>`, and `root.accepts` MUST list those allowed at the root of a mockup. |
 | C3 | `attach` MUST be `child` for a view placed among its parent's children, `presentation` for an overlay attached through a presentation modifier (`.sheet`, `.alert`, `.overlay`) and `modifier` for an annotation attached as a modifier. |
 | C4 | The rules MUST follow SRC-12#s6.3: a frame only at the root, as a split-view column or as a tab's content; a bar inside a frame, the root, or a vertical or horizontal stack or group (standing in for the root stack), a toolbar holding only toolbar items, buttons, pickers and search fields; a layout holding layouts, content and the collections, a grid only grid rows; a collection only its item roles; content without children, except a button or link holding its label. |
@@ -105,7 +105,7 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 | C7 | The TypeScript core MUST export `allowedChildren(pack, parent)`, which returns `{allowed, refused}`: the names of the pack's elements the parent may hold, in the pack's order, and the others as `{reason, elements}` groups, one per reason. |
 | C8 | A parent view of role `unknown` MUST accept every child, and a child of role `unknown` MUST be accepted by every parent that accepts children. |
 | C9 | A shared test MUST fail when a render role of either variant has no rule, a rule names an unknown role or category, or a pack's `rules` widens its role's. |
-| C10 | The Python variant MUST package `roles.json`, MUST read only its `reads` lists (R-EVAL-004.C8) and MUST NOT report a diagnostic from its role rules. |
+| C10 | The Python variant MUST package `roles.json`, MUST read only the labels of its `params` maps (R-EVAL-004.C8) and MUST NOT report a diagnostic from its role rules. |
 | C11 | The item roles of a collection (list item, table row and column, tree item, timeline item, board column, kanban card, menu item, tab, navigation item) MUST have the category `collection`, and a layout or the root MUST name the collections it holds by role, so that an item role is accepted only by its collection. |
 | C12 | `root.accepts` MUST accept the overlays, so that a mockup may show a dialog, sheet or toast on its own. |
 | C13 | An element name the pack does not define, and an element whose role has no rule, MUST be treated as role `unknown`. |
@@ -122,15 +122,35 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 
 What control the inspector uses for each argument (SRC-12#s7). Types are kept by role, so the 3132
 element definitions need no annotation each; a pack adds `types` only for an element whose parameters
-differ from its role's. `params` keeps its meaning — the names of the positional arguments — so nothing
-that reads it changes.
+differ from its role's, and a label it types that way is understood by the element's calls
+(R-EVAL-004.C7). `params` in `pack.json` keeps its meaning — the names of the positional arguments — so
+nothing that reads it changes.
+
+As built (#33), the typed maps replaced the `reads` lists of R-EVAL-004.C8: the labels a role reads are
+the keys of its `params`, those every role reads the keys of the table's top-level `params`. Each type
+was chosen from what the renderer does with the label: `value` is a number for a slider, a progress bar
+or a rating and text for a text field; `rows` is a number for a text field and an array of arrays for a
+table. An `enum` names its values only where the renderer knows a fixed set (`orientation`,
+`titleDisplayMode`, a button's `role`); the rest of the common markup (`size`, `state`, `severity`, …)
+is `text`, its values differing from pack to pack. `variant` is `text` in the table, and
+`parameterTypes` makes it an `enum` of the element's declared variants (C4).
 
 ```json
-"button": {
-  "category": "content", "accepts": [], "attach": "child",
-  "params": { "label": "text", "role": { "type": "enum", "values": ["cancel", "destructive"] },
-              "systemImage": "icon", "disabled": "bool" }
+"params": {"color": "color", "disabled": "bool", "orientation": {"type": "enum", "values": ["horizontal", "vertical"]}, …},
+"roles": {
+  "button": {"title": "button", "category": "content", "accepts": ["text", "label", "icon", "image", …], "attach": "child",
+             "params": {"label": "text", "role": {"type": "enum", "values": ["cancel", "destructive"]}, "systemImage": "icon", "loading": "bool", …}}
 }
+```
+
+The modifiers are grouped as the renderer's stylesheet builder groups them: `layout` (padding, frame,
+offset, position, aspect ratio, …), `typography`, `colour` (colour and shape: fills, strokes, borders,
+corner radius, clip shape, shadow, opacity), `presentation` (alert, sheet, popover, overlay, …),
+`annotations` (callouts, pointers, marquees, highlights, taps) and `other` (identity, navigation titles,
+search, shortcuts, toolbars). An argument without a label is positional:
+
+```json
+"padding": {"group": "layout", "args": [{"label": null, "type": {"type": "enum", "values": ["all", "horizontal", "vertical", "top", "bottom", "leading", "trailing"]}}, {"label": null, "type": "number"}]}
 ```
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
@@ -149,31 +169,40 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 Shared test in both suites (`test_types.py`, `types.test.ts`): every rule has `params` with valid
 types; every rendered modifier of the vocabulary has a group and argument types; every pack's `types`
-is valid; the labels each role understands (R-EVAL-004.C8) all have a type.
+is valid and `params` stays a list of names; the labels each role reads (R-EVAL-004.C8) all have a
+type, being the keys of its `params`, which `test_unknown_labels.py` holds against what the Python
+renderer looks up. The Python suite also runs each check on hand-written bad data (an unknown type, a rule
+without `params`, an enum without values, an array without items, a repeated common label, a modifier
+without an entry or with an unknown group) and expects the hand-written error list (C8).
 
 **R-PACK-017.TC-2 — Lookups and no rendering change**
 
-`node:test`: the cases of V1 and `modifierTypes().padding.group === "layout"`; both conformance suites
-pass with the types loaded.
+`node:test` (`typescript/tests/unit/types.test.ts`, IT-61): the cases of V1 and `modifierTypes().padding.group
+=== "layout"`, each type in its object form; an application pack element whose `types` overrides and adds
+to its role's (`variant` still the enum of its declared variants, `params` still a list of names); the
+common params alone for an element the pack does not define; a `MockitdownError` for an unknown pack (C9).
+Both conformance suites pass with the types loaded. Expected values written by hand from the shared files.
 
 **Realizes.** F-16
 
 | | Statement |
 |---|---|
-| C1 | Each rule of `roles.json` MUST carry `params`, an object mapping every labelled argument its role understands (R-EVAL-004.C7) to a type. |
+| C1 | `roles.json` MUST carry `params` at its top level, an object mapping each label every role reads through the common element markup to a type, and each of its rules MUST carry `params`, an object mapping each other label its role reads (R-EVAL-004.C8) to a type, without repeating a common label. |
 | C2 | A type MUST be one of `text`, `number`, `bool`, `color`, `icon`, `enum` and `array`, written as the name or as an object `{"type": …}`, where `enum` names its `values`, `array` names the type of its `items`, and `number` MAY name `min` and `max`. |
 | C3 | An element definition in `pack.json` MAY carry `types` (M-PACK-2), an object of parameter names and types that adds to or overrides its role's `params` for that element; `params` (M-PACK-2.F3) MUST stay a list of names. |
 | C4 | The type of `variant` MUST be an `enum` of the variants the element declares (M-PACK-2.F5). |
 | C5 | `shared/language/vocabulary.json` MUST also hold `modifiers`, an object mapping every rendered modifier to `{"group", "args"}`, the group being one of `layout`, `typography`, `colour`, `presentation`, `annotations` and `other`, and `args` listing each argument's label (or `null`) and type. |
-| C6 | The TypeScript core MUST export `parameterTypes(pack, element)`, the element's role `params` with its own `types` applied, and `modifierTypes()`, the vocabulary's `modifiers`. |
+| C6 | The TypeScript core MUST export `parameterTypes(pack, element)`, taking a pack id or a loaded pack, which returns the common `params`, then the element's role `params`, then its own `types`, the common ones alone for an element the pack does not define, and `modifierTypes()`, the vocabulary's `modifiers`, each type in its object form (`{"type": "bool"}`). |
 | C7 | Loading the types MUST change neither the rendered HTML nor the diagnostics of any conformance case in either variant. |
 | C8 | A shared test MUST fail when a rule has no `params`, a type is unknown, an element's `types` names a type that is unknown, or a rendered modifier has no entry in `modifiers`. |
+| C9 | If no role rules are loaded or the pack is unknown, then `parameterTypes` MUST throw a `MockitdownError`. |
 | V1 | `parameterTypes("base", "Toggle")` gives `isOn` as `bool`, `parameterTypes` of an element with declared variants gives `variant` as an `enum` of them, and the conformance suites pass unchanged. |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): C1 the table carries reads (top level and per rule); C10 Python reads only the reads lists |
 | 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
@@ -185,6 +214,7 @@ pass with the types loaded.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.11 | 2026-11-28 | as built (#32): C1 the table carries reads (top level and per rule); C10 Python reads only the reads lists |
 | 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
