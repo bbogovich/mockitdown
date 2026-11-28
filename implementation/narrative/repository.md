@@ -30,7 +30,7 @@ mockitdown/                    (main branch)
     scripts/copy-shared.mjs    copies shared/ into dist/shared/ (+ manifest.json) and the LICENSE
     scripts/serve.mjs          the development server (R-WEB-003)
     scripts/assemble-gallery.mjs  lays the gallery out as static files for /gallery/ (R-WEB-004.C27)
-    pages/                     test pages and the pack gallery (packs.html, packs.js, snippet.js, packs.css)
+    pages/                     test pages and the pack gallery (index.html, packs.html, packs.js, snippet.js, chrome.css, index.css, packs.css)
     playwright.config.mjs, playwright.published.config.mjs   browser tests; the second checks the assembled site
     playwright.migration.config.mjs   the stylesheet-migration screenshots (IT-27), on demand; baseline in migration-baseline/
     tests/unit/, tests/browser/  node:test suites (IT-9, IT-10 …) compiled to test-build/; Playwright specs
@@ -229,3 +229,4 @@ the groups in menu order and the hidden packs (`hidden()`) sorted by id (R-PACK-
 | 0.3.42 | 2026-11-28 | `src/elements/` holds the outline element too (#26) |
 | 0.3.43 | 2026-11-28 | `src/elements/` holds the designer element too; `pages/designer.html` and its sample `.mkdesign` (#27) |
 | 0.3.44 | 2026-11-28 | `shared/language/roles.json`, copied as `roles.json` into both packages (#28) |
+| 0.3.63 | 2026-11-28 | `pages/` lists the gallery stylesheets, `chrome.css` among them (#86) |

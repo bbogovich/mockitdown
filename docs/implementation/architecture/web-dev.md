@@ -21,6 +21,7 @@ asset loader of **A-WEB-2** (P2, K2), under ADR-20: `node:http` and `node:fs` fo
 | `pages/core.html` | "Core render": the core API in a page, without custom elements — the smoke test's page |
 | `pages/mockup.html` | "Mockup element": `<mockitdown-mockup>` demo and test page (see [The mockup element](elements.md)) |
 | `pages/packs.html`, `packs.js`, `packs.css` | "Pack gallery": every pack's elements and the design patterns (see [The pack gallery](gallery.md)) |
+| `pages/chrome.css` | the page chrome shared by the gallery home page and the pack gallery (tokens, light and dark, and the top bar), loaded before `index.css` and `packs.css` |
 | `scripts/assemble-gallery.mjs` | `assembleGallery(dest)`: the gallery as static files for `/gallery/` (see [Build and publish](../build-publish.md#the-published-pack-gallery)) |
 | `playwright.published.config.mjs` | no `webServer`; needs `GALLERY_URL`; runs `tests/browser/published.spec.mjs` (IT-26) |
 | `src/elements/assets.ts` | `loadAssetsFromUrl(base, {fetch})`, exported by `dist/mockitdown.js` |
@@ -99,3 +100,4 @@ report. It publishes nothing; `pages.yml` and `release.yml` keep their own Pytho
 | 0.3.8 | 2026-11-25 | The pack gallery page and its files; IT-15 (#7) |
 | 0.3.20 | 2026-11-26 | Audit: assemble-gallery.mjs and the published Playwright config listed |
 | 0.3.44 | 2026-11-28 | `loadAssetsFromUrl` fetches `roles.json` too (#28) |
+| 0.3.63 | 2026-11-28 | `pages/chrome.css` listed (#86) |

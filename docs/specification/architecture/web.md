@@ -84,11 +84,14 @@ browser's colour scheme inside the shadow root.
 
 Development and test only; none of it is part of the published package.
 
+The gallery pages load `chrome.css` before their own stylesheet (`index.css`, `packs.css`), which keeps only
+what differs: the body's font size, the pack gallery's `--stage` and `--side`, and each page's layout.
+
 **Level.** module
 
 | | Statement |
 |---|---|
-| P1 | provides: the development server `typescript/scripts/serve.mjs`, the test pages under `typescript/pages/` and the browser tests under `typescript/tests/browser/` |
+| P1 | provides: the development server `typescript/scripts/serve.mjs`, the test pages under `typescript/pages/` (the gallery home page and the pack gallery share the page chrome stylesheet `typescript/pages/chrome.css`: colour tokens, light and dark, and the top bar) and the browser tests under `typescript/tests/browser/` |
 | U1 | uses A-WEB-2 — every mockup on a test page |
 | U2 | uses A-REPO-1 — reference samples and design patterns |
 | K1 | The development server MUST serve files only from the package, its build output and `shared/`, and MUST bind to the loopback interface. |
