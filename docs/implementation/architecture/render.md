@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.28
+impl_version: 0.3.30
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REND
@@ -212,6 +212,7 @@ the kinds share:
 | `_value_candles` | `points:` rows of four, else `[prev, max + 10 % range, min − 10 % range, value]` per value after the first, labels shifted by one |
 | `has_data` | whether marks can be drawn (C7, C9): a gauge always; pie, donut and treemap need a positive value |
 | `_empty` | a chart without data: the axes, the pie/donut outline circles, the sparkline baseline or the heatmap/funnel/treemap frame |
+| `_bar_group` | one category's bars for `_bars` in either orientation: the value axis along x (horizontal) or y, grouped bars side by side across the band, stacked bars in one slot (`barGroup` in `charts.ts`) |
 
 `render` calls `_empty` for the kinds whose drawing needs data (scatter, bubble, candlestick,
 heatmap, pie, donut, treemap, sparkline, funnel); bar, line, area, combo and radar already draw their
@@ -294,3 +295,4 @@ Both renderers, for every pack:
 | 0.3.20 | 2026-11-27 | `render/html.py` split into role-family mixins under `render/roles/` and shared helpers in `render/_util.py`, no change in output (#48) |
 | 0.3.21 | 2026-11-27 | The TypeScript role families under `typescript/src/core/render/roles/` (#49) |
 | 0.3.28 | 2026-11-27 | `r_textfield` gives the root `role="textbox"` in both renderers (found by R-REND-007.TC-1); the role catalogue (REF.2) checked against the renderer by `tests/test_markup.py` and its fixture `tests/fixtures/role-catalogue.json`; IT-40, IT-41 (#59) |
+| 0.3.30 | 2026-11-27 | `_bar_group` / `barGroup`: one orientation-aware helper draws the bars of horizontal and vertical bar charts, no change in output; a horizontal chart whose only series is the line series no longer raises in Python (#82) |
