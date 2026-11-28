@@ -1,8 +1,8 @@
 ---
 title: Rendering
-impl_version: 0.3.31
+impl_version: 0.3.62
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.REND
 ---
 
@@ -128,7 +128,8 @@ Shared helpers:
 | `_fmt`, `_num`, `_name`, `_bool`, `initials`, `PH`, `_cursor_svg` (`_util.py`) | value coercion and markup used by several families and by `html.py` |
 | `content`, `slot`, `text_or_slot`, `has` | read text-or-views attributes and slots |
 | `icon`, `leading_visual`, `avatar_html`, `badge_html` | shared visuals |
-| `_decorations`, `_wrap_overlays`, `_collect_presentations` | decoration modifiers; `.overlay`/`.background` content; alert, sheet, … layers |
+| `_decorations`, `_marks`, `_wrap_overlays`, `_collect_presentations` | decoration modifiers and the marks of one view (decorated root, anchored layer); `.overlay`/`.background` content; alert, sheet, … layers |
+| `present(v, open_, markup, close=, inner=)` | add an overlay layer: the overlay's own marks decorate `markup` inside the layer, then its anchored mark and the `inner` layers its contents added follow the layer (R-ANN-001.C6, R-ANN-003.C3); used by `r_dialog`, `r_toast`, `r_fab` and the presentations |
 
 A module-level helper lives with the one family that uses it; one that several modules use goes to
 `_util.py`, which imports nothing from `html.py` or `roles/`, so the mixins never import `html.py`.
@@ -140,6 +141,15 @@ method reads attributes leniently (several framework spellings) and emits fixed 
 
 `Renderer` state is per mockup: `overlays`, `row_wrap` (rows inside lists/forms), `in_menu`,
 `chart_seq` (deterministic chart ids).
+
+**Marks and overlay layers (#46).** A dialog, toast or floating action button that is not `inline` is
+lifted into a screen-level `.mkd-layer` and its role method returns `""`, so `_wrap_overlays` has nothing
+to decorate; such roles call `present(v, …)`, which decorates the overlay's root inside its layer. Every
+layer is followed in `overlays` by the anchored marks (`.mkd-anchored`) of the views inside it: the role
+or `_collect_presentations` notes `len(self.overlays)` before rendering the contents and moves what they
+added after the layer. Chromium resolves a `position-anchor` only to an anchor earlier in tree order, so a
+mark emitted before its dialog's layer (as `.alert` and `.sheet` contents once were) was drawn at the
+screen's top-left corner in a device frame. The TypeScript renderer has the same `marks` and `present`.
 
 ## Fit frames, presentations and rows — `shared/css/page.css`, `shared/packs/base/pack.css`
 
@@ -299,3 +309,4 @@ Both renderers, for every pack:
 | 0.3.28 | 2026-11-27 | `r_textfield` gives the root `role="textbox"` in both renderers (found by R-REND-007.TC-1); the role catalogue (REF.2) checked against the renderer by `tests/test_markup.py` and its fixture `tests/fixtures/role-catalogue.json`; IT-40, IT-41 (#59) |
 | 0.3.30 | 2026-11-27 | `_bar_group` / `barGroup`: one orientation-aware helper draws the bars of horizontal and vertical bar charts, no change in output; a horizontal chart whose only series is the line series no longer raises in Python (#82) |
 | 0.3.31 | 2026-11-27 | Adding a role: the role catalogue fixture is generated from REF.2 by `tools/gen_role_catalogue.py`, no longer kept by hand (#83) |
+| 0.3.62 | 2026-11-28 | Overlay layers keep their marks: `_marks` and `present` (`marks`, `present` in TypeScript); the anchored marks of a presentation's contents follow its layer (#46) |

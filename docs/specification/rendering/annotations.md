@@ -1,8 +1,8 @@
 ---
 title: Annotations and overlays
-spec_version: 0.12.7
+spec_version: 0.13.25
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: ANN.1
 ---
 
@@ -27,13 +27,19 @@ Create an item (#1), then share it (#2).
 Documentation often has to point at a part of a screen and then talk about it. A numbered circle on the element, matched by the same number in the prose (R-ANN-004), is the convention of manuals and design specs.
 
 **Overlays keep their marks (F-15.C5).** A dialog, a toast or a floating action button with
-`.callout(…)` draws the callout like any other element.
+`.callout(…)` draws the callout like any other element. As built (#46): such an overlay is lifted out of the flow into a
+screen-level layer, and its marks used to be dropped with it; now the overlay's root is decorated inside
+its layer, and its anchored mark follows that layer (R-ANN-003.C3).
 
 **R-ANN-001.TC-1 — Callouts on overlays**
 
-Conformance cases `annotate-overlay-callouts` (a `Dialog`, a `Toast` and a floating action button each
-with `.callout(n)`, one presented through `.overlay`) in both suites: each overlay's callout mark is in
-the expected HTML. Browser test: each mark is visible and centred on its overlay's corner within 4 px.
+Conformance case `annotate-overlay-callouts` (a `Dialog`, a `Toast` and a floating action button each
+with `.callout(n)`, a second `Toast` presented through `.overlay`) in both suites: each overlay's callout
+mark is in the expected HTML. Unit tests `OverlayCalloutTests` (`python/tests/test_overlay_callouts.py`):
+the overlay's root is decorated inside its layer and its anchored mark follows the layer; an inline toast
+is decorated in place. Browser test (Chromium, `typescript/tests/browser/overlay-callouts.spec.mjs`,
+IT-74): in a fit frame and in a phone frame, each mark is visible and centred on its overlay's top-left
+corner within 4 px.
 
 **Realizes.** F-15
 
@@ -99,7 +105,9 @@ alike (ADR-18) and two different figures on one page do not collide.
 
 **Marks inside a dialog (F-15.C6).** A dialog is its own decoration context: the marks of its
 contents are positioned against the dialog, so a callout on a dialog's button sits on that button rather
-than at the screen's top-left corner.
+than at the screen's top-left corner. As built (#46), every overlay layer is followed by the anchored
+marks of the views inside it: a presented alert or sheet emitted its contents' marks before its layer, so
+in a device frame Chromium could not resolve their anchors and drew them at the screen's corner.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
@@ -107,10 +115,13 @@ than at the screen's top-left corner.
 
 **R-ANN-003.TC-1 — Marks inside a dialog**
 
-Conformance case `annotate-dialog-contents` (a callout on a button inside a `Dialog`) in both suites.
-Browser test (Chromium): the callout's centre lies within 4 px of the button's top-left corner, once
-with anchor positioning and once with the fallback layer forced (anchor positioning disabled through
-the stylesheet's `@supports` branch).
+Conformance cases `annotate-dialog-contents` (a callout on a button inside a `Dialog`) and
+`annotate-in-dialog` (one inside an `.alert`) in both suites; the unit tests `DialogContentsTests`
+(`python/tests/test_overlay_callouts.py`: a `Dialog`, an `.alert` and a `.sheet`, the anchored mark after
+the layer). Browser test (Chromium, `typescript/tests/browser/overlay-callouts.spec.mjs`, IT-74): for a
+`Dialog` and an `.alert`, in a fit frame and in a phone frame, the callout's centre lies within 4 px of the
+button's top-left corner, once with anchor positioning and once with the fallback layer forced (anchor
+positioning disabled through the stylesheet's `@supports` branch).
 
 **Decisions.** ADR-15
 
@@ -118,7 +129,7 @@ the stylesheet's `@supports` branch).
 |---|---|
 | C1 | The renderer MUST attach annotation marks (R-ANN-001, R-ANN-002) to the modified view's own root element — not a wrapper — so the view keeps its place in its parent's layout; only a void root element (an image) MAY be wrapped. |
 | C2 | The renderer MUST name the decorated element as a CSS anchor (unique within the page) and draw its marks twice: in a screen-level layer positioned with CSS anchor positioning, and in a layer inside the element used only where anchor positioning is unsupported. |
-| C3 | Marks created inside a modal dialog MUST be emitted after the dialog's layer, so their anchors precede them. |
+| C3 | Marks created inside an overlay layer (a modal dialog, a presented alert, confirmation dialog, sheet, cover, popover or inspector) and the marks of an overlay itself (a dialog, toast or floating action button) MUST be emitted after that layer, so their anchors precede them. |
 | C4 | `.position(x:y:)` MUST place the view's centre at (x, y) points in its nearest positioned container (canvas, z-stack, screen); `.position` without coordinates MUST warn and be ignored; `.rotationEffect(.degrees(n))` MUST rotate the view; `.zIndex(n)` MUST order overlapping views; canvas, z-stack, card and presented containers MUST isolate the stacking of their children. |
 | C5 | The anchor name MUST be `--mkd-<p>-<n>`, `<p>` being the first six hexadecimal digits of the SHA-1 of the pack id, a line feed and the block source (UTF-8), and `<n>` counting the figure's decorated elements from 1 in render order. |
 | V1 | A callout on a row inside a clipped list is fully visible in a browser with anchor positioning. |
@@ -152,12 +163,14 @@ with `callout_refs: false` nothing is converted (C1). `(#2 <colour>)` for each o
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.25 | 2026-11-28 | as built (#46): C3 covers every overlay layer (presented alert, confirmation dialog, sheet, cover, popover, inspector) and an overlay's own marks; TC-1 verifies C3 and C6, names the alert case, the unit tests and the browser test (IT-74); as built (#46): TC-1 names the conformance case, the unit tests and the browser test (IT-74, fit and phone frames); prose says how an overlay keeps its marks |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | marks inside a dialog are placed at their views (F-15.C6): C6, TC-1 (ING-1); overlays keep their marks (F-15.C5): C6, TC-1 (ING-1) |
 | 0.6.2 | 2026-11-25 | as built: portable anchor prefix from the pack id and block source, so every variant names anchors alike (#2) |
 | 0.3.0 | 2026-11-24 | Page created |
+| 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | marks inside a dialog are placed at their views (F-15.C6): C6, TC-1 (ING-1); overlays keep their marks (F-15.C5): C6, TC-1 (ING-1) |

@@ -2,15 +2,15 @@
 id: R-ANN-001
 title: Numbered callouts
 status: active
-version: 0.10.0
-rev: 1
+version: 0.13.25
+rev: 2
 page: ANN.1
 slot: reqs
 order: 999
 source: [SRC-4, SRC-12]
 realizes: [F-15]
 reverse_engineered: true
-hash: d39b3d42c845
+hash: a780b13f7c9f
 ---
 
 C1: The modifier `.callout(n)` (alias `.annotation`) MUST draw a numbered circle on the corner of the modified view named by `alignment:` (default `.topLeading`), with an optional label (second argument or `text:`) drawn beside it.

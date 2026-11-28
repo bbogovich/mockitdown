@@ -63,9 +63,9 @@ M-VIEW-1 | model | active | 0.10.0 r1 | MODEL.1 | View
 M-VIEW-2 | model | active | 0.2.0 r0 | MODEL.1 | Modifier
 M-VIEW-3 | model | active | 0.2.0 r0 | MODEL.1 | Screen
 M-VIEW-4 | model | active | 0.2.0 r0 | MODEL.1 | Value
-R-ANN-001 | requirements | active | 0.10.0 r1 | ANN.1 | Numbered callouts
+R-ANN-001 | requirements | active | 0.13.25 r2 | ANN.1 | Numbered callouts
 R-ANN-002 | requirements | active | 0.12.7 r1 | ANN.1 | Pointers, selections, highlights and taps
-R-ANN-003 | requirements | active | 0.10.8 r4 | ANN.1 | Overlay placement and free positioning
+R-ANN-003 | requirements | active | 0.13.25 r5 | ANN.1 | Overlay placement and free positioning
 R-ANN-004 | requirements | active | 0.12.7 r1 | ANN.1 | Callout references in prose
 R-API-001 | requirements | active | 0.12.7 r1 | API.1 | render
 R-API-002 | requirements | active | 0.12.7 r1 | API.1 | check, evaluate and stylesheet

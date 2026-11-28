@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.25 | 2026-11-28 | `ANN.1` | Overlay layers keep their callouts (#46): R-ANN-003.C3 as built covers every overlay layer and an overlay's own marks; R-ANN-001 and R-ANN-003 TC-1 name their tests (IT-74); REF.2 lists data-deco on dialog, fab and toast |
 | 0.13.24 | 2026-11-28 | `LANG.1`, `LANG.2` | Dotted element names as built (#45): R-EVAL-003 C10 and TC-2, R-LANG-007 TC-2 |
 | 0.13.23 | 2026-11-28 | `WEB.3`, `WEB.5` | As built (#44): sections and the saved view (R-TOOL-014 C1, C2, C4, C6-C10, TC-1, TC-2); the change kind sections (R-EDIT-006 C5) |
 | 0.13.22 | 2026-11-28 | `WEB.3`, `WEB.5` | As built (#43): the active mockup and the mockup commands (R-TOOL-013 C1, C2, C4-C8, TC-1, TC-2); session.commands lists them (R-EDIT-009 C8, TC-2) |

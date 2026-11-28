@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.61
+impl_version: 0.3.62
 status: draft
 updated: 2026-11-28
 page_id: IMPL.CONF
@@ -50,7 +50,7 @@ repository path.
 | `chrome-` | 35 | every chrome kind, auto per pack, browser url, `@Screen`, window; SwiftUI split view at phone, tablet and desktop, `windowed` (option, `@Screen`, ignored on a Mac with its warning), the macOS title bar modes (stack, plain root with toolbar, sidebar-adaptable tabs, plain, base pack), a split column toolbar, Form automatic on a Mac; the menu bar (`chrome-menubar-*`: R-DEV-009 V1, `true` with the title as app name, `@Screen(app:, menubar:)`, `.commands` with every row kind in dark, the base pack's Edit menu, ignored on a phone, an unknown title and placement) |
 | `option-` | 9 | title, id, caption, elements table, source, pack and default pack |
 | `import-` | 8 | `import <Module>`, component files, nested imports, inline structs |
-| `annotate-` | 21 | callouts, pointers, marquee, highlight, tap, free marks, position, in dialog |
+| `annotate-` | 23 | callouts, pointers, marquee, highlight, tap, free marks, position, in dialog, on overlays (`annotate-overlay-callouts`), inside a `Dialog` (`annotate-dialog-contents`) |
 | `overlay-` | 9 | alert, sheet, confirmation dialog, overlay, badge, toast, dialog, FAB, navigation |
 | `chart-` | 30 | every chart kind and data form, `Chart {}` marks, a dark pack, candlesticks from values, bubble and heatmap from `series:`, charts without data (with the `chart` warning) |
 | `shape-` | 5 | circle, ellipse and capsule in a 160 × 96 frame; a stroked, shadowed circle; a background in an ellipse |
@@ -109,3 +109,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.36 | 2026-11-27 | `gen_conformance.py` skips `edit/`, the edit corpus (#21) |
 | 0.3.39 | 2026-11-28 | `edit-*` cases and the `edit` option key (694 cases); every case also renders unchanged with `edit: false` in both suites (#23) |
 | 0.3.61 | 2026-11-28 | `eval-*` area: the dotted-name cases (698 cases) (#45) |
+| 0.3.62 | 2026-11-28 | `annotate-overlay-callouts` and `annotate-dialog-contents` (700 cases); `annotate-in-dialog` regenerated, its anchored mark now after the alert's layer (#46) |
