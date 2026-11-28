@@ -1,6 +1,6 @@
 ---
 title: Commands on the selection
-impl_version: 0.3.52
+impl_version: 0.3.53
 status: draft
 updated: 2026-11-28
 page_id: IMPL.COMMANDS
@@ -11,8 +11,9 @@ page_id: IMPL.COMMANDS
 Realizes the commands of **A-WEB-4** (P1 "`DesignSession` with its history and commands", K2) and the
 components' share of **A-WEB-5** (K2: they hold no editing rule); implements **R-EDIT-008** C1 to C14
 (#36): duplicate, copy, cut, paste, move up and down, and multi-select with Shift- and Cmd/Ctrl-click,
-each command one undo step (C10, R-EDIT-007). Wrap, unwrap, convert and extract component (R-EDIT-009)
-and the host's command list (F-19.C22) come with the next stage.
+each command one undo step (C10, R-EDIT-007); and **R-EDIT-009** C1 to C12 (#37): wrap, unwrap,
+convert and extract component, the host's command list `session.commands` with `session.run`
+(F-19.C22), and the designer's Cmd/Ctrl+G and Shift+Cmd/Ctrl+G.
 
 ## Data flow
 
@@ -23,6 +24,9 @@ flowchart LR
   s -- "ops (tree) → edit() one after another" --> t[final tree]
   t -- "one step, one change (diff before → after), insert per new view, select" --> l[listeners]
   d -- "navigator.clipboard.writeText / readText (fallback: last copy)" --> c[(clipboard text/plain)]
+  d -- "Cmd/Ctrl+G · Shift+Cmd/Ctrl+G" --> s
+  h["host menus"] -- "commands · run(name, args)" --> s
+  s -- "plan (role rules, bindings) → ops" --> s
 ```
 
 ## Files
@@ -34,7 +38,9 @@ flowchart LR
 | `typescript/src/design/index.ts` | exports `CutResult` |
 | `typescript/src/elements/outline.ts` | `#onClick` passes Shift (`range`) or Cmd/Ctrl (`toggle`) to `#choose` |
 | `typescript/src/elements/editor.ts` | `#onClick`: Shift- or Cmd/Ctrl-click on the innermost element under the pointer |
-| `typescript/src/elements/designer.ts` | `#onKey` (the command keys), `#toClipboard`, `#paste`, `#copied` |
+| `typescript/src/elements/designer.ts` | `#onKey` (the command keys, Cmd/Ctrl+G and Shift+Cmd/Ctrl+G with `WRAP_DEFAULT`), `#toClipboard`, `#paste`, `#copied` |
+| `typescript/src/design/session.ts` (#37) | `wrap`, `unwrap`, `convert`, `extractComponent`, `commands` (`DesignCommand`), `run` (`CommandArgs`, `CommandName`), `WRAP_DEFAULT`; the private `runPlan`, `placedSelection`, `planWrap`, `planUnwrap`, `planConvert`, `checkExtractSelection`, `planExtract`; `applyOps` takes a `TextStep` (`{op: "text", edits}`, re-parsed) and a selection function; helpers `holderOf`, `article`, `collectDeclarations`, `freeNames` |
+| `typescript/src/core/roles.ts` (#37) | `labelUnderstood(pack, element, label)` and `ACTION_LABELS`: the value-independent part of R-EVAL-004.C7, which the evaluator's `understood` now calls and convert uses |
 
 ## How it works
 
@@ -71,6 +77,34 @@ flowchart LR
   `navigator.clipboard.writeText` (errors ignored) and keep the text in `#copied`; paste reads
   `readText` and uses `#copied` when that fails or is empty.
 
+- **Restructuring** (R-EDIT-009). Each command is a planner returning `{ops, select}` or a refusal;
+  `runPlan` applies the plan with `applyOps`, and `commands` calls the same planners to decide
+  `enabled`. **Wrap** (C1, C2): with the role rules loaded, `canContain(pack, holder, name)` for the
+  parent past `if`/`ForEach` (`holderOf`) and `canContain(pack, name, node)` for each node; then an
+  insert of `<name> {\n}` at the first node's statement index and a `move` of the nodes into it at
+  `end`, so they keep their ids; the inserted call is selected. **Unwrap** (C3, C11): one node, a call
+  with statement children, its unlabelled content closure without parameters or `let`s, each child
+  accepted by the holder; a `move` of the children to the node's index under its parent, then a
+  `remove` of the node (taking its arguments, modifiers and labelled closures); the children are
+  selected. **Convert** (C4, C5): both names elements of the pack with one role (else the refusal names
+  both role titles); a `setName`, then a `setArgument` removal for each labelled argument that is no
+  closure, view or binding and that `labelUnderstood` rejects, and for each positional one past the new
+  element's `params`, from the last; the node is found by its ordinal, which a rename keeps, and
+  selected under its new id. **Extract** (C6, C7): the name must match `^\p{Lu}[\p{L}\p{N}_]*$` and be
+  no struct, pack element or view name the mockup has (no self-embedding struct, R-EVAL-005.C10);
+  `collectDeclarations` lists every `let` and closure parameter outside the selection, plus the
+  enclosing struct's properties, and `freeNames` the identifiers the selection uses without declaring
+  them; then a `remove`, an insert of `<name>()` at the first node's index, and a `TextStep` writing
+  `struct <name>: View { var body: some View { … } }` (the nodes' `nodeCode` in source order, two units
+  deep, `indentUnit`) after the last struct's end with a blank line, else before the first top-level
+  view's line. The call is selected.
+- **The command list** (C8). `commands` gives the thirteen commands in menu order with label and
+  shortcut (`Mod+D`, `Alt+ArrowUp`, `Mod+G`, `Mod+Shift+G`, …; null for convert and extract) and
+  `enabled`: undo/redo from `canUndo`/`canRedo`; everything else needs the active code to parse; paste
+  always; delete, cut and copy a selection; duplicate a placed one; the moves a placed one not at that
+  edge; wrap the `VStack` plan; unwrap its plan; convert one selected element of the pack; extract the
+  selection checks. `run(name, args)` dispatches by name (copy returns `{text}`).
+
 ## Use
 
 ```js
@@ -80,13 +114,20 @@ const { text } = s.cut();                     // removed; the next sibling selec
 s.select([stack]); s.paste(text);             // the stack's last child
 s.moveUp(); s.moveDown();                     // nothing at the edge, no step
 s.selectRange(other); s.toggleSelected(id);   // Shift- and Cmd/Ctrl-click
+s.wrap("HStack"); s.unwrap();                 // into a new HStack, selected; and back
+s.convert("VBtn");                            // vuetify: same role, unknown labels dropped
+s.extractComponent("OrderCard");              // struct OrderCard: View { … } and OrderCard() in place
+s.commands.filter((c) => c.enabled);          // a host's Edit menu
+s.run("wrap", { name: "VStack" });
 ```
 
 ## Tests
 
 IT-64: `typescript/tests/unit/commands.test.ts` (R-EDIT-008 TC-1), `typescript/tests/browser/commands.spec.mjs`
 (TC-2 on `pages/designer.html`, expected clipboard text `tests/browser/fixtures/copied-card.mockitdown`)
-and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). See [Testing](../testing.md).
+and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). IT-65:
+`typescript/tests/unit/restructure.test.ts` (R-EDIT-009 TC-1, TC-2) and the Cmd/Ctrl+G test of
+`typescript/tests/browser/commands.spec.mjs` (TC-2). See [Testing](../testing.md).
 
 ## Debugging
 
@@ -96,6 +137,13 @@ and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). See [Tes
 - A duplicate or move is refused with "not placed among its parent's children": the node is an
   argument (`Section(header: …)`), a modifier's content or a struct body statement, which
   `statementChildren` does not count.
+- Wrap or unwrap refused with a role sentence: `canContain(pack, parent, child)` gives the same reason;
+  the parent is the element above any `if` or `ForEach`.
+- Extract refused with "the selection uses x, declared outside it": `x` is a `let`, a closure parameter
+  (often a `ForEach`'s) or a property of the struct holding the selection; select the `ForEach` and its
+  `let`'s users together, or pass the value in by hand.
+- Convert dropped an argument: `labelUnderstood(registry.get(pack), element, label)` says whether the
+  new element understands it; closures, views and bindings are always kept.
 - Cmd/Ctrl+V pastes something old: the browser refused `readText`, so the designer used its own last
   copy.
 
@@ -104,3 +152,4 @@ and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). See [Tes
 | Version | Date | Change |
 |---|---|---|
 | 0.3.52 | 2026-11-28 | Page written: the selection commands, multi-select, the designer's command keys and clipboard, IT-64 (#36) |
+| 0.3.53 | 2026-11-28 | Wrap, unwrap, convert and extract component, `commands` and `run`, Cmd/Ctrl+G and Shift+Cmd/Ctrl+G, IT-65 (R-EDIT-009, #37) |

@@ -14,3 +14,14 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#37).** The commands are methods of the design session, each planned as edit operations and
+applied as one step: wrap inserts `<name> {}` at the first node's place and moves the nodes into it,
+unwrap moves the children before the node and removes it, so the moved nodes keep their ids; convert is
+a `setName` and one `setArgument` removal per dropped argument, and selects the converted node, which
+the new name gives a new id. Extract component removes the nodes, inserts `<name>()` in their place and
+writes the struct as text. Unwrap is refused for a `ForEach` and for content with a `let`, whose children
+would lose their names; extract refuses a name the mockup already calls, so the new struct can never
+contain itself. The role checks look past an `if` and a `ForEach` to the element whose rule holds the
+children, as a drop does. `session.commands` reports wrap as enabled when wrapping in a `VStack`, the
+designer's Cmd/Ctrl+G, would be accepted.

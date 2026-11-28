@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.15
+spec_version: 0.13.16
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -820,40 +820,67 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#37).** The commands are methods of the design session, each planned as edit operations and
+applied as one step: wrap inserts `<name> {}` at the first node's place and moves the nodes into it,
+unwrap moves the children before the node and removes it, so the moved nodes keep their ids; convert is
+a `setName` and one `setArgument` removal per dropped argument, and selects the converted node, which
+the new name gives a new id. Extract component removes the nodes, inserts `<name>()` in their place and
+writes the struct as text. Unwrap is refused for a `ForEach` and for content with a `let`, whose children
+would lose their names; extract refuses a name the mockup already calls, so the new struct can never
+contain itself. The role checks look past an `if` and a `ForEach` to the element whose rule holds the
+children, as a drop does. `session.commands` reports wrap as enabled when wrapping in a `VStack`, the
+designer's Cmd/Ctrl+G, would be accepted.
+
 **R-EDIT-009.TC-1 — Restructuring commands**
 
-`node:test`: wrap two sibling buttons in `HStack`; wrap a `NavigationSplitView` in a `VStack` (refused
-with a reason); unwrap the stack; convert `Button("Save", role: .destructive, bogus: 1)` to a
-same-role element keeping `role` and dropping `bogus`; convert to an element of another role (refused);
-extract a card into `struct OrderCard: View` and replace it by `OrderCard()`; extract a row using a
-`ForEach` parameter (refused). Each result renders without a new diagnostic and undoes to the original.
+`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65), every expected code written by hand:
+wrap two sibling buttons in `HStack` (ids kept, the stack selected); wrap a `NavigationSplitView` in a
+`VStack` (refused: "A frame cannot be placed inside a vertical stack"), a button in `Text` and in `List`,
+a lowercase name and nothing selected (refused); unwrap `HStack(spacing: 4) { … }.padding().id("row")`
+back to its two buttons, selected, and a wrap then unwrap to the original; unwrap a leaf, a `GridRow`
+in a `Grid`, a `ForEach` and a stack with a `let` (refused); in vuetify, convert
+`Button("Save", role: .destructive, bogus: 1)` to `VBtn` keeping `role` and dropping `bogus`, selected,
+and `Button("Go", "extra") {}` to `VBtn("Go") {}`; convert to `Text`, to an unknown name and with two
+nodes selected (refused); extract a card into `struct OrderCard: View` before the first view and
+replace it by `OrderCard()`, and two texts after the last struct; extract under a struct's name, a pack
+element's, a lowercase name and a name the mockup already calls, a row using a `ForEach` parameter, a
+`ForEach` using a top-level `let` and nothing selected (refused). Each result renders without a new
+diagnostic, is one step and undoes to the original with the selection restored.
 
 **R-EDIT-009.TC-2 — Commands for a host menu**
 
-`node:test`: `session.commands` lists the thirteen commands with labels and shortcuts, `enabled`
-false for unwrap on a leaf; `session.run("wrap", {name: "VStack"})` equals `session.wrap("VStack")`.
-Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
+`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the thirteen
+commands in menu order with their labels and shortcuts, all but paste disabled with nothing selected,
+for a leaf at the first position moveUp and unwrap disabled, unwrap enabled on a container, undo after
+a step; `session.run("wrap", {name: "VStack"})` gives the code `session.wrap("VStack")` gives, `run`
+undoes and copies, and refuses an unknown name. Browser test (`typescript/tests/browser/commands.spec.mjs`,
+IT-65) on `pages/designer.html`: with the Inbox title and list selected, Cmd/Ctrl+G wraps them in a
+`VStack` (hand-written code), Shift+Cmd/Ctrl+G unwraps back to the sample with both selected, and
+Cmd/Ctrl+Z undoes the unwrap.
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | `session.wrap(name)` MUST replace the selected sibling nodes by one call `<name> { … }` holding them in their order, at the position of the first, and select the new call. |
-| C2 | `wrap` MUST be refused when the element `name` cannot contain one of the nodes or the parent cannot contain `name` (R-PACK-016.C6), naming the reason. |
-| C3 | `session.unwrap()` MUST replace the selected node by its children, its arguments and modifiers removed with it, and MUST be refused when the parent cannot contain one of the children. |
-| C4 | `session.convert(name)` MUST replace the selected node's name by `name` (R-EDIT-003.C12) when the two elements have the same role in the mockup's pack, and MUST be refused otherwise. |
-| C5 | `convert` MUST keep the labelled arguments that the new element understands (R-EVAL-004.C7) and its positional arguments up to the number of its `params`, and MUST remove the others. |
-| C6 | `session.extractComponent(name)` MUST declare `struct <name>: View` with a `body` holding the selected nodes, after the mockup's last struct declaration or else before its first view statement, and replace the selection by the call `<name>()`. |
-| C7 | `extractComponent` MUST be refused when `name` is already a struct, an element of the mockup's pack or not an identifier beginning with an uppercase letter, and when the selection uses a `let` binding or closure parameter declared outside it. |
-| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, undo and redo) with its name, label, shortcut and whether it is enabled for the current selection, and `session.run(name, args)` MUST run one, so that a host can offer them in its own menus. |
+| C1 | `session.wrap(name)` MUST replace the selected sibling nodes by one call `<name> { … }` holding them in their order, at the position of the first, the wrapped nodes keeping their ids, and select the new call. |
+| C2 | `wrap` MUST be refused when `name` is not an element name, the element `name` cannot contain one of the nodes or the parent (past an `if` or a `ForEach`) cannot contain `name` (R-PACK-016.C6), naming the reason with the refusing rule's sentence. |
+| C3 | `session.unwrap()` MUST replace the one selected node by its statement children, its arguments, modifiers and other closures removed with it, and select the children, and MUST be refused when it has no statement children or the parent (past an `if` or a `ForEach`) cannot contain one of them. |
+| C4 | `session.convert(name)` MUST replace the one selected node's name by `name` (R-EDIT-003.C12) when both are elements of the mockup's pack with the same role, select the converted node, and MUST be refused otherwise, naming both roles. |
+| C5 | `convert` MUST keep the labelled arguments that the new element understands (R-EVAL-004.C7), whose value is a closure, a view or a binding, and its positional arguments up to the number of its `params`, and MUST remove the others. |
+| C6 | `session.extractComponent(name)` MUST declare `struct <name>: View` with a `body` holding the selected nodes in source order with their comment lines, indented by the mockup's indentation unit and separated by a blank line, after the mockup's last struct declaration or else before its first view statement, and replace the selection by the call `<name>()`, which it selects. |
+| C7 | `extractComponent` MUST be refused when `name` is already a struct, an element of the mockup's pack, a name the mockup already calls (so that the struct never embeds itself, R-EVAL-005.C10) or not an identifier beginning with an uppercase letter, and when the selection uses a `let` binding, closure parameter or property of its struct declared outside it. |
+| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, undo and redo) with its name, label, shortcut (`Mod` for Cmd/Ctrl, null for none) and whether it is enabled for the current selection (wrap for a `VStack`, convert for one selected element of the pack), and `session.run(name, args)` MUST run one, with `{name}` for wrap, convert and extract component and `{text}` for paste, refusing an unknown name, so that a host can offer them in its own menus. |
 | C9 | The composite designer MUST bind Cmd/Ctrl+G to wrap in a `VStack` and Cmd/Ctrl+Shift+G to unwrap. |
 | C10 | Each command of this requirement MUST be one undo step (R-EDIT-007). |
+| C11 | `unwrap` MUST be refused when the node's content declares a closure parameter (a `ForEach`) or a `let`, which its children could use. |
+| C12 | `wrap`, `unwrap` and `extractComponent` MUST be refused, changing nothing, when nothing is selected or a selected node is not placed among its parent's statement children. |
 | V1 | Wrapping two buttons in an `HStack`, unwrapping it, converting a `Button` to the pack's `VBtn` and extracting a card into a struct each give the expected code, render without a new diagnostic and undo to the original. |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
 | 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |
 | 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
@@ -871,6 +898,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
 | 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |
 | 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
 | 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |

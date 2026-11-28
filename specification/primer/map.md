@@ -108,7 +108,7 @@ R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document mod
 R-EDIT-006 | requirements | active | 0.13.9 r8 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.13.13 r5 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.13.15 r5 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
-R-EDIT-009 | requirements | active | 0.12.12 r5 | WEB.3 | Commands: wrap, unwrap, convert and extract component
+R-EDIT-009 | requirements | active | 0.13.16 r6 | WEB.3 | Commands: wrap, unwrap, convert and extract component
 R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
