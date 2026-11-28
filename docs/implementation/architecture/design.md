@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.40
+impl_version: 0.3.41
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -116,3 +116,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | Version | Date | Change |
 |---|---|---|
 | 0.3.40 | 2026-11-28 | Page written: `mockitdown/design`, the ordered JSON reader and writer, validation, the session and its notifications (#24) |
+| 0.3.41 | 2026-11-28 | The first component, `mockitdown-editor`, joins a session (C11) and dispatches the events of a session of its own (C7, C8); see [The editor element](editor.md) (#25) |

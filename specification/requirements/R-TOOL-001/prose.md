@@ -17,3 +17,10 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#25).** An editor used on its own makes its own session from its script child and its fence
+attributes, much as `mockitdown-mockup` reads its code, and only then reports the session's
+notifications to the page; inside a designer or with a host session, the owner of the session reports
+them. Repeated clicks climb to the root; one more click starts again at the innermost element, so a
+click can always reach a nested element. The hover outline is blue (`#2f80ed`) next to the orange
+selection, and both, with the tag and the badge, can be styled through `::part`.

@@ -1,8 +1,8 @@
 ---
 title: "Design-tool components"
-spec_version: 0.12.12
+spec_version: 0.13.4
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: WEB.4
 ---
 
@@ -43,18 +43,43 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#25).** An editor used on its own makes its own session from its script child and its fence
+attributes, much as `mockitdown-mockup` reads its code, and only then reports the session's
+notifications to the page; inside a designer or with a host session, the owner of the session reports
+them. Repeated clicks climb to the root; one more click starts again at the innermost element, so a
+click can always reach a nested element. The hover outline is blue (`#2f80ed`) next to the orange
+selection, and both, with the tag and the badge, can be styled through `::part`.
+
 **R-TOOL-001.TC-1 — Click to locate**
 
-Browser test (Chromium, `editor.spec.mjs`) on `pages/editor.html`: a click on the button inside the
-card inside the list selects the button's node (`editor.session.selection`); a second click selects the
-card; Esc selects the list; Enter returns to the card; Alt-click cycles button, card, list, root; a click
-on a `ForEach` row selects the `ForEach` node and shows the badge.
+Browser test (Chromium, `typescript/tests/browser/editor.spec.mjs`, "TC-1: click to locate") on
+`pages/editor.html`: one editor, defined by the package entry, renders the sample (a `Button` in a `Card`
+in a `List` in a `VStack`, and a `ForEach` of three rows) with `data-mkd-node` in its shadow root. A
+click on the button selects the button's node (`editor.session.selection`); a second click selects the
+card; Esc selects the list; Enter returns to the card, and Enter again to the button. Five Alt-clicks on
+the button select button, card, list, `VStack` and the button again. A click on a `ForEach` row selects
+the `ForEach` node, outlines its three rows and shows the "derived" badge. `select(nodeId)` selects a
+node; setting `code` changes the session's code and the rendering and keeps the selection.
 
 **R-TOOL-001.TC-2 — Overlays**
 
-Browser test: hovering the button shows a tag `Button · W × H` matching its bounding box; the selection
-outline's colour follows `--mkd-selection-color`; the rendered elements' attributes and bounding boxes
-are the same with and without a selection; a mockup importing a component through `import-base` renders.
+Browser tests (`typescript/tests/browser/editor.spec.mjs`): hovering the button sets the session's
+hovered node and shows one tag `Button · W × H` matching its bounding box, and a node hovered through
+the session (`session.hover`) is outlined with a `Card · W × H` tag; with a selection and a hover, the
+rendering's HTML and bounding box are unchanged, the selection outline lies on the button's box, the
+overlay takes no pointer events and the outline's colour is `#ff8a00` until `--mkd-selection-color`
+is set on the editor. An editor with `import-base` and `asset-base` renders the `import-component`
+conformance source without import diagnostics, its derived elements marked, and an image resolved
+against `asset-base`.
+
+**R-TOOL-001.TC-3 — Sessions and edge cases**
+
+Browser tests (`typescript/tests/browser/editor.spec.mjs`): the page's editor, with a session of its own
+made from its script child, dispatches `mockitdown-select` when `select` is called; an editor given a
+host session with `mockup="B"` renders mockup B, makes it active on `select`, and dispatches no event.
+On the page's editor, Esc and Enter on the selected `VStack` change nothing; a click on the button with
+the `VStack` selected selects the button again; a selection made through `select` forgets the trail,
+so Enter changes nothing; a click on the frame outside every element clears the selection.
 
 **Realizes.** F-19
 
@@ -69,9 +94,19 @@ are the same with and without a selection; a mockup importing a component throug
 | C7 | Alt-click MUST cycle the selection through the view nodes of every element under the pointer, innermost first. |
 | C8 | Hovering an element MUST set the session's hovered node and draw a hover outline around the element with a tag holding its element name and its size in CSS pixels (`Button · 88 × 32`); a node hovered in another component MUST be outlined the same way. |
 | C9 | The editor MUST outline every element of the selected nodes with the selection outline and scroll the first into view when the selection changes. |
-| C10 | The selection and hover outlines MUST be drawn in a layer above the rendering that changes neither its layout nor its elements' attributes, coloured by the custom properties `--mkd-selection-color` (default `#ff8a00`) and `--mkd-hover-color`. |
+| C10 | The selection and hover outlines MUST be drawn in a layer above the rendering that changes neither its layout nor its elements' attributes, coloured by the custom properties `--mkd-selection-color` (default `#ff8a00`) and `--mkd-hover-color` (default `#2f80ed`). |
 | C11 | The TypeScript project MUST include the test page `pages/editor.html`, holding one `mockitdown-editor` over a sample mockup that nests a `Button` in a `Card` in a `List` and has a `ForEach`. |
-| V1 | On `pages/editor.html`, a click on the nested button selects the button's node, a second click selects the card, Enter returns to the button, and a click on a row of the `ForEach` selects the `ForEach` and shows the derived badge. |
+| C12 | When neither an enclosing `mockitdown-designer` nor its host gives it a session (R-EDIT-006.C11), the editor MUST make a session of its own over a document holding one mockup, named by its `mockup` attribute else `Mockup`, whose code is that of its first `<script type="text/mockitdown">` child (R-WEB-002.C2) and whose defaults are its fence attributes (R-WEB-002.C3), and MUST make a later change of that script's text the mockup's code through `session.setCode`. |
+| C13 | The editor MUST dispatch the notifications of a session of its own as the DOM events of R-EDIT-006.C7 and MUST NOT dispatch those of a session it joined. |
+| C14 | A click in the view on no element that carries `data-mkd-node` or `data-mkd-derived` MUST clear the selection. |
+| C15 | A click on the selected element when its node has no parent MUST select the innermost element's node again, and Esc on such a node and Enter with no child to return to MUST leave the selection unchanged. |
+| C16 | A selection change other than the editor's own climbing and returning (C6) MUST forget the children that Enter returns to. |
+| C17 | Alt-click MUST start at the innermost element when the elements under the pointer differ from those of the previous Alt-click or the selection is not the one that Alt-click made, and MUST wrap from the outermost back to the innermost. |
+| C18 | A click, an Alt-click or `select(nodeId)` in an editor whose mockup is not the session's active one MUST make that mockup active first (R-EDIT-006.C12). |
+| C19 | The outline of a node that produced no element of its own (a `ForEach`, an `if` statement or a struct call) MUST be drawn around each outermost element derived from it, and the badge of C5 MUST be shown on every outlined selected element that carries `data-mkd-derived`. |
+| C20 | The editor MUST expose its overlay layer and its selection outlines, hover outlines, tag and badge as the shadow parts `overlay`, `selection`, `hover`, `tag` and `badge`, and its rendering as the part `view`. |
+| C21 | The editor MUST expose the properties `mockup` (the name of the mockup shown), `diagnostics` (the last render's) and `rendered` (a promise as R-WEB-002.C8 defines), and MUST be focusable, with `tabindex` 0 unless the page sets one, so that it receives Esc and Enter. |
+| V1 | On `pages/editor.html`, a click on the nested button selects the button's node, a second click selects the card, Esc selects the list, Enter returns to the card, and a click on a row of the `ForEach` selects the `ForEach` and shows the derived badge. |
 
 ---
 
@@ -522,12 +557,14 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |

@@ -192,7 +192,7 @@ R-REPO-001 | requirements | active | 0.12.11 r3 | REPO.1 | Repository layout
 R-REPO-002 | requirements | active | 0.12.12 r8 | REPO.1 | Shared assets are the single source
 R-REPO-003 | requirements | active | 0.12.12 r8 | REPO.1 | The Python variant after the move
 R-REPO-004 | requirements | active | 0.12.17 r9 | REPO.1 | Conformance corpus
-R-TOOL-001 | requirements | active | 0.12.12 r5 | WEB.4 | The editable view: mockitdown-editor
+R-TOOL-001 | requirements | active | 0.13.4 r6 | WEB.4 | The editable view: mockitdown-editor
 R-TOOL-002 | requirements | active | 0.12.12 r4 | WEB.4 | The outline: mockitdown-outline
 R-TOOL-003 | requirements | active | 0.12.12 r4 | WEB.4 | The composite designer and its test page
 R-TOOL-004 | requirements | active | 0.12.12 r5 | WEB.4 | The gallery: mockitdown-gallery
