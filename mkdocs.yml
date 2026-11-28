@@ -130,6 +130,7 @@ nav:
           - Markdown integration: implementation/architecture/markdown.md
           - Command line: implementation/architecture/cli.md
           - TypeScript core: implementation/architecture/typescript.md
+          - Editing core: implementation/architecture/editing.md
           - Web development: implementation/architecture/web-dev.md
           - The mockup element: implementation/architecture/elements.md
           - The pack gallery: implementation/architecture/gallery.md

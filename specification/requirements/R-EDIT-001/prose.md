@@ -21,6 +21,14 @@ VStack(spacing: 12) {      ← n1  VStack
 }
 ```
 
+As built (#20), `parseTree(source)` and `reparse(tree, edits)` live in `typescript/src/core/syntax/tree.ts`.
+A view node gives `id`, `ordinal` (`"n3"`), `index` (3), `kind`, `name`, `span`, `nameSpan`, `first`
+(its first token's offset), `parent`, `children`, `syntax`, `expr` and `modifiers`; the tree gives
+`nodes`, `roots`, `comments`, `byId`, `byOrdinal` (`"n3"` or 3), `atOffset` and `text(span)`. Ids are
+`id1`, `id2`, …, from a counter a tree shares only with the trees derived from it. Whether `Badge.Ribbon`
+is a dotted name or `Badge` with a modifier is decided by the capital letter (C12), so the tree needs no
+pack: the evaluator still resolves names against the pack when it renders.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.

@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.12.12
+spec_version: 0.12.16
 status: draft
 updated: 2026-11-27
 page_id: WEB.3
@@ -51,6 +51,14 @@ VStack(spacing: 12) {      ← n1  VStack
 }
 ```
 
+As built (#20), `parseTree(source)` and `reparse(tree, edits)` live in `typescript/src/core/syntax/tree.ts`.
+A view node gives `id`, `ordinal` (`"n3"`), `index` (3), `kind`, `name`, `span`, `nameSpan`, `first`
+(its first token's offset), `parent`, `children`, `syntax`, `expr` and `modifiers`; the tree gives
+`nodes`, `roots`, `comments`, `byId`, `byOrdinal` (`"n3"` or 3), `atOffset` and `text(span)`. Ids are
+`id1`, `id2`, …, from a counter a tree shares only with the trees derived from it. Whether `Badge.Ribbon`
+is a dotted name or `Badge` with a modifier is decided by the capital letter (C12), so the tree needs no
+pack: the evaluator still resolves names against the pack when it renders.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
@@ -73,12 +81,22 @@ comment lines included; the ordinals are `n1…nK` in source order; a modifier c
 lookup by offset returns the innermost node. A source with a syntax error returns `tree: null` and the
 same diagnostics as `check`.
 
+Besides the corpus, cases in the same file: the narrative example (names, kinds, parents, the comment
+above `VStack` in its span), a call inside a modifier's argument (a node) next to the modifiers (none),
+a struct body numbered with the rest, UTF-16 offsets past an emoji and inside an interpolation, nested
+block comments recorded, comment lines leading a node only when contiguous and not trailing code, and
+the lookups by offset, id and ordinal.
+
 **R-EDIT-001.TC-2 — Ids survive edits**
 
-`node:test`: parse a formatted source with comments, a `let`, a `ForEach` and an `if`; apply, with
+`node:test` (`typescript/tests/unit/tree.test.ts`): parse a formatted source with comments, a `let`, a `ForEach` and an `if`; apply, with
 `reparse`, an insertion before a node, a replacement inside a sibling's arguments and a removal of
 another sibling; every node whose name was not in an edited range keeps its id, the inserted node has
 a new id, and no id of a removed node reappears in later trees.
+
+Also: replacing a node's name gives it a new id while its siblings keep theirs; an edit that breaks the
+source returns `tree: null` with the syntax diagnostic, and the old tree still reparses; edits out of
+order, overlapping or out of range throw a `RangeError`.
 
 **Realizes.** F-21
 
@@ -86,7 +104,7 @@ a new id, and no id of a removed node reappears in later trees.
 |---|---|
 | C1 | The TypeScript parser MUST record, for every syntax node, its start and end offsets in the source text (UTF-16 code units, end exclusive) in addition to its line and column. |
 | C2 | The TypeScript lexer MUST record the offsets of every comment (`//` and `/* … */`), so that the text between two consecutive tokens, comments included, can be read back from the source. |
-| C3 | The view nodes of a source MUST be its calls whose callee is an identifier or a dotted name of identifiers (`Text("a")`, `VStack { … }`, `Badge.Ribbon("New")`), its identifiers that stand alone as a view statement or as the base of a modifier chain in one (`Divider`, `Spacer.frame(height: 8)`), and its `if` statements; a modifier call MUST NOT be a view node and MUST belong to the view node whose chain it is in. |
+| C3 | The view nodes of a source MUST be its calls whose callee is an identifier or a dotted name of identifiers (`Text("a")`, `VStack { … }`, `Badge.Ribbon("New")`), wherever they stand (statements, arguments, modifier arguments, `let` values), its identifiers that stand alone as a view statement or as the base of a modifier chain in one (`Divider`, `Spacer.frame(height: 8)`), and its `if` statements; a modifier call MUST NOT be a view node and MUST belong to the view node whose chain it is in. |
 | C4 | The view nodes MUST be numbered from 1 in the order of the start offsets of their first tokens, across the whole source including struct bodies; a node's ordinal MUST be written `n<k>` (`n1`, `n2`, …). |
 | C5 | The package MUST export `parseTree(source)`, which returns `{tree, diagnostics}`: the syntax tree with its view nodes, or `tree: null` with the syntax diagnostics when the source does not parse. |
 | C6 | Each view node of a tree MUST have a node id: an opaque string, unique within the tree and never reused for another node of the trees derived from it. |
@@ -95,6 +113,13 @@ a new id, and no id of a removed node reappears in later trees.
 | C9 | The package MUST export `reparse(tree, edits)`, which applies text edits (M-EDIT-3) to the tree's source and returns `{tree, diagnostics}` for the edited text, with the ids of C10. |
 | C10 | In the tree `reparse` returns, a view node whose name span lies outside every edited range MUST keep the id of the corresponding node of the old tree; a view node whose name span lies in an inserted or replaced range MUST get a new id. |
 | C11 | The span of a view node MUST also cover the comment lines directly above its first line, which belong to it when it is moved or removed (R-EDIT-002). |
+| C12 | A member segment of a callee MUST continue the dotted name when it starts with a capital letter (`Badge.Ribbon`) and MUST be a modifier otherwise (`Spacer.frame`), whatever the pack. |
+| C13 | The leading comment lines of C11 MUST be the contiguous lines holding only comments directly above the node's first line, and only when the node's first token is the first on its line; a blank line, or a line whose comment follows code, MUST end them. |
+| C14 | The span of a view node that is not a view statement (an argument, a `let` value) MUST start at its first token. |
+| C15 | In the tree `reparse` returns, a view node whose name a removal falls inside MUST get a new id, and a kept id MUST belong to an old node with the same name and the same name span before the edits. |
+| C16 | `reparse` MUST throw a `RangeError` for edits out of order, overlapping one another or outside the text, and MUST leave the old tree usable. |
+| C17 | Each token of the TypeScript lexer MUST carry its start and end offsets. |
+| C18 | Each view node MUST expose its ordinal both as written (`n3`) and as a number, its kind (call, identifier or `if`) and its modifiers in source order. |
 | V1 | For every case of the conformance corpus, each view node's span reads back as its text from the source, the ordinals follow source order, and a `reparse` after an edit outside a node keeps that node's id. |
 
 ---
@@ -601,6 +626,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81); re-checked against R-WEB-001: unaffected (#81); re-checked against M-OPT-1: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-EDIT-008, R-PACK-016 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against ADR-21, R-WEB-001 (SRC-18): unaffected; re-checked against R-EDIT-002, R-EDIT-005 (SRC-18): unaffected; re-checked against R-EDIT-007 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-002 (SRC-18): unaffected; re-checked against ADR-22, R-EDIT-001 (SRC-18): unaffected; re-checked against R-WEB-001 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-001 (SRC-18): unaffected |
@@ -608,6 +634,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81); re-checked against R-WEB-001: unaffected (#81); re-checked against M-OPT-1: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-EDIT-008, R-PACK-016 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against ADR-21, R-WEB-001 (SRC-18): unaffected; re-checked against R-EDIT-002, R-EDIT-005 (SRC-18): unaffected; re-checked against R-EDIT-007 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-002 (SRC-18): unaffected; re-checked against ADR-22, R-EDIT-001 (SRC-18): unaffected; re-checked against R-WEB-001 (SRC-18): unaffected; re-checked against ADR-21, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |

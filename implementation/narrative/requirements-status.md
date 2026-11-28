@@ -29,7 +29,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (69)
+## Not started (68)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -37,7 +37,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
-| R-EDIT-001 | Source spans and node identities | — | 0.12.12 |  |  |
 | R-EDIT-002 | Edit API: insert, remove and move | — | 0.12.12 |  |  |
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | — | 0.12.12 |  |  |
 | R-EDIT-004 | Edit-mode rendering | — | 0.12.12 |  |  |
@@ -103,7 +102,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (61)
+## Implemented (62)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -136,6 +135,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DIAG-002 | Collecting diagnostics | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-003 | Diagnostic codes | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-004 | The error box | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-EDIT-001 | Source spans and node identities | 0.12.12 | 0.12.12 | 2026-11-27 | #20 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-008 | Values and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
