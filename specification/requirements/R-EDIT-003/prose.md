@@ -8,6 +8,15 @@ its neighbours, and its own formatting outside the changed span, untouched.
 | `rename` `"save"` | `Button("Save")` | `Button("Save").id("save")` |
 | `setName` `VBtn` | `Button("Save").id("save")` | `VBtn("Save").id("save")` |
 
+As built (#22), the operations are objects like those of R-EDIT-002, the node named by id or ordinal:
+`{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`
+(`args` is the code between the parentheses, `""` for `.bold()`), `{op: "rename", node, id}`,
+`{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` and `{op: "setName", node, name}`.
+Removing what is not there is refused rather than ignored, so a host learns that its view of the code
+is stale. A new argument next to one that starts its line goes on a line of its own, so a call written
+one argument per line stays that way. A renamed element gets a new node id, as any edit of a node's name
+does (R-EDIT-001.C10); a host that converts an element re-selects it by its position.
+
 `setName` is the basis of the Convert command (R-EDIT-009); which arguments survive a conversion is the
 command's business, not the operation's.
 

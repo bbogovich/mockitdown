@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.36
+impl_version: 0.3.37
 status: draft
 updated: 2026-11-27
 page_id: IMPL.TS
@@ -26,7 +26,7 @@ module for module, held to the Python output by the conformance corpus.
 | `core/options.ts` | `options.py` | `RenderOptions` (Python field names), `DEVICES`, `FENCE_OPTIONS`, `coerceFenceOptions` |
 | `core/syntax/lexer.ts`, `parser.ts`, `ast.ts` | `syntax/` | tokens, recursive-descent parser, syntax tree (plain objects with `kind`); offsets and comments for the editor |
 | `core/syntax/tree.ts` | — | the editing core's tree: view nodes, spans, ids, `parseTree`, `reparse` ([Editing core](editing.md)) |
-| `core/syntax/edit.ts` | — | the edit API: `edit(source or tree, op)` for insert, remove and move, `indentUnit` ([Editing core](editing.md#the-edit-api)) |
+| `core/syntax/edit.ts` | — | the edit API: `edit(source or tree, op)` for insert, remove and move, the argument, modifier, identifier, comment and name operations, `indentUnit` ([Editing core](editing.md#the-edit-api)) |
 | `core/model.ts` | `model.py` | `View`, `Modifier`, `EnumValue`, `CallValue`, `Thunk`, `ViewList`, `Screen`, `walk` |
 | `core/evaluate.ts` | `evaluate.py` | `Evaluator`, `Env`, `formatValue`, `truthy` |
 | `core/components.ts` | `ImportContext`, `ImportCache` | component files as data: `registerComponents`, candidate paths, parse cache |
@@ -195,3 +195,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.21 | 2026-11-27 | `core/render/html.ts` split into role-family modules under `core/render/roles/`, shared view accessors in `util.ts`; output unchanged (#49) |
 | 0.3.35 | 2026-11-27 | `core/syntax/tree.ts` in the module table; tokens and nodes carry offsets (#20) |
 | 0.3.36 | 2026-11-27 | `core/syntax/edit.ts` in the module table (#21) |
+| 0.3.37 | 2026-11-27 | `core/syntax/edit.ts` also sets arguments, modifiers, identifiers, comments and names (#22) |

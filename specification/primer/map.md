@@ -102,7 +102,7 @@ R-DIAG-004 | requirements | active | 0.12.8 r1 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EDIT-001 | requirements | active | 0.12.16 r7 | WEB.3 | Source spans and node identities
 R-EDIT-002 | requirements | active | 0.12.17 r6 | WEB.3 | Edit API: insert, remove and move
-R-EDIT-003 | requirements | active | 0.12.12 r5 | WEB.3 | Edit API: arguments, modifiers and identifiers
+R-EDIT-003 | requirements | active | 0.12.18 r6 | WEB.3 | Edit API: arguments, modifiers and identifiers
 R-EDIT-004 | requirements | active | 0.12.12 r6 | WEB.3 | Edit-mode rendering
 R-EDIT-005 | requirements | active | 0.12.12 r5 | WEB.3 | The design document module
 R-EDIT-006 | requirements | active | 0.12.12 r4 | WEB.3 | The design session and its events

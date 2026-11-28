@@ -1,6 +1,6 @@
 ---
 title: Editing core
-impl_version: 0.3.36
+impl_version: 0.3.37
 status: draft
 updated: 2026-11-27
 page_id: IMPL.EDIT
@@ -10,8 +10,9 @@ page_id: IMPL.EDIT
 
 Realizes **A-WEB-1.P2** (the editing core) under ADR-21; implements R-EDIT-001: source spans, view
 nodes and node ids in the TypeScript syntax tree (#20), and R-EDIT-002: the edit API's insert, remove
-and move with the edit corpus (#21). The Python parser is unchanged (ADR-21.D1). The argument and
-modifier operations (R-EDIT-003) and the edit-mode render option (R-EDIT-004) follow in later issues.
+and move with the edit corpus (#21), and R-EDIT-003: the operations on one node — arguments, modifiers,
+`.id`, `.ref`, its comment and its name (#22). The Python parser is unchanged (ADR-21.D1). The
+edit-mode render option (R-EDIT-004) follows in a later issue.
 
 ## Data flow
 
@@ -36,7 +37,7 @@ flowchart LR
 | `typescript/src/core/syntax/parser.ts` | every AST node, `Import`, `Attribute`, `Property` and `StructDecl` gets `start`/`end` through `fin(node, start)`: from its first token to the end of the last token consumed, line breaks skipped. `Call.loc` is still the `(` (the renderer's columns are unchanged) |
 | `typescript/src/core/syntax/ast.ts` | `start?`, `end?` on the node types (optional because the evaluator synthesises nodes of its own) |
 | `typescript/src/core/syntax/tree.ts` | `parseTree`, `reparse`, `applyEdits`, `SyntaxTree`, `ViewNode`; `reparseCarrying` (internal) for moves |
-| `typescript/src/core/syntax/edit.ts` | `edit`, `indentUnit` and the operation types (`InsertOp`, `RemoveOp`, `MoveOp`, `EditResult`, `EditRefusal`) |
+| `typescript/src/core/syntax/edit.ts` | `edit`, `indentUnit` and the operation types (`InsertOp`, `RemoveOp`, `MoveOp`, `SetArgumentOp`, `SetModifierOp`, `RenameOp`, `SetRefsOp`, `SetCommentOp`, `SetNameOp`, `EditResult`, `EditRefusal`) |
 | `shared/conformance/edit/` | the edit corpus: `<name>.mockitdown`, `.op.json`, `.expected.mockitdown` or `.error.txt`, `index.json` |
 
 The lexer still scans by code point (columns match Python's) and counts offsets in code units
@@ -126,10 +127,47 @@ the new source and the old moved nodes with their descendants in source order �
 whose first token lies in it take those ids one to one when the names match. Every other node keeps
 its id by the R-EDIT-001 rules.
 
+## Operations on one node
+
+The R-EDIT-003 operations change one node's call and nothing around it. They need positions the AST
+does not keep (an argument's label, a call's parentheses, a modifier's `.`), so `Editor` reads them
+from the tokens:
+
+- `callShape(node)`: where the name ends (`callee.end`, or the identifier's name span), the `(`/`)`
+  pair when the first token after the name is `(` (`parens`, matched by depth), each argument's
+  `start` (its label token, found by stepping back from the value over line breaks and the `:`),
+  `valueStart` and `end`, and whether the call has a trailing closure. An `ident` node (`Divider`) has
+  no parentheses and no arguments.
+- `modifierShapes(node)`: for each modifier of the chain, its name, the offset of its `.` (the first
+  `DOT` token after the end of the chain before it), the end of its name, its end and its parentheses.
+
+| Operation | Edit |
+|---|---|
+| `setArgument`, value, argument present | the value's span replaced (C2) |
+| `setArgument`, new labelled | `, label: value` after the last argument; `(label: value)` after a name without parentheses (C4); inside `()` |
+| `setArgument`, new positional at *k* | `value, ` before positional *k*, else `, value` after the last positional, else `value, ` before the first argument |
+| next to an argument that starts its line | the separator is `,` + line feed + that argument's indentation (C15) |
+| `setArgument`, `null` | from the argument to the next one's start, or from the previous one's end; the only argument empties `()`, and takes `()` with it when the call has a trailing closure (C3, C4) |
+| `setModifier`, present | the text between its parentheses replaced; `(args)` after its name when it has none |
+| `setModifier`, new | `.name(args)` at the end of the expression when no modifier starts its line; else a line feed, the last continuation line's indentation and `.name(args)` at the end of the last line, after a trailing comment (C6) |
+| `setModifier`, `null` | the whole line when the modifier starts it and at most a comment follows; else the modifier with the spaces before it (C7) |
+| `rename`, `setRefs` | `setModifier` of `id` (one string literal, `quote`) and `ref` (string literals joined by `, `) |
+| `setComment` | the lines from the node's span start to its first token's line, replaced by `// line` lines at the node's indentation (C11) |
+| `setName` | the name span replaced (C12); the node then gets a new id by `reparse`'s rule |
+
+Values and modifier arguments are checked by parsing a probe call, `X(label: value)` or `X(args)`,
+which must be one call of `X` with nothing after it (`probe`); a syntax diagnostic on the probe's line
+is moved back by the probe's prefix and clamped to just after the given code (C14). The duplicate
+check of `rename` (C9) reads every node's `.id(…)` whose first argument is a plain string. The occurrence
+index of `setModifier` counts the chain's modifiers of that name; the index equal to their number adds
+one (C16). Every operation but `setComment` refuses an `if` node (`notIf`, C20).
+
 ## The edit corpus
 
-`shared/conformance/edit/` (R-EDIT-002.C15–C18, C30) holds 61 hand-checked cases: `insert-*` (16),
-`remove-*` (13), `move-*` (13) and `refuse-*` (19). Each source opens with a `//` line and a blank line
+`shared/conformance/edit/` (R-EDIT-002.C15–C18, C30) holds 102 hand-checked cases: `insert-*` (16),
+`remove-*` (13), `move-*` (13) and `refuse-*` (19) for R-EDIT-002, and 41 for R-EDIT-003 (#22):
+`set-argument-*` (12), `set-modifier-*` (9), `rename-*` (3), `set-refs-*` (3), `set-comment-*` (3),
+`set-name*` (2) and `refuse-*` (9). Each source opens with a `//` line and a blank line
 (so the first node has no leading comment), and each `op.json` carries a `covers` list
 (`insert:first`, `source:foreach`, `indent:tabs`, `refuse:not-siblings`, …) that the meta-test in
 `edit-corpus.test.ts` checks against the C16 situations. The Python generator skips the folder
@@ -147,7 +185,7 @@ add it to `index.json`, write the expected text by hand, and run `npm run test:u
 | `SyntaxTree` | `source`, `module`, `comments`, `nodes` (ordinal order), `roots`, `byId(id)`, `byOrdinal("n3" or 3)`, `atOffset(offset)` (innermost, `start <= offset < end`), `text(span)` |
 | `ViewNode` | `id`, `ordinal` (`"n3"`), `index` (3), `kind` (`call`, `ident`, `if`), `name`, `span`, `nameSpan`, `first`, `parent`, `children`, `syntax`, `expr`, `modifiers` |
 | `Token.start`, `Token.end`, `Lexer.comments`, `Comment` | offsets and comments (C1, C2, C17) |
-| `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}`, `{op: "remove", nodes}` or `{op: "move", nodes, parent, index}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
+| `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}`, `{op: "remove", nodes}`, `{op: "move", nodes, parent, index}`, `{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`, `{op: "rename", node, id}`, `{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` or `{op: "setName", node, name}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
 | `indentUnit(source)` | the indentation unit of C11 |
 | `reparseCarrying(tree, edits, carried)` | internal: `reparse` with carried ranges for moved code |
 
@@ -157,7 +195,8 @@ All are exported from the package entry (`mockitdown`, `mockitdown/node`).
 
 `typescript/tests/unit/tree.test.ts` (IT-47): R-EDIT-001 TC-1 over every conformance case and on
 crafted sources, TC-2 with `reparse`. `typescript/tests/unit/edit-corpus.test.ts` and `edit.test.ts`
-(IT-48): R-EDIT-002 TC-1 over the edit corpus, TC-2 refusals and ids. See [Testing](../testing.md).
+(IT-48): R-EDIT-002 TC-1 over the edit corpus, TC-2 refusals and ids. The R-EDIT-003 cases run in the
+same corpus test, and `edit-set.test.ts` (IT-49) holds its TC-2 and the ids. See [Testing](../testing.md).
 
 ## Debugging
 
@@ -168,6 +207,9 @@ crafted sources, TC-2 with `reparse`. `typescript/tests/unit/edit-corpus.test.ts
 
 - A corpus case that fails: print `edit(source, op)` and its `edits` against the expected file;
   `JSON.stringify(r.edits)` shows whether the wrong rule (line, inline, empty, no closure) fired.
+- A refused `setArgument` or `setModifier` on code that looks right: print the node's argument
+  starts and parentheses (`callShape`) — a label on the line before its value, or a comment between
+  name and `(`, moves the positions read from the tokens.
 - A moved node with a new id: the carried range did not hold exactly the old nodes (count or names);
   compare `r.tree.nodes` whose `first` lies in the inserted text with the moved subtree.
 
@@ -177,3 +219,4 @@ crafted sources, TC-2 with `reparse`. `typescript/tests/unit/edit-corpus.test.ts
 |---|---|---|
 | 0.3.35 | 2026-11-27 | Page written: offsets in the lexer and parser, comments, view nodes, ids and `reparse` (#20) |
 | 0.3.36 | 2026-11-27 | The edit API (insert, remove, move), carried ids across a move and the edit corpus (#21) |
+| 0.3.37 | 2026-11-27 | Operations on one node: arguments, modifiers, `.id`, `.ref`, comments and names, and their corpus cases (#22) |

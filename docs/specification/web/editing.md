@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.12.17
+spec_version: 0.12.18
 status: draft
 updated: 2026-11-27
 page_id: WEB.3
@@ -247,6 +247,15 @@ its neighbours, and its own formatting outside the changed span, untouched.
 | `rename` `"save"` | `Button("Save")` | `Button("Save").id("save")` |
 | `setName` `VBtn` | `Button("Save").id("save")` | `VBtn("Save").id("save")` |
 
+As built (#22), the operations are objects like those of R-EDIT-002, the node named by id or ordinal:
+`{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`
+(`args` is the code between the parentheses, `""` for `.bold()`), `{op: "rename", node, id}`,
+`{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` and `{op: "setName", node, name}`.
+Removing what is not there is refused rather than ignored, so a host learns that its view of the code
+is stale. A new argument next to one that starts its line goes on a line of its own, so a call written
+one argument per line stays that way. A renamed element gets a new node id, as any edit of a node's name
+does (R-EDIT-001.C10); a host that converts an element re-selects it by its position.
+
 `setName` is the basis of the Convert command (R-EDIT-009); which arguments survive a conversion is the
 command's business, not the operation's.
 
@@ -269,28 +278,55 @@ modifier added to a one-line and to a multi-line chain, replaced, and removed fr
 replaced and removed; `.ref` set and cleared; a comment set, replaced and removed; a name replaced. Each
 expected file differs from its source only in the changed span.
 
+As built (#22): 41 cases in `shared/conformance/edit/` (`set-argument-*`, `set-modifier-*`, `rename-*`,
+`set-refs-*`, `set-comment-*`, `set-name*` and ten `refuse-*`), each source opening with a `//` line
+saying what it exercises, each expected file written by hand. The meta-test of
+`typescript/tests/unit/edit-corpus.test.ts` also requires the `covers` tags `setArgument:` `add-` /
+`replace-` / `remove-labelled` and `-positional`, `add-parens`, `remove-parens`, `multiline`;
+`setModifier:` `add-inline`, `add-line`, `replace`, `occurrence`, `remove-inline`, `remove-line`;
+`rename:` `add`, `replace`, `remove`; `setRefs:` `set`, `clear`; `setComment:` `add`, `replace`,
+`remove`; `setName`; and the refusals `duplicate-id`, `no-argument`, `no-modifier`, `argument-syntax`,
+`position`, `modifier-name`, `element-name`, `not-a-call` and `comment-inline`.
+
 **R-EDIT-003.TC-2 — Duplicate identifier refused**
 
 `node:test`: with `.id("save")` on one button, `rename` of another button to `save` is refused with a
 message naming the identifier, and returns no edits.
+
+As built (#22): `typescript/tests/unit/edit-set.test.ts`. Also: a node's own identifier and an unused
+one are accepted, and an identifier with quotes and a backslash is written as a string literal that
+the duplicate check reads back; argument, modifier, identifier, reference and comment edits keep every
+node id, `setName` gives the renamed node a new one; nodes are named by id; a value that does not parse
+is refused with one syntax diagnostic on line 1 whose column lies within the value, modifier arguments
+that are not an argument list and a value of two arguments are refused; `rename` to `null`, `setRefs`
+with `[]` and `setComment` with `null` on a node without the modifier or comment, a modifier index
+past the next occurrence and a negative position are refused; an index equal to the number of
+occurrences adds a modifier.
 
 **Realizes.** F-21
 
 | | Statement |
 |---|---|
 | C1 | The operation `setArgument` MUST take a view node, a label (or `null` and a position for a positional argument) and the code of a value, or `null` to remove the argument, and add, replace or remove that argument of the node's call. |
-| C2 | `setArgument` MUST replace an existing argument in place, append a new labelled argument after the call's last argument, and insert a new positional argument at its position among the positional arguments. |
+| C2 | `setArgument` MUST replace an existing argument's value in place, append a new labelled argument after the call's last argument, and insert a new positional argument at its position among the positional arguments: before the one at that position, else after the last positional argument, else before the first argument. |
 | C3 | Removing an argument MUST also remove the comma and the space that separated it from its neighbour. |
-| C4 | When an argument is added to a call written without parentheses (`Divider`, `VStack { … }`), the edit MUST add the parentheses directly after the name; when the last argument of a call with a trailing closure is removed, the empty parentheses MUST be removed too. |
+| C4 | When an argument is added to a call written without parentheses (`Divider`, `VStack { … }`), the edit MUST add the parentheses directly after the name; when the last argument of a call with a trailing closure is removed, the empty parentheses MUST be removed too, and kept on a call without one. |
 | C5 | The operation `setModifier` MUST take a view node, a modifier name, an occurrence index (default 0, the first) and the code of its arguments, or `null` to remove it, and add, replace or remove that modifier in the node's chain. |
-| C6 | A new modifier MUST be appended to the end of the chain, on the chain's last line when the chain is written on one line, else on a line of its own at the indentation of the chain's other continuation lines. |
-| C7 | Removing a modifier written on a line of its own MUST remove that line. |
-| C8 | The operation `rename` MUST take a view node and an identifier and set the argument of the node's `.id(…)` modifier, adding the modifier when the node has none and removing it when the identifier is `null`. |
+| C6 | A new modifier MUST be appended to the end of the chain: on the chain's last line when no modifier of the chain starts a line of its own, else on a new line after the chain's last line and any comment trailing it, at the indentation of the chain's last continuation line. |
+| C7 | Removing a modifier that starts its line and is followed on it by at most a comment MUST remove that line, the comment included; a modifier sharing its line with other code MUST be removed with the spaces before it on that line. |
+| C8 | The operation `rename` MUST take a view node and an identifier and set the argument of the node's `.id(…)` modifier to it as a string literal, adding the modifier when the node has none and removing it when the identifier is `null`. |
 | C9 | `rename` MUST be refused when another view node of the source carries the same identifier in `.id(…)`. |
 | C10 | The operation `setRefs` MUST take a view node and a list of strings and set its `.ref(…)` modifier to them, removing the modifier for an empty list. |
-| C11 | The operation `setComment` MUST take a view node and a text, or `null`, and replace the `//` comment lines directly above the node with one line per line of the text, at the node's indentation. |
+| C11 | The operation `setComment` MUST take a view node and a text, or `null`, and replace the comment lines leading the node (R-EDIT-001.C11) with one `//` line per line of the text, at the node's indentation, removing them for `null` or an empty text. |
 | C12 | The operation `setName` MUST take a view node and an element name and replace the node's name, leaving its arguments, modifiers and closures as written. |
 | C13 | Every operation of this requirement MUST have cases in the edit corpus (R-EDIT-002.C15) that show the code outside the changed span unchanged. |
+| C14 | `setArgument` MUST be refused for a label that is not an identifier, for a position outside 0 to the number of positional arguments, for a value that does not parse as one argument value (with the syntax diagnostic, its column counted from the start of the value), and for the removal of an argument the call does not have. |
+| C15 | A new argument placed next to an argument that starts its line MUST be written on a line of its own at that argument's indentation, the comma ending the line before. |
+| C16 | `setModifier` MUST be refused for a name that is not an identifier starting with a lower-case letter, for arguments that do not parse as an argument list, for an occurrence index outside 0 to the number of occurrences, and for the removal of an occurrence the chain does not have; an index equal to the number of occurrences adds one. |
+| C17 | `rename` MUST be refused for an empty identifier, and `rename` with `null` and `setRefs` with an empty list MUST be refused when the node has no such modifier. |
+| C18 | `setComment` MUST be refused for a node that does not start its line, and for `null` or an empty text when no comment lines lead the node. |
+| C19 | `setName` MUST be refused for a name that is not a capitalised identifier or several joined by dots, and the renamed node MUST get a new node id (R-EDIT-001.C10). |
+| C20 | Every operation of this requirement except `setComment` MUST be refused for an `if` node. |
 | V1 | The corpus cases of this requirement pass, among them a labelled argument added to `Button("Save")`, a modifier removed from a multi-line chain and a refused duplicate identifier. |
 
 ---
@@ -664,6 +700,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
@@ -673,6 +710,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81); re-checked against R-WEB-001: unaffected (#81); re-checked against M-OPT-1: unaffected (#81) |
