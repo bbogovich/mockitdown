@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.8
+spec_version: 0.13.9
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -187,6 +187,9 @@ line saying what it exercises. The meta-test requires the `covers` tags `insert:
 `tabs`, `relative`, and one `refuse:` tag per refusal (C3, C9, C14, C20 to C24); a refused case carries
 a `refuse:` tag and only a refused case does. It also fails on a file in `edit/` that belongs to no case.
 
+As built (#30): `move-top-level` (hand-written, tag `move:top-level`) moves a button out of its `VStack`
+to the top level before the view after the stack (C32).
+
 **R-EDIT-002.TC-2 — Refusals and ids**
 
 `node:test` (`typescript/tests/unit/edit.test.ts`): a node that is a modifier call or does not exist, a move into the moved node's own
@@ -232,6 +235,7 @@ closures, are refused.
 | C29 | A moved node that stands on its own lines (C25) MUST carry the comment trailing its last line. |
 | C30 | Each `<name>.op.json` MUST carry a `covers` list naming the situations of C16 the case covers, and the TypeScript test suite MUST fail when a situation is covered by no case. |
 | C31 | An `insert` at the top level MUST write the code before the view statement at its index, on lines of its own when that statement starts its line and else before it on its line followed by `; `, or, at the end, on a new line after the line of the last top-level statement, else at the end of the source, with the indentation of the first top-level view when it starts its line, else none. |
+| C32 | A `move` with a null parent MUST move the nodes to the top level, before its view statement at the index (counted before the move), writing them as an `insert` at the top level writes code (C31). |
 | V1 | Every case of `shared/conformance/edit/` passes, and each edited source renders without a new diagnostic. |
 
 ---
@@ -595,6 +599,10 @@ non-siblings or an unknown id is refused and the same selection notifies nothing
 `hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
 `move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names. `delete` ("delete removes the selection as one change…") over a VStack holding a Text, an HStack of two Texts and a Text: deleting the HStack gives one `change` then one `select` of the last Text (the next sibling), deleting the last Text selects the HStack (the previous sibling), deleting both Texts of the HStack leaves its braces and selects it (the parent), deleting the only top-level node selects nothing, and a delete with nothing selected is refused and notifies nothing; the expected codes and selections were written by hand. `insert` ("insert adds a view as the last child of the selected node…", #29) over a VStack holding an HStack holding a Text: with the HStack selected `insert("Toggle()")` appends it as the HStack's last child and notifies `change`, `insert` (the new node, element `Toggle`) and `select` of it; with nothing selected `Text("b")` goes on a new line after the VStack; code that does not parse is refused and notifies nothing; the expected codes were written by hand.
 
+As built (#30): "drop positions, checks and drops …" in `typescript/tests/unit/design-session.test.ts` inserts at an
+index through `drop` (C20) and moves a node after its sibling with its id kept and selected, in one change (C21);
+the expected code is written by hand.
+
 **R-EDIT-006.TC-2 — DOM events**
 
 Browser test (Chromium, `typescript/tests/browser/designer.spec.mjs`, "R-EDIT-006 TC-2: DOM events") on
@@ -629,7 +637,8 @@ slot, which joins the designer's session (C11).
 | C17 | A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup. |
 | C18 | `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names. |
 | C19 | `session.delete()` MUST remove the selected nodes (R-EDIT-002.C6) as one change, then make the selection the statement after the last of them in their body that is not removed, else the one before it, else their parent view node, else nothing, notifying one `change` and then one `select`, and MUST be refused, changing and notifying nothing, when nothing is selected or the removal is refused. |
-| C20 | `session.insert(code, parent)` MUST insert one view's code (R-EDIT-002.C4) as the last child of `parent`, a node id of the active mockup, by default of the first selected node, else at the end of the mockup's top level (`parent` null), then make the inserted node the selection, notifying one `change`, one `insert` and one `select`, and MUST be refused, changing and notifying nothing, as `apply` refuses an insert. |
+| C20 | `session.insert(code, parent, index)` MUST insert one view's code (R-EDIT-002.C4) before statement child `index` of `parent` (default `end`, the last child), a node id of the active mockup, by default of the first selected node, else in the mockup's top level (`parent` null), then make the inserted node the selection, notifying one `change`, one `insert` and one `select`, and MUST be refused, changing and notifying nothing, as `apply` refuses an insert. |
+| C21 | `session.move(nodes, parent, index)` MUST move sibling nodes of the active mockup (R-EDIT-002.C8, C32) as one change, the moved nodes keeping their ids and becoming the selection, and MUST be refused, changing and notifying nothing, as `apply` refuses a move. |
 | V1 | A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code. |
 
 ---
@@ -791,6 +800,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
 | 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |
 | 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
@@ -805,6 +815,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |
 | 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |

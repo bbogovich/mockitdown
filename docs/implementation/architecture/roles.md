@@ -1,6 +1,6 @@
 ---
 title: Role rules
-impl_version: 0.3.44
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.ROLES
@@ -12,6 +12,9 @@ Realizes **A-REPO-1** (P1: `language/roles.json`) with **M-PACK-3** and **M-PACK
 implements **R-PACK-016** and **R-REPO-002.C8** (#28): the role rule table that says which elements may
 go where, decided by render role so that a pack element inherits it, and the TypeScript queries the
 design tools use (`canContain`, `allowedChildren`). Rendering reads none of it in either variant.
+
+
+`holdsChildren(pack, name)` (R-PACK-016.C16, #30) tells whether an element holds any child; the editor's drop target takes such elements as containers ([Drag and drop](drag-drop.md)).
 
 ## Files
 
@@ -98,3 +101,4 @@ diagnostic comes from them (R-PACK-016.C10). A Python warning for a misplaced ro
 | Version | Date | Change |
 |---|---|---|
 | 0.3.44 | 2026-11-28 | Page written: `roles.json`, the sapui5 narrowing, `canContain`, `allowedChildren`, IT-56 (#28) |
+| 0.3.46 | 2026-11-28 | `holdsChildren` (#30) |

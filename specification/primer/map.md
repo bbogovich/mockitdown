@@ -101,11 +101,11 @@ R-DIAG-003 | requirements | active | 0.12.8 r3 | DIAG.1 | Diagnostic codes
 R-DIAG-004 | requirements | active | 0.12.8 r1 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EDIT-001 | requirements | active | 0.12.16 r7 | WEB.3 | Source spans and node identities
-R-EDIT-002 | requirements | active | 0.13.8 r7 | WEB.3 | Edit API: insert, remove and move
+R-EDIT-002 | requirements | active | 0.13.9 r8 | WEB.3 | Edit API: insert, remove and move
 R-EDIT-003 | requirements | active | 0.12.18 r6 | WEB.3 | Edit API: arguments, modifiers and identifiers
 R-EDIT-004 | requirements | active | 0.13.2 r7 | WEB.3 | Edit-mode rendering
 R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document module
-R-EDIT-006 | requirements | active | 0.13.8 r7 | WEB.3 | The design session and its events
+R-EDIT-006 | requirements | active | 0.13.9 r8 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.12.12 r4 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.12.12 r4 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
 R-EDIT-009 | requirements | active | 0.12.12 r5 | WEB.3 | Commands: wrap, unwrap, convert and extract component
@@ -159,7 +159,7 @@ R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery
 R-PACK-013 | requirements | active | 0.12.11 r5 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI presentations and navigation
-R-PACK-016 | requirements | active | 0.13.7 r7 | PACK.3 | Role rules
+R-PACK-016 | requirements | active | 0.13.9 r8 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.12.12 r5 | PACK.3 | Typed parameters and modifiers
 R-PACK-018 | requirements | active | 0.12.12 r5 | PACK.4 | Stylesheet partials
 R-PACK-019 | requirements | active | 0.12.12 r5 | PACK.5 | Amiga Workbench pack
@@ -196,7 +196,7 @@ R-TOOL-001 | requirements | active | 0.13.4 r6 | WEB.4 | The editable view: mock
 R-TOOL-002 | requirements | active | 0.13.5 r5 | WEB.4 | The outline: mockitdown-outline
 R-TOOL-003 | requirements | active | 0.13.8 r6 | WEB.4 | The composite designer and its test page
 R-TOOL-004 | requirements | active | 0.13.8 r6 | WEB.4 | The gallery: mockitdown-gallery
-R-TOOL-005 | requirements | active | 0.12.12 r4 | WEB.4 | Drag and drop onto the outline and the view
+R-TOOL-005 | requirements | active | 0.13.9 r5 | WEB.4 | Drag and drop onto the outline and the view
 R-TOOL-006 | requirements | active | 0.12.12 r4 | WEB.4 | New elements: sample arguments and first-text editing
 R-TOOL-007 | requirements | active | 0.12.12 r4 | WEB.4 | The inspector: mockitdown-inspector
 R-TOOL-008 | requirements | active | 0.12.12 r4 | WEB.4 | The code view: mockitdown-code

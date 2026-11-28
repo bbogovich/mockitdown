@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.13.7
+spec_version: 0.13.9
 status: draft
 updated: 2026-11-28
 page_id: PACK.3
@@ -88,6 +88,9 @@ unknown pack throws. Python (`python/tests/test_roles.py` `PackagedTableTests`):
 renders without a diagnostic; every conformance case's diagnostics are unchanged (the conformance suites
 of both variants).
 
+As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` and `List` hold children, `Text` and
+`Divider` do not, a name `base` does not define does, and the narrowed sapui5 `ObjectPageLayout` still does (C16).
+
 **Realizes.** F-16
 
 | | Statement |
@@ -107,6 +110,7 @@ of both variants).
 | C13 | An element name the pack does not define, and an element whose role has no rule, MUST be treated as role `unknown`. |
 | C14 | The reason MUST be `<A parent> cannot hold other elements` when the parent accepts nothing, `<A child> is attached through a presentation modifier (.sheet, .alert, .overlay), not placed inside <a parent>` for an overlay and `<A child> is attached as a modifier, not placed inside <a parent>` for an annotation, `<A child> cannot be placed inside <Element>, which its pack limits to <titles>` when the parent's pack narrows it, and otherwise `<A child> cannot be placed inside <a parent>` (`at the root of a mockup` for the root), the child named by its category when the parent accepts none of that category and by its title otherwise. |
 | C15 | If no role rules are loaded or the pack is unknown, then `canContain` and `allowedChildren` MUST throw a `MockitdownError`. |
+| C16 | The TypeScript core MUST export `holdsChildren(pack, name)`, true when the element's role, or its pack's narrowing (C5), accepts some role, and for an element the pack does not define. |
 | V1 | `canContain("base", "HStack", "NavigationSplitView")` is refused with a reason, `canContain("vuetify", "VCard", "VBtn")` is allowed as for a card and a button, and a Fiori object page that narrows its rule accepts only sections. |
 
 ---
@@ -169,6 +173,7 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
@@ -178,6 +183,7 @@ pass with the types loaded.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |

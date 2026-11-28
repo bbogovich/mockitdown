@@ -2,12 +2,12 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: 0.13.8
-rev: 7
+version: 0.13.9
+rev: 8
 page: WEB.3
 slot: reqs
 order: 6
-hash: 7680c4f3d15a
+hash: 25af62cee292
 source: [SRC-12]
 realizes: [F-19, F-20]
 requires: [R-EDIT-005, R-EDIT-002]
@@ -34,5 +34,6 @@ C16: `session.setOptions(mockup, options)` and `session.moveMockup(mockup, x, y)
 C17: A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup.
 C18: `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names.
 C19: `session.delete()` MUST remove the selected nodes (R-EDIT-002.C6) as one change, then make the selection the statement after the last of them in their body that is not removed, else the one before it, else their parent view node, else nothing, notifying one `change` and then one `select`, and MUST be refused, changing and notifying nothing, when nothing is selected or the removal is refused.
-C20: `session.insert(code, parent)` MUST insert one view's code (R-EDIT-002.C4) as the last child of `parent`, a node id of the active mockup, by default of the first selected node, else at the end of the mockup's top level (`parent` null), then make the inserted node the selection, notifying one `change`, one `insert` and one `select`, and MUST be refused, changing and notifying nothing, as `apply` refuses an insert.
+C20: `session.insert(code, parent, index)` MUST insert one view's code (R-EDIT-002.C4) before statement child `index` of `parent` (default `end`, the last child), a node id of the active mockup, by default of the first selected node, else in the mockup's top level (`parent` null), then make the inserted node the selection, notifying one `change`, one `insert` and one `select`, and MUST be refused, changing and notifying nothing, as `apply` refuses an insert.
+C21: `session.move(nodes, parent, index)` MUST move sibling nodes of the active mockup (R-EDIT-002.C8, C32) as one change, the moved nodes keeping their ids and becoming the selection, and MUST be refused, changing and notifying nothing, as `apply` refuses a move.
 V1: A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code.

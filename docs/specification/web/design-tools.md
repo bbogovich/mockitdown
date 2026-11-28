@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.8
+spec_version: 0.13.9
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -368,9 +368,19 @@ before the inherited ones.
 **Requires:** R-TOOL-004, R-TOOL-001, R-TOOL-002
 
 The second and third ways to insert (SRC-12#s6, SRC-14#p1.c1): drop onto the outline with a before,
-after or inside indicator, or onto the view with an insertion bar along the container's axis — vertical
-for a `VStack`, horizontal for an `HStack`. Dragging outline rows reorders and re-parents, refusing a drop
-into the row's own descendants as the MockItOut outline did (SRC-12#s15).
+after or inside indicator, or onto the view with an insertion bar across the axis the container lays
+its children out along — a horizontal bar between the children of a `VStack`, a vertical one in an
+`HStack`. Dragging outline rows reorders and re-parents, refusing a drop into the row's own descendants
+as the MockItOut outline did (SRC-12#s15).
+
+As built (#30), the drag is a pointer drag (`typescript/src/elements/drag.ts`) rather than HTML drag
+and drop: only a pointer drag can show the `not-allowed` cursor and a reason by the pointer, and Esc
+cancels it in every browser. A transparent shield over the page carries the cursor and a ghost names
+what is dragged. The components only point: where a drop may go and the drop itself belong to the
+design session (`dropPosition`, `checkDrop`, `drop`, `isContainer`, `childrenOf`), so a host can offer
+the same placement from its own controls. A drop into a `VStack` inside a `ForEach` is checked by the
+VStack's role rules, not the ForEach's. Moving a row out to the top level uses the top-level move of
+R-EDIT-002.C32.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
@@ -388,6 +398,16 @@ second children in the view; the bar is horizontal at that gap; after the drop t
 `Text(…)` as the stack's second child, selected (F-19.AC1); one undo removes it; Esc during a drag
 inserts nothing.
 
+As built (#30): `typescript/tests/browser/drag-drop.spec.mjs` opens the hand-written
+`tests/browser/fixtures/drag-sample.mkdesign` (a `VStack` of `Text("First")`, `Text("Second")` and an
+`HStack` of two buttons) in the designer of `pages/designer.html` and drags with the pointer
+(`page.mouse`). Over the gap between the texts the VStack's box is the `drop-target` and the
+`drop-bar` is horizontal (`data-orientation`), wider than tall and between the two texts, with the
+`grabbing` cursor; the drop gives the hand-written code with `Text()` second, selected, after exactly
+one code `change`. Over the gap between the buttons the bar is vertical; Esc removes the ghost, the
+shield and the bar, and releasing afterwards changes nothing. There is no undo yet (R-EDIT-007): the
+undo step is checked as the one `change`.
+
 **R-TOOL-005.TC-2 — Outline drops and refusals**
 
 Browser test: dropping a card in the upper, middle and lower third of a row inserts before, inside and
@@ -395,17 +415,34 @@ after it; dragging a `NavigationSplitView` card over an `HStack` row shows `not-
 reason; dragging a card row onto its own child is refused; dragging a row after its sibling moves it,
 its node id kept.
 
+As built (#30): `typescript/tests/browser/drag-drop.spec.mjs` on the same fixture: the `Text`,
+`Divider` and `Text` cards dropped in the upper, middle and lower third of the `HStack` row (its
+`data-drop` `before`, `inside`, `after`) give the hand-written code after each drop, the new node
+selected, three changes in all. The `NavigationSplitView` card over the HStack row's middle third
+marks it `inside refused`, shows `not-allowed` and "A frame cannot be placed inside a horizontal
+stack" by the pointer, and drops nothing; the HStack row dragged onto its `Left` button's row shows
+"Cannot move HStack into one of its own descendants"; the `Second` row dropped in the HStack row's
+lower third moves after it, its node id kept and selected, in one change. The session API (C8 to C10:
+positions, checks through a `ForEach`, refusals, one change per drop) is also tested in
+`typescript/tests/unit/design-session.test.ts` with hand-written expectations.
+
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | A gallery card MUST be draggable onto the outline and onto the editor, and an outline row of a view that is not derived MUST be draggable within the outline. |
-| C2 | Over an outline row, the outline MUST show a drop indicator before the row, after it or inside it, chosen by the pointer's position in the upper, lower or middle third of the row. |
-| C3 | Over the editor, the editor MUST outline the innermost container under the pointer and show an insertion bar at the gap between its children nearest the pointer, along the container's axis. |
-| C4 | A drop position whose parent cannot contain the dragged element (R-PACK-016.C6), or that lies inside a dragged row's own subtree, MUST show the `not-allowed` cursor and the reason next to the pointer, and a drop there MUST do nothing. |
-| C5 | Dropping a gallery card MUST insert the element at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8). |
-| C6 | Each drop MUST be one change and one undo step, and Esc MUST cancel a drag. |
+| C1 | A gallery card MUST be draggable onto the outline and onto the editor, and an outline row of a view that is not derived MUST be draggable within the outline, carrying every selected node when the row is one of several selected rows. |
+| C2 | Over an outline row, the outline MUST show a drop indicator before the row, after it or inside it, chosen by the pointer's position in the upper, lower or middle third of the row, and below the last row a drop indicator at the end of the mockup's top level. |
+| C3 | Over the editor, the editor MUST outline the innermost container under the pointer (`session.isContainer`, C10), else the mockup's top level, and show an insertion bar at the gap between its children nearest the pointer, across the axis along which its children are laid out: horizontal in a `VStack`, vertical in an `HStack`. |
+| C4 | A drop position whose parent cannot contain the dragged element (R-PACK-016.C6), that lies inside a dragged row's own subtree, or that the edit operation refuses MUST show the `not-allowed` cursor, the indicator in the refused colour and the reason next to the pointer, and a drop there MUST do nothing. |
+| C5 | Dropping a gallery card MUST insert `<Name>()` at the indicated position (R-EDIT-002.C4) and select it; dropping outline rows MUST move their nodes there (R-EDIT-002.C8), keeping their node ids and selecting them. |
+| C6 | Each drop MUST be one edit operation of the session, notifying one `change` (one undo step once the history of R-EDIT-007 exists), and Esc MUST cancel a drag, changing nothing. |
 | V1 | Dragging `Text` from the gallery into a `VStack` in the view inserts `Text(…)` at the position of the insertion bar (F-19.AC1). |
+| C7 | A drag MUST be a pointer drag that starts once the pointer has moved 4 CSS pixels from where it was pressed and shows, next to the pointer, the name of what is dragged; releasing the pointer where no component shows a position, or a cancelled pointer, MUST end the drag with nothing changed. |
+| C8 | The components MUST take the drop position, its check and the drop from the design session (A-WEB-5.K2): `session.dropPosition(node, zone)` gives the position before, inside (as last child) or after a node of the active mockup and is refused for a node that stands where no statement goes beside it; `session.checkDrop(source, position, pack)` gives `{ok: true}` or `{ok: false, reason}`; `session.drop(source, position, pack)` checks and then inserts or moves. |
+| C9 | The role rules of C4 MUST be those of the pack of the target component's last evaluation of the mockup, and a `ForEach` or an `if` MUST defer them to the element above it. |
+| C10 | `session.isContainer(node, pack)` MUST be true for an element call other than a `ForEach` that already has statement children or whose element holds children in the pack (R-PACK-016.C16), and `session.childrenOf(parent)` MUST give the statement children a position's index counts (null: the top level). |
+| C11 | Only the editor showing the session's active mockup MUST take drops, and only a drag of the component's own session MUST be shown or dropped. |
+| C12 | The outline MUST mark the row of the position with `data-drop` (`before`, `inside` or `after`, followed by ` refused` when refused), and the editor MUST draw the outlined container and the bar as the shadow parts `drop-target` and `drop-bar`, the bar carrying `data-orientation`; allowed positions MUST be coloured by `--mkd-drop-color` (default `#2f80ed`) and refused ones by `--mkd-drop-refused-color` (default `#d93025`). |
 
 ---
 
@@ -639,6 +676,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |
 | 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
 | 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |
@@ -649,6 +687,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
 | 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |
 | 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |

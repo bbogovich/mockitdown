@@ -2,12 +2,12 @@
 id: R-PACK-016
 title: Role rules
 status: active
-version: 0.13.7
-rev: 7
+version: 0.13.9
+rev: 8
 page: PACK.3
 slot: reqs
 order: 1
-hash: 79fa5d7a289c
+hash: f7db65a4b17f
 source: [SRC-12]
 realizes: [F-16]
 requires: [R-PACK-004, R-REPO-002]
@@ -30,4 +30,5 @@ C12: `root.accepts` MUST accept the overlays, so that a mockup may show a dialog
 C13: An element name the pack does not define, and an element whose role has no rule, MUST be treated as role `unknown`.
 C14: The reason MUST be `<A parent> cannot hold other elements` when the parent accepts nothing, `<A child> is attached through a presentation modifier (.sheet, .alert, .overlay), not placed inside <a parent>` for an overlay and `<A child> is attached as a modifier, not placed inside <a parent>` for an annotation, `<A child> cannot be placed inside <Element>, which its pack limits to <titles>` when the parent's pack narrows it, and otherwise `<A child> cannot be placed inside <a parent>` (`at the root of a mockup` for the root), the child named by its category when the parent accepts none of that category and by its title otherwise.
 C15: If no role rules are loaded or the pack is unknown, then `canContain` and `allowedChildren` MUST throw a `MockitdownError`.
+C16: The TypeScript core MUST export `holdsChildren(pack, name)`, true when the element's role, or its pack's narrowing (C5), accepts some role, and for an element the pack does not define.
 V1: `canContain("base", "HStack", "NavigationSplitView")` is refused with a reason, `canContain("vuetify", "VCard", "VBtn")` is allowed as for a card and a button, and a Fiori object page that narrows its rule accepts only sections.

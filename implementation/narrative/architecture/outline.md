@@ -1,6 +1,6 @@
 ---
 title: The outline element
-impl_version: 0.3.42
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.OUTLINE
@@ -15,6 +15,9 @@ evaluates the mockup through the TypeScript core with the `edit` option (R-EDIT-
 [the mockup element](elements.md), and selects and hovers through the `DesignSession`
 ([Design documents and the design session](design.md)). On `pages/editor.html` it shares the session of
 [the editor element](editor.md). It also does the outline's part of R-EDIT-006 C7, C8 and C11.
+
+
+Drag and drop (R-TOOL-005, #30): rows that are not derived drag their nodes, and the outline is a drop target with before, inside and after indicators (`data-drop`); see [Drag and drop](drag-drop.md).
 
 ## Files
 
@@ -107,3 +110,4 @@ flowchart TD
 | Version | Date | Change |
 |---|---|---|
 | 0.3.42 | 2026-11-28 | Page written: `mockitdown-outline`, rows from the edit-mode evaluation, keys, hover, tabs, `evaluateWithImports`, IT-54 (#26) |
+| 0.3.46 | 2026-11-28 | Rows draggable, the outline as a drop target (`data-drop`) (#30) |

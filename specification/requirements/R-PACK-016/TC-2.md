@@ -1,7 +1,7 @@
 ---
 id: TC-2
 title: canContain and allowedChildren
-verifies: [C5, C6, C7, C8, C10, C12, C13, C14, C15]
+verifies: [C5, C6, C7, C8, C10, C12, C13, C14, C15, C16]
 ---
 
 `typescript/tests/unit/roles.test.ts` "TC-2: …" (`node:test`): the cases of V1, with the hand-written
@@ -15,3 +15,6 @@ unknown pack throws. Python (`python/tests/test_roles.py` `PackagedTableTests`):
 `roles.json` beside `vocabulary.json`, identical to `shared/`, and a mockup breaking a pack's rule
 renders without a diagnostic; every conformance case's diagnostics are unchanged (the conformance suites
 of both variants).
+
+As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` and `List` hold children, `Text` and
+`Divider` do not, a name `base` does not define does, and the narrowed sapui5 `ObjectPageLayout` still does (C16).

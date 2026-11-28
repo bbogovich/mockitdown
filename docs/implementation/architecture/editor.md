@@ -1,6 +1,6 @@
 ---
 title: The editor element
-impl_version: 0.3.42
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDITOR
@@ -15,6 +15,9 @@ renders through the TypeScript core with the `edit` option (R-EDIT-004, see
 [the mockup element](elements.md), and holds its state in a `DesignSession`
 ([Design documents and the design session](design.md)). It also does the editor's part of
 R-EDIT-006 C7, C8 and C11: it joins a session and dispatches the events of a session of its own.
+
+
+Drag and drop (R-TOOL-005, #30): the editor is a drop target that outlines the innermost container under the pointer and draws an insertion bar (`drop-target`, `drop-bar` parts); see [Drag and drop](drag-drop.md).
 
 ## Files
 
@@ -132,3 +135,4 @@ flowchart TD
 |---|---|---|
 | 0.3.41 | 2026-11-28 | Page written: `mockitdown-editor`, its session, pointer and key handling, overlay, `pages/editor.html`, IT-53 (#25) |
 | 0.3.42 | 2026-11-28 | `pages/editor.html` also holds the outline, which shares the editor's session (#26) |
+| 0.3.46 | 2026-11-28 | The editor as a drop target: container, insertion bar, `drop-target` and `drop-bar` parts (#30) |

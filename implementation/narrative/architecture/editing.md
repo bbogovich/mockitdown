@@ -1,6 +1,6 @@
 ---
 title: Editing core
-impl_version: 0.3.45
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDIT
@@ -14,6 +14,9 @@ and move with the edit corpus (#21), and R-EDIT-003: the operations on one node 
 `.id`, `.ref`, its comment and its name (#22), and R-EDIT-004: the edit-mode render option in both
 variants (#23, ADR-22). The Python parser is unchanged (ADR-21.D1); Python gains only the view-node
 numbering the edit-mode rendering needs (ADR-22.C2).
+
+
+A `move` with `parent: null` moves to the top level, written as a top-level insert (R-EDIT-002.C32, corpus case `move-top-level`, #30); `statementChildren(tree, parent)` gives the children an `index` counts.
 
 ## Data flow
 
@@ -278,3 +281,4 @@ See [Testing](../testing.md).
 | 0.3.37 | 2026-11-27 | Operations on one node: arguments, modifiers, `.id`, `.ref`, comments and names, and their corpus cases (#22) |
 | 0.3.39 | 2026-11-28 | Edit-mode rendering in both variants: ordinals, `View.node`/`derived`, `Env.derived`, imported structs, the element's `edit` attribute (#23) |
 | 0.3.45 | 2026-11-28 | `insert` at the top level (`parent: null`, `placeTop`) and its two corpus cases (#29) |
+| 0.3.46 | 2026-11-28 | Top-level `move`, `statementChildren` (#30) |

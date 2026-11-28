@@ -2,9 +2,9 @@
 requirement: R-EDIT-006
 title: The design session and its events
 status: implemented
-version: 0.13.8
+version: 0.13.9
 date: 2026-11-28
-issue: 29
+issue: 30
 ---
 
 # R-EDIT-006 — The design session and its events
@@ -13,6 +13,7 @@ issue: 29
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.13.9 | 2026-11-28 | implemented | #30 | session.insert(code, parent, index) (C20) and session.move(nodes, parent, index) (C21); drop API childrenOf, isContainer, dropPosition, checkDrop, drop | [Design documents and the design session](../narrative/architecture/design.md), [Drag and drop](../narrative/architecture/drag-drop.md) |
 | 0.13.8 | 2026-11-28 | implemented | #29 | DesignSession.insert(code, parent?): last child of the first selected node, else the end of the top level; change, insert, select of the new node (C20); unit test | [Design documents and the design session](../narrative/architecture/design.md), [The gallery element](../narrative/architecture/gallery-element.md) |
 | 0.13.6 | 2026-11-28 | implemented | #27 | typescript/src/elements/designer.ts dispatches every select, change, insert, rename and diagnostics notification of its session once, as bubbling composed events from the designer, components inside it joining its session (C7, C8, C11; TC-2 in designer.spec.mjs); typescript/src/design/session.ts: session.delete() removes the selection as one change and selects the next sibling, else the previous one, else the parent, through applyOp(op, select) and bodySiblings in core/syntax/edit.ts (C19; design-session.test.ts TC-1); IT-55 | [Design documents and the design session](../narrative/architecture/design.md), [The designer element](../narrative/architecture/designer.md), [Testing](../narrative/testing.md) |
 | 0.13.3 | 2026-11-28 | partial | #26 | typescript/src/elements/outline.ts: mockitdown-outline joins the nearest mockitdown-designer's session, else its host's session property, else an own session over an empty document (C11), and dispatches the DESIGN_EVENTS of an own session only (C7, C8 for the outline). Not yet: the designer's own dispatch and TC-2 (#E8) | [The outline element](../narrative/architecture/outline.md), [Design documents and the design session](../narrative/architecture/design.md) |

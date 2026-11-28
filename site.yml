@@ -137,6 +137,7 @@ nav:
           - The outline element: implementation/architecture/outline.md
           - The designer element: implementation/architecture/designer.md
           - The gallery element: implementation/architecture/gallery-element.md
+          - Drag and drop: implementation/architecture/drag-drop.md
           - Role rules: implementation/architecture/roles.md
           - The pack gallery: implementation/architecture/gallery.md
       - Repository layout and shared assets: implementation/repository.md

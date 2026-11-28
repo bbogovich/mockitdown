@@ -2,12 +2,12 @@
 id: R-EDIT-002
 title: "Edit API: insert, remove and move"
 status: active
-version: 0.13.8
-rev: 7
+version: 0.13.9
+rev: 8
 page: WEB.3
 slot: reqs
 order: 2
-hash: 9810e9de26bb
+hash: 4ad87a35e662
 source: [SRC-12]
 realizes: [F-21]
 requires: [R-EDIT-001]
@@ -46,4 +46,5 @@ C28: An `insert` or `move` into an empty closure written on one line (`{}`) MUST
 C29: A moved node that stands on its own lines (C25) MUST carry the comment trailing its last line.
 C30: Each `<name>.op.json` MUST carry a `covers` list naming the situations of C16 the case covers, and the TypeScript test suite MUST fail when a situation is covered by no case.
 C31: An `insert` at the top level MUST write the code before the view statement at its index, on lines of its own when that statement starts its line and else before it on its line followed by `; `, or, at the end, on a new line after the line of the last top-level statement, else at the end of the source, with the indentation of the first top-level view when it starts its line, else none.
+C32: A `move` with a null parent MUST move the nodes to the top level, before its view statement at the index (counted before the move), writing them as an `insert` at the top level writes code (C31).
 V1: Every case of `shared/conformance/edit/` passes, and each edited source renders without a new diagnostic.

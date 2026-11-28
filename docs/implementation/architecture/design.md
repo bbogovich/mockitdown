@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.45
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -14,6 +14,9 @@ and C12 to C18 (the session and its notifications) (#24), and C19, the `delete` 
 events of the design-tool components (R-EDIT-006 C7, C8, C11) come with the components, the designer
 finishing them ([The designer element](designer.md)); the session's history and the other commands
 (A-WEB-4.P1) with the inspector stage.
+
+
+Drag and drop (R-TOOL-005, #30): `insert(code, parent, index)`, `move(nodes, parent, index)` and the drop API `childrenOf`, `isContainer`, `dropPosition`, `checkDrop`, `drop` (R-EDIT-006.C20, C21); see [Drag and drop](drag-drop.md).
 
 ## Data flow
 
@@ -123,3 +126,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.42 | 2026-11-28 | `mockitdown-outline` joins a session and dispatches the events of a session of its own (C7, C8, C11); see [The outline element](outline.md) (#26) |
 | 0.3.43 | 2026-11-28 | `session.delete()` (R-EDIT-006.C19) and `applyOp(op, select)`; the designer dispatches the events of its session once each and components inside it join it (C7, C8, C11); see [The designer element](designer.md) (#27) |
 | 0.3.45 | 2026-11-28 | `session.insert(code, parent?)` (R-EDIT-006.C20), `applyOp(op, "inserted")`; the gallery joins a session as the other components do (#29) |
+| 0.3.46 | 2026-11-28 | `insert` index, `move`, the drop API (#30) |

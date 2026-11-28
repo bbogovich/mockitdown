@@ -1,6 +1,6 @@
 ---
 title: The gallery element
-impl_version: 0.3.45
+impl_version: 0.3.46
 status: draft
 updated: 2026-11-28
 page_id: IMPL.GALLERYEL
@@ -15,6 +15,9 @@ asks the role rules (R-PACK-016, [Role rules](roles.md)) what may go where, and 
 session's new `insert` command (R-EDIT-006.C20, [Design documents and the design session](design.md)),
 which uses the top-level `insert` of R-EDIT-002 ([Editing core](editing.md)) when nothing is selected.
 [The designer](designer.md) holds it in its gallery panel (R-TOOL-003.C16).
+
+
+Drag and drop (R-TOOL-005, #30): a card dragged onto the outline or the editor inserts `<Name>()` where it is dropped; see [Drag and drop](drag-drop.md).
 
 ## Files
 
@@ -100,3 +103,4 @@ flowchart TD
 | Version | Date | Change |
 |---|---|---|
 | 0.3.45 | 2026-11-28 | Page written: `mockitdown-gallery`, the reference data in the package, `session.insert`, the top-level insert, IT-57 (#29) |
+| 0.3.46 | 2026-11-28 | Cards draggable onto the outline and the editor (#30) |
