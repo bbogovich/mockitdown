@@ -1,0 +1,6 @@
+// a dotted name calls the pack's joined element and keeps its name; Color.red is a colour
+VStack {
+  Badge.Ribbon("New")
+  BadgeRibbon("New")
+  Color.red.frame(height: 8)
+}

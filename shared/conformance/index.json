@@ -2665,6 +2665,18 @@
       "area": "lang"
     },
     {
+      "name": "eval-dotted-names",
+      "area": "eval"
+    },
+    {
+      "name": "eval-dotted-names-unknown",
+      "area": "eval"
+    },
+    {
+      "name": "eval-dotted-names-variable",
+      "area": "eval"
+    },
+    {
       "name": "edit-nested-stacks",
       "area": "edit"
     },

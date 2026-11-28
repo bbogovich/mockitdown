@@ -1,0 +1,16 @@
+{
+  "packs": [
+    "base",
+    "antd"
+  ],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "unknown",
+      "message": "'Nope.Thing' is not an element of pack 'antd' and no struct of that name is declared or imported",
+      "line": 2,
+      "col": 12,
+      "source": ""
+    }
+  ]
+}

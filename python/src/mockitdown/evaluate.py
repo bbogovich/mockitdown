@@ -265,6 +265,9 @@ class Evaluator:
         if isinstance(expr, A.Call):
             callee = expr.callee
             if isinstance(callee, A.Member):
+                dotted = self._dotted(callee, env)
+                if dotted is not None:
+                    return self._call_view(dotted.replace(".", ""), expr, env, written=dotted)
                 return self._apply_modifier(callee, expr, env)
             if isinstance(callee, A.Ident):
                 return self._call_view(callee.name, expr, env)
@@ -307,7 +310,25 @@ class Evaluator:
         self.diags.error(f"a {type(val).__name__} value is not a view", loc, "view")
         return []
 
-    def _call_view(self, name: str, call: A.Call, env: Env) -> list[View]:
+    @staticmethod
+    def _dotted(callee: A.Node, env: Env) -> str | None:
+        """R-EVAL-003.C9: the dotted name a callee writes (``Badge.Ribbon``), when every part begins with an
+        uppercase letter and the first is neither a variable in scope nor ``Color``; else None."""
+        parts: list[str] = []
+        while isinstance(callee, A.Member):
+            parts.append(callee.name)
+            callee = callee.base
+        if not parts or not isinstance(callee, A.Ident) or callee.binding:
+            return None
+        parts.append(callee.name)
+        parts.reverse()
+        if not all(p[:1].isupper() for p in parts) or parts[0] == "Color" or env.lookup(parts[0])[0]:
+            return None
+        return ".".join(parts)
+
+    def _call_view(self, name: str, call: A.Call, env: Env, written: str | None = None) -> list[View]:
+        """Resolve a call by R-EVAL-003.C1. ``written`` is a dotted name as written (C9): ``name`` is it
+        joined, and the view keeps the dotted name (C10)."""
         if name == "ForEach":
             return self._for_each(call, env)
         if name in self.structs:
@@ -316,7 +337,11 @@ class Evaluator:
         if found:  # calling a view-typed property: `content()`
             return self._views_from_value(val, call.loc)
         if self.pack.element(name):
-            return [self._element_view(name, call, env)]
+            view = self._element_view(name, call, env)
+            if written:
+                view.name = written
+            return [view]
+        name = written or name
         self.diags.error(f"{name!r} is not an element of pack {self.pack.id!r} and no struct of that name "
                          "is declared or imported", call.loc, "unknown")
         v = self._mark(View(name, "unknown", loc=call.loc), call, env)
@@ -764,6 +789,9 @@ class Evaluator:
     def _is_view_expr(self, expr: A.Node, env: Env) -> bool:
         """Whether an expression's root is a view call (so a member call on it is a modifier)."""
         while isinstance(expr, (A.Call, A.Member)):
+            if isinstance(expr, A.Call) and (dotted := self._dotted(expr.callee, env)) is not None:
+                joined = dotted.replace(".", "")
+                return joined in self.structs or joined == "ForEach" or bool(self.pack and self.pack.element(joined))
             expr = expr.callee if isinstance(expr, A.Call) else expr.base
         if isinstance(expr, A.Ident):
             if env.lookup(expr.name)[0]:
@@ -816,6 +844,9 @@ class Evaluator:
                 return ViewList(self.run_thunk(val))
             return CallValue(n, tuple(args), kwargs)
         if isinstance(callee, A.Member):
+            dotted = self._dotted(callee, env)
+            if dotted is not None and self._is_view_expr(expr, env):  # `Badge.Ribbon("New")` (R-EVAL-003.C9)
+                return ViewList(self.views(expr, env))
             # String / collection methods; otherwise a view with modifiers used as a value.
             if callee.name in ("uppercased", "lowercased", "capitalized"):
                 s = self.value(callee.base, env)

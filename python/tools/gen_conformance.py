@@ -29,7 +29,7 @@ that file's resolved path as their source, so the corpus has none (the generator
 Areas (the name prefix): role-* (every base element, by render role), pack-* (every shipped pack,
 plus its own elements in chunks), appearance-*, device-*, chrome-*, option-*, import-*,
 annotate-*, overlay-*, chart-*, shape-*, control-* (SwiftUI control styles), present-* (SwiftUI
-presentations and navigation), image-*, lang-*, edit-* (edit-mode rendering, ``edit: true``, R-EDIT-004),
+presentations and navigation), image-*, lang-*, eval-* (name resolution, R-EVAL-003), edit-* (edit-mode rendering, ``edit: true``, R-EDIT-004),
 diag-*.
 """
 
@@ -652,6 +652,22 @@ def lang_cases() -> list[Case]:
     return out
 
 
+def eval_cases() -> list[Case]:
+    """Name resolution (R-EVAL-003): dotted element names (C9, C10, TC-2)."""
+    out = [
+        Case("eval-dotted-names", "a dotted name calls the pack's joined element and keeps its name; Color.red is a colour",
+             'VStack {\n  Badge.Ribbon("New")\n  BadgeRibbon("New")\n  Color.red.frame(height: 8)\n}'),
+        Case("eval-dotted-names-unknown", "an unresolved dotted name is unknown under its dotted name",
+             'Nope.Thing { Text("in") }', diagnostics=True),
+        Case("eval-dotted-names-variable", "a variable as the first part makes it a member access",
+             'let Badge = "x"\nBadge.Ribbon("New")', diagnostics=True),
+    ]
+    for c in out:
+        c.options.setdefault("device", "fit")
+        c.options.setdefault("pack", "antd")
+    return out
+
+
 def edit_cases() -> list[Case]:
     """Edit-mode rendering (R-EDIT-004.C9): `data-mkd-node` on every role root a view node produced and
     `data-mkd-derived` on those a ForEach, an if or a struct body produced."""
@@ -844,7 +860,7 @@ def diag_cases() -> list[Case]:
 def build_cases() -> list[Case]:
     cases = (role_cases() + pack_cases() + appearance_cases() + device_cases() + chrome_cases()
              + option_cases() + import_cases() + annotate_cases() + overlay_cases() + chart_cases()
-             + shape_cases() + control_cases() + present_cases() + image_cases() + lang_cases() + edit_cases() + diag_cases())
+             + shape_cases() + control_cases() + present_cases() + image_cases() + lang_cases() + eval_cases() + edit_cases() + diag_cases())
     names = [c.name for c in cases]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:

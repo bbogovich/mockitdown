@@ -62,3 +62,28 @@ class SyntaxTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DottedCalleeTests(unittest.TestCase):
+    """R-LANG-007 TC-2 (C8): a capitalised member with an argument list or trailing closure is a call."""
+
+    def test_dotted_call_with_arguments(self):  # TC-2 (C8)
+        call = parse('Badge.Ribbon("New")').statements[0].expr
+        self.assertIsInstance(call, A.Call)
+        self.assertIsInstance(call.callee, A.Member)
+        self.assertEqual((call.callee.base.name, call.callee.name), ("Badge", "Ribbon"))
+        self.assertEqual(call.args[0].value.value, "New")
+
+    def test_dotted_call_with_trailing_closure(self):  # TC-2 (C8)
+        call = parse('Card.Meta { Text("x") }').statements[0].expr
+        self.assertIsInstance(call, A.Call)
+        self.assertEqual((call.callee.base.name, call.callee.name), ("Card", "Meta"))
+        self.assertEqual(call.args, [])
+        self.assertEqual(len(call.trailing), 1)
+        self.assertEqual(call.trailing[0][1].body[0].expr.callee.name, "Text")
+
+    def test_modifier_chain_unchanged(self):  # TC-2 (C8)
+        call = parse('Text("a").font(.title)').statements[0].expr
+        self.assertEqual(call.callee.name, "font")
+        self.assertIsInstance(call.callee.base, A.Call)
+        self.assertEqual(call.callee.base.callee.name, "Text")

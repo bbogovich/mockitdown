@@ -284,7 +284,11 @@ export class Evaluator {
   views(expr: A.Node, env: Env): View[] {
     if (expr.kind === "Call") {
       const callee = expr.callee;
-      if (callee.kind === "Member") return this.applyModifier(callee, expr, env);
+      if (callee.kind === "Member") {
+        const dotted = dottedName(callee, env);
+        if (dotted !== null) return this.callView(dotted.replaceAll(".", ""), expr, env, dotted);
+        return this.applyModifier(callee, expr, env);
+      }
       if (callee.kind === "Ident") return this.callView(callee.name, expr, env);
       this.diags.error("this expression does not produce a view", expr.loc, "view");
       return [];
@@ -329,13 +333,22 @@ export class Evaluator {
     return [];
   }
 
-  private callView(name: string, call: A.Call, env: Env): View[] {
+  /**
+   * Resolve a call by R-EVAL-003.C1. `written` is a dotted name as written (C9): `name` is it joined,
+   * and the view keeps the dotted name (C10).
+   */
+  private callView(name: string, call: A.Call, env: Env, written: string | null = null): View[] {
     if (name === "ForEach") return this.forEach(call, env);
     const decl = this.structs.get(name);
     if (decl) return this.instantiate(decl, call, env);
     const [found, val] = env.lookup(name);
     if (found) return this.viewsFromValue(val, call.loc); // calling a view-typed property: `content()`
-    if (this.p.element(name)) return [this.elementView(name, call, env)];
+    if (this.p.element(name)) {
+      const view = this.elementView(name, call, env);
+      if (written) view.name = written;
+      return [view];
+    }
+    if (written) name = written;
     this.diags.error(`${strRepr(name)} is not an element of pack ${strRepr(this.p.id)} and no struct of that name `
       + "is declared or imported", call.loc, "unknown");
     const v = this.mark(new View(name, "unknown", { loc: call.loc }), call, env);
@@ -805,7 +818,14 @@ export class Evaluator {
 
   /** Whether an expression's root is a view call (so a member call on it is a modifier). */
   private isViewExpr(expr: A.Node, env: Env): boolean {
-    while (expr.kind === "Call" || expr.kind === "Member") expr = expr.kind === "Call" ? expr.callee : expr.base;
+    while (expr.kind === "Call" || expr.kind === "Member") {
+      const dotted = expr.kind === "Call" ? dottedName(expr.callee, env) : null;
+      if (dotted !== null) {
+        const joined = dotted.replaceAll(".", "");
+        return this.structs.has(joined) || joined === "ForEach" || this.element(joined);
+      }
+      expr = expr.kind === "Call" ? expr.callee : expr.base;
+    }
     if (expr.kind === "Ident") {
       const [found, val] = env.lookup(expr.name);
       if (found) return val instanceof Thunk || val instanceof ViewList;
@@ -853,6 +873,8 @@ export class Evaluator {
       return new CallValue(n, args, kwargs);
     }
     if (callee.kind === "Member") {
+      // `Badge.Ribbon("New")` (R-EVAL-003.C9)
+      if (dottedName(callee, env) !== null && this.isViewExpr(expr, env)) return new ViewList(this.views(expr, env));
       // String / collection methods; otherwise a view with modifiers used as a value.
       if (callee.name === "uppercased" || callee.name === "lowercased" || callee.name === "capitalized") {
         const s = this.value(callee.base, env);
@@ -894,6 +916,23 @@ export class Evaluator {
     }
     return new CallValue("", args, kwargs);
   }
+}
+
+/**
+ * R-EVAL-003.C9: the dotted name a callee writes (`Badge.Ribbon`), when every part begins with an
+ * uppercase letter and the first is neither a variable in scope nor `Color`; else null.
+ */
+function dottedName(callee: A.Node, env: Env): string | null {
+  const parts: string[] = [];
+  while (callee.kind === "Member") {
+    parts.push(callee.name);
+    callee = callee.base;
+  }
+  if (!parts.length || callee.kind !== "Ident" || callee.binding) return null;
+  parts.push(callee.name);
+  parts.reverse();
+  if (!parts.every((p) => /^\p{Lu}/u.test(p)) || parts[0] === "Color" || env.lookup(parts[0])[0]) return null;
+  return parts.join(".");
 }
 
 function textCall(text: Value, loc: Location): A.Call {

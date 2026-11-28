@@ -1,0 +1,2 @@
+// an unresolved dotted name is unknown under its dotted name
+Nope.Thing { Text("in") }

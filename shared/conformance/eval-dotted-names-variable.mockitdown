@@ -1,0 +1,3 @@
+// a variable as the first part makes it a member access
+let Badge = "x"
+Badge.Ribbon("New")
