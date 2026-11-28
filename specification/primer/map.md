@@ -138,21 +138,21 @@ R-LANG-006 | requirements | active | 0.12.9 r2 | LANG.1 | Expressions and operat
 R-LANG-007 | requirements | active | 0.10.0 r1 | LANG.1 | Calls, modifier chains and closures
 R-LANG-008 | requirements | active | 0.12.9 r1 | LANG.1 | Collection and tuple literals
 R-LANG-009 | requirements | active | 0.2.0 r0 | LANG.1 | Syntax errors
-R-MDX-001 | requirements | active | 0.2.0 r0 | MDX.1 | Integration points
-R-MDX-002 | requirements | active | 0.12.0 r2 | MDX.1 | Extension options
-R-MDX-003 | requirements | active | 0.12.0 r1 | MDX.1 | Fence attributes
-R-MDX-004 | requirements | active | 0.2.1 r1 | MDX.1 | Per-page CSS delivery
-R-MDX-005 | requirements | active | 0.2.0 r0 | MDX.1 | Build log and strict mode
-R-MDX-006 | requirements | active | 0.10.8 r2 | MDX.1 | Compatibility with instant navigation
-R-PACK-001 | requirements | active | 0.10.8 r1 | PACK.1 | Pack directory layout and lookup
-R-PACK-002 | requirements | active | 0.10.8 r1 | PACK.1 | pack.json keys
-R-PACK-003 | requirements | active | 0.10.8 r1 | PACK.1 | Pack inheritance
+R-MDX-001 | requirements | active | 0.12.10 r1 | MDX.1 | Integration points
+R-MDX-002 | requirements | active | 0.12.10 r3 | MDX.1 | Extension options
+R-MDX-003 | requirements | active | 0.12.10 r2 | MDX.1 | Fence attributes
+R-MDX-004 | requirements | active | 0.12.10 r2 | MDX.1 | Per-page CSS delivery
+R-MDX-005 | requirements | active | 0.12.10 r1 | MDX.1 | Build log and strict mode
+R-MDX-006 | requirements | active | 0.12.10 r3 | MDX.1 | Compatibility with instant navigation
+R-PACK-001 | requirements | active | 0.12.10 r2 | PACK.1 | Pack directory layout and lookup
+R-PACK-002 | requirements | active | 0.12.10 r2 | PACK.1 | pack.json keys
+R-PACK-003 | requirements | active | 0.12.10 r2 | PACK.1 | Pack inheritance
 R-PACK-004 | requirements | active | 0.10.8 r2 | PACK.1 | Element definitions
 R-PACK-005 | requirements | active | 0.10.8 r1 | PACK.1 | Pack selection
 R-PACK-006 | requirements | active | 0.10.8 r1 | PACK.1 | Design tokens
 R-PACK-007 | requirements | active | 0.10.8 r1 | PACK.1 | Pack stylesheet rules
-R-PACK-008 | requirements | active | 0.11.0 r5 | PACK.1 | Shipped packs
-R-PACK-009 | requirements | active | 0.11.0 r2 | PACK.1 | The core vocabulary
+R-PACK-008 | requirements | active | 0.12.10 r6 | PACK.1 | Shipped packs
+R-PACK-009 | requirements | active | 0.12.10 r3 | PACK.1 | The core vocabulary
 R-PACK-010 | requirements | active | 0.11.0 r1 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
 R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery and site sections
@@ -174,17 +174,17 @@ R-PACK-027 | requirements | active | 0.12.6 r3 | PACK.5 | Palm OS pack
 R-PACK-028 | requirements | active | 0.12.6 r3 | PACK.5 | Windows CE (Pocket PC) pack
 R-PACK-029 | requirements | active | 0.12.6 r3 | PACK.5 | BlackBerry pack
 R-PACK-030 | requirements | active | 0.12.0 r0 | PACK.1 | User guide: installation and defined terms
-R-REND-001 | requirements | active | 0.10.8 r1 | REND.1 | Figure structure
-R-REND-002 | requirements | active | 0.10.8 r2 | REND.1 | Role markup
-R-REND-003 | requirements | active | 0.10.7 r1 | REND.1 | Attributes on the markup
+R-REND-001 | requirements | active | 0.12.10 r2 | REND.1 | Figure structure
+R-REND-002 | requirements | active | 0.12.10 r3 | REND.1 | Role markup
+R-REND-003 | requirements | active | 0.12.10 r2 | REND.1 | Attributes on the markup
 R-REND-004 | requirements | active | 0.2.0 r0 | REND.1 | Modifier rendering
 R-REND-005 | requirements | active | 0.10.7 r1 | REND.1 | Text content and inline Markdown
-R-REND-006 | requirements | active | 0.10.8 r2 | REND.1 | Output safety
-R-REND-007 | requirements | active | 0.10.8 r2 | REND.1 | Static, deterministic output
-R-REND-008 | requirements | active | 0.10.7 r1 | REND.1 | Unknown elements and roles
+R-REND-006 | requirements | active | 0.12.10 r3 | REND.1 | Output safety
+R-REND-007 | requirements | active | 0.12.10 r3 | REND.1 | Static, deterministic output
+R-REND-008 | requirements | active | 0.12.10 r2 | REND.1 | Unknown elements and roles
 R-REND-009 | requirements | active | 0.10.7 r1 | REND.1 | Presentations and navigation composition
 R-REND-010 | requirements | active | 0.2.0 r0 | REND.1 | Elements table and source disclosure
-R-REND-011 | requirements | active | 0.3.0 r0 | REND.2 | Non-standard component roles
+R-REND-011 | requirements | active | 0.12.10 r1 | REND.2 | Non-standard component roles
 R-REND-012 | requirements | active | 0.8.3 r2 | REND.2 | Charts
 R-REND-013 | requirements | active | 0.10.7 r2 | REND.1 | Rows without overlap
 R-REND-014 | requirements | active | 0.10.7 r2 | REND.1 | Shape framing

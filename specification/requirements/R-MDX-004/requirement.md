@@ -2,8 +2,8 @@
 id: R-MDX-004
 title: Per-page CSS delivery
 status: active
-version: 0.2.1
-rev: 1
+version: 0.12.10
+rev: 2
 page: MDX.1
 slot: reqs
 order: 4
@@ -12,7 +12,7 @@ realizes: [F-11, F-8]
 constrained_by: [A-MDX-1, A-STYLE-1]
 decisions: [ADR-8]
 reverse_engineered: true
-hash: 512edd1be53b
+hash: 54f1e8925005
 ---
 
 C1: While `css` is `inline`, the Markdown extension MUST prepend to each converted page that rendered at least one mockup exactly one `<style data-mockitdown="<pack ids>">` element holding the stylesheet for the packs the page used.

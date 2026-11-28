@@ -25,7 +25,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
 
-## Not started (90)
+## Not started (72)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -62,21 +62,10 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-LANG-005 | Statements | — | 0.2.0 |  |  |
 | R-LANG-007 | Calls, modifier chains and closures | — | 0.10.0 |  |  |
 | R-LANG-009 | Syntax errors | — | 0.2.0 |  |  |
-| R-MDX-001 | Integration points | — | 0.2.0 |  |  |
-| R-MDX-002 | Extension options | — | 0.12.0 |  |  |
-| R-MDX-003 | Fence attributes | — | 0.12.0 |  |  |
-| R-MDX-004 | Per-page CSS delivery | — | 0.2.1 |  |  |
-| R-MDX-005 | Build log and strict mode | — | 0.2.0 |  |  |
-| R-MDX-006 | Compatibility with instant navigation | — | 0.10.8 |  |  |
-| R-PACK-001 | Pack directory layout and lookup | — | 0.10.8 |  |  |
-| R-PACK-002 | pack.json keys | — | 0.10.8 |  |  |
-| R-PACK-003 | Pack inheritance | — | 0.10.8 |  |  |
 | R-PACK-004 | Element definitions | — | 0.10.8 |  |  |
 | R-PACK-005 | Pack selection | — | 0.10.8 |  |  |
 | R-PACK-006 | Design tokens | — | 0.10.8 |  |  |
 | R-PACK-007 | Pack stylesheet rules | — | 0.10.8 |  |  |
-| R-PACK-008 | Shipped packs | — | 0.11.0 |  |  |
-| R-PACK-009 | The core vocabulary | — | 0.11.0 |  |  |
 | R-PACK-010 | Hidden packs | — | 0.11.0 |  |  |
 | R-PACK-016 | Role rules | — | 0.12.4 |  |  |
 | R-PACK-017 | Typed parameters and modifiers | — | 0.11.0 |  |  |
@@ -92,17 +81,10 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-028 | Windows CE (Pocket PC) pack | — | 0.12.6 |  |  |
 | R-PACK-029 | BlackBerry pack | — | 0.12.6 |  |  |
 | R-PACK-030 | User guide: installation and defined terms | — | 0.12.0 |  |  |
-| R-REND-001 | Figure structure | — | 0.10.8 |  |  |
-| R-REND-002 | Role markup | — | 0.10.8 |  |  |
-| R-REND-003 | Attributes on the markup | — | 0.10.7 |  |  |
 | R-REND-004 | Modifier rendering | — | 0.2.0 |  |  |
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
-| R-REND-006 | Output safety | — | 0.10.8 |  |  |
-| R-REND-007 | Static, deterministic output | — | 0.10.8 |  |  |
-| R-REND-008 | Unknown elements and roles | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-REND-011 | Non-standard component roles | — | 0.3.0 |  |  |
 | R-TOOL-001 | The editable view: mockitdown-editor | — | 0.11.0 |  |  |
 | R-TOOL-002 | The outline: mockitdown-outline | — | 0.11.0 |  |  |
 | R-TOOL-003 | The composite designer and its test page | — | 0.11.0 |  |  |
@@ -120,7 +102,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
 | R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
 
-## Implemented (44)
+## Implemented (62)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -164,7 +146,25 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-IMP-006 | Module imports are not file imports | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-LANG-006 | Expressions and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-LANG-008 | Collection and tuple literals | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-MDX-001 | Integration points | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-MDX-002 | Extension options | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-MDX-003 | Fence attributes | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-MDX-004 | Per-page CSS delivery | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-MDX-005 | Build log and strict mode | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-MDX-006 | Compatibility with instant navigation | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-001 | Pack directory layout and lookup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-002 | pack.json keys | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-003 | Pack inheritance | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-008 | Shipped packs | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-009 | The core vocabulary | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.5 | 2026-11-27 | #55 |
+| R-REND-001 | Figure structure | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-002 | Role markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-003 | Attributes on the markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-006 | Output safety | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-007 | Static, deterministic output | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.4 | 2026-11-27 | #54 |

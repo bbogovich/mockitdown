@@ -2,8 +2,8 @@
 id: R-PACK-001
 title: Pack directory layout and lookup
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.10
+rev: 2
 page: PACK.1
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-3, F-7]
 constrained_by: [A-PACK-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 97a7862fb5f3
+hash: ce520762daa0
 ---
 
 C1: A pack MUST be a directory named by its identifier holding `pack.json` (UTF-8 JSON) and, optionally, `pack.css`.

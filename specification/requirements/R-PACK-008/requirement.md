@@ -2,8 +2,8 @@
 id: R-PACK-008
 title: Shipped packs
 status: active
-version: 0.11.0
-rev: 5
+version: 0.12.10
+rev: 6
 page: PACK.1
 slot: reqs
 order: 8
@@ -11,7 +11,7 @@ source: [SRC-2, SRC-4, SRC-5, SRC-6, SRC-7, SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 decisions: [ADR-13]
-hash: 05ec55436cf9
+hash: 0bf899f462df
 refs: [ADR-16, F-14, R-PACK-010, R-PACK-019, R-PACK-022, R-PACK-023, R-PACK-024, R-PACK-025, R-PACK-026, R-PACK-027, R-PACK-028, R-PACK-029]
 ---
 

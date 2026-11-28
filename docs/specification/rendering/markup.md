@@ -1,6 +1,6 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.12.9
+spec_version: 0.12.10
 status: draft
 updated: 2026-11-27
 page_id: REND.1
@@ -17,6 +17,16 @@ classes. The markup is described in full, with an annotated example, on the [Mar
 page and in the [Markup and CSS contract](css-contract.md).
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**R-REND-001.TC-1 — Figure, stage, cells, frames and caption**
+
+Python unit tests `python/tests/test_markup.py` `FigureStructureTests`: the figure's classes, `role`, `aria-label` (title, else id, else
+"<pack name> mockup") and data attributes (C1); `appearance="both"` gives `data-count="2"`, two cells, frames light
+and dark with `data-device`, `data-chrome` and the size, cell labels `Light` and `Dark` and the caption `S · T`; one
+appearance gives one cell without a label, and `device="fit"` `data-fit="true"` without a size (C2, C3, C5, V1); a
+SwiftUI phone with a sheet has the status chrome, one screen holding the views and then the presentation layer, and the
+home indicator, in that order (C4); the caption shows whichever of id and title exists and nothing with neither or with
+captions off (C6); the options' title and id win over `@Screen`'s (C7).
 
 **Realizes.** F-8, F-9, F-10 · **Decisions.** ADR-1
 
@@ -42,11 +52,24 @@ the roles. The [Role catalogue](roles.md) lists each role with the attributes it
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+A few roles keep another root class (the role catalogue lists them): `icon` uses `mkd-symbol` because `mkd-icon` is every glyph's `svg`, and a table's root is the wrapper that scrolls it.
+
+**R-REND-002.TC-1 — Role roots, components, parts, classes and the role catalogue**
+
+Python unit tests `python/tests/test_markup.py` `RoleMarkupTests`: every `base` element renders a root of class `mkd-<role>` (or the root the
+role catalogue names for `icon`, `table`, `tab`, `tablerow`, `toolbaritem`; `tablecolumn` draws none) with `data-el`
+as written (C1, C2); a struct's body root carries `data-component` (C2); `Button("Save")` renders
+`span.mkd-button[data-el=Button][role=button]` with `mkd-button__label` in every shipped pack, and a toggle, a slider
+and a card emit the same part classes in base, SwiftUI, Fluent, Material UI and Windows 95 (C3, V1); `.class(…)`
+classes follow the role class (C4); the renderer's roles are exactly the catalogue's, `base` maps the catalogue's
+elements to each, and every part class the conformance corpus contains is listed for its role in
+`python/tests/fixtures/role-catalogue.json`, the copy of the catalogue's table (C5).
+
 **Realizes.** F-3, F-8 · **Decisions.** ADR-4
 
 | | Statement |
 |---|---|
-| C1 | The renderer MUST render every view through its element's render role, and every role MUST produce a root element with the class `mkd-<role>`. |
+| C1 | The renderer MUST render every view through its element's render role, and every role MUST produce a root element with the class `mkd-<role>`, except the roles the role catalogue gives another root (`icon`, `table`, `tab` outside a `TabView`, `tablerow`, `toolbaritem`) and `tablecolumn`, which draws nothing of its own. |
 | C2 | The renderer MUST give each role's root element `data-el` set to the element name as written (`Button`, `InfoBar`), and `data-component` set to the component name when the view is the root of a struct's body. |
 | C3 | The renderer MUST name a role's inner parts with BEM classes `mkd-<role>__<part>` (and, where a part has a variant, `mkd-<role>--<modifier>`), and these class names MUST be the same for every pack. |
 | C4 | The renderer MUST append the classes given by `.class(…)` to the root element. |
@@ -63,11 +86,22 @@ arbitrary text out of attribute selectors.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
+`appearance` is not copied: a view's `data-appearance` would match the stylesheet's frame selectors (`.mkd-frame[data-appearance="dark"]`), so a field's `.appearance(.outline)` reaches the markup as its variant instead.
+
+**R-REND-003.TC-1 — Data attributes on the root**
+
+Python unit tests `python/tests/test_markup.py` `AttributeTests`: each attribute of C1 is copied to `data-<name>`; enum values by name,
+numbers, and booleans as `true`/`false`; `appearance` is not copied; values with `<`, `"`, `;`, more than 40
+characters or a list are dropped (C1); `state` gives `data-state`, `disabled` overrides it, `error` gives `error` only
+without a state and only when not false or empty (C2); `selected` (C3); `.id`, `.ref` with two arguments and `.help`
+(C4, V1); every data attribute the conformance corpus puts in a role's markup is common to every role or listed for
+that role in the catalogue copy (C5).
+
 **Realizes.** F-3, F-6, F-8
 
 | | Statement |
 |---|---|
-| C1 | The renderer MUST copy the view attributes `variant`, `size`, `color`, `shape`, `density`, `elevation`, `placement`, `orientation`, `emphasis`, `design`, `severity`, `kind`, `labelStyle`, `position`, `appearance` and `level` to `data-<name>` on the root element when the value is a string, number, boolean or enum value whose text matches `^[A-Za-z0-9_. -]{1,40}$`; booleans MUST be written `true`/`false` and enum values by name. |
+| C1 | The renderer MUST copy the view attributes `variant`, `size`, `color`, `shape`, `density`, `elevation`, `placement`, `orientation`, `emphasis`, `design`, `severity`, `kind`, `labelStyle`, `position`, `level`, `side`, `withHandle`, `direction`, `labelPlacement` and `rowsPerPage` to `data-<name>` on the root element when the value is a string, number, boolean or enum value whose text matches `^[A-Za-z0-9_. -]{1,40}$`; booleans MUST be written `true`/`false` and enum values by name. |
 | C2 | The renderer MUST set `data-state` to the `state` attribute's name; when `disabled` is truthy it MUST set `data-state="disabled"`, and otherwise when `error` is set and not false or empty and no state was given, `data-state="error"`. |
 | C3 | When `selected` is truthy, the renderer MUST set `data-selected="true"`. |
 | C4 | The renderer MUST set `data-mkd-id` from `.id(x)`, `data-ref` from `.ref(a, b, …)` (space-separated) and `title` from `.help(x)`. |
@@ -136,6 +170,16 @@ allow-list.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**R-REND-006.TC-1 — Escaping and inert output**
+
+Python unit tests `python/tests/test_markup.py` `OutputSafetyTests`: script tags, both quotes, `&` and `javascript:` in text, help, id and
+button labels come out escaped, with no `<` inside an attribute value (C1, V1); the whole conformance corpus contains no
+`<script>`, `<iframe>`, `<object>`, `<form>`, `<a href>` or `on…=` attribute, and a `Link` is a `span` without `href`
+(C2); a colour carrying `;background:url(x)` and a font size carrying CSS leave no trace in `style`, while a padding
+and an accepted colour do (C3); `javascript:`, `data:text/html`, path-escaping and `file:` image sources render a
+placeholder without `<img>`, an `https` source is used (C4, V1); hostile title, id, url, device and chrome options
+produce no markup (C5).
+
 **Realizes.** F-8 · **Decisions.** ADR-5
 
 | | Statement |
@@ -158,6 +202,16 @@ them work with instant navigation, where a script-initialised widget would not r
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**R-REND-007.TC-1 — Static controls, identical output, derived values, decorative icons**
+
+Python unit tests `python/tests/test_markup.py` `StaticOutputTests`: a button, toggle, checkbox, radio button, text field and link carry the
+ARIA roles `button`, `switch`, `checkbox`, `radio`, `textbox` and `link` and no form element or script (C1, V1); 120
+conformance sources and a block with an avatar, a chart and an overlay render byte-identical twice (C2, V1); an avatar's
+hue follows its name, not its place, two charts get distinct identifiers that repeat on the next rendering, and the
+renderer uses no randomness, clock or `id()` (C3); every icon of the corpus is `svg.mkd-icon` with
+`aria-hidden="true"` and `focusable="false"` (C4). The TypeScript variant renders the same corpus byte for byte
+(`npm run test:unit`).
+
 **Realizes.** F-8, F-11 · **Decisions.** ADR-5
 
 | | Statement |
@@ -176,6 +230,20 @@ A placeholder in place shows the author exactly which element is wrong while kee
 the screen readable.
 
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
+
+**R-REND-008.TC-1 — Unknown elements and roles**
+
+Python unit tests `python/tests/test_markup.py` `UnknownElementTests`: `HStack { Text("a"); Foo { Text("b") }; Text("c") }` reports one
+`unknown` error and renders `div.mkd-unknown[data-el=Foo]` with `span.mkd-unknown__name` and `b`, between `a` and `c`
+(C1, V1); a site pack element whose role has no renderer reports "pack 'acme': element 'Gizmo' has unknown role
+'gizmo'" (code `role`) and renders as an unknown view (C2); the base stylesheet gives `.mkd-unknown` a dashed border
+and styles its name (C3).
+
+**R-REND-008.TC-2 — An unknown element in the browser**
+
+Chromium tests `typescript/tests/browser/markup.spec.mjs`: in `base`, Fluent and SwiftUI, an unknown element between
+two texts has a visible dashed border and its name shown, holds its child, and sits between its siblings without
+overlapping them (C3, V1).
 
 **Realizes.** F-12
 
@@ -358,12 +426,14 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.10 | 2026-11-27 | as built: C1 names the roles with another root (icon, table, tab, tablerow, toolbaritem) and tablecolumn; TC-1 verifies C1-C5 against the role catalogue (#59); as built: C1 copies side, withHandle, direction, labelPlacement, rowsPerPage and not appearance; TC-1 verifies C1-C5 (#59); test cases backfilled (#59) |
 | 0.12.9 | 2026-11-27 | C1 names the chrome kinds of R-DEV-005, not R-DEV-004 (length rewriting); TC-1 verifies C1-C2 (#58) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.9 | 2026-11-27 | C1 names the chrome kinds of R-DEV-005, not R-DEV-004 (length rewriting); TC-1 verifies C1-C2 (#58) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |

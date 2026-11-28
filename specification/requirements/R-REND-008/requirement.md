@@ -2,8 +2,8 @@
 id: R-REND-008
 title: Unknown elements and roles
 status: active
-version: 0.10.7
-rev: 1
+version: 0.12.10
+rev: 2
 page: REND.1
 slot: reqs
 order: 8
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-12]
 constrained_by: [A-REND-1, A-EVAL-1]
 reverse_engineered: true
-hash: 903055857cd3
+hash: 29889d3d3581
 refs: [R-PACK-004]
 ---
 

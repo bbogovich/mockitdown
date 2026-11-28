@@ -2,8 +2,8 @@
 id: R-MDX-001
 title: Integration points
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.10
+rev: 1
 page: MDX.1
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-11]
 constrained_by: [A-MDX-1, A-MDX-2]
 decisions: [ADR-3]
 reverse_engineered: true
-hash: df38463cc45a
+hash: e459afa33bb4
 ---
 
 C1: mockitdown MUST integrate with documentation sites as a Python-Markdown extension named `mockitdown` (loadable as `markdown_extensions: [mockitdown]`) together with a `pymdownx.superfences` custom fence.

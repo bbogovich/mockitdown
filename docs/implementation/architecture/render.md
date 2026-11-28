@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.21
+impl_version: 0.3.28
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REND
@@ -240,7 +240,8 @@ SwiftUI style names, which no other pack uses:
 - `r_toolbar`: `.compactMenu`/`.menu` render one `.mkd-toolbar__menu` instead of the children.
 - `r_list`: `selection:` is kept in `list_selection` while the rows render; `_rows` marks the wrapper
   whose child's tag or text equals it.
-- `r_textfield`: a filled field whose placeholder is its only title carries it as `aria-label`.
+- `r_textfield`: the root carries `role="textbox"` like every other control's ARIA role (R-REND-007.C1);
+  a filled field whose placeholder is its only title carries it as `aria-label`.
 
 ## Presentations and navigation markup — `r_dialog`, `r_split`, `r_tab` (R-PACK-015)
 
@@ -272,7 +273,9 @@ Both renderers, for every pack:
 1. Add `r_<role>` to the mixin of its family in `render/roles/`, and the role function to the record of
    the same family in `typescript/src/core/render/roles/` (and BEM parts) — R-REND-002.
 2. Style its structure in `packs/base/pack.css`.
-3. Add it to the role catalogue in the specification (a specification change).
+3. Add it to the role catalogue in the specification (a specification change), and the same row to
+   `python/tests/fixtures/role-catalogue.json`: `test_markup.py` fails on a role, part or data
+   attribute the catalogue does not list (R-REND-002.TC-1, R-REND-003.TC-1).
 4. Map elements onto it in packs; `test_every_element_renders` covers it.
 
 
@@ -290,3 +293,4 @@ Both renderers, for every pack:
 | 0.3.15 | 2026-11-25 | The macOS menu bar: `render/menubar.py`, `.mkd-window` under the bar (#14) |
 | 0.3.20 | 2026-11-27 | `render/html.py` split into role-family mixins under `render/roles/` and shared helpers in `render/_util.py`, no change in output (#48) |
 | 0.3.21 | 2026-11-27 | The TypeScript role families under `typescript/src/core/render/roles/` (#49) |
+| 0.3.28 | 2026-11-27 | `r_textfield` gives the root `role="textbox"` in both renderers (found by R-REND-007.TC-1); the role catalogue (REF.2) checked against the renderer by `tests/test_markup.py` and its fixture `tests/fixtures/role-catalogue.json`; IT-40, IT-41 (#59) |

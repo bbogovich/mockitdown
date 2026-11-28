@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.12.0
+spec_version: 0.12.10
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -17,6 +17,16 @@ site's directories are searched first, a site can also override a shipped pack b
 identifier.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+**R-PACK-001.TC-1 — Pack directories, lookup order, listing and loading once**
+
+Python unit tests `python/tests/test_pack_registry.py` `LayoutAndLookupTests`: a directory with `pack.json` is a pack whether or not it has
+`pack.css`, a directory without `pack.json` is none, and every built-in pack's id is its directory name (C1); with two
+pack directories the first holding `<id>/pack.json` wins, the built-in directory comes last, and a block with
+`pack_paths` and `pack="fluent"` uses the site's pack (C2, V1); `ids()` lists the configured directories' packs first,
+sorted within each directory, then the built-in ones, without duplicates or pack-less directories (C3); `pack="nope"`
+raises "unknown pack 'nope'; known packs: …" listing `ids()`, and a block reports it (C4, V1); `get()` returns the same
+object every time and does not read a changed `pack.json` again (C5).
 
 **Realizes.** F-3, F-7 · **Decisions.** ADR-4
 
@@ -39,11 +49,21 @@ reference instance.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**R-PACK-002.TC-1 — pack.json keys**
+
+Python unit tests `python/tests/test_pack_registry.py` `PackJsonKeyTests`: a `pack.json` with every key of C1 and two unknown ones loads each key
+into the pack and ignores the others; without keys the id and name are the directory name (C1); `modules` select the
+pack through `import` (C2); `device` defaults to the parent's, `desktop` for `base` (C3); an unlisted device form has
+chrome `none` (C4); light and dark tokens (C5); an element definition's role, params, defaults, variants and doc (C6);
+a modifier with and without a fixed value sets its attribute (C7); a font alias (C8), a size (C9) and an icon (C10)
+map as given; `{"id": "acme", "extends": "mui"}` has the Material UI pack's elements, tokens, modifiers, chrome and
+sizes (V1).
+
 **Realizes.** F-3 · **Decisions.** ADR-4
 
 | | Statement |
 |---|---|
-| C1 | The pack registry MUST read these `pack.json` keys, all optional except as stated: `id` (default: the directory name), `name` (default: the id), `framework`, `version`, `extends`, `modules`, `device`, `chrome`, `tokens`, `elements`, `modifiers`, `fonts`, `sizes`, `icons`; other keys MUST be ignored. |
+| C1 | The pack registry MUST read these `pack.json` keys, all optional except as stated: `id` (default: the directory name), `name` (default: the id), `framework`, `version`, `extends`, `modules`, `device`, `chrome`, `tokens`, `elements`, `modifiers`, `fonts`, `sizes`, `icons`, `hidden` (R-PACK-010), `attrs` (R-PACK-011); other keys MUST be ignored. |
 | C2 | `modules` MUST be a list of module names that `import <Module>` accepts to select the pack. |
 | C3 | `device` MUST be the pack's default device form (default: the parent's, and `desktop` for a root pack). |
 | C4 | `chrome` MUST map device forms to chrome kinds (R-DEV-006); a form not listed MUST mean `none`. |
@@ -65,13 +85,23 @@ is specific to it.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+**R-PACK-003.TC-1 — Inheritance, merging, fonts and lineage**
+
+Python unit tests `python/tests/test_pack_registry.py` `InheritanceTests`: `base` has no parent, a pack without `extends` extends `base`, and every
+pack's lineage starts at `base` (C1); a pack extending itself raises "a pack cannot extend itself" (C2); a pack
+extending `fluent` that redefines `Button`, adds an element and overrides one modifier, chrome form, size, icon and
+argument map keeps every other Fluent entry (C3, V1); one light token is replaced and the dark tokens are Fluent's (C4,
+V1); a font alias resolves from the nearest pack, then its ancestors, and an unmapped name to itself (C5);
+`own_elements` holds only the pack's own definitions (C6); the lineage is base, fluent, the pack, and its stylesheet
+holds base, then Fluent, then its own CSS before its own token rules (C7, V1).
+
 **Realizes.** F-3, F-7 · **Decisions.** ADR-4
 
 | | Statement |
 |---|---|
 | C1 | A pack MUST extend the pack named by `extends`; when `extends` is absent, every pack other than `base` MUST extend `base`, and `base` MUST extend nothing. |
 | C2 | If a pack extends itself, then the pack registry MUST raise "a pack cannot extend itself". |
-| C3 | The pack registry MUST merge `elements`, `modifiers`, `chrome`, `sizes` and `icons` over the parent's, the child's entries replacing the parent's entries of the same name. |
+| C3 | The pack registry MUST merge `elements`, `modifiers`, `chrome`, `sizes`, `icons` and `attrs` over the parent's, the child's entries replacing the parent's entries of the same name. |
 | C4 | The pack registry MUST merge `tokens` per mode over the parent's tokens of that mode. |
 | C5 | Font aliases MUST be resolved from the pack itself up through its ancestors, the nearest definition winning; an unmapped name MUST resolve to itself. |
 | C6 | The pack registry MUST record which element names the pack defines itself, as distinct from inherited ones. |
@@ -202,12 +232,12 @@ generator assigns by their default device (`phone`).
 
 **R-PACK-008.TC-1 — The shipped packs**
 
-Automated. Steps 2 to 5 are existing tests; steps 1 and 6 are new, written by the specification backfill
-issue for the pack area, and step 6 grows with each pack issue of C8.
+Automated. Steps 1 and 6 were written by the test backfill for the pack area (#59); steps 1 and 6 grow with
+each pack issue of C8 (its pack is then listed and placed).
 
-1. `python/tests/test_packs.py::test_shipped_packs` (new): `mockitdown packs` lists exactly the ids of C1,
-   C7 (without `lcars`, `phosphor`, `hologram`) and of C8 that are built, and `mockitdown packs --all`
-   adds the three easter eggs; every listed pack's `framework` and `version` keys are non-empty (C1, C6,
+1. `python/tests/test_packs.py` `ShippedPackTests.test_shipped_packs`: `mockitdown packs` lists exactly the ids of C1,
+   C7 (without `lcars`, `phosphor`, `hologram`) and of C8 that are built, no pack outside C1, C7 and C8 is
+   built, and `mockitdown packs --all` adds the three easter eggs; every listed pack's `framework` and `version` keys are non-empty (C1, C6,
    C7, C8).
 2. `test_packs_load_and_roles_exist`, `test_tokens_have_light_and_dark` and `test_module_names_are_unique`:
    every pack loads, declares import modules, light and dark tokens, and its elements map to real roles;
@@ -218,7 +248,7 @@ issue for the pack area, and step 6 grows with each pack issue of C8.
    every element a pack defines renders, with its `doc` line and variants listed (C4).
 5. The conformance corpus (R-REPO-004.C2, every shipped pack at least once) and the SwiftUI and Material
    control tests: style modifiers map to `variant` and render the framework's variants (C5).
-6. `python/tests/test_site_nav.py::test_group_order` (new): the Reference nav and `shared/reference/index.json`
+6. `python/tests/test_site_nav.py` `TestSiteNav.test_group_order`: the Reference nav and `shared/reference/index.json`
    list the Retro and Mobile groups in the order of C9, leaving out packs not yet built (C9).
 
 **Realizes.** F-3 · **Decisions.** ADR-13
@@ -248,6 +278,15 @@ which is what makes imported component libraries portable (F-4.C6).
 
 **Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+**R-PACK-009.TC-1 — The core vocabulary of base**
+
+Python unit tests `python/tests/test_pack_registry.py` `CoreVocabularyTests`: the 90 core elements of C1 by family, plus the elements other
+requirements add to `base`, are exactly `base`'s own elements (134), every pack inherits all 90, and
+`mockitdown elements base` lists exactly those (C1, V1); `base`'s modifiers are exactly the mappings of C2, and
+`.buttonStyle(.bordered)`, `.controlSize(.large)` and `.buttonBorderShape(.capsule)` render `data-variant`,
+`data-size` and `data-shape` (C2); `base` declares `Wireframe` and `Mockitdown`, defaults to `desktop` and has chrome
+`none` on every form, and `import Wireframe` renders a desktop figure without chrome (C3).
+
 **Realizes.** F-3 · **Decisions.** ADR-4
 
 | | Statement |
@@ -255,7 +294,7 @@ which is what makes imported component libraries portable (F-4.C6).
 | C1 | The `base` pack MUST define the core vocabulary inherited by every pack: layout (`VStack`, `HStack`, `ZStack`, `LazyVStack`, `LazyHStack`, `Grid`, `GridRow`, `LazyVGrid`, `LazyHGrid`, `ScrollView`, `Group`, `Spacer`, `Divider`), shapes and colour (`Rectangle`, `RoundedRectangle`, `Circle`, `Capsule`, `Ellipse`, `Color`), content (`Text`, `Label`, `Image`, `AsyncImage`, `Icon`, `Avatar`, `Badge`, `Chip`, `Tag`, `Link`, `ProgressView`, `Gauge`, `Rating`, `Placeholder`, `Chart`), controls (`Button`, `IconButton`, `FloatingActionButton`, `Toggle`, `Checkbox`, `RadioButton`, `RadioGroup`, `TextField`, `SecureField`, `TextEditor`, `SearchField`, `Picker`, `SegmentedControl`, `Slider`, `Stepper`, `DatePicker`, `Calendar`, `Dropzone`), navigation (`NavigationStack`, `NavigationView`, `NavigationSplitView`, `TabView`, `Tab`, `Tabs`, `AppBar`, `Sidebar`, `NavItem`, `Breadcrumb`, `Pagination`, `Steps`), containers (`Card`, `GroupBox`, `Section`, `List`, `Row`, `ListItem`, `NavigationLink`, `LabeledContent`, `Form`, `Table`, `TableRow`, `TableColumn`, `Toolbar`, `ToolbarItem`, `ToolbarItemGroup`, `ControlGroup`, `DisclosureGroup`, `Accordion`) and overlays (`Dialog`, `Alert`, `Sheet`, `Menu`, `MenuItem`, `Tooltip`, `Toast`, `Banner`). |
 | C2 | The `base` pack MUST map the SwiftUI style modifiers `buttonStyle`, `listStyle`, `pickerStyle`, `toggleStyle`, `textFieldStyle`, `datePickerStyle`, `tabViewStyle`, `progressViewStyle`, `gaugeStyle`, `menuStyle`, `formStyle`, `groupBoxStyle` and `navigationSplitViewStyle` to the `variant` attribute, `controlSize` to `size`, `buttonBorderShape` to `shape`, `labelStyle` to `labelStyle`, and the generic modifiers `variant`, `size`, `severity`, `state`, `selected`, `disabled`, `badge`, `elevation`, `density`, `expanded`, `open` and `color` to the attribute of the same name. |
 | C3 | The `base` pack MUST declare the modules `Wireframe` and `Mockitdown`, default to the `desktop` device and draw no chrome. |
-| V1 | `mockitdown elements base` lists exactly the 90 core elements. |
+| V1 | `mockitdown elements base` lists the 90 core elements of C1 and the 44 that R-REND-011.C1, R-ANN-001.C5, R-ANN-002 and R-REND-012.C1 add to `base`, 134 in all. |
 
 ---
 
@@ -703,6 +742,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide; New R-PACK-030: User guide: installation and defined terms |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
@@ -725,6 +765,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide; New R-PACK-030: User guide: installation and defined terms |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |

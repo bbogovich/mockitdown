@@ -1,1 +1,3 @@
 Real applications are full of components no UI kit ships — spreadsheets, boards, editors, chat threads, schedules. They are part of the core vocabulary so a mockup of any app can show them, styled by whichever pack is in use. The example site's *Beyond the framework kits* page exercises every one.
+
+Some things keep their own colour whatever the theme — a terminal is dark, a video frame black, a sticky note's ink near-black on its paper — so those few declarations are fixed; everything else follows the pack's tokens. Corner radii are written once in the base stylesheet, and a pack that rounds differently overrides the rule.

@@ -2,8 +2,8 @@
 id: R-REND-006
 title: Output safety
 status: active
-version: 0.10.8
-rev: 2
+version: 0.12.10
+rev: 3
 page: REND.1
 slot: reqs
 order: 6
@@ -12,7 +12,7 @@ realizes: [F-8]
 constrained_by: [A-REND-1, A-REND-3, A-ASSET-1]
 decisions: [ADR-5]
 reverse_engineered: true
-hash: f9d9ea66946c
+hash: 5185db704a3e
 refs: [R-ASSET-001, R-REND-004]
 ---
 

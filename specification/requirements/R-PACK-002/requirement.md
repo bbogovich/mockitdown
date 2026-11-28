@@ -2,8 +2,8 @@
 id: R-PACK-002
 title: pack.json keys
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.10
+rev: 2
 page: PACK.1
 slot: reqs
 order: 2
@@ -12,11 +12,11 @@ realizes: [F-3]
 constrained_by: [A-PACK-1, M-PACK-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 0778cd19aea1
-refs: [R-DEV-006, R-EVAL-009, R-PACK-004]
+hash: 8117cb137724
+refs: [R-DEV-006, R-EVAL-009, R-PACK-004, R-PACK-010, R-PACK-011]
 ---
 
-C1: The pack registry MUST read these `pack.json` keys, all optional except as stated: `id` (default: the directory name), `name` (default: the id), `framework`, `version`, `extends`, `modules`, `device`, `chrome`, `tokens`, `elements`, `modifiers`, `fonts`, `sizes`, `icons`; other keys MUST be ignored.
+C1: The pack registry MUST read these `pack.json` keys, all optional except as stated: `id` (default: the directory name), `name` (default: the id), `framework`, `version`, `extends`, `modules`, `device`, `chrome`, `tokens`, `elements`, `modifiers`, `fonts`, `sizes`, `icons`, `hidden` (R-PACK-010), `attrs` (R-PACK-011); other keys MUST be ignored.
 C2: `modules` MUST be a list of module names that `import <Module>` accepts to select the pack.
 C3: `device` MUST be the pack's default device form (default: the parent's, and `desktop` for a root pack).
 C4: `chrome` MUST map device forms to chrome kinds (R-DEV-006); a form not listed MUST mean `none`.

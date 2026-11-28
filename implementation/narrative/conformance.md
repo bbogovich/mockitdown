@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.27
+impl_version: 0.3.28
 status: draft
 updated: 2026-11-27
 page_id: IMPL.CONF
@@ -97,3 +97,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.14 | 2026-11-25 | SwiftUI platform `chrome-` cases, the `windowed` option key (#13) |
 | 0.3.15 | 2026-11-25 | `chrome-menubar-*` cases, the `menubar` and `app` option keys (#14) |
 | 0.3.27 | 2026-11-27 | `lang-expressions` (#58) |
+| 0.3.28 | 2026-11-27 | Every text field's root gains `role="textbox"`: 182 cases regenerated, both variants (#59) |

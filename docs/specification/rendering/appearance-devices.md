@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.12.9
+spec_version: 0.12.10
 status: draft
 updated: 2026-11-27
 page_id: REND.2
@@ -443,6 +443,22 @@ TC-M: compare phone, tablet and desktop renders with iOS 26, iPadOS 26 and macOS
 
 Real applications are full of components no UI kit ships — spreadsheets, boards, editors, chat threads, schedules. They are part of the core vocabulary so a mockup of any app can show them, styled by whichever pack is in use. The example site's *Beyond the framework kits* page exercises every one.
 
+Some things keep their own colour whatever the theme — a terminal is dark, a video frame black, a sticky note's ink near-black on its paper — so those few declarations are fixed; everything else follows the pack's tokens. Corner radii are written once in the base stylesheet, and a pack that rounds differently overrides the rule.
+
+**R-REND-011.TC-1 — The component roles**
+
+Python unit tests `python/tests/test_component_roles.py` `ComponentRoleTests`: each role of C1 exists, `base` defines
+its elements on it and every pack inherits them (C1); a spreadsheet draws column letters and row numbers, its values
+with numbers marked for right alignment, the `A1:B1` selection with its border and its headers marked, the active cell,
+the formula bar, a fill and sheet tabs, and no formula bar without `formula:` (C2, V1); a code block numbers its lines,
+marks a highlighted line, and draws keyword, string, number, comment, function and type spans for swift, js, ts,
+python, go, rust, json, sql, shell and html, and a terminal draws a window with prompts and commands apart from output
+(C3); a gantt chart places bars on its scale, a zero-length task as a milestone, progress and today, and a schedule
+places events in their day columns between its hours and draws now (C4, V2); a canvas places positioned children
+absolutely (C5); the components' markup is the same in base, Fluent, Material UI, Carbon and Windows 95, and the base
+stylesheet gives them colours only through tokens except the fixed colours C6 allows, and type only through tokens
+except the formula bar's fx glyph (C6).
+
 **Realizes.** F-8
 
 | | Statement |
@@ -452,7 +468,7 @@ Real applications are full of components no UI kit ships — spreadsheets, board
 | C3 | The code role MUST draw one line per source line with optional line numbers, the lines listed in `highlight:` marked, and keyword, string, number, comment, function and type spans for the languages swift, js/ts, python, go, rust, json, sql, shell and html; with `variant: terminal` it MUST draw a terminal window in which lines starting with a prompt are shown as commands. |
 | C4 | The gantt role MUST place each task `(name, start, length[, progress])` on a scale of `scale:` columns, draw a zero-length task as a milestone and draw `today:` as a vertical line; the schedule role MUST place each event `(title, day, start hour, end hour[, colour])` in its day column between `startHour` and `endHour` and draw `now:` as a horizontal line. |
 | C5 | The canvas role MUST be a positioned container in which children placed with `.position(x:y:)` (R-ANN-003) are laid out absolutely. |
-| C6 | Component roles MUST take their colours, radii and type from pack tokens so that every pack restyles them without new markup. |
+| C6 | Component roles MUST take their colours and type from pack tokens so that every pack restyles them without new markup; a fixed colour is allowed only where the real thing does not follow the theme (the terminal and video surfaces, the sticky note's ink, avatar hues, white marks on a coloured ground, shadows), and radii are fixed in the base stylesheet, which a pack overrides. |
 | V1 | `Spreadsheet(rows: [[1, 2]], selection: "A1:B1")` renders column headers A and B, row header 1, and both cells inside the selection. |
 | V2 | `Gantt(scale: ["W1","W2"], tasks: [("A", 0, 1), ("M", 1, 0)])` renders one bar and one milestone. |
 
@@ -491,6 +507,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.10 | 2026-11-27 | as built: C6 fixed colours where the real thing keeps its colour, radii fixed in base; TC-1 verifies C1-C6 (#59) |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
@@ -502,9 +519,9 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
 | 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
-| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
@@ -515,6 +532,5 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.8.3 | 2026-11-25 | as built (#9): series: for scatter, bubble and heatmap (C8), gauge and all-zero pies (C9), bubble area proportional to size (C10); TC-3 counts polygons and polylines as marks |
 | 0.8.1 | 2026-11-25 | as built (#8): toast at least its text's width, natural width unless the pack sets one (C6, C10); open menus and pickers in flow at fit (C7); fit dialog at least 240 x 80 (C8); sheet reaches the frame's sides and bottom (C9); V1 exempts packs whose own Alert is the framework's inline banner (antd, bootstrap, mui, shadcn) |
 | 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
-| 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

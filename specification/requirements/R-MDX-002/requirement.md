@@ -2,8 +2,8 @@
 id: R-MDX-002
 title: Extension options
 status: active
-version: 0.12.0
-rev: 2
+version: 0.12.10
+rev: 3
 page: MDX.1
 slot: reqs
 order: 2
@@ -11,11 +11,11 @@ source: [SRC-2]
 realizes: [F-11]
 constrained_by: [A-MDX-1, M-OPT-1]
 reverse_engineered: true
-hash: 2654ec2ed518
-refs: [R-IMP-002]
+hash: baf20c5046d4
+refs: [R-ANN-004, R-IMP-002]
 ---
 
-C1: The Markdown extension MUST accept these options with these defaults: `default_pack` (`base`), `default_appearance` (`light`), `default_device` (empty: none), `imports` (`{"": "docs"}`), `asset_paths` (`[docs]`), `pack_paths` (`[]`), `embed_assets` (`true`), `max_embed_bytes` (`2000000`), `css` (`inline`), `strict` (`false`), `caption` (`true`), `elements` (`false`), `show_warnings` (`false`).
+C1: The Markdown extension MUST accept these options with these defaults: `default_pack` (`base`), `default_appearance` (`light`), `default_device` (empty: none), `imports` (`{"": "docs"}`), `asset_paths` (`[docs]`), `pack_paths` (`[]`), `embed_assets` (`true`), `max_embed_bytes` (`2000000`), `css` (`inline`), `strict` (`false`), `caption` (`true`), `elements` (`false`), `show_warnings` (`false`), `callout_refs` (`true`, R-ANN-004.C1).
 C2: The path options `asset_paths` and `pack_paths` MUST accept one string or a list of strings; `imports` is an import map (R-IMP-002.C7, C8).
 C3: If `default_appearance` is not `light`, `dark`, `auto` or `both`, then the Markdown extension MUST fail configuration with "mockitdown: default_appearance must be one of …".
 C4: If `css` is not `inline` or `none`, then the Markdown extension MUST fail configuration with "mockitdown: css must be 'inline' or 'none'".

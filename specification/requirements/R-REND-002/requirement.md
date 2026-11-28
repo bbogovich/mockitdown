@@ -2,8 +2,8 @@
 id: R-REND-002
 title: Role markup
 status: active
-version: 0.10.8
-rev: 2
+version: 0.12.10
+rev: 3
 page: REND.1
 slot: reqs
 order: 2
@@ -12,10 +12,10 @@ realizes: [F-3, F-8]
 constrained_by: [A-REND-1]
 decisions: [ADR-4]
 reverse_engineered: true
-hash: 589c7b4b39e0
+hash: 56521e8e4623
 ---
 
-C1: The renderer MUST render every view through its element's render role, and every role MUST produce a root element with the class `mkd-<role>`.
+C1: The renderer MUST render every view through its element's render role, and every role MUST produce a root element with the class `mkd-<role>`, except the roles the role catalogue gives another root (`icon`, `table`, `tab` outside a `TabView`, `tablerow`, `toolbaritem`) and `tablecolumn`, which draws nothing of its own.
 C2: The renderer MUST give each role's root element `data-el` set to the element name as written (`Button`, `InfoBar`), and `data-component` set to the component name when the view is the root of a struct's body.
 C3: The renderer MUST name a role's inner parts with BEM classes `mkd-<role>__<part>` (and, where a part has a variant, `mkd-<role>--<modifier>`), and these class names MUST be the same for every pack.
 C4: The renderer MUST append the classes given by `.class(…)` to the root element.
