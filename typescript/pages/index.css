@@ -1,51 +1,9 @@
-/* The gallery home page (pages/index.html, R-WEB-006): the pack gallery's palette (packs.css), light
-   and dark by data-appearance on <html>. */
+/* The gallery home page (pages/index.html, R-WEB-006). The tokens, the body's colours and the top
+   bar are in chrome.css, which the page loads first. */
 
-:root {
-  --bg: #f6f7f9;
-  --panel: #ffffff;
-  --text: #1d2129;
-  --muted: #5b6372;
-  --line: #dde1e7;
-  --accent: #3355d1;
-  --accent-bg: #e8edfc;
-  --code: #eef0f4;
-  --bar: 3.25rem;
-  color-scheme: light;
-}
-
-[data-appearance="dark"] {
-  --bg: #15171c;
-  --panel: #1d2027;
-  --text: #e5e8ee;
-  --muted: #9aa3b2;
-  --line: #2f343e;
-  --accent: #8ea6ff;
-  --accent-bg: #27304d;
-  --code: #262a33;
-  color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--text);
-  background: var(--bg);
-}
+body { font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
 
 a { color: var(--accent); }
-
-.bar {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; align-items: center; gap: .75rem;
-  height: var(--bar); padding: 0 1rem;
-  background: var(--panel); border-bottom: 1px solid var(--line);
-}
-.brand { font-weight: 650; color: var(--text); text-decoration: none; }
-.brand-sub { color: var(--muted); }
-.spacer { flex: 1; }
 
 main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
 section { padding: .5rem 0 1rem; }

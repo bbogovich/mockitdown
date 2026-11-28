@@ -1,58 +1,24 @@
 /* The pack gallery page (pages/packs.html, R-WEB-004). Page chrome only: the mockups bring their
-   own pack stylesheets in their shadow roots. */
+   own pack stylesheets in their shadow roots. The tokens, the body's colours and the top bar are in
+   chrome.css, which the page loads first. */
 
 :root {
-  --bg: #f6f7f9;
-  --panel: #ffffff;
-  --text: #1d2129;
-  --muted: #5b6372;
-  --line: #dde1e7;
-  --accent: #3355d1;
-  --accent-bg: #e8edfc;
-  --code: #eef0f4;
   --stage: #ffffff;
   --side: 16rem;
-  --bar: 3.25rem;
-  color-scheme: light;
 }
 
 [data-appearance="dark"] {
-  --bg: #15171c;
-  --panel: #1d2027;
-  --text: #e5e8ee;
-  --muted: #9aa3b2;
-  --line: #2f343e;
-  --accent: #8ea6ff;
-  --accent-bg: #27304d;
-  --code: #262a33;
   --stage: #121418;
-  color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--text);
-  background: var(--bg);
-}
+body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* Top bar */
-.bar {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; align-items: center; gap: .75rem;
-  height: var(--bar); padding: 0 1rem;
-  background: var(--panel); border-bottom: 1px solid var(--line);
-}
-.brand { font-weight: 650; color: var(--text); text-decoration: none; }
-.brand-sub { color: var(--muted); }
-.spacer { flex: 1; }
+/* Top bar (the bar itself is in chrome.css) */
 .field { display: inline-flex; align-items: center; gap: .4rem; color: var(--muted); }
 .bar select, #menu, .filter input {
   font: inherit; color: var(--text); background: var(--bg);

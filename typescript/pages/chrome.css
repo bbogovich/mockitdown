@@ -1,0 +1,48 @@
+/* The page chrome shared by the gallery pages (pages/index.html, R-WEB-006; pages/packs.html,
+   R-WEB-004): the colour tokens, light and dark by data-appearance on <html>, the body's colours and
+   the top bar. Each page loads it before its own stylesheet, which adds what differs (font size,
+   page tokens, layout). */
+
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --text: #1d2129;
+  --muted: #5b6372;
+  --line: #dde1e7;
+  --accent: #3355d1;
+  --accent-bg: #e8edfc;
+  --code: #eef0f4;
+  --bar: 3.25rem;
+  color-scheme: light;
+}
+
+[data-appearance="dark"] {
+  --bg: #15171c;
+  --panel: #1d2027;
+  --text: #e5e8ee;
+  --muted: #9aa3b2;
+  --line: #2f343e;
+  --accent: #8ea6ff;
+  --accent-bg: #27304d;
+  --code: #262a33;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Top bar */
+.bar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: .75rem;
+  height: var(--bar); padding: 0 1rem;
+  background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 650; color: var(--text); text-decoration: none; }
+.brand-sub { color: var(--muted); }
+.spacer { flex: 1; }
