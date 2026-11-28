@@ -64,6 +64,13 @@ declare module "node:http" {
     callback: (res: IncomingMessage) => void,
   ): ClientRequest;
 }
+declare module "node:child_process" {
+  export function spawnSync(
+    command: string,
+    args: string[],
+    options: { cwd?: string; encoding: "utf8"; shell?: boolean },
+  ): { status: number | null; stdout: string; stderr: string };
+}
 declare module "node:url" {
   export function fileURLToPath(url: string | URL): string;
 }

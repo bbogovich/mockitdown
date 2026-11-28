@@ -1,0 +1,62 @@
+# Releases the TypeScript package (typescript/) when a tag ts-vX.Y.Z is pushed (R-WEB-007, ADR-23).
+# The tag must equal `version` in typescript/package.json. The workflow tests, packs the package with
+# `npm pack` and attaches mockitdown-X.Y.Z.tgz to a GitHub release for the tag. It never publishes to
+# the npm registry and uses only its own GITHUB_TOKEN. Python releases (tags vX.Y.Z) are release.yml.
+name: release-ts
+on:
+  push:
+    tags: ["ts-v*"]
+permissions:
+  contents: write
+concurrency: { group: "release-ts-${{ github.ref }}", cancel-in-progress: false }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run: { working-directory: typescript }
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check the tag matches the package version
+        run: |
+          v=$(node -p "require('./package.json').version")
+          test "ts-v$v" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} != typescript/package.json version $v"; exit 1; }
+          echo "VERSION=$v" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Audit
+        run: npm audit --audit-level=high
+      - name: Test (build, node --test, Playwright in Chromium)
+        run: |
+          npx playwright install --with-deps chromium
+          npm test
+      - name: Pack
+        run: |
+          npm pack
+          test -f "mockitdown-${VERSION}.tgz"
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          prev=$(git tag --list 'ts-v*' --sort=-v:refname | grep -vx "${GITHUB_REF_NAME}" | head -n 1 || true)
+          if [ -n "$prev" ]; then range="$prev..${GITHUB_REF_NAME}"; since="since $prev"; else range="${GITHUB_REF_NAME}"; since="(first TypeScript release)"; fi
+          {
+            echo "The mockitdown TypeScript package ${VERSION}: the core and the \`mockitdown-\` web components, as the \`npm pack\` archive."
+            echo
+            echo "Install:"
+            echo
+            echo '```bash'
+            echo "npm install https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/mockitdown-${VERSION}.tgz"
+            echo '```'
+            echo
+            echo "## Commits $since"
+            echo
+            git log --no-merges --format='- %h %s' "$range" -- . ../shared
+          } > "$RUNNER_TEMP/notes.md"
+          gh release create "${GITHUB_REF_NAME}" "mockitdown-${VERSION}.tgz" \
+            --title "mockitdown TypeScript ${VERSION}" --notes-file "$RUNNER_TEMP/notes.md" --verify-tag

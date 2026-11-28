@@ -9,6 +9,26 @@ folder, and it is held to the Python output by the conformance corpus in `shared
 stylesheet and the HTML renderer (`render`, `check`), byte-identical to Python on every conformance
 case; the `mockitdown-` web components follow.
 
+## Installing a release
+
+The package is not on the npm registry. Each release is attached to the project's
+[GitHub releases](https://github.com/bbogovich/mockitdown/releases) (tags `ts-vX.Y.Z`) as the
+`npm pack` archive `mockitdown-X.Y.Z.tgz`; install it by its URL, which pins that exact build:
+
+```bash
+npm install https://github.com/bbogovich/mockitdown/releases/download/ts-vX.Y.Z/mockitdown-X.Y.Z.tgz
+```
+
+For example, `npm install https://github.com/bbogovich/mockitdown/releases/download/ts-v0.1.0/mockitdown-0.1.0.tgz`.
+The archive holds `package.json`, this README, `LICENSE` and `dist/` (with `dist/shared/`); then
+`import … from "mockitdown"` (browser and Node) or `"mockitdown/node"` (Node, assets read from disk).
+
+Releasing (maintainers): set `version` in `typescript/package.json`, commit, push, then tag
+`ts-vX.Y.Z` and push the tag. `.github/workflows/release-ts.yml` checks that the tag equals the
+version, runs `npm ci`, `npm audit --audit-level=high` and `npm test`, packs the archive and creates
+the release `mockitdown TypeScript X.Y.Z` with it. A pushed tag is never moved or reused: a failed
+release after the GitHub release exists is followed by the next patch version (ADR-23).
+
 ## Package
 
 - NPM package `mockitdown`, MIT, ES modules, **no runtime dependencies**. Development dependencies:

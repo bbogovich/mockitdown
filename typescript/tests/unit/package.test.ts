@@ -3,6 +3,7 @@
 // python/tests/test_shared.py reads too (python/tests/fixtures/partials/), with the same expected bytes.
 import assert from "node:assert/strict";
 import { cpSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, test } from "node:test";
@@ -178,4 +179,92 @@ test("step 3: an @import sharing its line fails (C2, C6)", () => {
   const packs = tree();
   writeFileSync(join(packs, "one", "pack.css"), '@import "../_partials/demo.css"; /* demo */\n');
   fails(packs, "one", "'one'", "not on a line of its own");
+});
+
+// R-WEB-007 TC-1 steps 1 and 2 (C1, C2, C3, C5, C7): the TypeScript release workflow, read as text.
+// R-WEB-007 TC-2 (C4, C8): the npm pack archive's content and the README's install command.
+const WORKFLOWS = join(REPO, ".github", "workflows");
+const releaseTs = (): string => readFileSync(join(WORKFLOWS, "release-ts.yml"), "utf8");
+
+/** The `tags:` filter list of a workflow's `on: push:` trigger, e.g. ["ts-v*"]. */
+function tagFilters(text: string): string[] {
+  const m = /^on:\s*\n\s+push:\s*\n\s+tags:\s*\[([^\]]*)\]/m.exec(text);
+  assert.ok(m, "on: push: tags: [...]");
+  return m![1].split(",").map((s) => s.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
+}
+
+/** The top-level trigger names of a workflow (`on:` children). */
+function triggers(text: string): string[] {
+  const block = /^on:\s*\n((?:[ \t]+.*\n)+)/m.exec(text);
+  assert.ok(block, "on: block");
+  return block![1].split("\n").filter((l) => /^ {2}\S/.test(l)).map((l) => l.trim().replace(/:.*$/, ""));
+}
+
+/** A GitHub tag glob as a RegExp (`*` matches any run of characters but `/`; anchored at both ends). */
+function glob(pattern: string): RegExp {
+  return new RegExp("^" + pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^/]*") + "$");
+}
+
+test("R-WEB-007 TC-1 step 1: release-ts.yml runs on ts-v tags only, and release.yml not for them (C1)", () => {
+  const ts = releaseTs();
+  assert.deepEqual(triggers(ts), ["push"]);
+  assert.deepEqual(tagFilters(ts), ["ts-v*"]);
+  assert.ok(!/^\s+branches:/m.test(ts), "no branch trigger");
+  const py = readFileSync(join(WORKFLOWS, "release.yml"), "utf8");
+  const pyTags = tagFilters(py).map(glob);
+  assert.ok(pyTags.some((r) => r.test("v0.4.0")), "release.yml still runs for v0.4.0");
+  assert.ok(!pyTags.some((r) => r.test("ts-v0.1.0")), "release.yml must not match ts-v0.1.0");
+  assert.ok(tagFilters(ts).map(glob).every((r) => r.test("ts-v0.1.0") && !r.test("v0.1.0")));
+});
+
+test("R-WEB-007 TC-1 step 2: the steps in order, contents: write, GITHUB_TOKEN only, no npm publish (C2, C3, C5, C7)", () => {
+  const ts = releaseTs();
+  const steps = [
+    ["the version check", /GITHUB_REF_NAME[\s\S]*?package\.json|package\.json[\s\S]*?GITHUB_REF_NAME/],
+    ["npm ci", /\bnpm ci\b/],
+    ["npm audit", /\bnpm audit --audit-level=high\b/],
+    ["Chromium install", /\bnpx playwright install --with-deps chromium\b/],
+    ["npm test", /\bnpm test\b/],
+    ["npm pack", /\bnpm pack\b/],
+    ["gh release create", /\bgh release create\b/],
+  ] as const;
+  let at = 0;
+  for (const [name, re] of steps) {
+    const m = re.exec(ts.slice(at));
+    assert.ok(m, `${name} after position ${at}`);
+    at += m!.index + m![0].length;
+  }
+  assert.match(ts, /^permissions:\s*\n\s+contents: write\s*$/m);
+  const secrets = [...ts.matchAll(/secrets\.([A-Za-z_]+)/g)].map((m) => m[1]);
+  assert.deepEqual([...new Set(secrets)], ["GITHUB_TOKEN"]);
+  assert.ok(!/NPM_TOKEN|NODE_AUTH_TOKEN|registry-url/.test(ts), "no npm registry credentials");
+  assert.ok(!/\bnpm publish\b/.test(ts), "no npm publish");
+  // C2: the version check fails the job before anything is installed or built.
+  assert.ok(ts.indexOf("exit 1") < ts.indexOf("npm ci"), "the version check exits before npm ci");
+  // C5, C6: the title and the install command.
+  assert.ok(ts.includes('--title "mockitdown TypeScript ${VERSION}"'), "release title");
+  assert.ok(ts.includes("npm install https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/mockitdown-${VERSION}.tgz"),
+    "install command in the notes");
+});
+
+test("R-WEB-007 TC-2: npm pack lists the package files and dist/shared/, and no source, test or page file (C4)", () => {
+  const run = spawnSync("npm", ["pack", "--dry-run", "--json"], { cwd: PKG, encoding: "utf8" });
+  assert.equal(run.status, 0, run.stderr);
+  const [info] = JSON.parse(run.stdout) as { filename: string; files: { path: string }[] }[];
+  assert.equal(info.filename, `mockitdown-${pkg.version as string}.tgz`);
+  const files = new Set(info.files.map((f) => f.path));
+  for (const f of ["package.json", "README.md", "LICENSE", "dist/mockitdown.js", "dist/shared/manifest.json"]) {
+    assert.ok(files.has(f), f);
+  }
+  const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { files: string[] };
+  for (const f of manifest.files) assert.ok(files.has(`dist/shared/${f}`), `dist/shared/${f}`);
+  for (const f of files) {
+    assert.ok(!/^(src|tests|test-build|pages|scripts)\//.test(f), `${f} must not be packed`);
+  }
+});
+
+test("R-WEB-007 TC-2: the README gives the GitHub release install command (C8)", () => {
+  const readme = readFileSync(join(PKG, "README.md"), "utf8");
+  assert.ok(readme.includes("releases/download/ts-v"));
+  assert.ok(readme.includes("npm install https://github.com/bbogovich/mockitdown/releases/download/"));
 });
