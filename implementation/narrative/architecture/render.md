@@ -1,6 +1,6 @@
 ---
 title: Rendering
-impl_version: 0.3.30
+impl_version: 0.3.31
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REND
@@ -274,9 +274,11 @@ Both renderers, for every pack:
 1. Add `r_<role>` to the mixin of its family in `render/roles/`, and the role function to the record of
    the same family in `typescript/src/core/render/roles/` (and BEM parts) — R-REND-002.
 2. Style its structure in `packs/base/pack.css`.
-3. Add it to the role catalogue in the specification (a specification change), and the same row to
-   `python/tests/fixtures/role-catalogue.json`: `test_markup.py` fails on a role, part or data
-   attribute the catalogue does not list (R-REND-002.TC-1, R-REND-003.TC-1).
+3. Add it to the role catalogue in the specification (REF.2, a specification change), then regenerate
+   `python/tests/fixtures/role-catalogue.json` with `python tools/gen_role_catalogue.py` (from `python/`;
+   it reads REF.2 from the docs worktree, else from the `docs` branch). `test_markup.py` fails on a role,
+   part or data attribute the catalogue does not list (R-REND-002.TC-1, R-REND-003.TC-1);
+   `test_role_catalogue.py` and the CI step `gen_role_catalogue.py --check` fail on a stale fixture (IT-43).
 4. Map elements onto it in packs; `test_every_element_renders` covers it.
 
 
@@ -296,3 +298,4 @@ Both renderers, for every pack:
 | 0.3.21 | 2026-11-27 | The TypeScript role families under `typescript/src/core/render/roles/` (#49) |
 | 0.3.28 | 2026-11-27 | `r_textfield` gives the root `role="textbox"` in both renderers (found by R-REND-007.TC-1); the role catalogue (REF.2) checked against the renderer by `tests/test_markup.py` and its fixture `tests/fixtures/role-catalogue.json`; IT-40, IT-41 (#59) |
 | 0.3.30 | 2026-11-27 | `_bar_group` / `barGroup`: one orientation-aware helper draws the bars of horizontal and vertical bar charts, no change in output; a horizontal chart whose only series is the line series no longer raises in Python (#82) |
+| 0.3.31 | 2026-11-27 | Adding a role: the role catalogue fixture is generated from REF.2 by `tools/gen_role_catalogue.py`, no longer kept by hand (#83) |
