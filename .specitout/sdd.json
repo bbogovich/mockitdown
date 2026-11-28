@@ -38,7 +38,9 @@
     "audit_every": 10,
     "thresholds": {
       "large_file_limits": {
-        "shared/packs/*/pack.css": 2000
+        "shared/packs/*/pack.css": 2000,
+        "shared/packs/_partials/*.css": 1000,
+        "python/tools/gen_*.py": 1000
       }
     }
   },
