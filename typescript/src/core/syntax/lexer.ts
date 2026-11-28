@@ -37,9 +37,12 @@ const ESCAPES: Readonly<Record<string, string>> = {
 export class Interpolation {
   readonly source: string;
   readonly location: Location;
-  constructor(source: string, location: Location) {
+  /** The UTF-16 offset of the interpolated expression in the whole source (R-EDIT-001.C1). */
+  readonly offset: number;
+  constructor(source: string, location: Location, offset = 0) {
     this.source = source;
     this.location = location;
+    this.offset = offset;
   }
   pyRepr(): string {
     return `Interpolation(source=${strRepr(this.source)}, location=${this.location.pyRepr()})`;
@@ -53,10 +56,16 @@ export class Token {
   readonly kind: string;
   readonly value: TokenValue;
   readonly location: Location;
-  constructor(kind: string, value: TokenValue, location: Location) {
+  /** UTF-16 offset of the token's first code unit in the source (R-EDIT-001.C1). */
+  start: number;
+  /** UTF-16 offset after the token's last code unit (end exclusive). */
+  end: number;
+  constructor(kind: string, value: TokenValue, location: Location, start = 0, end = start) {
     this.kind = kind;
     this.value = value;
     this.location = location;
+    this.start = start;
+    this.end = end;
   }
   get text(): string {
     return typeof this.value === "string" ? this.value : "";
@@ -90,18 +99,34 @@ function parseHex(text: string): number | null {
   return m[1] === "-" ? -n : n;
 }
 
+/** A comment's place in the source (R-EDIT-001.C2): a line comment to the end of its line, or a block comment. */
+export interface Comment {
+  /** UTF-16 offset of its first `/`. */
+  start: number;
+  /** UTF-16 offset after its last character (the line feed of a `//` comment is not part of it). */
+  end: number;
+  line: number;
+  col: number;
+  block: boolean;
+}
+
 export class Lexer {
   private readonly cps: string[];
   private readonly source: string;
   private i = 0;
   private line: number;
   private col: number;
+  /** UTF-16 offset of `cps[i]` in the whole source. */
+  private off: number;
+  /** The comments read by {@link tokens}, in source order. */
+  readonly comments: Comment[] = [];
 
-  constructor(src: string, source = "", line = 1, col = 1) {
+  constructor(src: string, source = "", line = 1, col = 1, offset = 0) {
     this.cps = Array.from(src);
     this.source = source;
     this.line = line;
     this.col = col;
+    this.off = offset;
   }
 
   loc(): Location {
@@ -116,6 +141,7 @@ export class Lexer {
       } else {
         this.col += 1;
       }
+      if (this.i < this.cps.length) this.off += this.cps[this.i].length;
       this.i += 1;
     }
   }
@@ -136,21 +162,41 @@ export class Lexer {
     const src = this.cps;
     while (this.i < src.length) {
       const c = src[this.i];
+      const s = this.off;
+      const n = out.length;
+      this.token(out, c);
+      for (let k = n; k < out.length; k++) {
+        out[k].start = s;
+        out[k].end = this.off;
+      }
+    }
+    out.push(new Token("EOF", "", this.loc(), this.off, this.off));
+    return out;
+  }
+
+  /** Read one token, comment or run of blanks at `cps[i]` (`c`), pushing a token onto `out`. */
+  private token(out: Token[], c: string): void {
+    const src = this.cps;
+    {
       if (c === "\n") {
         out.push(new Token("NEWLINE", "\n", this.loc()));
         this.advance();
-        continue;
+        return;
       }
       if (c === " " || c === "\t" || c === "\r" || c === "﻿") {
         this.advance();
-        continue;
+        return;
       }
       if (this.startsWith("//", this.i)) {
+        const start = this.loc();
+        const s = this.off;
         while (this.i < src.length && src[this.i] !== "\n") this.advance();
-        continue;
+        this.comments.push({ start: s, end: this.off, line: start.line, col: start.col, block: false });
+        return;
       }
       if (this.startsWith("/*", this.i)) {
         const start = this.loc();
+        const s = this.off;
         let depth = 0;
         while (this.i < src.length) {
           if (this.startsWith("/*", this.i)) {
@@ -165,15 +211,16 @@ export class Lexer {
           }
         }
         if (depth) throw err("unterminated block comment", start);
-        continue;
+        this.comments.push({ start: s, end: this.off, line: start.line, col: start.col, block: true });
+        return;
       }
       if (c === '"') {
         out.push(this.string());
-        continue;
+        return;
       }
       if (isDigit(c)) {
         out.push(this.number());
-        continue;
+        return;
       }
       if (isAlpha(c) || c === "_") {
         const start = this.loc();
@@ -182,7 +229,7 @@ export class Lexer {
         const word = this.slice(this.i, j);
         this.advance(j - this.i);
         out.push(new Token(KEYWORDS.has(word) ? "KEYWORD" : "IDENT", word, start));
-        continue;
+        return;
       }
       if (c === "`") { // Swift escaped identifier: `default`
         const start = this.loc();
@@ -192,7 +239,7 @@ export class Lexer {
         const word = this.slice(this.i + 1, j);
         this.advance(j + 1 - this.i);
         out.push(new Token("IDENT", word, start));
-        continue;
+        return;
       }
       let matched = false;
       for (const [text, kind] of PUNCT) {
@@ -205,8 +252,6 @@ export class Lexer {
       }
       if (!matched) throw err(`unexpected character ${strRepr(c)}`, this.loc());
     }
-    out.push(new Token("EOF", "", this.loc()));
-    return out;
   }
 
   private number(): Token {
@@ -255,6 +300,7 @@ export class Lexer {
           }
           this.advance(2);
           const exprLoc = this.loc();
+          const exprOff = this.off;
           let depth = 1;
           let j = this.i;
           while (j < src.length) {
@@ -266,7 +312,7 @@ export class Lexer {
             j += 1;
           }
           if (depth) throw err("unterminated string interpolation", exprLoc);
-          parts.push(new Interpolation(this.slice(this.i, j), exprLoc));
+          parts.push(new Interpolation(this.slice(this.i, j), exprLoc, exprOff));
           this.advance(j + 1 - this.i);
           continue;
         }

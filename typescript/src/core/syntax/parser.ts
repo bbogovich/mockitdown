@@ -78,6 +78,20 @@ export class Parser {
     return this.at("KEYWORD", word);
   }
 
+  /** The end offset of the last token consumed before the current one, line breaks and `;` skipped. */
+  prevEnd(): number {
+    let k = this.pos - 1;
+    while (k >= 0 && (this.toks[k].kind === "NEWLINE" || this.toks[k].kind === "SEMI")) k -= 1;
+    return k >= 0 ? this.toks[k].end : this.peek().start;
+  }
+
+  /** Give `node` its offsets (R-EDIT-001.C1): from `start` to the end of the last consumed token. */
+  fin<T extends { start?: number; end?: number }>(node: T, start: number | undefined): T {
+    node.start = start ?? this.prevEnd();
+    node.end = this.prevEnd();
+    return node;
+  }
+
   next(): Token {
     const t = this.toks[this.pos];
     if (t.kind !== "EOF") this.pos += 1;
@@ -141,14 +155,14 @@ export class Parser {
       if (parts.length !== 1 || typeof parts[0] !== "string") {
         throw this.error("an import path cannot contain interpolation", s);
       }
-      return { module: null, path: parts[0], loc: tok.location };
+      return this.fin<A.Import>({ module: null, path: parts[0], loc: tok.location }, tok.start);
     }
     let name = this.name("IDENT", "a module name or a quoted path");
     while (this.at("DOT")) {
       this.next();
       name += "." + this.name("IDENT", "a module name");
     }
-    return { module: name, path: null, loc: tok.location };
+    return this.fin<A.Import>({ module: name, path: null, loc: tok.location }, tok.start);
   }
 
   parsePreview(): A.Node[] {
@@ -165,7 +179,7 @@ export class Parser {
         const at = this.next();
         const name = this.name("IDENT", "an attribute name");
         const args = this.at("LPAREN") ? this.parseArgs() : [];
-        attrs.push({ name, args, loc: at.location });
+        attrs.push(this.fin<A.Attribute>({ name, args, loc: at.location }, at.start));
         if (DIRECTIVES.has(name)) return attrs[attrs.length - 1];
         // Continue across newlines only when more of a declaration follows.
         let k = 0;
@@ -178,12 +192,12 @@ export class Parser {
         this.next();
       } else break;
     }
-    if (this.atKw("struct")) return this.parseStruct();
+    if (this.atKw("struct")) return this.parseStruct(attrs.length ? attrs[0].start : undefined);
     if (attrs.length === 1) return attrs[0]; // a bare top-level attribute is a directive (@Screen)
     throw this.error("expected 'struct' after attributes");
   }
 
-  parseStruct(): A.StructDecl {
+  parseStruct(declStart?: number): A.StructDecl {
     const startTok = this.next(); // struct
     const name = this.name("IDENT", "a struct name");
     const conformances: string[] = [];
@@ -222,7 +236,8 @@ export class Parser {
         }
         throw this.error(`struct ${name}: expected a 'var' or 'let' property`);
       }
-      const isLet = this.next().value === "let";
+      const kwTok = this.next();
+      const isLet = kwTok.value === "let";
       const ptok = this.expect("IDENT", "a property name");
       const pname = ptok.value as string;
       let ptype = "";
@@ -237,22 +252,25 @@ export class Parser {
         dflt = this.parseExpr();
       }
       if (this.at("LBRACE")) {
+        const lbrace = this.peek();
         const block = this.parseBlock();
         if (pname === "body") body = block;
         else {
           // other computed properties are views too: store as a closure default
-          dflt = { kind: "Closure", params: [], body: block, loc: ptok.location };
+          dflt = this.fin({ kind: "Closure", params: [], body: block, loc: ptok.location } as A.Closure, lbrace.start);
           if (!ptype.includes("View")) ptype = ptype || "some View";
         }
         if (pname !== "body") {
-          props.push({ name: pname, type: ptype, default: dflt, is_let: isLet,
-            attributes: [...propAttrs, "computed"], loc: ptok.location });
+          props.push(this.fin<A.Property>({ name: pname, type: ptype, default: dflt, is_let: isLet,
+            attributes: [...propAttrs, "computed"], loc: ptok.location }, kwTok.start));
         }
         continue;
       }
-      props.push({ name: pname, type: ptype, default: dflt, is_let: isLet, attributes: propAttrs, loc: ptok.location });
+      props.push(this.fin<A.Property>({ name: pname, type: ptype, default: dflt, is_let: isLet, attributes: propAttrs,
+        loc: ptok.location }, kwTok.start));
     }
-    return { kind: "StructDecl", name, conformances, properties: props, body, source: this.source, loc: startTok.location };
+    return this.fin({ kind: "StructDecl", name, conformances, properties: props, body, source: this.source,
+      loc: startTok.location } as A.StructDecl, declStart ?? startTok.start);
   }
 
   parseTypeText(): string {
@@ -309,10 +327,10 @@ export class Parser {
       }
       this.expect("ASSIGN", "'='");
       this.skipNlOnly();
-      return { kind: "LetStmt", name, value: this.parseExpr(), loc: t.location };
+      return this.fin({ kind: "LetStmt", name, value: this.parseExpr(), loc: t.location } as A.LetStmt, t.start);
     }
     if (this.atKw("return")) this.next();
-    return { kind: "ExprStmt", expr: this.parseExpr(), loc: t.location };
+    return this.fin({ kind: "ExprStmt", expr: this.parseExpr(), loc: t.location } as A.ExprStmt, t.start);
   }
 
   parseIf(): A.IfStmt {
@@ -326,7 +344,7 @@ export class Parser {
       this.next();
       other = this.atKw("if") ? [this.parseIf()] : this.parseBlock();
     } else this.pos = save;
-    return { kind: "IfStmt", cond, then, other, loc: tok.location };
+    return this.fin({ kind: "IfStmt", cond, then, other, loc: tok.location } as A.IfStmt, tok.start);
   }
 
   // --- expressions -----------------------------------------------------------------------------
@@ -344,7 +362,7 @@ export class Parser {
       this.expect("COLON", "':' in a conditional expression");
       this.skipNlOnly();
       const other = this.parseExpr(noTrailing);
-      return { kind: "Ternary", cond, then, other, loc: q.location };
+      return this.fin({ kind: "Ternary", cond, then, other, loc: q.location } as A.Ternary, cond.start);
     }
     return cond;
   }
@@ -357,9 +375,10 @@ export class Parser {
       this.skipNlOnly();
       const right = this.parseBinary(level + 1, noTrailing);
       if (op.kind === "RANGE_CLOSED" || op.kind === "RANGE_HALF") {
-        left = { kind: "RangeExpr", lo: left, hi: right, inclusive: op.kind === "RANGE_CLOSED", loc: op.location };
+        left = this.fin({ kind: "RangeExpr", lo: left, hi: right, inclusive: op.kind === "RANGE_CLOSED",
+          loc: op.location } as A.RangeExpr, left.start);
       } else {
-        left = { kind: "Binary", op: op.value as string, left, right, loc: op.location };
+        left = this.fin({ kind: "Binary", op: op.value as string, left, right, loc: op.location } as A.Binary, left.start);
       }
     }
     return left;
@@ -368,7 +387,8 @@ export class Parser {
   parseUnary(noTrailing: boolean): A.Node {
     if (this.at("BANG") || this.at("MINUS")) {
       const op = this.next();
-      return { kind: "Unary", op: op.value as string, operand: this.parseUnary(noTrailing), loc: op.location };
+      return this.fin({ kind: "Unary", op: op.value as string, operand: this.parseUnary(noTrailing),
+        loc: op.location } as A.Unary, op.start);
     }
     return this.parsePostfix(this.parsePrimary(noTrailing), noTrailing);
   }
@@ -379,13 +399,14 @@ export class Parser {
       if (t.kind === "DOT" && this.peek(1).kind === "NUMBER" && typeof this.peek(1).value === "number") {
         this.next(); // tuple element: pair.0
         const n = this.next();
-        expr = { kind: "Member", base: expr, name: pyStr(n.value), loc: n.location };
+        expr = this.fin({ kind: "Member", base: expr, name: pyStr(n.value), loc: n.location } as A.Member, expr.start);
         continue;
       }
       if (t.kind === "DOT" && (this.peek(1).kind === "IDENT" || this.peek(1).kind === "KEYWORD")) {
         this.next();
         const name = this.next();
-        expr = { kind: "Member", base: expr, name: name.value as string, loc: name.location };
+        expr = this.fin({ kind: "Member", base: expr, name: name.value as string, loc: name.location } as A.Member,
+          expr.start);
         continue;
       }
       if (t.kind === "NEWLINE") {
@@ -400,11 +421,13 @@ export class Parser {
       }
       if (t.kind === "LPAREN") {
         const args = this.parseArgs();
-        expr = this.parseTrailing({ kind: "Call", callee: expr, args, trailing: [], loc: t.location }, noTrailing);
+        expr = this.fin(this.parseTrailing({ kind: "Call", callee: expr, args, trailing: [], loc: t.location },
+          noTrailing), expr.start);
         continue;
       }
       if (t.kind === "LBRACE" && !noTrailing && Parser.callable(expr)) {
-        expr = this.parseTrailing({ kind: "Call", callee: expr, args: [], trailing: [], loc: t.location }, noTrailing);
+        expr = this.fin(this.parseTrailing({ kind: "Call", callee: expr, args: [], trailing: [], loc: t.location },
+          noTrailing), expr.start);
         continue;
       }
       if (t.kind === "LBRACKET") {
@@ -413,7 +436,7 @@ export class Parser {
         const idx = this.parseExpr();
         this.skipNlOnly();
         this.expect("RBRACKET", "']'");
-        expr = { kind: "Subscript", base: expr, index: idx, loc: t.location };
+        expr = this.fin({ kind: "Subscript", base: expr, index: idx, loc: t.location } as A.Subscript, expr.start);
         continue;
       }
       if (t.kind === "BANG" && this.peek(1).kind !== "IDENT") { // force unwrap: ignore
@@ -486,7 +509,7 @@ export class Parser {
       this.pos += k;
     }
     const body = this.statementsUntilRbrace();
-    return { kind: "Closure", params, body, loc: tok.location };
+    return this.fin({ kind: "Closure", params, body, loc: tok.location } as A.Closure, tok.start);
   }
 
   parseArgs(): A.Arg[] {
@@ -516,35 +539,35 @@ export class Parser {
     const k = t.kind;
     if (k === "NUMBER") {
       this.next();
-      return { kind: "Literal", value: t.value as A.LiteralValue, loc: t.location };
+      return this.fin({ kind: "Literal", value: t.value as A.LiteralValue, loc: t.location } as A.Literal, t.start);
     }
     if (k === "STRING") {
       this.next();
-      return this.stringNode(t);
+      return this.fin(this.stringNode(t), t.start);
     }
     if (k === "KEYWORD" && (t.value === "true" || t.value === "false")) {
       this.next();
-      return { kind: "Literal", value: t.value === "true", loc: t.location };
+      return this.fin({ kind: "Literal", value: t.value === "true", loc: t.location } as A.Literal, t.start);
     }
     if (k === "KEYWORD" && t.value === "nil") {
       this.next();
-      return { kind: "Literal", value: null, loc: t.location };
+      return this.fin({ kind: "Literal", value: null, loc: t.location } as A.Literal, t.start);
     }
     if (k === "IDENT") {
       this.next();
-      return { kind: "Ident", name: t.value as string, loc: t.location };
+      return this.fin({ kind: "Ident", name: t.value as string, loc: t.location } as A.Ident, t.start);
     }
     if (k === "DOLLAR") { // $binding → the bound value
       this.next();
       const name = this.expect("IDENT", "a name after '$'");
-      return { kind: "Ident", name: name.value as string, loc: name.location };
+      return this.fin({ kind: "Ident", name: name.value as string, loc: name.location } as A.Ident, t.start);
     }
     if (k === "DOT") {
       this.next();
       const name = this.peek();
       if (name.kind !== "IDENT" && name.kind !== "KEYWORD") throw this.error("expected a name after '.'");
       this.next();
-      return { kind: "EnumCase", name: name.value as string, loc: name.location };
+      return this.fin({ kind: "EnumCase", name: name.value as string, loc: name.location } as A.EnumCase, t.start);
     }
     if (k === "BACKSLASH") {
       this.next();
@@ -554,7 +577,7 @@ export class Parser {
         this.next();
         path += "." + tokenText(this.next());
       }
-      return { kind: "KeyPath", path, loc: t.location };
+      return this.fin({ kind: "KeyPath", path, loc: t.location } as A.KeyPath, t.start);
     }
     if (k === "LBRACKET") return this.parseCollection();
     if (k === "LPAREN") {
@@ -577,7 +600,7 @@ export class Parser {
         else if (!this.at("RPAREN")) throw this.error("expected ',' or ')'");
       }
       if (items.length === 1 && items[0].label === null) return items[0].value;
-      return { kind: "TupleLit", items, loc: t.location };
+      return this.fin({ kind: "TupleLit", items, loc: t.location } as A.TupleLit, t.start);
     }
     if (k === "LBRACE") return this.parseClosure();
     throw this.error(`expected an expression, found ${found(t)}`);
@@ -589,7 +612,7 @@ export class Parser {
     if (this.at("COLON") && this.at("RBRACKET", null, 1)) { // [:]
       this.next();
       this.next();
-      return { kind: "DictLit", items: [], loc: tok.location };
+      return this.fin({ kind: "DictLit", items: [], loc: tok.location } as A.DictLit, tok.start);
     }
     const items: A.Node[] = [];
     const pairs: [A.Node, A.Node][] = [];
@@ -611,14 +634,15 @@ export class Parser {
       else if (!this.at("RBRACKET")) throw this.error("expected ',' or ']'");
     }
     if (pairs.length && items.length) throw this.error("a collection literal mixes array and dictionary entries", tok);
-    return pairs.length ? { kind: "DictLit", items: pairs, loc: tok.location } : { kind: "ArrayLit", items, loc: tok.location };
+    return this.fin(pairs.length ? { kind: "DictLit", items: pairs, loc: tok.location } as A.DictLit
+      : { kind: "ArrayLit", items, loc: tok.location } as A.ArrayLit, tok.start);
   }
 
   private stringNode(tok: Token): A.Node {
     const parts: (string | A.Node)[] = [];
     for (const p of tok.value as readonly (string | Interpolation)[]) {
       if (p instanceof Interpolation) {
-        const sub = new Lexer(p.source, p.location.source, p.location.line, p.location.col).tokens();
+        const sub = new Lexer(p.source, p.location.source, p.location.line, p.location.col, p.offset).tokens();
         const sp = new Parser(sub, this.source);
         const expr = sp.parseExpr();
         if (!sp.at("EOF")) throw sp.error("unexpected text in string interpolation");
