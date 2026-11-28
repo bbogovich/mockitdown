@@ -9,3 +9,6 @@ toolbar, not in the sidebar.
 
 `windowed` shows how an iPad app looks in iPadOS 26's windowing: the app's window, with its traffic lights, over
 the wallpaper. It means nothing for other chrome, so the renderer warns rather than guessing.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-DEV-001 (changed at 0.12.9: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).

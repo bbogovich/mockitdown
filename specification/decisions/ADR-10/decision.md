@@ -2,14 +2,14 @@
 id: ADR-10
 title: Custom components are structs, imported from files by path
 status: active
-version: 0.12.1
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.2
 slot: decisions
 order: 3
 source: [SRC-2, SRC-3]
 constrains: [R-IMP-001, R-IMP-002, R-IMP-003, R-IMP-004, R-EVAL-005]
-hash: a0c6825717f2
+hash: 652753b548c8
 refs: [ADR-24, R-IMP-007, R-PACK-005]
 ---
 

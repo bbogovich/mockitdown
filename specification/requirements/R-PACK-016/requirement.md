@@ -2,12 +2,12 @@
 id: R-PACK-016
 title: Role rules
 status: active
-version: 0.12.4
-rev: 5
+version: pending
+rev: 6
 page: PACK.3
 slot: reqs
 order: 1
-hash: bf537a762282
+hash: 6b58db1ae1a5
 source: [SRC-12]
 realizes: [F-16]
 requires: [R-PACK-004, R-REPO-002]

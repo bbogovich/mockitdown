@@ -15,3 +15,6 @@ tooltip's bubble is laid out beside its anchor in a small grid at `fit` (above i
 element of the bubble (`mkd-tooltip__arrow`); a pack that draws its own (`::after`) hides it. Toasts
 keep a pack's framework width where it has one (Material snackbars' 288 or 344 points, Bootstrap's
 350) — never narrower than the text.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-DEV-001 (changed at 0.12.9: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).

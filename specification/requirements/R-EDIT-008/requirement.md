@@ -2,12 +2,12 @@
 id: R-EDIT-008
 title: "Commands: duplicate, clipboard, move and multi-select"
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.3
 slot: reqs
 order: 8
-hash: 54c41cfdbc22
+hash: be22cfcf8aea
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-007]

@@ -2,14 +2,14 @@
 id: ADR-12
 title: Zero runtime dependencies in the core; Python 3.11 or later
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: ADR.2
 slot: decisions
 order: 5
 source: [SRC-2]
 constrains: [R-API-004]
-hash: 4ff0cd3e62fe
+hash: 924b9dd37e46
 ---
 
 D1: The core (language, evaluation, packs, rendering, stylesheets, assets, icons, CLI) uses only the Python standard library.

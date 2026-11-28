@@ -2,12 +2,12 @@
 id: R-TOOL-007
 title: "The inspector: mockitdown-inspector"
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.4
 slot: reqs
 order: 7
-hash: f43480cae1ac
+hash: cd4d39fca685
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-PACK-017, R-EDIT-007, R-EDIT-003]

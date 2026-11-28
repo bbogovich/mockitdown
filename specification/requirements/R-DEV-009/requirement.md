@@ -2,8 +2,8 @@
 id: R-DEV-009
 title: The macOS menu bar
 status: active
-version: 0.8.11
-rev: 2
+version: pending
+rev: 3
 page: REND.2
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-10]
 constrained_by: [A-REND-2]
 requires: [R-DEV-010]
-hash: 81acb80e76c8
+hash: 5a4f455f4031
 refs: [R-DEV-010]
 ---
 

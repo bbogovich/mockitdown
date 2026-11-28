@@ -2,12 +2,12 @@
 id: R-TOOL-010
 title: "The diagnostics list: mockitdown-diagnostics"
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.4
 slot: reqs
 order: 10
-hash: 778afa1ca24a
+hash: ed0270abef35
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-TOOL-009]

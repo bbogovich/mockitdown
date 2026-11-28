@@ -1,6 +1,6 @@
 ---
 title: "Retro and handheld packs"
-spec_version: 0.12.6
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: PACK.5
@@ -43,6 +43,12 @@ the shipped Windows 95, NeXTSTEP and CDE packs.
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-019.TC-1 — The amiga pack, automated**
 
@@ -99,6 +105,12 @@ the developer's screenshot, SRC-18#image1; the monochrome look stays as the dark
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-020.TC-1 — The win1 pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -152,6 +164,12 @@ coloured icons and aliases, desk accessories, Control Panel, Teach and the shut-
 **Verification.** TC-1 (automated), TC-M1 (side by side with the GUI Gallery's screenshots).
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-021.TC-1 — The gsos pack, automated**
 
@@ -207,6 +225,12 @@ conformance, key colours and parts), TC-M1 (visual comparison with the real syst
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-022.TC-1 — The gem pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -259,6 +283,12 @@ clause).
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-023.TC-1 — The geos pack, automated**
 
@@ -313,6 +343,12 @@ conformance, key colours and parts), TC-M1 (visual comparison with the real syst
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-024.TC-1 — The riscos pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -365,6 +401,12 @@ clause).
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-025.TC-1 — The beos pack, automated**
 
@@ -419,6 +461,12 @@ conformance, key colours and parts), TC-M1 (visual comparison with the real syst
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-026.TC-1 — The newton pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -471,6 +519,12 @@ clause).
 conformance, key colours and parts), TC-M1 (visual comparison with the real system).
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-027.TC-1 — The palm pack, automated**
 
@@ -525,6 +579,12 @@ conformance, key colours and parts), TC-M1 (visual comparison with the real syst
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-028.TC-1 — The wince pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -578,6 +638,12 @@ conformance, key colours and parts), TC-M1 (visual comparison with the real syst
 
 Re-checked after R-PACK-018 was recorded as built (#54: an include sharing its line fails the build, only an `@import` outside comments is refused at run time; #55: TC-2 and TC-3 as built, the four partials named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-029.TC-1 — The blackberry pack, automated**
 
 New tests, written by the issue that builds the pack:
@@ -622,10 +688,12 @@ clause).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-008: unaffected (#81) |
 | 0.12.6 | 2026-11-27 | re-checked after the #55 as-built records of R-PACK-018 |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |
+| 0.12.6 | 2026-11-27 | re-checked after the #55 as-built records of R-PACK-018 |
 | 0.12.4 | 2026-11-27 | re-checked after the #54 as-built records, released with them |
 | 0.12.3 | 2026-11-27 | re-checked after R-PACK-018 0.12.2 (#54): no obligation changed |
 | 0.11.0 | 2026-11-27 | Page created (SRC-18) |

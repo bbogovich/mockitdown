@@ -22,3 +22,6 @@ library file. The `#` keeps page libraries apart from the import map's namespace
 the page" matches how Python-Markdown converts a page, top to bottom, and how a reader reads it.
 
 **Verification.** TC-1 (site pages), TC-2 (web components).
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-003 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).

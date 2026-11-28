@@ -33,6 +33,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items ADR-20, R-WEB-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-001 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-WEB-003.TC-1 — Static server**
 
 Automated by `typescript/tests/unit/serve.test.ts`.
@@ -106,6 +109,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 (R-WEB-006) rather than the pack gallery itself. The science-fiction packs are reachable by address —
 the home page links to each — but stay out of the side panel. The device and chrome rules of C9 and the
 720 px boundary of C7 gain automated tests (TC-11, audit question 6).
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-REPO-003, R-WEB-002 (changed at 0.12.0, 0.12.4: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges; test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **R-WEB-004.TC-1 — Every pack renders**
 

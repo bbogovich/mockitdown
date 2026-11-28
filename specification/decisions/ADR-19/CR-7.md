@@ -1,0 +1,27 @@
+---
+id: ADR-19.CR-7
+target: ADR-19
+kind: clarification
+version: pending
+date: 2026-11-27
+issue: 81
+summary: "re-checked with the items it cites after the #81 audit: unaffected (#81)"
+from: 63d69460f106
+to: 16376fc4fc8a
+---
+
+## Clauses
+
+(none)
+
+## Files
+
+```diff
+--- a/prose.md
++++ b/prose.md
+@@ -12 +12,4 @@
+ **Re-checked at specification 0.12.10.** Re-read against R-WEB-002 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
++
++
++**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+```

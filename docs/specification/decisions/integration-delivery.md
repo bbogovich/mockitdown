@@ -1,6 +1,6 @@
 ---
 title: "Decisions: integration and delivery"
-spec_version: 0.12.4
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: ADR.2
@@ -21,6 +21,9 @@ linked file.
 `css: none` exists for the rest.
 
 Checked at 0.10.1: R-MDX-004 changed after this decision only by a clarification that dropped a known-deviation note (0.2.1); the decision stands.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-CLI-005, R-MDX-004 (changed at 0.12.10, 0.12.8: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-MDX-004, R-CLI-005
 
@@ -43,6 +46,9 @@ Checked at 0.10.1: R-MDX-004 changed after this decision only by a clarification
 **Decision.** Embed at build time, with containment and a size cap.
 
 **Consequences.** No asset pipeline; the security boundary is the search roots.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-ASSET-001, R-ASSET-002 (changed at 0.12.7: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-ASSET-001, R-ASSET-002, R-ASSET-003
 
@@ -69,6 +75,9 @@ components from."
 **Consequences.** Components are evaluated per use (no compilation step); a deep or recursive
 component is cut off by the nesting limit.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-IMP-001, R-IMP-003 (changed at 0.12.8: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-IMP-001, R-IMP-002, R-IMP-003, R-IMP-004, R-EVAL-005
 
 | | Statement |
@@ -91,6 +100,9 @@ component is cut off by the nesting limit.
 
 **Consequences.** The alias table grows with use; packs can remap names through their `icons` key.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-ASSET-005 (changed at 0.12.7: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-ASSET-005
 
 | | Statement |
@@ -112,6 +124,9 @@ already bring Python-Markdown and pymdown-extensions.
 **Decision.** Standard library only in the core.
 
 **Consequences.** Slightly more code to own; nothing to audit or pin beyond the extra.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-API-004 (changed at 0.12.7: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-API-004
 
@@ -144,6 +159,9 @@ Checked at 0.10.1: R-PACK-008 has since been extended (0.3.0 to 0.5.0) to the fu
 
 **Re-checked at 0.11.0.** Its cited items R-PACK-008 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-PACK-008
 
 | | Statement |
@@ -167,6 +185,9 @@ November 2026) is the Material for MkDocs team's successor; it reads `mkdocs.yml
 
 **Consequences.** Some MkDocs conveniences are missing (Mermaid injection, plugins); they are
 replaced by site assets or by design (ADR-3).
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-001 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-MDX-001
 
@@ -194,6 +215,9 @@ Checked at 0.10.1: R-PACK-008 grew its retro and hidden pack lists (0.3.0 to 0.5
 
 **Re-checked at 0.11.0.** Its cited items R-PACK-008, R-PACK-010 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-PACK-008, R-PACK-010
 
 | | Statement |
@@ -220,8 +244,6 @@ Re-checked with R-REPO-002 and R-PACK-018 as recorded as built (#54): the two bu
 
 **Citations.** R-REPO-001, R-REPO-002 and R-REPO-003 each name this decision in their own `constrained_by`; the decision no longer lists them in `constrains`, so that re-checking one of them does not flag the other as a suspect (#81). No obligation changed.
 
-**Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
-
 | | Statement |
 |---|---|
 | D1 | The Python and TypeScript variants live in one repository, in `python/` and `typescript/`, with the assets both publish in `shared/`. |
@@ -245,6 +267,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items R-REPO-004, R-WEB-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-001 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **Constrains.** R-WEB-001, R-REPO-004
 
@@ -271,6 +299,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-002 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-WEB-002
 
 | | Statement |
@@ -294,6 +328,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-WEB-001, R-WEB-003, R-WEB-005 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-001 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-WEB-001, R-WEB-003, R-WEB-005
 
 | | Statement |
@@ -315,6 +355,12 @@ coexist, for components defined on the same page to be importable, and for compo
 templates whose users override values and fill content. SwiftUI already has the template mechanism:
 `@ViewBuilder` properties (the developer's "@ContentBuilder"), so no new syntax is added for it.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-002 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-IMP-002, R-IMP-004, R-IMP-007, R-IMP-008, R-IMP-009, R-MDX-002, R-WEB-001
 
 | | Statement |
@@ -334,10 +380,10 @@ templates whose users override values and fill content. SwiftUI already has the 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81); re-checked against R-PACK-008: unaffected (#81); re-checked against R-ASSET-005: unaffected (#81); re-checked against R-IMP-001, R-IMP-003: unaffected (#81); constrains list dropped: R-REPO-001..003 carry constrained_by ADR-17, ending the mutual citation (#81); re-checked against R-WEB-002: unaffected (#81); re-checked against R-ASSET-001, R-ASSET-002: unaffected (#81); re-checked against R-CLI-005, R-MDX-004: unaffected (#81); re-checked against R-MDX-002: unaffected (#81); re-checked against R-API-004: unaffected (#81); re-checked against R-MDX-001: unaffected (#81) |
 | 0.12.4 | 2026-11-27 | re-check sentence names R-PACK-018 too, released with R-REPO-002 and R-PACK-018 (#54) |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |
-| 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
 | 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
@@ -345,9 +391,9 @@ templates whose users override values and fill content. SwiftUI already has the 
 | 0.6.7 | 2026-11-25 | reviewed against R-WEB-002@0.6.6 (#7): D1 reads the first script child and ignores other children, as R-WEB-002.C2 was built |
 | 0.4.0 | 2026-11-24 | Ant Design, Tailwind Catalyst, Carbon and Primer shipped in 0.4; no longer proposed next |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.4 | 2026-11-27 | re-check sentence names R-PACK-018 too, released with R-REPO-002 and R-PACK-018 (#54) |
 | 0.12.3 | 2026-11-27 | re-checked after R-REPO-002 0.12.2 (#54): no obligation changed |
 | 0.12.1 | 2026-11-27 | SRC-19: D2 follows ADR-24 — import map instead of import_paths, precedence within a library, qualified names across libraries |
-| 0.12.0 | 2026-11-27 | New ADR-24: An import map of named libraries replaces import directories |
 | 0.11.0 | 2026-11-27 | re-checked against R-REPO-004, R-WEB-001 (SRC-18): unaffected; re-checked against R-WEB-001, R-WEB-003, R-WEB-005 (SRC-18): unaffected; re-checked against R-PACK-008, R-PACK-010 (SRC-18): unaffected; SRC-18: D2 names the stylesheet partials, the role rule table and the edit corpus as shared assets (audit question 4); re-checked against R-WEB-002 (SRC-18): unaffected; re-checked against R-PACK-008 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |

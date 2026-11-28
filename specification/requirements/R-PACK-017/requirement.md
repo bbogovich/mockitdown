@@ -2,12 +2,12 @@
 id: R-PACK-017
 title: Typed parameters and modifiers
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 5
 page: PACK.3
 slot: reqs
 order: 2
-hash: cb9242f37a4c
+hash: 91eaa20c3a80
 source: [SRC-12]
 realizes: [F-16]
 requires: [R-PACK-016]

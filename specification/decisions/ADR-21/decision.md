@@ -2,12 +2,12 @@
 id: ADR-21
 title: The edit API is TypeScript-only, with a language-neutral edit corpus
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: ADR.3
 slot: decisions
 order: 1
-hash: fae0ec2452c7
+hash: ecdc88409f35
 source: [SRC-12]
 constrains: [R-EDIT-001, R-EDIT-002, R-EDIT-003]
 refs: [ADR-18, R-EDIT-001, R-EDIT-002, R-EDIT-003]

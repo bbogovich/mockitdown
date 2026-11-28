@@ -1,8 +1,8 @@
 ---
 title: Build and publish
-impl_version: 0.3.19
+impl_version: 0.3.29
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: IMPL.BUILD
 ---
 
@@ -13,9 +13,12 @@ page_id: IMPL.BUILD
 The Python variant lives in `python/`; the virtual environment stays at the repository root
 (see [Repository layout and shared assets](repository.md)).
 
+Python 3.11 or newer is needed: on a machine whose `python3` is older (macOS ships 3.9), name the
+interpreter, e.g. `python3.14 -m venv .venv`; with 3.9 `pip install` backtracks and never finishes.
+
 ```sh
 cd mockitdown
-python3 -m venv .venv
+python3 -m venv .venv                                              # or python3.11+ explicitly
 .venv/bin/pip install -e 'python[markdown]'                        # also copies shared/ into the package
 .venv/bin/pip install -r python/examples/site/requirements.txt     # zensical, for the site build
 cd python && ../.venv/bin/python -m unittest discover -s tests -t .
@@ -51,8 +54,8 @@ same way. The version is also `mockitdown.__version__`. Build with `cd python &&
 | `docs` (`mockitdown.docs/`) | this documentation: definition, specification and implementation tiers |
 
 The documentation tiers are SpecItOut Tier A sources (`definition/`, `specification/`,
-`implementation/`) compiled by `sio-docs build` into `docs/` and `mkdocs.yml` (from `site.yml`);
-`sio-docs check` verifies them. Never edit `docs/` or `mkdocs.yml` by hand.
+`implementation/`) compiled by `vio-docs build` into `docs/` and `mkdocs.yml` (from `site.yml`);
+`vio-docs check` verifies them. Never edit `docs/` or `mkdocs.yml` by hand.
 
 ## Documentation site
 
@@ -60,8 +63,8 @@ Built with Zensical (ADR-14), which reads the generated `mkdocs.yml`:
 
 ```sh
 cd mockitdown.docs
-sio-docs build && sio-docs check
-../mockitdown/.venv/bin/zensical build --clean      # → site/
+vio-docs build && vio-docs check
+../mockitdown/.venv/bin/zensical build --clean      # → site/ (after pip install -e ../mockitdown/python)
 ../mockitdown/.venv/bin/zensical serve              # local preview
 ```
 
@@ -184,3 +187,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.6 | 2026-11-25 | Continuous integration: ci.yml runs both variants' suites (#5) |
 | 0.3.19 | 2026-11-27 | Pack gallery published at /gallery/ and tested before upload; Gallery header tab on both sites (#19) |
 | 0.3.20 | 2026-11-26 | Audit: development setup covers the TypeScript build and test |
+| 0.3.29 | 2026-11-27 | Audit: vio-docs replaces sio-docs; Python 3.11+ interpreter named in the setup |

@@ -2,17 +2,18 @@
 id: R-IMP-008
 title: Library blocks on a page
 status: active
-version: 0.12.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: IMP.1
 slot: reqs
 order: 8
-hash: cdbffb21d68c
+hash: 30dfe98f1970
 source: [SRC-19]
 realizes: [F-4, F-11]
 requires: [R-IMP-007, R-MDX-003]
 constrained_by: [A-MDX-2, A-EVAL-1]
 decisions: [ADR-24]
+refs: [R-IMP-001, R-MDX-005, R-WEB-002]
 ---
 
 C1: When a fence has the attribute `library="<name>"`, the fence MUST treat the block as a library block: parse its source as a component file (R-IMP-001.C2 to C4) and register it for its page under the name `name`.

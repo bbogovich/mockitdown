@@ -2,12 +2,12 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.3
 slot: reqs
 order: 6
-hash: defc4b37f7ed
+hash: b3607039f4d2
 source: [SRC-12]
 realizes: [F-19, F-20]
 requires: [R-EDIT-005, R-EDIT-002]

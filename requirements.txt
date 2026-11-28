@@ -2,7 +2,7 @@
 # The site is built with Zensical (ADR-14), which reads mkdocs.yml (generated from site.yml).
 # Install: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 # mockitdown itself (the Markdown extension used by the specification pages) is installed from the
-# main repository, not PyPI: .venv/bin/pip install -e ../mockitdown
+# main repository, not PyPI: .venv/bin/pip install -e ../mockitdown/python
 zensical>=0.1.3,<0.2
 pymdown-extensions>=10,<14
 Markdown>=3.6,<4

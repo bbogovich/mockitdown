@@ -2,12 +2,12 @@
 id: ADR-22
 title: The edit-mode rendering exists in both variants, with per-parse node ordinals
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: ADR.3
 slot: decisions
 order: 2
-hash: e3356d8df3d8
+hash: c1510ac0b263
 source: [SRC-12]
 constrains: [R-EDIT-004, R-REPO-004]
 refs: [ADR-18, R-EDIT-004, R-REPO-004]

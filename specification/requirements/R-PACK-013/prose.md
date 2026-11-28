@@ -20,3 +20,6 @@ tab — so that only elements whose job the generic sample cannot show need a de
 Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change concerns the site sections, not samples, so C1 to C8 are unchanged.
 
 **Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-012 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).

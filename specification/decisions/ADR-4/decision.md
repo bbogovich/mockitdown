@@ -2,14 +2,14 @@
 id: ADR-4
 title: Packs are data mapped onto a fixed set of render roles
 status: active
-version: 0.10.8
-rev: 2
+version: 0.12.11
+rev: 3
 page: ADR.1
 slot: decisions
 order: 4
 source: [SRC-2, SRC-3]
 constrains: [R-PACK-001, R-PACK-002, R-PACK-003, R-PACK-004, R-REND-002]
-hash: c06adc61ab6b
+hash: 1e38812db0d5
 ---
 
 D1: A pack is data — `pack.json` (vocabulary, tokens, chrome, modifier maps, sizes, icons) and `pack.css` — that inherits from `base`.

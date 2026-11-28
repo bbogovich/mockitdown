@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.12.10
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -415,6 +415,9 @@ Checked at 0.10.1 after R-PACK-012.CR-4 (six header tabs, C6): that change conce
 
 **Re-checked at 0.11.0.** Its cited items A-PACK-2 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-012 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-PACK-013.TC-1 — Declared samples**
 
 Python unit test of `gen_reference`: a declared sample is used verbatim; a declared sample with a diagnostic fails naming pack and element; `--check` passes on the shipped packs.
@@ -467,6 +470,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.6.** A-REND-1 and A-WEB-1 were revised as built by the behaviour-preserving renderer split (#48, #49), and the gallery test cases only renamed their files (#50); no obligation here changed.
 
 **Re-checked at 0.11.0.** Its cited items A-PACK-2, R-PACK-013 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-014.TC-1 — SwiftUI control variants**
 
@@ -523,6 +529,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items A-PACK-2, R-PACK-013 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-015.TC-1 — SwiftUI presentations**
 
 Python and TypeScript render tests per element asserting the parts (alert title, message, capsule actions; action-sheet rows and separate cancel; popover arrow; sheet grabber; tab item); browser box checks at `fit`. Button children become actions (C9); a popover alone has its anchor (C10); a lone `Tab` is a one-item bar (C11). Built as IT-20.
@@ -569,6 +578,9 @@ use a component from the same page). The option and attribute tables are tested 
 they cannot fall behind it; the published URL stays `/demos/` so existing links keep working.
 
 **Verification.** TC-1 and TC-2 automated; TC-M1 a reading of every User guide page.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-PACK-030.TC-1 — User guide structure and option tables**
 
@@ -742,8 +754,9 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-012: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
-| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide; New R-PACK-030: User guide: installation and defined terms |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
@@ -765,7 +778,8 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
-| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide; New R-PACK-030: User guide: installation and defined terms |
+| 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.11.0 | 2026-11-27 | re-checked against A-PACK-2, R-PACK-013 (SRC-18): unaffected; re-checked against A-PACK-2 (SRC-18): unaffected; SRC-18: further retro and handheld packs by their own requirements (C8), Retro and Mobile group order (C9); TC-1 covers every clause; SRC-18: hidden packs get reference data listed under hidden in the index (C2); the shipped hidden packs and their egg pages (C3); TC-1 |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |

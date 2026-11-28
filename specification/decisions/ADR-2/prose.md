@@ -9,3 +9,6 @@ functions, initialisers, generics or mutation. Metadata and identifiers become S
 documents the exact subset, and unsupported Swift fails with a clear syntax error.
 
 Checked at 0.10.1: R-EVAL-011 and R-MDX-004 changed after this decision only by clarifications that dropped known-deviation notes (0.2.1); the decision stands.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-EVAL-011, R-LANG-003, R-LANG-004 (changed at 0.12.0, 0.12.9: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges; test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).

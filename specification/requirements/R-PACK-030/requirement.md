@@ -2,16 +2,17 @@
 id: R-PACK-030
 title: "User guide: installation and defined terms"
 status: active
-version: 0.12.0
-rev: 0
+version: pending
+rev: 1
 page: PACK.1
 slot: reqs
 order: 1000
-hash: 056a40bad350
+hash: bccd78c3473f
 source: [SRC-19]
 realizes: [F-14]
 requires: [R-PACK-012, R-IMP-007, R-IMP-008, R-IMP-009]
 constrained_by: [A-MDX-1]
+refs: [R-MDX-001, R-MDX-002, R-MDX-003, R-WEB-007]
 ---
 
 C1: The example site's first navigation section MUST be named `User guide` and list, in this order, Home, Installation, Language tour and Custom components, followed by the pages it lists today.

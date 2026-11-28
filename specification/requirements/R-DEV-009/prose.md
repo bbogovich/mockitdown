@@ -18,3 +18,6 @@ edits exactly the group it names; an empty `CommandGroup(replacing:)` removes th
 leaving a doubled separator. Only one menu is drawn open, because macOS shows only one at a time;
 the title highlighted in the bar tells the reader which. A mistyped menu title or placement draws the
 bar anyway, with a warning, so the mistake is visible rather than silently dropped.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.

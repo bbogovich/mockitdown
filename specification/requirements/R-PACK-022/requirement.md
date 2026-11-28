@@ -2,8 +2,8 @@
 id: R-PACK-022
 title: Atari ST GEM pack
 status: active
-version: 0.12.6
-rev: 3
+version: pending
+rev: 5
 page: PACK.5
 slot: reqs
 order: 4
@@ -11,7 +11,7 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 4b1a4fc18508
+hash: 9b6ff8ee9f8c
 refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 

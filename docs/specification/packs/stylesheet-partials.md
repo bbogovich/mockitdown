@@ -62,6 +62,9 @@ stylesheet (win95, hologram) became one rule with both selectors, or custom prop
 `--ho-cuts`). TC-3 captured the ten changed packs (hologram and phosphor, which the gallery does not list,
 as its step 3 says); every capture was identical.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-PACK-018.TC-1 — Partials resolved by both builds**
 
 Unit tests in both variants over one fixture set, `python/tests/fixtures/partials/` read by

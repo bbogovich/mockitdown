@@ -2,12 +2,12 @@
 id: R-TOOL-008
 title: "The code view: mockitdown-code"
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.4
 slot: reqs
 order: 8
-hash: e8299007886f
+hash: 6ea965edd9d2
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-001]

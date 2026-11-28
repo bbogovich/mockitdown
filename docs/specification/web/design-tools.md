@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.11.0
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: WEB.4
@@ -36,6 +36,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-004, R-EDIT-006, R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-002 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-TOOL-001.TC-1 — Click to locate**
 
@@ -85,6 +91,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-006 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-TOOL-002.TC-1 — Tree and selection sync**
 
@@ -146,6 +155,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-TOOL-001, R-TOOL-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-003.TC-1 — Open, select, delete, toJSON**
 
 Browser test (`designer.spec.mjs`) on `pages/designer.html`: select the nested button; press Delete;
@@ -199,6 +211,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-006, R-PACK-016, R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-016, R-WEB-002 (changed at 0.12.0, 0.12.4: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges; test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-004.TC-1 — Filtered gallery and Add**
 
 Browser test (`gallery-component.spec.mjs`) on `pages/designer.html`: with an `HStack` selected, no card
@@ -243,6 +261,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-TOOL-001, R-TOOL-002, R-TOOL-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-005.TC-1 — Drop into the view**
 
 Browser test on `pages/designer.html`: drag the `Text` card onto the gap between a `VStack`'s first and
@@ -284,6 +305,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-003, R-TOOL-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-006.TC-1 — Sample arguments and inline edit**
 
 Browser test on `pages/designer.html`: Add on `Button` inserts `Button("Button")` and opens a focused
@@ -319,6 +343,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-003, R-EDIT-007, R-PACK-017 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-TOOL-007.TC-1 — Variant change and undo**
 
@@ -376,6 +403,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items ADR-20, R-EDIT-001 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-TOOL-008.TC-1 — Light editor**
 
 Browser test (`code.spec.mjs`) on `pages/designer.html` in Code mode and on a bare `mockitdown-code`:
@@ -421,6 +451,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-007, R-TOOL-003, R-TOOL-008 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-TOOL-009.TC-1 — Unbalanced brace**
 
@@ -486,10 +519,12 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

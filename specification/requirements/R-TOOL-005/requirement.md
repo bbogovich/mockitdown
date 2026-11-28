@@ -2,12 +2,12 @@
 id: R-TOOL-005
 title: Drag and drop onto the outline and the view
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 4
 page: WEB.4
 slot: reqs
 order: 5
-hash: 6b828d7db3be
+hash: bcc9835116d3
 source: [SRC-12, SRC-14]
 realizes: [F-19]
 requires: [R-TOOL-004, R-TOOL-001, R-TOOL-002]

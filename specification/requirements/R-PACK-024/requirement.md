@@ -2,8 +2,8 @@
 id: R-PACK-024
 title: RISC OS pack
 status: active
-version: 0.12.6
-rev: 3
+version: pending
+rev: 5
 page: PACK.5
 slot: reqs
 order: 6
@@ -11,7 +11,7 @@ source: [SRC-18]
 realizes: [F-3]
 constrained_by: [A-PACK-2]
 requires: [R-PACK-008, R-PACK-013, R-PACK-018]
-hash: 8fa69670449c
+hash: e491a96f4677
 refs: [R-PACK-008, R-PACK-013, R-PACK-018, R-REPO-004, R-WEB-004]
 ---
 

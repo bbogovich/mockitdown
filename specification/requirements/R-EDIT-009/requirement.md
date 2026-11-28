@@ -2,12 +2,12 @@
 id: R-EDIT-009
 title: "Commands: wrap, unwrap, convert and extract component"
 status: active
-version: 0.11.0
-rev: 3
+version: pending
+rev: 5
 page: WEB.3
 slot: reqs
 order: 9
-hash: 3a06bd3778ac
+hash: 28bd2b6067f6
 source: [SRC-12, SRC-16]
 realizes: [F-19]
 requires: [R-EDIT-008, R-PACK-016]

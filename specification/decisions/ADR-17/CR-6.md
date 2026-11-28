@@ -2,7 +2,7 @@
 id: ADR-17.CR-6
 target: ADR-17
 kind: clarification
-version: pending
+version: 0.12.11
 date: 2026-11-27
 issue: 81
 summary: "constrains list dropped: R-REPO-001..003 carry constrained_by ADR-17, ending the mutual citation (#81)"

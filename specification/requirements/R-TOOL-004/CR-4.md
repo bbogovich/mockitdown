@@ -1,0 +1,27 @@
+---
+id: R-TOOL-004.CR-4
+target: R-TOOL-004
+kind: clarification
+version: 0.12.11
+date: 2026-11-27
+issue: 81
+summary: "re-checked against R-PACK-016, R-WEB-002: unaffected (#81)"
+from: e26386e2fd08
+to: 45e7cd235f3a
+---
+
+## Clauses
+
+(none)
+
+## Files
+
+```diff
+--- a/prose.md
++++ b/prose.md
+@@ -10 +10,4 @@
+ **Re-checked at 0.11.0.** Its cited items R-EDIT-006, R-PACK-016, R-WEB-002 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
++
++
++**Re-checked at specification 0.12.10.** Re-read against R-PACK-016, R-WEB-002 (changed at 0.12.0, 0.12.4: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges; test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+```

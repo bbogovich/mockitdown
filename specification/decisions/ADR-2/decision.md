@@ -2,14 +2,14 @@
 id: ADR-2
 title: The notation is a declarative subset of Swift and SwiftUI
 status: active
-version: 0.10.2
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.1
 slot: decisions
 order: 2
 source: [SRC-2, SRC-3]
 constrains: [R-LANG-001, R-LANG-003, R-LANG-004, R-EVAL-010, R-EVAL-011]
-hash: 93d5d673d8de
+hash: 63696b3c5f0c
 ---
 
 D1: The mockup notation is a declarative subset of Swift/SwiftUI: `import`, `struct` views with properties and `body`, element calls, modifier chains, trailing and labelled trailing closures, `ForEach` with closure parameters, `if`/`else`, `let`, the ternary operator, string interpolation `\(…)` and `#Preview`.

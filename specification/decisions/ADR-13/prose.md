@@ -11,3 +11,6 @@ recorded in each `pack.json` (`version`).
 Checked at 0.10.1: R-PACK-008 has since been extended (0.3.0 to 0.5.0) to the full list of framework, retro and hidden packs; the eight packs of D1 and the four of D2 are still shipped, and C1 and C2 stand. R-PACK-008.C1 is the current list.
 
 **Re-checked at 0.11.0.** Its cited items R-PACK-008 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-008 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).

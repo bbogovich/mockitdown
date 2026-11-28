@@ -2,8 +2,8 @@
 id: R-DEV-010
 title: Multi-platform chrome for SwiftUI
 status: active
-version: 0.8.9
-rev: 2
+version: 0.12.11
+rev: 3
 page: REND.2
 slot: reqs
 order: 999
@@ -11,7 +11,7 @@ source: [SRC-9]
 realizes: [F-10]
 constrained_by: [A-REND-2]
 requires: [R-DEV-001]
-hash: 196bf25a5368
+hash: 8503d2d02373
 ---
 
 C1: The `swiftui` pack MUST draw `phone` forms in iOS 26 chrome (status bar with time, Dynamic Island, cellular, Wi-Fi and battery; home indicator), `tablet` forms in iPadOS 26 chrome (status bar with time and date, Wi-Fi, battery percentage; home indicator) and `desktop` and `wide` forms in macOS 26 chrome.

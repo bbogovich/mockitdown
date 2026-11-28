@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.12.10
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: REND.2
@@ -308,6 +308,9 @@ element of the bubble (`mkd-tooltip__arrow`); a pack that draws its own (`::afte
 keep a pack's framework width where it has one (Material snackbars' 288 or 344 points, Bootstrap's
 350) — never narrower than the text.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-DEV-001 (changed at 0.12.9: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-DEV-008.TC-1 — Fit frames keep their width and hold presentations**
 
 Python and TypeScript: render `Alert`, `Dialog`, `Sheet`, `Popover`, `Toast`, `Tooltip` and `ConfirmationDialog` alone at `fit` in every shipped pack; browser test (Playwright) asserts the surface box is at least 200 × 80 (toast: at least its text width) and inside the frame. A `fit` mockup of eight captioned toggles in a 300 px wide host: frame width equals its scroll width, the cell's scrollWidth exceeds its clientWidth. Every element sample and variant of the gallery (R-WEB-004 TC-4) is checked the same way, open menus and pickers included. (`python/tests/test_fit.py`, `typescript/tests/browser/gallery-render.spec.mjs`.)
@@ -359,6 +362,9 @@ leaving a doubled separator. Only one menu is drawn open, because macOS shows on
 the title highlighted in the bar tells the reader which. A mistyped menu title or placement draws the
 bar anyway, with a warning, so the mistake is visible rather than silently dropped.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-DEV-009.TC-1 — Menu bar and open menu**
 
 Python and TypeScript render tests (conformance cases added to `shared/conformance/`): V1 source; assert the bar's items in order, the clock text, the open File menu's rows, shortcut glyphs, separator, disabled row and submenu chevron. Also: the option's spellings (`true`, empty, a title, `@Screen`, fence, CLI, element attribute) and the app name's defaults; `CommandGroup` replacing, before and after; `.open()` on a menu and on a submenu (cascading); a title naming no menu and an unknown placement warn with code `chrome`.
@@ -402,6 +408,9 @@ toolbar, not in the sidebar.
 
 `windowed` shows how an iPad app looks in iPadOS 26's windowing: the app's window, with its traffic lights, over
 the wallpaper. It means nothing for other chrome, so the renderer warns rather than guessing.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-DEV-001 (changed at 0.12.9: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **R-DEV-010.TC-1 — Chrome per form**
 
@@ -507,6 +516,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-DEV-001: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | as built: C6 fixed colours where the real thing keeps its colour, radii fixed in base; TC-1 verifies C1-C6 (#59) |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
@@ -521,6 +531,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.7.0 | 2026-11-25 | SRC-9: scatter, bubble, heatmap and candlestick derive marks from values; no silent empty chart |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.10 | 2026-11-27 | as built: C6 fixed colours where the real thing keeps its colour, radii fixed in base; TC-1 verifies C1-C6 (#59) |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |

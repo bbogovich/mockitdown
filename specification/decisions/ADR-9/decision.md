@@ -2,14 +2,15 @@
 id: ADR-9
 title: Local images are embedded as data URIs at build time
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: ADR.2
 slot: decisions
 order: 2
 source: [SRC-2]
 constrains: [R-ASSET-001, R-ASSET-002, R-ASSET-003]
-hash: 5280bee28861
+hash: 4aa6789e9f29
+refs: [ADR-3]
 ---
 
 D1: Local image references are searched in the block's directory (when known) and the configured asset directories, must resolve inside a search root, and are embedded as `data:` URIs; files over a size cap are linked instead.

@@ -2,14 +2,14 @@
 id: ADR-3
 title: Integrate as a Python-Markdown extension and a superfences fence, without a MkDocs plugin
 status: active
-version: 0.10.2
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.1
 slot: decisions
 order: 3
 source: [SRC-2, SRC-3]
 constrains: [R-MDX-001, R-MDX-004, R-MDX-005]
-hash: 2d8d5462f4a3
+hash: d789d605f518
 refs: [ADR-9]
 ---
 

@@ -2,14 +2,14 @@
 id: ADR-6
 title: Token-driven appearance
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.1
 slot: decisions
 order: 6
 source: [SRC-2]
 constrains: [R-APP-001, R-APP-002, R-PACK-006, R-PACK-007]
-hash: e1aa2e7fd128
+hash: 246adb471f3d
 refs: [ADR-5]
 ---
 

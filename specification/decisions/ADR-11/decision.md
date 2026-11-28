@@ -2,14 +2,15 @@
 id: ADR-11
 title: An original icon set with framework name aliases
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: ADR.2
 slot: decisions
 order: 4
 source: [SRC-2]
 constrains: [R-ASSET-005]
-hash: 64684ac0f7d1
+hash: 1a1b8d462db8
+refs: [ADR-5]
 ---
 
 D1: mockitdown ships its own set of original 24px line glyphs and aliases SF Symbols, Material Symbols, Fluent UI System Icons and SAP icon names onto them.

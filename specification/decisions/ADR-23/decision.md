@@ -2,14 +2,14 @@
 id: ADR-23
 title: TypeScript releases under their own tags, as GitHub release assets
 status: active
-version: 0.11.0
-rev: 0
+version: pending
+rev: 1
 page: ADR.3
 slot: decisions
 order: 3
 source: [SRC-18]
 constrains: [R-WEB-007]
-hash: 4ab36f30a069
+hash: 74256440411a
 ---
 
 D1: The TypeScript package is released under its own tags `ts-vX.Y.Z`, with its own version line in `typescript/package.json`, by its own workflow, separate from the Python package's `vX.Y.Z` tags and PyPI workflow.

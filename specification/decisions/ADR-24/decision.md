@@ -2,14 +2,15 @@
 id: ADR-24
 title: An import map of named libraries replaces import directories
 status: active
-version: 0.12.0
-rev: 0
+version: pending
+rev: 2
 page: ADR.2
 slot: decisions
 order: 999
-hash: 1c99bd899375
+hash: 78c10f400585
 source: [SRC-19]
 constrains: [R-IMP-002, R-IMP-004, R-IMP-007, R-IMP-008, R-IMP-009, R-MDX-002, R-WEB-001]
+refs: [ADR-10, F-16]
 ---
 
 D1: Component library files are found through an import map — keys are namespaces (path prefixes ending in `/`), exact paths or the empty root key; targets are directories, files or URLs, or lists of them — in the manner of TypeScript's `paths` and the browser import map; it replaces the list of import directories `import_paths`, which becomes a configuration error.

@@ -1,6 +1,6 @@
 ---
 title: "Component imports"
-spec_version: 0.12.8
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: IMP.1
@@ -255,6 +255,9 @@ the page" matches how Python-Markdown converts a page, top to bottom, and how a 
 
 **Verification.** TC-1 (site pages), TC-2 (web components).
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-003 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-IMP-008.TC-1 — Library blocks in a site page**
 
 Converting Markdown pages with `markdown.Markdown(extensions=["mockitdown", "pymdownx.superfences"], …)`:
@@ -348,8 +351,10 @@ Automated in `python/tests/test_render.py` and the conformance corpus.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-MDX-003: unaffected (#81) |
 | 0.12.8 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#57) |
-| 0.12.0 | 2026-11-27 | New R-IMP-008: Library blocks on a page; New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
+| 0.12.0 | 2026-11-27 | New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.2.0 | 2026-11-24 | Page created |
-| 0.12.0 | 2026-11-27 | New R-IMP-008: Library blocks on a page; New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
+| 0.12.8 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#57) |
+| 0.12.0 | 2026-11-27 | New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.2.0 | 2026-11-24 | Page created |

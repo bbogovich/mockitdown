@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.11 | 2026-11-27 | `ADR.1`, `ADR.2`, `IMP.1`, `PACK.1`, `PACK.3`, `PACK.5`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4` | specification audit: 46 suspect citations re-checked with clarification records; ADR-17 no longer lists the requirements that cite it (#81) |
 | 0.12.10 | 2026-11-27 | `MDX.1`, `PACK.1`, `REND.1`, `REND.2` | Test cases backfilled for R-MDX-001..006, R-PACK-001..003, 009, R-REND-001..003, 006..008, 011, and R-PACK-008.TC-1 steps 1 and 6; R-MDX-002.C1, R-MDX-003.C1, R-MDX-005.C1, R-PACK-002.C1, R-PACK-003.C3, R-PACK-009.V1, R-REND-002.C1, R-REND-003.C1, R-REND-011.C6 as built; the role catalogue (REF.2) completed as built (#59) |
 | 0.12.9 | 2026-11-27 | `LANG.1`, `LANG.2`, `REND.1`, `REND.2` | Test cases backfilled for R-DEV-001..003, 005..007, R-EVAL-001, 002, 008, 011, R-LANG-006, 008; R-DEV-002, R-DEV-003, R-DEV-005, R-EVAL-002, R-EVAL-008 as built, R-DEV-007.C1 corrected (#58) |
 | 0.12.8 | 2026-11-27 | `CLI.1`, `DIAG.1`, `IMP.1` | Test cases backfilled for R-CLI-001..006, R-DIAG-001..004, R-IMP-001, 003, 006; R-CLI-002.C1 and R-CLI-006 as built (#57) |

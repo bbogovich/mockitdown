@@ -30,6 +30,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-001, R-EDIT-002, R-EDIT-003 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-EDIT-001, R-EDIT-002, R-EDIT-003
 
 | | Statement |
@@ -62,6 +65,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items R-EDIT-004, R-REPO-004 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-EDIT-004, R-REPO-004
 
 | | Statement |
@@ -88,6 +94,9 @@ released by its own workflow as an archive on a GitHub release.
 the TypeScript README point at the releases page; moving to the npm registry later is one more step in
 the same workflow.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **Constrains.** R-WEB-007
 
 | | Statement |
@@ -103,7 +112,7 @@ the same workflow.
 
 | Version | Date | Change |
 |---|---|---|
-| 0.11.0 | 2026-11-27 | re-checked against R-EDIT-001, R-EDIT-002, R-EDIT-003 (SRC-18): unaffected; New ADR-23: TypeScript releases under their own tags, as GitHub release assets; re-checked against R-EDIT-004, R-REPO-004 (SRC-18): unaffected |
+| 0.11.0 | 2026-11-27 | re-checked against R-EDIT-001, R-EDIT-002, R-EDIT-003 (SRC-18): unaffected; re-checked against R-EDIT-004, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |

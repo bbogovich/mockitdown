@@ -1,6 +1,6 @@
 ---
 title: "Web components"
-spec_version: 0.12.0
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: WEB.1
@@ -215,6 +215,9 @@ projects can use it; F-17.C7. Why its own tags and no npm registry: ADR-23.
 
 **Verification.** TC-1 (the workflow, checked on a real tag), TC-2 (the archive's content, in `npm test`).
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-WEB-001 (changed at 0.12.0: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-WEB-007.TC-1 — A tagged release**
 
 Run by the issue that adds the workflow, after merging, with the release flow of the project's
@@ -258,8 +261,9 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
-| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; New R-WEB-007: TypeScript release builds on GitHub; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
+| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |
@@ -268,7 +272,8 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
-| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; New R-WEB-007: TypeScript release builds on GitHub; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
+| 0.11.0 | 2026-11-27 | re-checked against ADR-19, R-WEB-001 (SRC-18): unaffected; re-checked against ADR-18, ADR-20, R-REPO-004 (SRC-18): unaffected |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Design-tool components now specified on their own pages (ING-1) |

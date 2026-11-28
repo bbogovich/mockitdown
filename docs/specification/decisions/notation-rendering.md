@@ -1,6 +1,6 @@
 ---
 title: "Decisions: notation and rendering"
-spec_version: 0.10.8
+spec_version: 0.12.11
 status: draft
 updated: 2026-11-27
 page_id: ADR.1
@@ -24,6 +24,9 @@ static picture — is delivered by the HTML output itself: no scripts, embedded 
 printed or exported by the browser like the rest of the page.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-REND-001, R-REND-007 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-REND-001, R-REND-007
 
@@ -51,6 +54,9 @@ functions, initialisers, generics or mutation. Metadata and identifiers become S
 documents the exact subset, and unsupported Swift fails with a clear syntax error.
 
 Checked at 0.10.1: R-EVAL-011 and R-MDX-004 changed after this decision only by clarifications that dropped known-deviation notes (0.2.1); the decision stands.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-EVAL-011, R-LANG-003, R-LANG-004 (changed at 0.12.0, 0.12.9: SRC-19 import map (0.12.0), which changes how imports are found and nothing this item obliges; test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-LANG-001, R-LANG-003, R-LANG-004, R-EVAL-010, R-EVAL-011
 
@@ -83,6 +89,9 @@ does not tell an extension which file it is converting.
 
 Checked at 0.10.1: R-MDX-004 changed after this decision only by a clarification that dropped a known-deviation note (0.2.1); the decision stands.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-001, R-MDX-004, R-MDX-005 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-MDX-001, R-MDX-004, R-MDX-005
 
 | | Statement |
@@ -110,6 +119,9 @@ therefore normative.
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-PACK-001, R-PACK-002, R-PACK-003, R-REND-002 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-PACK-001, R-PACK-002, R-PACK-003, R-PACK-004, R-REND-002
 
@@ -140,6 +152,9 @@ regression reference.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-MDX-006, R-REND-006, R-REND-007 (changed at 0.12.10: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-REND-006, R-REND-007, R-MDX-006, R-PACK-007
 
 | | Statement |
@@ -166,6 +181,9 @@ documentation theme live, without scripts.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against R-APP-001, R-APP-002 (changed at 0.12.7: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **Constrains.** R-APP-001, R-APP-002, R-PACK-006, R-PACK-007
 
 | | Statement |
@@ -190,6 +208,9 @@ and removes its cost for pack authors.
 
 **Consequences.** Requires container queries (all current browsers). The 1px cap means mockups never
 enlarge beyond their logical size.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-DEV-003 (changed at 0.12.9: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
 
 **Constrains.** R-DEV-003, R-DEV-004, R-REND-004
 
@@ -232,10 +253,12 @@ Checked at 0.10.1 after R-ANN-003.C6 (marks inside a dialog): the screen-level l
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.11 | 2026-11-27 | re-checked against R-DEV-003: unaffected (#81); re-checked against R-REND-001, R-REND-007: unaffected (#81); re-checked against R-APP-001, R-APP-002: unaffected (#81); re-checked against R-MDX-001, R-MDX-004, R-MDX-005: unaffected (#81); re-checked against R-PACK-001, R-PACK-002, R-PACK-003, R-REND-002: unaffected (#81); re-checked against R-MDX-006, R-REND-006, R-REND-007: unaffected (#81); re-checked against R-EVAL-011, R-LANG-003, R-LANG-004: unaffected (#81) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.2 | 2026-11-26 | checked against the changed item it cites; no obligation changes (audit #51) |
 | 0.2.0 | 2026-11-24 | Page created |

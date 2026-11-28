@@ -2,14 +2,15 @@
 id: ADR-14
 title: Documentation sites build with Zensical
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: ADR.2
 slot: decisions
 order: 7
 source: [SRC-2]
 constrains: [R-MDX-001]
-hash: b20985c585fe
+hash: b39a1a9a8570
+refs: [ADR-3]
 ---
 
 D1: The project's documentation site (this site, the `docs` branch) and the example site build with Zensical, with `theme.variant: classic`.

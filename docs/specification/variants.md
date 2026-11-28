@@ -31,6 +31,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at 0.11.0.** Its cited items ADR-17 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+
+**Re-checked at specification 0.12.10.** Re-read against ADR-17 (changed at 0.12.4: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
 **R-REPO-001.TC-1 — Root holds only the variant folders and cross-variant files**
 
 Automated by `python/tests/test_layout.py`: the root contains exactly the entries of C1 and C4 (plus ignored files).
@@ -67,6 +70,9 @@ resolved `pack.css` copies, so the copy check compares a copy with its resolutio
 file in `shared/`.
 
 Re-checked against ADR-17 after the stylesheet partials were built (#54): a `pack.css` copy that includes partials is compared with its resolved text, as C6 says; no obligation changed.
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-REPO-002.TC-1 — Python package copy matches shared**
 
@@ -140,6 +146,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 Re-checked after R-REPO-002 was recorded as built (#54, partials resolved into the package copies, TC-4 tests named): no obligation of this requirement changed.
 
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
 **R-REPO-003.TC-1 — Wheel contains the shared assets**
 
 Automated by `python/tests/test_shared.py`: a wheel built from `python/` lists every pack's `pack.json` and `pack.css`, `page.css`, `icons.json`, `vocabulary.json` and the `LICENSE`.
@@ -206,6 +215,12 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
 
 **Re-checked at 0.11.0.** Its cited items ADR-18, ADR-22, R-REPO-003 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
+
+
+**Re-checked at specification 0.12.10.** Re-read against R-REPO-003 (changed at 0.12.4: test cases backfilled and as-built clauses recorded by #54 to #60). No obligation this item rests on changed, and none of its clauses is altered (#81).
+
+
+**Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
 **R-REPO-004.TC-1 — Python matches the corpus**
 

@@ -2,14 +2,14 @@
 id: ADR-1
 title: HTML and CSS is the only renderer; the SVG renderer is retired
 status: active
-version: 0.10.8
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.1
 slot: decisions
 order: 1
 source: [SRC-3]
 constrains: [R-REND-001, R-REND-007]
-hash: bc6a96ca48dc
+hash: c2491e5ff6bf
 refs: [ADR-001]
 ---
 

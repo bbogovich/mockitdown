@@ -2,14 +2,14 @@
 id: ADR-7
 title: Frame-unit scaling with px rewriting
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.11
+rev: 1
 page: ADR.1
 slot: decisions
 order: 7
 source: [SRC-3]
 constrains: [R-DEV-003, R-DEV-004, R-REND-004]
-hash: 4585c70c2060
+hash: 5505d3bb2331
 ---
 
 D1: Device sizes are logical points; inside a frame one point is `--u = min(1px, 100cqw / width)`.

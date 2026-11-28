@@ -2,12 +2,12 @@
 id: ADR-20
 title: "Web development dependencies: typescript and Playwright only"
 status: active
-version: 0.11.0
-rev: 4
+version: pending
+rev: 6
 page: ADR.2
 slot: decisions
 order: 999
-hash: 695eb53827e8
+hash: 04cf26122fb9
 source: [SRC-8]
 constrains: [R-WEB-001, R-WEB-003, R-WEB-005]
 ---

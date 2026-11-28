@@ -2,14 +2,14 @@
 id: ADR-8
 title: CSS delivered inline per page by default, or linked by the site
 status: active
-version: 0.10.2
-rev: 1
+version: 0.12.11
+rev: 2
 page: ADR.2
 slot: decisions
 order: 1
 source: [SRC-3]
 constrains: [R-MDX-004, R-CLI-005]
-hash: 2148fdd31e59
+hash: 8ae02bd47874
 refs: [ADR-3]
 ---
 
