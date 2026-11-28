@@ -24,7 +24,7 @@ How problems are located, collected, coded and shown.
 | `unknown` | error | 'Foo' is not an element of pack 'p' and no struct of that name is declared or imported · unknown view or variable · unknown name | R-EVAL-003, R-EVAL-008 |
 | `view` | error | this expression does not produce a view · a T value is not a view | R-EVAL-003 |
 | `foreach` | error / warning | ForEach needs a content closure · ForEach needs an array, a range or a count · ForEach truncated to 500 items | R-EVAL-006 |
-| `recursion` | error | struct S nests too deeply (recursive?) | R-EVAL-005 |
+| `recursion` | error | struct S uses itself (S → T → S) · struct S nests too deeply | R-EVAL-005 |
 | `argument` | error / warning | missing argument 'x' for struct S · struct S has no property 'x' · too many arguments | R-EVAL-005 |
 | `struct` | error | struct S has no `var body: some View { … }` | R-EVAL-005 |
 | `modifier` | warning | unknown modifier .x() is ignored · invalid class name | R-EVAL-009, R-REND-004 |
@@ -51,3 +51,4 @@ How problems are located, collected, coded and shown.
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.1 | 2026-11-28 | `recursion`: the self-use message (R-EVAL-005.C10), the depth message without "(recursive?)" (#84) |

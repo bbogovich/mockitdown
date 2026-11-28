@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (20)
+## Changes pending (21)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -13,6 +13,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.12.12 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.12.11 | 2026-11-25 | #13 |
 | R-EDIT-001 | Source spans and node identities | 0.12.12 | 0.12.16 | 2026-11-27 | #20 |
+| R-EVAL-005 | Instantiating struct components | 0.13.0 | 0.13.1 | 2026-11-28 | #84 |
 | R-PACK-012 | Pack reference gallery and site sections | 0.10.0 | 0.12.0 | 2026-11-26 | #19 |
 | R-PACK-013 | Element samples | 0.8.4 | 0.12.11 | 2026-11-25 | #10 |
 | R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.12.12 | 2026-11-25 | #15 |
@@ -29,7 +30,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (66)
+## Not started (65)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -45,7 +46,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.12.12 |  |  |
 | R-EVAL-003 | Name resolution for views | — | 0.12.0 |  |  |
 | R-EVAL-004 | Binding element arguments | — | 0.10.0 |  |  |
-| R-EVAL-005 | Instantiating struct components | — | 0.12.0 |  |  |
 | R-EVAL-006 | ForEach | — | 0.2.0 |  |  |
 | R-EVAL-007 | Conditionals and local bindings | — | 0.2.0 |  |  |
 | R-EVAL-009 | Modifiers | — | 0.10.8 |  |  |

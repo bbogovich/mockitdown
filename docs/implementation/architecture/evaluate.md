@@ -1,8 +1,8 @@
 ---
 title: Evaluation
-impl_version: 0.3.27
+impl_version: 0.3.38
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.EVAL
 ---
 
@@ -52,8 +52,15 @@ Closures are captured as `Thunk(closure, env)` and run only where views are expe
   arguments (slots); action closures are dropped (R-EVAL-004). Labels and the parameter name of a
   positional argument go through the same `attrs` maps, element first, then pack (R-PACK-011.C1,
   C3; `labelFor` in `evaluate.ts`).
-- `_instantiate` binds struct arguments as in R-EVAL-005, guards depth with `MAX_DEPTH = 48`, and
-  tags root views with `component`.
+- `_instantiate` first asks `_cycle(name)` whether the struct reaches itself (R-EVAL-005.C10): an
+  iterative depth-first search over the struct-use graph, whose edges `_struct_uses(decl)` collects
+  from the body, computed properties and property defaults (every branch, closures included; a bare
+  name that is one of the struct's own properties is not an edge). The answer is memoized per
+  evaluator, so per screen; a cyclic struct reports "struct S uses itself (S → T → S)" once
+  (`_cycles_reported`) at its first use and yields no views, without binding its arguments. Then it
+  guards depth with `MAX_DEPTH = 48` ("struct S nests too deeply", C11, now only reachable by a chain
+  of distinct structs), binds struct arguments as in R-EVAL-005, and tags root views with
+  `component`. TypeScript: `cycle`, `structUses` and `cyclesReported` in `evaluate.ts`.
 - `_for_each` normalises the data (count, list, dict items, string), truncates at
   `MAX_ITERATIONS = 500`.
 - `_apply_modifier` resolves the modifier against the pack's `modifiers` map, then
@@ -86,3 +93,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 | 0.3.9 | 2026-11-25 | Positional arguments take their parameter's `attrs` alias (R-PACK-011.C3, #8) |
 | 0.3.26 | 2026-11-27 | Import loading per mockup described; the unreachable `unsupported statement` error carries code `view` (R-DIAG-001.C1); IT-34 (#57) |
 | 0.3.27 | 2026-11-27 | Float formatting and continuous ranges described (R-EVAL-008 as built); IT-36 (#58) |
+| 0.3.38 | 2026-11-28 | Self-embedding structs rejected by cycle detection before expansion; the depth limit kept as a backstop (R-EVAL-005.C10, C11); IT-50 (#84) |

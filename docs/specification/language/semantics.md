@@ -1,8 +1,8 @@
 ---
 title: "Language: semantics"
-spec_version: 0.13.0
+spec_version: 0.13.1
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: LANG.2
 ---
 
@@ -162,8 +162,12 @@ example site, the design patterns or the reference samples (F-12.AC5).
 
 Components behave like SwiftUI views: memberwise arguments, defaults, a trailing closure for
 content. Struct bodies are isolated from the caller's scope, as Swift's are, so a component behaves
-the same wherever it is used. The recursion limit protects the build from a component that
-contains itself.
+the same wherever it is used. A component cannot contain itself: recursion is not valid for a UI component, and a struct that
+uses itself twice would otherwise expand exponentially. The evaluator decides this from the
+declarations before expanding anything (a depth-first search over the struct-use graph), so
+`struct Row` with `VStack { Row(); Row() }` is reported at once as "struct Row uses itself
+(Row → Row)" and the rest of the mockup still renders. The 48-level depth limit remains only as a
+backstop for a long chain of distinct structs.
 
 **R-EVAL-005.TC-1 — Component with slot and defaults**
 
@@ -187,7 +191,7 @@ A struct with `@ViewBuilder var sidebar: some View = Text("Nav")` declared befor
 **when** each is checked and rendered in both variants, **then** each finishes promptly (well under a second, no memory growth) with exactly one error with code `recursion` whose message names the cycle (`Row → Row`, `Row → Row`, `A → B → A`), the component use renders nothing, and `Text("after")` renders.
 **And** a chain of 49 distinct structs, each using the next, reports "nests too deeply" with code `recursion` (C11).
 
-Automated in both variants (Python `tests/`, TypeScript `tests/unit/`); the implementer names the tests here.
+Automated in both variants: Python `tests/test_evaluate.py::SelfEmbeddingTests` (`test_cycles_report_once_and_render_nothing`, `test_reported_once_per_struct_per_screen`, `test_cycle_through_defaults_and_computed_properties`, `test_deep_chain_reports_nests_too_deeply`); TypeScript `tests/unit/evaluate.test.ts` ("self-embedding components report one recursion error naming the cycle and render nothing (R-EVAL-005 TC-3, C10)", "a chain of 49 distinct structs nests too deeply (R-EVAL-005 TC-3, C11)"). Both also check a cycle through a property default and through a computed property, and that a second use reports nothing more.
 
 **Realizes.** F-4 · **Decisions.** ADR-10
 
@@ -202,7 +206,7 @@ Automated in both variants (Python `tests/`, TypeScript `tests/unit/`); the impl
 | C7 | The evaluator MUST make each computed property a deferred view value evaluated in the struct's scope when used. |
 | C8 | If the struct has no body, then the evaluator MUST report "struct S has no `var body: some View { … }`" with code `struct` and produce no views. |
 | C9 | The evaluator MUST mark every top-level view of the body with the struct's name as its component, unless it already carries an inner component's name, and MUST record the struct in the screen's list of used components. |
-| C10 | Before instantiating a struct, the evaluator MUST decide from the declarations whether the struct can reach itself through the struct names its body, computed properties and property defaults call, directly or through other structs (block-local or imported), counting branches that do not run; if it can, then the evaluator MUST report "struct S uses itself (S → T → S)" with code `recursion`, naming the cycle, once per struct per screen, and MUST produce no views for that use, without expanding it. |
+| C10 | Before instantiating a struct, the evaluator MUST decide from the declarations whether the struct can reach itself through the struct names its body, computed properties and property defaults call, directly or through other structs (block-local or imported), counting branches that do not run and not counting a bare name that is one of the struct's own properties; if it can, then the evaluator MUST report "struct S uses itself (S → T → S)" with code `recursion`, naming the first cycle found in source order, at its first use only, once per struct per screen, and MUST produce no views for that use, without expanding it or recording it among the used components. |
 | C11 | If struct instantiation of structs that do not reach themselves nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply" with code `recursion` and produce no views. |
 | V1 | `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a `struct Row` whose body is `VStack { Row(); Row() }` reports one `recursion` error "struct Row uses itself (Row → Row)" at once, without expanding it. |
 | V2 | `struct Shell: View { @ViewBuilder var sidebar: some View = Text("Nav"); @ViewBuilder var content: some View; var body: some View { … } }` called as `Shell { Text("Hi") }` binds `content` to the closure and `sidebar` to its default, with no diagnostic. |
@@ -378,6 +382,7 @@ closures produce no views and no diagnostics (C5).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.1 | 2026-11-28 | as built (#84): C10 names where the error is reported (first use), the first cycle in source order, own-property names not counted, no used-component entry; TC-3 names its tests; prose explains cycle detection |
 | 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
@@ -385,6 +390,7 @@ closures produce no views and no diagnostics (C5).
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |

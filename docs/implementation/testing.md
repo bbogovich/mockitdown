@@ -1,8 +1,8 @@
 ---
 title: Testing
-impl_version: 0.3.37
+impl_version: 0.3.38
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.TEST
 ---
 
@@ -85,6 +85,7 @@ errors) and `diags(src, **options)`.
 | IT-47 | `typescript/tests/unit/tree.test.ts` ("R-EDIT-001 TC-1…", "R-EDIT-001 TC-2…") | for every corpus case that parses, each view node's name span reads back as its name, its span starts at its first token or a leading comment and ends at a token with balanced brackets, ordinals `n1…nK` follow the first tokens, children lie inside their parent in order, `byId`, `byOrdinal` and `atOffset` agree; a case with a syntax error gives `tree: null` and `check`'s diagnostics. Crafted sources: the narrative example's nodes, kinds and parents; modifiers are no nodes, a call in a modifier argument is; struct bodies numbered with the rest; UTF-16 offsets past an emoji and in an interpolation; nested block comments; leading comment lines contiguous, not trailing code. `reparse`: an insertion, a replacement inside an argument and a removal keep every untouched id, inserted and renamed nodes get new ids, no removed id reappears, a broken edit gives `tree: null`, invalid edits throw `RangeError` | R-EDIT-001.TC-1, R-EDIT-001.TC-2 |
 | IT-48 | `typescript/tests/unit/edit-corpus.test.ts`, `typescript/tests/unit/edit.test.ts` | every case of `shared/conformance/edit/` (61: insert, remove, move, refusals): `edit(source, op)` gives exactly `<name>.expected.mockitdown` or the message of `<name>.error.txt` with no edits; the edits are ascending, do not overlap and turn the source into the result; the edited source renders with no diagnostic the source lacked; `index.json` lists each case once with its `op`, every file belongs to a case; the `covers` tags reach every situation of C16 and every refusal. Crafted: a missing node, a modifier, an id that no node has and a non-string reference refused; nodes by id, `n6` and 6 alike; moves into the node or its descendant refused; two views, a syntax error (with its diagnostic) and an import refused; a move keeps the ids of the moved nodes and their descendants and continues the input tree's ids; inserted nodes get new ids; an unparsable source refused; `indentUnit`; labelled-only closures and bad indexes refused | R-EDIT-002.TC-1, R-EDIT-002.TC-2 |
 | IT-49 | `typescript/tests/unit/edit-corpus.test.ts` (the R-EDIT-003 cases and `covers` tags), `typescript/tests/unit/edit-set.test.ts` | the 41 R-EDIT-003 cases of `shared/conformance/edit/` (`set-argument-*`, `set-modifier-*`, `rename-*`, `set-refs-*`, `set-comment-*`, `set-name*`, ten `refuse-*`) give exactly their expected text or message, with the R-EDIT-002 corpus checks; the meta-test requires a `covers` tag for each of their situations and refusals. Crafted: `rename` to another node's identifier refused with the identifier and that node named and no edits; a node's own identifier accepted; quotes and a backslash written as a string literal the duplicate check reads back; every id kept across argument, modifier, identifier, reference and comment edits, a new one after `setName`; nodes by id; a value that does not parse refused with its diagnostic's column inside the value; non-argument-list modifier arguments and a two-argument value refused; removals of what is not there, a modifier index past the next and a negative position refused; an index equal to the occurrences adds a modifier | R-EDIT-003.TC-1, R-EDIT-003.TC-2 |
+| IT-50 | `python/tests/test_evaluate.py::SelfEmbeddingTests`, `typescript/tests/unit/evaluate.test.ts` ("self-embedding components…", "a chain of 49 distinct structs…") | a struct using itself once, twice (`VStack { Row(); Row() }`) and through another struct in a branch that never runs (`A → B → A`) finishes under a second with exactly one diagnostic, `recursion` "struct S uses itself (cycle)", the use renders nothing and `Text("after")` renders; a second use reports nothing more; cycles through a property default and a computed property are found; 49 distinct nested structs report one "nests too deeply" | R-EVAL-005.TC-3 |
 
 ## The example site as fixture
 
@@ -148,3 +149,4 @@ test suite then covers it without new test code.
 | 0.3.35 | 2026-11-27 | IT-47: the editing core's syntax tree, spans and ids (#20) |
 | 0.3.36 | 2026-11-27 | IT-48: the edit API and the edit corpus; IT-8 checks that `edit/` is ignored (R-REPO-004.TC-4) (#21) |
 | 0.3.37 | 2026-11-27 | IT-49: the argument, modifier, identifier, comment and name operations and their corpus cases (#22) |
+| 0.3.38 | 2026-11-28 | IT-50: self-embedding components and the depth backstop (R-EVAL-005.TC-3) (#84) |

@@ -2,8 +2,8 @@
 id: R-EVAL-005
 title: Instantiating struct components
 status: active
-version: 0.13.0
-rev: 2
+version: 0.13.1
+rev: 3
 page: LANG.2
 slot: reqs
 order: 5
@@ -12,7 +12,7 @@ realizes: [F-4]
 constrained_by: [A-EVAL-1]
 decisions: [ADR-10]
 reverse_engineered: true
-hash: d6426b00ade9
+hash: 861a9a52c917
 ---
 
 C1: When a struct is instantiated, the evaluator MUST bind labelled arguments to properties of the same name; if a label names no property, then it MUST warn "struct S has no property 'x'" with code `argument`.
@@ -24,7 +24,7 @@ C6: The evaluator MUST evaluate the struct body in a new scope holding only the 
 C7: The evaluator MUST make each computed property a deferred view value evaluated in the struct's scope when used.
 C8: If the struct has no body, then the evaluator MUST report "struct S has no `var body: some View { … }`" with code `struct` and produce no views.
 C9: The evaluator MUST mark every top-level view of the body with the struct's name as its component, unless it already carries an inner component's name, and MUST record the struct in the screen's list of used components.
-C10: Before instantiating a struct, the evaluator MUST decide from the declarations whether the struct can reach itself through the struct names its body, computed properties and property defaults call, directly or through other structs (block-local or imported), counting branches that do not run; if it can, then the evaluator MUST report "struct S uses itself (S → T → S)" with code `recursion`, naming the cycle, once per struct per screen, and MUST produce no views for that use, without expanding it.
+C10: Before instantiating a struct, the evaluator MUST decide from the declarations whether the struct can reach itself through the struct names its body, computed properties and property defaults call, directly or through other structs (block-local or imported), counting branches that do not run and not counting a bare name that is one of the struct's own properties; if it can, then the evaluator MUST report "struct S uses itself (S → T → S)" with code `recursion`, naming the first cycle found in source order, at its first use only, once per struct per screen, and MUST produce no views for that use, without expanding it or recording it among the used components.
 C11: If struct instantiation of structs that do not reach themselves nests 48 levels deep, then the evaluator MUST report "struct S nests too deeply" with code `recursion` and produce no views.
 V1: `struct Pill: View { var text: String; var color: Color = .green; var body: some View { … } }` called as `Pill(text: "On")` binds `color` to `.green`; `Pill()` reports the missing `text`; a `struct Row` whose body is `VStack { Row(); Row() }` reports one `recursion` error "struct Row uses itself (Row → Row)" at once, without expanding it.
 V2: `struct Shell: View { @ViewBuilder var sidebar: some View = Text("Nav"); @ViewBuilder var content: some View; var body: some View { … } }` called as `Shell { Text("Hi") }` binds `content` to the closure and `sidebar` to its default, with no diagnostic.

@@ -113,7 +113,7 @@ R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always comp
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
 R-EVAL-004 | requirements | active | 0.10.0 r1 | LANG.2 | Binding element arguments
-R-EVAL-005 | requirements | active | 0.13.0 r2 | LANG.2 | Instantiating struct components
+R-EVAL-005 | requirements | active | 0.13.1 r3 | LANG.2 | Instantiating struct components
 R-EVAL-006 | requirements | active | 0.2.0 r0 | LANG.2 | ForEach
 R-EVAL-007 | requirements | active | 0.2.0 r0 | LANG.2 | Conditionals and local bindings
 R-EVAL-008 | requirements | active | 0.12.9 r1 | LANG.2 | Values and operators
