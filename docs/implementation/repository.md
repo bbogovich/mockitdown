@@ -1,6 +1,6 @@
 ---
 title: Repository layout and shared assets
-impl_version: 0.3.40
+impl_version: 0.3.42
 status: draft
 updated: 2026-11-28
 page_id: IMPL.REPO
@@ -26,7 +26,7 @@ mockitdown/                    (main branch)
     src/core/                  the core: syntax/, evaluate, packs/, diagnostics, options, styles …
     src/mockitdown.ts          package entry; src/node.ts the Node loader (mockitdown/node)
     src/design.ts, src/design/ the design document module and session (mockitdown/design)
-    src/elements/              the mockitdown-mockup and mockitdown-editor elements and the browser asset loader
+    src/elements/              the mockitdown-mockup, -editor and -outline elements and the asset loader
     scripts/copy-shared.mjs    copies shared/ into dist/shared/ (+ manifest.json) and the LICENSE
     scripts/serve.mjs          the development server (R-WEB-003)
     scripts/assemble-gallery.mjs  lays the gallery out as static files for /gallery/ (R-WEB-004.C27)
@@ -225,3 +225,4 @@ the groups in menu order and the hidden packs (`hidden()`) sorted by id (R-PACK-
 | 0.3.32 | 2026-11-27 | Reference JSON for the hidden packs and the `hidden` list of `index.json` (#61) |
 | 0.3.40 | 2026-11-28 | `src/design/` and `tests/fixtures/design/` (#24) |
 | 0.3.41 | 2026-11-28 | `src/elements/` holds the editor element too; `pages/editor.html` (#25) |
+| 0.3.42 | 2026-11-28 | `src/elements/` holds the outline element too (#26) |

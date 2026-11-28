@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.5 | 2026-11-28 | `WEB.4` | As built (#26): the outline element mockitdown-outline — R-TOOL-002 C2, C3, C5, C6, C8 corrected, C10-C15 and TC-1, TC-2 |
 | 0.13.4 | 2026-11-28 | `WEB.4` | As built (#25): the editor element mockitdown-editor — R-TOOL-001 C10 hover colour default, C12-C21 and TC-1 to TC-3 |
 | 0.13.3 | 2026-11-28 | `WEB.3` | As built (#24): the design document module and the design session — R-EDIT-005 C8, C9, C12-C15 and its test cases; R-EDIT-006 C4, C10, C12-C18 and TC-1 |
 | 0.13.2 | 2026-11-28 | `WEB.3` | As built (#23): edit-mode rendering — R-EDIT-004 C11-C14 (imported component views, content passed to a component, the declarations-only preview), its test cases name their tests; REF.2 lists data-mkd-node and data-mkd-derived, the card's band part and data-deco on text |

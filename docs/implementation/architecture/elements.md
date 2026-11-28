@@ -1,6 +1,6 @@
 ---
 title: The mockup element
-impl_version: 0.3.41
+impl_version: 0.3.42
 status: draft
 updated: 2026-11-28
 page_id: IMPL.ELEMENTS
@@ -17,8 +17,8 @@ element that renders one mockup in a web page, over the TypeScript core (A-WEB-1
 
 | File (`typescript/`) | What |
 |---|---|
-| `src/elements/mockup.ts` | `MockupElement`, `MOCKUP_TAG`, `MOCKUP_ATTRIBUTES`, `SCRIPT_TYPE`, `DIAGNOSTICS_EVENT`, `scriptCode(text)`, `shadowCss(css)`, `clearImportCache()`, and the helpers the editor shares: `baseUrls(el)`, `renderWithImports(…)`, `showInShadow(…)` |
-| `src/elements/define.ts` | `defineElements()` and `ELEMENT_TAGS` for both elements (see [The editor element](editor.md)) |
+| `src/elements/mockup.ts` | `MockupElement`, `MOCKUP_TAG`, `MOCKUP_ATTRIBUTES`, `SCRIPT_TYPE`, `DIAGNOSTICS_EVENT`, `scriptCode(text)`, `shadowCss(css)`, `clearImportCache()`, and the helpers the editor and the outline share: `baseUrls(el)`, `renderWithImports(…)`, `evaluateWithImports(…)`, `showInShadow(…)` |
+| `src/elements/define.ts` | `defineElements()` and `ELEMENT_TAGS` for every element (see [The editor element](editor.md), [The outline element](outline.md)) |
 | `src/mockitdown.ts` | the package entry: re-exports the core, the asset loader and the element modules, and calls `defineElements()` |
 | `pages/mockup.html` | "Mockup element": the demo and test page (markup characters, pack switch, live editor, imports, diagnostics) |
 | `tests/browser/mockup.spec.mjs` | IT-14, browser part (Playwright) |
@@ -127,3 +127,4 @@ flowchart TD
 | 0.3.7 | 2026-11-25 | Page written: `mockitdown-mockup` element, demo page, IT-14 (#6) |
 | 0.3.39 | 2026-11-28 | The `edit` attribute (R-WEB-002.C13, #23) |
 | 0.3.41 | 2026-11-28 | The render, import and stylesheet steps factored into `baseUrls`, `renderWithImports` and `showInShadow` for the editor; `defineElements` and `ELEMENT_TAGS` moved to `define.ts` (#25) |
+| 0.3.42 | 2026-11-28 | `evaluateWithImports` beside `renderWithImports` (one import loop, `withImports`) for the outline (#26) |

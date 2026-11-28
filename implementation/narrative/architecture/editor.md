@@ -1,6 +1,6 @@
 ---
 title: The editor element
-impl_version: 0.3.41
+impl_version: 0.3.42
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDITOR
@@ -21,9 +21,9 @@ R-EDIT-006 C7, C8 and C11: it joins a session and dispatches the events of a ses
 | File (`typescript/`) | What |
 |---|---|
 | `src/elements/editor.ts` | `EditorElement`, `EDITOR_TAG`, `EDITOR_ATTRIBUTES`, `elementName(el)`, `sizeTag(name, w, h)` |
-| `src/elements/define.ts` | `ELEMENT_TAGS` (`mockitdown-mockup`, `mockitdown-editor`) and `defineElements()`, moved out of `mockup.ts` so that the element modules do not import each other in a cycle |
+| `src/elements/define.ts` | `ELEMENT_TAGS` (`mockitdown-mockup`, `mockitdown-editor`, since #26 `mockitdown-outline`) and `defineElements()`, moved out of `mockup.ts` so that the element modules do not import each other in a cycle |
 | `src/elements/mockup.ts` | the shared helpers `baseUrls(el)`, `renderWithImports(code, options, importBase, assetBase, stale)` and `showInShadow(root, packs, html, extraCss, wrap)`, used by both elements |
-| `pages/editor.html` | "Editor element": one editor over the sample (a `Button` in a `Card` in a `List` in a `VStack`, a `ForEach` of three rows) and a live readout of the selection and the hover |
+| `pages/editor.html` | "Editor and outline elements": one editor over the sample (a `Button` in a `Card` in a `List` in a `VStack`, a `ForEach` of three rows) and a live readout of the selection and the hover |
 | `tests/browser/editor.spec.mjs` | IT-53 (Playwright) |
 
 ## Use
@@ -131,3 +131,4 @@ flowchart TD
 | Version | Date | Change |
 |---|---|---|
 | 0.3.41 | 2026-11-28 | Page written: `mockitdown-editor`, its session, pointer and key handling, overlay, `pages/editor.html`, IT-53 (#25) |
+| 0.3.42 | 2026-11-28 | `pages/editor.html` also holds the outline, which shares the editor's session (#26) |

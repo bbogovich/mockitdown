@@ -34,9 +34,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
-| R-EDIT-006 | The design session and its events | 0.13.3 | 0.13.3 | 2026-11-28 | #25 |
+| R-EDIT-006 | The design session and its events | 0.13.3 | 0.13.3 | 2026-11-28 | #26 |
 
-## Not started (61)
+## Not started (60)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -88,7 +88,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-TOOL-002 | The outline: mockitdown-outline | — | 0.12.12 |  |  |
 | R-TOOL-003 | The composite designer and its test page | — | 0.12.12 |  |  |
 | R-TOOL-004 | The gallery: mockitdown-gallery | — | 0.12.12 |  |  |
 | R-TOOL-005 | Drag and drop onto the outline and the view | — | 0.12.12 |  |  |
@@ -102,7 +101,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (67)
+## Implemented (68)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -170,6 +169,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
 | R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-28 | #23 |
 | R-TOOL-001 | The editable view: mockitdown-editor | 0.13.4 | 0.13.4 | 2026-11-28 | #25 |
+| R-TOOL-002 | The outline: mockitdown-outline | 0.13.5 | 0.13.5 | 2026-11-28 | #26 |
 | R-WEB-002 | The mockitdown-mockup element | 0.12.12 | 0.12.12 | 2026-11-28 | #23 |
 | R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
 | R-WEB-006 | Gallery home page | 0.12.14 | 0.12.14 | 2026-11-27 | #62 |

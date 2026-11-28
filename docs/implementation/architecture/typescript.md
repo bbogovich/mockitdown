@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.40
+impl_version: 0.3.42
 status: draft
 updated: 2026-11-28
 page_id: IMPL.TS
@@ -49,6 +49,7 @@ module for module, held to the Python output by the conformance corpus.
 | `elements/assets.ts` | — | `loadAssetsFromUrl(base)`: the browser asset loader (A-WEB-2.P2), see [Web development](web-dev.md) |
 | `elements/mockup.ts` | `extension.py`, `fence.py` (the host side) | the `mockitdown-mockup` custom element and the render helpers both elements share, see [The mockup element](elements.md) |
 | `elements/editor.ts` | — | the `mockitdown-editor` custom element, see [The editor element](editor.md) |
+| `elements/outline.ts` | — | the `mockitdown-outline` custom element, see [The outline element](outline.md) |
 | `elements/define.ts` | — | `ELEMENT_TAGS` and `defineElements()` for every element of the package |
 | `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core, `loadAssetsFromUrl` and the element API; defines the custom elements where `customElements` exists) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
@@ -201,3 +202,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.37 | 2026-11-27 | `core/syntax/edit.ts` also sets arguments, modifiers, identifiers, comments and names (#22) |
 | 0.3.40 | 2026-11-28 | `design.ts` and `design/` (`mockitdown/design`) in the module table (#24) |
 | 0.3.41 | 2026-11-28 | `elements/editor.ts` and `elements/define.ts` in the module table (#25) |
+| 0.3.42 | 2026-11-28 | `elements/outline.ts` in the module table (#26) |

@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.4
+spec_version: 0.13.5
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -130,32 +130,57 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#26).** The outline evaluates the active mockup itself, with the same options and imports
+as the editor renders it, so it needs no editor on the page; a component's views and a `ForEach`'s
+items get italic rows that stand for the construct, as their elements do in the editor. The keys follow
+the usual tree pattern: Right on an open row goes to its first child, Left on a closed one to its
+parent, and the selection follows the current row, so a selection made anywhere — a click in the
+editor, a key here — shows in both. The first level starts open; deeper rows open as the selection
+reaches them.
+
 **R-TOOL-002.TC-1 — Tree and selection sync**
 
-Browser test (`outline.spec.mjs`) on `pages/editor.html`: the tree's rows match the edit-mode
-evaluation (names, labels, `#id` chips, levels, 14 px indent per level); a click in the editor on the
-nested button selects its row, expanded and in view (F-19.AC3); the `ForEach` rows are italic with the
-link icon and select the `ForEach`.
+Browser test (Chromium, `typescript/tests/browser/outline.spec.mjs`, "TC-1: tree and selection sync")
+on `pages/editor.html`, whose sample nests `Button("Open").id("open")` in a `Card` in a `List` under a
+`VStack` and has a `ForEach` of three `Text` rows: the page's one outline, defined by the package
+entry, is an ARIA tree sharing the editor's session. Before any selection the visible rows are
+`VStack` (expanded), `Text "Inbox"` and `List` (collapsed). A click in the editor on the nested button
+expands the list and the card and selects the button's row, which lies inside the tree's scrolling
+box; the nine visible rows then match, by level, name, label, `#id` chip, italics, link icon,
+`aria-expanded` and `aria-selected`, the list written by hand from the source; the disclosure triangles
+lie 14 px further right per level. A click on the `Beta` row selects the `ForEach` and all three of its
+rows show as selected; a click on the `Card` row selects the card.
 
-**R-TOOL-002.TC-2 — Keyboard and hover**
+**R-TOOL-002.TC-2 — Keyboard, hover and the Mockups tab**
 
-Browser test: Left collapses, Right expands, Up and Down move, Home and End jump, typing `Bu` selects
-the next row starting with "Bu"; hovering a row outlines its element in the editor and hovering the
-element highlights the row; the Mockups tab lists the document's mockups.
+Browser test (Chromium, `typescript/tests/browser/outline.spec.mjs`, "TC-2: keyboard, hover and the
+Mockups tab") on `pages/editor.html`: with the `VStack` row selected, Left collapses it (one visible
+row) and Right expands it; Down, Down, Up select text, list, text; Right on the list and on the card
+expands them; End selects the `ForEach`, Home the `VStack`; typing `Bu` selects the button. Hovering the
+`Card` row sets the session's hovered node and the editor draws its `Card · W × H` tag; hovering the
+button in the editor highlights exactly the button's row. The tabs read Elements and Mockups; the
+Mockups tab hides the tree and lists `Mockup`, marked current. An outline given a host session over
+mockups A and B with B active lists both, B marked, and shows B's rows `VStack` and `Text "second" #t2`.
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
 | C1 | The package MUST define the custom element `mockitdown-outline`, which shows the element tree of the session's active mockup as an ARIA tree (`role="tree"`, rows `role="treeitem"` with `aria-level`, `aria-expanded` and `aria-selected`). |
-| C2 | The rows MUST follow the views of the mockup's edit-mode evaluation: one row per view produced from a view node, nested as the views are, its node found through its ordinal (R-EDIT-006.C9). |
-| C3 | A row MUST show the element name, then its main label (its first argument when that is a string), then an `#id` chip when the view carries `.id(…)`, and MUST be indented by 14 CSS pixels per level. |
+| C2 | The rows MUST follow the views of the mockup's edit-mode evaluation: one row per view produced from a view node or derived from one (R-EDIT-004.C4, C5), nested as the views are, its node found through its ordinal (R-EDIT-006.C9); a view that is neither MUST get no row, its children taking its place. |
+| C3 | A row MUST show the element name, then its main label (its first argument when that argument is positional and its value a string), then an `#id` chip when the view carries `.id(…)`, and MUST be indented by 14 CSS pixels per level. |
 | C4 | A row of a derived view (R-EDIT-004.C5) MUST be drawn in italics with a link icon, and selecting it MUST select the node that produced it. |
-| C5 | A row with children MUST expand and collapse by its disclosure triangle and by Right and Left; Up and Down MUST move the selection between visible rows, Home and End to the first and last row, and typed characters MUST select the next row whose name starts with them. |
-| C6 | `expandTo(nodeId)` MUST expand the ancestors of the node's row and scroll the row into view, and the outline MUST call it whenever the session's selection changes. |
+| C5 | A row with children MUST expand and collapse by its disclosure triangle and by Right and Left; Up and Down MUST move the selection between visible rows, Home and End to the first and last visible row, and typed characters MUST select the next visible row whose name starts with them. |
+| C6 | `expandTo(nodeId)` MUST expand the ancestors of every row of the node and scroll the first into view, and the outline MUST call it for each selected node whenever the session's selection changes and after its rows are rebuilt. |
 | C7 | Hovering a row MUST set the session's hovered node, and the row of a node hovered elsewhere MUST be highlighted. |
-| C8 | The outline MUST have two tabs, Elements (the tree) and Mockups, the latter listing the document's mockups by name in document order with the active one marked. |
+| C8 | The outline MUST have two tabs, Elements (the tree) and Mockups, the latter listing the document's mockups by name in document order with the active one marked by `aria-current="true"`. |
 | C9 | `pages/editor.html` MUST also hold a `mockitdown-outline` that shares the editor's session. |
+| C10 | Rows of the first level MUST start expanded and deeper rows collapsed, and a row MUST keep its expansion when the rows are rebuilt while its nodes keep their ids. |
+| C11 | Right on an expanded row MUST select its first child and Left on a collapsed row or a row without children MUST select its parent row; characters typed within 600 milliseconds of each other MUST form one search, a new search starting after the current row. |
+| C12 | Every row whose node is selected MUST carry `aria-selected="true"`, so that all the rows of a `ForEach` are selected with it, and the tree MUST keep the keyboard focus on itself and name the current row by `aria-activedescendant`. |
+| C13 | The outline MUST join a session as R-EDIT-006.C11 says, making a session of its own over an empty document when none is given, and MUST dispatch the notifications of a session of its own as the DOM events of R-EDIT-006.C7 and MUST NOT dispatch those of a session it joined. |
+| C14 | The outline MUST rebuild its rows after every `change` of the active mockup other than a move and after an `active` notification, and MUST keep its last rows when the mockup does not evaluate. |
+| C15 | The outline MUST expose the properties `rows` (every row in document order) and `rendered` (a promise that resolves once the rows are up to date), the shadow parts `tabs`, `tab`, `tree`, `row`, `twisty`, `link`, `name`, `label`, `chip`, `mockups` and `mockup`, and the custom properties `--mkd-outline-selected-background` and `--mkd-outline-hover-background` for the row colours. |
 | V1 | On `pages/editor.html`, selecting the nested button in the editor expands the list and the card in the outline and selects and shows the button's row (F-19.AC3). |
 
 ---
@@ -557,6 +582,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |
 | 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
@@ -564,6 +590,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016, R-WEB-002: unaffected (#81); re-checked against R-WEB-002: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-009 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002 (SRC-18): unaffected; re-checked against R-EDIT-006, R-PACK-016, R-WEB-002 (SRC-18): unaffected; re-checked against R-TOOL-001, R-TOOL-002, R-TOOL-004 (SRC-18): unaffected; re-checked against R-EDIT-006 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-003, R-TOOL-008 (SRC-18): unaffected; re-checked against R-EDIT-003, R-EDIT-007, R-PACK-017 (SRC-18): unaffected; re-checked against R-EDIT-004, R-EDIT-006, R-WEB-002 (SRC-18): unaffected; re-checked against R-EDIT-003, R-TOOL-004 (SRC-18): unaffected; re-checked against ADR-20, R-EDIT-001 (SRC-18): unaffected |
