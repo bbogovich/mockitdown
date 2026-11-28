@@ -1,6 +1,6 @@
 ---
 title: The pack gallery
-impl_version: 0.3.32
+impl_version: 0.3.33
 status: draft
 updated: 2026-11-27
 page_id: IMPL.GALLERY
@@ -8,7 +8,7 @@ page_id: IMPL.GALLERY
 
 # The pack gallery
 
-Implements **R-WEB-004** on top of the mockup element (R-WEB-002, [The mockup element](elements.md))
+Implements **R-WEB-004** and its home page **R-WEB-006** on top of the mockup element (R-WEB-002, [The mockup element](elements.md))
 and the development server (R-WEB-003, [Web development](web-dev.md)), with the element reference
 of R-REPO-003. The page is plain HTML, CSS and one module script — no framework, no dependency.
 
@@ -16,6 +16,8 @@ of R-REPO-003. The page is plain HTML, CSS and one module script — no framewor
 
 | File | What |
 |---|---|
+| `typescript/pages/index.html` | "Gallery home" (R-WEB-006): what the gallery is for, the renderer, using the TypeScript library, the links, and last the easter-egg section `#easter-eggs` (see [Home page](#home-page)) |
+| `typescript/pages/index.js`, `index.css` | the home page's appearance and easter-egg links; its stylesheet, the gallery's palette |
 | `typescript/pages/packs.html` | "Pack gallery": top bar (menu button, appearance), side panel `#packs`, main area `#main` (the filter is built into the Elements tab) |
 | `typescript/pages/packs.js` | the page logic; imports `../dist/mockitdown.js`, which defines `<mockitdown-mockup>` |
 | `typescript/pages/snippet.js` | the snippet that reproduces an example (C22): `patternAttributes(entry, pack)`, `patternText(source)`, `snippet(entry, source, pack)` — pure, no DOM, shared by `packs.js` and its unit test |
@@ -30,6 +32,7 @@ of R-REPO-003. The page is plain HTML, CSS and one module script — no framewor
 | `typescript/tests/browser/gallery-chrome.spec.mjs` | IT-21, IT-22: SwiftUI chrome per form and the macOS menu bar |
 | `typescript/tests/browser/gallery-examples.spec.mjs` | IT-23: pack-specific examples; IT-24: the tabs and the examples' geometry; IT-25: Show source |
 | `typescript/tests/unit/snippet.test.ts` | IT-25: the snippet builder without a browser |
+| `typescript/tests/browser/gallery-home.spec.mjs` | IT-45: the home page's text, code block and links, the easter-egg links, appearance, and the failure fallbacks |
 
 ## Data flow
 
@@ -238,21 +241,56 @@ a side-panel pack or a hidden one, so `#pack=lcars`, `packGallery.select("lcars"
 treat it as any pack (R-WEB-004.C32). `buildNav()` reads only `groups`, so the side panel has no entry
 for a hidden pack, and `showPack()` sets `aria-current` only on a matching side-panel link, so none is
 marked while a hidden pack is shown. The facts line leaves out `group` when it is null. An unknown id
-still falls back to the first side-panel pack (C12). The links to each hidden pack belong to the
-gallery's home page (R-WEB-006, #62).
+still falls back to the first side-panel pack (C12). The links to each hidden pack are on the
+gallery's [home page](#home-page).
+
+## Home page
+
+`pages/index.html` (R-WEB-006) is the gallery's front door: `/gallery/` redirects to it, and the
+development server lists it as "Gallery home". It is static text in five sections, `main > section`:
+
+| Section | Says (clause) |
+|---|---|
+| `#about` | what the pack gallery is for (review by eye, the TypeScript variant's end-to-end test page) and the prominent "Open the pack gallery" link to `packs.html` (C2, C6) |
+| `#renderer` | every mockup is rendered in the browser by the TypeScript renderer through `mockitdown-mockup`; Markdown sites use `pip install mockitdown` (C3) |
+| `#usage` | the release archive (link to `https://github.com/bbogovich/mockitdown/releases`), `loadAssetsFromUrl`, a 13-line `pre > code` with a module script and a `<mockitdown-mockup pack="fluent" device="fit">` holding its `<script type="text/mockitdown">`, and the link to `typescript/README.md` on GitHub (C4, C5) |
+| `#more` | the pack gallery, the documentation site `../../definition/`, the example site `../../demos/` and the releases (C6) |
+| `#easter-eggs` | last: one link per hidden pack (C7) |
+
+The release link names the repository's releases page; the archive the usage note describes is the one
+R-WEB-007 (#63) attaches to each release.
+
+`index.js` (a plain module, no import):
+
+- **Appearance** (C8): `data-appearance` on `<html>` from `localStorage` `mockitdown.gallery.appearance`
+  (the key `packs.js` writes), else `prefers-color-scheme`; it follows a system change while no choice is
+  stored, and a `storage` event from a gallery tab. `index.css` repeats the gallery's light and dark
+  variables, `color-scheme` included.
+- **Easter eggs** (C7): fetches `../shared/reference/index.json`, then each hidden pack's
+  `<id>.json` for its `name`, and fills `#egg-links` with `packs.html#pack=<id>` links in the order of
+  `hidden`. A reference file that fails leaves the id as the label (C10); an empty or missing `hidden`
+  gives "None at the moment." (C11); an `index.json` that fails gives "The easter-egg packs could not
+  be loaded." and the rest of the page is untouched (C9).
+- `data-state` on `<html>` goes from `loading` to `ready` once the section is filled either way; the
+  browser test waits for it.
+
+The gallery's brand link (`mockitdown` in its top bar) now goes to `index.html`, the home page; before
+#62 it went to `../`.
 
 ## Published
 
 The Pages workflow publishes the gallery at `https://bbogovich.github.io/mockitdown/gallery/`
 (R-WEB-004.C27–C31): `scripts/assemble-gallery.mjs` copies `pages/`, `dist/` and the `reference/` and
 `patterns/` folders of `shared/` into the development server's layout under `public/gallery/` and adds
-an `index.html` redirecting to `pages/packs.html`. The page needs no change to work there, because
+an `index.html` redirecting to `pages/index.html`, the home page (C29). The page needs no change to work there, because
 every URL it fetches is relative. Before the upload, IT-26 serves the assembled site statically and
 checks the gallery in Chromium. See [Build and publish](../build-publish.md#the-published-pack-gallery).
 
 ## Debugging
 
-- `cd typescript && npm run serve`, open `http://127.0.0.1:8173/pages/packs.html#pack=carbon`.
+- `cd typescript && npm run serve`, open `http://127.0.0.1:8173/pages/packs.html#pack=carbon`
+  (the home page: `/pages/index.html`; without easter-egg links, check `../shared/reference/index.json`
+  in the network panel).
 - Published: a failed or out-of-`/gallery/` request in the Pages run's *Test the published site* step
   names the URL; reproduce it with the local check in [Build and publish](../build-publish.md#the-published-pack-gallery).
 - In the console: `await packGallery.renderAll()` shows the summary for the open pack;
@@ -277,3 +315,4 @@ checks the gallery in Chromium. See [Build and publish](../build-publish.md#the-
 | 0.3.22 | 2026-11-27 | The gallery browser tests split into four topic specs and `gallery-helpers.mjs` (#50) |
 | 0.3.29 | 2026-11-27 | IT-42: the 720 px boundary, `fit` element samples and index-entry devices, lazy cards (#60) |
 | 0.3.32 | 2026-11-27 | Hidden packs: `gallery.hidden` from `index.json`, selectable by `#pack=`, never listed; IT-44 (#61) |
+| 0.3.33 | 2026-11-27 | Home page `pages/index.html` (R-WEB-006): the sections, the easter-egg links from `hidden`, appearance; `/gallery/` redirects to it; brand link to the home page; IT-45 (#62) |

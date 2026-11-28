@@ -7,6 +7,8 @@ they are looking at and how to use what they see; the easter eggs are rewards fo
 the end, so their links sit at the end of the page, generated from the index so the page never falls
 behind the packs.
 
+A missing reference file or an empty `hidden` list degrades the section rather than the page (C10, C11).
+
 **Verification.** TC-1.
 
 

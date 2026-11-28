@@ -1,10 +1,10 @@
 ---
 id: TC-1
 title: Home page content, links and easter eggs
-verifies: [C1, C2, C3, C4, C5, C6, C7, C8, C9]
+verifies: [C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11]
 ---
 
-New browser test `typescript/tests/browser/gallery-home.spec.mjs` against the development server, and
+Browser test `typescript/tests/browser/gallery-home.spec.mjs` (IT-45) against the development server, and
 step 1 of R-WEB-004.TC-9 against the published copy:
 
 1. `/pages/index.html` loads with no failed request and no console error; the assembled gallery holds
@@ -25,3 +25,6 @@ step 1 of R-WEB-004.TC-9 against the published copy:
    (C8).
 7. With `shared/reference/index.json` answered by HTTP 404 (`page.route`), the page still shows its text
    and gallery link and the sentence that the easter eggs could not be loaded (C9).
+8. With the first hidden pack's reference file answered by HTTP 404, its link is labelled with its id and
+   the others with their names; with `index.json` answered with an empty `hidden`, the section holds no
+   link and the sentence that there are none (C10, C11).

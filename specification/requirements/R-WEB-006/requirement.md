@@ -2,15 +2,15 @@
 id: R-WEB-006
 title: Gallery home page
 status: active
-version: 0.12.12
-rev: 1
+version: 0.12.14
+rev: 2
 page: WEB.2
 slot: reqs
 order: 4
 source: [SRC-18]
 realizes: [F-18]
 requires: [R-WEB-004, R-PACK-010]
-hash: 339dd1ed8976
+hash: 7ca0d2c51ae5
 refs: [R-WEB-004, R-WEB-007]
 ---
 
@@ -23,4 +23,6 @@ C6: The home page MUST link prominently to the pack gallery (`packs.html`), and 
 C7: Below the other sections, the home page MUST have an easter-egg section with one link per pack listed under `hidden` in `shared/reference/index.json`, read at load time, each to `packs.html#pack=<id>` and labelled with the pack's name from its reference file, so that a new hidden pack is linked without editing the page.
 C8: The home page MUST follow the light or dark appearance chosen in the pack gallery (the same `localStorage` key) and, without a choice, the system's; it MUST use no framework and no script or stylesheet from outside `/gallery/` (R-WEB-004.C30).
 C9: When `shared/reference/index.json` cannot be loaded, the home page MUST still show its text and the gallery link, and show in place of the easter-egg links a sentence saying they could not be loaded.
+C10: When a hidden pack's `shared/reference/<id>.json` cannot be loaded, the home page MUST still link that pack, labelled with its id.
+C11: When `hidden` in `shared/reference/index.json` is missing or empty, the home page MUST show in place of the easter-egg links a sentence saying there are none.
 V1: The browser test opens the home page and fails when a required section or link is missing, or when an easter-egg link does not open its pack in the gallery.

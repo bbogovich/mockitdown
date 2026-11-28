@@ -329,6 +329,8 @@ they are looking at and how to use what they see; the easter eggs are rewards fo
 the end, so their links sit at the end of the page, generated from the index so the page never falls
 behind the packs.
 
+A missing reference file or an empty `hidden` list degrades the section rather than the page (C10, C11).
+
 **Verification.** TC-1.
 
 
@@ -336,7 +338,7 @@ behind the packs.
 
 **R-WEB-006.TC-1 — Home page content, links and easter eggs**
 
-New browser test `typescript/tests/browser/gallery-home.spec.mjs` against the development server, and
+Browser test `typescript/tests/browser/gallery-home.spec.mjs` (IT-45) against the development server, and
 step 1 of R-WEB-004.TC-9 against the published copy:
 
 1. `/pages/index.html` loads with no failed request and no console error; the assembled gallery holds
@@ -357,6 +359,9 @@ step 1 of R-WEB-004.TC-9 against the published copy:
    (C8).
 7. With `shared/reference/index.json` answered by HTTP 404 (`page.route`), the page still shows its text
    and gallery link and the sentence that the easter eggs could not be loaded (C9).
+8. With the first hidden pack's reference file answered by HTTP 404, its link is labelled with its id and
+   the others with their names; with `index.json` answered with an empty `hidden`, the section holds no
+   link and the sentence that there are none (C10, C11).
 
 **Realizes.** F-18
 
@@ -371,4 +376,6 @@ step 1 of R-WEB-004.TC-9 against the published copy:
 | C7 | Below the other sections, the home page MUST have an easter-egg section with one link per pack listed under `hidden` in `shared/reference/index.json`, read at load time, each to `packs.html#pack=<id>` and labelled with the pack's name from its reference file, so that a new hidden pack is linked without editing the page. |
 | C8 | The home page MUST follow the light or dark appearance chosen in the pack gallery (the same `localStorage` key) and, without a choice, the system's; it MUST use no framework and no script or stylesheet from outside `/gallery/` (R-WEB-004.C30). |
 | C9 | When `shared/reference/index.json` cannot be loaded, the home page MUST still show its text and the gallery link, and show in place of the easter-egg links a sentence saying they could not be loaded. |
+| C10 | When a hidden pack's `shared/reference/<id>.json` cannot be loaded, the home page MUST still link that pack, labelled with its id. |
+| C11 | When `hidden` in `shared/reference/index.json` is missing or empty, the home page MUST show in place of the easter-egg links a sentence saying there are none. |
 | V1 | The browser test opens the home page and fails when a required section or link is missing, or when an easter-egg link does not open its pack in the gallery. |

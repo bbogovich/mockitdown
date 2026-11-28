@@ -1,6 +1,6 @@
 ---
 title: Build and publish
-impl_version: 0.3.29
+impl_version: 0.3.33
 status: draft
 updated: 2026-11-27
 page_id: IMPL.BUILD
@@ -130,7 +130,7 @@ the development server's URL layout (R-WEB-003.C5) as static files, so the test 
 
 | Published | From |
 |---|---|
-| `/gallery/index.html` | a meta refresh and a link to `pages/packs.html` (C29) |
+| `/gallery/index.html` | a meta refresh and a link to `pages/index.html`, the gallery home page (C29, R-WEB-006) |
 | `/gallery/pages/` | `typescript/pages/` |
 | `/gallery/dist/` | `typescript/dist/` (the built package, `dist/shared/` included) |
 | `/gallery/shared/reference/`, `/gallery/shared/patterns/` | the same folders of `shared/` |
@@ -188,3 +188,4 @@ something not in any menu: [a starship console](../demos/eggs/lcars/),
 | 0.3.19 | 2026-11-27 | Pack gallery published at /gallery/ and tested before upload; Gallery header tab on both sites (#19) |
 | 0.3.20 | 2026-11-26 | Audit: development setup covers the TypeScript build and test |
 | 0.3.29 | 2026-11-27 | Audit: vio-docs replaces sio-docs; Python 3.11+ interpreter named in the setup |
+| 0.3.33 | 2026-11-27 | The `/gallery/` redirect goes to the home page, `pages/index.html` (#62) |
