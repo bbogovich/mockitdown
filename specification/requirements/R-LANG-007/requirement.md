@@ -2,8 +2,8 @@
 id: R-LANG-007
 title: Calls, modifier chains and closures
 status: active
-version: 0.10.0
-rev: 1
+version: 0.13.24
+rev: 2
 page: LANG.1
 slot: reqs
 order: 7
@@ -12,7 +12,7 @@ realizes: [F-2]
 constrained_by: [A-SYN-2]
 decisions: [ADR-2]
 reverse_engineered: true
-hash: ba3547bf7f0f
+hash: a4f5c08d47b1
 ---
 
 C1: The parser MUST parse an argument list as `(` zero or more arguments separated by `,` `)`, each optionally labelled `label:` where the label may be an identifier or a keyword, with line feeds allowed between arguments.

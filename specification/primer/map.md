@@ -111,7 +111,7 @@ R-EDIT-008 | requirements | active | 0.13.15 r5 | WEB.3 | Commands: duplicate, c
 R-EDIT-009 | requirements | active | 0.13.22 r7 | WEB.3 | Commands: wrap, unwrap, convert and extract component
 R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
-R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
+R-EVAL-003 | requirements | active | 0.13.24 r3 | LANG.2 | Name resolution for views
 R-EVAL-004 | requirements | active | 0.13.12 r3 | LANG.2 | Binding element arguments
 R-EVAL-005 | requirements | active | 0.13.1 r3 | LANG.2 | Instantiating struct components
 R-EVAL-006 | requirements | active | 0.2.0 r0 | LANG.2 | ForEach
@@ -135,7 +135,7 @@ R-LANG-003 | requirements | active | 0.12.0 r1 | LANG.1 | Module structure
 R-LANG-004 | requirements | active | 0.12.0 r1 | LANG.1 | Struct declarations
 R-LANG-005 | requirements | active | 0.2.0 r0 | LANG.1 | Statements
 R-LANG-006 | requirements | active | 0.12.9 r2 | LANG.1 | Expressions and operators
-R-LANG-007 | requirements | active | 0.10.0 r1 | LANG.1 | Calls, modifier chains and closures
+R-LANG-007 | requirements | active | 0.13.24 r2 | LANG.1 | Calls, modifier chains and closures
 R-LANG-008 | requirements | active | 0.12.9 r1 | LANG.1 | Collection and tuple literals
 R-LANG-009 | requirements | active | 0.2.0 r0 | LANG.1 | Syntax errors
 R-MDX-001 | requirements | active | 0.12.10 r1 | MDX.1 | Integration points

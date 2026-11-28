@@ -1,6 +1,6 @@
 ---
 title: "Language: semantics"
-spec_version: 0.13.12
+spec_version: 0.13.24
 status: draft
 updated: 2026-11-28
 page_id: LANG.2
@@ -87,10 +87,16 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_unknown_element_is
 
 **R-EVAL-003.TC-2 — Dotted element names**
 
-Conformance cases `eval-dotted-names` in both suites: in a pack with `BadgeRibbon`, `Badge.Ribbon("New")`
-renders the same element as `BadgeRibbon("New")` with `data-el="Badge.Ribbon"`; `Color.red` still makes a
-colour; `Nope.Thing()` is an `unknown` error naming `Nope.Thing`; a `let` named `Badge` makes
-`Badge.Ribbon` a member access, not a dotted name.
+Conformance cases `eval-dotted-names`, `eval-dotted-names-unknown` and `eval-dotted-names-variable` in both
+suites (pack `antd`): `Badge.Ribbon("New")` renders the same element as `BadgeRibbon("New")` with
+`data-el="Badge.Ribbon"`; `Color.red` still makes a colour; `Nope.Thing { Text("in") }` is an `unknown`
+error naming `Nope.Thing`, its `unknown` view holding the `Text`; a `let` named `Badge` makes
+`Badge.Ribbon` a member access (an unknown-modifier warning), not a dotted name.
+
+Unit tests in both suites, `python/tests/test_dotted_names.py` and `typescript/tests/unit/dotted-names.test.ts`:
+the same cases, plus a dotted call with modifiers and as a `let` value, a dotted call resolving a struct
+of the joined name (`Card.Meta()` calls `CardMeta`), a three-part name (`A.B.C()`) and edit mode marking the
+dotted node (`data-mkd-node`).
 
 **R-EVAL-003.TC-3 — Qualified components in resolution order**
 
@@ -110,7 +116,7 @@ With library `acme` declaring `Card` and the pack also having a `Card` element, 
 | C8 | If an expression that cannot produce views appears where views are expected, then the evaluator MUST report "this expression does not produce a view" with code `view`. |
 | V1 | With a struct `Card` declared in the block, `Card("x")` instantiates the struct even when the pack also has a `Card` element; `Foo()` with no such struct or element is an `unknown` error and an `unknown` view. |
 | C9 | When a call's callee is a dotted name `A.B` (or `A.B.C`) whose parts all begin with an uppercase letter and whose first part is neither a variable in scope nor `Color`, the evaluator MUST resolve the call as C1 resolves the joined name (`AB`), so that `Badge.Ribbon(…)` calls the element `BadgeRibbon`. |
-| C10 | The view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name. |
+| C10 | The element view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name, its `unknown` view named by it; a dotted call that resolves to a struct produces the struct's views. |
 
 ---
 
@@ -403,6 +409,7 @@ closures produce no views and no diagnostics (C5).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.24 | 2026-11-28 | as built (#45): C10 names the element and unknown views of a dotted call (a struct gives its own views); TC-2 names the eval-dotted-names cases and the unit tests |
 | 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): C7 element aliases and closure or view values; C8 the reads lists of shared/language/roles.json; C11 no rule, no warning; C12 the Python guard over the corpus; V2; TC-1 names the tests |
 | 0.13.1 | 2026-11-28 | as built (#84): C10 names where the error is reported (first use), the first cycle in source order, own-property names not counted, no used-component entry; TC-3 names its tests; prose explains cycle detection |
@@ -413,6 +420,7 @@ closures produce no views and no diagnostics (C5).
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): C7 element aliases and closure or view values; C8 the reads lists of shared/language/roles.json; C11 no rule, no warning; C12 the Python guard over the corpus; V2; TC-1 names the tests |
 | 0.13.1 | 2026-11-28 | as built (#84): C10 names where the error is reported (first use), the first cycle in source order, own-property names not counted, no used-component entry; TC-3 names its tests; prose explains cycle detection |
 | 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |

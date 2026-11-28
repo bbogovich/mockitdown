@@ -1,8 +1,8 @@
 ---
 title: "Language: syntax"
-spec_version: 0.12.9
+spec_version: 0.13.24
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: LANG.1
 ---
 
@@ -211,6 +211,9 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_modifier_chain_across_line
 Parser unit tests in both suites: `Badge.Ribbon("New")` and `Card.Meta { Text("x") }` parse as calls with a
 member-access callee; `Text("a").font(.title)` still parses as a modifier chain.
 
+Automated by `python/tests/test_syntax.py::DottedCalleeTests` and the parser tests of
+`typescript/tests/unit/dotted-names.test.ts`.
+
 **Realizes.** F-2 · **Decisions.** ADR-2
 
 | | Statement |
@@ -274,11 +277,13 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_errors_are_located` and
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.24 | 2026-11-28 | as built (#45): the parser already parsed dotted callees (C8); TC-2 names the tests |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 verifies C1-C8; prose notes chained tuple indexes (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 verifies C1-C8; prose notes chained tuple indexes (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |

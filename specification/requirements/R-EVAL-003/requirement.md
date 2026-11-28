@@ -2,8 +2,8 @@
 id: R-EVAL-003
 title: Name resolution for views
 status: active
-version: 0.12.0
-rev: 2
+version: 0.13.24
+rev: 3
 page: LANG.2
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-2, SRC-12]
 realizes: [F-2, F-3, F-4]
 constrained_by: [A-EVAL-1, A-PACK-1]
 reverse_engineered: true
-hash: 7931eba27b14
+hash: 6f4828f542de
 refs: [M-VIEW-1, R-IMP-007]
 ---
 
@@ -25,4 +25,4 @@ C7: When a member access without parentheses (`view.modifier`) appears where vie
 C8: If an expression that cannot produce views appears where views are expected, then the evaluator MUST report "this expression does not produce a view" with code `view`.
 V1: With a struct `Card` declared in the block, `Card("x")` instantiates the struct even when the pack also has a `Card` element; `Foo()` with no such struct or element is an `unknown` error and an `unknown` view.
 C9: When a call's callee is a dotted name `A.B` (or `A.B.C`) whose parts all begin with an uppercase letter and whose first part is neither a variable in scope nor `Color`, the evaluator MUST resolve the call as C1 resolves the joined name (`AB`), so that `Badge.Ribbon(…)` calls the element `BadgeRibbon`.
-C10: The view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name.
+C10: The element view of a dotted call MUST keep the dotted name as written as its name (M-VIEW-1.F1), and an unresolved dotted call MUST be reported by C2 with the dotted name, its `unknown` view named by it; a dotted call that resolves to a struct produces the struct's views.

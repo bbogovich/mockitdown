@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.39
+impl_version: 0.3.61
 status: draft
 updated: 2026-11-28
 page_id: IMPL.CONF
@@ -58,6 +58,7 @@ repository path.
 | `present-` | 22 | the SwiftUI Alert, ConfirmationDialog, Popover, Sheet, Tab, TabView and NavigationSplitView from their declared samples and every TabView and NavigationSplitView variant; Button children as alert and confirmation actions; a confirmation dialog on a tablet; a lone Tab; unlabelled two- and three-column split views; a content closure on a tablet; the `.popover` arrow |
 | `image-` | 9 | data URI, remote, protocol-relative, placeholder, icons, avatar, modifiers |
 | `lang-` | 11 | let/if, ForEach, inline Markdown, fonts, layout modifiers, colours, escaping; operators, a ternary over three lines and the text of values (`lang-expressions`, R-LANG-006, R-EVAL-008) |
+| `eval-` | 3 | name resolution (R-EVAL-003.TC-2, pack `antd`): `eval-dotted-names` (`Badge.Ribbon` beside `BadgeRibbon`, `Color.red`), `-unknown` (`Nope.Thing` under its dotted name), `-variable` (a `let Badge` makes a member access) |
 | `edit-` | 11 | edit-mode rendering (`edit: true`, R-EDIT-004.C9): nested stacks and a bare identifier, a list of cards, modifier chains with a view in an overlay, labelled closures and a view-valued argument, an alert and a sheet, `ForEach` (with an `if` inside), `if`/`else` and `else if`, a struct with passed content, a string literal and variables, an imported component, marks with the Elements table and the source |
 | `diag-` | 17 | syntax errors, unknown element/module/pack/device/chrome/appearance/icon, imports, images, shown warnings |
 
@@ -107,3 +108,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.32 | 2026-11-27 | `pack-hologram-own-*`, `pack-lcars-own-*`, `pack-phosphor-own-*`: the hidden packs' own elements (683 cases) (#61) |
 | 0.3.36 | 2026-11-27 | `gen_conformance.py` skips `edit/`, the edit corpus (#21) |
 | 0.3.39 | 2026-11-28 | `edit-*` cases and the `edit` option key (694 cases); every case also renders unchanged with `edit: false` in both suites (#23) |
+| 0.3.61 | 2026-11-28 | `eval-*` area: the dotted-name cases (698 cases) (#45) |

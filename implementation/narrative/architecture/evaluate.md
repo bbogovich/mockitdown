@@ -1,6 +1,6 @@
 ---
 title: Evaluation
-impl_version: 0.3.49
+impl_version: 0.3.61
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EVAL
@@ -36,6 +36,25 @@ Two mutually recursive entry points:
 
 - `views(expr, env)` — where a view is expected: calls go to `_call_view` (ForEach → struct →
   variable → pack element → unknown) or `_apply_modifier` for member calls; literals become `Text`.
+  A member call whose callee is a dotted name goes to `_call_view` instead (below).
+
+## Dotted element names — `_dotted`
+
+`Badge.Ribbon("New")` parses as a call on a member callee (R-LANG-007.C8; the parser needed no change).
+`_dotted(callee, env)` (TypeScript: the module function `dottedName` in `evaluate.ts`) returns the
+dotted name `Badge.Ribbon` when the callee is a chain of members on an identifier, every part begins
+with an uppercase letter (`str.isupper` on the first character; `/^\p{Lu}/u`), the first part is not
+`Color` and not a variable in scope, and the identifier is no `$binding`; otherwise `None`, and the
+call stays a modifier call (`let Badge = "x"` then `Badge.Ribbon("New")` warns "unknown modifier
+.Ribbon() is ignored"). `views` then calls `_call_view(joined, call, env, written=dotted)`: C1's order
+for the joined name `BadgeRibbon` (ForEach, struct, variable, pack element), an element view renamed
+to the dotted name (so `data-el="Badge.Ribbon"`), or the C2 error and an `unknown` view under the
+dotted name; a struct `CardMeta` gives its own views (R-EVAL-003.C9, C10). `_is_view_expr` answers
+for a dotted call by whether its joined name resolves, and `_call_value` makes a resolving dotted
+call a `ViewList`, so `let r = Badge.Ribbon("New")` and `Badge.Ribbon("New").padding()` work; an
+unresolved dotted call in a value position stays an `EnumValue` as before. Edit mode needs nothing
+new: `syntax/nodes.py` (and `tree.ts`) already made a dotted call one view node. Packs keep their
+joined names. Tests: IT-73.
 - `value(expr, env)` — where a value is expected: literals, collections, enum values, members
   (`_member_value`), calls (`_call_value`: `.constant(x)`, view calls → `ViewList`, unknown callees
   → `CallValue`), operators (`_binary`), ranges and subscripts. `format_value` writes floats with
@@ -124,3 +143,4 @@ Where they relied on a label being dropped, the fix went where the label belonge
 | 0.3.38 | 2026-11-28 | Self-embedding structs rejected by cycle detection before expansion; the depth limit kept as a backstop (R-EVAL-005.C10, C11); IT-50 (#84) |
 | 0.3.48 | 2026-11-28 | Unknown labelled arguments warned in both variants (`_understood`, `roles.py`, `Arg.loc`, `Ident.binding`); the fixes that keep the shipped content clean; IT-60 (#32) |
 | 0.3.49 | 2026-11-28 | The labels come from the `params` keys; a label an element's `types` names is understood (#33) |
+| 0.3.61 | 2026-11-28 | Dotted element names (`_dotted`, `dottedName`): `Badge.Ribbon(…)` calls `BadgeRibbon` and keeps its name; IT-73 (#45) |
