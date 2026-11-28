@@ -191,6 +191,26 @@ mockupOptions(session.document, "Inbox");             // defaults under the mock
 `writeDesign(readDesign(text).document)` gives `text` back for any text it wrote. Reading and writing
 files, and converting a design to Markdown or HTML, stay with the host.
 
+#### Undo and redo
+
+Every operation, command and code change made through the session is one step of the session's undo
+history, one history per session (so per opened document), keeping the latest 200 steps
+(`historyLimit` may raise it). A step holds the mockup's code and tree, options and position before and
+after the change, and the active mockup and selection on either side.
+
+```js
+session.undo();          // one "change" with the inverse edits; the selection from before the step
+session.redo();          // one "change" with the step's edits; the selection from after it
+session.canUndo;         // whether a step can be undone (canRedo: redone)
+session.setCode("Inbox", code, { coalesce: "code" });   // a burst of typing: one step
+```
+
+A change made with the same `coalesce` key as the latest step (same mockup, same kind of change) within
+1000 ms of that step's last change is merged into it; an undo or a redo ends the burst, and a burst that
+comes back to where it started leaves no step. `apply`, `setText`, `setOptions` and `moveMockup` take the
+same `{coalesce}` argument; without one every change is a step of its own. A new step after an undo drops
+the steps that could have been redone. `new DesignSession(doc, { now })` gives coalescing another clock.
+
 ### The editor element
 
 `<mockitdown-editor>` (from the package entry) is the editable view of one mockup of a design session:
@@ -238,7 +258,7 @@ the editor does; to share an editor's, set it: `outline.session = editor.session
 ### The designer element
 
 `<mockitdown-designer>` composes the design tools over one design document: a toolbar (Design, Preview
-and Code; Outline and Properties toggles; the active mockup, its pack and device), the outline above the
+and Code; Undo and Redo; Outline and Properties toggles; the active mockup, its pack and device), the outline above the
 gallery on the left (240 px), the editable view, the properties panel on the right (260 px) and a
 status bar (diagnostic count and a breadcrumb whose crumbs select their node).
 
@@ -257,6 +277,9 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
   `-diagnostics`. `d.document` returns `toJSON()`; setting it opens a document.
 - Delete or Backspace with the focus in the outline or the view deletes the selection
   (`session.delete()`): one change, then the next sibling, else the previous one, else the parent is selected.
+- Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y redo (`session.undo()`, `session.redo()`) while the
+  focus is in the designer but not in a text field; the toolbar's Undo and Redo buttons (parts `undo`,
+  `redo`) are enabled by `canUndo` and `canRedo`. Neither works in Preview mode.
 - `mode` (attribute and property): `design` (default), `preview` (every mockup read-only through
   `mockitdown-mockup` with its options, a list of the mockups and a Light, Dark, Both toggle) or `code`
   (the active mockup's code). An unknown value means `design`.

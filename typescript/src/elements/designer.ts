@@ -2,7 +2,7 @@
  * `<mockitdown-designer>`: the composite designer (R-TOOL-003, A-WEB-5). It owns a design session
  * (R-EDIT-006) that its components join, and lays the design tools out in panels:
  *
- *   ┌ toolbar: mode switch (Design, Preview, Code) · panel toggles · mockup, pack and device ┐
+ *   ┌ toolbar: mode switch · Undo, Redo · panel toggles · mockup, pack and device ───────────┐
  *   │ outline (240 px)  │                                    │ properties (260 px)          │
  *   │ gallery           │ the editable view                  │                              │
  *   └ status bar: diagnostic count · breadcrumb ──────────────────────────────────────────────┘
@@ -27,7 +27,10 @@
  * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
  * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code;
  * the code view itself comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
- * view delete the selection through `session.delete()`. The gallery panel holds `mockitdown-gallery`
+ * view delete the selection through `session.delete()`. Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
+ * redo (R-EDIT-007.C10) while the focus is in the designer but not in a text field, outside Preview
+ * mode; the toolbar's Undo and Redo buttons are enabled by `session.canUndo` and `session.canRedo`.
+ * The gallery panel holds `mockitdown-gallery`
  * (R-TOOL-004); the properties panel holds a placeholder until the inspector exists. The designer holds
  * no editing rule of its own (A-WEB-5.K2).
  */
@@ -94,6 +97,8 @@ const DESIGNER_CSS = `:host{display:block;position:relative;height:32rem;font:13
 .mkd-designer__toolbar{display:flex;align-items:center;gap:8px;padding:4px 8px;border-bottom:1px solid var(--mkd-designer-border,#d0d0d7);background:var(--mkd-designer-bar-background,#f6f6f8);min-height:32px;box-sizing:border-box}
 .mkd-designer__toolbar button{font:inherit;color:inherit;background:none;border:1px solid transparent;border-radius:5px;padding:2px 8px;cursor:pointer}
 .mkd-designer__toolbar button:hover{border-color:var(--mkd-designer-border,#d0d0d7)}
+.mkd-designer__toolbar button:disabled{opacity:.4;cursor:default;border-color:transparent}
+.mkd-designer__history{display:flex;gap:2px}
 .mkd-designer__toolbar button[aria-checked="true"],.mkd-designer__toolbar button[aria-pressed="true"]{background:var(--mkd-designer-pressed-background,#e2e4ea)}
 .mkd-designer__modes,.mkd-designer__appearance{display:flex;gap:2px}
 .mkd-designer__appearance[hidden]{display:none}
@@ -138,6 +143,10 @@ const SHADOW_HTML = `<style>${DESIGNER_CSS}</style><div class="mkd-designer" par
   + `<div class="mkd-designer__toolbar" part="toolbar"><slot name="toolbar">`
   + `<div class="mkd-designer__modes" role="radiogroup" aria-label="Mode">`
   + DESIGNER_MODES.map((m) => `<button type="button" role="radio" part="mode" data-mode="${m}" aria-checked="false">${m[0]!.toUpperCase()}${m.slice(1)}</button>`).join("")
+  + `</div>`
+  + `<div class="mkd-designer__history" role="group" aria-label="History">`
+  + `<button type="button" class="mkd-designer__undo" part="undo" title="Undo (Cmd/Ctrl+Z)" disabled>Undo</button>`
+  + `<button type="button" class="mkd-designer__redo" part="redo" title="Redo (Shift+Cmd/Ctrl+Z)" disabled>Redo</button>`
   + `</div>`
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="left" aria-pressed="true" title="Show or hide the outline and the gallery">Outline</button>`
   + `<button type="button" class="mkd-designer__toggle" part="toggle" data-panel="right" aria-pressed="true" title="Show or hide the properties">Properties</button>`
@@ -194,6 +203,7 @@ export class DesignerElement extends Base {
     main: HTMLElement; left: HTMLElement; right: HTMLElement; leftEdge: HTMLElement; rightEdge: HTMLElement;
     view: HTMLElement; code: HTMLElement; preview: HTMLElement; previewList: HTMLElement; frames: HTMLElement;
     appearance: HTMLElement; name: HTMLElement; pack: HTMLElement; device: HTMLElement;
+    undo: HTMLButtonElement; redo: HTMLButtonElement;
     diagnostics: HTMLElement; breadcrumb: HTMLElement; selected: HTMLElement;
     editor: HTMLElement; outline: HTMLElement; gallery: HTMLElement;
   };
@@ -210,6 +220,7 @@ export class DesignerElement extends Base {
       previewList: q(".mkd-designer__preview-list"), frames: q(".mkd-designer__frames"),
       appearance: q(".mkd-designer__appearance"), name: q(".mkd-designer__name"), pack: q(".mkd-designer__pack"),
       device: q(".mkd-designer__device"), diagnostics: q(".mkd-designer__diagnostics"),
+      undo: q(".mkd-designer__undo"), redo: q(".mkd-designer__redo"),
       breadcrumb: q(".mkd-designer__breadcrumb"), selected: q(".mkd-designer__selected"),
       editor: q("mockitdown-editor"), outline: q("mockitdown-outline"), gallery: q("mockitdown-gallery"),
     };
@@ -234,6 +245,8 @@ export class DesignerElement extends Base {
         this.#drawAppearance();
       });
     }
+    this.#el.undo.addEventListener("click", () => this.#history("undo"));
+    this.#el.redo.addEventListener("click", () => this.#history("redo"));
     for (const edge of [this.#el.leftEdge, this.#el.rightEdge]) this.#makeResizable(edge);
     for (const slot of this.#root.querySelectorAll("slot")) slot.addEventListener("slotchange", () => this.#giveSlotted(slot));
     this.addEventListener("keydown", (e) => this.#onKey(e));
@@ -408,19 +421,43 @@ export class DesignerElement extends Base {
 
   // --- keys ---------------------------------------------------------------------------------------
 
-  /** Delete or Backspace with the focus in the outline or the view deletes the selection (C11). */
+  /**
+   * Delete or Backspace with the focus in the outline or the view deletes the selection (C11);
+   * Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y redo anywhere in the designer (R-EDIT-007.C10).
+   * Neither in a text field, nor in Preview mode.
+   */
   #onKey(e: KeyboardEvent): void {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    if (e.key !== "Delete" && e.key !== "Backspace") return;
+    if (e.defaultPrevented || e.altKey) return;
     if (this.mode === "preview") return;
     const path = e.composedPath();
     const first = path[0];
     if (first instanceof HTMLElement && (first.isContentEditable || first.localName === "input" || first.localName === "textarea" || first.localName === "select")) return;
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    const command = e.ctrlKey || e.metaKey;
+    if (command && key === "z") {
+      e.preventDefault();
+      this.#history(e.shiftKey ? "redo" : "undo");
+      return;
+    }
+    if (e.ctrlKey && !e.metaKey && !e.shiftKey && key === "y") {
+      e.preventDefault();
+      this.#history("redo");
+      return;
+    }
+    if (command || e.shiftKey) return;
+    if (e.key !== "Delete" && e.key !== "Backspace") return;
     const inTools = path.some((t) => t instanceof Element && COMPONENT_TAGS.has(t.localName)
       && (t as unknown as { session?: unknown }).session === this.#session);
     if (!inTools || !this.#session.selection.length) return;
     e.preventDefault();
     this.#session.delete();
+  }
+
+  /** Undo or redo one step of the session's history (R-EDIT-007.C3); nothing in Preview mode. */
+  #history(which: "undo" | "redo"): void {
+    if (this.mode === "preview") return;
+    if (which === "undo") this.#session.undo();
+    else this.#session.redo();
   }
 
   #onModeKey(e: KeyboardEvent): void {
@@ -501,6 +538,7 @@ export class DesignerElement extends Base {
     this.#el.appearance.hidden = mode !== "preview";
     for (const b of this.#root.querySelectorAll<HTMLElement>(".mkd-designer__toggle")) b.hidden = mode === "preview";
     this.#drawLayout();
+    this.#drawHistory();
     if (mode === "preview") this.#drawPreviews();
     else this.#el.frames.replaceChildren();
     if (mode !== "preview") {
@@ -646,7 +684,15 @@ export class DesignerElement extends Base {
     this.#el.breadcrumb.replaceChildren(...crumbs);
     // The properties placeholder names the selection.
     this.#el.selected.textContent = first ? `${first.name}${sel.length > 1 ? ` and ${sel.length - 1} more` : ""}` : "Nothing selected";
+    this.#drawHistory();
     this.#drawCode();
+  }
+
+  /** The toolbar's Undo and Redo follow `canUndo` and `canRedo` (R-EDIT-007.C10); disabled in Preview mode. */
+  #drawHistory(): void {
+    const preview = this.mode === "preview";
+    this.#el.undo.disabled = preview || !this.#session.canUndo;
+    this.#el.redo.disabled = preview || !this.#session.canRedo;
   }
 }
 
