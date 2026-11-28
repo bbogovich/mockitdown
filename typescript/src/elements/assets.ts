@@ -30,7 +30,7 @@ export function defaultAssetsUrl(): string {
 }
 
 /**
- * Fetch `manifest.json` from `base`, then `vocabulary.json`, `page.css`, `icons.json` and, for every
+ * Fetch `manifest.json` from `base`, then `vocabulary.json`, `page.css`, `icons.json`, `roles.json` and, for every
  * pack the manifest lists, `packs/<id>/pack.json` and (when listed) `pack.css`; load them into the
  * core. Calls with the same base share one load; a failed load is forgotten so it can be retried.
  * Resolves to the manifest.
@@ -60,16 +60,17 @@ async function load(href: string, fetcher: Fetch): Promise<SharedManifest> {
   };
   const manifest = JSON.parse(await get("manifest.json")) as SharedManifest;
   const files = new Set(manifest.files);
-  const [vocabulary, pageCss, icons, packs] = await Promise.all([
+  const [vocabulary, pageCss, icons, roles, packs] = await Promise.all([
     get("vocabulary.json"),
     files.has("page.css") ? get("page.css") : Promise.resolve(""),
     files.has("icons.json") ? get("icons.json") : Promise.resolve(""),
+    files.has("roles.json") ? get("roles.json") : Promise.resolve(""),
     Promise.all(manifest.packs.map(async (id): Promise<[string, PackData]> => {
       const css = `packs/${id}/pack.css`;
       const [json, text] = await Promise.all([get(`packs/${id}/pack.json`), files.has(css) ? get(css) : Promise.resolve("")]);
       return [id, { json, css: text }];
     })),
   ]);
-  loadAssets({ vocabulary, packs: new Map(packs), pageCss, icons: icons || undefined });
+  loadAssets({ vocabulary, packs: new Map(packs), pageCss, icons: icons || undefined, roles: roles || undefined });
   return manifest;
 }

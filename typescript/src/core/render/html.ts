@@ -572,3 +572,6 @@ const ROLES: Record<string, RoleFn> = {
       + `${this.views(v.children)}</div>`;
   },
 };
+
+/** The render roles: one handler each (the role catalogue, REF.2; each has a rule in roles.json, R-PACK-016.C1). */
+export const RENDER_ROLES: readonly string[] = Object.freeze(Object.keys(ROLES));

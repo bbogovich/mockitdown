@@ -7,7 +7,7 @@
 //   node scripts/copy-shared.mjs --check   exit 1 and list what differs
 //
 // dist/shared/ layout (the same names as in the Python package):
-//   page.css  icons.json  vocabulary.json  packs/<id>/pack.json  packs/<id>/pack.css
+//   page.css  icons.json  vocabulary.json  roles.json  packs/<id>/pack.json  packs/<id>/pack.css
 //   manifest.json   {"packs": [ids, sorted], "files": [every copied path]} for loaders
 //
 // Files are copied byte for byte, except a pack.css that includes stylesheet partials
@@ -24,7 +24,10 @@ const PKG = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SHARED = join(PKG, "..", "shared");
 const OUT = join(PKG, "dist", "shared");
 
-const FIXED = { "css/page.css": "page.css", "icons/icons.json": "icons.json", "language/vocabulary.json": "vocabulary.json" };
+const FIXED = {
+  "css/page.css": "page.css", "icons/icons.json": "icons.json", "language/vocabulary.json": "vocabulary.json",
+  "language/roles.json": "roles.json",
+};
 const PACK_FILES = ["pack.json", "pack.css"];
 
 // ---- stylesheet partials (R-PACK-018) --------------------------------------------------------------

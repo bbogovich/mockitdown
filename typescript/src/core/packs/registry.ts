@@ -40,9 +40,12 @@ export class ElementDef {
   readonly doc: string;
   /** Argument label → attribute name for this element only (e.g. SAP `type:` → `variant`), sorted. */
   readonly attrs: readonly (readonly [string, string])[];
+  /** `rules` of its `pack.json` entry: the `accepts` narrowing its role's for this element (R-PACK-016.C5), or null. */
+  readonly rules: { readonly accepts: readonly string[] } | null;
 
   constructor(name: string, role: string, params: readonly string[] = [], defaults: readonly (readonly [string, Value])[] = [],
-    variants: readonly string[] = [], doc = "", attrs: readonly (readonly [string, string])[] = []) {
+    variants: readonly string[] = [], doc = "", attrs: readonly (readonly [string, string])[] = [],
+    rules: { readonly accepts: readonly string[] } | null = null) {
     this.name = name;
     this.role = role;
     this.params = params;
@@ -50,6 +53,7 @@ export class ElementDef {
     this.variants = variants;
     this.doc = doc;
     this.attrs = attrs;
+    this.rules = rules;
     Object.freeze(this);
   }
 
@@ -154,7 +158,14 @@ function makeElement(name: string, raw: unknown, where: string): ElementDef {
     list(d.get("variants", [])) as string[],
     d.get("doc", "") as string,
     sortedItems(dict(d.get("attrs", new PyDict()))) as [string, string][],
+    elementRules(d.get("rules", null)),
   );
+}
+
+/** An element's `rules` (R-PACK-016.C5): `{accepts}` with the role and `@category` names, or null. */
+function elementRules(raw: unknown): { readonly accepts: readonly string[] } | null {
+  if (!(raw instanceof PyDict) || !raw.has("accepts")) return null;
+  return Object.freeze({ accepts: Object.freeze(list(raw.get("accepts")).map((x) => pyStr(x))) });
 }
 
 function toDict(json: PackData["json"], where: string): PyDict<Value> {

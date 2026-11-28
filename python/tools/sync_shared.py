@@ -4,8 +4,8 @@
     python tools/sync_shared.py            # bring the package copy up to date
     python tools/sync_shared.py --check    # exit 1 and list what differs
 
-`shared/` (beside `python/`) is the only place the packs, the page stylesheet, the icon table and
-the modifier vocabulary are written; the repository's `LICENSE` is copied beside `pyproject.toml` the
+`shared/` (beside `python/`) is the only place the packs, the page stylesheet, the icon table, the
+modifier vocabulary and the role rule table are written; the repository's `LICENSE` is copied beside `pyproject.toml` the
 same way. The package never reads `shared/` at run time: `setup.py` runs `sync()` at every build from
 a repository checkout (wheel, sdist, editable install), and the copies travel in the sdist, so a
 build from the sdist needs no `shared/`. The copies are ignored by git.
@@ -35,6 +35,7 @@ FIXED = {
     "css/page.css": "page.css",
     "icons/icons.json": "icons.json",
     "language/vocabulary.json": "vocabulary.json",
+    "language/roles.json": "roles.json",
 }
 PACK_FILES = ("pack.json", "pack.css")
 #: The repository's LICENSE goes beside pyproject.toml, where setuptools puts it into the dist-info.

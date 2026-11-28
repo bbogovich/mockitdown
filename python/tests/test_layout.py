@@ -34,7 +34,7 @@ class LayoutTests(unittest.TestCase):
 
     def test_no_pack_outside_shared(self):  # R-REPO-002 TC-2, TC-4 step 1 (C1 to C4)
         # The build outputs are ignored by git; the R-PACK-018 test fixture is not a built-in pack.
-        names = ("pack.json", "pack.css", "page.css", "icons.json", "vocabulary.json")
+        names = ("pack.json", "pack.css", "page.css", "icons.json", "vocabulary.json", "roles.json")
         stray = [f for f in _files() if f.rsplit("/", 1)[-1] in names
                  and not f.startswith(("shared/", FIXTURES))]
         self.assertEqual(stray, [])

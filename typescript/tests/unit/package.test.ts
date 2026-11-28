@@ -30,7 +30,7 @@ test("the build emits ES modules with declarations and dist/shared/ (C2)", () =>
   }
   const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { packs: string[]; files: string[] };
   assert.ok(manifest.packs.includes("base") && manifest.packs.length >= 38);
-  for (const f of ["page.css", "icons.json", "vocabulary.json", "packs/base/pack.json", "packs/base/pack.css"]) {
+  for (const f of ["page.css", "icons.json", "vocabulary.json", "roles.json", "packs/base/pack.json", "packs/base/pack.css"]) {
     assert.ok(manifest.files.includes(f), f);
     assert.equal(readFileSync(join(PKG, "dist/shared", f), "utf8"), readFileSync(join(REPO, "shared", sharedPath(f)), "utf8"),
       `dist/shared/${f} is a copy of shared/`);
@@ -38,7 +38,7 @@ test("the build emits ES modules with declarations and dist/shared/ (C2)", () =>
 });
 
 function sharedPath(f: string): string {
-  return ({ "page.css": "css/page.css", "icons.json": "icons/icons.json", "vocabulary.json": "language/vocabulary.json" } as Record<string, string>)[f] ?? f;
+  return ({ "page.css": "css/page.css", "icons.json": "icons/icons.json", "vocabulary.json": "language/vocabulary.json", "roles.json": "language/roles.json" } as Record<string, string>)[f] ?? f;
 }
 
 // R-PACK-018 TC-1: stylesheet partials.

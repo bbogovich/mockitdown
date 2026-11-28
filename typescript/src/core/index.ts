@@ -6,7 +6,7 @@
 export { check, errorHtml, evaluate, render, RenderResult, stylesheet, type Evaluation } from "./api.js";
 export { AssetResolver } from "./asset-resolver.js";
 export { iconSvg, normalize as normalizeIconName, resolveIcon } from "./icons.js";
-export { anchorPrefix, elementsTable, Renderer, renderScreen } from "./render/index.js";
+export { anchorPrefix, elementsTable, Renderer, RENDER_ROLES, renderScreen } from "./render/index.js";
 export { sha1Hex } from "./sha1.js";
 export { assetsLoaded, iconTable, loadAssets, pageCss, type SharedAssets, type SharedManifest } from "./assets.js";
 export { clearComponents, registerComponents } from "./components.js";
@@ -35,3 +35,7 @@ export {
 export * as pyformat from "./pyformat.js";
 export * as values from "./values.js";
 export { IGNORED, NEUTRAL_MODULES, RENDERED, setVocabulary } from "./vocabulary.js";
+export {
+  allowedChildren, canContain, expandAccepts, ROLE_CATEGORIES, roleRule, rolesLoaded, setRoles,
+  type AllowedChildren, type ContainResult, type RoleAttach, type RoleCategory, type RoleRule,
+} from "./roles.js";

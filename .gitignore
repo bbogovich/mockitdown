@@ -55,6 +55,7 @@ python/dist/
 python/src/mockitdown/page.css
 python/src/mockitdown/icons.json
 python/src/mockitdown/vocabulary.json
+python/src/mockitdown/roles.json
 python/src/mockitdown/packs/*/
 
 # The repository LICENSE, copied beside pyproject.toml at build time

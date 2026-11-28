@@ -38,7 +38,7 @@ release after the GitHub release exists is followed by the next patch version (A
 - `dist/design.js` (`mockitdown/design`) — design documents (`.mkdesign`) and the design session, for
   design tools and for hosts such as a desktop shell; no DOM, network or file system.
 - `dist/shared/` — the packs (`packs/<id>/pack.json`, `pack.css`), `page.css`, `icons.json`,
-  `vocabulary.json` and `manifest.json` (the pack ids and files, for loaders), copied from `shared/` at
+  `vocabulary.json`, `roles.json` (the role rules) and `manifest.json` (the pack ids and files, for loaders), copied from `shared/` at
   build time.
 
 The core (`src/core/`) touches no DOM, network or file system: the shared assets reach it as data,
@@ -117,6 +117,25 @@ render('VStack { ForEach(["Mon", "Tue"], id: \\.self) { d in Text(d) } }', { edi
 //   <span class="mkd-text" data-el="Text" data-mkd-node="n3" data-mkd-derived="n2" …>Mon</span> …
 tree.byOrdinal("n3");                                 // the ViewNode, with its stable id
 ```
+
+### Role rules
+
+Which elements may go where is decided by render role, from `shared/language/roles.json` (copied to
+`dist/shared/roles.json` and loaded with the other assets). A pack element inherits its role's rule
+(`VBtn` behaves as a button); `rules: {"accepts": [...]}` in its `pack.json` entry can only narrow it.
+Rendering never reads the table; design tools ask:
+
+```js
+import { allowedChildren, canContain } from "mockitdown";
+
+canContain("base", "HStack", "NavigationSplitView"); // {ok: false, reason: "A frame cannot be placed inside a horizontal stack"}
+canContain("vuetify", "VCard", "VBtn");              // {ok: true}: a card holds a button
+canContain("base", null, "NavigationStack");         // null is the root of a mockup
+allowedChildren("base", "HStack");                   // {allowed: ["VStack", "HStack", …], refused: [{reason, elements}, …]}
+```
+
+An element the pack does not define (a struct, a typo) has role `unknown`: as a parent it accepts
+everything, as a child it is accepted by any parent that holds children.
 
 ### Design documents
 

@@ -1054,7 +1054,12 @@
         "alignment": "stretch",
         "spacing": 0
       },
-      "doc": "sap.uxap.ObjectPageLayout { ObjectPageHeader; AnchorBar; ObjectPageSection … }"
+      "doc": "sap.uxap.ObjectPageLayout { ObjectPageHeader; AnchorBar; ObjectPageSection … }",
+      "rules": {
+        "accepts": [
+          "section"
+        ]
+      }
     },
     "ObjectPageHeader": {
       "role": "card",

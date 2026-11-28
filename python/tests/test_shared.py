@@ -73,7 +73,7 @@ class PackageCopyTests(unittest.TestCase):
             from pathlib import Path
             wheel = next(Path(out).glob("mockitdown-*.whl"))
             names = set(zipfile.ZipFile(wheel).namelist())
-        want = {"mockitdown/page.css", "mockitdown/icons.json", "mockitdown/vocabulary.json"}
+        want = {"mockitdown/page.css", "mockitdown/icons.json", "mockitdown/vocabulary.json", "mockitdown/roles.json"}
         self.assertTrue(any(n.endswith(".dist-info/licenses/LICENSE") for n in names), "LICENSE")
         for pack in (SHARED / "packs").iterdir():
             if (pack / "pack.json").is_file():

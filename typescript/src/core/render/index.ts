@@ -24,10 +24,10 @@ import { sha1Hex } from "../sha1.js";
 import { intStr, pyBool, pyRepr, pyStr, strRepr, strTitle } from "../values.js";
 import * as chromeMod from "./chrome.js";
 import * as menubarMod from "./menubar.js";
-import { Renderer } from "./html.js";
+import { Renderer, RENDER_ROLES } from "./html.js";
 import { bool, esc, name } from "./util.js";
 
-export { Renderer };
+export { Renderer, RENDER_ROLES };
 
 function metaStr(screen: Screen, key: string): string | null {
   return pyBool(screen.meta.get(key, null)) ? pyStr(screen.meta.get(key)) : null;

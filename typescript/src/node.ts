@@ -26,7 +26,8 @@ export function loadSharedAssets(dir: string = sharedDir()): void {
     const css = join(dir, "packs", id, "pack.css");
     packs.set(id, { json: read(join("packs", id, "pack.json")), css: existsSync(css) ? readFileSync(css, "utf8") : "" });
   }
-  loadAssets({ vocabulary: read("vocabulary.json"), packs, pageCss: read("page.css"), icons: read("icons.json") });
+  const roles = manifest.files.includes("roles.json") ? read("roles.json") : undefined;
+  loadAssets({ vocabulary: read("vocabulary.json"), packs, pageCss: read("page.css"), icons: read("icons.json"), roles });
 }
 
 /**
