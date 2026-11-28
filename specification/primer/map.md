@@ -57,7 +57,7 @@ M-EDIT-3 | model | active | 0.10.0 r0 | MODEL.1 | TextEdit
 M-OPT-1 | model | active | 0.12.7 r3 | MODEL.1 | RenderOptions
 M-PACK-1 | model | active | 0.2.0 r0 | MODEL.1 | Pack
 M-PACK-2 | model | active | 0.10.0 r1 | MODEL.1 | ElementDef
-M-PACK-3 | model | active | 0.13.7 r1 | MODEL.1 | RoleRule
+M-PACK-3 | model | active | 0.13.11 r2 | MODEL.1 | RoleRule
 M-SYN-1 | model | active | 0.2.0 r0 | MODEL.1 | Module
 M-VIEW-1 | model | active | 0.10.0 r1 | MODEL.1 | View
 M-VIEW-2 | model | active | 0.2.0 r0 | MODEL.1 | Modifier
@@ -112,7 +112,7 @@ R-EDIT-009 | requirements | active | 0.12.12 r5 | WEB.3 | Commands: wrap, unwrap
 R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
-R-EVAL-004 | requirements | active | 0.10.0 r1 | LANG.2 | Binding element arguments
+R-EVAL-004 | requirements | active | 0.13.11 r2 | LANG.2 | Binding element arguments
 R-EVAL-005 | requirements | active | 0.13.1 r3 | LANG.2 | Instantiating struct components
 R-EVAL-006 | requirements | active | 0.2.0 r0 | LANG.2 | ForEach
 R-EVAL-007 | requirements | active | 0.2.0 r0 | LANG.2 | Conditionals and local bindings
@@ -159,7 +159,7 @@ R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery
 R-PACK-013 | requirements | active | 0.12.11 r5 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI presentations and navigation
-R-PACK-016 | requirements | active | 0.13.9 r8 | PACK.3 | Role rules
+R-PACK-016 | requirements | active | 0.13.11 r9 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.12.12 r5 | PACK.3 | Typed parameters and modifiers
 R-PACK-018 | requirements | active | 0.12.12 r5 | PACK.4 | Stylesheet partials
 R-PACK-019 | requirements | active | 0.12.12 r5 | PACK.5 | Amiga Workbench pack

@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.13.9
+spec_version: 0.13.11
 status: draft
 updated: 2026-11-28
 page_id: PACK.3
@@ -49,7 +49,8 @@ canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLay
 
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
-gallery.
+gallery. The same file lists the labels each role reads (`reads`, R-EVAL-004.C8), which both evaluators
+use to warn about labelled arguments nothing understands.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
@@ -95,7 +96,7 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 
 | | Statement |
 |---|---|
-| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"root": {"accepts": […]}, "roles": {"<role>": {"title", "category", "accepts", "attach"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`, and the title the role's name in a refusal sentence. |
+| C1 | `shared/language/roles.json` MUST hold one rule (M-PACK-3) for every render role, as `{"reads": […], "root": {"accepts": […]}, "roles": {"<role>": {"title", "category", "accepts", "attach", "reads"}, …}}`, the category being one of `frame`, `bar`, `layout`, `collection`, `content`, `overlay` and `annotation`, the title the role's name in a refusal sentence, and the `reads` lists those of R-EVAL-004.C8. |
 | C2 | `accepts` MUST list the roles a role's views may hold as children, each entry a role name or a category written `@<category>`, and `root.accepts` MUST list those allowed at the root of a mockup. |
 | C3 | `attach` MUST be `child` for a view placed among its parent's children, `presentation` for an overlay attached through a presentation modifier (`.sheet`, `.alert`, `.overlay`) and `modifier` for an annotation attached as a modifier. |
 | C4 | The rules MUST follow SRC-12#s6.3: a frame only at the root, as a split-view column or as a tab's content; a bar inside a frame, the root, or a vertical or horizontal stack or group (standing in for the root stack), a toolbar holding only toolbar items, buttons, pickers and search fields; a layout holding layouts, content and the collections, a grid only grid rows; a collection only its item roles; content without children, except a button or link holding its label. |
@@ -104,7 +105,7 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 | C7 | The TypeScript core MUST export `allowedChildren(pack, parent)`, which returns `{allowed, refused}`: the names of the pack's elements the parent may hold, in the pack's order, and the others as `{reason, elements}` groups, one per reason. |
 | C8 | A parent view of role `unknown` MUST accept every child, and a child of role `unknown` MUST be accepted by every parent that accepts children. |
 | C9 | A shared test MUST fail when a render role of either variant has no rule, a rule names an unknown role or category, or a pack's `rules` widens its role's. |
-| C10 | The Python variant MUST package `roles.json` and MUST NOT report a diagnostic from it. |
+| C10 | The Python variant MUST package `roles.json`, MUST read only its `reads` lists (R-EVAL-004.C8) and MUST NOT report a diagnostic from its role rules. |
 | C11 | The item roles of a collection (list item, table row and column, tree item, timeline item, board column, kanban card, menu item, tab, navigation item) MUST have the category `collection`, and a layout or the root MUST name the collections it holds by role, so that an item role is accepted only by its collection. |
 | C12 | `root.accepts` MUST accept the overlays, so that a mockup may show a dialog, sheet or toast on its own. |
 | C13 | An element name the pack does not define, and an element whose role has no rule, MUST be treated as role `unknown`. |
@@ -173,6 +174,7 @@ pass with the types loaded.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.11 | 2026-11-28 | as built (#32): C1 the table carries reads (top level and per rule); C10 Python reads only the reads lists |
 | 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
@@ -183,6 +185,7 @@ pass with the types loaded.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-016: unaffected (#81) |

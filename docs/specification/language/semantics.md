@@ -1,6 +1,6 @@
 ---
 title: "Language: semantics"
-spec_version: 0.13.1
+spec_version: 0.13.11
 status: draft
 updated: 2026-11-28
 page_id: LANG.2
@@ -132,13 +132,30 @@ Text("Hi", colour: .red)
 warning [argument] 'colour' is not understood by Text in pack 'base'   (line 1, col 12)
 ```
 
+What a role reads is data in `shared/language/roles.json`, beside the role rules: a top-level `reads`
+for the labels every role reads through the common element markup (`variant`, `size`, `state`,
+`disabled`, …) and a `reads` per rule for the rest (`isOn` for a toggle, `subtitle` and `detail` for a
+list item). The lists were taken from what the Python renderer looks up, and a Python test renders the
+whole conformance corpus to keep them complete. Keeping the shipped content warning-free meant fixing
+what relied on dropped labels: SwiftUI's `destination:` became an alias of the carbon, mui, sapui5 and
+tailwind links and `item:` one of the SwiftUI `ShareLink`, mui's `Stepper` takes `value:` as its
+active step, the core patterns use `ListItem` where some packs' `Row` is a grid or table row, and the
+example site lost the labels that never had an effect.
+
 **R-EVAL-004.TC-1 — Unknown labelled arguments**
 
-Conformance cases `diag-unknown-label` (a misspelt label on a core element and on a pack element, an
-alias, a default, a slot label, an `action:` closure and a binding — only the first two warn) with their
-`diag.json`, in both suites; the order and text of the warnings are identical. `test_examples.py`, the
-pattern tests (R-WEB-004.TC-7) and `gen_reference.py --check` fail on any `argument` warning in the
-example site, the design patterns or the reference samples (F-12.AC5).
+Conformance case `diag-unknown-label` in pack antd (a misspelt label on a core element, `VStack(spacng:)`,
+and on a pack element, `Switch(chekced:)`; an element alias `type:`, a default `variant:`, a slot
+`extra: Link(…)`, an `action:` closure and a binding `onSearch: $query` — only the first two warn), its
+`diag.json` written by hand, run by `test_conformance.py` and `conformance.test.ts`; `lang-colors` now
+expects the three warnings of `Color(red:green:blue:)`. `python/tests/test_unknown_labels.py` and
+`typescript/tests/unit/unknown-labels.test.ts` (IT-60) hold the same hand-written examples (F-12.AC4,
+the understood labels of C7, the order of several warnings, struct arguments not reported), check that
+both variants read `reads` from the shared file (C8, C11: no rule, no warning) and that the reference
+samples render without the warning; the Python suite also renders the whole corpus recording every
+label each role looks up and fails on one the table omits (C12). `test_examples.py` (example site and
+its component files) and the pattern tests (R-WEB-004.TC-7) fail on any diagnostic, `gen_reference.py
+--check` on a declared sample with one (C10, F-12.AC5).
 
 **Realizes.** F-2, F-3, F-12
 
@@ -151,10 +168,13 @@ example site, the design patterns or the reference samples (F-12.AC5).
 | C5 | The evaluator MUST discard closure-valued arguments labelled `action`, `onCommit`, `onEditingChanged` or `perform` without evaluating them. |
 | C6 | When a labelled argument's value is a list of views (a view call used as an argument, such as `label: Label(…)`), the evaluator MUST also make it the slot of that label unless a slot of that name already exists. |
 | V1 | `Button("Save", systemImage: "tray") { … }` with params `["label"]` yields attributes `label="Save"`, `systemImage="tray"`; `Section("A") { X() } footer: { Y() }` yields children `[X]` and slot `footer: [Y]`; `Button("Go", action: { doIt() })` evaluates nothing for `action`. |
-| C7 | A labelled argument of an element call is understood when its label is a name in the element definition's `params` or `defaults`, an argument alias of its pack (R-PACK-011), a label its render role reads, a closure or slot label (C3, C4, C6), or a discarded action label (C5). |
-| C8 | Each variant MUST hold, for every render role, the labels that role reads, and the two variants' lists MUST be the same. |
+| C7 | A labelled argument of an element call is understood when its label is a name in the element definition's `params` or `defaults`, an argument alias of the element or its pack (R-PACK-011), a label its render role reads (C8) or a discarded action label (C5), or when its value is a closure or views (C3, C4, C6). |
+| C8 | `shared/language/roles.json` MUST list the labels each render role reads as `reads`, at the top level those every role reads through the common element markup and in each role's rule those it reads besides, and both variants MUST take the labels of C7 from that file. |
 | C9 | If a labelled argument of an element call is not understood (C7) and its value is not a binding (`$name`), then the evaluator MUST report the warning "'<label>' is not understood by <Element> in pack '<id>'" with code `argument`, at the argument's location, and still render the element. |
 | C10 | The shipped design patterns, the reference samples and the example site MUST render without a warning of C9. |
+| C11 | When a role's rule lists no `reads`, or the TypeScript core has no role rules loaded, the evaluator MUST NOT report the warning of C9 for that role's elements. |
+| C12 | The Python test suite MUST fail when rendering the conformance corpus looks up a label on a view that neither the common `reads` nor its role's list. |
+| V2 | `Text("Hi", colour: .red)` warns "'colour' is not understood by Text in pack 'base'" at line 1, column 12 and still renders `Hi`; `Toggle("Wi-Fi", unheard: $on)`, `Button("Go", action: { … })`, `Button("Save", type: "primary")` in antd and `Card(cover: Image("photo.png"))` warn nothing. |
 
 ---
 
@@ -382,6 +402,7 @@ closures produce no views and no diagnostics (C5).
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.11 | 2026-11-28 | as built (#32): C7 element aliases and closure or view values; C8 the reads lists of shared/language/roles.json; C11 no rule, no warning; C12 the Python guard over the corpus; V2; TC-1 names the tests |
 | 0.13.1 | 2026-11-28 | as built (#84): C10 names where the error is reported (first use), the first cycle in source order, own-property names not counted, no used-component entry; TC-3 names its tests; prose explains cycle detection |
 | 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
@@ -390,6 +411,7 @@ closures produce no views and no diagnostics (C5).
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.1 | 2026-11-28 | as built (#84): C10 names where the error is reported (first use), the first cycle in source order, own-property names not counted, no used-component entry; TC-3 names its tests; prose explains cycle detection |
 | 0.13.0 | 2026-11-27 | components may not embed themselves (#84, SRC-20): F-4.C11/AC9; R-EVAL-005.C10 cycle detection replaces the depth limit for recursion, C11 depth backstop, TC-3 |
 | 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |

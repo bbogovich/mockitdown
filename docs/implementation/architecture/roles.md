@@ -1,6 +1,6 @@
 ---
 title: Role rules
-impl_version: 0.3.46
+impl_version: 0.3.48
 status: draft
 updated: 2026-11-28
 page_id: IMPL.ROLES
@@ -12,6 +12,8 @@ Realizes **A-REPO-1** (P1: `language/roles.json`) with **M-PACK-3** and **M-PACK
 implements **R-PACK-016** and **R-REPO-002.C8** (#28): the role rule table that says which elements may
 go where, decided by render role so that a pack element inherits it, and the TypeScript queries the
 design tools use (`canContain`, `allowedChildren`). Rendering reads none of it in either variant.
+The `reads` lists (R-EVAL-004.C8, #32) are the evaluators' only use of the table: the labels each role
+reads, against which a labelled argument nothing understands is warned ([Evaluation](evaluate.md)).
 
 
 `holdsChildren(pack, name)` (R-PACK-016.C16, #30) tells whether an element holds any child; the editor's drop target takes such elements as containers ([Drag and drop](drag-drop.md)).
@@ -20,9 +22,10 @@ design tools use (`canContain`, `allowedChildren`). Rendering reads none of it i
 
 | File | What |
 |---|---|
-| `shared/language/roles.json` | the table: `root.accepts`, and per role `title`, `category`, `accepts`, `attach`; one line per rule |
+| `shared/language/roles.json` | the table: the common `reads`, `root.accepts`, and per role `title`, `category`, `accepts`, `attach`, `reads`; one line per rule |
+| `python/src/mockitdown/roles.py` | `COMMON_READS`, `ROLE_READS`, `reads(role)` from the packaged copy (R-EVAL-004.C8) |
 | `shared/packs/sapui5/pack.json` | `ObjectPageLayout` narrows its role (`vstack`) with `rules: {"accepts": ["section"]}` |
-| `typescript/src/core/roles.ts` | `setRoles`, `rolesLoaded`, `roleRule`, `expandAccepts`, `canContain`, `allowedChildren`, `ROLE_CATEGORIES` |
+| `typescript/src/core/roles.ts` | `setRoles`, `rolesLoaded`, `roleRule`, `roleReads`, `expandAccepts`, `canContain`, `allowedChildren`, `ROLE_CATEGORIES` |
 | `typescript/src/core/packs/registry.ts` | `ElementDef.rules`: an element's `{accepts}` from `pack.json`, or `null` |
 | `typescript/src/core/assets.ts` | `SharedAssets.roles`: `loadAssets` hands the table to `setRoles` |
 | `typescript/src/node.ts`, `src/elements/assets.ts` | both loaders read or fetch `roles.json` when the manifest lists it |
@@ -33,9 +36,20 @@ design tools use (`canContain`, `allowedChildren`). Rendering reads none of it i
 
 ```text
 roles.json
+  reads  [color, density, design, direction, disabled, elevation, emphasis, error, kind, …]   (24: every role)
   root   {"accepts": [@frame, @layout, @content, @overlay, appbar, toolbar, sidebar, list, table, tree, …]}
-  roles  <role> → {"title": "horizontal stack", "category": "layout", "accepts": [...], "attach": "child"}
+  roles  <role> → {"title": "horizontal stack", "category": "layout", "accepts": [...], "attach": "child",
+                   "reads": ["align", "alignment", "gap", "spacing", "wrap"]}
 ```
+
+The `reads` lists were produced from the Python renderer (#32): every label a role's view is asked for
+while the conformance corpus, the reference samples, the patterns and the example site render (a
+recording `attrs` dict), together with the labels each `r_<role>` method names in `v.attr`, `slot`,
+`has` and `text_or_slot`; the 24 labels every role reads through `Renderer.open` and the style builder
+went to the top level. The TypeScript renderer looks up the same names (compared over the sources).
+`test_the_renderer_reads_nothing_the_table_omits` repeats the recording over the corpus, so a role that
+starts reading a new label fails until the table lists it. `tablecolumn` renders nothing itself; the
+table reads its `title`, `label` and `alignment`.
 
 | Category | Roles | Accepts |
 |---|---|---|
@@ -78,8 +92,9 @@ flowchart LR
 - `@category` lists are expanded once per `accepts` array (a `WeakMap`).
 - Both throw `MockitdownError` before `loadAssets` has installed the rules, and for an unknown pack.
 
-Python packages the table and the `rules` key but reads neither: the pack registry ignores `rules`, so no
-diagnostic comes from them (R-PACK-016.C10). A Python warning for a misplaced role is out of scope (Q9).
+Python packages the table and the `rules` key and reads only the `reads` lists (`roles.py`, for the
+evaluator's unknown-label warning): the pack registry ignores `rules`, so no diagnostic comes from the
+role rules (R-PACK-016.C10). A Python warning for a misplaced role is out of scope (Q9).
 
 ## Tests
 
@@ -102,3 +117,4 @@ diagnostic comes from them (R-PACK-016.C10). A Python warning for a misplaced ro
 |---|---|---|
 | 0.3.44 | 2026-11-28 | Page written: `roles.json`, the sapui5 narrowing, `canContain`, `allowedChildren`, IT-56 (#28) |
 | 0.3.46 | 2026-11-28 | `holdsChildren` (#30) |
+| 0.3.48 | 2026-11-28 | The `reads` lists, `roles.py`, `roleReads`, how the lists were produced (#32) |

@@ -28,7 +28,8 @@ canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLay
 
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
 for now; a Python warning for a misplaced role can follow once the rules have been exercised by the
-gallery.
+gallery. The same file lists the labels each role reads (`reads`, R-EVAL-004.C8), which both evaluators
+use to warn about labelled arguments nothing understands.
 
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 

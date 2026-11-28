@@ -1,6 +1,6 @@
 ---
 title: Evaluation
-impl_version: 0.3.38
+impl_version: 0.3.48
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EVAL
@@ -52,6 +52,17 @@ Closures are captured as `Thunk(closure, env)` and run only where views are expe
   arguments (slots); action closures are dropped (R-EVAL-004). Labels and the parameter name of a
   positional argument go through the same `attrs` maps, element first, then pack (R-PACK-011.C1,
   C3; `labelFor` in `evaluate.ts`).
+- Before binding a labelled argument, `_understood(el, arg, val)` decides whether anything reads it
+  (R-EVAL-004.C7, #32): the element's `params` or `defaults`, an alias of the element (`el.attrs`) or of
+  its pack (`pack.attrs`), `roles.reads(el.role)` (the common `reads` of `roles.json` plus the role's
+  own, loaded by `roles.py`), an action label (`_ACTION_LABELS`), a `Thunk` or `ViewList` value, or a
+  binding (`Ident.binding`, set by the parser for `$name`). Otherwise it warns
+  `'<label>' is not understood by <Element> in pack '<id>'` with code `argument` at the label
+  (`Arg.loc`, the label token's location) and binds the argument as before, so rendering is unchanged.
+  A role without `reads` (and, in TypeScript, no role rules loaded) warns nothing. TypeScript:
+  `understood`, `ACTION_LABELS` in `evaluate.ts`, `roleReads` in `roles.ts`, `Arg.loc` and
+  `Ident.binding` in `syntax/ast.ts`. Warnings come in argument order, before the element's children
+  are evaluated, alike in both variants.
 - `_instantiate` first asks `_cycle(name)` whether the struct reaches itself (R-EVAL-005.C10): an
   iterative depth-first search over the struct-use graph, whose edges `_struct_uses(decl)` collects
   from the body, computed properties and property defaults (every branch, closures included; a bare
@@ -80,7 +91,23 @@ builder or renderer handler and a specification change (R-EVAL-009.C4).
 None open; the deviations #1 and #2 recorded on the [overview](index.md#known-debt-and-deviations)
 were fixed in 0.1.1.
 
-Tests: `tests/test_render.py` (`EvaluateRenderTests`).
+Tests: `tests/test_render.py` (`EvaluateRenderTests`); unknown labels: `tests/test_unknown_labels.py`
+and `typescript/tests/unit/unknown-labels.test.ts` (IT-60), conformance case `diag-unknown-label`.
+
+## Unknown labelled arguments: what was fixed to keep the shipped content clean
+
+R-EVAL-004.C10 holds the patterns, the reference samples and the example site to no such warning.
+Where they relied on a label being dropped, the fix went where the label belonged:
+
+| Where | Label | Fix |
+|---|---|---|
+| carbon, mui, sapui5 `Link`; tailwind `Link` | `destination:` (the core `Link`'s second param) | element alias to `href` (tailwind: `url`) |
+| swiftui `ShareLink` | `item:` | element alias to `url` |
+| mui `Stepper` (role `steps`) | `value:` (the core `Stepper`'s) | element alias to `activeStep`, as prime's `value` → `current` |
+| patterns chat, list-detail, mail-client, wizard | `Row(…, subtitle:, detail:, avatar:)` | `ListItem(…)`: antd's and bootstrap's `Row` is a grid row, prime's a table row |
+| example site (prime, swiftui, vuetify pages, vuetify components) | `badge:` on a menu item, `selection:` on ColorPicker, `fluid:`, `chips:`, `lines:` on VList, `destructive:` on VListItem, `hideDetails:` on VSwitch | removed (they never had an effect); `VDivider(inset: true)` became `variant: "inset"` |
+| conformance `lang-colors` | `Color(red:green:blue:)` | kept: the case now expects the three warnings (the RGB form is not rendered) |
+| edit corpus `set-name-chain` | `role:` after renaming to `Link` | the case renames to `MenuItem`, whose role reads `role` (R-EDIT-002.C17) |
 
 
 ## Revision history
@@ -94,3 +121,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 | 0.3.26 | 2026-11-27 | Import loading per mockup described; the unreachable `unsupported statement` error carries code `view` (R-DIAG-001.C1); IT-34 (#57) |
 | 0.3.27 | 2026-11-27 | Float formatting and continuous ranges described (R-EVAL-008 as built); IT-36 (#58) |
 | 0.3.38 | 2026-11-28 | Self-embedding structs rejected by cycle detection before expansion; the depth limit kept as a backstop (R-EVAL-005.C10, C11); IT-50 (#84) |
+| 0.3.48 | 2026-11-28 | Unknown labelled arguments warned in both variants (`_understood`, `roles.py`, `Arg.loc`, `Ident.binding`); the fixes that keep the shipped content clean; IT-60 (#32) |

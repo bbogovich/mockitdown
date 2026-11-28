@@ -13,3 +13,13 @@ them (R-EVAL-011), and they carry no value a mockup could show.
 Text("Hi", colour: .red)
 warning [argument] 'colour' is not understood by Text in pack 'base'   (line 1, col 12)
 ```
+
+What a role reads is data in `shared/language/roles.json`, beside the role rules: a top-level `reads`
+for the labels every role reads through the common element markup (`variant`, `size`, `state`,
+`disabled`, …) and a `reads` per rule for the rest (`isOn` for a toggle, `subtitle` and `detail` for a
+list item). The lists were taken from what the Python renderer looks up, and a Python test renders the
+whole conformance corpus to keep them complete. Keeping the shipped content warning-free meant fixing
+what relied on dropped labels: SwiftUI's `destination:` became an alias of the carbon, mui, sapui5 and
+tailwind links and `item:` one of the SwiftUI `ShareLink`, mui's `Stepper` takes `value:` as its
+active step, the core patterns use `ListItem` where some packs' `Row` is a grid or table row, and the
+example site lost the labels that never had an effect.

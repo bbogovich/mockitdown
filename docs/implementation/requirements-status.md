@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (19)
+## Changes pending (21)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -14,11 +14,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.12.11 | 2026-11-25 | #13 |
 | R-EDIT-001 | Source spans and node identities | 0.12.12 | 0.12.16 | 2026-11-27 | #20 |
 | R-EDIT-004 | Edit-mode rendering | 0.12.12 | 0.13.2 | 2026-11-28 | #23 |
+| R-EVAL-004 | Binding element arguments | 0.10.0 | 0.13.11 | 2026-11-28 | #32 |
 | R-EVAL-005 | Instantiating struct components | 0.13.0 | 0.13.1 | 2026-11-28 | #84 |
 | R-PACK-012 | Pack reference gallery and site sections | 0.10.0 | 0.12.0 | 2026-11-26 | #19 |
 | R-PACK-013 | Element samples | 0.8.4 | 0.12.11 | 2026-11-25 | #10 |
 | R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.12.12 | 2026-11-25 | #15 |
 | R-PACK-015 | SwiftUI presentations and navigation | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
+| R-PACK-016 | Role rules | 0.13.9 | 0.13.11 | 2026-11-28 | #32 |
 | R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.12 | 2026-11-27 | #55 |
 | R-REND-013 | Rows without overlap | 0.8.1 | 0.10.7 | 2026-11-25 | #8 |
 | R-REND-014 | Shape framing | 0.8.3 | 0.10.7 | 2026-11-25 | #9 |
@@ -28,7 +30,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (55)
+## Not started (54)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -40,7 +42,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.12.12 |  |  |
 | R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.12.12 |  |  |
 | R-EVAL-003 | Name resolution for views | — | 0.12.0 |  |  |
-| R-EVAL-004 | Binding element arguments | — | 0.10.0 |  |  |
 | R-EVAL-006 | ForEach | — | 0.2.0 |  |  |
 | R-EVAL-007 | Conditionals and local bindings | — | 0.2.0 |  |  |
 | R-EVAL-009 | Modifiers | — | 0.10.8 |  |  |
@@ -88,7 +89,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (76)
+## Implemented (75)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -147,7 +148,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-009 | The core vocabulary | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-PACK-010 | Hidden packs | 0.12.13 | 0.12.13 | 2026-11-27 | #61 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| R-PACK-016 | Role rules | 0.13.9 | 0.13.9 | 2026-11-28 | #30 |
 | R-REND-001 | Figure structure | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-002 | Role markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-003 | Attributes on the markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
