@@ -1,10 +1,10 @@
 ---
 requirement: R-WEB-004
 title: Pack gallery test page
-status: partial
-version: 0.11.0
+status: implemented
+version: 0.12.12
 date: 2026-11-27
-issue: 60
+issue: 61
 ---
 
 # R-WEB-004 — Pack gallery test page
@@ -13,6 +13,7 @@ issue: 60
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.12.12 | 2026-11-27 | implemented | #61 | C32 (TC-11 step 4): packs.js keeps index.json hidden as gallery.hidden; knownPack accepts a hidden pack, so #pack=, select() and renderAll() show it with its facts (group left out when null) and both tabs, while the side panel lists none and marks none aria-current; #pack=nope still selects the first pack; IT-44 | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.11.0 | 2026-11-27 | partial | #60 | TC-11 steps 1-3 as tests, no code change: the 720 px boundary of C7 (gallery-packs.spec.mjs), every element card at device fit and every example with its index entry's device and chrome or neither (C9), lazy card mockups by IntersectionObserver (C10) (gallery-render.spec.mjs); IT-42. C32 (hidden packs) and TC-11 step 4 not yet implemented (#61) | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.10.1 | 2026-11-26 | implemented | #19 | C27-C31: pages.yml (both branches) builds typescript/ with npm ci and npm run build, assembles /gallery/ (pages, dist, shared/reference, shared/patterns, a meta-refresh index.html) with scripts/assemble-gallery.mjs, serves public/ with python -m http.server and runs published.spec.mjs (IT-26, TC-9) in Chromium before upload; the gallery's brand link goes to ../ | [Build and publish](../narrative/build-publish.md), [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |
 | 0.10.0 | 2026-11-26 | partial | #17 | C21-C26 (C24 as clarified): pages/snippet.js builds the reproducing snippet (pack, device, chrome, menubar, app, windowed in that order, the pattern file verbatim in a text/mockitdown script child, no caption/label/appearance) and gives packs.js the mockup's attributes too; each pattern card has a Show source button (aria-expanded, aria-controls) and a hidden source block below the stage with Copy (clipboard, polite live region Copied; selection when no clipboard or a refused write), monospaced, white-space pre, scrolling, page colours; toggling only flips hidden, so the mockup is untouched; packGallery.source(id); IT-25 (TC-8) in Chromium and a unit test. C27-C31 (publishing, #19) not yet implemented | [The pack gallery](../narrative/architecture/gallery.md), [Testing](../narrative/testing.md) |

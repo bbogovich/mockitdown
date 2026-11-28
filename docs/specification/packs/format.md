@@ -1,6 +1,6 @@
 ---
 title: "Pack format"
-spec_version: 0.12.12
+spec_version: 0.12.13
 status: draft
 updated: 2026-11-27
 page_id: PACK.1
@@ -303,7 +303,7 @@ requirements add to `base`, are exactly `base`'s own elements (134), every pack 
 Easter-egg packs reward readers of the documentation without cluttering the lists of real frameworks.
 **In the gallery (SRC-18#gallery).** The easter eggs must be reachable in the pack gallery without being
 listed in it, so the generator writes their reference data like any pack's and lists them apart, under
-`hidden` in the index; the gallery and its home page read that list (R-WEB-004, R-WEB-006).
+`hidden` in the index; the gallery and its home page read that list (R-WEB-004, R-WEB-006). A hidden pack's reference file has no menu group, so its `group` is null, and the gallery leaves the group out of its facts; with reference data, its own elements also reach the conformance corpus, so both variants are compared on them.
 
 **R-PACK-010.TC-1 — Hidden packs work but are not listed**
 
@@ -315,16 +315,22 @@ Automated. Step 1 ties C1 to existing behaviour and needs a new assertion; steps
    `["base", "lcars"]` (C1, C3).
 2. `python/tests/test_shared.py::test_hidden_packs_have_reference_data` (new): `shared/reference/index.json`
    has `hidden` equal to `["hologram", "lcars", "phosphor"]`, no group lists any of them, and each has
-   `shared/reference/<id>.json` with every element of the pack; `gen_reference.py --check` passes (C2).
-3. `python/tests/test_examples.py::test_reference_pages_are_current` and the nav test: the example site
+   `shared/reference/<id>.json` with `group` null and every element of the pack; `gen_reference.py --check`
+   passes (C2, C4).
+3. `python/tests/test_examples.py::test_reference_pages_are_current` and
+   `test_hidden_packs_have_egg_pages_only`: the example site
    has no Reference page and no nav entry for a hidden pack, and `docs/eggs/<id>.md` exists for each of
    the three while `mkdocs.yml`'s nav names none of them (C2, C3).
+4. `python/tests/test_conformance.py::test_check_passes`: the corpus holds `pack-lcars-own-1` and the
+   other own-element cases of the hidden packs, and the TypeScript conformance test renders them alike (C5).
 
 | | Statement |
 |---|---|
 | C1 | A pack MAY declare `"hidden": true`; a hidden pack MUST work wherever it is named (fence `pack=`, `import`) and MUST be left out of `mockitdown packs` (unless `--all`) and of the generated catalogue. |
 | C2 | `tools/gen_reference.py` MUST also write `shared/reference/<id>.json` for every hidden pack and list the hidden packs, sorted by id, under the key `hidden` of `shared/reference/index.json` (`{"groups": […], "hidden": [id, …]}`), outside every group; it MUST NOT write a Reference page or a navigation entry for a hidden pack. |
 | C3 | The shipped hidden packs MUST be `lcars`, `phosphor` and `hologram`, each with a hidden page of the example site under `eggs/` that the site's navigation does not list. |
+| C4 | The `group` of a hidden pack's `shared/reference/<id>.json` (R-REPO-003.C6) MUST be `null`, since a hidden pack belongs to no Reference menu group. |
+| C5 | The conformance corpus (`tools/gen_conformance.py`) MUST hold the `pack-<id>-own-<n>` cases of a hidden pack's own elements, as for any pack with reference data. |
 | V1 | `mockitdown packs` does not list `lcars`; `pack="lcars"` renders. |
 
 ---
@@ -754,6 +760,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.13 | 2026-11-27 | as built (#61): C4 a hidden pack's reference file has group null; C5 the conformance corpus holds hidden packs' own-element cases; TC-1 names the egg-page test and gains step 4 |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-012: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
@@ -779,6 +786,7 @@ have `fs-<style>` (size) and `fw-<style>` (weight) tokens.
 | 0.4.0 | 2026-11-24 | Ships the antd, tailwind, carbon and primer packs and the nls, win1, nextstep, win95 and aqua retro packs; retro pages in chronological order; Ships the avalonia pack (Avalonia UI 11, Fluent theme) |
 | 0.3.0 | 2026-11-24 | Ships the Android, GTK, Qt and KDE Plasma packs, ten retro packs and three hidden easter-egg packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-PACK-012: unaffected (#81) |
 | 0.12.10 | 2026-11-27 | test cases backfilled (#59); as built: V1 base lists 134 elements, the 90 core ones and the 44 other requirements add; TC-1 verifies C1-C3 (#59); as built: C1 reads hidden (R-PACK-010) and attrs (R-PACK-011); TC-1 verifies C1-C10 (#59); as built: C3 merges attrs too; TC-1 verifies C1-C7 (#59) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |

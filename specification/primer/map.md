@@ -153,7 +153,7 @@ R-PACK-006 | requirements | active | 0.10.8 r1 | PACK.1 | Design tokens
 R-PACK-007 | requirements | active | 0.10.8 r1 | PACK.1 | Pack stylesheet rules
 R-PACK-008 | requirements | active | 0.12.10 r6 | PACK.1 | Shipped packs
 R-PACK-009 | requirements | active | 0.12.10 r3 | PACK.1 | The core vocabulary
-R-PACK-010 | requirements | active | 0.11.0 r1 | PACK.1 | Hidden packs
+R-PACK-010 | requirements | active | 0.12.13 r2 | PACK.1 | Hidden packs
 R-PACK-011 | requirements | active | 0.8.1 r1 | PACK.1 | Argument aliases
 R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery and site sections
 R-PACK-013 | requirements | active | 0.12.11 r5 | PACK.1 | Element samples

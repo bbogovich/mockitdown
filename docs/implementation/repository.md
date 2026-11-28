@@ -1,6 +1,6 @@
 ---
 title: Repository layout and shared assets
-impl_version: 0.3.24
+impl_version: 0.3.32
 status: draft
 updated: 2026-11-27
 page_id: IMPL.REPO
@@ -174,7 +174,8 @@ the change, compared pixel for pixel after it.
 ## Element reference JSON
 
 `python/tools/gen_reference.py` computes each listed pack's element samples once and writes both the
-example site's Reference page and `shared/reference/<pack>.json` (R-REPO-003.C5–C9):
+example site's Reference page and `shared/reference/<pack>.json` (R-REPO-003.C5–C9). A hidden pack
+(R-PACK-010) gets only the JSON file, with `"group": null`, and no page or nav entry:
 
 ```json
 {"id": "fluent", "name": "Fluent (WinUI 3)", "framework": "…", "version": "…",
@@ -193,7 +194,8 @@ table rows and a `TabView` around a tab-role element (`EXTRA`, `CHILDREN`, `_tab
 samples travel with their element into every extending pack and are checked there too.
 `variants_sample` (own elements with variants only) is an `HStack(alignment: .top, spacing: 24)` of
 the sample once per variant (at most eight, `.variant("…")`), each captioned, or `null`. `index.json` is
-`{"groups": [{"title": "Core", "packs": ["base"]}, {"title": "Wireframe", …}, …]}` in menu order.
+`{"groups": [{"title": "Core", "packs": ["base"]}, {"title": "Wireframe", …}, …], "hidden": ["hologram", "lcars", "phosphor"]}`,
+the groups in menu order and the hidden packs (`hidden()`) sorted by id (R-PACK-010.C2).
 `--check` compares the pages, the nav block and the JSON files.
 
 ## Debugging
@@ -218,3 +220,4 @@ the sample once per variant (at most eight, `.variant("…")`), each captioned, 
 | 0.3.20 | 2026-11-26 | Audit: layout lists elements/, scripts/, pages/ and the Playwright configs |
 | 0.3.23 | 2026-11-27 | Stylesheet partials: `shared/packs/_partials/`, resolution in both builds, errors, run-time refusal (R-PACK-018) (#54) |
 | 0.3.24 | 2026-11-27 | The four partials, the two ways one partial serves packs that differ, the duplicate check (R-PACK-018.C9, C10) (#55) |
+| 0.3.32 | 2026-11-27 | Reference JSON for the hidden packs and the `hidden` list of `index.json` (#61) |

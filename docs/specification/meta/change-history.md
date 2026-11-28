@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.12.13 | 2026-11-27 | `PACK.1` | R-PACK-010 as built (#61): C4 group null for a hidden pack's reference file, C5 hidden packs' own-element conformance cases |
 | 0.12.12 | 2026-11-27 | `ADR.2`, `ADR.3`, `PACK.1`, `PACK.3`, `PACK.4`, `PACK.5`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4`, `WEB.5` | specification audit, second pass: the items that cite the re-checked ones re-recorded in the same release, so no suspect citation remains (#81) |
 | 0.12.11 | 2026-11-27 | `ADR.1`, `ADR.2`, `IMP.1`, `PACK.1`, `PACK.3`, `PACK.5`, `REND.2`, `REPO.1`, `WEB.1`, `WEB.2`, `WEB.3`, `WEB.4` | specification audit: 46 suspect citations re-checked with clarification records; ADR-17 no longer lists the requirements that cite it (#81) |
 | 0.12.10 | 2026-11-27 | `MDX.1`, `PACK.1`, `REND.1`, `REND.2` | Test cases backfilled for R-MDX-001..006, R-PACK-001..003, 009, R-REND-001..003, 006..008, 011, and R-PACK-008.TC-1 steps 1 and 6; R-MDX-002.C1, R-MDX-003.C1, R-MDX-005.C1, R-PACK-002.C1, R-PACK-003.C3, R-PACK-009.V1, R-REND-002.C1, R-REND-003.C1, R-REND-011.C6 as built; the role catalogue (REF.2) completed as built (#59) |

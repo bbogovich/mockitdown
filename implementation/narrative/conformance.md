@@ -1,6 +1,6 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.28
+impl_version: 0.3.32
 status: draft
 updated: 2026-11-27
 page_id: IMPL.CONF
@@ -70,7 +70,8 @@ cd python
 ```
 
 The cases are defined in the generator (`build_cases()`); `role-*` and `pack-*-own-*` follow
-`shared/reference/*.json`, so run `tools/gen_reference.py` first after a pack change. The generator
+`shared/reference/*.json`, so run `tools/gen_reference.py` first after a pack change. The hidden packs
+have reference data too, so their own elements have `pack-<id>-own-<n>` cases (R-PACK-010.C5). The generator
 writes the inputs too, so `--check` also catches a hand-edited source or options file. Regenerate
 on purpose after a rendering change — never to make a port's test pass (R-REPO-004 prose).
 
@@ -98,3 +99,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.15 | 2026-11-25 | `chrome-menubar-*` cases, the `menubar` and `app` option keys (#14) |
 | 0.3.27 | 2026-11-27 | `lang-expressions` (#58) |
 | 0.3.28 | 2026-11-27 | Every text field's root gains `role="textbox"`: 182 cases regenerated, both variants (#59) |
+| 0.3.32 | 2026-11-27 | `pack-hologram-own-*`, `pack-lcars-own-*`, `pack-phosphor-own-*`: the hidden packs' own elements (683 cases) (#61) |

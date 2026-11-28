@@ -4,33 +4,31 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (15)
+## Changes pending (19)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-003 | Overlay placement and free positioning | 0.6.2 | 0.10.8 | 2026-11-25 | #2 |
-| R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.10.6 | 2026-11-25 | #8 |
+| R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.12.11 | 2026-11-25 | #8 |
+| R-DEV-009 | The macOS menu bar | 0.8.11 | 0.12.12 | 2026-11-25 | #14 |
+| R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.12.11 | 2026-11-25 | #13 |
 | R-PACK-012 | Pack reference gallery and site sections | 0.10.0 | 0.12.0 | 2026-11-26 | #19 |
-| R-PACK-013 | Element samples | 0.8.4 | 0.11.0 | 2026-11-25 | #10 |
-| R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.11.0 | 2026-11-25 | #15 |
-| R-PACK-015 | SwiftUI presentations and navigation | 0.8.9 | 0.11.0 | 2026-11-25 | #13 |
+| R-PACK-013 | Element samples | 0.8.4 | 0.12.11 | 2026-11-25 | #10 |
+| R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.12.12 | 2026-11-25 | #15 |
+| R-PACK-015 | SwiftUI presentations and navigation | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
+| R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.12 | 2026-11-27 | #55 |
 | R-REND-013 | Rows without overlap | 0.8.1 | 0.10.7 | 2026-11-25 | #8 |
 | R-REND-014 | Shape framing | 0.8.3 | 0.10.7 | 2026-11-25 | #9 |
-| R-REPO-001 | Repository layout | 0.6.0 | 0.11.0 | 2026-11-25 | #1 |
-| R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.4 | 2026-11-25 | #1 |
-| R-REPO-004 | Conformance corpus | 0.8.9 | 0.11.0 | 2026-11-25 | #13 |
-| R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.0 | 2026-11-25 | #4 |
-| R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.0 | 2026-11-25 | #13 |
-| R-WEB-003 | Development server | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
-| R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
+| R-REPO-001 | Repository layout | 0.6.0 | 0.12.11 | 2026-11-25 | #1 |
+| R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.12 | 2026-11-27 | #54 |
+| R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.12 | 2026-11-25 | #1 |
+| R-REPO-004 | Conformance corpus | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
+| R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.12 | 2026-11-25 | #4 |
+| R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
+| R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
+| R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 
-## Partly implemented (1)
-
-| Requirement | Title | Implemented | Specification | Date | Issue |
-|---|---|---|---|---|---|
-| R-WEB-004 | Pack gallery test page | 0.11.0 | 0.11.0 | 2026-11-27 | #60 |
-
-## Not started (72)
+## Not started (71)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -38,15 +36,15 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
-| R-EDIT-001 | Source spans and node identities | — | 0.11.0 |  |  |
-| R-EDIT-002 | Edit API: insert, remove and move | — | 0.11.0 |  |  |
-| R-EDIT-003 | Edit API: arguments, modifiers and identifiers | — | 0.11.0 |  |  |
-| R-EDIT-004 | Edit-mode rendering | — | 0.11.0 |  |  |
-| R-EDIT-005 | The design document module | — | 0.11.0 |  |  |
-| R-EDIT-006 | The design session and its events | — | 0.11.0 |  |  |
-| R-EDIT-007 | Undo and redo history | — | 0.11.0 |  |  |
-| R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.11.0 |  |  |
-| R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.11.0 |  |  |
+| R-EDIT-001 | Source spans and node identities | — | 0.12.12 |  |  |
+| R-EDIT-002 | Edit API: insert, remove and move | — | 0.12.12 |  |  |
+| R-EDIT-003 | Edit API: arguments, modifiers and identifiers | — | 0.12.12 |  |  |
+| R-EDIT-004 | Edit-mode rendering | — | 0.12.12 |  |  |
+| R-EDIT-005 | The design document module | — | 0.12.12 |  |  |
+| R-EDIT-006 | The design session and its events | — | 0.12.12 |  |  |
+| R-EDIT-007 | Undo and redo history | — | 0.12.12 |  |  |
+| R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.12.12 |  |  |
+| R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.12.12 |  |  |
 | R-EVAL-003 | Name resolution for views | — | 0.12.0 |  |  |
 | R-EVAL-004 | Binding element arguments | — | 0.10.0 |  |  |
 | R-EVAL-005 | Instantiating struct components | — | 0.12.0 |  |  |
@@ -58,7 +56,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-IMP-004 | Definition precedence | — | 0.12.0 |  |  |
 | R-IMP-005 | Import errors and caching | — | 0.2.0 |  |  |
 | R-IMP-007 | Library names and qualified references | — | 0.12.0 |  |  |
-| R-IMP-008 | Library blocks on a page | — | 0.12.0 |  |  |
+| R-IMP-008 | Library blocks on a page | — | 0.12.11 |  |  |
 | R-IMP-009 | Components as templates with content slots | — | 0.12.0 |  |  |
 | R-LANG-001 | Lexical structure | — | 0.2.0 |  |  |
 | R-LANG-002 | String literals and interpolation | — | 0.2.0 |  |  |
@@ -71,43 +69,42 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-005 | Pack selection | — | 0.10.8 |  |  |
 | R-PACK-006 | Design tokens | — | 0.10.8 |  |  |
 | R-PACK-007 | Pack stylesheet rules | — | 0.10.8 |  |  |
-| R-PACK-010 | Hidden packs | — | 0.11.0 |  |  |
-| R-PACK-016 | Role rules | — | 0.12.4 |  |  |
-| R-PACK-017 | Typed parameters and modifiers | — | 0.11.0 |  |  |
-| R-PACK-019 | Amiga Workbench pack | — | 0.12.6 |  |  |
-| R-PACK-020 | Windows 1.0 in its default colours | — | 0.12.6 |  |  |
-| R-PACK-021 | Apple IIgs GS/OS beyond the Finder window | — | 0.12.6 |  |  |
-| R-PACK-022 | Atari ST GEM pack | — | 0.12.6 |  |  |
-| R-PACK-023 | GEOS pack | — | 0.12.6 |  |  |
-| R-PACK-024 | RISC OS pack | — | 0.12.6 |  |  |
-| R-PACK-025 | BeOS pack | — | 0.12.6 |  |  |
-| R-PACK-026 | Apple Newton pack | — | 0.12.6 |  |  |
-| R-PACK-027 | Palm OS pack | — | 0.12.6 |  |  |
-| R-PACK-028 | Windows CE (Pocket PC) pack | — | 0.12.6 |  |  |
-| R-PACK-029 | BlackBerry pack | — | 0.12.6 |  |  |
-| R-PACK-030 | User guide: installation and defined terms | — | 0.12.0 |  |  |
+| R-PACK-016 | Role rules | — | 0.12.12 |  |  |
+| R-PACK-017 | Typed parameters and modifiers | — | 0.12.12 |  |  |
+| R-PACK-019 | Amiga Workbench pack | — | 0.12.12 |  |  |
+| R-PACK-020 | Windows 1.0 in its default colours | — | 0.12.12 |  |  |
+| R-PACK-021 | Apple IIgs GS/OS beyond the Finder window | — | 0.12.12 |  |  |
+| R-PACK-022 | Atari ST GEM pack | — | 0.12.12 |  |  |
+| R-PACK-023 | GEOS pack | — | 0.12.12 |  |  |
+| R-PACK-024 | RISC OS pack | — | 0.12.12 |  |  |
+| R-PACK-025 | BeOS pack | — | 0.12.12 |  |  |
+| R-PACK-026 | Apple Newton pack | — | 0.12.12 |  |  |
+| R-PACK-027 | Palm OS pack | — | 0.12.12 |  |  |
+| R-PACK-028 | Windows CE (Pocket PC) pack | — | 0.12.12 |  |  |
+| R-PACK-029 | BlackBerry pack | — | 0.12.12 |  |  |
+| R-PACK-030 | User guide: installation and defined terms | — | 0.12.12 |  |  |
 | R-REND-004 | Modifier rendering | — | 0.2.0 |  |  |
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-TOOL-001 | The editable view: mockitdown-editor | — | 0.11.0 |  |  |
-| R-TOOL-002 | The outline: mockitdown-outline | — | 0.11.0 |  |  |
-| R-TOOL-003 | The composite designer and its test page | — | 0.11.0 |  |  |
-| R-TOOL-004 | The gallery: mockitdown-gallery | — | 0.11.0 |  |  |
-| R-TOOL-005 | Drag and drop onto the outline and the view | — | 0.11.0 |  |  |
-| R-TOOL-006 | New elements: sample arguments and first-text editing | — | 0.11.0 |  |  |
-| R-TOOL-007 | The inspector: mockitdown-inspector | — | 0.11.0 |  |  |
-| R-TOOL-008 | The code view: mockitdown-code | — | 0.11.0 |  |  |
-| R-TOOL-009 | Two-way editing and Code mode | — | 0.11.0 |  |  |
-| R-TOOL-010 | The diagnostics list: mockitdown-diagnostics | — | 0.11.0 |  |  |
-| R-TOOL-011 | The canvas: mockitdown-canvas | — | 0.11.0 |  |  |
-| R-TOOL-012 | Mockup frames: labels, moving, renaming and placement | — | 0.11.0 |  |  |
-| R-TOOL-013 | The active mockup and inactive previews | — | 0.11.0 |  |  |
-| R-TOOL-014 | Sections and the canvas round trip | — | 0.11.0 |  |  |
-| R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
-| R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
+| R-TOOL-001 | The editable view: mockitdown-editor | — | 0.12.12 |  |  |
+| R-TOOL-002 | The outline: mockitdown-outline | — | 0.12.12 |  |  |
+| R-TOOL-003 | The composite designer and its test page | — | 0.12.12 |  |  |
+| R-TOOL-004 | The gallery: mockitdown-gallery | — | 0.12.12 |  |  |
+| R-TOOL-005 | Drag and drop onto the outline and the view | — | 0.12.12 |  |  |
+| R-TOOL-006 | New elements: sample arguments and first-text editing | — | 0.12.12 |  |  |
+| R-TOOL-007 | The inspector: mockitdown-inspector | — | 0.12.12 |  |  |
+| R-TOOL-008 | The code view: mockitdown-code | — | 0.12.12 |  |  |
+| R-TOOL-009 | Two-way editing and Code mode | — | 0.12.12 |  |  |
+| R-TOOL-010 | The diagnostics list: mockitdown-diagnostics | — | 0.12.12 |  |  |
+| R-TOOL-011 | The canvas: mockitdown-canvas | — | 0.12.12 |  |  |
+| R-TOOL-012 | Mockup frames: labels, moving, renaming and placement | — | 0.12.12 |  |  |
+| R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
+| R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
+| R-WEB-006 | Gallery home page | — | 0.12.12 |  |  |
+| R-WEB-007 | TypeScript release builds on GitHub | — | 0.12.12 |  |  |
 
-## Implemented (62)
+## Implemented (60)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -136,8 +133,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DEV-005 | Device chrome | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-DEV-006 | Isolation from the host page | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-DEV-007 | Additional chrome kinds | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
-| R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
-| R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | R-DIAG-001 | Diagnostic content | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-002 | Collecting diagnostics | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-003 | Diagnostic codes | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
@@ -162,8 +157,8 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-PACK-003 | Pack inheritance | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-PACK-008 | Shipped packs | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-PACK-009 | The core vocabulary | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
+| R-PACK-010 | Hidden packs | 0.12.13 | 0.12.13 | 2026-11-27 | #61 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
-| R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.5 | 2026-11-27 | #55 |
 | R-REND-001 | Figure structure | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-002 | Role markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-003 | Attributes on the markup | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
@@ -172,4 +167,4 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.4 | 2026-11-27 | #54 |
+| R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #61 |
