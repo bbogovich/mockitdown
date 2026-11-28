@@ -24,7 +24,8 @@
  * session's hovered node; the rows of the node hovered elsewhere are highlighted.
  *
  * Two tabs: Elements (the tree) and Mockups (the document's mockups by name, the active one marked with
- * `aria-current`). The session is joined as the editor joins one (R-EDIT-006.C11): the nearest
+ * `aria-current`, a default name `Mockup <n>` with `data-default-name` and a warning icon of part
+ * `name-warning` whose title says that SpecItOut tools import mockups by name, R-TOOL-012.C9). The session is joined as the editor joins one (R-EDIT-006.C11): the nearest
  * `mockitdown-designer`'s, else the host's `session` property, else one of its own over an empty
  * document, whose notifications it dispatches as DOM events (R-EDIT-006.C7, C8). The outline holds no
  * editing rule (A-WEB-5.K2).
@@ -43,6 +44,7 @@
 import { assetsLoaded, ViewList, type Pack, type View } from "../core/index.js";
 import type { ViewNode } from "../core/syntax/tree.js";
 import { mockupOptions, newDesign } from "../design/document.js";
+import { DEFAULT_NAME_WARNING, isDefaultName } from "../design/frames.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification, type DropPosition, type DropZone } from "../design/session.js";
 import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
@@ -124,6 +126,9 @@ const OUTLINE_CSS = `:host([hidden]){display:none}
 .mkd-outline__tree--drop-end.mkd-outline__tree--drop-refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}
 .mkd-outline__mockups{list-style:none;margin:0;padding:4px;overflow:auto}
 .mkd-outline__mockup{padding:2px 8px;border-radius:5px}
+.mkd-outline__mockup[data-default-name]{display:flex;align-items:center;gap:6px}
+.mkd-outline__name-warning{display:inline-block;width:14px;height:14px;flex:none;border-radius:50%;background:var(--mkd-outline-warning-color,#e8a200);cursor:help}
+.mkd-outline__name-warning::before{content:"!";display:block;font:700 10px/14px system-ui,sans-serif;text-align:center;color:#fff}
 .mkd-outline__mockup[aria-current="true"]{font-weight:600;background:var(--mkd-outline-selected-background,rgba(255,138,0,.22))}
 .mkd-outline__empty{padding:6px 8px;opacity:.6}`;
 
@@ -566,6 +571,16 @@ export class OutlineElement extends Base {
       li.setAttribute("part", "mockup");
       li.textContent = m.name;
       if (m.name === session.active) li.setAttribute("aria-current", "true");
+      if (isDefaultName(m.name)) {
+        li.toggleAttribute("data-default-name", true);
+        const warn = doc.createElement("span");
+        warn.className = "mkd-outline__name-warning";
+        warn.setAttribute("part", "name-warning");
+        warn.setAttribute("role", "img");
+        warn.setAttribute("aria-label", DEFAULT_NAME_WARNING);
+        warn.title = DEFAULT_NAME_WARNING;
+        li.append(warn);
+      }
       return li;
     }));
   }

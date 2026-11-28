@@ -1,6 +1,6 @@
 /**
  * The design document and session module (A-WEB-4): `readDesign`, `writeDesign`, `newDesign`,
- * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync`, the diagnostics list's model and the canvas's view geometry. No DOM, network or file system (A-WEB-4.K1), so that a desktop
+ * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync`, the diagnostics list's model, the canvas's view geometry and the frames' naming, placing and snapping. No DOM, network or file system (A-WEB-4.K1), so that a desktop
  * shell's main process can use it in Node as the design tools use it in a browser.
  */
 
@@ -11,7 +11,7 @@ export {
 } from "./document.js";
 export {
   COALESCE_MS, DESIGN_EVENTS, DesignSession, HISTORY_LIMIT, WRAP_DEFAULT,
-  type ChangeKind, type CommandArgs, type CommandName, type DesignCommand, type CutResult, type HistoryOptions, type DesignListener, type DragSource, type DropCheck, type DropPosition, type DropZone, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
+  type ChangeKind, type CommandArgs, type FrameMeasure, type CommandName, type DesignCommand, type CutResult, type HistoryOptions, type DesignListener, type DragSource, type DropCheck, type DropPosition, type DropZone, type DesignNotification, type DesignNotificationKind, type DesignSessionOptions, type Refused,
 } from "./session.js";
 export {
   applyTo, CARET_EVENT, CODE_COALESCE, CODE_SYNC_MS, CodeSync, READ_ONLY_NOTE,
@@ -26,6 +26,10 @@ export {
   ZOOM_MAX, ZOOM_MIN, ZOOM_STEPS, zoomAt, zoomRendering,
   type CanvasBox, type CanvasView, type MinimapMapping,
 } from "./canvas.js";
+export {
+  DEFAULT_NAME_WARNING, EDGE_SNAP, EMPTY_NAME, GRID, isDefaultName, nameTaken, NEW_MOCKUP_CODE, NEW_MOCKUP_GAP, newMockupName, newMockupPlace,
+  renameRefusal, snapMove,
+} from "./frames.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
 export {

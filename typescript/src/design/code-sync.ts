@@ -162,6 +162,10 @@ export class CodeSync {
       case "diagnostics":
         if (n.detail.mockup === this.#mockup) this.view.diagnostics = n.detail.diagnostics;
         break;
+      case "rename":
+        // The shown mockup keeps its code under its new name (R-TOOL-012.C3).
+        if (n.detail.from === this.#mockup) this.#mockup = n.detail.to;
+        break;
       case "select":
         this.#mark();
         break;

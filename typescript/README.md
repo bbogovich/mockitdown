@@ -558,6 +558,25 @@ canvas.addEventListener("mockitdown-view", (e) => show(e.detail.zoom));
 - The view starts as the document's `view` and is not written back to it. The arithmetic (`zoomAt`,
   `stepZoom`, `fitView`, `minimapMapping`, …) is in `mockitdown/design`.
 
+### Mockup frames: moving, renaming, new mockups
+
+- Drag a frame's label to move the frame: it snaps to an 8-unit grid and to the edges of other frames
+  within 6 CSS pixels; hold Alt to place it freely. The mockup's `x` and `y` are set when the drag ends
+  (`session.moveMockup`), one undo step.
+- Double-click a label to rename the mockup in place: Enter renames, Esc cancels. Names are case-sensitive,
+  may hold spaces, must not be empty and are unique; a taken name is refused beside the field
+  ("A mockup named “Inbox” already exists"). A rename is one undo step and dispatches
+  `mockitdown-rename` `{from, to}`.
+- `session.newMockup(code?, options?)` adds `Mockup <n>` (the smallest free `n`) at the active mockup's
+  `y`, 80 units right of the rightmost frame overlapping it vertically, and makes it active. The Mockups
+  tab of the outline marks every `Mockup <n>` name with a warning: SpecItOut tools import mockups by name.
+
+```js
+session.renameMockup("Message", "Message detail");   // {mockup} or {error}
+session.newMockup();                                  // {mockup: "Mockup 1"}
+import { snapMove, newMockupPlace, newMockupName } from "mockitdown/design";
+```
+
 ## Development
 
 Node 22 or later.

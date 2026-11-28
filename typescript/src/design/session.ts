@@ -31,6 +31,7 @@ import { bodySiblings, edit, identifiersOf, indentUnit, nodeCode, statementChild
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup } from "./document.js";
+import { NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
 
 /** What a `change` notification changed (C5): the code, the options, the position, or the list of mockups. */
 export type ChangeKind = "code" | "options" | "move" | "mockups";
@@ -184,14 +185,30 @@ export interface DesignSessionOptions {
    * checks a mockup for its diagnostics.
    */
   renderOptions?: Partial<RenderOptions>;
+  /**
+   * The size of a mockup's frame in canvas units, for placing a new mockup (R-TOOL-012.C8); the
+   * canvas sets it as {@link DesignSession.measure}.
+   */
+  measure?: FrameMeasure;
   /** The clock coalescing reads, in milliseconds (default `Date.now`); tests give a fake one. */
   now?: () => number;
   /** How many steps the undo history keeps (default and minimum {@link HISTORY_LIMIT}). */
   historyLimit?: number;
 }
 
-/** A mockup as one step of the history sees it: its code and last valid tree, its options and position. */
+/**
+ * What a step changed: a change kind (R-EDIT-006.C5), or `rename` for a step that renamed its mockup
+ * (R-TOOL-012.C7), which notifies `rename` rather than `change` when it is undone and redone.
+ */
+type StepKind = ChangeKind | "rename";
+
+/**
+ * A mockup as one step of the history sees it: its name, code and last valid tree, its options and
+ * position, and for a step of kind `mockups` the document's list of mockups.
+ */
 interface Snapshot {
+  name: string;
+  list?: DesignMockup[];
   code: string;
   tree: SyntaxTree | null;
   options: Record<string, unknown> | undefined;
@@ -199,16 +216,19 @@ interface Snapshot {
   y: number;
 }
 
-/** The active mockup and its selection on one side of a step. */
+/**
+ * The active mockup and its selection on one side of a step. Steps hold mockups as objects, not names,
+ * so that a rename leaves the steps before it pointing at the right mockup.
+ */
 interface Place {
-  active: string | null;
+  active: DesignMockup | null;
   nodes: string[];
 }
 
 /** One step of the undo history (R-EDIT-007.C1). */
 interface Step {
-  mockup: string;
-  kind: ChangeKind;
+  mockup: DesignMockup;
+  kind: StepKind;
   before: Snapshot;
   after: Snapshot;
   /** The text edits from `before.code` to `after.code` (redo notifies them) … */
@@ -224,8 +244,8 @@ interface Step {
 
 /** A change being made: what the step will hold of the state before it. */
 interface Pending {
-  mockup: string;
-  kind: ChangeKind;
+  mockup: DesignMockup;
+  kind: StepKind;
   before: Snapshot;
   place: Place;
   key: string | undefined;
@@ -240,12 +260,21 @@ interface MockupState {
   diagnostics: Diagnostic[];
 }
 
+/** The size of a mockup's frame on the canvas in canvas units, or null when it is not drawn. */
+export type FrameMeasure = (name: string) => { w: number; h: number } | null;
+
 /** The shared state of the design tools (C1). */
 export class DesignSession {
+  /**
+   * How big each mockup's frame is (R-TOOL-012.C8): set by a canvas showing the session, null when
+   * none does; a mockup it does not measure is as wide and high as its options' `width` and `height`,
+   * else 0.
+   */
+  measure: FrameMeasure | null;
   /** The design document: the live object, changed in place by the session. */
   readonly document: DesignDocument;
   private readonly renderOptions: Partial<RenderOptions>;
-  private readonly states = new Map<string, MockupState>();
+  private readonly states = new Map<DesignMockup, MockupState>();
   private readonly listeners = new Set<DesignListener>();
   private activeName: string | null;
   private selected: string[] = [];
@@ -266,6 +295,7 @@ export class DesignSession {
     this.document = document;
     this.renderOptions = { ...(options.renderOptions ?? {}) };
     this.now = options.now ?? Date.now;
+    this.measure = options.measure ?? null;
     this.historyLimit = Math.max(HISTORY_LIMIT, Math.floor(options.historyLimit ?? HISTORY_LIMIT));
     const viewActive = document.view?.active;
     this.activeName = typeof viewActive === "string" && findMockup(document, viewActive)
@@ -1231,6 +1261,59 @@ export class DesignSession {
     return { mockup: name };
   }
 
+  /**
+   * Rename a mockup (R-TOOL-012.C4 to C7): refused, changing and notifying nothing, for an empty name or
+   * one another mockup holds (names are case-sensitive and kept as written); renaming to its own name
+   * changes nothing. Otherwise one `rename` `{from, to}` and one undo step; the active mockup and the
+   * document's `view.active` follow the name.
+   */
+  renameMockup(from: string, to: string): { mockup: string } | Refused {
+    const mockup = this.mockup(from);
+    if (!mockup) return { error: `there is no mockup named ${JSON.stringify(from)}` };
+    const refused = renameRefusal(this.document.mockups.map((m) => m.name), from, to);
+    if (refused !== null) return { error: refused };
+    if (to === from) return { mockup: from };
+    const pending = this.begin(from, "rename", {});
+    this.setName(mockup, to);
+    const step = this.record(pending, []);
+    this.notify({ kind: "rename", detail: { from, to } });
+    this.settle(step);
+    return { mockup: to };
+  }
+
+  /**
+   * Add a mockup (R-TOOL-012.C8) with `code` (default {@link NEW_MOCKUP_CODE}) and `options`: named
+   * `Mockup <n>` (the smallest free `n` from 1), placed at the active mockup's `y`, 80 units right of
+   * the rightmost frame that overlaps the active one vertically (sizes from {@link measure}), and made
+   * the active mockup. One `change` of kind `mockups`, then `active` (and `select`, `hover` when they
+   * are cleared); one undo step.
+   */
+  newMockup(code: string = NEW_MOCKUP_CODE, options?: Record<string, unknown>): { mockup: string } | Refused {
+    if (typeof code !== "string") return { error: "code must be a string" };
+    if (options !== undefined && (options === null || typeof options !== "object" || Array.isArray(options))) return { error: "options must be an object" };
+    const name = newMockupName(this.document.mockups.map((m) => m.name));
+    const box = (m: DesignMockup) => {
+      const size = this.measure?.(m.name) ?? null;
+      const own = (key: "width" | "height"): number => {
+        const v = m.options?.[key];
+        return typeof v === "number" && Number.isFinite(v) ? v : 0;
+      };
+      return { x: m.x, y: m.y, w: size?.w ?? own("width"), h: size?.h ?? own("height") };
+    };
+    const current = this.activeName === null ? null : this.mockup(this.activeName);
+    const at = newMockupPlace(current ? box(current) : null, this.document.mockups.map(box));
+    const mockup: DesignMockup = { name, x: at.x, y: at.y, ...(options ? { options: { ...options } } : {}), code };
+    const place = this.place();
+    const before: Snapshot = { name, list: [...this.document.mockups], code, tree: null, options: undefined, x: at.x, y: at.y };
+    this.document.mockups.push(mockup);
+    const pending: Pending = { mockup, kind: "mockups", before: { ...before, tree: this.stateOf(mockup).tree, options: mockup.options && structuredClone(mockup.options) }, place, key: undefined };
+    const step = this.record(pending, []);
+    this.notify({ kind: "change", detail: { kind: "mockups", mockup: name, edits: [], code } });
+    this.setActive(name);
+    this.settle(step);
+    return { mockup: name };
+  }
+
   // --- history (R-EDIT-007) -----------------------------------------------------------------------
 
   /**
@@ -1256,9 +1339,10 @@ export class DesignSession {
   // --- internals ----------------------------------------------------------------------------------
 
   /** A change of a mockup begins: what its step keeps of the state before it. */
-  private begin(name: string, kind: ChangeKind, history: HistoryOptions): Pending {
+  private begin(name: string, kind: StepKind, history: HistoryOptions, list = false): Pending {
     const key = typeof history?.coalesce === "string" ? history.coalesce : undefined;
-    return { mockup: name, kind, before: this.snapshot(name), place: this.place(), key };
+    const mockup = this.mockup(name)!;
+    return { mockup, kind, before: this.snapshot(mockup, list), place: this.place(), key };
   }
 
   /**
@@ -1267,7 +1351,7 @@ export class DesignSession {
    * could have been redone (C6) and, past the limit, the oldest (C9). Returns the step to settle.
    */
   private record(p: Pending, edits: TextEdit[]): Step | null {
-    const after = this.snapshot(p.mockup);
+    const after = this.snapshot(p.mockup, p.before.list !== undefined);
     const time = this.now();
     const last = this.cursor > 0 ? this.steps[this.cursor - 1]! : null;
     if (p.key !== undefined && last && last === this.open && this.cursor === this.steps.length
@@ -1302,10 +1386,10 @@ export class DesignSession {
     if (step) step.placeAfter = this.place();
   }
 
-  private snapshot(name: string): Snapshot {
-    const mockup = this.mockup(name)!;
-    const state = this.state(name)!;
+  private snapshot(mockup: DesignMockup, list = false): Snapshot {
+    const state = this.stateOf(mockup);
     return {
+      name: mockup.name, ...(list ? { list: [...this.document.mockups] } : {}),
       code: mockup.code, tree: state.tree,
       options: mockup.options === undefined ? undefined : structuredClone(mockup.options),
       x: mockup.x, y: mockup.y,
@@ -1313,20 +1397,25 @@ export class DesignSession {
   }
 
   private place(): Place {
-    return { active: this.activeName, nodes: [...this.selected] };
+    return { active: this.activeName === null ? null : this.mockup(this.activeName), nodes: [...this.selected] };
   }
 
   /** Put a step's mockup back to a snapshot and the active mockup and selection back to a place. */
   private restore(step: Step, snap: Snapshot, place: Place, edits: TextEdit[]): { mockup: string; edits: TextEdit[] } | Refused {
-    const name = step.mockup;
-    const mockup = this.mockup(name);
-    if (!mockup) return { error: `there is no mockup named ${JSON.stringify(name)}` };
-    const state = this.state(name)!;
-    const active = place.active !== null && this.mockup(place.active) ? place.active : this.activeName;
+    const mockup = step.mockup;
+    if (snap.list) this.document.mockups.splice(0, this.document.mockups.length, ...snap.list);
+    const held = this.document.mockups.includes(mockup);
+    if (!held && !snap.list) return { error: `there is no mockup named ${JSON.stringify(mockup.name)}` };
+    const from = mockup.name;
+    if (snap.name !== from) this.setName(mockup, snap.name);
+    const name = mockup.name;
+    const state = this.stateOf(mockup);
+    const wanted = place.active !== null && this.document.mockups.includes(place.active) ? place.active.name : this.activeName;
+    const active = wanted !== null && this.mockup(wanted) ? wanted : this.document.mockups[0]?.name ?? null;
     const switched = active !== this.activeName;
     if (switched) {
       this.activeName = active;
-      this.notify({ kind: "active", detail: { mockup: active! } });
+      if (active !== null) this.notify({ kind: "active", detail: { mockup: active } });
     }
     mockup.code = snap.code;
     state.code = snap.code;
@@ -1336,7 +1425,8 @@ export class DesignSession {
     mockup.x = snap.x;
     mockup.y = snap.y;
     const shown = step.kind === "code" ? [...edits] : [];
-    this.notify({ kind: "change", detail: { kind: step.kind, mockup: name, edits: shown, code: mockup.code } });
+    if (step.kind === "rename") this.notify({ kind: "rename", detail: { from, to: name } });
+    else this.notify({ kind: "change", detail: { kind: step.kind, mockup: name, edits: shown, code: mockup.code } });
     if (active !== null) {
       const tree = this.tree(active);
       const nodes = place.nodes.filter((id) => tree?.byId(id));
@@ -1349,25 +1439,36 @@ export class DesignSession {
         this.notify({ kind: "hover", detail: { mockup: active, node: null } });
       }
     }
-    this.updateDiagnostics(name, state);
+    if (held) this.updateDiagnostics(name, state);
     return { mockup: name, edits: shown };
   }
 
   /** The state of a mockup, parsed when first needed or when its code changed outside the session. */
   private state(name: string): MockupState | null {
     const mockup = this.mockup(name);
-    if (!mockup) return null;
-    let state = this.states.get(name);
+    return mockup ? this.stateOf(mockup) : null;
+  }
+
+  private stateOf(mockup: DesignMockup): MockupState {
+    let state = this.states.get(mockup);
     if (!state) {
       state = { code: mockup.code, tree: null, diagnostics: [] };
       state.tree = parseTree(mockup.code).tree;
-      state.diagnostics = this.check(name, mockup.code);
-      this.states.set(name, state);
+      state.diagnostics = this.check(mockup.name, mockup.code);
+      this.states.set(mockup, state);
     } else if (state.code !== mockup.code) {
       this.reparseState(state, mockup.code);
-      state.diagnostics = this.check(name, mockup.code);
+      state.diagnostics = this.check(mockup.name, mockup.code);
     }
     return state;
+  }
+
+  /** Give a mockup another name: the active mockup and the document's `view.active` follow it. */
+  private setName(mockup: DesignMockup, name: string): void {
+    const old = mockup.name;
+    mockup.name = name;
+    if (this.activeName === old) this.activeName = name;
+    if (this.document.view && this.document.view.active === old) this.document.view.active = name;
   }
 
   private reparseState(state: MockupState, code: string): void {
@@ -1437,7 +1538,8 @@ function diff(a: string, b: string): TextEdit[] {
 }
 
 function sameSnapshot(a: Snapshot, b: Snapshot): boolean {
-  return a.code === b.code && a.x === b.x && a.y === b.y && JSON.stringify(a.options) === JSON.stringify(b.options);
+  return a.name === b.name && a.code === b.code && a.x === b.x && a.y === b.y && JSON.stringify(a.options) === JSON.stringify(b.options)
+    && (a.list === b.list || (!!a.list && !!b.list && sameList(a.list, b.list)));
 }
 
 /** What a node is a sibling of: its parent node, else the struct declaration or the top level it stands in. */
@@ -1585,7 +1687,7 @@ function sentence(text: string): string {
   return text ? text[0]!.toUpperCase() + text.slice(1) : text;
 }
 
-function sameList(a: readonly string[], b: readonly string[]): boolean {
+function sameList<T>(a: readonly T[], b: readonly T[]): boolean {
   return a.length === b.length && a.every((x, i) => x === b[i]);
 }
 

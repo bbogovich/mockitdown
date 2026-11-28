@@ -33,11 +33,21 @@
  * out again with the CSS `zoom` at the zoomed size and not scaled, so text stays sharp (C8). Every view
  * change dispatches `mockitdown-view` (bubbling, composed, `detail: {zoom, x, y}`).
  *
- * The geometry is `mockitdown/design`'s canvas.ts. The canvas holds no editing rule (A-WEB-5.K2): the
- * only change it makes to the session is the active mockup. Its session is the nearest enclosing
- * designer's, else the one its host sets, else an empty one of its own (R-EDIT-006.C11).
+ * Frames (R-TOOL-012): dragging a frame's label moves the frame, snapped to the 8-unit grid and to the
+ * edges of other frames within 6 CSS pixels (`snapMove`), freely with Alt held; the mockup's `x` and
+ * `y` are set through `session.moveMockup` when the drag ends, one undo step. A double-click on the
+ * label opens an inline field (part `rename-field`): Enter renames through `session.renameMockup`,
+ * whose refusal is shown beside it (part `rename-error`) with the field kept open; Esc, or leaving the
+ * field with a refused name, cancels. Neither in Preview mode. The canvas measures the frames for the
+ * session (`session.measure`), which places a new mockup by them.
  *
- * Parts: `viewport`, `world`, `frame`, `label`, `body`, `minimap`, `minimap-frame`, `minimap-viewport`.
+ * The geometry is `mockitdown/design`'s canvas.ts and frames.ts. The canvas holds no editing rule
+ * (A-WEB-5.K2): it changes the session only through `setActive`, `moveMockup` and `renameMockup`. Its
+ * session is the nearest enclosing designer's, else the one its host sets, else an empty one of its own
+ * (R-EDIT-006.C11).
+ *
+ * Parts: `viewport`, `world`, `frame`, `label`, `rename-field`, `rename-error`, `body`, `minimap`,
+ * `minimap-frame`, `minimap-viewport`.
  * Custom properties: `--mkd-canvas-background`, `--mkd-canvas-label-color`, `--mkd-selection-color`,
  * `--mkd-canvas-minimap-background`, `--mkd-canvas-minimap-frame`, `--mkd-canvas-minimap-viewport`.
  */
@@ -48,7 +58,8 @@ import {
   type CanvasBox, type CanvasView, type MinimapMapping,
 } from "../design/canvas.js";
 import { mockupOptions, newDesign } from "../design/document.js";
-import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
+import { snapMove } from "../design/frames.js";
+import { DESIGN_EVENTS, DesignSession, type DesignNotification, type FrameMeasure } from "../design/session.js";
 import { MOCKUP_TAG } from "./mockup.js";
 
 export const CANVAS_TAG = "mockitdown-canvas";
@@ -64,6 +75,8 @@ const DESIGNER_TAG = "mockitdown-designer";
 const WHEEL_ZOOM = 0.005;
 const WHEEL_ZOOM_MAX = 60;
 const BASES = ["import-base", "asset-base"] as const;
+/** How far, in CSS pixels, a label must be dragged before its frame moves. */
+const MOVE_THRESHOLD = 3;
 
 const CANVAS_CSS = `:host{display:block;position:relative;overflow:clip;min-width:0;min-height:0;outline:none;background:var(--mkd-canvas-background,#f0f1f4)}
 :host([hidden]){display:none}
@@ -76,7 +89,12 @@ const CANVAS_CSS = `:host{display:block;position:relative;overflow:clip;min-widt
 .mkd-canvas__frame[data-active]{outline:calc(2px / var(--mkd-canvas-zoom,1)) solid var(--mkd-selection-color,#ff8a00);outline-offset:calc(4px / var(--mkd-canvas-zoom,1))}
 .mkd-canvas__frame:not([data-active]) .mkd-canvas__body{cursor:pointer}
 .mkd-canvas__body>mockitdown-mockup{display:block}
-.mkd-canvas__label{position:absolute;left:0;bottom:100%;white-space:nowrap;font:500 calc(12px / var(--mkd-canvas-zoom,1))/1.3 system-ui,sans-serif;padding-bottom:calc(6px / var(--mkd-canvas-zoom,1));color:var(--mkd-canvas-label-color,#5b5d66)}
+.mkd-canvas__label{position:absolute;left:0;bottom:100%;white-space:nowrap;font:500 calc(12px / var(--mkd-canvas-zoom,1))/1.3 system-ui,sans-serif;padding-bottom:calc(6px / var(--mkd-canvas-zoom,1));color:var(--mkd-canvas-label-color,#5b5d66);user-select:none;-webkit-user-select:none;touch-action:none}
+:host(:not([preview])) .mkd-canvas__label{cursor:grab}
+.mkd-canvas__frame--moving .mkd-canvas__label{cursor:grabbing}
+.mkd-canvas__rename{font:inherit;color:var(--mkd-canvas-label-color,#1f2024);padding:0 .2em;margin:0;border:1px solid var(--mkd-selection-color,#ff8a00);border-radius:3px;min-width:12em;box-sizing:border-box;user-select:text;-webkit-user-select:text}
+.mkd-canvas__rename-error{margin-left:.6em;color:var(--mkd-canvas-error-color,#d93025)}
+.mkd-canvas__rename-error[hidden]{display:none}
 .mkd-canvas__frame[data-active] .mkd-canvas__label{color:var(--mkd-selection-color,#ff8a00)}
 .mkd-canvas__minimap{position:absolute;right:8px;bottom:8px;width:${MINIMAP_WIDTH}px;height:${MINIMAP_HEIGHT}px;box-sizing:border-box;overflow:hidden;z-index:2;border:1px solid var(--mkd-designer-border,#d0d0d7);border-radius:6px;background:var(--mkd-canvas-minimap-background,rgba(255,255,255,.92));cursor:pointer;touch-action:none}
 .mkd-canvas__minimap[hidden]{display:none}
@@ -124,6 +142,15 @@ export class CanvasElement extends Base {
   /** The latest measuring of the frames' widths, which waits for their renderings. */
   #measured: Promise<void> = Promise.resolve();
   #measuring = 0;
+  /** The frame being moved by its label (R-TOOL-012.C1, C2). */
+  #move: { id: number; name: string; sx: number; sy: number; x: number; y: number; w: number; h: number; others: CanvasBox[]; at: { x: number; y: number } | null } | null = null;
+  /** The rename field open on a label (R-TOOL-012.C3, C5). */
+  #rename: { name: string; label: HTMLElement; input: HTMLInputElement; error: HTMLElement } | null = null;
+  /** What the canvas gives its session as `measure`: its frames' sizes. */
+  readonly #measure: FrameMeasure = (name) => {
+    const box = this.#boxes().get(name);
+    return box ? { w: box.w, h: box.h } : null;
+  };
 
   constructor() {
     super();
@@ -163,6 +190,11 @@ export class CanvasElement extends Base {
       e.stopPropagation();
     }, { capture: true });
     this.#world.addEventListener("click", (e) => this.#onFrameClick(e));
+    this.#world.addEventListener("pointerdown", (e) => this.#onLabelDown(e));
+    this.#world.addEventListener("pointermove", (e) => this.#onLabelMove(e));
+    this.#world.addEventListener("pointerup", (e) => this.#onLabelUp(e, false));
+    this.#world.addEventListener("pointercancel", (e) => this.#onLabelUp(e, true));
+    this.#world.addEventListener("dblclick", (e) => this.#onLabelDoubleClick(e));
     this.#minimap.addEventListener("pointerdown", (e) => this.#onMiniDown(e));
     this.#minimap.addEventListener("pointermove", (e) => this.#onMiniMove(e));
     this.#minimap.addEventListener("pointerup", (e) => this.#onMiniEnd(e));
@@ -263,7 +295,10 @@ export class CanvasElement extends Base {
     const next = this.#designerSession() ?? this.#given ?? (this.#own ??= new DesignSession(newDesign(CANVAS_TAG)));
     if (next !== this.#session) {
       this.#unsubscribe?.();
+      if (this.#session?.measure === this.#measure) this.#session.measure = null;
+      this.#closeRename();
       this.#session = next;
+      next.measure = this.#measure;
       this.#unsubscribe = next.subscribe((n) => this.#notified(n));
       const v = next.document.view;
       this.#view = {
@@ -301,6 +336,7 @@ export class CanvasElement extends Base {
         this.#remeasure();
         break;
       case "rename": {
+        if (this.#rename?.name === n.detail.from) this.#rename.name = n.detail.to;
         const f = this.#frames.get(n.detail.from);
         if (f) {
           this.#frames.delete(n.detail.from);
@@ -348,7 +384,7 @@ export class CanvasElement extends Base {
         this.#resize?.observe(el);
       }
       f.el.dataset.mockup = m.name;
-      f.label.textContent = m.name;
+      if (this.#rename?.label !== f.label && f.label.textContent !== m.name) f.label.textContent = m.name;
       const editable = !preview && m.name === session.active;
       f.el.toggleAttribute("data-active", !preview && m.name === session.active);
       if (editable) {
@@ -474,6 +510,140 @@ export class CanvasElement extends Base {
       }
     }
     return unionBox(boxes);
+  }
+
+  // --- moving and renaming frames (R-TOOL-012) ----------------------------------------------------
+
+  /** The label an event is on, with its frame's mockup name, outside a rename field and Preview mode. */
+  #labelOf(e: Event): { label: HTMLElement; name: string } | null {
+    if (this.hasAttribute("preview")) return null;
+    const path = e.composedPath();
+    if (this.#rename && path.includes(this.#rename.label)) return null;
+    const label = path.find((t) => t instanceof HTMLElement && t.classList.contains("mkd-canvas__label")) as HTMLElement | undefined;
+    const name = (label?.parentElement as HTMLElement | null)?.dataset.mockup;
+    return label && name !== undefined ? { label, name } : null;
+  }
+
+  /** A press on a label starts a move (C1). */
+  #onLabelDown(e: PointerEvent): void {
+    if (e.button !== 0 || this.#pan || this.#move) return;
+    const hit = this.#labelOf(e);
+    const m = hit ? this.session.mockup(hit.name) : null;
+    if (!hit || !m) return;
+    e.preventDefault();
+    this.focus({ preventScroll: true });
+    const boxes = this.#boxes();
+    const own = boxes.get(hit.name)!;
+    boxes.delete(hit.name);
+    hit.label.setPointerCapture?.(e.pointerId);
+    this.#move = { id: e.pointerId, name: hit.name, sx: e.clientX, sy: e.clientY, x: m.x, y: m.y, w: own.w, h: own.h, others: [...boxes.values()], at: null };
+  }
+
+  /** Where the moved frame goes: the drag in canvas units, snapped (C2) unless Alt is held. */
+  #movedTo(e: PointerEvent): { x: number; y: number } {
+    const mv = this.#move!;
+    const z = this.#view.zoom;
+    const raw = { x: mv.x + (e.clientX - mv.sx) / z, y: mv.y + (e.clientY - mv.sy) / z, w: mv.w, h: mv.h };
+    return snapMove(raw, mv.others, z, e.altKey);
+  }
+
+  #onLabelMove(e: PointerEvent): void {
+    const mv = this.#move;
+    if (!mv || mv.id !== e.pointerId) return;
+    if (!mv.at && Math.hypot(e.clientX - mv.sx, e.clientY - mv.sy) < MOVE_THRESHOLD) return;
+    mv.at = this.#movedTo(e);
+    const f = this.#frames.get(mv.name);
+    if (!f) return;
+    f.el.classList.add("mkd-canvas__frame--moving");
+    f.el.style.left = `${mv.at.x}px`;
+    f.el.style.top = `${mv.at.y}px`;
+  }
+
+  /** The drag ends: the mockup's `x` and `y` are set, one undo step (C1, C7); a cancelled drag puts the frame back. */
+  #onLabelUp(e: PointerEvent, cancelled: boolean): void {
+    const mv = this.#move;
+    if (!mv || mv.id !== e.pointerId) return;
+    const at = mv.at ? this.#movedTo(e) : null;
+    this.#move = null;
+    this.#frames.get(mv.name)?.el.classList.remove("mkd-canvas__frame--moving");
+    if (!at) return;
+    this.#suppressClick = true;
+    setTimeout(() => {
+      this.#suppressClick = false;
+    }, 0);
+    if (cancelled) return this.#place();
+    if ("error" in this.session.moveMockup(mv.name, at.x, at.y)) this.#place();
+  }
+
+  /** A double-click on a label opens the rename field (C3). */
+  #onLabelDoubleClick(e: MouseEvent): void {
+    const hit = this.#labelOf(e);
+    if (!hit) return;
+    e.preventDefault();
+    this.#closeRename();
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "mkd-canvas__rename";
+    input.setAttribute("part", "rename-field");
+    input.setAttribute("aria-label", "Mockup name");
+    input.spellcheck = false;
+    input.value = hit.name;
+    input.size = Math.max(12, hit.name.length + 2);
+    const error = document.createElement("span");
+    error.className = "mkd-canvas__rename-error";
+    error.setAttribute("part", "rename-error");
+    error.setAttribute("role", "alert");
+    error.hidden = true;
+    hit.label.replaceChildren(input, error);
+    const rename = { name: hit.name, label: hit.label, input, error };
+    this.#rename = rename;
+    input.addEventListener("keydown", (k) => {
+      if (k.key === "Enter") {
+        k.preventDefault();
+        k.stopPropagation();
+        this.#commitRename(false);
+      } else if (k.key === "Escape") {
+        k.preventDefault();
+        k.stopPropagation();
+        this.#closeRename();
+      }
+    });
+    input.addEventListener("input", () => {
+      error.hidden = true;
+      error.textContent = "";
+    });
+    input.addEventListener("blur", () => {
+      if (this.#rename === rename) this.#commitRename(true);
+    });
+    input.focus();
+    input.select();
+  }
+
+  /**
+   * Rename the mockup to the field's text (C4-C6). A refusal is shown beside the field, which stays
+   * open (C5), unless the field was left (`leaving`), which cancels.
+   */
+  #commitRename(leaving: boolean): void {
+    const r = this.#rename;
+    if (!r) return;
+    const result = r.input.value === r.name ? { mockup: r.name } : this.session.renameMockup(r.name, r.input.value);
+    if ("error" in result) {
+      if (leaving) return this.#closeRename();
+      r.error.textContent = result.error;
+      r.error.hidden = false;
+      return;
+    }
+    const focused = this.#root.activeElement === r.input;
+    this.#closeRename();
+    if (focused) this.focus({ preventScroll: true });
+  }
+
+  #closeRename(): void {
+    const r = this.#rename;
+    if (!r) return;
+    this.#rename = null;
+    const name = (r.label.parentElement as HTMLElement | null)?.dataset.mockup ?? r.name;
+    r.label.textContent = name;
   }
 
   #onFrameClick(e: MouseEvent): void {
