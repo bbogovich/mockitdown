@@ -18,7 +18,7 @@ mockup from the Mockup tab with the canvas frames (R-TOOL-012).
 ```mermaid
 flowchart LR
   s[DesignSession] -- "select · active · change · diagnostics" --> el["mockitdown-inspector<br/>#draw"]
-  el -- "inspect(session, pack)" --> m["design/inspect.ts<br/>groups · fields · Add lists"]
+  el -- "inspect(session, pack)" --> m["design/inspect.ts<br/>groups · fields · Add lists<br/>(inspect-values.ts · inspect-edits.ts)"]
   m -- "parameterTypes · modifierTypes" --> core["core: roles.json, vocabulary.json"]
   u[user input] -- "150 ms debounce, or blur" --> el
   el -- "setField · removeField · addArgument · addModifier · removeModifier · setOption" --> m
@@ -32,6 +32,8 @@ flowchart LR
 | File | What it holds |
 |---|---|
 | `typescript/src/design/inspect.ts` | the model: `inspect`, `fieldCode`, `setField`, `removeField`, `addArgument`, `addModifier`, `removeModifier`, `setOption`, `iconSuggestions`, `INSPECTOR_DEBOUNCE_MS` (150), `NOT_UNDERSTOOD`, `STATE_LABELS` and the types `Inspection`, `InspectorField`, `InspectorModifier`, `FieldTarget`, `FieldResult` |
+| `typescript/src/design/inspect-values.ts` | the model's value internals, not exported from `mockitdown/design`: `readValue` (a written value read by its type), `valueCode` (a control's input as code), `numberValue`, `colourOk`, `defaultCode`, `controlOf`, `stringOf`, `numberOf`, `codeOf`, `argsCode`, `leadingComment`, and the chain helpers `modifierList` and `matchArgs` |
+| `typescript/src/design/inspect-edits.ts` | the model's edit internals, not exported: `selected` (the one selected node), `opFor` and `modifierOp` (the edit that writes a field's code), `applyChecked` with `atNode` and `minus` (C9's check), `packOf`, `attrOf`, `notUnderstood`, `refuse` |
 | `typescript/src/design/session.ts` | `diagnosticsOf(name, code)`: a mockup's diagnostics for other code, nothing changed |
 | `typescript/src/design/index.ts` | exports the model from `mockitdown/design` |
 | `typescript/src/elements/inspector.ts` | `InspectorElement` (`INSPECTOR_TAG`): joins a session, draws the model, debounces inputs, keeps refused text and the focus across redraws |
@@ -102,10 +104,10 @@ tab on the hand-written `tests/browser/fixtures/inspector-sample.mkdesign`). See
 
 ## Debugging
 
-- A field shows as code although its value looks typed: `readValue` did not accept the node (an
+- A field shows as code although its value looks typed: `readValue` (`inspect-values.ts`) did not accept the node (an
   interpolated string, a value outside the enum, `Color.red` instead of `.red`).
 - A value is refused with a diagnostic's text: the edited code holds a new diagnostic inside the node's
-  span; `session.diagnosticsOf(mockup, code)` gives what the check saw.
+  span; `session.diagnosticsOf(mockup, code)` gives what the check (`applyChecked` in `inspect-edits.ts`) saw.
 - Typing forms several undo steps: the edits must reach the session within 1000 ms of each other with
   the same node and field; a redraw that moves the focus to another field ends the burst.
 
@@ -116,3 +118,4 @@ tab on the hand-written `tests/browser/fixtures/inspector-sample.mkdesign`). See
 | 0.3.51 | 2026-11-28 | Page written: the inspector's model in `mockitdown/design`, `mockitdown-inspector`, the designer's properties panel, IT-63 (#35) |
 | 0.3.55 | 2026-11-28 | Edit in code (R-TOOL-007.C11): `Inspection.editInCode` (the span of an `if`, a `ForEach`, a struct's call or a node with a code field), the `edit-in-code` button dispatching `mockitdown-edit-in-code`; see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`); `leaving` flushes pending values (#89) |
+| 0.3.66 | 2026-11-28 | The model split: its value internals in `inspect-values.ts`, its edit internals in `inspect-edits.ts`; `inspect.ts` keeps the public model and exports, unchanged (#99) |
