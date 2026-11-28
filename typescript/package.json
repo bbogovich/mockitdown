@@ -15,6 +15,10 @@
       "types": "./dist/node.d.ts",
       "default": "./dist/node.js"
     },
+    "./design": {
+      "types": "./dist/design.d.ts",
+      "default": "./dist/design.js"
+    },
     "./shared/*": "./dist/shared/*"
   },
   "files": [

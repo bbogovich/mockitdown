@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {"file": "bad-format.mkdesign", "errors": [
+      {"path": "format", "message": "format must be \"mockitdown-design\", found \"mockitdown-canvas\""}
+    ]},
+    {"file": "version-2.mkdesign", "errors": [
+      {"path": "version", "message": "version must be 1, found 2"}
+    ]},
+    {"file": "mockups-object.mkdesign", "errors": [
+      {"path": "mockups", "message": "mockups must be a list, found an object"}
+    ]},
+    {"file": "no-code.mkdesign", "errors": [
+      {"path": "mockups[1].code", "message": "code must be a string, but it is missing"}
+    ]},
+    {"file": "x-string.mkdesign", "errors": [
+      {"path": "mockups[0].x", "message": "x must be a number, found \"10\""}
+    ]},
+    {"file": "duplicate-name.mkdesign", "errors": [
+      {"path": "mockups[2].name", "message": "the name \"Inbox\" is already used by mockups[0]"}
+    ]},
+    {"file": "not-json.mkdesign", "errors": [
+      {"path": "", "message": "not valid JSON: expected a string key at line 6, column 1"}
+    ]},
+    {"file": "not-object.mkdesign", "errors": [
+      {"path": "", "message": "a design document must be a JSON object, found a list"}
+    ]},
+    {"file": "several.mkdesign", "errors": [
+      {"path": "version", "message": "version must be 1, but it is missing"},
+      {"path": "name", "message": "name must be a string, found 12"},
+      {"path": "defaults", "message": "defaults must be an object, found a list"},
+      {"path": "imports[1]", "message": "imports[1] must be a string, found 3"},
+      {"path": "sections[0].w", "message": "w must be a number, found \"wide\""},
+      {"path": "mockups[0].y", "message": "y must be a number, found null"},
+      {"path": "mockups[0].options", "message": "options must be an object, found \"fluent\""},
+      {"path": "mockups[0].code", "message": "code must be a string, found a list"},
+      {"path": "mockups[1]", "message": "mockups[1] must be an object, found \"Sign in\""},
+      {"path": "view.zoom", "message": "zoom must be a number, found \"75%\""},
+      {"path": "view.active", "message": "active must be a string, found 1"}
+    ]}
+  ]
+}

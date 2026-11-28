@@ -1,0 +1,34 @@
+{
+  "format": "mockitdown-design",
+  "name": 12,
+  "defaults": [],
+  "imports": [
+    "components/cards.mockitdown",
+    3
+  ],
+  "sections": [
+    {
+      "name": "Onboarding",
+      "x": 0,
+      "y": 0,
+      "w": "wide",
+      "h": 900
+    }
+  ],
+  "mockups": [
+    {
+      "name": "Inbox",
+      "x": 0,
+      "y": null,
+      "options": "fluent",
+      "code": [
+        "Text(\"Inbox\")"
+      ]
+    },
+    "Sign in"
+  ],
+  "view": {
+    "zoom": "75%",
+    "active": 1
+  }
+}

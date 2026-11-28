@@ -35,6 +35,8 @@ release after the GitHub release exists is followed by the next patch version (A
   `typescript` and `@playwright/test` only (ADR-20).
 - `dist/mockitdown.js` — the package entry (the core today; it will define the custom elements).
 - `dist/node.js` (`mockitdown/node`) — the core plus a loader that reads the shared assets from disk.
+- `dist/design.js` (`mockitdown/design`) — design documents (`.mkdesign`) and the design session, for
+  design tools and for hosts such as a desktop shell; no DOM, network or file system.
 - `dist/shared/` — the packs (`packs/<id>/pack.json`, `pack.css`), `page.css`, `icons.json`,
   `vocabulary.json` and `manifest.json` (the pack ids and files, for loaders), copied from `shared/` at
   build time.
@@ -115,6 +117,27 @@ render('VStack { ForEach(["Mon", "Tue"], id: \\.self) { d in Text(d) } }', { edi
 //   <span class="mkd-text" data-el="Text" data-mkd-node="n3" data-mkd-derived="n2" …>Mon</span> …
 tree.byOrdinal("n3");                                 // the ViewNode, with its stable id
 ```
+
+### Design documents
+
+A design (`.mkdesign`) is one JSON file of named mockups, each with its position, options and code.
+`mockitdown/design` reads, validates and writes it, and holds the state the design tools share:
+
+```js
+import { DesignSession, mockupOptions, newDesign, readDesign, writeDesign } from "mockitdown/design";
+
+const r = readDesign(text);                           // {document} or {errors: [{path, message}]}
+if ("errors" in r) throw new Error(r.errors.map((e) => `${e.path}: ${e.message}`).join("\n"));
+const session = new DesignSession(r.document);
+session.subscribe(({ kind, detail }) => { /* select, hover, change, insert, active, diagnostics */ });
+session.apply({ op: "remove", nodes: ["n3"] });       // one "change" with the text edits
+session.setCode("Inbox", code);                       // code typed as text; the last valid tree is kept
+writeDesign(session.document);                        // stable key order, unknown keys kept, code verbatim
+mockupOptions(session.document, "Inbox");             // defaults under the mockup's options, with its pack
+```
+
+`writeDesign(readDesign(text).document)` gives `text` back for any text it wrote. Reading and writing
+files, and converting a design to Markdown or HTML, stay with the host.
 
 ## Development
 

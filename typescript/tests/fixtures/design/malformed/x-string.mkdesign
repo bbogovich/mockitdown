@@ -1,0 +1,14 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Mail app",
+  "defaults": {},
+  "mockups": [
+    {
+      "name": "Inbox",
+      "x": "10",
+      "y": 0,
+      "code": "Text(\"Inbox\")\n"
+    }
+  ]
+}

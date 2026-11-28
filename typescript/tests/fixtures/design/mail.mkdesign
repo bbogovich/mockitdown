@@ -1,0 +1,70 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Mail app",
+  "defaults": {
+    "pack": "fluent",
+    "appearance": "light",
+    "x-theme": {
+      "accent": "#0f6cbd"
+    }
+  },
+  "imports": [
+    "components/cards.mockitdown",
+    "components/pill.mockitdown"
+  ],
+  "sections": [
+    {
+      "name": "Onboarding",
+      "x": -40,
+      "y": -60,
+      "w": 1400,
+      "h": 900,
+      "color": "#e8f0fe"
+    }
+  ],
+  "mockups": [
+    {
+      "name": "Sign in",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "device": "desktop",
+        "width": 480,
+        "height": 360,
+        "title": "Sign in"
+      },
+      "code": "NavigationStack {\n  VStack(spacing: 12) {\n    Text(\"Welcome back\")\n  }\n}\n",
+      "locked": true
+    },
+    {
+      "name": "Inbox",
+      "x": 560.5,
+      "y": -12,
+      "options": {
+        "pack": "mui"
+      },
+      "code": "List {\r\n\tText(\"Ada\")   \r\n\tText(\"Grace\")\t\r\n}",
+      "notes": {
+        "author": "UX",
+        "tags": [
+          "draft",
+          "v2"
+        ],
+        "reviewed": null
+      }
+    }
+  ],
+  "view": {
+    "zoom": 0.75,
+    "x": 120,
+    "y": 40,
+    "active": "Sign in",
+    "grid": false
+  },
+  "x-tool": {
+    "name": "MockItDown-Designer",
+    "build": 7,
+    "panels": []
+  }
+}

@@ -25,7 +25,7 @@ test("no runtime dependencies and exactly the dev dependencies of ADR-20 (TC-2)"
 });
 
 test("the build emits ES modules with declarations and dist/shared/ (C2)", () => {
-  for (const f of ["mockitdown.js", "mockitdown.d.ts", "node.js", "core/index.js", "core/index.d.ts"]) {
+  for (const f of ["mockitdown.js", "mockitdown.d.ts", "node.js", "design.js", "design.d.ts", "core/index.js", "core/index.d.ts"]) {
     assert.ok(existsSync(join(PKG, "dist", f)), `dist/${f}`);
   }
   const manifest = JSON.parse(readFileSync(join(PKG, "dist/shared/manifest.json"), "utf8")) as { packs: string[]; files: string[] };

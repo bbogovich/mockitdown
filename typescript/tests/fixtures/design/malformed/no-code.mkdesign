@@ -1,0 +1,19 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Mail app",
+  "defaults": {},
+  "mockups": [
+    {
+      "name": "Sign in",
+      "x": 0,
+      "y": 0,
+      "code": "Text(\"Sign in\")\n"
+    },
+    {
+      "name": "Inbox",
+      "x": 560,
+      "y": 0
+    }
+  ]
+}
