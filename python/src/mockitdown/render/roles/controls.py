@@ -73,7 +73,7 @@ class ControlRoles:
         if _bool(v.attr("inline")):
             return markup
         pos = _name(v.attr("position", "placement")) or "bottomTrailing"
-        self.overlays.append(f'<div class="mkd-layer" data-kind="fab" data-position="{esc(pos)}">{markup}</div>')
+        self.present(v, f'<div class="mkd-layer" data-kind="fab" data-position="{esc(pos)}">', markup)
         return ""
 
     def r_toggle(self, v: View) -> str:

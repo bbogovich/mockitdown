@@ -54,7 +54,7 @@ export const ControlRoles: Record<string, RoleFn> = {
     const markup = this.open(v, "fab", "span", { data: label ? { extended: "true" } : {}, attrs: { role: "button" } }) + inner + "</span>";
     if (bool(at(v, "inline"))) return markup;
     const pos = name(at(v, "position", "placement")) || "bottomTrailing";
-    this.overlays.push(`<div class="mkd-layer" data-kind="fab" data-position="${esc(pos)}">${markup}</div>`);
+    this.present(v, `<div class="mkd-layer" data-kind="fab" data-position="${esc(pos)}">`, markup);
     return "";
   },
   toggle(v) {

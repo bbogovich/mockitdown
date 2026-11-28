@@ -415,6 +415,15 @@ def annotate_cases() -> list[Case]:
         Case("annotate-in-dialog", "a callout inside a dialog is emitted after the dialog's layer",
              'VStack { Text("Behind") }\n.alert("Delete?", isPresented: true) {\n  Button("Cancel")\n'
              '  Button("Delete", role: .destructive).callout(1)\n}'),
+        Case("annotate-overlay-callouts", "a Dialog, a Toast and a floating action button keep their callouts, "
+             "one presented through `.overlay` (R-ANN-001.C6)",
+             'VStack(spacing: 12) {\n  Text("Inbox")\n  Dialog("Rename") { TextField("Name"); Button("OK") }.callout(1)\n'
+             '  Toast("Saved").callout(2)\n  FloatingActionButton("plus").callout(3)\n}\n'
+             '.frame(width: 360)\n.overlay { Toast("Copied", position: .top).callout(4) }'),
+        Case("annotate-dialog-contents", "a callout on a button inside a Dialog follows the dialog's layer "
+             "(R-ANN-003.C3, C6)",
+             'VStack { Text("Behind")\n  Dialog("Delete?") { Text("This cannot be undone.")\n'
+             '    Button("Delete", role: .destructive).callout(1) }\n}'),
     ]
     for kind in ("arrow", "ibeam", "grab", "crosshair", "touch"):
         out.append(Case(f"annotate-pointer-{kind}", f"pointer kind {kind}", form("", f".pointer(.{kind})")))

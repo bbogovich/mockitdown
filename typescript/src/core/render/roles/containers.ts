@@ -272,8 +272,9 @@ export const ContainerRoles: Record<string, RoleFn> = {
     }
     // A popover written on its own points at a placeholder anchor above it (R-PACK-015.C3).
     const anchor = variant === "popover" ? `<div class="mkd-popover__anchor">${TOOLTIP_PLACEHOLDER}</div>` : "";
-    this.overlays.push(`<div class="mkd-layer" data-kind="${esc(variant)}"><div class="mkd-scrim"></div>${anchor}${markup}</div>`);
-    this.overlays.push(...innerLayers); // anchored marks after the dialog they point into
+    // The dialog's own marks and those of its contents follow its layer (R-ANN-001.C6, R-ANN-003.C3).
+    this.present(v, `<div class="mkd-layer" data-kind="${esc(variant)}"><div class="mkd-scrim"></div>${anchor}`,
+      markup, "</div>", innerLayers);
     return "";
   },
   menu(v) {
@@ -357,7 +358,7 @@ export const ContainerRoles: Record<string, RoleFn> = {
       + "</div>";
     if (bool(at(v, "inline"))) return markup;
     const pos = name(at(v, "position", "placement")) || "bottom";
-    this.overlays.push(`<div class="mkd-layer" data-kind="toast" data-position="${esc(pos)}">${markup}</div>`);
+    this.present(v, `<div class="mkd-layer" data-kind="toast" data-position="${esc(pos)}">`, markup);
     return "";
   },
   alert(v) {

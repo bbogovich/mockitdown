@@ -1,0 +1,5 @@
+// a callout on a button inside a Dialog follows the dialog's layer (R-ANN-003.C3, C6)
+VStack { Text("Behind")
+  Dialog("Delete?") { Text("This cannot be undone.")
+    Button("Delete", role: .destructive).callout(1) }
+}

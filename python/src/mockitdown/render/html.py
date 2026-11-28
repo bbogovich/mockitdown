@@ -240,16 +240,38 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
                 items.append(f'<span class="mkd-deco__tap" data-align="{esc(a or "center")}"></span>')
         return "".join(items)
 
-    def _wrap_overlays(self, v: View, out: str) -> str:
+    def _marks(self, v: View, out: str) -> tuple[str, str]:
+        """``out`` decorated with the marks of ``v``, and the anchored layer drawing them (or ``out``, "").
+
+        Marks are drawn twice (R-ANN-003.C2): in a screen-level layer tied to the element by CSS anchor
+        positioning (unclipped; used where supported) and inside the element itself (fallback).
+        """
         deco = self._decorations(v)
-        if deco and out:
-            self.anchor_seq += 1
-            name = f"--mkd-{self.anchor_prefix}-{self.anchor_seq}"
-            # Marks are drawn twice: in a screen-level layer tied to the element by CSS anchor positioning
-            # (unclipped; used where supported) and inside the element itself (fallback).
-            self.overlays.append(f'<div class="mkd-anchored" style="position-anchor:{name}">{deco}</div>')
-            layer = f'<div class="mkd-deco__layer">{deco}</div>'
-            out = _decorate(out, name, layer)
+        if not deco or not out:
+            return out, ""
+        self.anchor_seq += 1
+        name = f"--mkd-{self.anchor_prefix}-{self.anchor_seq}"
+        anchored = f'<div class="mkd-anchored" style="position-anchor:{name}">{deco}</div>'
+        return _decorate(out, name, f'<div class="mkd-deco__layer">{deco}</div>'), anchored
+
+    def present(self, v: View | None, open_: str, markup: str, close: str = "</div>",
+                inner: list[str] | None = None) -> None:
+        """Add an overlay layer ``open_ markup close`` to the screen (R-ANN-001.C6, R-ANN-003.C3).
+
+        ``markup`` is the overlay ``v`` itself (a dialog, toast or floating action button), decorated with
+        its own marks; ``inner`` are the layers its contents added (their anchored marks among them). The
+        anchored marks follow the layer, so their anchors precede them.
+        """
+        markup, anchored = self._marks(v, markup) if v is not None else (markup, "")
+        self.overlays.append(open_ + markup + close)
+        if anchored:
+            self.overlays.append(anchored)
+        self.overlays.extend(inner or [])
+
+    def _wrap_overlays(self, v: View, out: str) -> str:
+        out, anchored = self._marks(v, out)
+        if anchored:
+            self.overlays.append(anchored)
         for m in v.modifiers:
             if m.name == "overlay" and m.content:
                 align = m.kwargs.get("alignment", m.arg())
@@ -270,6 +292,7 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
             if not _bool(presented, True):
                 continue
             title = _fmt(m.arg()) if m.args and not isinstance(m.arg(), ViewList) else ""
+            mark = len(self.overlays)  # the layers and marks of the presented views follow this layer
             body = self.views(m.content or [])
             if m.name == "alert" or m.name == "confirmationDialog":
                 message = self.views(m.slots.get("message", []))
@@ -279,21 +302,24 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
                 actions = body or '<span class="mkd-button" role="button" data-variant="primary">' \
                                   '<span class="mkd-button__label">OK</span></span>'
                 self.in_menu = saved
-                self.overlays.append(
-                    f'<div class="mkd-layer" data-kind="{kind}"><div class="mkd-scrim"></div>'
-                    f'<div class="mkd-dialog" data-variant="{kind}" role="alertdialog">'
-                    + (f'<div class="mkd-dialog__title">{text_html(title)}</div>' if title else "")
-                    + (f'<div class="mkd-dialog__body">{message}</div>' if message else "")
-                    + f'<div class="mkd-dialog__actions">{actions}</div></div></div>')
+                inner = self.overlays[mark:]
+                del self.overlays[mark:]
+                self.present(None, f'<div class="mkd-layer" data-kind="{kind}"><div class="mkd-scrim"></div>',
+                             f'<div class="mkd-dialog" data-variant="{kind}" role="alertdialog">'
+                             + (f'<div class="mkd-dialog__title">{text_html(title)}</div>' if title else "")
+                             + (f'<div class="mkd-dialog__body">{message}</div>' if message else "")
+                             + f'<div class="mkd-dialog__actions">{actions}</div></div>', inner=inner)
             else:
                 kind = {"sheet": "sheet", "fullScreenCover": "cover", "popover": "popover",
                         "inspector": "inspector"}[m.name]
-                self.overlays.append(f'<div class="mkd-layer" data-kind="{kind}">'
-                                     + ('<div class="mkd-scrim"></div>' if kind == "sheet" else "")
-                                     + f'<div class="mkd-presented" data-kind="{kind}">'
-                                     + ('<div class="mkd-presented__grabber"></div>' if kind == "sheet" else "")
-                                     + ('<span class="mkd-presented__arrow"></span>' if kind == "popover" else "")
-                                     + f"{body}</div></div>")
+                inner = self.overlays[mark:]
+                del self.overlays[mark:]
+                self.present(None, f'<div class="mkd-layer" data-kind="{kind}">'
+                             + ('<div class="mkd-scrim"></div>' if kind == "sheet" else ""),
+                             f'<div class="mkd-presented" data-kind="{kind}">'
+                             + ('<div class="mkd-presented__grabber"></div>' if kind == "sheet" else "")
+                             + ('<span class="mkd-presented__arrow"></span>' if kind == "popover" else "")
+                             + f"{body}</div>", inner=inner)
 
     # --- fallback ---------------------------------------------------------------------------------
 

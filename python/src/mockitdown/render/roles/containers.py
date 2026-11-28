@@ -335,9 +335,9 @@ class ContainerRoles:
             return markup
         # A popover written on its own points at a placeholder anchor above it (R-PACK-015.C3).
         anchor = f'<div class="mkd-popover__anchor">{TOOLTIP_PLACEHOLDER}</div>' if variant == "popover" else ""
-        self.overlays.append(f'<div class="mkd-layer" data-kind="{esc(variant)}"><div class="mkd-scrim"></div>'
-                             f"{anchor}{markup}</div>")
-        self.overlays.extend(inner_layers)  # anchored marks after the dialog they point into
+        # The dialog's own marks and those of its contents follow its layer (R-ANN-001.C6, R-ANN-003.C3).
+        self.present(v, f'<div class="mkd-layer" data-kind="{esc(variant)}"><div class="mkd-scrim"></div>{anchor}',
+                     markup, inner=inner_layers)
         return ""
 
     def r_menu(self, v: View) -> str:
@@ -425,7 +425,7 @@ class ContainerRoles:
         if _bool(v.attr("inline")):
             return markup
         pos = _name(v.attr("position", "placement")) or "bottom"
-        self.overlays.append(f'<div class="mkd-layer" data-kind="toast" data-position="{esc(pos)}">{markup}</div>')
+        self.present(v, f'<div class="mkd-layer" data-kind="toast" data-position="{esc(pos)}">', markup)
         return ""
 
     def r_alert(self, v: View) -> str:

@@ -1,0 +1,9 @@
+// a Dialog, a Toast and a floating action button keep their callouts, one presented through `.overlay` (R-ANN-001.C6)
+VStack(spacing: 12) {
+  Text("Inbox")
+  Dialog("Rename") { TextField("Name"); Button("OK") }.callout(1)
+  Toast("Saved").callout(2)
+  FloatingActionButton("plus").callout(3)
+}
+.frame(width: 360)
+.overlay { Toast("Copied", position: .top).callout(4) }

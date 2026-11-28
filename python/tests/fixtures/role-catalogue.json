@@ -388,6 +388,7 @@
     "title"
    ],
    "data": [
+    "deco",
     "el",
     "kind",
     "role",
@@ -435,6 +436,7 @@
     "label"
    ],
    "data": [
+    "deco",
     "extended",
     "kind",
     "position"
@@ -1224,6 +1226,7 @@
     "text"
    ],
    "data": [
+    "deco",
     "kind",
     "position"
    ]

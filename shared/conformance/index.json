@@ -2109,6 +2109,14 @@
       "area": "annotate"
     },
     {
+      "name": "annotate-overlay-callouts",
+      "area": "annotate"
+    },
+    {
+      "name": "annotate-dialog-contents",
+      "area": "annotate"
+    },
+    {
       "name": "annotate-pointer-arrow",
       "area": "annotate"
     },

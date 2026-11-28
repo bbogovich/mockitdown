@@ -247,16 +247,37 @@ export class Renderer {
     return items.join("");
   }
 
-  wrapOverlays(v: View, outIn: string): string {
-    let out = outIn;
+  /**
+   * `out` decorated with the marks of `v`, and the anchored layer drawing them (or `out`, ""). Marks
+   * are drawn twice (R-ANN-003.C2): in a screen-level layer tied to the element by CSS anchor
+   * positioning (unclipped; used where supported) and inside the element itself (fallback).
+   */
+  marks(v: View, out: string): [string, string] {
     const deco = this.decorations(v);
-    if (deco && out) {
-      this.anchorSeq += 1;
-      const anchor = `--mkd-${this.anchorPrefix}-${this.anchorSeq}`;
-      this.overlays.push(`<div class="mkd-anchored" style="position-anchor:${anchor}">${deco}</div>`);
-      const layer = `<div class="mkd-deco__layer">${deco}</div>`;
-      out = decorate(out, anchor, layer);
-    }
+    if (!deco || !out) return [out, ""];
+    this.anchorSeq += 1;
+    const anchor = `--mkd-${this.anchorPrefix}-${this.anchorSeq}`;
+    const anchored = `<div class="mkd-anchored" style="position-anchor:${anchor}">${deco}</div>`;
+    return [decorate(out, anchor, `<div class="mkd-deco__layer">${deco}</div>`), anchored];
+  }
+
+  /**
+   * Add an overlay layer `open markup close` to the screen (R-ANN-001.C6, R-ANN-003.C3). `markup` is
+   * the overlay `v` itself (a dialog, toast or floating action button), decorated with its own marks;
+   * `inner` are the layers its contents added (their anchored marks among them). The anchored marks
+   * follow the layer, so their anchors precede them.
+   */
+  present(v: View | null, open: string, markupIn: string, close = "</div>", inner: string[] = []): void {
+    const [markup, anchored] = v ? this.marks(v, markupIn) : [markupIn, ""];
+    this.overlays.push(open + markup + close);
+    if (anchored) this.overlays.push(anchored);
+    this.overlays.push(...inner);
+  }
+
+  wrapOverlays(v: View, outIn: string): string {
+    const [decorated, anchored] = this.marks(v, outIn);
+    let out = decorated;
+    if (anchored) this.overlays.push(anchored);
     for (const m of v.modifiers) {
       if (m.name === "overlay" && m.content && m.content.length) {
         const align = m.kwargs.get("alignment", m.arg());
@@ -278,26 +299,28 @@ export class Renderer {
       const presented = m.kwargs.get("isPresented", m.kwargs.get("item", true));
       if (!bool(presented, true)) continue;
       const title = m.args.length && !(m.arg() instanceof ViewList) ? fmt(m.arg()) : "";
+      const mark = this.overlays.length; // the layers and marks of the presented views follow this layer
       const body = this.views(m.content ?? []);
       if (m.name === "alert" || m.name === "confirmationDialog") {
         const message = this.views(m.slots.get("message") ?? []);
         const kind = m.name === "alert" ? "alert" : "action-sheet";
         const actions = body || '<span class="mkd-button" role="button" data-variant="primary">'
           + '<span class="mkd-button__label">OK</span></span>';
-        this.overlays.push(
-          `<div class="mkd-layer" data-kind="${kind}"><div class="mkd-scrim"></div>`
-          + `<div class="mkd-dialog" data-variant="${kind}" role="alertdialog">`
+        const inner = this.overlays.splice(mark);
+        this.present(null, `<div class="mkd-layer" data-kind="${kind}"><div class="mkd-scrim"></div>`,
+          `<div class="mkd-dialog" data-variant="${kind}" role="alertdialog">`
           + (title ? `<div class="mkd-dialog__title">${textHtml(title)}</div>` : "")
           + (message ? `<div class="mkd-dialog__body">${message}</div>` : "")
-          + `<div class="mkd-dialog__actions">${actions}</div></div></div>`);
+          + `<div class="mkd-dialog__actions">${actions}</div></div>`, "</div>", inner);
       } else {
         const kind = ({ sheet: "sheet", fullScreenCover: "cover", popover: "popover", inspector: "inspector" } as Record<string, string>)[m.name];
-        this.overlays.push(`<div class="mkd-layer" data-kind="${kind}">`
-          + (kind === "sheet" ? '<div class="mkd-scrim"></div>' : "")
-          + `<div class="mkd-presented" data-kind="${kind}">`
+        const inner = this.overlays.splice(mark);
+        this.present(null, `<div class="mkd-layer" data-kind="${kind}">`
+          + (kind === "sheet" ? '<div class="mkd-scrim"></div>' : ""),
+          `<div class="mkd-presented" data-kind="${kind}">`
           + (kind === "sheet" ? '<div class="mkd-presented__grabber"></div>' : "")
           + (kind === "popover" ? '<span class="mkd-presented__arrow"></span>' : "")
-          + `${body}</div></div>`);
+          + `${body}</div>`, "</div>", inner);
       }
     }
   }
