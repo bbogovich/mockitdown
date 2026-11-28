@@ -1,0 +1,10 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n4",
+    "n6"
+  ],
+  "covers": [
+    "refuse:not-siblings"
+  ]
+}

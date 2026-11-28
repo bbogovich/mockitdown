@@ -1,0 +1,9 @@
+{
+  "op": "rename",
+  "nodes": [
+    "n2"
+  ],
+  "covers": [
+    "refuse:unknown-op"
+  ]
+}

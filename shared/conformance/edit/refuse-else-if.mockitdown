@@ -1,0 +1,11 @@
+// remove an else-if branch
+
+let mode = 1
+
+VStack {
+    if mode == 1 {
+        Text("One")
+    } else if mode == 2 {
+        Text("Two")
+    }
+}

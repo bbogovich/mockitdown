@@ -1,0 +1,11 @@
+{
+  "op": "insert",
+  "parent": "n2",
+  "index": 1,
+  "code": "Text(\"You have 3 messages\")",
+  "covers": [
+    "insert:middle",
+    "source:if",
+    "source:let"
+  ]
+}

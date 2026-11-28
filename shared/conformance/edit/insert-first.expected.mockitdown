@@ -1,0 +1,13 @@
+// insert a view as the first child
+
+VStack(spacing: 8) {
+    Image(systemName: "person.circle")
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    SecureField("Password", text: "")
+    Button("Continue")
+}

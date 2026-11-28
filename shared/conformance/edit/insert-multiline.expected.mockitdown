@@ -1,0 +1,18 @@
+// insert code over several lines, re-indented to its parent
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+  }
+  Section {
+      Text("Version 2.1")
+  }
+}

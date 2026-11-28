@@ -1,0 +1,15 @@
+// a move into a descendant of the moved node
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+  }
+}

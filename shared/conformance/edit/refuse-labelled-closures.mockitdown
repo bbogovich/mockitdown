@@ -1,0 +1,5 @@
+// insert into a call with only labelled trailing closures
+
+Banner("Saved") actions: {
+    Button("Undo")
+}

@@ -1,0 +1,12 @@
+// remove a top-level view after a struct declaration
+
+struct Row: View {
+    var title: String
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+    }
+}

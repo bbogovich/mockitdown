@@ -1,0 +1,12 @@
+{
+  "op": "move",
+  "nodes": [
+    "n1"
+  ],
+  "parent": "n2",
+  "index": 0,
+  "covers": [
+    "refuse:not-a-statement",
+    "source:let"
+  ]
+}

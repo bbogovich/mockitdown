@@ -1,0 +1,248 @@
+{
+  "cases": [
+    {
+      "name": "insert-first",
+      "op": "insert"
+    },
+    {
+      "name": "insert-middle",
+      "op": "insert"
+    },
+    {
+      "name": "insert-last",
+      "op": "insert"
+    },
+    {
+      "name": "insert-last-index",
+      "op": "insert"
+    },
+    {
+      "name": "insert-multiline",
+      "op": "insert"
+    },
+    {
+      "name": "insert-foreach",
+      "op": "insert"
+    },
+    {
+      "name": "insert-if-then",
+      "op": "insert"
+    },
+    {
+      "name": "insert-if-else",
+      "op": "insert"
+    },
+    {
+      "name": "insert-struct",
+      "op": "insert"
+    },
+    {
+      "name": "insert-empty",
+      "op": "insert"
+    },
+    {
+      "name": "insert-empty-inline",
+      "op": "insert"
+    },
+    {
+      "name": "insert-empty-unit",
+      "op": "insert"
+    },
+    {
+      "name": "insert-tabs",
+      "op": "insert"
+    },
+    {
+      "name": "insert-no-closure",
+      "op": "insert"
+    },
+    {
+      "name": "insert-inline",
+      "op": "insert"
+    },
+    {
+      "name": "insert-inline-end",
+      "op": "insert"
+    },
+    {
+      "name": "remove-first",
+      "op": "remove"
+    },
+    {
+      "name": "remove-middle",
+      "op": "remove"
+    },
+    {
+      "name": "remove-last",
+      "op": "remove"
+    },
+    {
+      "name": "remove-several",
+      "op": "remove"
+    },
+    {
+      "name": "remove-all",
+      "op": "remove"
+    },
+    {
+      "name": "remove-foreach",
+      "op": "remove"
+    },
+    {
+      "name": "remove-if",
+      "op": "remove"
+    },
+    {
+      "name": "remove-in-branch",
+      "op": "remove"
+    },
+    {
+      "name": "remove-struct",
+      "op": "remove"
+    },
+    {
+      "name": "remove-top-level",
+      "op": "remove"
+    },
+    {
+      "name": "remove-trailing-comment",
+      "op": "remove"
+    },
+    {
+      "name": "remove-inline-first",
+      "op": "remove"
+    },
+    {
+      "name": "remove-inline-last",
+      "op": "remove"
+    },
+    {
+      "name": "move-first",
+      "op": "move"
+    },
+    {
+      "name": "move-middle",
+      "op": "move"
+    },
+    {
+      "name": "move-last",
+      "op": "move"
+    },
+    {
+      "name": "move-several",
+      "op": "move"
+    },
+    {
+      "name": "move-across",
+      "op": "move"
+    },
+    {
+      "name": "move-foreach",
+      "op": "move"
+    },
+    {
+      "name": "move-into-empty",
+      "op": "move"
+    },
+    {
+      "name": "move-into-empty-inline",
+      "op": "move"
+    },
+    {
+      "name": "move-no-closure",
+      "op": "move"
+    },
+    {
+      "name": "move-out-of-if",
+      "op": "move"
+    },
+    {
+      "name": "move-struct",
+      "op": "move"
+    },
+    {
+      "name": "move-trailing-comment",
+      "op": "move"
+    },
+    {
+      "name": "move-inline",
+      "op": "move"
+    },
+    {
+      "name": "refuse-not-a-node",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-modifier",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-unknown-node",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-move-into-self",
+      "op": "move"
+    },
+    {
+      "name": "refuse-move-into-descendant",
+      "op": "move"
+    },
+    {
+      "name": "refuse-insert-two-views",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-insert-syntax",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-insert-not-a-view",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-insert-empty",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-not-siblings",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-not-a-statement",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-let-value",
+      "op": "move"
+    },
+    {
+      "name": "refuse-index",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-named-twice",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-no-nodes",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-labelled-closures",
+      "op": "insert"
+    },
+    {
+      "name": "refuse-else-if",
+      "op": "remove"
+    },
+    {
+      "name": "refuse-unknown-op",
+      "op": "rename"
+    },
+    {
+      "name": "refuse-source-syntax",
+      "op": "remove"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n5",
+  "index": 2,
+  "code": "Toggle(\"Badges\", isOn: true)",
+  "covers": [
+    "insert:last",
+    "source:let"
+  ]
+}

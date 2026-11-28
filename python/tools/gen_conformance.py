@@ -17,6 +17,7 @@ Layout of ``shared/conformance/``::
     <name>.html                the expected HTML: RenderResult.html followed by one line feed
     <name>.diag.json           the expected result: {"packs": [...], "diagnostics": [...]}
     components/*.mockitdown    component libraries the import-* cases import
+    edit/                      the edit corpus (R-EDIT-002), hand-written; never read or written here
 
 How a case is rendered (the harness every variant reproduces): no source path and no asset or pack
 paths; one import search path, ``.``, resolved against ``shared/conformance/``. So imports name files
@@ -751,10 +752,16 @@ def expected_files(cases: list[Case]) -> dict[str, str]:
     return files
 
 
+#: The edit corpus (R-EDIT-002.C15) shares the folder but holds no render cases; it is never read or
+#: written here (R-REPO-004.C15).
+EDIT_CORPUS = "edit"
+
+
 def _existing() -> set[str]:
     if not CONF.is_dir():
         return set()
-    return {p.relative_to(CONF).as_posix() for p in CONF.rglob("*") if p.is_file()}
+    files = (p.relative_to(CONF) for p in CONF.rglob("*") if p.is_file())
+    return {p.as_posix() for p in files if p.parts[0] != EDIT_CORPUS}
 
 
 def main(argv: list[str] | None = None) -> int:

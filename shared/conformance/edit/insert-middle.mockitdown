@@ -1,0 +1,12 @@
+// insert a view in the middle, before a child's leading comment
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    SecureField("Password", text: "")
+    Button("Continue")
+}

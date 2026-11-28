@@ -70,6 +70,24 @@ Options use the Python `RenderOptions` field names (`pack`, `default_pack`, `dev
 component file's text for a candidate path, and `asset_base`, the URL local image paths resolve
 against (images are never embedded; without it a local path is reported as not found).
 
+### Editing
+
+For visual editors, `parseTree(source)` gives the view nodes of a source (ordinals `n1`, `n2`, … and
+stable ids), and `edit(sourceOrTree, op)` inserts, removes or moves them with the smallest text edits,
+keeping comments and formatting outside the changed lines:
+
+```js
+import { edit, parseTree } from "mockitdown";
+
+const { tree } = parseTree(source);
+const r = edit(tree, { op: "insert", parent: "n1", index: "end", code: 'Toggle("Remember me")' });
+if ("error" in r) console.warn(r.error);
+else apply(r.edits);                                  // [{start, end, text}], ascending; r.source, r.tree
+// also { op: "remove", nodes: ["n3"] } and { op: "move", nodes: ["n3"], parent: "n2", index: 0 }
+```
+
+The printing rules are fixed by the edit corpus in `shared/conformance/edit/`.
+
 ## Development
 
 Node 22 or later.

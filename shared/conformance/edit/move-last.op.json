@@ -1,0 +1,13 @@
+{
+  "op": "move",
+  "nodes": [
+    "n5"
+  ],
+  "parent": "n1",
+  "index": 1,
+  "covers": [
+    "move:last",
+    "move:middle",
+    "source:comments"
+  ]
+}

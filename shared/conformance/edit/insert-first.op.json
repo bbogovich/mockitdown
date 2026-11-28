@@ -1,0 +1,11 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": 0,
+  "code": "Image(systemName: \"person.circle\")",
+  "covers": [
+    "insert:first",
+    "source:comments",
+    "source:blank-lines"
+  ]
+}

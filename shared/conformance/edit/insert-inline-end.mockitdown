@@ -1,0 +1,3 @@
+// insert after the last child of a closure on one line
+
+HStack { Text("a"); Text("b"); Text("c") }

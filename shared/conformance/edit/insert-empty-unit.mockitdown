@@ -1,0 +1,6 @@
+// insert into an empty parent with a two-space indentation unit
+
+VStack {
+  Text("Title")
+  HStack {}
+}

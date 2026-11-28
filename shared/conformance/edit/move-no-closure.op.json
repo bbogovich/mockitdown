@@ -1,0 +1,11 @@
+{
+  "op": "move",
+  "nodes": [
+    "n2"
+  ],
+  "parent": "n3",
+  "index": "end",
+  "covers": [
+    "move:no-closure"
+  ]
+}

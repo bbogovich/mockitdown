@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": "end",
+  "code": "Spacer()",
+  "covers": [
+    "insert:last",
+    "insert:inline"
+  ]
+}

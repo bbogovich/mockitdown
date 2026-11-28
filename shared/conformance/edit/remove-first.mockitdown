@@ -1,0 +1,12 @@
+// remove the first child with its leading comment and the blank line after it
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    SecureField("Password", text: "")
+    Button("Continue")
+}

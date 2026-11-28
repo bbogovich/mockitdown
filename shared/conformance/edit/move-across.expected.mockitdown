@@ -1,0 +1,15 @@
+// move a view into another section
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+    Toggle("Notifications", isOn: true)
+  }
+  Section {
+    Toggle("Sounds", isOn: false)
+  }
+}

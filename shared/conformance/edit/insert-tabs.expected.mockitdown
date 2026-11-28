@@ -1,0 +1,10 @@
+// insert into an empty parent of a source indented with tabs
+
+VStack {
+	HStack {
+		Text("a")
+	}
+	VStack {
+		Text("b")
+	}
+}

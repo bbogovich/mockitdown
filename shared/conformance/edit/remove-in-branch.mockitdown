@@ -1,0 +1,12 @@
+// remove the only view of an else branch
+
+let signedIn = true
+
+VStack {
+    if signedIn {
+        Text("Welcome back")
+    } else {
+        Button("Sign in")
+    }
+    Divider()
+}

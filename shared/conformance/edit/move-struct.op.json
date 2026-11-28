@@ -1,0 +1,13 @@
+{
+  "op": "move",
+  "nodes": [
+    "n4"
+  ],
+  "parent": "n1",
+  "index": 0,
+  "covers": [
+    "move:last",
+    "move:first",
+    "source:struct"
+  ]
+}

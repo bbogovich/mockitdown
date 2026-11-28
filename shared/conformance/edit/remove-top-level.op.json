@@ -1,0 +1,10 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n5"
+  ],
+  "covers": [
+    "remove:last",
+    "source:struct"
+  ]
+}

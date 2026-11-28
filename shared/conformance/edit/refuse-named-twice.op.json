@@ -1,0 +1,10 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n2",
+    "n2"
+  ],
+  "covers": [
+    "refuse:named-twice"
+  ]
+}

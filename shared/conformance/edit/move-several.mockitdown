@@ -1,0 +1,12 @@
+// move two adjacent children to the front, in their order
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    SecureField("Password", text: "")
+    Button("Continue")
+}

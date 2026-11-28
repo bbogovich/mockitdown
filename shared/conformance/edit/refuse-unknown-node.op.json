@@ -1,0 +1,9 @@
+{
+  "op": "remove",
+  "nodes": [
+    "id99"
+  ],
+  "covers": [
+    "refuse:not-a-node"
+  ]
+}

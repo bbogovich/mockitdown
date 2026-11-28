@@ -1,0 +1,5 @@
+// a source with a syntax error
+
+VStack {
+    Text("a"
+}

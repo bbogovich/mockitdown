@@ -1,0 +1,7 @@
+// move a view into a call without a closure
+
+VStack {
+    Text("Actions")
+    HStack(spacing: 4)
+        .padding()
+}

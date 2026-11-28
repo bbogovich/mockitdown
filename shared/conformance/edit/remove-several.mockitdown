@@ -1,0 +1,12 @@
+// remove two children that are not next to each other
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    SecureField("Password", text: "")
+    Button("Continue")
+}

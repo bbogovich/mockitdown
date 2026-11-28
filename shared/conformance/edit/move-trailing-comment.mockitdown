@@ -1,0 +1,7 @@
+// move a child with its trailing comment
+
+VStack {
+    Text("One") // the first
+    Text("Two")
+    Text("Three")
+}

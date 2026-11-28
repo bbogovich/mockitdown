@@ -1,0 +1,12 @@
+// move a middle child before the first
+
+VStack(spacing: 8) {
+    SecureField("Password", text: "")
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    /* the fields */
+    TextField("Email", text: "")
+    Button("Continue")
+}

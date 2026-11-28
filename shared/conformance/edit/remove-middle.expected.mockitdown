@@ -1,0 +1,10 @@
+// remove a middle child with its leading block comment
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+
+    SecureField("Password", text: "")
+    Button("Continue")
+}

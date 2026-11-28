@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n2",
+  "index": "end",
+  "code": "Button(\"Create account\")",
+  "covers": [
+    "insert:last",
+    "source:if"
+  ]
+}

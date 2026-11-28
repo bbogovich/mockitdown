@@ -1,0 +1,11 @@
+{
+  "op": "move",
+  "nodes": [
+    "n2"
+  ],
+  "parent": "n2",
+  "index": 0,
+  "covers": [
+    "refuse:move-into-self"
+  ]
+}

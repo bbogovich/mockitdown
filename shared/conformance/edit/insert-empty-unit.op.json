@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n3",
+  "index": 0,
+  "code": "Text(\"x\")",
+  "covers": [
+    "insert:empty",
+    "indent:unit"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": 0,
+  "code": "Text(\"x\")",
+  "covers": [
+    "refuse:labelled-closures"
+  ]
+}

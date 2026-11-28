@@ -1,0 +1,15 @@
+// remove every child of a closure; its braces stay
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+  }
+}

@@ -1,0 +1,17 @@
+// move a view inside a struct body to its front
+
+struct Row: View {
+    var title: String
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+    }
+}
+
+VStack {
+    Row(title: "Profile")
+    Row(title: "Settings")
+}

@@ -1,0 +1,12 @@
+// remove a ForEach with its closure
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+  }
+}

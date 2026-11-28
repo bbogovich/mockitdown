@@ -26,8 +26,12 @@ export * as ast from "./syntax/ast.js";
 export { Interpolation, Lexer, Token, tokenize, type Comment } from "./syntax/lexer.js";
 export { parse, Parser } from "./syntax/parser.js";
 export {
-  applyEdits, parseTree, reparse, SyntaxTree, ViewNode, type Span, type TextEdit, type TreeResult, type ViewNodeKind,
+  applyEdits, parseTree, reparse, SyntaxTree, type CarriedRange, ViewNode, type Span, type TextEdit, type TreeResult, type ViewNodeKind,
 } from "./syntax/tree.js";
+export {
+  edit, indentUnit, type EditIndex, type EditOp, type EditRefusal, type EditResult, type InsertOp, type MoveOp, type NodeRef,
+  type RemoveOp,
+} from "./syntax/edit.js";
 export * as pyformat from "./pyformat.js";
 export * as values from "./values.js";
 export { IGNORED, NEUTRAL_MODULES, RENDERED, setVocabulary } from "./vocabulary.js";

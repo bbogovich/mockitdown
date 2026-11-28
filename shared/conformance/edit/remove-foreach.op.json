@@ -1,0 +1,11 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n3"
+  ],
+  "covers": [
+    "remove:first",
+    "source:foreach",
+    "source:let"
+  ]
+}

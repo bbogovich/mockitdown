@@ -1,0 +1,12 @@
+// remove an if statement with both branches
+
+let signedIn = true
+
+VStack {
+    if signedIn {
+        Text("Welcome back")
+    } else {
+        Button("Sign in")
+    }
+    Divider()
+}

@@ -1,0 +1,9 @@
+// insert into a closure with no children whose braces are on two lines
+
+VStack {
+    Text("Header")
+    HStack {
+        Text("Left")
+    }
+    HStack {}
+}

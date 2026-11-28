@@ -1,0 +1,9 @@
+// move a view into an empty closure written {}
+
+VStack {
+    HStack {
+    }
+    HStack {
+        Text("Header")
+    }
+}

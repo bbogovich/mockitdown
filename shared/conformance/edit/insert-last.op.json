@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": "end",
+  "code": "Text(\"Forgot your password?\")\n    .font(.footnote)",
+  "covers": [
+    "insert:last",
+    "source:comments"
+  ]
+}

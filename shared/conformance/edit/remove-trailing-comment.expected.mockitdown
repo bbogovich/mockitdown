@@ -1,0 +1,6 @@
+// remove a child with a comment after it on its line
+
+VStack {
+    Text("Two")
+    Text("Three")
+}

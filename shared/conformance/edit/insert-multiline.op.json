@@ -1,0 +1,11 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": "end",
+  "code": "    Section {\n        Text(\"Version 2.1\")\n    }",
+  "covers": [
+    "insert:last",
+    "indent:relative",
+    "source:let"
+  ]
+}

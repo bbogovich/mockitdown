@@ -1,0 +1,13 @@
+{
+  "op": "move",
+  "nodes": [
+    "n3"
+  ],
+  "parent": "n1",
+  "index": 2,
+  "covers": [
+    "move:middle",
+    "source:if",
+    "source:let"
+  ]
+}

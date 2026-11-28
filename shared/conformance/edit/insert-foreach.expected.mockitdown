@@ -1,0 +1,16 @@
+// insert into the closure of a ForEach
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Image(systemName: "folder")
+      Text(item)
+    }
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+  }
+}

@@ -1,0 +1,7 @@
+// insert into a call without a closure, which gets one
+
+VStack {
+    Text("Actions")
+    HStack(spacing: 4)
+        .padding()
+}

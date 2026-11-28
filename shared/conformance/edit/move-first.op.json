@@ -1,0 +1,14 @@
+{
+  "op": "move",
+  "nodes": [
+    "n2"
+  ],
+  "parent": "n1",
+  "index": "end",
+  "covers": [
+    "move:first",
+    "move:last",
+    "source:comments",
+    "source:blank-lines"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": 1,
+  "code": "Divider()",
+  "covers": [
+    "insert:middle",
+    "source:comments",
+    "source:blank-lines"
+  ]
+}

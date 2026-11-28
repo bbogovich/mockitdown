@@ -1,0 +1,19 @@
+// insert into a view inside a struct body
+
+struct Row: View {
+    var title: String
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Text("New")
+                .font(.caption)
+            Image(systemName: "chevron.right")
+        }
+    }
+}
+
+VStack {
+    Row(title: "Profile")
+    Row(title: "Settings")
+}

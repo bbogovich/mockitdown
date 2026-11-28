@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n4",
+  "index": 0,
+  "code": "Text(\"b\")",
+  "covers": [
+    "insert:empty",
+    "indent:tabs"
+  ]
+}

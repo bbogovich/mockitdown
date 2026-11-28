@@ -1,0 +1,16 @@
+// insert at an index equal to the number of children
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    Toggle("Sounds", isOn: false)
+    Toggle("Badges", isOn: true)
+  }
+}

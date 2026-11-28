@@ -1,0 +1,15 @@
+// move a ForEach with its closure into another section
+
+let items = ["Inbox", "Sent", "Archive"]
+
+List {
+  Section {
+  }
+  Section {
+    Toggle("Notifications", isOn: true)
+    ForEach(items, id: \.self) { item in
+      Text(item)
+    }
+    Toggle("Sounds", isOn: false)
+  }
+}

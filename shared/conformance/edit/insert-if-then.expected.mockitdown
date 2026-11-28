@@ -1,0 +1,13 @@
+// insert into the then branch of an if
+
+let signedIn = true
+
+VStack {
+    if signedIn {
+        Text("Welcome back")
+        Text("You have 3 messages")
+    } else {
+        Button("Sign in")
+    }
+    Divider()
+}

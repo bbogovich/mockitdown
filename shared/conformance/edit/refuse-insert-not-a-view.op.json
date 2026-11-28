@@ -1,0 +1,9 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": 0,
+  "code": "let x = 1",
+  "covers": [
+    "refuse:insert-not-one-view"
+  ]
+}

@@ -159,7 +159,27 @@ export function parseTree(source: string): TreeResult {
  * RangeError.
  */
 export function reparse(tree: SyntaxTree, edits: readonly TextEdit[]): TreeResult {
-  return build(applyEdits(tree.source, edits), tree.ids, { tree, edits });
+  return build(applyEdits(tree.source, edits), tree.ids, { tree, edits, carried: [] });
+}
+
+/**
+ * A range of the edited text that holds moved code (R-EDIT-002.C8): the view nodes whose first token
+ * lies in it take, in source order, the ids of the old nodes the code was moved from.
+ */
+export interface CarriedRange {
+  /** Offsets in the text after the edits. */
+  readonly start: number;
+  readonly end: number;
+  /** The moved nodes and their descendants, in source order. */
+  readonly nodes: readonly ViewNode[];
+}
+
+/**
+ * @internal {@link reparse}, with moved code keeping its ids: in each carried range the new nodes
+ * take the old nodes' ids, in order, when they match one to one by name.
+ */
+export function reparseCarrying(tree: SyntaxTree, edits: readonly TextEdit[], carried: readonly CarriedRange[]): TreeResult {
+  return build(applyEdits(tree.source, edits), tree.ids, { tree, edits, carried });
 }
 
 /** The text after applying `edits` (M-EDIT-3: ascending, not overlapping, offsets into `text`). */
@@ -181,6 +201,7 @@ export function applyEdits(text: string, edits: readonly TextEdit[]): string {
 interface Prior {
   tree: SyntaxTree;
   edits: readonly TextEdit[];
+  carried: readonly CarriedRange[];
 }
 
 function build(source: string, ids: IdSource, prior: Prior | null): TreeResult {
@@ -198,7 +219,19 @@ function build(source: string, ids: IdSource, prior: Prior | null): TreeResult {
   const raw = new Collector(source, comments).collect(module);
   raw.sort((a, b) => a.first - b.first);
   const keep = prior ? idMapper(prior) : (): string | null => null;
-  const nodes = raw.map((r, i) => new ViewNode({ ...r, index: i + 1, id: keep(r.nameSpan, r.name) ?? `id${ids.next++}` }));
+  const carry = new Map<RawNode, string>();
+  for (const c of prior?.carried ?? []) {
+    const inside = raw.filter((r) => c.start <= r.first && r.first < c.end);
+    if (inside.length === c.nodes.length && inside.every((r, i) => r.name === c.nodes[i].name)) {
+      inside.forEach((r, i) => carry.set(r, c.nodes[i].id));
+    }
+  }
+  const used = new Set(carry.values());
+  const nodes = raw.map((r, i) => {
+    let id = carry.get(r) ?? keep(r.nameSpan, r.name);
+    if (id === null || (!carry.has(r) && used.has(id))) id = `id${ids.next++}`;
+    return new ViewNode({ ...r, index: i + 1, id });
+  });
   const of = new Map(raw.map((r, i) => [r, nodes[i]]));
   raw.forEach((r, i) => {
     if (r.parent) {

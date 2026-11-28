@@ -1,0 +1,4 @@
+// the ordinal a modifier call would have if modifiers were nodes
+
+Text("Title")
+    .bold()

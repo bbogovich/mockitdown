@@ -85,6 +85,19 @@ class ConformanceCorpus(unittest.TestCase):
                 self.assertEqual(gen.main(["--check"]), 1)
             self.assertIn("stale", err.getvalue())
 
+    def test_edit_corpus_is_ignored(self):
+        """R-REPO-004.C15: files under edit/ are no render cases, never stray, never removed."""
+        self.assertTrue((CONF / "edit" / "index.json").is_file())
+        self.assertFalse(any(p.startswith("edit/") for p in gen._existing()))
+        with tempfile.TemporaryDirectory() as tmp:
+            copy = Path(tmp) / "conformance"
+            shutil.copytree(CONF, copy)
+            extra = copy / "edit" / "extra-case.mockitdown"
+            extra.write_text('Text("x")\n', encoding="utf-8")
+            with mock.patch.object(gen, "CONF", copy), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(gen.main(["--check"]), 0)
+            self.assertTrue(extra.is_file())
+
     def test_options_are_known(self):
         for name in _cases():
             options = json.loads((CONF / f"{name}.json").read_text(encoding="utf-8"))

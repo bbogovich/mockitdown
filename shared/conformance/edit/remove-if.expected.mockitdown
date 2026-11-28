@@ -1,0 +1,7 @@
+// remove an if statement with both branches
+
+let signedIn = true
+
+VStack {
+    Divider()
+}

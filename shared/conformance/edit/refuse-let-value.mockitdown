@@ -1,0 +1,7 @@
+// move a view that is a let value
+
+let title = Text("Hello")
+
+VStack {
+    title
+}

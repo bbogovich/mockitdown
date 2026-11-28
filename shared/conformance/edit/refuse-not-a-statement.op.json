@@ -1,0 +1,9 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n3"
+  ],
+  "covers": [
+    "refuse:not-a-statement"
+  ]
+}

@@ -1,0 +1,12 @@
+// move a view out of an if branch to after the if
+
+let signedIn = true
+
+VStack {
+    if signedIn {
+    } else {
+        Button("Sign in")
+    }
+    Divider()
+    Text("Welcome back")
+}

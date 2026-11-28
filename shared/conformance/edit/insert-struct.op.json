@@ -1,0 +1,10 @@
+{
+  "op": "insert",
+  "parent": "n1",
+  "index": 2,
+  "code": "Text(\"New\")\n    .font(.caption)",
+  "covers": [
+    "insert:middle",
+    "source:struct"
+  ]
+}

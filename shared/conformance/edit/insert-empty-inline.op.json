@@ -1,0 +1,9 @@
+{
+  "op": "insert",
+  "parent": "n4",
+  "index": "end",
+  "code": "Text(\"Right\")",
+  "covers": [
+    "insert:empty"
+  ]
+}

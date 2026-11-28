@@ -1,0 +1,3 @@
+// insert between children written on one line
+
+HStack { Text("a"); Spacer(); Text("b"); Text("c") }

@@ -1,0 +1,11 @@
+{
+  "op": "insert",
+  "parent": "n3",
+  "index": 0,
+  "code": "Image(systemName: \"folder\")",
+  "covers": [
+    "insert:first",
+    "source:foreach",
+    "source:let"
+  ]
+}

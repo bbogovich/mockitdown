@@ -1,0 +1,3 @@
+// move the last of several children on one line to the front
+
+HStack { Text("a"); Text("b"); Text("c") }

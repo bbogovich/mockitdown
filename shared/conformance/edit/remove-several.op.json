@@ -1,0 +1,12 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n5",
+    "n3"
+  ],
+  "covers": [
+    "remove:middle",
+    "remove:last",
+    "remove:several"
+  ]
+}

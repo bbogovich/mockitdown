@@ -1,0 +1,6 @@
+// remove a view that is a modifier argument
+
+VStack {
+    Text("Badge")
+        .overlay(Circle())
+}

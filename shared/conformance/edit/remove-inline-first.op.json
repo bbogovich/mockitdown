@@ -1,0 +1,10 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n2"
+  ],
+  "covers": [
+    "remove:first",
+    "remove:inline"
+  ]
+}

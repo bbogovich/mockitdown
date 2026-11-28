@@ -1,0 +1,8 @@
+// insert into an empty closure written {}
+
+VStack {
+    Text("Header")
+    HStack {
+    }
+    HStack {}
+}

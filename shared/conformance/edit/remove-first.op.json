@@ -1,0 +1,11 @@
+{
+  "op": "remove",
+  "nodes": [
+    "n2"
+  ],
+  "covers": [
+    "remove:first",
+    "source:comments",
+    "source:blank-lines"
+  ]
+}
