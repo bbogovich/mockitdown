@@ -1,6 +1,6 @@
 ---
 title: Testing
-impl_version: 0.3.28
+impl_version: 0.3.29
 status: draft
 updated: 2026-11-27
 page_id: IMPL.TEST
@@ -77,6 +77,7 @@ errors) and `diags(src, **options)`.
 | IT-39 | `python/tests/test_pack_registry.py`, `test_packs.py` `ShippedPackTests`, `test_site_nav.py` `test_group_order` | pack directories and the lookup order of `pack_paths` and the built-in packs, listing, the unknown-pack error, one load per registry; every `pack.json` key and its default, a minimal pack extending `mui`; inheritance, merging per key and per token mode, font aliases up the lineage, own elements, the lineage stylesheet; the 90 core elements and the 44 added to `base`, its modifiers, modules, device and chrome; the shipped packs by clause, `--all` adding the easter eggs, `framework` and `version` set; the Retro and Mobile group order in the Reference nav and `shared/reference/index.json` | R-PACK-001.TC-1, R-PACK-002.TC-1, R-PACK-003.TC-1, R-PACK-008.TC-1, R-PACK-009.TC-1 |
 | IT-40 | `python/tests/test_markup.py` (with `tests/role_markup.py` and `tests/fixtures/role-catalogue.json`), `typescript/tests/browser/markup.spec.mjs` (Chromium) | the figure, stage, cells, frames, frame order and caption; every base element's root class, `data-el` and `data-component`, the same parts in every pack, `.class`; the renderer's roles, parts and data attributes over the conformance corpus against the role catalogue; the passthrough attributes and their value filter, `data-state`, `data-selected`, `.id`/`.ref`/`.help`; escaping, no active markup in the corpus, filtered style values and image sources, inert fence options; ARIA roles on static controls, byte-identical renderings, generated values from content, decorative icons; unknown elements and roles. Browser: an unknown element is a dashed, labelled box between its siblings in three packs | R-REND-001.TC-1, R-REND-002.TC-1, R-REND-003.TC-1, R-REND-006.TC-1, R-REND-007.TC-1, R-REND-008.TC-1, R-REND-008.TC-2 |
 | IT-41 | `python/tests/test_component_roles.py` | the component roles and their base names inherited by every pack; the spreadsheet's headers, values, selection, active cell, formula bar, fills and sheets; code lines, highlights and the token spans of ten languages, the terminal; gantt bars, milestones, progress and today, schedule events and now; the canvas; the same component markup in five packs, and fixed colours and fonts in their base rules only where R-REND-011.C6 allows | R-REND-011.TC-1 |
+| IT-42 | `typescript/tests/browser/gallery-packs.spec.mjs` ("TC-11: at 720 px…"), `gallery-render.spec.mjs` ("TC-11: element cards render at fit…", "TC-11: element cards create their mockups lazily…") (Chromium) | the side panel shown and the menu button hidden at 720 CSS pixels, the panel behind the button at 719 and shown again at 720; for `base`, `swiftui` and `win95` after `renderAll()`, every element card's sample and variants mockup at `device="fit"` and every example with the `device` and `chrome` of its `shared/patterns/index.json` entry, or neither attribute; `#pack=base&tab=elements` opened without scrolling holds fewer mockups than element cards, more after scrolling to the last card. Step 4 (hidden packs, C32) waits for #61 | R-WEB-004.TC-11 |
 
 ## The example site as fixture
 
@@ -132,3 +133,4 @@ test suite then covers it without new test code.
 | 0.3.26 | 2026-11-27 | IT-32 to IT-34: the command line, diagnostics, component imports (#57) |
 | 0.3.27 | 2026-11-27 | IT-35 to IT-37: devices, chrome and isolation, the evaluator, expressions and literals (#58) |
 | 0.3.28 | 2026-11-27 | IT-38 to IT-41: the Markdown extension, the pack registry and shipped packs, the markup, the component roles (#59) |
+| 0.3.29 | 2026-11-27 | IT-42: the gallery's 720 px boundary, device fit and lazy cards (#60) |

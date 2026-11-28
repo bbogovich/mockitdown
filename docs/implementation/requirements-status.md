@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (16)
+## Changes pending (15)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -22,8 +22,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.0 | 2026-11-25 | #4 |
 | R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.0 | 2026-11-25 | #13 |
 | R-WEB-003 | Development server | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
-| R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
+
+## Partly implemented (1)
+
+| Requirement | Title | Implemented | Specification | Date | Issue |
+|---|---|---|---|---|---|
+| R-WEB-004 | Pack gallery test page | 0.11.0 | 0.11.0 | 2026-11-27 | #60 |
 
 ## Not started (72)
 

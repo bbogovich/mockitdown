@@ -1,6 +1,6 @@
 ---
 title: The pack gallery
-impl_version: 0.3.22
+impl_version: 0.3.29
 status: draft
 updated: 2026-11-27
 page_id: IMPL.GALLERY
@@ -104,7 +104,8 @@ approaches the viewport (C10). The hidden panel's slots are observed too; they i
 their panel is shown, so a tab is rendered when it is opened. The code is set with the `code` property before the element is
 connected, so it renders once. A pack switch disconnects the old observer. The mockups share one
 constructed stylesheet per pack set (A-WEB-2.K4), so a pack of 250 elements opens at once and
-renders as it scrolls.
+renders as it scrolls. IT-42 checks that a freshly opened Elements tab holds fewer mockups than
+element cards and more once scrolled to its end (R-WEB-004.TC-11).
 
 ## Test hooks
 
@@ -143,7 +144,7 @@ every sample mounted in a 320-point phone frame (`mountMockups`).
 - The filter (in the Elements tab) hides element cards whose name does not contain the text
   (case-insensitive) and shows `shown of total` in the Elements tab button; patterns are never filtered (C6).
 - Under 720 CSS pixels (`@media (max-width: 719.98px)`) the side panel is hidden and the `☰ Packs`
-  button opens it as an overlay; choosing a pack closes it, and widening the window resets it (C7).
+  button opens it as an overlay; choosing a pack closes it, and widening the window resets it (C7). IT-42 tests the boundary: shown at 720, behind the button at 719.
 
 ## The design patterns
 
@@ -262,3 +263,4 @@ checks the gallery in Chromium. See [Build and publish](../build-publish.md#the-
 | 0.3.18 | 2026-11-27 | Show source on every example: `snippet.js`, the source block with Copy, `packGallery.source()`; IT-25 (#17) |
 | 0.3.19 | 2026-11-27 | Published at /gallery/ (assemble-gallery.mjs, IT-26); the brand link goes to `../` (#19) |
 | 0.3.22 | 2026-11-27 | The gallery browser tests split into four topic specs and `gallery-helpers.mjs` (#50) |
+| 0.3.29 | 2026-11-27 | IT-42: the 720 px boundary, `fit` element samples and index-entry devices, lazy cards (#60) |
