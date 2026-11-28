@@ -29,7 +29,7 @@ session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-c
 `mockitdown-select` for the node selected after it.
 
 A host can replace any panel through its slot, for example to put its own inspector on the right; the
-replacement joins the designer's session. Code mode shows the active mockup in a read-only `mockitdown-code` (R-TOOL-008), with its diagnostics in the gutter; editing it comes with two-way editing (R-TOOL-009); undo
+replacement joins the designer's session. Code mode shows the active mockup in a `mockitdown-code` (R-TOOL-008), with its diagnostics in the gutter, edited through two-way editing (R-TOOL-009, #39); undo
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
 (R-TOOL-011).
 

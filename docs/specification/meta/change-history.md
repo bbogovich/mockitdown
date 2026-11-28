@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.18 | 2026-11-28 | `WEB.4` | Two-way editing, Code mode and the docked code view (#39): CodeSync joins the code view to the session; the code view's applyEdits, mark and mockitdown-caret; the inspector's Edit in code; Code mode editable |
 | 0.13.17 | 2026-11-28 | `WEB.4` | The code view mockitdown-code as built (#38) |
 | 0.13.16 | 2026-11-28 | `WEB.3` | R-EDIT-009 as built (#37): wrap, unwrap, convert and extract component, the command list |
 | 0.13.15 | 2026-11-28 | `WEB.3` | R-EDIT-008 as built (#36) |

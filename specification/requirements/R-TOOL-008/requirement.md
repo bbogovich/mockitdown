@@ -2,12 +2,12 @@
 id: R-TOOL-008
 title: "The code view: mockitdown-code"
 status: active
-version: 0.13.17
-rev: 5
+version: 0.13.18
+rev: 6
 page: WEB.4
 slot: reqs
 order: 8
-hash: 23c1115fd691
+hash: 450c60bb0b29
 source: [SRC-12]
 realizes: [F-19]
 requires: [R-EDIT-001]
@@ -28,4 +28,7 @@ C10: The TypeScript core MUST export `highlight(source)`, the coloured ranges of
 C11: The `readonly` attribute (and the `readOnly` property) MUST make the text unchangeable, and the `appearance` attribute (`light`, `dark`) MUST choose the colours, the page's preference choosing them otherwise.
 C12: The editing keys of C6 SHOULD change the text through the browser's text-insertion command, so that the browser's own undo keeps their changes.
 C13: The text the element is written with, without the indentation its lines share, MUST be its value until a value is set.
+C14: The method `applyEdits(edits)` MUST apply text edits (offsets of the current text, ascending and not overlapping) without dispatching an `input` event, keeping the caret and the selection outside the edited ranges (moving them to an edit's start when inside it) and the lines in view where they were.
+C15: The method `mark(range)` MUST mark the range `{start, end}` (part `span`, or none for null) behind the text without moving the focus or the caret, and MUST scroll a newly marked range into view while the text area does not have the focus.
+C16: The code view MUST dispatch a bubbling, composed `mockitdown-caret` event, whose detail is the selection `{start, end}`, when the pointer is released over the text area or a navigation key (an arrow, Home, End, Page Up, Page Down) is released in it, and on no other change of the caret.
 V1: Typing in the code view of a 1000-line source keeps colouring, line numbers and bracket matching correct, and its module imports only the core lexer.

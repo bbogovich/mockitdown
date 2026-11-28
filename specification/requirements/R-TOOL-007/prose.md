@@ -27,3 +27,7 @@ code. The negative width of V1 is refused by the number field itself: the vocabu
 sizes a `min` of 0 (C16), since the renderer does not warn about them. Renaming the mockup stays with the
 canvas (R-TOOL-012), so the Mockup tab shows the name; Edit in code (C11) comes with the code view
 (R-TOOL-008).
+
+**As built (#39).** Edit in code is a button under the header that tells the host what to show: the
+inspector dispatches `mockitdown-edit-in-code` and the designer, which owns the modes, switches to Code
+mode and reveals the span. A host composing its own tools can handle the same event.

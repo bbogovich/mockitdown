@@ -2,12 +2,12 @@
 id: R-TOOL-007
 title: "The inspector: mockitdown-inspector"
 status: active
-version: 0.13.14
-rev: 5
+version: 0.13.18
+rev: 6
 page: WEB.4
 slot: reqs
 order: 7
-hash: 2a615300c41b
+hash: ac1075a221f0
 source: [SRC-12, SRC-13]
 realizes: [F-19]
 requires: [R-PACK-017, R-EDIT-007, R-EDIT-003]
@@ -25,7 +25,7 @@ C7: A labelled argument the element does not understand (R-EVAL-004.C7) MUST be 
 C8: An edit MUST be applied 150 ms after the last input in its control, or at once when the control loses the focus, as one operation coalesced per node and field (R-EDIT-007.C5) with the key `<node>:<field>`.
 C9: A value that its control cannot accept, that the edit operation refuses, or whose application would add a diagnostic located at the node, MUST be shown with `aria-invalid`, its typed text kept and the reason (the diagnostic's text) beside it, and MUST NOT be applied.
 C10: When nothing is selected, the inspector MUST show a Mockup tab that shows the active mockup's name and edits its pack, device, width, height, appearance, title, caption and Elements table option, each edit one undo step with the change kind `options` coalesced with the key `mockup:<name>:<option>`, renaming the mockup being left to the canvas (R-TOOL-012.C3).
-C11: When the selected node is derived or has a construct the controls cannot express, the inspector MUST offer Edit in code, which switches the designer to Code mode and reveals the node's span (R-TOOL-008.C1).
+C11: When the selected node is derived (an `if`, a `ForEach` or a call of a struct of the mockup) or has a value only a code field shows (C13), the inspector MUST offer Edit in code (part `edit-in-code`), which dispatches a bubbling, composed `mockitdown-edit-in-code` event with the mockup, the node and its span, on which the designer switches to Code mode and reveals the span (R-TOOL-008.C1); the model's `editInCode` MUST give that span, else null.
 C12: With several nodes selected, the inspector MUST show their number as "<n> selected" and no fields.
 C13: A value that none of the controls of C3 can show (a variable, an expression, a value outside its `enum`) MUST be edited as its code in a text field, and a modifier whose written arguments do not match the vocabulary's MUST be edited as the code of its arguments.
 C14: The inspector's number field MUST refuse a value below the `min` or above the `max` its type names (R-PACK-017.C2).

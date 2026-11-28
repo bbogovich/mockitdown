@@ -1,7 +1,7 @@
 ---
 id: TC-1
 title: Light editor
-verifies: [C1, C2, C3, C4, C5, C6, C7, C11, C12, C13]
+verifies: [C1, C2, C3, C4, C5, C6, C7, C11, C12, C13, C14, C15, C16]
 ---
 
 Browser test (`code.spec.mjs`, IT-66) on the bare `mockitdown-code` of `pages/code.html` and on
@@ -14,4 +14,7 @@ string or comment are not; Enter after `{` indents one unit, after `)` keeps the
 with no indented line adds four spaces; `}` outdents; Tab and Shift+Tab indent and outdent a selection,
 Tab alone inserts a unit; Esc then Tab moves the focus to the next control; `reveal` selects the range
 and scrolls; each typed character and each editing key fires one bubbling, composed `input` event and
-setting `value` none; the designer's Code mode shows the active mockup's code, coloured and read-only.
+setting `value` none; the designer's Code mode shows the active mockup's code, coloured and editable.
+`applyEdits`, `mark` and `mockitdown-caret` (C14-C16) are tested where the designer joins its code view to
+the session (R-TOOL-009.TC-2, `sync.spec.mjs`): another component's Delete keeps the caret, a selection's
+span is marked with the focus elsewhere, and a navigation key's caret selects a node.

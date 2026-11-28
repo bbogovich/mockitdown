@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.54
+impl_version: 0.3.55
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -61,7 +61,7 @@ flowchart TD
   columns being the resizers (`role="separator"`). Each panel's default content sits inside its named
   `<slot>`, so a slotted element replaces it. The left column holds the `outline` slot (a
   `mockitdown-outline`) above the `gallery` slot (a `mockitdown-gallery`, R-TOOL-003.C16 as built in #29, which also takes `import-base` and counts in `rendered`), the centre the `view` slot (a
-  `mockitdown-editor`), the code view (a read-only `mockitdown-code`, #38) and the preview pane, the right column the `inspector` slot
+  `mockitdown-editor`), the code view (a `mockitdown-code`, #38, editable since #39) and the preview pane, the right column the `inspector` slot
   (a `mockitdown-inspector`, #35, which joins the session like the gallery).
 - **Session** (C1, C5, R-EDIT-006.C11): the constructor makes a session over an empty document; `open`
   makes a new one per document. The editor, the outline and the gallery find it themselves (`#designerSession`
@@ -84,8 +84,10 @@ flowchart TD
   `mockupOptions` as attributes and the code through its `code` property; a list of buttons beside them
   scrolls to a preview. The appearance toggle overrides `appearance` on every preview while a button is
   pressed (pressing it again restores each mockup's own). Leaving Preview removes the previews. Code
-  mode shows the active mockup's code and diagnostics in a read-only `mockitdown-code` (R-TOOL-003.C15
-  as built in #38, see [The code view element](code-view.md)) until two-way editing (R-TOOL-009).
+  mode shows the active mockup's code and diagnostics in a `mockitdown-code` (R-TOOL-003.C15) joined to
+  the session by a `CodeSync`, editable (R-TOOL-009, #39); with `docked` the same code view sits below the
+  view in Design mode (part `dock` toggles it), and the inspector's `mockitdown-edit-in-code` switches
+  to Code mode and reveals the span. See [Two-way editing](two-way-editing.md).
 - **Toolbar and status** (C10, C12): `#drawState` after `active`, `select`, `change`, `diagnostics` and
   `rename`: the active mockup's name, `mockupPack`, its `device` option else `registry.get(pack).device`,
   `N diagnostics` from `session.diagnostics`, and one crumb button per view node from the top level to
@@ -113,3 +115,4 @@ flowchart TD
 | 0.3.52 | 2026-11-28 | Cmd/Ctrl+D, X, C, V and Alt+Up/Down with the focus in the outline or the view, the clipboard as `text/plain` with a fallback to the last copy (R-EDIT-008.C9, C14); see [Commands on the selection](commands.md) (#36) |
 | 0.3.53 | 2026-11-28 | Cmd/Ctrl+G wraps the selection in a `VStack` and Shift+Cmd/Ctrl+G unwraps it, with the focus in the outline or the view (R-EDIT-009.C9); see [Commands on the selection](commands.md) (#37) |
 | 0.3.54 | 2026-11-28 | Code mode shows the active mockup in a read-only `mockitdown-code` with its diagnostics, `#drawCode` setting `value` and `diagnostics` (R-TOOL-003.C15); see [The code view element](code-view.md) (#38) |
+| 0.3.55 | 2026-11-28 | Code mode editable through `CodeSync`, the Dock code toggle (`docked`, part `dock`), `codeView`, Edit in code, the status bar's first error (part `status-message`); the centre a flex column whose view and preview scroll on their own; see [Two-way editing](two-way-editing.md) (#39) |

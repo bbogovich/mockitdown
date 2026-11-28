@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.17
+spec_version: 0.13.18
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -220,7 +220,7 @@ session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-c
 `mockitdown-select` for the node selected after it.
 
 A host can replace any panel through its slot, for example to put its own inspector on the right; the
-replacement joins the designer's session. Code mode shows the active mockup in a read-only `mockitdown-code` (R-TOOL-008), with its diagnostics in the gutter; editing it comes with two-way editing (R-TOOL-009); undo
+replacement joins the designer's session. Code mode shows the active mockup in a `mockitdown-code` (R-TOOL-008), with its diagnostics in the gutter, edited through two-way editing (R-TOOL-009, #39); undo
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
 (R-TOOL-011).
 
@@ -262,7 +262,7 @@ Preview hides the side panels and the view, lists `Sign in` and `Inbox`, and ren
 elements with each mockup's fence options whose shadow HTML equals that of a `mockitdown-mockup` alone
 with the same attributes and code; the Dark toggle sets `appearance="dark"` on every preview; Code mode
 shows the active mockup's code in `mockitdown-code` with the left column visible (and `code.spec.mjs` checks that
-it is read-only and coloured, with a line number per line), and Design brings the view back.
+it is editable and coloured, with a line number per line), and Design brings the view back.
 
 **Realizes.** F-19, F-20
 
@@ -282,7 +282,7 @@ it is read-only and coloured, with a line number per line), and Design brings th
 | C12 | The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`) and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated. |
 | C13 | The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification. |
 | C14 | The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`. |
-| C15 | In Code mode the designer MUST show the active mockup's code and its diagnostics in a read-only code view (R-TOOL-008) in place of the view, keeping the side panels, until editing that code (R-TOOL-009) takes that place. |
+| C15 | In Code mode the designer MUST show the active mockup's code and its diagnostics in a code view (R-TOOL-008) in place of the view, keeping the side panels, the code view joined to the session for editing (R-TOOL-009). |
 | C16 | The gallery panel MUST hold a `mockitdown-gallery` (R-TOOL-004) that joins the designer's session and takes its `import-base`, and until the inspector exists the properties panel MUST hold a placeholder naming the first selected element. |
 | C17 | The designer MUST expose the property `rendered`, a promise that resolves once its outline, its view and, in Preview mode, its previews are rendered, and MUST pass its `import-base` and `asset-base` attributes on to its view, outline and previews. |
 | V1 | On `pages/designer.html`, deleting the selected button fires one `mockitdown-change` with its text edits, and `toJSON()` returns the sample document with only that button's lines removed. |
@@ -555,6 +555,10 @@ sizes a `min` of 0 (C16), since the renderer does not warn about them. Renaming 
 canvas (R-TOOL-012), so the Mockup tab shows the name; Edit in code (C11) comes with the code view
 (R-TOOL-008).
 
+**As built (#39).** Edit in code is a button under the header that tells the host what to show: the
+inspector dispatches `mockitdown-edit-in-code` and the designer, which owns the modes, switches to Code
+mode and reveals the span. A host composing its own tools can handle the same event.
+
 **R-TOOL-007.TC-1 — Variant change and undo**
 
 Browser test (`tests/browser/inspector.spec.mjs`, IT-63) on `pages/designer.html`: in the sample's
@@ -584,9 +588,11 @@ hand-written code expects, each one change; two selected nodes show "2 selected"
 `node:test` (`tests/unit/inspect.test.ts`) and a browser test (`tests/browser/inspector.spec.mjs`,
 IT-63): with nothing selected the Mockup tab shows the mockup's name and its options with the inherited
 values; changing the device changes the mockup's `options.device` as one `options` change, a height of 0
-or an unknown device is refused, and each option edit is undone on its own. Edit in code (C11) on a
-derived row, switching to Code mode with the node's span selected, is tested with the code view
-(R-TOOL-008).
+or an unknown device is refused, and each option edit is undone on its own. Edit in code (C11): `code-sync.test.ts`
+(IT-67) finds `editInCode` the span of a `ForEach` (27-64) and of `Text(n)` (a code-only value, 53-60) and
+null for `Text("Welcome back")`; `sync.spec.mjs` (IT-67) clicks a derived `ForEach` row, then Edit in
+code, and finds the designer in Code mode with the ForEach's span (220-269) selected, and no Edit in code
+for `Text("Inbox")`.
 
 **Realizes.** F-19
 
@@ -602,7 +608,7 @@ derived row, switching to Code mode with the node's span selected, is tested wit
 | C8 | An edit MUST be applied 150 ms after the last input in its control, or at once when the control loses the focus, as one operation coalesced per node and field (R-EDIT-007.C5) with the key `<node>:<field>`. |
 | C9 | A value that its control cannot accept, that the edit operation refuses, or whose application would add a diagnostic located at the node, MUST be shown with `aria-invalid`, its typed text kept and the reason (the diagnostic's text) beside it, and MUST NOT be applied. |
 | C10 | When nothing is selected, the inspector MUST show a Mockup tab that shows the active mockup's name and edits its pack, device, width, height, appearance, title, caption and Elements table option, each edit one undo step with the change kind `options` coalesced with the key `mockup:<name>:<option>`, renaming the mockup being left to the canvas (R-TOOL-012.C3). |
-| C11 | When the selected node is derived or has a construct the controls cannot express, the inspector MUST offer Edit in code, which switches the designer to Code mode and reveals the node's span (R-TOOL-008.C1). |
+| C11 | When the selected node is derived (an `if`, a `ForEach` or a call of a struct of the mockup) or has a value only a code field shows (C13), the inspector MUST offer Edit in code (part `edit-in-code`), which dispatches a bubbling, composed `mockitdown-edit-in-code` event with the mockup, the node and its span, on which the designer switches to Code mode and reveals the span (R-TOOL-008.C1); the model's `editInCode` MUST give that span, else null. |
 | C12 | With several nodes selected, the inspector MUST show their number as "<n> selected" and no fields. |
 | C13 | A value that none of the controls of C3 can show (a variable, an expression, a value outside its `enum`) MUST be edited as its code in a text field, and a modifier whose written arguments do not match the vocabulary's MUST be edited as the code of its arguments. |
 | C14 | The inspector's number field MUST refuse a value below the `min` or above the `max` its type names (R-PACK-017.C2). |
@@ -621,7 +627,7 @@ with line numbers, diagnostics in the gutter, bracket matching and auto-indent. 
 editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no find and replace, folding
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
 beside a `mockitdown-mockup` (the test page `pages/code.html` does that), and the designer's Code mode
-shows the active mockup in a read-only one until two-way editing (R-TOOL-009).
+edits the active mockup in one, joined to the session by two-way editing (R-TOOL-009).
 
 **As built (#38).** The colouring comes from `highlight(source)` in the core lexer module, which scans
 tolerantly so that half-typed code is still coloured: `Text("abc` colours `"abc` as an error up to the
@@ -642,6 +648,11 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#39).** For two-way editing the view gained three small, rule-free capabilities that
+`CodeSync` uses: `applyEdits` to take another component's edits without losing the caret, `mark` to show
+the selection's span behind the text, and a `mockitdown-caret` event so that only deliberate caret moves
+(the pointer, the navigation keys) select a node. It still imports only the core lexer.
+
 **R-TOOL-008.TC-1 — Light editor**
 
 Browser test (`code.spec.mjs`, IT-66) on the bare `mockitdown-code` of `pages/code.html` and on
@@ -654,7 +665,10 @@ string or comment are not; Enter after `{` indents one unit, after `)` keeps the
 with no indented line adds four spaces; `}` outdents; Tab and Shift+Tab indent and outdent a selection,
 Tab alone inserts a unit; Esc then Tab moves the focus to the next control; `reveal` selects the range
 and scrolls; each typed character and each editing key fires one bubbling, composed `input` event and
-setting `value` none; the designer's Code mode shows the active mockup's code, coloured and read-only.
+setting `value` none; the designer's Code mode shows the active mockup's code, coloured and editable.
+`applyEdits`, `mark` and `mockitdown-caret` (C14-C16) are tested where the designer joins its code view to
+the session (R-TOOL-009.TC-2, `sync.spec.mjs`): another component's Delete keeps the caret, a selection's
+span is marked with the focus elsewhere, and a navigation key's caret selects a node.
 
 **R-TOOL-008.TC-2 — No library, speed, colouring ranges**
 
@@ -684,6 +698,9 @@ the line numbers and colours afterwards.
 | C11 | The `readonly` attribute (and the `readOnly` property) MUST make the text unchangeable, and the `appearance` attribute (`light`, `dark`) MUST choose the colours, the page's preference choosing them otherwise. |
 | C12 | The editing keys of C6 SHOULD change the text through the browser's text-insertion command, so that the browser's own undo keeps their changes. |
 | C13 | The text the element is written with, without the indentation its lines share, MUST be its value until a value is set. |
+| C14 | The method `applyEdits(edits)` MUST apply text edits (offsets of the current text, ascending and not overlapping) without dispatching an `input` event, keeping the caret and the selection outside the edited ranges (moving them to an edit's start when inside it) and the lines in view where they were. |
+| C15 | The method `mark(range)` MUST mark the range `{start, end}` (part `span`, or none for null) behind the text without moving the focus or the caret, and MUST scroll a newly marked range into view while the text area does not have the focus. |
+| C16 | The code view MUST dispatch a bubbling, composed `mockitdown-caret` event, whose detail is the selection `{start, end}`, when the pointer is released over the text area or a navigation key (an arrow, Home, End, Page Up, Page Down) is released in it, and on no other change of the caret. |
 | V1 | Typing in the code view of a 1000-line source keeps colouring, line numbers and bracket matching correct, and its module imports only the core lexer. |
 
 ---
@@ -706,32 +723,67 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#39).** The rules live in `CodeSync` (`typescript/src/design/code-sync.ts`) beside the session,
+so the code view stays a plain text component that imports only the lexer: the view gains `applyEdits`,
+`mark` and a `mockitdown-caret` event, and `CodeSync` decides when text is applied, which node the caret
+selects and which span is marked. Only the pointer and the navigation keys select by the caret, so typing
+inside a node never moves the selection away from the one the designer picked; this is what lets the
+selection survive a missing brace and its repair. Leaving the code view applies its text at once, so a
+click on a visual tool never races the 300 ms pause. A visual edit made while typed text waits (rare, the
+pause is short) is moved past the typing when they do not overlap; otherwise the session's code wins. The
+docked view is the same element as Code mode's, placed below the view.
+
 **R-TOOL-009.TC-1 — Unbalanced brace**
 
-Browser test (`sync.spec.mjs`) on `pages/designer.html`: select a `Text`; in Code mode delete a `}`;
-after 300 ms the gutter and the status bar show a syntax diagnostic and the outline still shows the
-previous tree with editing refused; retype the `}`; the view updates and the same `Text` node is still
-selected (F-19.AC5); the change's edits are the one-character replacements.
+Browser test (`sync.spec.mjs`, IT-67) on `pages/designer.html`: select `Text("Quarterly report")`; in Code
+mode delete the VStack's closing `}` (offset 274) with Backspace; the session's code is unchanged at once
+and becomes the broken text after the pause, with the one edit `{274, 275, ""}`; the gutter marks an error
+line, the status bar does not read "0 diagnostics" and names the error; the outline keeps its rows, shows
+its read-only note and `data-readonly`, and Delete there (and `session.delete()`) changes nothing; the
+selection is kept. Retyping `}` parses again with the edit `{274, 274, "}"}`, the note goes, the same Text
+node is selected, and Design mode renders the view without the read-only note (F-19.AC5). A second test
+leaves the code view with the code broken (applied at once) and finds the editor showing the last valid
+version under the note, `aria-readonly` on its view.
+
+`node:test` (`code-sync.test.ts`, IT-67) with a stand-in code view and fake timers: eight keystrokes 50 ms
+apart over "back" give nothing 299 ms after the last and, at 300 ms, one change `{25, 29, "home"}` with the
+button keeping its id and its selection, one undo step that the view follows by text edits; broken code
+keeps the last valid tree (`parses` false, `validCode` the old code), refuses delete, insert and drops
+(`checkDrop` says why), and the retyped brace parses with the Text still selected; leaving the view
+applies at once, typing back to the code applies nothing; the constants (300, `code`,
+`mockitdown-caret`); the active mockup's change applies typed text to the old mockup first.
 
 **R-TOOL-009.TC-2 — Following the caret and visual edits**
 
-Browser test: moving the caret into a `Toggle` selects its row; a gallery Add in Code mode inserts into
-the stack holding the caret; a Delete in the outline updates the code view with the caret kept before
-the removed range; selecting a node highlights its span; in Design mode the dock toggle shows the code
-view below the view.
+Browser test (`sync.spec.mjs`, IT-67) on `pages/designer.html`: in Code mode the caret moved into
+`Button("Open")` by ArrowRight selects it and its outline row; moved to line 6 before `List` it selects the
+VStack, the inspector shows it, and the gallery's Add on Divider inserts `  Divider()` as the VStack's last
+child, the code view following by text edits; with the caret at 100, selecting `Text("Inbox")` and then
+the button marks their spans (part `span`) while the focus stays in the outline, Delete there removes the
+button's line from the code view with the caret still at 100, and Cmd/Ctrl+Z restores it; in Design mode
+the Dock code toggle (part `dock`, `docked`) shows the code view below the view, a Delete in the view
+reaches it and typing there reaches the view; the toggle and the code are hidden in Preview mode.
+
+`node:test` (`code-sync.test.ts`): caret events select the Button (offset 40), the VStack (9) and nothing
+(53), and nothing while typed text waits; a delete elsewhere reaches the view as edits, moves past typed
+text before it and replaces typed text inside it; the selection's spans `{11, 31}` and `{11, 51}` are
+marked and nothing while typing waits.
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | A code view joined to the session MUST apply its text to the active mockup 300 ms after the last keystroke, as one change whose edits replace the range between the longest common prefix and suffix of the old and new text. |
+| C1 | A code view joined to the session MUST apply its text to the active mockup 300 ms after the last keystroke, or at once when the focus leaves the code view, as one change with the coalescing key `code` whose edits replace the range between the longest common prefix and suffix of the old and new text. |
 | C2 | When the new code parses, the session MUST take the tree from `reparse` (R-EDIT-001.C9), and the outline and the editor MUST update with the selection kept by node id. |
-| C3 | When the new code does not parse, the code view and the status bar MUST show its diagnostics, and the outline and the editor MUST keep the last valid tree, marked read-only and refusing edits, until the code parses again. |
-| C4 | While the code parses, moving the caret MUST select the innermost view node whose span holds the caret (R-EDIT-001.C8). |
-| C5 | A change made in another component MUST be applied to the code view by its text edits, keeping the caret and the scroll position outside the edited ranges. |
+| C3 | When the new code does not parse, the code view MUST show its diagnostics and the status bar its first error, and the outline and the editor MUST show the code of the last valid tree, marked read-only, while the session refuses every edit, command and drop, until the code parses again. |
+| C4 | While the code parses and no typed text waits to be applied, moving the caret with the pointer or a navigation key MUST select the innermost view node whose span holds the caret (R-EDIT-001.C8), and clear the selection when no node holds it; typing MUST NOT change the selection. |
+| C5 | A change made in another component MUST be applied to the code view by its text edits, keeping the caret and the scroll position outside the edited ranges; text typed and not yet applied MUST be kept, the edits moved past it, unless an edit overlaps it, when the code view MUST take the session's code. |
 | C6 | Selecting a node in another component MUST highlight the node's span in the code view without moving the focus. |
 | C7 | In Code mode the designer MUST show the active mockup's code view in the centre, keep the outline and the inspector live, and make the gallery insert into the node the caret selects (C4). |
 | C8 | In Design mode the designer MUST offer a toggle that docks the code view below the view, both kept in sync. |
+| C9 | The rules of C1 to C6 MUST be held by `CodeSync` of `mockitdown/design` (A-WEB-5.K2), which joins any object with the code view's `value`, `diagnostics`, `selection`, `applyEdits` and `mark` and its `input`, `focusout` and `mockitdown-caret` events to a session's active mockup, applying typed text to the previous mockup before showing a newly active one. |
+| C10 | The session MUST expose `parses(name)` (whether the mockup's code parses), `validCode(name)` (the code of its last valid tree), `nodeAt(name, offset)` (C4's node, null while the code does not parse) and `selectionSpan()` (the span from the first selected node's start to the last one's end, the range C6 marks). |
+| C11 | The toolbar's dock toggle MUST be the button of part `dock`, pressed while the designer's `docked` attribute (and property) is set, and shown in Design mode only; the designer's `codeView` property MUST return its code view. |
 | V1 | Typing an unbalanced brace shows a diagnostic in the gutter and the status bar while the outline keeps the last valid tree; fixing it updates the view with the selection kept (F-19.AC5). |
 
 ---
@@ -773,6 +825,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.18 | 2026-11-28 | as built (#39): Code mode's code view is editable, joined to the session by two-way editing (C15); TC-2: code.spec.mjs checks it is editable; as built (#39): typed text is applied 300 ms after the last keystroke or when the focus leaves, coalesced as code (C1); broken code: the status bar names the first error, outline and editor show the last valid code read-only, edits, commands and drops refused (C3); only the pointer and navigation keys select by the caret, nothing outside every node, typing never selects (C4); typed text waiting is kept past other edits (C5); CodeSync in mockitdown/design holds the rules (C9); session parses, validCode, nodeAt, selectionSpan (C10); the dock toggle, docked and codeView (C11); TC-1, TC-2 name their tests (IT-67); as built (#39): Edit in code for an if, a ForEach, a struct's call or a code-only value, part edit-in-code, dispatching mockitdown-edit-in-code on which the designer switches to Code mode and reveals the span; the model's editInCode (C11); TC-3 names its tests (IT-67); as built (#39): applyEdits keeps the caret, selection and lines in view and sends no input event (C14); mark(range) marks a span without the focus (C15); mockitdown-caret on pointer release and navigation keys (C16); TC-1: Code mode is editable |
 | 0.13.17 | 2026-11-28 | as built (#38): Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (R-TOOL-008) until R-TOOL-009 (C15); as built (#38): highlight(source) in the core lexer colours implicit members and unreadable text and never throws (C10); the caret line's messages shown as text (C4); brackets in strings and comments ignored (C5); Tab alone inserts a unit (C6); exactly one input event per change, none for value (C7); readonly and appearance (C11); the browser's insertText keeps native undo (C12); the written text is the first value (C13); TC-1, TC-2 name their tests (IT-66) |
 | 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
@@ -787,6 +840,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.17 | 2026-11-28 | as built (#38): Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (R-TOOL-008) until R-TOOL-009 (C15); as built (#38): highlight(source) in the core lexer colours implicit members and unreadable text and never throws (C10); the caret line's messages shown as text (C4); brackets in strings and comments ignored (C5); Tab alone inserts a unit (C6); exactly one input event per change, none for value (C7); readonly and appearance (C11); the browser's insertText keeps native undo (C12); the written text is the first value (C13); TC-1, TC-2 name their tests (IT-66) |
 | 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |
 | 0.13.9 | 2026-11-28 | as built (#30): selected rows drag together (C1); end of the top level below the last row (C2); container by session.isContainer, else the top level, bar across the children's axis (C3); edit refusals and the refused colour (C4); <Name>() and moved ids selected (C5); one change, undo with R-EDIT-007 (C6); pointer drag, 4 px, ghost (C7); session dropPosition/checkDrop/drop (C8); pack of the last evaluation, ForEach and if defer (C9); isContainer, childrenOf (C10); active mockup and own session only (C11); data-drop, parts and colours (C12); TC files name the tests |

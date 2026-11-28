@@ -3,7 +3,7 @@ with line numbers, diagnostics in the gutter, bracket matching and auto-indent. 
 editor (SRC-12#s14 "Dependencies", ADR-20) and, by the developer's choice, no find and replace, folding
 or multi-cursor; find and replace can be a later issue. It is usable on its own, for example to show code
 beside a `mockitdown-mockup` (the test page `pages/code.html` does that), and the designer's Code mode
-shows the active mockup in a read-only one until two-way editing (R-TOOL-009).
+edits the active mockup in one, joined to the session by two-way editing (R-TOOL-009).
 
 **As built (#38).** The colouring comes from `highlight(source)` in the core lexer module, which scans
 tolerantly so that half-typed code is still coloured: `Text("abc` colours `"abc` as an error up to the
@@ -23,3 +23,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#39).** For two-way editing the view gained three small, rule-free capabilities that
+`CodeSync` uses: `applyEdits` to take another component's edits without losing the caret, `mark` to show
+the selection's span behind the text, and a `mockitdown-caret` event so that only deliberate caret moves
+(the pointer, the navigation keys) select a node. It still imports only the core lexer.

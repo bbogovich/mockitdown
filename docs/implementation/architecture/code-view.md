@@ -1,6 +1,6 @@
 ---
 title: The code view element
-impl_version: 0.3.54
+impl_version: 0.3.55
 status: draft
 updated: 2026-11-28
 page_id: IMPL.CODEVIEW
@@ -10,8 +10,9 @@ page_id: IMPL.CODEVIEW
 
 Realizes **A-WEB-5** (P1 for `mockitdown-code`, K1, K2) and **ADR-20** (no editor library), and
 implements **R-TOOL-008** C1 to C13 (#38) and **R-TOOL-003** C15 (the designer's Code mode shows the
-active mockup in a read-only code view). Editing the mockup from it, the 300 ms re-parse and the
-docked code view come with two-way editing (R-TOOL-009).
+active mockup in a code view), and since #39 R-TOOL-008 C14 to C16 (`applyEdits`, `mark`,
+`mockitdown-caret`), which [two-way editing](two-way-editing.md) (R-TOOL-009) uses to join it to the
+session; the view itself holds no editing rule.
 
 ## Data flow
 
@@ -34,7 +35,7 @@ flowchart LR
 | `typescript/src/elements/code.ts` | `CodeElement` (`CODE_TAG`, `CODE_ATTRIBUTES`), the types `CodeDiagnostic` and `CodeRange`; its only import is the core lexer |
 | `typescript/src/core/syntax/lexer.ts` | `Lexer.scan()` (tolerant tokens), `highlight(source)` (`Highlight`, `HighlightKind`) and `indentUnit(source)` (moved here from `edit.ts`); `startsWith` compares ASCII text without allocating |
 | `typescript/src/elements/define.ts`, `typescript/src/mockitdown.ts` | the tag in `ELEMENT_TAGS`, defined by the entry; the element and its types exported |
-| `typescript/src/elements/designer.ts` | Code mode's `<mockitdown-code part="code" readonly>`; `#drawCode` sets its `value` and `diagnostics` |
+| `typescript/src/elements/designer.ts` | Code mode's (and the dock's) `<mockitdown-code part="code">`, joined to the session by `CodeSync` (#39) |
 | `typescript/pages/code.html` | the test page: a bare code view beside a `mockitdown-mockup` rendering it, with `check()`'s diagnostics |
 
 ## How it works
@@ -77,6 +78,13 @@ flowchart LR
 - **`readonly` and `appearance`** (C11): `readonly` is mirrored to the text area, so the editing keys
   do nothing and Tab moves the focus; the colours are custom properties with light defaults, the dark
   ones under `prefers-color-scheme: dark` unless `appearance="light"`, and with `appearance="dark"`.
+- **For two-way editing** (C14-C16, #39): `applyEdits(edits)` builds the new text, maps the selection
+  (inside an edited range to its start), keeps the visible lines by adding the line delta of the edits
+  above the first one to `scrollTop`, and renders without an event; `mark(range)` draws a second
+  transparent `<pre>` (part `mark`) holding the text up to the range's end with the range in a `span`
+  part, moved with the same transform, and scrolls a new range into view unless the text area has the
+  focus; `mouseup` and the release of an arrow, Home, End, Page Up or Page Down dispatch
+  `mockitdown-caret` with the selection.
 - **Initial text** (C13): on connection, if no value was set, the light DOM text without its shared
   indentation (and with a final line feed) becomes the value.
 
@@ -113,3 +121,4 @@ keystroke in a 1000-line source in Chromium). See [Testing](../testing.md).
 | Version | Date | Change |
 |---|---|---|
 | 0.3.54 | 2026-11-28 | Page written: `mockitdown-code`, `highlight` and `Lexer.scan`, the designer's read-only Code mode, IT-66 (#38) |
+| 0.3.55 | 2026-11-28 | `applyEdits`, `mark` (parts `mark`, `span`, `--mkd-code-span`) and `mockitdown-caret`; the designer's code view editable; see [Two-way editing](two-way-editing.md) (#39) |
