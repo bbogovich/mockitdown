@@ -18,6 +18,7 @@ element that renders one mockup in a web page, over the TypeScript core (A-WEB-1
 | File (`typescript/`) | What |
 |---|---|
 | `src/elements/mockup.ts` | `MockupElement`, `MOCKUP_TAG`, `MOCKUP_ATTRIBUTES`, `SCRIPT_TYPE`, `DIAGNOSTICS_EVENT`, `scriptCode(text)`, `shadowCss(css)`, `clearImportCache()`, and the helpers the editor and the outline share: `baseUrls(el)`, `renderWithImports(…)`, `evaluateWithImports(…)`, `showInShadow(…)` |
+| `src/elements/scheduler.ts` | `RenderScheduler` (`schedule()`, `stale(generation)`, `done()`, `rendered`, `generation`), the render coalescing shared by the mockup, the editor, the outline and the gallery, and `renderFailure(e)`, the `cannot render: …` diagnostic and its error box (mockup and editor) |
 | `src/elements/define.ts` | `defineElements()` and `ELEMENT_TAGS` for every element (see [The editor element](editor.md), [The outline element](outline.md), [The designer element](designer.md)) |
 | `src/mockitdown.ts` | the package entry: re-exports the core, the asset loader and the element modules, and calls `defineElements()` |
 | `pages/mockup.html` | "Mockup element": the demo and test page (markup characters, pack switch, live editor, imports, diagnostics) |
@@ -60,8 +61,8 @@ document.addEventListener("mockitdown-diagnostics", (e) => console.log(e.target,
 
 ```mermaid
 flowchart TD
-  C["attributeChangedCallback · MutationObserver<br/>(child list, character data, subtree) · code setter"] --> S["#schedule()<br/>generation++, dirty"]
-  S -->|"one microtask per burst (K6)"| P["#pump(): while dirty"]
+  C["attributeChangedCallback · MutationObserver<br/>(child list, character data, subtree) · code setter"] --> S["RenderScheduler.schedule()<br/>generation++, dirty"]
+  S -->|"one microtask per burst (K6)"| P["RenderScheduler pump: while dirty → #renderOnce(generation)"]
   P --> A{"assets loaded?"}
   A -->|no| L["await loadAssetsFromUrl()"]
   A -->|yes| O["attributes → coerceFenceOptions<br/>import-base, asset-base"]
@@ -103,12 +104,15 @@ flowchart TD
   shadow root (`:host-context` works in Chromium only; elsewhere the Material slate rule is dropped).
   Without constructed sheets the CSS goes into a `<style>` in front of the HTML.
 - **Failures** (R-WEB-002.C12): an asset load failure or an exception during rendering becomes one
-  error of code `element` (`cannot render: …`) in an error box. Every element renders in its own
+  error of code `element` (`cannot render: …`) in an error box (`renderFailure`, shared with the editor). Every element renders in its own
   async chain, so nothing one element throws reaches another (C7).
 - **`rendered`** (C8): pending observer records are taken first; then it resolves at once when the
   element is connected, rendered and not dirty, else when the pump ends clean. It never rejects. A
   render overtaken by a newer change (the generation moved while awaiting assets or imports) is
-  discarded without touching the shadow root.
+  discarded without touching the shadow root. The coalescing, the generation and the waiters are a
+  `RenderScheduler` (`scheduler.ts`), the one the editor, the outline and the gallery use too: the
+  element passes it its render (`#renderOnce` or `#build`), which asks `stale(generation)` after each
+  await and calls `done()` once it has shown its result.
 
 ## Debugging
 
@@ -129,3 +133,4 @@ flowchart TD
 | 0.3.41 | 2026-11-28 | The render, import and stylesheet steps factored into `baseUrls`, `renderWithImports` and `showInShadow` for the editor; `defineElements` and `ELEMENT_TAGS` moved to `define.ts` (#25) |
 | 0.3.42 | 2026-11-28 | `evaluateWithImports` beside `renderWithImports` (one import loop, `withImports`) for the outline (#26) |
 | 0.3.43 | 2026-11-28 | `ELEMENT_TAGS` includes `mockitdown-designer` (#27) |
+| 0.3.64 | 2026-11-28 | The render scheduling and the render-failure diagnostic factored into `scheduler.ts` (`RenderScheduler`, `renderFailure`), shared with the editor, the outline and the gallery (#87) |

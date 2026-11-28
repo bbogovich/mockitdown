@@ -64,7 +64,7 @@ flowchart TD
   J -->|"enclosing mockitdown-designer .session"| S[DesignSession]
   J -->|"host's session property"| S
   J -->|"else: own — script child + fence attributes"| S
-  S -- "change (code, options) · active" --> R["#schedule → #pump → #renderOnce"]
+  S -- "change (code, options) · active" --> R["RenderScheduler.schedule → #renderOnce"]
   R --> RW["renderWithImports(code, {mockupOptions…, edit: true})"]
   RW --> SH["showInShadow: div.mkd-editor__view (part view)<br/>+ div.mkd-editor__overlay (part overlay)"]
   P["click · Alt-click · Esc · Enter · pointermove"] --> N["data-mkd-derived ?? data-mkd-node<br/>→ session.nodeFor"]
@@ -148,3 +148,4 @@ See [New elements](new-elements.md).
 | 0.3.52 | 2026-11-28 | Shift- and Cmd/Ctrl-click on the innermost element select a range or toggle it (R-EDIT-008.C8) (#36) |
 | 0.3.55 | 2026-11-28 | While the code does not parse, renders `session.validCode` with `aria-readonly` and the `readonly` note (R-TOOL-009.C3); see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.57 | 2026-11-28 | `#scale`: in a scaled or zoomed canvas the outlines, the text field and the drop marks divide client offsets by the editor's scale (R-TOOL-011.C13); see [The canvas](canvas.md) (#41) |
+| 0.3.64 | 2026-11-28 | Renders scheduled by the shared `RenderScheduler`; a render error through `renderFailure` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |

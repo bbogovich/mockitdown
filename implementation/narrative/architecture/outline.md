@@ -53,7 +53,7 @@ flowchart TD
   J -->|"enclosing mockitdown-designer .session"| S[DesignSession]
   J -->|"host's session property"| S
   J -->|"else: own, empty document"| S
-  S -- "change (not move) · active" --> B["#schedule → #pump → #build"]
+  S -- "change (not move) · active" --> B["RenderScheduler.schedule → #build"]
   B --> EV["evaluateWithImports(code, {mockupOptions…, edit: true})"]
   EV --> R["#rowsFrom: views with node or derived → rows<br/>node = nodeFor(derived ?? node)"]
   R --> D["#draw: visible rows → div[role=treeitem]"]
@@ -119,3 +119,4 @@ flowchart TD
 | 0.3.55 | 2026-11-28 | Rows from `session.validCode`; while the code does not parse the tree has `data-readonly` and the `readonly` note shows (R-TOOL-009.C3); see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.58 | 2026-11-28 | The Mockups list warns about default names `Mockup <n>` (part `name-warning`, R-TOOL-012.C9; #42) |
 | 0.3.59 | 2026-11-28 | A click, Enter or Space on a Mockups row activates its mockup (`data-mockup`, `tabindex`, R-TOOL-013.C1; #43) |
+| 0.3.64 | 2026-11-28 | Rebuilds scheduled by the shared `RenderScheduler` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |

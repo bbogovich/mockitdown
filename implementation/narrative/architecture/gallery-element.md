@@ -107,3 +107,4 @@ flowchart TD
 | 0.3.45 | 2026-11-28 | Page written: `mockitdown-gallery`, the reference data in the package, `session.insert`, the top-level insert, IT-57 (#29) |
 | 0.3.46 | 2026-11-28 | Cards draggable onto the outline and the editor (#30) |
 | 0.3.47 | 2026-11-28 | Add and a drop insert the sample's call (`insertCode(name, sample)` = `sampleCall`, R-TOOL-006) (#31) |
+| 0.3.64 | 2026-11-28 | Rebuilds scheduled by the shared `RenderScheduler` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |
