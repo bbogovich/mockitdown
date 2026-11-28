@@ -155,6 +155,16 @@ export function edit(input: string | SyntaxTree, op: EditOp): EditResult | EditR
 
 // --- internals ------------------------------------------------------------------------------------
 
+/**
+ * The view nodes standing as statements in the body a node stands in (the top level, a struct body, a
+ * closure or a braced `if` branch), in source order; null when the node is no statement of a body (an
+ * argument, a `let` value or an `else if`, C20). The design session's `delete` picks the node to select
+ * next among them.
+ */
+export function bodySiblings(tree: SyntaxTree, node: ViewNode): ViewNode[] | null {
+  return new Editor(tree).bodyFor(node);
+}
+
 class Refusal extends Error {
   readonly diagnostics: Diagnostic[];
   constructor(message: string, diagnostics: Diagnostic[] = []) {
@@ -243,6 +253,13 @@ class Editor {
     this.tokens = new Lexer(tree.source).tokens();
     this.unit = indentUnit(tree.source);
     this.index();
+  }
+
+  /** The statements of the body a node stands in, or null when it is no statement of a body. */
+  bodyFor(n: ViewNode): ViewNode[] | null {
+    if (this.elseIf.has(n)) return null;
+    const body = this.bodyOf.get(n);
+    return body ? [...body.children] : null;
   }
 
   plan(op: EditOp): Plan {

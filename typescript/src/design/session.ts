@@ -15,7 +15,7 @@ import { assetsLoaded } from "../core/assets.js";
 import { Diagnostic, MockitdownError } from "../core/diagnostics.js";
 import type { RenderOptions } from "../core/options.js";
 import { registry } from "../core/packs/registry.js";
-import { edit, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { bodySiblings, edit, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, type DesignDocument, type DesignMockup } from "./document.js";
 
@@ -223,6 +223,34 @@ export class DesignSession {
    * operation changes nothing; an operation on code that does not parse is refused.
    */
   apply(op: EditOp): EditResult | EditRefusal {
+    return this.applyOp(op);
+  }
+
+  /**
+   * Delete the selected nodes as one change (R-EDIT-002.C6), the command behind Delete and Backspace in
+   * the composite designer (R-TOOL-003.C11), then select the statement after the last of them in their
+   * body that is not deleted, else the one before it, else their parent view node (none at the top
+   * level). It notifies one `change`, then one `select` with the new selection, and is refused, changing
+   * nothing, when nothing is selected or the remove operation is refused.
+   */
+  delete(): EditResult | EditRefusal {
+    const name = this.activeName;
+    if (name === null) return { error: "there is no active mockup", diagnostics: [] };
+    if (!this.selected.length) return { error: "nothing is selected", diagnostics: [] };
+    const tree = this.tree(name);
+    const nodes = this.selected.map((id) => tree?.byId(id)).filter((n): n is ViewNode => !!n).sort((a, b) => a.first - b.first);
+    let next: ViewNode | null = null;
+    const last = nodes[nodes.length - 1];
+    const body = tree && last ? bodySiblings(tree, last) : null;
+    if (last && body) {
+      const kept = body.filter((n) => !nodes.includes(n));
+      next = kept.find((n) => n.first > last.first) ?? [...kept].reverse().find((n) => n.first < last.first) ?? last.parent;
+    }
+    return this.applyOp({ op: "remove", nodes: [...this.selected] }, next ? [next.id] : []);
+  }
+
+  /** Apply an operation; `select`, when given, is the selection after it (else the nodes kept). */
+  private applyOp(op: EditOp, select?: readonly string[]): EditResult | EditRefusal {
     const name = this.activeName;
     if (name === null) return { error: "there is no active mockup", diagnostics: [] };
     const state = this.state(name)!;
@@ -242,7 +270,7 @@ export class DesignSession {
       const node = insertedNode(before, result.tree);
       if (node) this.notify({ kind: "insert", detail: { mockup: name, node: node.id, element: node.name } });
     }
-    this.afterCodeChange(name, state);
+    this.afterCodeChange(name, state, select);
     return result;
   }
 
@@ -317,11 +345,11 @@ export class DesignSession {
   }
 
   /** After a code change: drop the selected and hovered nodes that no longer exist, then the diagnostics. */
-  private afterCodeChange(name: string, state: MockupState): void {
+  private afterCodeChange(name: string, state: MockupState, select?: readonly string[]): void {
     if (name === this.activeName && state.tree) {
       const tree = state.tree;
-      const kept = this.selected.filter((id) => tree.byId(id));
-      if (kept.length !== this.selected.length) {
+      const kept = (select ?? this.selected).filter((id) => tree.byId(id));
+      if (!sameList(kept, this.selected)) {
         this.selected = kept;
         this.notify({ kind: "select", detail: { mockup: name, nodes: [...kept] } });
       }

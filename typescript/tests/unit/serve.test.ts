@@ -51,6 +51,7 @@ test("pages, modules, pack stylesheets, JSON and .mockitdown with their content 
     ["/dist/shared/manifest.json", /^application\/json/],
     ["/shared/conformance/index.json", /^application\/json/],
     ["/shared/conformance/components/pill.mockitdown", /^text\/plain; charset=utf-8$/],
+    ["/pages/designer-sample.mkdesign", /^application\/json; charset=utf-8$/],
   ];
   for (const [path, type] of cases) {
     const r = await get(path);

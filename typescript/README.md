@@ -132,6 +132,7 @@ const session = new DesignSession(r.document);
 session.subscribe(({ kind, detail }) => { /* select, hover, change, insert, active, diagnostics */ });
 session.apply({ op: "remove", nodes: ["n3"] });       // one "change" with the text edits
 session.setCode("Inbox", code);                       // code typed as text; the last valid tree is kept
+session.delete();                                     // the selection, then select its next sibling, else previous, else parent
 writeDesign(session.document);                        // stable key order, unknown keys kept, code verbatim
 mockupOptions(session.document, "Inbox");             // defaults under the mockup's options, with its pack
 ```
@@ -182,6 +183,38 @@ the editor does; to share an editor's, set it: `outline.session = editor.session
   elsewhere is highlighted. `outline.rows`, `outline.rendered`; parts `tabs`, `tab`, `tree`, `row`,
   `twisty`, `link`, `name`, `label`, `chip`, `mockups`, `mockup`; row colours
   `--mkd-outline-selected-background`, `--mkd-outline-hover-background`.
+
+### The designer element
+
+`<mockitdown-designer>` composes the design tools over one design document: a toolbar (Design, Preview
+and Code; Outline and Properties toggles; the active mockup, its pack and device), the outline above the
+gallery on the left (240 px), the editable view, the properties panel on the right (260 px) and a
+status bar (diagnostic count and a breadcrumb whose crumbs select their node).
+
+```html
+<mockitdown-designer id="d"></mockitdown-designer>
+<script type="module">
+  import { writeDesign } from "mockitdown/design";
+  await d.open(await (await fetch("mail.mkdesign")).text());   // rejects with err.errors when invalid
+  d.addEventListener("mockitdown-change", (e) => markEdited(e.detail.edits));
+  save(writeDesign(d.toJSON()));                                // the document with every edit applied
+</script>
+```
+
+- `d.session` is the designer's session (a new one per `open`); every component inside the designer
+  joins it, and only the designer dispatches `mockitdown-select`, `-change`, `-insert`, `-rename` and
+  `-diagnostics`. `d.document` returns `toJSON()`; setting it opens a document.
+- Delete or Backspace with the focus in the outline or the view deletes the selection
+  (`session.delete()`): one change, then the next sibling, else the previous one, else the parent is selected.
+- `mode` (attribute and property): `design` (default), `preview` (every mockup read-only through
+  `mockitdown-mockup` with its options, a list of the mockups and a Light, Dark, Both toggle) or `code`
+  (the active mockup's code). An unknown value means `design`.
+- Drag a side panel's inner edge (or use ← → on it) to resize it; `d.layout` is
+  `{left: {size, collapsed}, right: {size, collapsed}}` and may be set in part
+  (`d.layout = {right: {collapsed: true}}`).
+- Slots `toolbar`, `outline`, `gallery`, `view`, `inspector` and `status` replace a panel; the slotted
+  element is given the session (`el.session = d.session`). The gallery and properties panels hold
+  placeholders until their components exist. The test page is `pages/designer.html`.
 
 ## Development
 

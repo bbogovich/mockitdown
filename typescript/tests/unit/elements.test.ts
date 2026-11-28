@@ -9,7 +9,7 @@ const entry = await import("../../dist/mockitdown.js");
 test("the entry imports in Node without defining elements; tags begin with mockitdown- (R-WEB-002.C1)", () => {
   assert.equal(typeof entry.defineElements, "function");
   entry.defineElements();
-  assert.deepEqual([...entry.ELEMENT_TAGS], ["mockitdown-mockup", "mockitdown-editor", "mockitdown-outline"]);
+  assert.deepEqual([...entry.ELEMENT_TAGS], ["mockitdown-mockup", "mockitdown-designer", "mockitdown-editor", "mockitdown-outline"]);
   for (const tag of entry.ELEMENT_TAGS) assert.ok(tag.startsWith("mockitdown-"), tag);
   assert.equal(entry.MOCKUP_TAG, "mockitdown-mockup");
   assert.equal(entry.SCRIPT_TYPE, "text/mockitdown");

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Designer element</title>
+  <style>
+    html, body { height: 100%; }
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 0; display: flex; flex-direction: column; }
+    header { padding: .75rem 1.5rem; }
+    header h1 { font-size: 1.25rem; margin: 0 0 .25rem; }
+    header p { margin: 0; max-width: 72rem; }
+    code { background: #f2f2f5; padding: 0 .25em; border-radius: 3px; }
+    mockitdown-designer { flex: 1 1 auto; min-height: 32rem; border-top: 1px solid #d0d0d7; }
+    #log { font: 12px/1.5 ui-monospace, monospace; margin: 0; padding: .5rem 1.5rem; max-height: 6rem; overflow: auto;
+      border-top: 1px solid #d0d0d7; white-space: pre-wrap; }
+  </style>
+  <script type="module" src="../dist/mockitdown.js"></script>
+</head>
+<body>
+  <!-- The designer test page (R-TOOL-003.C14): a mockitdown-designer over the sample design document
+       designer-sample.mkdesign, two mockups, one ("Inbox") nesting a Button in a Card in a List with a
+       comment, a let and a ForEach. The browser tests (designer.spec.mjs) drive it. -->
+  <header>
+    <h1>Designer element</h1>
+    <p>
+      <code>&lt;mockitdown-designer&gt;</code> composes the outline and the editable view over one design
+      document. Select an element in the view or the outline and press <kbd>Delete</kbd> or
+      <kbd>Backspace</kbd> to remove it; the breadcrumb in the status bar selects an ancestor. The toolbar
+      switches between Design, Preview and Code. The events the designer dispatches are logged below.
+    </p>
+  </header>
+
+  <mockitdown-designer id="designer"></mockitdown-designer>
+  <pre id="log" aria-live="polite"></pre>
+
+  <script type="module">
+    await customElements.whenDefined("mockitdown-designer");
+    const designer = document.getElementById("designer");
+    const log = document.getElementById("log");
+    for (const type of ["mockitdown-select", "mockitdown-change", "mockitdown-insert", "mockitdown-rename", "mockitdown-diagnostics"]) {
+      designer.addEventListener(type, (e) => {
+        const d = e.detail;
+        const what = type === "mockitdown-select" ? `${d.nodes.length} node(s)`
+          : type === "mockitdown-change" ? `${d.kind}, ${d.edits.length} edit(s)`
+          : type === "mockitdown-diagnostics" ? `${d.diagnostics.length} diagnostic(s)` : JSON.stringify(d);
+        log.textContent = `${type}: ${d.mockup ?? ""} ${what}\n` + log.textContent;
+      });
+    }
+    const text = await (await fetch("designer-sample.mkdesign")).text();
+    window.mockitdownSample = text;
+    await designer.open(text);
+    await designer.rendered;
+    window.mockitdownDemo = "rendered";
+  </script>
+</body>
+</html>

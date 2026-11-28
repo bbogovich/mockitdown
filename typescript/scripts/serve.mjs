@@ -46,6 +46,7 @@ export const TYPES = {
   ".md": "text/plain; charset=utf-8",
   ".ts": "text/plain; charset=utf-8",
   ".mockitdown": "text/plain; charset=utf-8",
+  ".mkdesign": "application/json; charset=utf-8",
 };
 
 /**

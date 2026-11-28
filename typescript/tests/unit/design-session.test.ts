@@ -250,3 +250,49 @@ test("diagnostics are those of check with the mockup's options; DESIGN_EVENTS na
     rename: "mockitdown-rename", diagnostics: "mockitdown-diagnostics",
   });
 });
+
+// R-TOOL-003.C11 (TC-1, the session's part): `session.delete()`, the command behind Delete and
+// Backspace in the composite designer. The expected codes and selections were written by hand from
+// R-EDIT-002.C6, C7 and C25 and the rule of C11 (next sibling, else previous sibling, else parent).
+const NESTED = 'VStack {\n  Text("a")\n  HStack {\n    Text("b")\n    Text("c")\n  }\n  Text("d")\n}\n';
+
+function deleting(selection: string[]): { s: DesignSession; seen: DesignNotification[]; result: object; ids: Map<string, string> } {
+  const d = newDesign("Nested");
+  d.mockups.push({ name: "Nested", x: 0, y: 0, code: NESTED });
+  const s = new DesignSession(d);
+  const ids = new Map(["n1", "n2", "n3", "n4", "n5", "n6"].map((o) => [o, idOf(s, o)]));
+  if (selection.length) assert.equal(why(s.select(selection.map((o) => ids.get(o)!))), "applied");
+  const seen = recorder(s);
+  return { s, seen, result: s.delete(), ids };
+}
+
+test("delete removes the selection as one change, then selects the next sibling, else the previous, else the parent (R-TOOL-003.C11)", () => {
+  const changeAndSelect = (ns: readonly DesignNotification[]) => kinds(ns).filter((k) => k === "change" || k === "select");
+
+  const hstack = deleting(["n3"]);
+  assert.equal(why(hstack.result), "applied");
+  assert.equal(hstack.s.code("Nested"), 'VStack {\n  Text("a")\n  Text("d")\n}\n');
+  assert.deepEqual(changeAndSelect(hstack.seen), ["change", "select"], "one change, then one select");
+  assert.deepEqual(hstack.s.selection, [hstack.ids.get("n6")], "the next sibling, Text(\"d\")");
+  const select = hstack.seen.find((n) => n.kind === "select")!;
+  assert.deepEqual(select.detail, { mockup: "Nested", nodes: [hstack.ids.get("n6")] });
+
+  const lastChild = deleting(["n6"]);
+  assert.equal(lastChild.s.code("Nested"), 'VStack {\n  Text("a")\n  HStack {\n    Text("b")\n    Text("c")\n  }\n}\n');
+  assert.deepEqual(lastChild.s.selection, [lastChild.ids.get("n3")], "no next sibling: the previous one, the HStack");
+
+  const both = deleting(["n4", "n5"]);
+  assert.equal(both.s.code("Nested"), 'VStack {\n  Text("a")\n  HStack {\n  }\n  Text("d")\n}\n');
+  assert.deepEqual(both.s.selection, [both.ids.get("n3")], "every sibling deleted: the parent");
+  assert.deepEqual(changeAndSelect(both.seen), ["change", "select"]);
+
+  const root = deleting(["n1"]);
+  assert.equal(root.s.code("Nested"), "");
+  assert.deepEqual(root.s.selection, [], "a top-level node without siblings leaves nothing selected");
+  assert.deepEqual(changeAndSelect(root.seen), ["change", "select"]);
+
+  const none = deleting([]);
+  assert.equal(why(none.result), "nothing is selected");
+  assert.deepEqual(none.seen, [], "a refused delete notifies nothing");
+  assert.equal(none.s.code("Nested"), NESTED);
+});

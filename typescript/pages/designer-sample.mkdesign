@@ -1,0 +1,49 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "Mail",
+  "defaults": {
+    "pack": "base",
+    "caption": false
+  },
+  "sections": [
+    {
+      "name": "Main",
+      "x": 0,
+      "y": 0,
+      "w": 1200,
+      "h": 900
+    }
+  ],
+  "mockups": [
+    {
+      "name": "Sign in",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "pack": "mui",
+        "device": "phone"
+      },
+      "code": "VStack {\n  Text(\"Welcome back\")\n  Button(\"Sign in\")\n}\n"
+    },
+    {
+      "name": "Inbox",
+      "x": 480,
+      "y": 0,
+      "options": {
+        "device": "fit"
+      },
+      "code": "// The inbox, with its folders\nlet folders = [\"Alpha\", \"Beta\", \"Gamma\"]\n\nVStack(spacing: 12) {\n  Text(\"Inbox\").font(.title)\n  List {\n    Card {\n      Text(\"Quarterly report\")\n      Button(\"Open\") {}.id(\"open\")\n    }\n    ForEach(folders) { name in\n      Text(name)\n    }\n  }\n}\n",
+      "notes": "the walking-skeleton sample"
+    }
+  ],
+  "view": {
+    "zoom": 1,
+    "x": 0,
+    "y": 0,
+    "active": "Inbox"
+  },
+  "x-host": {
+    "window": "1280x800"
+  }
+}
