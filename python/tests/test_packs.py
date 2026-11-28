@@ -169,5 +169,42 @@ class PackTests(unittest.TestCase):
         self.assertGreater(len(css), 1000)
 
 
+#: R-PACK-008: the shipped packs by clause.
+FRAMEWORK_PACKS = {"base", "swiftui", "fluent", "mui", "angular-material", "sapui5", "bootstrap", "shadcn", "antd",
+                   "tailwind", "carbon", "primer", "vuetify", "prime", "sketch", "android", "gtk", "qt", "avalonia",
+                   "kde-plasma"}                                                                   # C1
+RETRO_PACKS = {"nls", "xerox-star", "lisa", "mac-classic", "win1", "win2", "gsos", "nextstep", "win31", "win95",
+               "macos9", "cde", "aqua", "winxp", "vista"}                                          # C7
+EASTER_EGGS = {"lcars", "phosphor", "hologram"}                                                    # C7
+LATER_PACKS = {"gem", "geos", "amiga", "riscos", "beos", "newton", "palm", "wince", "blackberry"}  # C8, one issue each
+
+
+class ShippedPackTests(unittest.TestCase):
+    """R-PACK-008 TC-1 step 1."""
+
+    def packs(self, *args):
+        import io
+        import json
+        from contextlib import redirect_stdout
+        from mockitdown import cli
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertEqual(cli.main(["packs", "--json", *args]), 0)
+        return json.loads(buf.getvalue())
+
+    def test_shipped_packs(self):  # TC-1 step 1 (C1, C6, C7, C8)
+        built = set(PackRegistry().ids())
+        self.assertLessEqual(built, FRAMEWORK_PACKS | RETRO_PACKS | EASTER_EGGS | LATER_PACKS, "a pack no clause names")
+        self.assertLessEqual(FRAMEWORK_PACKS | RETRO_PACKS | EASTER_EGGS, built)
+        listed = self.packs()
+        self.assertEqual({r["id"] for r in listed}, FRAMEWORK_PACKS | RETRO_PACKS | (LATER_PACKS & built))
+        everything = self.packs("--all")
+        self.assertEqual({r["id"] for r in everything} - {r["id"] for r in listed}, EASTER_EGGS)
+        for row in everything:
+            with self.subTest(pack=row["id"]):
+                self.assertTrue(row["framework"].strip(), "framework")
+                self.assertTrue(row["version"].strip(), "version")
+
+
 if __name__ == "__main__":
     unittest.main()

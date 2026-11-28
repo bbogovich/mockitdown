@@ -1,0 +1,1332 @@
+{
+ "source": "specification REF.2 (narrative/rendering/roles.md), the role catalogue; change both together",
+ "common_data": [
+  "color",
+  "component",
+  "content-mode",
+  "density",
+  "design",
+  "direction",
+  "el",
+  "elevation",
+  "emphasis",
+  "fill",
+  "font",
+  "frame-align",
+  "kind",
+  "labelPlacement",
+  "labelStyle",
+  "labels-hidden",
+  "level",
+  "material",
+  "mkd-id",
+  "orientation",
+  "placement",
+  "position",
+  "positioned",
+  "ref",
+  "resizable",
+  "rowsPerPage",
+  "scale",
+  "selected",
+  "severity",
+  "shape",
+  "side",
+  "size",
+  "state",
+  "variant",
+  "withHandle"
+ ],
+ "roles": {
+  "accordion": {
+   "elements": [
+    "Accordion",
+    "DisclosureGroup"
+   ],
+   "parts": [
+    "body",
+    "chevron",
+    "header",
+    "icon",
+    "subtitle",
+    "title",
+    "titles"
+   ],
+   "data": [
+    "expanded"
+   ]
+  },
+  "alert": {
+   "elements": [
+    "Banner"
+   ],
+   "parts": [
+    "actions",
+    "close",
+    "content",
+    "icon",
+    "message",
+    "title"
+   ],
+   "data": [
+    "severity"
+   ]
+  },
+  "appbar": {
+   "elements": [
+    "AppBar"
+   ],
+   "parts": [
+    "action",
+    "actions",
+    "avatar",
+    "badge",
+    "center",
+    "control",
+    "icon",
+    "input",
+    "leading",
+    "logo",
+    "logo--icon",
+    "nav",
+    "search",
+    "subtitle",
+    "title",
+    "titles"
+   ],
+   "data": [
+    "el",
+    "filled",
+    "kind",
+    "placeholder"
+   ]
+  },
+  "avatar": {
+   "elements": [
+    "Avatar"
+   ],
+   "parts": [
+    "status"
+   ],
+   "data": [
+    "hue",
+    "status"
+   ]
+  },
+  "badge": {
+   "elements": [
+    "Badge"
+   ],
+   "parts": [
+    "icon",
+    "label"
+   ],
+   "data": [
+    "dot"
+   ]
+  },
+  "board": {
+   "elements": [
+    "Board"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "boardcolumn": {
+   "elements": [
+    "BoardColumn"
+   ],
+   "parts": [
+    "add",
+    "cards",
+    "count",
+    "dot",
+    "header",
+    "more",
+    "title"
+   ],
+   "data": []
+  },
+  "breadcrumb": {
+   "elements": [
+    "Breadcrumb"
+   ],
+   "parts": [
+    "item",
+    "sep"
+   ],
+   "data": []
+  },
+  "button": {
+   "elements": [
+    "Button",
+    "IconButton"
+   ],
+   "parts": [
+    "badge",
+    "caret",
+    "icon",
+    "icon--end",
+    "label",
+    "spinner"
+   ],
+   "data": [
+    "deco",
+    "icon-only",
+    "placeholder",
+    "pressed",
+    "role"
+   ]
+  },
+  "calendar": {
+   "elements": [
+    "Calendar"
+   ],
+   "parts": [
+    "day",
+    "grid",
+    "header",
+    "label",
+    "nav",
+    "title",
+    "title-chevron",
+    "weekday"
+   ],
+   "data": [
+    "in-range",
+    "marked",
+    "outside",
+    "today"
+   ]
+  },
+  "callout": {
+   "elements": [
+    "Callout"
+   ],
+   "parts": [
+    "badge",
+    "text"
+   ],
+   "data": []
+  },
+  "canvas": {
+   "elements": [
+    "Canvas",
+    "Whiteboard"
+   ],
+   "parts": [],
+   "data": [
+    "grid"
+   ]
+  },
+  "card": {
+   "elements": [
+    "Card",
+    "GroupBox"
+   ],
+   "parts": [
+    "actions",
+    "body",
+    "header",
+    "header-actions",
+    "icon",
+    "media",
+    "media--missing",
+    "status",
+    "subtitle",
+    "title",
+    "titles"
+   ],
+   "data": []
+  },
+  "chart": {
+   "elements": [
+    "AreaChart",
+    "BarChart",
+    "BubbleChart",
+    "CandlestickChart",
+    "Chart",
+    "ComboChart",
+    "DonutChart",
+    "FunnelChart",
+    "GaugeChart",
+    "Heatmap",
+    "Histogram",
+    "LineChart",
+    "PieChart",
+    "RadarChart",
+    "ScatterChart",
+    "Sparkline",
+    "Treemap"
+   ],
+   "parts": [
+    "area",
+    "axis",
+    "bar",
+    "bars",
+    "candle",
+    "center",
+    "dot",
+    "grid",
+    "group",
+    "head",
+    "key",
+    "label",
+    "label--on",
+    "legend",
+    "line",
+    "pie",
+    "plot",
+    "plot--bars",
+    "slice",
+    "subtitle",
+    "svg",
+    "swatch",
+    "tick",
+    "title",
+    "track"
+   ],
+   "data": [
+    "donut",
+    "kind"
+   ]
+  },
+  "checkbox": {
+   "elements": [
+    "Checkbox"
+   ],
+   "parts": [
+    "box",
+    "label"
+   ],
+   "data": [
+    "checked"
+   ]
+  },
+  "chip": {
+   "elements": [
+    "Chip",
+    "Tag"
+   ],
+   "parts": [
+    "avatar",
+    "check",
+    "icon",
+    "label",
+    "remove"
+   ],
+   "data": []
+  },
+  "code": {
+   "elements": [
+    "CodeBlock",
+    "CodeEditor",
+    "Terminal"
+   ],
+   "parts": [
+    "bar",
+    "body",
+    "cmd",
+    "comment",
+    "fn",
+    "kw",
+    "line",
+    "num",
+    "out",
+    "prompt",
+    "str",
+    "tab",
+    "tabs",
+    "text",
+    "title",
+    "type"
+   ],
+   "data": [
+    "hl",
+    "lang"
+   ]
+  },
+  "color": {
+   "elements": [
+    "Color"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "datepicker": {
+   "elements": [
+    "DatePicker"
+   ],
+   "parts": [
+    "date",
+    "stepper",
+    "time"
+   ],
+   "data": [
+    "filled",
+    "labeled"
+   ]
+  },
+  "dialog": {
+   "elements": [
+    "Alert",
+    "Dialog",
+    "Sheet"
+   ],
+   "parts": [
+    "actions",
+    "arrow",
+    "body",
+    "close",
+    "header",
+    "icon",
+    "label",
+    "message",
+    "title"
+   ],
+   "data": [
+    "el",
+    "kind",
+    "role",
+    "variant"
+   ]
+  },
+  "divider": {
+   "elements": [
+    "Divider"
+   ],
+   "parts": [
+    "label"
+   ],
+   "data": []
+  },
+  "dropzone": {
+   "elements": [
+    "Dropzone"
+   ],
+   "parts": [
+    "hint",
+    "icon",
+    "label"
+   ],
+   "data": []
+  },
+  "emptystate": {
+   "elements": [
+    "EmptyState"
+   ],
+   "parts": [
+    "actions",
+    "desc",
+    "icon",
+    "title"
+   ],
+   "data": []
+  },
+  "fab": {
+   "elements": [
+    "FloatingActionButton"
+   ],
+   "parts": [
+    "icon",
+    "label"
+   ],
+   "data": [
+    "extended",
+    "kind",
+    "position"
+   ]
+  },
+  "form": {
+   "elements": [
+    "Form"
+   ],
+   "parts": [
+    "actions",
+    "row",
+    "title"
+   ],
+   "data": [
+    "child"
+   ]
+  },
+  "gantt": {
+   "elements": [
+    "Gantt"
+   ],
+   "parts": [
+    "bar",
+    "body",
+    "grid",
+    "head",
+    "lines",
+    "milestone",
+    "name",
+    "progress",
+    "row",
+    "scale",
+    "today",
+    "track"
+   ],
+   "data": []
+  },
+  "grid": {
+   "elements": [
+    "Grid",
+    "LazyHGrid",
+    "LazyVGrid"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "gridrow": {
+   "elements": [
+    "GridRow"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "group": {
+   "elements": [
+    "Group"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "hstack": {
+   "elements": [
+    "HStack",
+    "LazyHStack"
+   ],
+   "parts": [],
+   "data": [
+    "align",
+    "wrap"
+   ]
+  },
+  "icon": {
+   "elements": [
+    "Icon"
+   ],
+   "parts": [],
+   "data": [
+    "icon"
+   ]
+  },
+  "image": {
+   "elements": [
+    "AsyncImage",
+    "Image"
+   ],
+   "parts": [
+    "label"
+   ],
+   "data": []
+  },
+  "kanbancard": {
+   "elements": [
+    "KanbanCard"
+   ],
+   "parts": [
+    "avatar",
+    "avatars",
+    "cover",
+    "desc",
+    "footer",
+    "meta",
+    "metas",
+    "tag",
+    "tags",
+    "title"
+   ],
+   "data": [
+    "hue",
+    "priority"
+   ]
+  },
+  "kbd": {
+   "elements": [
+    "Kbd"
+   ],
+   "parts": [
+    "key"
+   ],
+   "data": []
+  },
+  "label": {
+   "elements": [
+    "Label"
+   ],
+   "parts": [
+    "icon",
+    "title"
+   ],
+   "data": []
+  },
+  "labeled": {
+   "elements": [
+    "LabeledContent"
+   ],
+   "parts": [
+    "label",
+    "value"
+   ],
+   "data": []
+  },
+  "link": {
+   "elements": [
+    "Link"
+   ],
+   "parts": [
+    "icon"
+   ],
+   "data": []
+  },
+  "list": {
+   "elements": [
+    "List"
+   ],
+   "parts": [
+    "header"
+   ],
+   "data": [
+    "sections"
+   ]
+  },
+  "listitem": {
+   "elements": [
+    "ListItem",
+    "NavigationLink",
+    "Row"
+   ],
+   "parts": [
+    "badge",
+    "box",
+    "chevron",
+    "detail",
+    "leading",
+    "overline",
+    "subtitle",
+    "text",
+    "title",
+    "trailing"
+   ],
+   "data": [
+    "checked",
+    "child",
+    "el",
+    "lines"
+   ]
+  },
+  "map": {
+   "elements": [
+    "Map"
+   ],
+   "parts": [
+    "art",
+    "label",
+    "land",
+    "me",
+    "minor",
+    "park",
+    "pin",
+    "roads",
+    "route",
+    "water"
+   ],
+   "data": []
+  },
+  "marquee": {
+   "elements": [
+    "SelectionRect"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "media": {
+   "elements": [
+    "VideoPlayer"
+   ],
+   "parts": [
+    "btn",
+    "controls",
+    "fill",
+    "play",
+    "poster",
+    "poster--empty",
+    "scrub",
+    "time"
+   ],
+   "data": []
+  },
+  "menu": {
+   "elements": [
+    "Menu"
+   ],
+   "parts": [
+    "caret",
+    "icon",
+    "label",
+    "popup",
+    "trigger"
+   ],
+   "data": [
+    "el",
+    "icon-only",
+    "open",
+    "standalone",
+    "variant"
+   ]
+  },
+  "menuitem": {
+   "elements": [
+    "MenuItem"
+   ],
+   "parts": [
+    "check",
+    "chevron",
+    "icon",
+    "label",
+    "shortcut"
+   ],
+   "data": []
+  },
+  "message": {
+   "elements": [
+    "Comment",
+    "MessageBubble"
+   ],
+   "parts": [
+    "author",
+    "avatar",
+    "bubble",
+    "image",
+    "reaction",
+    "reactions",
+    "stack",
+    "time"
+   ],
+   "data": [
+    "from"
+   ]
+  },
+  "navitem": {
+   "elements": [
+    "NavItem"
+   ],
+   "parts": [
+    "badge",
+    "chevron",
+    "children",
+    "icon",
+    "label",
+    "row"
+   ],
+   "data": [
+    "expanded"
+   ]
+  },
+  "navstack": {
+   "elements": [
+    "NavigationStack",
+    "NavigationView"
+   ],
+   "parts": [
+    "back",
+    "back-label",
+    "bar",
+    "content",
+    "control",
+    "icon",
+    "icon--end",
+    "input",
+    "large",
+    "leading",
+    "search",
+    "subtitle",
+    "title",
+    "title-text",
+    "trailing"
+   ],
+   "data": [
+    "el",
+    "filled",
+    "kind",
+    "mic",
+    "title-mode"
+   ]
+  },
+  "pagination": {
+   "elements": [
+    "Pagination"
+   ],
+   "parts": [
+    "gap",
+    "item",
+    "summary"
+   ],
+   "data": [
+    "nav"
+   ]
+  },
+  "placeholder": {
+   "elements": [
+    "Placeholder"
+   ],
+   "parts": [
+    "icon",
+    "label"
+   ],
+   "data": []
+  },
+  "pointer": {
+   "elements": [
+    "Pointer"
+   ],
+   "parts": [
+    "svg"
+   ],
+   "data": [
+    "kind"
+   ]
+  },
+  "progress": {
+   "elements": [
+    "Gauge",
+    "ProgressView"
+   ],
+   "parts": [
+    "bar",
+    "label",
+    "marker",
+    "max",
+    "min",
+    "ring",
+    "track",
+    "value"
+   ],
+   "data": [
+    "indeterminate",
+    "open"
+   ]
+  },
+  "radio": {
+   "elements": [
+    "RadioButton"
+   ],
+   "parts": [
+    "dot",
+    "label"
+   ],
+   "data": [
+    "checked"
+   ]
+  },
+  "radiogroup": {
+   "elements": [
+    "RadioGroup"
+   ],
+   "parts": [
+    "dot",
+    "items",
+    "label"
+   ],
+   "data": [
+    "checked",
+    "el"
+   ]
+  },
+  "rating": {
+   "elements": [
+    "Rating"
+   ],
+   "parts": [
+    "label",
+    "star"
+   ],
+   "data": [
+    "fill"
+   ]
+  },
+  "schedule": {
+   "elements": [
+    "Schedule"
+   ],
+   "parts": [
+    "day",
+    "dayhead",
+    "days",
+    "event",
+    "event-time",
+    "event-title",
+    "hourlist",
+    "hours",
+    "now",
+    "slots"
+   ],
+   "data": []
+  },
+  "scroll": {
+   "elements": [
+    "ScrollView"
+   ],
+   "parts": [],
+   "data": [
+    "axis"
+   ]
+  },
+  "section": {
+   "elements": [
+    "Section"
+   ],
+   "parts": [
+    "actions",
+    "body",
+    "footer",
+    "header",
+    "title"
+   ],
+   "data": [
+    "context"
+   ]
+  },
+  "segmented": {
+   "elements": [
+    "SegmentedControl"
+   ],
+   "parts": [
+    "item",
+    "items",
+    "label"
+   ],
+   "data": []
+  },
+  "select": {
+   "elements": [
+    "Picker"
+   ],
+   "parts": [
+    "label",
+    "option",
+    "popup"
+   ],
+   "data": [
+    "el",
+    "filled",
+    "labeled",
+    "size"
+   ]
+  },
+  "shape": {
+   "elements": [
+    "Capsule",
+    "Circle",
+    "Ellipse",
+    "Rectangle",
+    "RoundedRectangle"
+   ],
+   "parts": [],
+   "data": [
+    "shape"
+   ]
+  },
+  "sidebar": {
+   "elements": [
+    "Sidebar"
+   ],
+   "parts": [
+    "footer",
+    "header",
+    "items",
+    "title"
+   ],
+   "data": []
+  },
+  "skeleton": {
+   "elements": [
+    "Skeleton"
+   ],
+   "parts": [
+    "avatar",
+    "block",
+    "image",
+    "line",
+    "lines",
+    "row"
+   ],
+   "data": []
+  },
+  "slider": {
+   "elements": [
+    "Slider"
+   ],
+   "parts": [
+    "control",
+    "fill",
+    "label",
+    "max",
+    "min",
+    "thumb",
+    "ticks",
+    "track",
+    "value"
+   ],
+   "data": []
+  },
+  "spacer": {
+   "elements": [
+    "Spacer"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "split": {
+   "elements": [
+    "NavigationSplitView"
+   ],
+   "parts": [
+    "col",
+    "header",
+    "title",
+    "toggle",
+    "toolbar"
+   ],
+   "data": [
+    "col",
+    "columns"
+   ]
+  },
+  "spreadsheet": {
+   "elements": [
+    "Spreadsheet"
+   ],
+   "parts": [
+    "add",
+    "cell",
+    "colhead",
+    "corner",
+    "expr",
+    "formula",
+    "fx",
+    "grid",
+    "ref",
+    "rowhead",
+    "rowhead-col",
+    "sheet",
+    "sheets",
+    "table"
+   ],
+   "data": [
+    "active",
+    "edge",
+    "header",
+    "in-sel",
+    "num",
+    "sel"
+   ]
+  },
+  "stat": {
+   "elements": [
+    "Stat"
+   ],
+   "parts": [
+    "caption",
+    "change",
+    "foot",
+    "head",
+    "icon",
+    "label",
+    "spark",
+    "value"
+   ],
+   "data": [
+    "positive"
+   ]
+  },
+  "stepper": {
+   "elements": [
+    "Stepper"
+   ],
+   "parts": [
+    "button",
+    "buttons",
+    "divider",
+    "label",
+    "value"
+   ],
+   "data": [
+    "step"
+   ]
+  },
+  "steps": {
+   "elements": [
+    "Steps"
+   ],
+   "parts": [
+    "connector",
+    "description",
+    "marker",
+    "step",
+    "text",
+    "title"
+   ],
+   "data": [
+    "done",
+    "orientation",
+    "status"
+   ]
+  },
+  "stickynote": {
+   "elements": [
+    "StickyNote"
+   ],
+   "parts": [
+    "footer",
+    "text",
+    "title"
+   ],
+   "data": []
+  },
+  "swatches": {
+   "elements": [
+    "ColorSwatches"
+   ],
+   "parts": [
+    "items",
+    "label",
+    "swatch"
+   ],
+   "data": []
+  },
+  "tab": {
+   "elements": [
+    "Tab"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "table": {
+   "elements": [
+    "Table"
+   ],
+   "parts": [
+    "box",
+    "cell",
+    "footer",
+    "head",
+    "pagination",
+    "row",
+    "select",
+    "sort",
+    "title",
+    "toolbar"
+   ],
+   "data": [
+    "align",
+    "checked"
+   ]
+  },
+  "tablecolumn": {
+   "elements": [
+    "TableColumn"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "tablerow": {
+   "elements": [
+    "TableRow"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "tabs": {
+   "elements": [
+    "TabView",
+    "Tabs"
+   ],
+   "parts": [
+    "actions",
+    "badge",
+    "bar",
+    "icon",
+    "label",
+    "panel",
+    "tab"
+   ],
+   "data": [
+    "placement",
+    "standalone",
+    "state"
+   ]
+  },
+  "text": {
+   "elements": [
+    "Text"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "textfield": {
+   "elements": [
+    "SearchField",
+    "SecureField",
+    "TextEditor",
+    "TextField"
+   ],
+   "parts": [],
+   "data": [
+    "deco",
+    "filled",
+    "labeled"
+   ]
+  },
+  "timeline": {
+   "elements": [
+    "Timeline"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "timelineitem": {
+   "elements": [
+    "TimelineItem"
+   ],
+   "parts": [
+    "content",
+    "desc",
+    "dot",
+    "line",
+    "rail",
+    "time",
+    "title"
+   ],
+   "data": [
+    "icon",
+    "status"
+   ]
+  },
+  "toast": {
+   "elements": [
+    "Toast"
+   ],
+   "parts": [
+    "action",
+    "close",
+    "description",
+    "icon",
+    "message",
+    "text"
+   ],
+   "data": [
+    "kind",
+    "position"
+   ]
+  },
+  "toggle": {
+   "elements": [
+    "Toggle"
+   ],
+   "parts": [
+    "description",
+    "label",
+    "state",
+    "text",
+    "thumb",
+    "track"
+   ],
+   "data": [
+    "on",
+    "pressed"
+   ]
+  },
+  "toolbar": {
+   "elements": [
+    "ControlGroup",
+    "Toolbar"
+   ],
+   "parts": [
+    "menu",
+    "menu-chevron",
+    "menu-icon",
+    "menu-label",
+    "title"
+   ],
+   "data": []
+  },
+  "toolbaritem": {
+   "elements": [
+    "ToolbarItem",
+    "ToolbarItemGroup"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "tooltip": {
+   "elements": [
+    "Tooltip"
+   ],
+   "parts": [
+    "anchor",
+    "arrow",
+    "bubble",
+    "message",
+    "title"
+   ],
+   "data": [
+    "placement"
+   ]
+  },
+  "tree": {
+   "elements": [
+    "Tree"
+   ],
+   "parts": [],
+   "data": []
+  },
+  "treeitem": {
+   "elements": [
+    "TreeItem"
+   ],
+   "parts": [
+    "chevron",
+    "children",
+    "detail",
+    "icon",
+    "label",
+    "row"
+   ],
+   "data": [
+    "expanded"
+   ]
+  },
+  "unknown": {
+   "elements": [],
+   "parts": [
+    "name"
+   ],
+   "data": [
+    "el"
+   ]
+  },
+  "vstack": {
+   "elements": [
+    "LazyVStack",
+    "VStack"
+   ],
+   "parts": [],
+   "data": [
+    "align"
+   ]
+  },
+  "zstack": {
+   "elements": [
+    "ZStack"
+   ],
+   "parts": [],
+   "data": [
+    "align"
+   ]
+  }
+ }
+}

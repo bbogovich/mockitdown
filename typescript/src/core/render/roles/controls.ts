@@ -130,8 +130,9 @@ export const ControlRoles: Record<string, RoleFn> = {
     // A filled field still has a title: its placeholder names it (a Form's columns style shows it).
     const titled = ["label", "title", "header"].some((n) => v.slots.has(n) || ![null, "", false].includes(raw(v, n) as never));
     const named = !isPh && typeof placeholderText === "string" && placeholderText !== "" && !titled;
-    return this.field(v, "textfield", inner, { placeholder: isPh, kind, endIcon: end, style,
-      attrs: named ? { "aria-label": placeholderText } : null });
+    // A static text box, named like a control (R-REND-007.C1).
+    const attrs: Record<string, string> = { role: "textbox", ...(named ? { "aria-label": placeholderText as string } : {}) };
+    return this.field(v, "textfield", inner, { placeholder: isPh, kind, endIcon: end, style, attrs });
   },
   select(v) {
     const variant = name(at(v, "variant"));

@@ -242,8 +242,9 @@ class ControlRoles:
         # A filled field still has a title: its placeholder names it (a Form's columns style shows it).
         named = not is_ph and isinstance(placeholder_text, str) and placeholder_text \
             and not self.has(v, "label", "title", "header")
-        return self._field(v, "textfield", inner, placeholder=is_ph, kind=kind, end_icon=end, style=style,
-                           attrs={"aria-label": placeholder_text} if named else None)
+        # A static text box, named like a control (R-REND-007.C1).
+        attrs = {"role": "textbox", **({"aria-label": placeholder_text} if named else {})}
+        return self._field(v, "textfield", inner, placeholder=is_ph, kind=kind, end_icon=end, style=style, attrs=attrs)
 
     def r_select(self, v: View) -> str:
         variant = _name(v.attr("variant"))
