@@ -1,7 +1,7 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.1.0
-status: draft
+def_version: 0.12.0
+status: approved
 updated: 2026-11-24
 page_id: FEAT.2
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Features: web components and design tools"
-def_version: 0.5.0
-status: draft
+def_version: 0.12.0
+status: approved
 updated: 2026-11-25
 page_id: FEAT.3
 ---

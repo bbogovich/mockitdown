@@ -1,8 +1,8 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.11.1
-status: draft
-updated: 2026-11-27
+def_version: 0.12.0
+status: approved
+updated: 2026-11-24
 page_id: FEAT.2
 ---
 
@@ -213,6 +213,7 @@ to, including elements inside dialogs and other overlays.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.0 | 2026-11-27 | Definition audit (#80): AC9 added for C9 |
 | 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-3, F-18; AC8 makes C7 observable |
 | 0.11.0 | 2026-11-27 | Demo becomes User guide; Installation page for Python and TypeScript; every term the guide uses is defined (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
@@ -221,6 +222,7 @@ to, including elements inside dialogs and other overlays.
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-3, F-18; AC8 makes C7 observable |
 | 0.11.0 | 2026-11-27 | Demo becomes User guide; Installation page for Python and TypeScript; every term the guide uses is defined (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |

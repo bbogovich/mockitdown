@@ -2,16 +2,16 @@
 id: F-18
 title: Web pack gallery test page
 status: active
-version: 0.11.1
-rev: 8
+version: 0.12.0
+rev: 9
 page: FEAT.3
 slot: features
 order: 3
-hash: 067ca2b9abd8
+hash: 0b058ce1fb39
 family: web
 source: [SRC-8, SRC-9, SRC-10, SRC-11, SRC-17, SRC-18]
 requires: [F-17, F-3]
-refs: [F-14, F-17, F-3]
+refs: [F-14, F-17, F-3, UC-5]
 ---
 
 G1: Developers and reviewers need to see every pack and every element rendered by the web components, both by eye and in automated tests.
@@ -32,7 +32,7 @@ C7: Variants of an element keep their natural size side by side; when they are w
 C8: A pack whose framework spans several platforms also shows complete example applications for each: for SwiftUI an iPhone app, an iPad app and a Mac app with its menu bar and an open menu.
 AC5: The SwiftUI pack's examples include at least one phone, one tablet and one desktop application.
 AC6: The browser tests fail when any two variant cells of an element card overlap.
-AC7: Opening a pack's Examples tab shows its first design example without scrolling, and a link can open a pack directly on that tab.
+AC7: Opening a pack's Examples tab in a 1280 by 720 pixel viewport (Playwright's Desktop Chrome, the viewport of the gallery browser tests) shows its first design example in view without scrolling, and a link can open a pack directly on that tab.
 AC8: The design examples number at least twelve, at least six of them complex multi-region layouts.
 AC9: From any design example a reader can reveal its source in one step, see the exact source and attributes that produce the example in the selected pack, copy it, and hide it again without the example changing.
 C12: The pack gallery is published with the documentation on the project's public site, at an address of its own, and works there as it does on the development server.
@@ -43,3 +43,4 @@ C15: The easter-egg packs (F-3.C9) can be shown in the gallery by their address,
 N1: C4 and AC4 deliberately name Node's own HTTP module: they keep an implementer from adding a web-server framework the gallery does not need (SRC-18#answers). They are product constraints, not implementation hints to drop.
 AC11: Opening the published gallery's address shows the home page, which states what the gallery is for, that every mockup in it is rendered in the browser by the TypeScript renderer, how to use the TypeScript library in a project, and a link to its release builds; one link opens the pack gallery and one link per easter-egg pack opens that pack's elements.
 AC12: No easter-egg pack appears in the side panel, and opening the gallery at an easter-egg pack's address shows that pack's elements and examples without a diagnostic.
+AC13: A reader who opens the gallery's home page and scrolls to its easter-egg section finds one link per easter-egg pack, labelled with the pack's name; following one opens the gallery on that pack's elements and examples, while no pack list names it. (UC-5)

@@ -1,7 +1,7 @@
 ---
 title: Sources
-def_version: 0.10.0
-status: draft
+def_version: 0.12.0
+status: approved
 updated: 2026-11-27
 page_id: SRC
 ---
