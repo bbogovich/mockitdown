@@ -3,28 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Editor element</title>
+  <title>Editor and outline elements</title>
   <style>
     body { font: 15px/1.5 system-ui, sans-serif; margin: 1.5rem; max-width: 72rem; }
     code { background: #f2f2f5; padding: 0 .25em; border-radius: 3px; }
     .row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+    mockitdown-outline { flex: 0 0 16rem; height: 10rem; border: 1px solid #d0d0d7; border-radius: 6px; }
     mockitdown-editor { flex: 0 1 26rem; padding: 1.5rem; }
     #state { font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; flex: 1 1 20rem; margin: 0; }
   </style>
   <script type="module" src="../dist/mockitdown.js"></script>
 </head>
 <body>
-  <!-- The editor test page (R-TOOL-001.C11): one mockitdown-editor over a sample mockup that nests a
-       Button in a Card in a List and has a ForEach. The browser tests (editor.spec.mjs) drive it. -->
-  <h1>Editor element</h1>
+  <!-- The editor test page (R-TOOL-001.C11, R-TOOL-002.C9): one mockitdown-editor over a sample mockup
+       that nests a Button in a Card in a List and has a ForEach, and a mockitdown-outline sharing the
+       editor's session. The browser tests (editor.spec.mjs, outline.spec.mjs) drive it. -->
+  <h1>Editor and outline elements</h1>
   <p>
     <code>&lt;mockitdown-editor&gt;</code> renders a mockup in edit mode. Click an element to select it;
     click it again or press <kbd>Esc</kbd> to select its parent, <kbd>Enter</kbd> to go back;
     <kbd>Alt</kbd>-click cycles through the elements under the pointer. A row of the
     <code>ForEach</code> selects the <code>ForEach</code> and shows a "derived" badge.
   </p>
+  <p>
+    <code>&lt;mockitdown-outline&gt;</code> shows the same session's element tree. Click a row to select
+    it; <kbd>↑</kbd> <kbd>↓</kbd> move, <kbd>→</kbd> <kbd>←</kbd> expand and collapse, <kbd>Home</kbd>
+    and <kbd>End</kbd> jump, and typing selects the next row whose name starts with the letters.
+  </p>
 
   <div class="row">
+    <mockitdown-outline id="outline"></mockitdown-outline>
     <mockitdown-editor id="editor" pack="base" device="fit" caption="false">
       <script type="text/mockitdown">
         VStack(spacing: 12) {
@@ -32,7 +40,7 @@
           List {
             Card {
               Text("Quarterly report")
-              Button("Open") {}
+              Button("Open") {}.id("open")
             }
             ForEach(["Alpha", "Beta", "Gamma"]) { name in
               Text(name)
@@ -46,7 +54,10 @@
 
   <script type="module">
     await customElements.whenDefined("mockitdown-editor");
+    await customElements.whenDefined("mockitdown-outline");
     const editor = document.getElementById("editor");
+    const outline = document.getElementById("outline");
+    outline.session = editor.session;
     const state = document.getElementById("state");
     const show = () => {
       const session = editor.session;
@@ -57,6 +68,7 @@
     };
     editor.session.subscribe(show);
     await editor.rendered;
+    await outline.rendered;
     show();
     window.mockitdownDemo = "rendered";
   </script>

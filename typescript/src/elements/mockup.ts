@@ -28,8 +28,8 @@
  */
 
 import {
-  assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS, Location, parseBool, render, stylesheet,
-  type RenderResult,
+  assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, evaluate, FENCE_OPTIONS, Location, parseBool, render, stylesheet,
+  type Evaluation, type RenderResult,
 } from "../core/index.js";
 import { loadAssetsFromUrl } from "./assets.js";
 
@@ -147,31 +147,48 @@ export function baseUrls(el: Element): { importBase: string; assetBase: string }
 }
 
 /**
- * Render code with imports fetched from `importBase` and images resolved against `assetBase`. The core
- * resolves imports synchronously: render, fetch the import files it asked for and did not have, and
- * render again until it asks for nothing new. Null when `stale()` turned true while fetching.
+ * Run `run` (a render or an evaluation) with imports fetched from `importBase`. The core resolves
+ * imports synchronously: run, fetch the import files it asked for and did not have, and run again
+ * until it asks for nothing new. Null when `stale()` turned true while fetching.
  */
-export async function renderWithImports(
-  code: string, options: Record<string, unknown>, importBase: string, assetBase: string, stale: () => boolean = () => false,
-): Promise<RenderResult | null> {
-  let result: RenderResult | null = null;
+async function withImports<T>(
+  run: (resolver: (path: string) => string | null | undefined) => T, importBase: string, stale: () => boolean,
+): Promise<T | null> {
+  let result: T | null = null;
   for (let round = 0; round < MAX_IMPORT_ROUNDS; round++) {
     const missing = new Set<string>();
-    result = render(code, {
-      ...options,
-      asset_base: assetBase,
-      import_resolver: (path: string) => {
-        const url = new URL(path, importBase).href;
-        if (importTexts.has(url)) return importTexts.get(url);
-        missing.add(url);
-        return null;
-      },
+    result = run((path: string) => {
+      const url = new URL(path, importBase).href;
+      if (importTexts.has(url)) return importTexts.get(url);
+      missing.add(url);
+      return null;
     });
     if (!missing.size) break;
     await Promise.all([...missing].map(fetchImport));
     if (stale()) return null;
   }
-  return result!;
+  return result;
+}
+
+/**
+ * Render code with imports fetched from `importBase` and images resolved against `assetBase`
+ * ({@link withImports}). Null when `stale()` turned true while fetching.
+ */
+export function renderWithImports(
+  code: string, options: Record<string, unknown>, importBase: string, assetBase: string, stale: () => boolean = () => false,
+): Promise<RenderResult | null> {
+  return withImports((resolver) => render(code, { ...options, asset_base: assetBase, import_resolver: resolver }), importBase, stale);
+}
+
+/**
+ * Evaluate code (the view tree, without rendering) with imports fetched from `importBase`, as
+ * {@link renderWithImports} renders it: the design tools that show the views of a rendering (the
+ * outline, R-TOOL-002.C2) evaluate with the same options. Null when `stale()` turned true while fetching.
+ */
+export function evaluateWithImports(
+  code: string, options: Record<string, unknown>, importBase: string, stale: () => boolean = () => false,
+): Promise<Evaluation | null> {
+  return withImports((resolver) => evaluate(code, { ...options, import_resolver: resolver }), importBase, stale);
 }
 
 /**

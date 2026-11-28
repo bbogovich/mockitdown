@@ -165,6 +165,24 @@ it renders the mockup in edit mode and turns clicks and hovers into the session'
   `badge`), coloured by `--mkd-selection-color` (default `#ff8a00`) and `--mkd-hover-color`
   (default `#2f80ed`). The test page is `pages/editor.html`.
 
+### The outline element
+
+`<mockitdown-outline>` shows the element tree of a design session's active mockup, with two tabs:
+Elements (the tree) and Mockups (the document's mockups, the active one marked). It joins a session as
+the editor does; to share an editor's, set it: `outline.session = editor.session`.
+
+- One row per view of the mockup's edit-mode evaluation, nested as the views are: the element name,
+  its main label and an `#id` chip (`Button "Open" #open`), 14 px of indent per level. A `ForEach`
+  item, `if` branch or component view is italic with a link icon and selects its construct.
+- A click or the keys select: ↑ ↓, Home, End, → (expand, then the first child), ← (collapse, then
+  the parent), and typing the start of a name. The triangle expands and collapses; top-level rows start
+  expanded. A selection made anywhere expands the row's ancestors and scrolls it into view
+  (`outline.expandTo(nodeId)`).
+- Hovering a row sets the session's hovered node (the editor outlines it); the row of a node hovered
+  elsewhere is highlighted. `outline.rows`, `outline.rendered`; parts `tabs`, `tab`, `tree`, `row`,
+  `twisty`, `link`, `name`, `label`, `chip`, `mockups`, `mockup`; row colours
+  `--mkd-outline-selected-background`, `--mkd-outline-hover-background`.
+
 ## Development
 
 Node 22 or later.
