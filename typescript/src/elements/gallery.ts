@@ -23,15 +23,17 @@
  * Each card shows the element's name and a preview, a `mockitdown-mockup` of its sample with
  * `device="fit"` in the pack, created when the card comes within 200 px of the gallery's visible part
  * (IntersectionObserver) and kept for the pack. Add, a double-click on the card or Enter on the focused
- * card inserts `<Name>()` through `session.insert` (R-EDIT-006): as the last child of the first selected
- * node, else at the end of the mockup's top level, then selects it; the session notifies `insert`.
+ * card inserts the element through `session.insert` (R-EDIT-006) as the top-level call of its sample
+ * without trailing closures, else `<Name>()` (R-TOOL-006.C1, {@link insertCode}): as the last child of
+ * the first selected node, else at the end of the mockup's top level, then selects it; the session
+ * notifies `insert`, and an editor showing the mockup opens the new element's first text (R-TOOL-006.C2).
  * Up, Down, Home and End move the focus among the cards. A card dragged onto the outline or the
  * editor inserts its element where it is dropped (R-TOOL-005, `./drag.ts`). The session is joined as the outline joins
  * one (R-EDIT-006.C11), and only the gallery's own session's notifications become its DOM events
  * (C7, C8). The gallery holds no editing rule (A-WEB-5.K2): the role rules are the core's.
  */
 
-import { allowedChildren, assetsLoaded, canContain, registry, roleRule, ROLE_CATEGORIES, type Pack, type RoleCategory } from "../core/index.js";
+import { allowedChildren, assetsLoaded, canContain, registry, roleRule, ROLE_CATEGORIES, sampleCall, type Pack, type RoleCategory } from "../core/index.js";
 import { mockupOptions, mockupPack, newDesign } from "../design/document.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification } from "../design/session.js";
 import type { EditRefusal, EditResult } from "../core/syntax/edit.js";
@@ -133,9 +135,13 @@ export function loadReference(pack: string, base?: string | URL): Promise<Refere
   return p;
 }
 
-/** The code Add inserts for an element or struct (C8). */
-export function insertCode(name: string): string {
-  return `${name}()`;
+/**
+ * The code Add or a drop inserts for an element or struct (R-TOOL-006.C1): the top-level call of its
+ * sample without trailing closures (`List()` of `List() { … }`), else `<name>()` (a struct, an element
+ * without a sample or whose sample is not a call of it).
+ */
+export function insertCode(name: string, sample: string | null = null): string {
+  return sampleCall(name, sample);
 }
 
 /** Whether a card matches the search text (C4): its name, role or doc line contains it, ignoring case. */
@@ -209,6 +215,8 @@ export class GalleryElement extends Base {
   #state: GalleryState = { mockup: null, pack: null, parent: null, cards: [], hidden: [] };
   /** Created previews by `<pack>\n<name>`, kept across redraws. */
   #previews = new Map<string, HTMLElement>();
+  /** The samples of the shown pack's elements by name, hidden ones included (R-TOOL-006.C1). */
+  #samples = new Map<string, string | null>();
   #observer: IntersectionObserver | null = null;
   /** The name of the card holding the roving tab stop. */
   #current: string | null = null;
@@ -245,8 +253,9 @@ export class GalleryElement extends Base {
       const card = this.#cardAt(e);
       const name = card?.dataset.name;
       if (!card || !name || (e.target as Element).closest?.(".mkd-gallery__add")) return;
-      // R-TOOL-005.C1: the card drags its element; the drop inserts `<Name>()` (as Add does).
-      armDrag(e, () => ({ session: this.session, source: { kind: "element", name, code: insertCode(name) }, label: name }));
+      // R-TOOL-005.C1: the card drags its element.
+      // R-TOOL-006.C1: it is inserted as its sample's call, as Add inserts it.
+      armDrag(e, () => ({ session: this.session, source: { kind: "element", name, code: this.#codeFor(name) }, label: name }));
     });
   }
 
@@ -287,11 +296,17 @@ export class GalleryElement extends Base {
   }
 
   /**
-   * Insert an element or struct of the gallery as Add does (C8): `<name>()` as the last child of the
-   * first selected node, else at the end of the active mockup's top level, then selected.
+   * Insert an element or struct of the gallery as Add does (C8): its sample's call (R-TOOL-006.C1, else
+   * `<name>()`) as the last child of the first selected node, else at the end of the active mockup's
+   * top level, then selected.
    */
   add(name: string): EditResult | EditRefusal {
-    return this.session.insert(insertCode(name));
+    return this.session.insert(this.#codeFor(name));
+  }
+
+  /** The code an element of the shown pack, or a struct, is inserted as (R-TOOL-006.C1). */
+  #codeFor(name: string): string {
+    return insertCode(name, this.#samples.get(name) ?? null);
   }
 
   // --- lifecycle ----------------------------------------------------------------------------------
@@ -390,6 +405,7 @@ export class GalleryElement extends Base {
     const session = this.session;
     const name = session.active;
     let state: GalleryState = { mockup: null, pack: null, parent: null, cards: [], hidden: [] };
+    let samples = new Map<string, string | null>();
     try {
       if (name !== null && session.mockup(name)) {
         if (!assetsLoaded()) await loadAssetsFromUrl();
@@ -406,6 +422,7 @@ export class GalleryElement extends Base {
           reference = [...pack.elements.values()].map((el) => ({ name: el.name, role: el.role, doc: "", own: false, sample: null }));
         }
         if (stale()) return;
+        samples = new Map(reference.map((e) => [e.name, e.sample]));
         const tree = session.tree(name);
         const first = session.selection.length && tree ? tree.byId(session.selection[0]!) : null;
         const structs = evaluation.structs.length ? evaluation.structs : (tree?.module.structs.map((s) => s.name) ?? []);
@@ -415,9 +432,11 @@ export class GalleryElement extends Base {
       // A mockup that cannot be evaluated keeps the last cards.
       if (stale()) return;
       state = this.#state;
+      samples = this.#samples;
     }
     if (stale()) return;
     this.#state = state;
+    this.#samples = samples;
     this.#renderedOnce = true;
     this.#draw();
   }

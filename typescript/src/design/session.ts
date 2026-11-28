@@ -16,7 +16,8 @@ import { Diagnostic, MockitdownError } from "../core/diagnostics.js";
 import type { RenderOptions } from "../core/options.js";
 import { registry } from "../core/packs/registry.js";
 import { canContain, holdsChildren, rolesLoaded } from "../core/roles.js";
-import { bodySiblings, edit, statementChildren, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { bodySiblings, edit, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, type DesignDocument, type DesignMockup } from "./document.js";
 
@@ -290,6 +291,33 @@ export class DesignSession {
    */
   move(nodes: readonly string[], parent: string | null, index: EditIndex): EditResult | EditRefusal {
     return this.applyOp({ op: "move", nodes: [...nodes], parent, index }, [...nodes]);
+  }
+
+  /**
+   * The text a node of the active mockup opens for inline editing after its insertion (R-TOOL-006.C2):
+   * its first positional argument when that is a string literal without interpolation, else null.
+   */
+  firstText(node: string): string | null {
+    const tree = this.activeName === null ? null : this.tree(this.activeName);
+    const n = tree?.byId(node);
+    return n ? firstText(n) : null;
+  }
+
+  /**
+   * Set a node's first text (R-TOOL-006.C3): its first positional argument becomes the string literal
+   * of `text` through `setArgument` (R-EDIT-003.C1), as one change of its own. The same text changes
+   * nothing (no edits, no notification); a node without a first text is refused.
+   */
+  setText(node: string, text: string): EditResult | EditRefusal {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    const n = tree?.byId(node);
+    if (!tree || !n) return { error: `${JSON.stringify(node)} is not a node of the active mockup`, diagnostics: [] };
+    const current = firstText(n);
+    if (current === null) return { error: `${n.ordinal} has no text as its first argument`, diagnostics: [] };
+    if (typeof text !== "string") return { error: "text must be a string", diagnostics: [] };
+    if (text === current) return { edits: [], source: tree.source, tree };
+    return this.applyOp({ op: "setArgument", node, label: null, position: 0, value: stringLiteral(text) });
   }
 
   // --- drag and drop (R-TOOL-005) -----------------------------------------------------------------

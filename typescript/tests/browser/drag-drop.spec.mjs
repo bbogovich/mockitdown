@@ -4,7 +4,8 @@
 // The drags are real pointer drags (page.mouse); Playwright's CSS locators pierce open shadow roots.
 //
 // The code expected after each drop, the drop positions and the refusal sentences were written by
-// hand from the fixture before the drag and drop existed: the frame refusal is R-PACK-016.C6's own
+// hand from the fixture before the drag and drop existed (the inserted calls rewritten by hand from
+// shared/reference/base.json's samples for R-TOOL-006, #31): the frame refusal is R-PACK-016.C6's own
 // example, the subtree refusal the session's sentence for a move into one of its own descendants.
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -15,10 +16,10 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SAMPLE = readFileSync(join(HERE, "fixtures", "drag-sample.mkdesign"), "utf8");
 const FRAME_IN_HSTACK = "A frame cannot be placed inside a horizontal stack";
 const CODE = 'VStack {\n  Text("First")\n  Text("Second")\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n}\n';
-const AFTER_VIEW_DROP = 'VStack {\n  Text("First")\n  Text()\n  Text("Second")\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n}\n';
-const AFTER_BEFORE = 'VStack {\n  Text("First")\n  Text("Second")\n  Text()\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n}\n';
-const AFTER_INSIDE = 'VStack {\n  Text("First")\n  Text("Second")\n  Text()\n  HStack {\n    Button("Left")\n    Button("Right")\n    Divider()\n  }.id("row")\n}\n';
-const AFTER_AFTER = 'VStack {\n  Text("First")\n  Text("Second")\n  Text()\n  HStack {\n    Button("Left")\n    Button("Right")\n    Divider()\n  }.id("row")\n  Text()\n}\n';
+const AFTER_VIEW_DROP = 'VStack {\n  Text("First")\n  Text("Content")\n  Text("Second")\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n}\n';
+const AFTER_BEFORE = 'VStack {\n  Text("First")\n  Text("Second")\n  Text("Content")\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n}\n';
+const AFTER_INSIDE = 'VStack {\n  Text("First")\n  Text("Second")\n  Text("Content")\n  HStack {\n    Button("Left")\n    Button("Right")\n    Divider()\n  }.id("row")\n}\n';
+const AFTER_AFTER = 'VStack {\n  Text("First")\n  Text("Second")\n  Text("Content")\n  HStack {\n    Button("Left")\n    Button("Right")\n    Divider()\n  }.id("row")\n  Text("Content")\n}\n';
 const AFTER_MOVE = 'VStack {\n  Text("First")\n  HStack {\n    Button("Left")\n    Button("Right")\n  }.id("row")\n  Text("Second")\n}\n';
 
 const D = "#designer";
@@ -114,13 +115,13 @@ test("TC-1: a card dropped on the gap between a VStack's children inserts it the
   await expect(page.locator(shield)).toHaveCSS("cursor", "grabbing");
   await page.mouse.up();
 
-  // C5, C6, V1: Text() is the stack's second child, selected, after exactly one change.
+  // C5, C6, V1: Text("Content") (its sample's call, R-TOOL-006.C1) is the stack's second child, selected, after exactly one change.
   await settle(page, false);
   let s = await state(page);
   expect(s.code).toBe(AFTER_VIEW_DROP);
   expect(s.selected).toEqual(["Text"]);
   expect(s.parent).toBe("VStack");
-  expect(s.text).toBe("Text()");
+  expect(s.text).toBe('Text("Content")');
   expect(s.changes).toBe(1);
   await expect(page.locator(shield)).toHaveCount(0);
   await expect(page.locator(`${D} mockitdown-editor .mkd-editor__bar`)).toHaveCount(0);

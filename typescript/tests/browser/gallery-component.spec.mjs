@@ -3,7 +3,8 @@
 // the active mockup) declares `struct Badge` and nests HStack #actions holding Button("Cancel") in a
 // VStack; "Cards" is in the vuetify pack. Playwright's CSS locators pierce open shadow roots.
 //
-// The expected code after each Add, the refusal sentence for frames inside a horizontal stack
+// The expected code after each Add (rewritten by hand for R-TOOL-006, #31: the call of the element's
+// sample in shared/reference/base.json), the refusal sentence for frames inside a horizontal stack
 // (R-PACK-016.C6's own example) and the element names below were written by hand from the fixture and
 // the reference data before the gallery existed; the own/inherited split is read from
 // shared/reference/vuetify.json, the data the gallery is meant to follow.
@@ -16,7 +17,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SAMPLE = readFileSync(join(HERE, "fixtures", "gallery-sample.mkdesign"), "utf8");
 const VUETIFY = JSON.parse(readFileSync(join(HERE, "..", "..", "..", "shared", "reference", "vuetify.json"), "utf8"));
 const FRAME_IN_HSTACK = "A frame cannot be placed inside a horizontal stack";
-const AFTER_ADD = 'struct Badge: View {\n  var body: some View {\n    Text("New")\n  }\n}\n\nVStack {\n  Text("Settings")\n  HStack {\n    Button("Cancel")\n    Toggle()\n  }.id("actions")\n}\n';
+const AFTER_ADD = 'struct Badge: View {\n  var body: some View {\n    Text("New")\n  }\n}\n\nVStack {\n  Text("Settings")\n  HStack {\n    Button("Cancel")\n    Toggle("Label")\n  }.id("actions")\n}\n';
 
 const G = "#designer mockitdown-gallery";
 const card = (name) => `${G} .mkd-gallery__card[data-element="${name}"]`;
@@ -113,12 +114,12 @@ test("TC-1: a double-click or Enter on a card adds it, at the end of the mockup'
   await selectById(page, null);
   await page.locator(card("Text")).dblclick();
   let code = await page.evaluate(() => document.querySelector("#designer").session.code("Toolbar"));
-  expect(code.endsWith('  }.id("actions")\n}\nText()\n')).toBe(true);
+  expect(code.endsWith('  }.id("actions")\n}\nText("Content")\n')).toBe(true);
   await selectById(page, null);
   await page.locator(card("Divider")).focus();
   await page.keyboard.press("Enter");
   code = await page.evaluate(() => document.querySelector("#designer").session.code("Toolbar"));
-  expect(code.endsWith("}\nText()\nDivider()\n")).toBe(true);
+  expect(code.endsWith('}\nText("Content")\nDivider()\n')).toBe(true);
   expect(await page.evaluate(() => window.inserts.map((e) => e.detail.element))).toEqual(["Text", "Divider"]);
 });
 

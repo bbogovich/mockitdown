@@ -256,11 +256,27 @@ and an Add button. Inside a designer it joins the designer's session; elsewhere 
 - Previews are `mockitdown-mockup device="fit"` of each element's sample, created when a card comes
   within 200 px of the gallery's visible part.
 - Add, a double-click on a card or Enter on the focused card (Up, Down, Home, End move between cards)
-  inserts `<Name>()` through `session.insert(code)`: as the last child of the selected node, else at the
+  inserts the element as its sample's call (see New elements below) through `session.insert(code)`: as the last child of the selected node, else at the
   end of the mockup's top level, then selects it; the session notifies `insert` (`mockitdown-insert`).
   `gallery.add(name)` does the same from a host's menu.
 - `gallery.state` (`{mockup, pack, parent, cards, hidden}`), `gallery.rendered`; parts `search`, `list`,
   `group`, `card`, `name`, `add`, `preview`, `hidden`, `reason`.
+
+### New elements
+
+An element added from the gallery (Add or a drop) is written as the top-level call of its sample in the
+pack's reference data, with its arguments and modifiers and without its trailing closures:
+`Button("Label")`, `List()` for `List() { … }`, `Image().frame(width: 160, height: 96)`. A sample that
+is not a call of the element (a `Tab` shown inside a `TabView`), a struct or an element without a sample
+gives `<Name>()`. `sampleCall(name, sample)` in the core computes it; `insertCode(name, sample)` is the
+gallery's name for it.
+
+When the new call's first positional argument is a string literal, the editor showing the mockup opens
+an inline field over the new element (`.mkd-editor__field`, part `text-field`) holding that text,
+focused and selected. Enter or leaving the field commits the text as a change of its own through
+`session.setText(nodeId, text)` (`setArgument` on the first positional argument; the same text changes
+nothing); Esc closes it and keeps the sample's text. `session.firstText(nodeId)` gives the text the
+field opens with, or null.
 
 ### Drag and drop
 
@@ -278,7 +294,7 @@ it starts after 4 px, a ghost by the pointer names what is dragged, and Esc canc
   `--mkd-drop-refused-color` (default `#d93025`), with the `not-allowed` cursor and the reason by the
   pointer (`data-drop="inside refused"`); a drop there does nothing. Allowed positions use
   `--mkd-drop-color` (default `#2f80ed`).
-- A drop is one session operation, one `change`: a card is inserted as `<Name>()` and selected, rows
+- A drop is one session operation, one `change`: a card is inserted as its sample's call and selected, rows
   are moved and stay selected with their node ids. The components only point; the session decides:
 
 ```js

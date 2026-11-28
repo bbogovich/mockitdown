@@ -29,6 +29,12 @@
  * `--mkd-hover-color` (default `#2f80ed`). The editor holds no editing rule (A-WEB-5.K2): every
  * change goes through the session.
  *
+ * The first text of a new element (R-TOOL-006): after an insertion into the shown mockup whose new
+ * call's first positional argument is a string literal (`session.firstText`), the editor opens an
+ * inline text field (`part="text-field"`) over the new element's rendering, holding that text, focused
+ * with it selected. Enter or leaving the field commits the text through `session.setText`
+ * (`setArgument`, one change of its own after the insertion's); Esc closes it and keeps the text.
+ *
  * Drag and drop (R-TOOL-005, `./drag.ts`): while a gallery card or outline rows are dragged over the
  * view, the editor outlines the innermost container under the pointer (`session.isContainer`; the top
  * level when there is none) and draws an insertion bar at the gap between its children nearest the
@@ -67,7 +73,8 @@ const EDITOR_CSS = `:host{position:relative;outline:none}
 .mkd-editor__badge--inside{transform:none;top:0;right:0}
 .mkd-editor__drop{position:absolute;box-sizing:border-box;border:2px dashed var(--mkd-drop-color,#2f80ed);border-radius:3px}
 .mkd-editor__bar{position:absolute;background:var(--mkd-drop-color,#2f80ed);border-radius:2px}
-.mkd-editor__drop--refused,.mkd-editor__bar--refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}`;
+.mkd-editor__drop--refused,.mkd-editor__bar--refused{--mkd-drop-color:var(--mkd-drop-refused-color,#d93025)}
+.mkd-editor__field{position:absolute;z-index:2147483647;box-sizing:border-box;min-width:64px;margin:0;padding:0 4px;border:2px solid var(--mkd-selection-color,#ff8a00);border-radius:3px;background:var(--mkd-field-background,#fff);color:var(--mkd-field-color,#1d1d22);outline:none}`;
 
 /** The thickness of the insertion bar, in CSS pixels (R-TOOL-005.C3). */
 const BAR = 3;
@@ -130,6 +137,12 @@ export class EditorElement extends Base {
   /** The pack of the last render, whose role rules a drop is checked by. */
   #pack = "";
   #drop: DropMark | null = null;
+  /** The node an insertion added, whose first text opens after the next render (R-TOOL-006.C2). */
+  #pendingText: string | null = null;
+  /** The open inline text field (R-TOOL-006.C2, C3) and the node it edits. */
+  #field: { node: string; input: HTMLInputElement } | null = null;
+  /** Set while a render replaces the shadow root, so that the field's blur then commits nothing. */
+  #replacing = false;
   #generation = 0;
   #dirty = true;
   #queued = false;
@@ -310,6 +323,14 @@ export class EditorElement extends Base {
       case "hover":
         if (n.detail.mockup === name) this.#drawOverlay();
         break;
+      case "insert":
+        // R-TOOL-006.C2: the new element's first text opens once it is rendered; an open field commits first.
+        if (n.detail.mockup === name && this.session.active === name) {
+          if (this.#field) this.#closeField(true, false, true);
+          this.#pendingText = n.detail.node;
+          this.#schedule();
+        }
+        break;
     }
     if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
       const type = DESIGN_EVENTS[n.kind as keyof typeof DESIGN_EVENTS];
@@ -388,14 +409,115 @@ export class EditorElement extends Base {
       html = errorHtml(diagnostics);
     }
     if (stale()) return;
-    showInShadow(this.#root, packs, html, EDITOR_CSS, (h) =>
-      `<div class="mkd-editor__view" part="view">${h}</div><div class="mkd-editor__overlay" part="overlay" aria-hidden="true"></div>`);
+    this.#replacing = true;
+    try {
+      showInShadow(this.#root, packs, html, EDITOR_CSS, (h) =>
+        `<div class="mkd-editor__view" part="view">${h}</div><div class="mkd-editor__overlay" part="overlay" aria-hidden="true"></div>`);
+    } finally {
+      this.#replacing = false;
+    }
     this.#view = this.#root.querySelector(".mkd-editor__view");
     this.#overlay = this.#root.querySelector(".mkd-editor__overlay");
     this.#diagnostics = diagnostics;
     this.#hoverEl = null;
     this.#renderedOnce = true;
     this.#drawOverlay();
+    this.#placeField();
+  }
+
+  // --- the first text of a new element (R-TOOL-006) -----------------------------------------------
+
+  /**
+   * After a render: open the field for a node an insertion just added (C2), or put back an open field
+   * that the render removed, over its node's element; a field whose node is gone closes.
+   */
+  #placeField(): void {
+    const session = this.session;
+    const name = this.mockup;
+    const pending = this.#pendingText;
+    this.#pendingText = null;
+    if (pending !== null && !this.#field && name !== null && session.active === name) {
+      const text = session.firstText(pending);
+      if (text !== null && this.#elementsOf(pending).length) this.#openField(pending, text);
+      return;
+    }
+    const field = this.#field;
+    if (!field) return;
+    if (name === null || session.active !== name || session.firstText(field.node) === null || !this.#elementsOf(field.node).length) {
+      this.#closeField(false, false);
+      return;
+    }
+    const { selectionStart, selectionEnd } = field.input;
+    this.#root.append(field.input);
+    this.#positionField();
+    field.input.focus({ preventScroll: true });
+    field.input.setSelectionRange(selectionStart, selectionEnd);
+  }
+
+  /** C2: an inline text field over the node's element, holding its text, focused with the text selected. */
+  #openField(node: string, text: string): void {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "mkd-editor__field";
+    input.setAttribute("part", "text-field");
+    input.setAttribute("aria-label", "Text");
+    input.spellcheck = false;
+    input.value = text;
+    input.dataset.node = node;
+    input.addEventListener("keydown", (e) => {
+      // The field's keys are its own: neither the editor's Esc and Enter nor the designer's Delete see them.
+      e.stopPropagation();
+      if (e.key === "Enter") {
+        e.preventDefault();
+        this.#closeField(true, true);
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        this.#closeField(false, true);
+      }
+    });
+    for (const type of ["click", "pointerdown", "pointermove", "dblclick"]) input.addEventListener(type, (e) => e.stopPropagation());
+    input.addEventListener("blur", () => {
+      if (this.#replacing || this.#field?.input !== input) return;
+      this.#closeField(true, false);
+    });
+    this.#field = { node, input };
+    this.#root.append(input);
+    this.#positionField();
+    input.focus({ preventScroll: true });
+    input.select();
+  }
+
+  #positionField(): void {
+    const field = this.#field;
+    const el = field ? this.#elementsOf(field.node)[0] : undefined;
+    if (!field || !el) return;
+    const host = this.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const st = field.input.style;
+    st.left = `${r.left - host.left}px`;
+    st.top = `${r.top - host.top}px`;
+    st.width = `${Math.max(r.width, 64)}px`;
+    st.height = `${Math.max(r.height, 20)}px`;
+    if (typeof getComputedStyle === "function") st.font = getComputedStyle(el).font;
+  }
+
+  /**
+   * Close the field (C3): with `commit`, its text becomes the node's first argument through the
+   * session's `setText` (`setArgument`, one change of its own); without, the text stays as it was.
+   * `refocus` gives the focus back to the editor (Enter and Esc); `later` commits after the session's
+   * current notification (an insertion that arrived while the field was open).
+   */
+  #closeField(commit: boolean, refocus: boolean, later = false): void {
+    const field = this.#field;
+    if (!field) return;
+    this.#field = null;
+    const text = field.input.value;
+    field.input.remove();
+    if (refocus) this.focus({ preventScroll: true });
+    if (!commit) return;
+    const session = this.session;
+    if (later) queueMicrotask(() => session.setText(field.node, text));
+    else session.setText(field.node, text);
   }
 
   // --- pointer and keys ---------------------------------------------------------------------------

@@ -934,6 +934,10 @@ export function indentUnit(source: string): string {
 }
 
 /** A string literal for `text`, as the lexer reads it back. */
+export function stringLiteral(text: string): string {
+  return quote(text);
+}
+
 function quote(text: string): string {
   return `"${text.replace(/[\\"]/g, (c) => `\\${c}`).replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t")}"`;
 }

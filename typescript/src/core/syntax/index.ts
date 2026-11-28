@@ -4,4 +4,5 @@ export * as ast from "./ast.js";
 export { tokenize } from "./lexer.js";
 export { parse } from "./parser.js";
 export { applyEdits, parseTree, reparse, SyntaxTree, ViewNode } from "./tree.js";
-export { edit } from "./edit.js";
+export { edit, stringLiteral } from "./edit.js";
+export { firstText, sampleCall } from "./sample.js";

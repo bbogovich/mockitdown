@@ -1,0 +1,23 @@
+{
+  "format": "mockitdown-design",
+  "version": 1,
+  "name": "New elements",
+  "defaults": {
+    "pack": "base",
+    "caption": false
+  },
+  "mockups": [
+    {
+      "name": "Form",
+      "x": 0,
+      "y": 0,
+      "options": {
+        "device": "fit"
+      },
+      "code": "VStack {\n  Text(\"Sign in\")\n}\n"
+    }
+  ],
+  "view": {
+    "active": "Form"
+  }
+}

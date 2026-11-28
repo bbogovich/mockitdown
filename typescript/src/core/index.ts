@@ -29,9 +29,10 @@ export {
   applyEdits, parseTree, reparse, SyntaxTree, type CarriedRange, ViewNode, type Span, type TextEdit, type TreeResult, type ViewNodeKind,
 } from "./syntax/tree.js";
 export {
-  edit, indentUnit, statementChildren, type EditIndex, type EditOp, type EditRefusal, type EditResult, type InsertOp, type MoveOp, type NodeRef,
+  edit, indentUnit, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult, type InsertOp, type MoveOp, type NodeRef,
   type RemoveOp, type RenameOp, type SetArgumentOp, type SetCommentOp, type SetModifierOp, type SetNameOp, type SetRefsOp,
 } from "./syntax/edit.js";
+export { firstText, sampleCall } from "./syntax/sample.js";
 export * as pyformat from "./pyformat.js";
 export * as values from "./values.js";
 export { IGNORED, NEUTRAL_MODULES, RENDERED, setVocabulary } from "./vocabulary.js";
