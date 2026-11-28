@@ -64,8 +64,8 @@ flowchart TD
   `mockitdown-canvas` holding the `mockitdown-editor`, #41, see [The canvas](canvas.md)), the code view (a `mockitdown-code`, #38, editable since #39) and, in Preview, the list of mockups, the right column the `inspector` slot
   (a `mockitdown-inspector`, #35, which joins the session like the gallery).
 - **Session** (C1, C5, R-EDIT-006.C11): the constructor makes a session over an empty document; `open`
-  makes a new one per document. The editor, the outline and the gallery find it themselves (`#designerSession`
-  walks up through the shadow host); after `open` the designer reads `session` on each of them, which
+  makes a new one per document. The canvas, the editor, the outline, the gallery, the inspector and the diagnostics list find it themselves (`findDesignerSession`
+  in `session-link.ts` walks up through the shadow host); after `open` the designer reads `session` on each of them, which
   re-attaches them. Slotted elements are given it (`el.session = designer.session`) on `slotchange` and
   `open`, after `customElements.whenDefined` for an element not defined yet. Joined components never
   dispatch; the designer dispatches each notification of its session once (R-EDIT-006.C7, C8), so a
@@ -122,3 +122,4 @@ flowchart TD
 | 0.3.56 | 2026-11-28 | The status bar's count is a button (part `diagnostics`, `aria-expanded`) opening `mockitdown-diagnostics` above the status bar (part `problems`, `diagnosticsOpen`), Esc closes it, `mockitdown-reveal` shown in the dock or in Code mode (R-TOOL-010.C4, C6, C9; R-TOOL-003.C12); see [The diagnostics list](diagnostics-list.md) (#40) |
 | 0.3.57 | 2026-11-28 | The view is a `mockitdown-canvas` holding the editor (`canvas`), Preview mode on the canvas with its list revealing frames, the zoom control (part `zoom`); see [The canvas](canvas.md) (#41) |
 | 0.3.60 | 2026-11-28 | `toJSON()` writes the canvas's zoom and position and the active mockup to the document's `view` through `session.saveView` when they differ from those it opened with (R-TOOL-014.C4-C6); see [Sections and the saved view](sections.md) (#44) |
+| 0.3.65 | 2026-11-28 | The components find its session through the shared `findDesignerSession` (`session-link.ts`) (#89) |

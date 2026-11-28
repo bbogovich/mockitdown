@@ -108,3 +108,4 @@ flowchart TD
 | 0.3.46 | 2026-11-28 | Cards draggable onto the outline and the editor (#30) |
 | 0.3.47 | 2026-11-28 | Add and a drop insert the sample's call (`insertCode(name, sample)` = `sampleCall`, R-TOOL-006) (#31) |
 | 0.3.64 | 2026-11-28 | Rebuilds scheduled by the shared `RenderScheduler` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |
+| 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`) (#89) |

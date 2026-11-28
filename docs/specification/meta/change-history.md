@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.14.3 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared session link (#89) |
 | 0.14.2 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared render scheduler (#87) |
 | 0.14.1 | 2026-11-28 | `ARCH.3` | A-WEB-3 as built: the shared page chrome stylesheet (#86) |
 | 0.14.0 | 2026-11-28 | `MODEL.1`, `PACK.3`, `WEB.3`, `WEB.5` | SRC-21: ObjectPageLayout widens by tabs (R-PACK-016.C5, C17, TC-3; M-PACK-2.F7), <name>-copy for duplicates (R-EDIT-008.C2, C11; R-TOOL-013.C5), New Section and Delete Section (R-TOOL-014.C11-C14, TC-3; R-EDIT-009.C8) |

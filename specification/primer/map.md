@@ -24,7 +24,7 @@ A-WEB-1 | architecture | active | 0.10.5 r4 | ARCH.3 | TypeScript core
 A-WEB-2 | architecture | active | 0.6.6 r2 | ARCH.3 | Mockup element
 A-WEB-3 | architecture | active | 0.14.1 r1 | ARCH.3 | Development server and test pages
 A-WEB-4 | architecture | active | 0.10.0 r0 | ARCH.3 | Design document and session module
-A-WEB-5 | architecture | active | 0.14.2 r1 | ARCH.3 | Design-tool components
+A-WEB-5 | architecture | active | 0.14.3 r2 | ARCH.3 | Design-tool components
 ADR-1 | decisions | active | 0.12.11 r2 | ADR.1 | HTML and CSS is the only renderer; the SVG renderer is retired
 ADR-10 | decisions | active | 0.12.11 r2 | ADR.2 | Custom components are structs, imported from files by path
 ADR-11 | decisions | active | 0.12.11 r1 | ADR.2 | An original icon set with framework name aliases

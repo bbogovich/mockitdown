@@ -73,9 +73,10 @@ flowchart TD
   S -- "own session only" --> EV["mockitdown-select, -change, -insert, -rename, -diagnostics"]
 ```
 
-- **Session** (R-EDIT-006.C11, R-TOOL-001.C12): `#attach()` takes the `session` of the nearest
-  `mockitdown-designer` ancestor (walking up through shadow roots), else the one the host set, else a
-  session of its own: `newDesign("mockitdown-editor")` with `defaults` = the typed fence attributes and
+- **Session** (R-EDIT-006.C11, R-TOOL-001.C12): its `SessionLink` (`session-link.ts`, see [The mockup
+  element](elements.md)) takes the `session` of the nearest `mockitdown-designer` ancestor
+  (`findDesignerSession`, walking up through shadow roots), else the one the host set, else a session of
+  its own: `newDesign("mockitdown-editor")` with `defaults` = the typed fence attributes and
   one mockup named by `mockup` (default `Mockup`) holding the script child's code (`scriptCode`, as the
   mockup element). A `MutationObserver` turns later script text into `setCode`; a fence attribute change
   rewrites the own document's `defaults` and re-renders. Fence attribute problems are shown as `fence`
@@ -149,3 +150,4 @@ See [New elements](new-elements.md).
 | 0.3.55 | 2026-11-28 | While the code does not parse, renders `session.validCode` with `aria-readonly` and the `readonly` note (R-TOOL-009.C3); see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.57 | 2026-11-28 | `#scale`: in a scaled or zoomed canvas the outlines, the text field and the drop marks divide client offsets by the editor's scale (R-TOOL-011.C13); see [The canvas](canvas.md) (#41) |
 | 0.3.64 | 2026-11-28 | Renders scheduled by the shared `RenderScheduler`; a render error through `renderFailure` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |
+| 0.3.65 | 2026-11-28 | The session found, subscribed to and its events dispatched by the shared `SessionLink` (`session-link.ts`); a new session resets the trail, the cycle and the hover in `joined` (#89) |

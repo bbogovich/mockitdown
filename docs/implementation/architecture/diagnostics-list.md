@@ -90,3 +90,4 @@ Code mode and with the code docked). See [Testing](../testing.md).
 | Version | Date | Change |
 |---|---|---|
 | 0.3.56 | 2026-11-28 | Page written: `mockitdown-diagnostics`, the model in `design/diagnostics.ts`, the designer's count button, `diagnosticsOpen`, Esc and `mockitdown-reveal`, IT-68 (#40) |
+| 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`) (#89) |

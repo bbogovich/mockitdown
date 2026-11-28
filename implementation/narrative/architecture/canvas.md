@@ -122,3 +122,4 @@ IT-55's Preview check reads the previews from the canvas's frames. See [Testing]
 | 0.3.57 | 2026-11-28 | Page written: `mockitdown-canvas`, the arithmetic in `design/canvas.ts`, the designer's canvas, zoom control and Preview on the canvas, the editor's scale, IT-69 (#41) |
 | 0.3.58 | 2026-11-28 | Labels drag and rename their frames, the canvas measures frames for `session.measure`; see [Mockup frames](frames.md) (#42) |
 | 0.3.60 | 2026-11-28 | The view is written back by the designer's `toJSON()` through `session.saveView`, and sections are drawn behind the frames; see [Sections and the saved view](sections.md) (#44) |
+| 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`): `leaving` releases `measure` and closes a rename, `joined` sets `measure`, restores the view and redraws (#89) |

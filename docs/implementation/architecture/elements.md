@@ -19,6 +19,7 @@ element that renders one mockup in a web page, over the TypeScript core (A-WEB-1
 |---|---|
 | `src/elements/mockup.ts` | `MockupElement`, `MOCKUP_TAG`, `MOCKUP_ATTRIBUTES`, `SCRIPT_TYPE`, `DIAGNOSTICS_EVENT`, `scriptCode(text)`, `shadowCss(css)`, `clearImportCache()`, and the helpers the editor and the outline share: `baseUrls(el)`, `renderWithImports(…)`, `evaluateWithImports(…)`, `showInShadow(…)` |
 | `src/elements/scheduler.ts` | `RenderScheduler` (`schedule()`, `stale(generation)`, `done()`, `rendered`, `generation`), the render coalescing shared by the mockup, the editor, the outline and the gallery, and `renderFailure(e)`, the `cannot render: …` diagnostic and its error box (mockup and editor) |
+| `src/elements/session-link.ts` | `findDesignerSession(node)` (the session of the nearest `mockitdown-designer` around a node, walking parents and out of shadow roots) and `SessionLink` (`attach()`, `give(value)`, `current`, `own`, `isOwn`, `forward(n)`; options `own`, `notified`, `leaving`, `joined`): the session choice, the subscription and the own-session events shared by the canvas, the editor, the outline, the gallery, the inspector and the diagnostics list |
 | `src/elements/define.ts` | `defineElements()` and `ELEMENT_TAGS` for every element (see [The editor element](editor.md), [The outline element](outline.md), [The designer element](designer.md)) |
 | `src/mockitdown.ts` | the package entry: re-exports the core, the asset loader and the element modules, and calls `defineElements()` |
 | `pages/mockup.html` | "Mockup element": the demo and test page (markup characters, pack switch, live editor, imports, diagnostics) |
@@ -134,3 +135,4 @@ flowchart TD
 | 0.3.42 | 2026-11-28 | `evaluateWithImports` beside `renderWithImports` (one import loop, `withImports`) for the outline (#26) |
 | 0.3.43 | 2026-11-28 | `ELEMENT_TAGS` includes `mockitdown-designer` (#27) |
 | 0.3.64 | 2026-11-28 | The render scheduling and the render-failure diagnostic factored into `scheduler.ts` (`RenderScheduler`, `renderFailure`), shared with the editor, the outline and the gallery (#87) |
+| 0.3.65 | 2026-11-28 | `session-link.ts`: `findDesignerSession` and `SessionLink`, the session lookup and subscription the six design-tool elements each carried (#89) |

@@ -63,7 +63,7 @@ flowchart TD
   S -- "own session only" --> E["mockitdown-select, -change, …"]
 ```
 
-- **Session** (R-EDIT-006.C11, R-TOOL-002.C13): `#attach()` as in the editor — the nearest
+- **Session** (R-EDIT-006.C11, R-TOOL-002.C13): its `SessionLink` as in the editor — the nearest
   `mockitdown-designer`'s `session`, else the host's, else `new DesignSession(newDesign("mockitdown-outline"))`
   (no mockups: the tree says "No mockup"). Only an own session's notifications are dispatched as DOM events.
 - **Rows** (C2-C4, C14): `#build` evaluates the active mockup with `mockupOptions` plus `edit: true` and
@@ -120,3 +120,4 @@ flowchart TD
 | 0.3.58 | 2026-11-28 | The Mockups list warns about default names `Mockup <n>` (part `name-warning`, R-TOOL-012.C9; #42) |
 | 0.3.59 | 2026-11-28 | A click, Enter or Space on a Mockups row activates its mockup (`data-mockup`, `tabindex`, R-TOOL-013.C1; #43) |
 | 0.3.64 | 2026-11-28 | Rebuilds scheduled by the shared `RenderScheduler` (`scheduler.ts`, see [The mockup element](elements.md)) (#87) |
+| 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`) (#89) |

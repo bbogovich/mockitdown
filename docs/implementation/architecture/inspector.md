@@ -115,3 +115,4 @@ tab on the hand-written `tests/browser/fixtures/inspector-sample.mkdesign`). See
 |---|---|---|
 | 0.3.51 | 2026-11-28 | Page written: the inspector's model in `mockitdown/design`, `mockitdown-inspector`, the designer's properties panel, IT-63 (#35) |
 | 0.3.55 | 2026-11-28 | Edit in code (R-TOOL-007.C11): `Inspection.editInCode` (the span of an `if`, a `ForEach`, a struct's call or a node with a code field), the `edit-in-code` button dispatching `mockitdown-edit-in-code`; see [Two-way editing](two-way-editing.md) (#39) |
+| 0.3.65 | 2026-11-28 | The session found and subscribed to through the shared `SessionLink` (`session-link.ts`); `leaving` flushes pending values (#89) |
