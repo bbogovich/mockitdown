@@ -28,7 +28,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (53)
+## Not started (52)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -36,7 +36,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
-| R-EDIT-007 | Undo and redo history | — | 0.12.12 |  |  |
 | R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.12.12 |  |  |
 | R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.12.12 |  |  |
 | R-EVAL-003 | Name resolution for views | — | 0.12.0 |  |  |
@@ -86,7 +85,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (78)
+## Implemented (79)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -123,6 +122,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | 0.12.18 | 0.12.18 | 2026-11-27 | #22 |
 | R-EDIT-005 | The design document module | 0.13.3 | 0.13.3 | 2026-11-28 | #24 |
 | R-EDIT-006 | The design session and its events | 0.13.9 | 0.13.9 | 2026-11-28 | #30 |
+| R-EDIT-007 | Undo and redo history | 0.12.12 | 0.12.12 | 2026-11-28 | #34 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-004 | Binding element arguments | 0.13.12 | 0.13.12 | 2026-11-28 | #33 |

@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.47
+impl_version: 0.3.50
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -12,8 +12,8 @@ Realizes **A-WEB-4** (the design document and session module) over M-EDIT-1, M-E
 implements R-EDIT-005 (reading, validating and writing `.mkdesign`) and R-EDIT-006 C1 to C6, C9, C10
 and C12 to C18 (the session and its notifications) (#24), and C19, the `delete` command (#27). The DOM
 events of the design-tool components (R-EDIT-006 C7, C8, C11) come with the components, the designer
-finishing them ([The designer element](designer.md)); the session's history and the other commands
-(A-WEB-4.P1) with the inspector stage.
+finishing them ([The designer element](designer.md)); the session's history (R-EDIT-007, #34) is on
+[Undo and redo history](undo.md), and the other commands (A-WEB-4.P1) come with the inspector stage.
 
 
 Drag and drop (R-TOOL-005, #30): `insert(code, parent, index)`, `move(nodes, parent, index)` and the drop API `childrenOf`, `isContainer`, `dropPosition`, `checkDrop`, `drop` (R-EDIT-006.C20, C21); see [Drag and drop](drag-drop.md).
@@ -84,6 +84,7 @@ mockup is first needed; one whose mockup's code was changed outside the session 
 | `insert(code, parent?)` | `insert` of one view as the last child of `parent`, by default the first selected node, else at the end of the top level (`parent: null`, R-EDIT-006.C20); the inserted node becomes the selection | `change`, `insert`, then `select` of the new node; the gallery's Add ([The gallery element](gallery-element.md)) |
 | `delete()` | `remove` of the selection (R-EDIT-006.C19); the next selection is the statement after the last removed node in its body (`bodySiblings`), else the one before, else the parent, else none; refused when nothing is selected | `change`, then one `select` with the new selection, `hover` and `diagnostics` as for `apply` |
 
+Every row that changes the document is one step of the undo history ([Undo and redo history](undo.md)).
 A request that changes nothing notifies nothing; a refused one returns `{error}` (an edit refusal also
 its `diagnostics`). Diagnostics are `check(code, {...renderOptions, ...mockupOptions})` when packs are
 loaded into the core (`assetsLoaded()` or a registered pack), else the syntax diagnostics of `parseTree`;
@@ -97,7 +98,7 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | `readDesign(text)` | `{document}` or `{errors: [{path, message}]}` |
 | `writeDesign(document)` | the JSON text, two-space indent, final line feed |
 | `newDesign(name)`, `findMockup`, `mockupPack`, `mockupOptions` | R-EDIT-005 C8 to C10 |
-| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `insert`, `delete`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive` |
+| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `insert`, `delete`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive`, `undo`, `redo`, `canUndo`, `canRedo` (every changing request takes a last `{coalesce}` argument; see [Undo and redo history](undo.md)) |
 | `DesignNotification` | `{kind, detail}`, the details of R-EDIT-006.C5 |
 | `parseOrdered`, `keysOf`, `writeObject` | internal (`design/json.ts`) |
 
@@ -129,3 +130,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.45 | 2026-11-28 | `session.insert(code, parent?)` (R-EDIT-006.C20), `applyOp(op, "inserted")`; the gallery joins a session as the other components do (#29) |
 | 0.3.46 | 2026-11-28 | `insert` index, `move`, the drop API (#30) |
 | 0.3.47 | 2026-11-28 | `firstText(node)` and `setText(node, text)` (R-TOOL-006.C4) (#31) |
+| 0.3.50 | 2026-11-28 | The undo history: `undo`, `redo`, `canUndo`, `canRedo`, `{coalesce}` on every changing request (R-EDIT-007, #34) |

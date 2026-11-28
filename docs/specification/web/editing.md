@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.9
+spec_version: 0.13.13
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -663,33 +663,53 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#34).** A step snapshots the mockup's code and its last valid tree, so an undo restores the
+very nodes (and ids) that were selected, and the active mockup with them: undoing a step of another
+mockup switches to it. Coalescing merges only into the latest step, for the same mockup and kind of
+change, and an undo or redo ends the burst. The designer binds the keys on itself, so they act only
+while the focus is inside it, and leaves them to text fields and to Preview mode, where the document
+is read-only. The inspector and the code view (C5) pass their keys when they are built.
+
 **R-EDIT-007.TC-1 — Undo restores document and selection**
 
-`node:test`: a random sequence of 50 operations on a session; undoing all restores the original
-document and selection, redoing all the final ones, each undo and redo notifying one `change`; a new
-operation after two undos makes `canRedo` false; 250 steps keep at least the latest 200.
+`node:test` (`tests/unit/undo.test.ts`, IT-62): a seeded random sequence of 50 operations, commands
+and code changes (insert, delete, setText, setCode, setOptions, moveMockup, move, with random
+selections and active mockups between them) on a two-mockup session; undoing all restores the original
+document text and selection, redoing all the final ones, each undo and redo notifying one `change`
+whose edits turn the code before it into the code after it; undo of a delete selects the deleted node
+again with its id, redo the delete's selection, and undo of another mockup's step makes it active;
+options and moves undo as changes of their own kind with no edits; a new step after two undos makes
+`canRedo` false; 250 steps keep at least the latest 200.
 
 **R-EDIT-007.TC-2 — Coalescing**
 
-`node:test` with a fake clock: ten changes with one key 100 ms apart form one step, a change 1500 ms
-later a new one, a change with another key a new one. Browser test on `pages/designer.html`: typing a
-word in an inspector field and pressing Cmd/Ctrl+Z restores the field's old value in one step; the
-toolbar's Undo button is disabled on a fresh document.
+`node:test` with a fake clock (`tests/unit/undo.test.ts`, IT-62): ten changes with one key 100 ms apart
+and an eleventh 950 ms after the tenth form one step, a change 1500 ms later a new one, a change with
+another key a new one, changes without a key one step each; the same key after an undo and a redo a new
+step; a burst that comes back to its start leaves no step; `setText` with a key coalesces. Browser test
+on `pages/designer.html` (`tests/browser/undo.spec.mjs`): the toolbar's Undo and Redo are disabled on a
+fresh document; after deleting the button, Cmd/Ctrl+Z restores the sample document and the button's
+selection in one change, Shift+Cmd/Ctrl+Z and Ctrl+Y redo, the toolbar's buttons do the same, the keys
+do nothing in the gallery's search field, and a newly opened document has nothing to undo. Typing a
+word in an inspector field and undoing it in one step (C5) is tested with the inspector (R-TOOL-007).
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | The session MUST keep one undo history per design document, each step holding the mockup, the change, the change's inverse and the selection before and after it. |
+| C1 | The session MUST keep one undo history per design document, each step holding the mockup, its code, last valid tree, options and position before and after the change, the change's text edits and their inverse, and the active mockup and the selection before and after it. |
 | C2 | Every operation, command or code change applied through the session MUST be recorded as exactly one step. |
-| C3 | `session.undo()` MUST revert the latest step and restore the selection from before it; `session.redo()` MUST reapply the step undone last and restore the selection from after it. |
-| C4 | A change made with the same coalescing key as the latest step, within 1000 ms of that step's last change, MUST be merged into that step instead of forming a new one. |
+| C3 | `session.undo()` MUST revert the latest step and restore the active mockup and the selection from before it, the restored nodes keeping their ids; `session.redo()` MUST reapply the step undone last and restore the active mockup and the selection from after it; each MUST be refused, changing and notifying nothing, when there is no such step. |
+| C4 | A change made with the same coalescing key as the latest step, to the same mockup and of the same change kind, within 1000 ms of that step's last change and with no undo or redo since, MUST be merged into that step instead of forming a new one. |
 | C5 | The inspector MUST use the node and field as the coalescing key, and the code view the key `code`, so that one burst of typing forms one step. |
 | C6 | A new step after an undo MUST discard the steps that could have been redone. |
-| C7 | Undo and redo MUST each notify one `change` (R-EDIT-006.C5) holding the edits they made. |
+| C7 | Undo and redo MUST each notify one `change` (R-EDIT-006.C5) of the step's change kind holding the edits they made, the step's inverse for undo and its edits for redo, empty for kinds other than `code`. |
 | C8 | `session.canUndo` and `session.canRedo` MUST say whether a step can be undone or redone. |
-| C9 | The history MUST keep at least the latest 200 steps. |
-| C10 | The composite designer MUST bind Cmd/Ctrl+Z to undo and Shift+Cmd/Ctrl+Z and Ctrl+Y to redo while the focus is not in a text field, and its toolbar MUST have Undo and Redo buttons enabled by C8. |
+| C9 | The history MUST keep the latest 200 steps, or more when the session's `historyLimit` option says so, dropping the oldest. |
+| C10 | The composite designer MUST bind Cmd/Ctrl+Z to undo and Shift+Cmd/Ctrl+Z and Ctrl+Y to redo while the focus is in it, outside a text field and outside Preview mode, and its toolbar MUST have Undo and Redo buttons (parts `undo` and `redo`) enabled by C8 and disabled in Preview mode. |
+| C11 | `apply`, `setCode`, `setText`, `setOptions` and `moveMockup` MUST take an optional last argument `{coalesce}` naming the change's coalescing key, a change without one forming a step of its own. |
+| C12 | A merged step whose state after it equals its state before it MUST be dropped from the history. |
+| C13 | The coalescing clock MUST be the session's `now` option, by default `Date.now`. |
 | V1 | After any sequence of operations and commands, undoing every step restores the document and the selection that the session started with, and redoing every step restores the final ones. |
 
 ---
@@ -800,6 +820,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |
 | 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
 | 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |
 | 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
@@ -815,6 +836,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
 | 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |
 | 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |

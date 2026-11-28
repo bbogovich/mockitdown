@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.45
+impl_version: 0.3.50
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -107,3 +107,4 @@ flowchart TD
 |---|---|---|
 | 0.3.43 | 2026-11-28 | Page written: `mockitdown-designer`, layout, slots, modes, Delete through `session.delete()`, the designer test page, IT-55 (#27) |
 | 0.3.45 | 2026-11-28 | The gallery panel holds `mockitdown-gallery`, which joins the session and takes `import-base` (R-TOOL-003.C16); see [The gallery element](gallery-element.md) (#29) |
+| 0.3.50 | 2026-11-28 | Undo and Redo in the toolbar (parts `undo`, `redo`, enabled by `canUndo` and `canRedo`, disabled in Preview), Cmd/Ctrl+Z, Shift+Cmd/Ctrl+Z and Ctrl+Y outside text fields (R-EDIT-007.C10); see [Undo and redo history](undo.md) (#34) |

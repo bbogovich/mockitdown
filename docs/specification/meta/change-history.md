@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.13 | 2026-11-28 | `WEB.3` | R-EDIT-007 as built: the undo history and the designer's Undo and Redo (#34) |
 | 0.13.12 | 2026-11-28 | `LANG.2`, `MODEL.1`, `PACK.3` | Typed parameters and modifiers as built (#33): the role table's reads lists became typed params maps; parameterTypes, modifierTypes; typed labels understood |
 | 0.13.11 | 2026-11-28 | `LANG.2`, `MODEL.1`, `PACK.3` | Unknown labelled arguments as built (#32): R-EVAL-004 C7, C8, C11, C12, V2, TC-1; R-PACK-016 C1, C10; M-PACK-3 F7 |
 | 0.13.10 | 2026-11-28 | `WEB.4` | New elements as built (#31): R-TOOL-006 sample calls, the inline first-text field, session firstText/setText, sampleCall; R-TOOL-004.C8 and R-TOOL-005.C5 insert the sample's call |
