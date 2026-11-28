@@ -54,7 +54,7 @@ test("C9: default names and their warning", () => {
   assert.equal(isDefaultName("Mockup 12"), true);
   assert.equal(isDefaultName("Mockup"), false);
   assert.equal(isDefaultName("mockup 1"), false);
-  assert.equal(isDefaultName("Mockup 1 copy"), false);
+  assert.equal(isDefaultName("Mockup 1-copy"), false);
   assert.equal(isDefaultName("Mockup 1a"), false);
   assert.match(DEFAULT_NAME_WARNING, /SpecItOut tools import mockups by name/);
 });

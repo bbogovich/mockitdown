@@ -219,7 +219,7 @@ before and after them:
 ```js
 session.selectRange(id);     // Shift-click: the siblings from the selection's first node to id
 session.toggleSelected(id);  // Cmd/Ctrl-click: add or remove id (a non-sibling replaces the selection)
-session.duplicate();         // a copy after each selected node, selected; .id("x") -> .id("x-2"), "x-3", ...
+session.duplicate();         // a copy after each selected node, selected; .id("x") -> .id("x-copy"), "x-copy-2", ...
 session.copy();              // the selected nodes' code at column 0, joined by line feeds ("" for none)
 session.cut();               // copy, then remove as delete() does: {edits, source, tree, text}
 session.paste(text);         // into the one selected container whose role accepts the views, else after
@@ -590,7 +590,7 @@ New, duplicate and delete are session commands, listed in `session.commands` (la
 `change` of kind `mockups`:
 
 ```js
-session.duplicateMockup();          // {mockup: "Inbox copy"}, then "Inbox copy 2", …: beside it, active
+session.duplicateMockup();          // {mockup: "Inbox-copy"}, then "Inbox-copy-2", …: beside it, active
 session.duplicateMockup("Sign in"); // a named mockup: code, options and every other key copied
 session.deleteMockup();             // the active one; the next in document order becomes active, else the one before
 session.run("deleteMockup", { mockup: "Inbox copy" });

@@ -9,7 +9,7 @@
 //     back: the outline's rows begin VStack, Text "Inbox", List; the inspector's device is "fit"; only
 //     Inbox holds the editor. Choosing "Sign in" in the outline's Mockups list activates it again
 //     (aria-current moves to its row); Enter on the Inbox row activates Inbox.
-//   - TC-2 in the browser: session.run("duplicateMockup") adds "Inbox copy" as a frame holding the
+//   - TC-2 in the browser: session.run("duplicateMockup") adds "Inbox-copy" as a frame holding the
 //     editor and a Mockups row; run("deleteMockup") removes both and Inbox is active again (the copy was
 //     last, so the one before it); each one Cmd/Ctrl+Z away.
 // No expected value changed after the first run; the inspector's device field was first looked up by the
@@ -86,17 +86,17 @@ test("TC-2: duplicateMockup and deleteMockup on the canvas and in the Mockups li
   await page.locator(`${D} mockitdown-outline [role="tab"]`, { hasText: "Mockups" }).click();
   const rows = page.locator(`${D} mockitdown-outline [part="mockup"]`);
 
-  expect(await page.evaluate(() => document.querySelector("#designer").session.run("duplicateMockup"))).toEqual({ mockup: "Inbox copy" });
-  await expect(rows).toHaveText(["Sign in", "Inbox", "Inbox copy"]);
-  await expect.poll(() => frames(page)).toEqual([["Sign in", false, "mockup"], ["Inbox", false, "mockup"], ["Inbox copy", true, "editor"]]);
+  expect(await page.evaluate(() => document.querySelector("#designer").session.run("duplicateMockup"))).toEqual({ mockup: "Inbox-copy" });
+  await expect(rows).toHaveText(["Sign in", "Inbox", "Inbox-copy"]);
+  await expect.poll(() => frames(page)).toEqual([["Sign in", false, "mockup"], ["Inbox", false, "mockup"], ["Inbox-copy", true, "editor"]]);
 
-  expect(await page.evaluate(() => document.querySelector("#designer").session.run("deleteMockup"))).toEqual({ mockup: "Inbox copy" });
+  expect(await page.evaluate(() => document.querySelector("#designer").session.run("deleteMockup"))).toEqual({ mockup: "Inbox-copy" });
   await expect(rows).toHaveText(["Sign in", "Inbox"]);
   await expect.poll(() => frames(page)).toEqual([["Sign in", false, "mockup"], ["Inbox", true, "editor"]]);
 
   await page.locator(`${D} mockitdown-canvas`).focus();
   await page.keyboard.press("ControlOrMeta+z");
-  await expect(rows).toHaveText(["Sign in", "Inbox", "Inbox copy"]);
+  await expect(rows).toHaveText(["Sign in", "Inbox", "Inbox-copy"]);
   await page.keyboard.press("ControlOrMeta+z");
   await expect(rows).toHaveText(["Sign in", "Inbox"]);
   await expect.poll(() => frames(page)).toEqual([["Sign in", false, "mockup"], ["Inbox", true, "editor"]]);

@@ -31,7 +31,7 @@ import { bodySiblings, edit, identifiersOf, indentUnit, nodeCode, statementChild
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
 import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup, type DesignSection, type DesignView } from "./document.js";
-import { duplicateMockupName, NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
+import { copyName, duplicateMockupName, NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
 import type { CanvasBox, CanvasView } from "./canvas.js";
 import { documentView, framesInside, sectionAround, sectionNameRefusal } from "./sections.js";
 
@@ -658,8 +658,8 @@ export class DesignSession {
 
   /**
    * Insert a copy of each selected node directly after it (C1), as one step, and select the copies.
-   * In a copy, an `.id("x")` the mockup already uses becomes `.id("x-<n>")` with the smallest `n` from
-   * 2 that is free (C2). Refused when nothing is selected or a selected node is not placed among its
+   * In a copy, each `.id("x")` becomes `.id("x-copy")`, or `.id("x-copy-<n>")` with the smallest `n`
+   * from 2 that is free (C2). Refused when nothing is selected or a selected node is not placed among its
    * parent's children (an argument, a modifier's content, a struct body).
    */
   duplicate(): EditResult | EditRefusal {
@@ -688,8 +688,8 @@ export class DesignSession {
    * the selected node when exactly one is selected and it is a container whose role accepts every
    * pasted element (R-PACK-016, with the active mockup's pack); else directly after the last selected
    * node; else (nothing selected, or a node not placed among its parent's children) at the end of the
-   * mockup's top level. A pasted `.id("x")` the mockup already uses gets a free suffix as in
-   * {@link duplicate}. Text that does not parse, or holds anything but views (an import, a directive,
+   * mockup's top level. A pasted `.id("x")` the mockup already uses becomes `x-copy` (or `x-copy-<n>`)
+   * as in {@link duplicate}, and one it does not use is kept (C11). Text that does not parse, or holds anything but views (an import, a directive,
    * a struct, a `let`), is refused with its diagnostics and records no step (C6).
    */
   paste(text: string): EditResult | EditRefusal {
@@ -1345,7 +1345,7 @@ export class DesignSession {
 
   /**
    * Copy a mockup, the active one by default (R-TOOL-013.C5): its code, options and every other key,
-   * named `<name> copy` or `<name> copy <n>` ({@link duplicateMockupName}) and placed as a new mockup is
+   * named `<name>-copy` or `<name>-copy-<n>` ({@link duplicateMockupName}) and placed as a new mockup is
    * placed, beside the mockup it copies (R-TOOL-012.C8); the copy becomes the active mockup. One
    * `change` of kind `mockups`, then `active`; one undo step.
    */
@@ -1887,8 +1887,9 @@ function usedIdentifiers(tree: SyntaxTree): Set<string> {
 }
 
 /**
- * A view's code with each `.id("x")` that `used` holds renamed to `x-<n>`, `n` the smallest integer
- * from 2 that `used` does not hold (R-EDIT-008.C2); every identifier of the result is added to `used`.
+ * A view's code with each `.id("x")` that `used` holds renamed to `x-copy`, or `x-copy-<n>` with `n` the
+ * smallest integer from 2 that `used` does not hold ({@link copyName}, R-EDIT-008.C2, C11); every
+ * identifier of the result is added to `used`.
  */
 function freshIdentifiers(code: string, used: Set<string>): string {
   let tree = parseTree(code).tree;
@@ -1901,11 +1902,10 @@ function freshIdentifiers(code: string, used: Set<string>): string {
       used.add(x);
       continue;
     }
-    let k = 2;
-    while (used.has(`${x}-${k}`)) k++;
-    const r = edit(tree, { op: "rename", node: id, id: `${x}-${k}` });
+    const fresh = copyName(used, x);
+    const r = edit(tree, { op: "rename", node: id, id: fresh });
     if ("error" in r) continue;
-    used.add(`${x}-${k}`);
+    used.add(fresh);
     tree = r.tree;
   }
   return tree.source;

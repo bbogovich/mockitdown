@@ -140,9 +140,9 @@ test("TC-2: Cmd/Ctrl+C writes the selection's code to the clipboard; D, X and V 
   await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(COPIED);
   expect(await code(page)).toBe(INBOX, "copy changes nothing");
 
-  // Cmd/Ctrl+D: a copy after the card, its button's id open-2, selected; one undo removes it.
+  // Cmd/Ctrl+D: a copy after the card, its button's id open-copy, selected; one undo removes it.
   await page.keyboard.press("ControlOrMeta+d");
-  await expect.poll(() => code(page)).toContain('Button("Open") {}.id("open-2")');
+  await expect.poll(() => code(page)).toContain('Button("Open") {}.id("open-copy")');
   expect(await selected(page)).toEqual(["Card"]);
   await page.keyboard.press("ControlOrMeta+z");
   await expect.poll(() => code(page)).toBe(INBOX);

@@ -3,15 +3,15 @@
 // `mockitdown/design` (design/frames.ts).
 // Every expected value was worked out by hand before the code ran:
 //
-//   duplicateMockupName: "Inbox" among ["Inbox"] → "Inbox copy"; with "Inbox copy" taken → "Inbox copy 2";
-//     with "Inbox copy" and "Inbox copy 3" → "Inbox copy 2"; with "Inbox copy" and "Inbox copy 2" →
-//     "Inbox copy 3"; "inbox copy" does not count (case-sensitive) → "Inbox copy"; a copy of
-//     "Inbox copy" → "Inbox copy copy".
+//   duplicateMockupName: "Inbox" among ["Inbox"] → "Inbox-copy"; with "Inbox-copy" taken → "Inbox-copy-2";
+//     with "Inbox-copy" and "Inbox-copy-3" → "Inbox-copy-2"; with "Inbox-copy" and "Inbox-copy-2" →
+//     "Inbox-copy-3"; "inbox-copy" and "Inbox Copy" do not count (case-sensitive, a space is not a
+//     hyphen) → "Inbox-copy"; a copy of "Inbox-copy" → "Inbox-copy-copy".
 //   The document: Sign in (0, 0), Inbox (480, 0), Message (0, 1000); measure gives Inbox and its copies
 //     300 × 600 and the others 390 × 844; Inbox active.
-//   duplicateMockup: "Inbox copy" placed as a new mockup (R-TOOL-012.C8): the frames overlapping Inbox
+//   duplicateMockup: "Inbox-copy" placed as a new mockup (R-TOOL-012.C8): the frames overlapping Inbox
 //     (y 0..600) vertically are Sign in (right edge 390) and Inbox (780); Message starts at 1000. So
-//     (780 + 80, 0) = (860, 0). Then, Inbox active again, "Inbox copy 2": Inbox copy (860..1160) now
+//     (780 + 80, 0) = (860, 0). Then, Inbox active again, "Inbox-copy-2": Inbox copy (860..1160) now
 //     overlaps too, so (1160 + 80, 0) = (1240, 0).
 //   deleteMockup: deleting the active Inbox from [Sign in, Inbox, Message] makes Message (the next in
 //     document order) active; deleting the active Message, the last, makes Inbox (the one before it)
@@ -63,13 +63,14 @@ const brief = (seen: DesignNotification[]): string[] => seen.map((n) => {
   return n.kind;
 }).filter((s) => s !== "diagnostics");
 
-test("C5: a copy is named <name> copy, else <name> copy <n> with the smallest free n from 2", () => {
-  assert.equal(duplicateMockupName(["Inbox"], "Inbox"), "Inbox copy");
-  assert.equal(duplicateMockupName(["Inbox", "Inbox copy"], "Inbox"), "Inbox copy 2");
-  assert.equal(duplicateMockupName(["Inbox", "Inbox copy", "Inbox copy 3"], "Inbox"), "Inbox copy 2");
-  assert.equal(duplicateMockupName(["Inbox", "Inbox copy", "Inbox copy 2"], "Inbox"), "Inbox copy 3");
-  assert.equal(duplicateMockupName(["Inbox", "inbox copy"], "Inbox"), "Inbox copy");
-  assert.equal(duplicateMockupName(["Inbox", "Inbox copy"], "Inbox copy"), "Inbox copy copy");
+test("C5: a copy is named <name>-copy, else <name>-copy-<n> with the smallest free n from 2", () => {
+  assert.equal(duplicateMockupName(["Inbox"], "Inbox"), "Inbox-copy");
+  assert.equal(duplicateMockupName(["Inbox", "Inbox-copy"], "Inbox"), "Inbox-copy-2");
+  assert.equal(duplicateMockupName(["Inbox", "Inbox-copy", "Inbox-copy-3"], "Inbox"), "Inbox-copy-2");
+  assert.equal(duplicateMockupName(["Inbox", "Inbox-copy", "Inbox-copy-2"], "Inbox"), "Inbox-copy-3");
+  assert.equal(duplicateMockupName(["Inbox", "inbox-copy"], "Inbox"), "Inbox-copy");
+  assert.equal(duplicateMockupName(["Inbox", "Inbox Copy"], "Inbox"), "Inbox-copy");
+  assert.equal(duplicateMockupName(["Inbox", "Inbox-copy"], "Inbox-copy"), "Inbox-copy-copy");
 });
 
 test("TC-2: duplicateMockup names and places the copy, makes it active, one step of kind mockups (C4, C5)", () => {
@@ -77,45 +78,45 @@ test("TC-2: duplicateMockup names and places the copy, makes it active, one step
   const before = writeDesign(s.document);
   const seen = recorder(s);
   const r = s.duplicateMockup();
-  assert.deepEqual(r, { mockup: "Inbox copy" });
-  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox copy"]);
-  assert.deepEqual(at(s, "Inbox copy"), [860, 0]);
-  assert.equal(s.active, "Inbox copy");
-  const copy = s.mockup("Inbox copy")! as unknown as Record<string, unknown>;
+  assert.deepEqual(r, { mockup: "Inbox-copy" });
+  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox-copy"]);
+  assert.deepEqual(at(s, "Inbox-copy"), [860, 0]);
+  assert.equal(s.active, "Inbox-copy");
+  const copy = s.mockup("Inbox-copy")! as unknown as Record<string, unknown>;
   const inbox = s.mockup("Inbox")! as unknown as Record<string, unknown>;
   assert.equal(copy.code, 'Text("Inbox")\n');
   assert.deepEqual(copy.options, { device: "phone" });
   assert.notEqual(copy.options, inbox.options, "the copy's options are its own");
   assert.equal(copy.notes, "kept", "keys the tools do not know are copied");
-  assert.deepEqual(brief(seen), ["change:mockups:Inbox copy", "active:Inbox copy"]);
+  assert.deepEqual(brief(seen), ["change:mockups:Inbox-copy", "active:Inbox-copy"]);
   const afterFirst = writeDesign(s.document);
 
   s.setActive("Inbox");
-  assert.deepEqual(s.duplicateMockup(), { mockup: "Inbox copy 2" });
-  assert.deepEqual(at(s, "Inbox copy 2"), [1240, 0]);
+  assert.deepEqual(s.duplicateMockup(), { mockup: "Inbox-copy-2" });
+  assert.deepEqual(at(s, "Inbox-copy-2"), [1240, 0]);
 
   // Each is one step: one undo gives back the document before it.
   seen.length = 0;
   s.undo();
-  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox copy"]);
+  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox-copy"]);
   assert.equal(s.active, "Inbox");
-  assert.deepEqual(brief(seen).filter((b) => b.startsWith("change")), ["change:mockups:Inbox copy 2"]);
+  assert.deepEqual(brief(seen).filter((b) => b.startsWith("change")), ["change:mockups:Inbox-copy-2"]);
   assert.equal(writeDesign(s.document), afterFirst);
   s.undo();
   assert.deepEqual(names(s), ["Sign in", "Inbox", "Message"]);
   assert.equal(s.active, "Inbox");
   assert.equal(writeDesign(s.document), before);
   s.redo();
-  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox copy"]);
-  assert.equal(s.active, "Inbox copy");
+  assert.deepEqual(names(s), ["Sign in", "Inbox", "Message", "Inbox-copy"]);
+  assert.equal(s.active, "Inbox-copy");
 });
 
 test("TC-2: duplicateMockup of a named mockup; refusals change nothing (C4, C5)", () => {
   const s = session();
-  assert.deepEqual(s.duplicateMockup("Sign in"), { mockup: "Sign in copy" });
+  assert.deepEqual(s.duplicateMockup("Sign in"), { mockup: "Sign in-copy" });
   // Placed beside the mockup it copies: Sign in {0, 0, 390 × 844}, overlapped by Inbox (780): (860, 0).
-  assert.deepEqual(at(s, "Sign in copy"), [860, 0]);
-  assert.equal(s.active, "Sign in copy");
+  assert.deepEqual(at(s, "Sign in-copy"), [860, 0]);
+  assert.equal(s.active, "Sign in-copy");
   const seen = recorder(s);
   const doc = writeDesign(s.document);
   assert.match((s.duplicateMockup("Nope") as { error: string }).error, /^there is no mockup named "Nope"$/);
@@ -182,9 +183,9 @@ test("TC-2: newMockup through run is one step of kind mockups and undoes to the 
   s.run("undo");
   assert.equal(writeDesign(s.document), before);
   assert.equal(s.active, "Inbox");
-  assert.deepEqual(s.run("duplicateMockup"), { mockup: "Inbox copy" });
-  assert.deepEqual(s.run("deleteMockup", { mockup: "Inbox copy" }), { mockup: "Inbox copy" });
-  assert.deepEqual(s.run("duplicateMockup", { mockup: "Message" }), { mockup: "Message copy" });
+  assert.deepEqual(s.run("duplicateMockup"), { mockup: "Inbox-copy" });
+  assert.deepEqual(s.run("deleteMockup", { mockup: "Inbox-copy" }), { mockup: "Inbox-copy" });
+  assert.deepEqual(s.run("duplicateMockup", { mockup: "Message" }), { mockup: "Message-copy" });
   s.undo();
   s.undo();
   s.undo();

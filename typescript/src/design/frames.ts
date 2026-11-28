@@ -33,16 +33,23 @@ export function newMockupName(names: Iterable<string>): string {
 }
 
 /**
- * The name of a copy of mockup `name` among the document's `names` (R-TOOL-013.C5): `<name> copy`, else
- * `<name> copy <n>` with the smallest free `n` from 2; names are case-sensitive.
+ * The name of a copy of mockup `name` among the document's `names` (R-TOOL-013.C5): `<name>-copy`, else
+ * `<name>-copy-<n>` with the smallest free `n` from 2; names are case-sensitive.
  */
 export function duplicateMockupName(names: Iterable<string>, name: string): string {
-  const taken = new Set(names);
-  const base = `${name} copy`;
+  return copyName(new Set(names), name);
+}
+
+/**
+ * The name of a copy of `name` among the `taken` names (R-TOOL-013.C5, R-EDIT-008.C2): `<name>-copy`,
+ * else `<name>-copy-<n>` with the smallest `n` from 2 that `taken` does not hold.
+ */
+export function copyName(taken: ReadonlySet<string>, name: string): string {
+  const base = `${name}-copy`;
   if (!taken.has(base)) return base;
   let n = 2;
-  while (taken.has(`${base} ${n}`)) n++;
-  return `${base} ${n}`;
+  while (taken.has(`${base}-${n}`)) n++;
+  return `${base}-${n}`;
 }
 
 /** The message refusing a name another mockup holds (C5). */

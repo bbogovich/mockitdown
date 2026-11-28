@@ -1,5 +1,5 @@
 // IT-64: the selection commands of the design session (R-EDIT-008). TC-1 (C1, C2, C4, C5, C6, C7,
-// C10): duplicate with numeric id suffixes, cut and paste into a stack and after a leaf, a refused
+// C10, C11): duplicate with -copy id suffixes, cut and paste into a stack and after a leaf, a refused
 // paste, moves at the first and last position, and every command undone and redone with the
 // selection restored (F-19.AC9); the session part of C3 (copy) and C8 (range and toggle selection).
 // Every expected code below is written by hand from the clauses before the commands ran: the start
@@ -90,7 +90,7 @@ function steps(s: DesignSession): number {
   return n;
 }
 
-test("TC-1: duplicate inserts a copy after the node, the copy's id gets the smallest free suffix from 2, and the copy is selected (C1, C2, C10)", () => {
+test("TC-1: duplicate inserts a copy after the node, the copy's id becomes <id>-copy, then <id>-copy-<n> from 2, and the copy is selected (C1, C2, C10)", () => {
   const s = new DesignSession(doc());
   const ok = node(s, 'Button("A")');
   s.select([ok]);
@@ -101,29 +101,29 @@ test("TC-1: duplicate inserts a copy after the node, the copy's id gets the smal
     "VStack {",
     '  Text("Title")',
     '  Button("A").id("ok")',
-    '  Button("A").id("ok-2")',
+    '  Button("A").id("ok-copy")',
     "  // the row",
     "  HStack {",
     '    Text("Left").id("left")',
     "  }",
     "}",
   ));
-  assert.deepEqual(selected(s), ['Button("A").id("ok-2")'], "the copy is selected");
+  assert.deepEqual(selected(s), ['Button("A").id("ok-copy")'], "the copy is selected");
   const changes = seen.filter((n) => n.kind === "change");
   assert.equal(changes.length, 1, "one change");
   if (changes[0]!.kind === "change") assert.equal(applyEdits(MAIN, changes[0]!.detail.edits), s.code("Main"));
   assert.deepEqual(seen.filter((n) => n.kind === "insert").map((n) => n.detail), [{ mockup: "Main", node: s.selection[0], element: "Button" }]);
   roundTrip(s, before);
 
-  // A second duplicate of the original: ok-2 is taken, so ok-3, directly after the original.
+  // A second duplicate of the original: ok-copy is taken, so ok-copy-2, directly after the original.
   s.select([ok]);
   s.duplicate();
   assert.equal(s.code("Main"), lines(
     "VStack {",
     '  Text("Title")',
     '  Button("A").id("ok")',
-    '  Button("A").id("ok-3")',
-    '  Button("A").id("ok-2")',
+    '  Button("A").id("ok-copy-2")',
+    '  Button("A").id("ok-copy")',
     "  // the row",
     "  HStack {",
     '    Text("Left").id("left")',
@@ -131,6 +131,26 @@ test("TC-1: duplicate inserts a copy after the node, the copy's id gets the smal
     "}",
   ));
   assert.equal(steps(s), 2, "two duplicates, two steps");
+
+  // A duplicate of the copy: its id is ok-copy, so its copy is ok-copy-copy, directly after it.
+  s.select([node(s, 'Button("A")', 2)]);
+  assert.deepEqual(selected(s), ['Button("A").id("ok-copy")']);
+  s.duplicate();
+  assert.equal(s.code("Main"), lines(
+    "VStack {",
+    '  Text("Title")',
+    '  Button("A").id("ok")',
+    '  Button("A").id("ok-copy-2")',
+    '  Button("A").id("ok-copy")',
+    '  Button("A").id("ok-copy-copy")',
+    "  // the row",
+    "  HStack {",
+    '    Text("Left").id("left")',
+    "  }",
+    "}",
+  ));
+  assert.deepEqual(selected(s), ['Button("A").id("ok-copy-copy")'], "the copy of the copy is selected");
+  assert.equal(steps(s), 3, "three duplicates, three steps");
 });
 
 test("TC-1: duplicating several siblings copies each after itself, its descendants' ids renamed too (C1, C2, C10, V1)", () => {
@@ -149,7 +169,7 @@ test("TC-1: duplicating several siblings copies each after itself, its descendan
     "  }",
     "  // the row",
     "  HStack {",
-    '    Text("Left").id("left-2")',
+    '    Text("Left").id("left-copy")',
     "  }",
     "}",
   ));
@@ -206,14 +226,14 @@ test("TC-1: cut removes the selection as one step, and paste puts it into a stac
   assert.deepEqual(selected(s), ['Button("A").id("ok")'], "the pasted view is selected");
   roundTrip(s, before);
 
-  // A leaf selected: after it; "ok" is taken now, so the pasted copy is ok-2.
+  // A leaf selected: after it; "ok" is taken now, so the pasted copy is ok-copy.
   s.select([node(s, 'Text("Title")')]);
   before = state(s);
   assert.equal(why(s.paste(cut.text)), "applied");
   assert.equal(s.code("Main"), lines(
     "VStack {",
     '  Text("Title")',
-    '  Button("A").id("ok-2")',
+    '  Button("A").id("ok-copy")',
     "  // the row",
     "  HStack {",
     '    Text("Left").id("left")',
@@ -230,14 +250,14 @@ test("TC-1: cut removes the selection as one step, and paste puts it into a stac
   assert.equal(s.code("Main"), lines(
     "VStack {",
     '  Text("Title")',
-    '  Button("A").id("ok-2")',
+    '  Button("A").id("ok-copy")',
     "  // the row",
     "  HStack {",
     '    Text("Left").id("left")',
     '    Button("A").id("ok")',
     "  }",
     "}",
-    'Button("A").id("ok-3")',
+    'Button("A").id("ok-copy-2")',
   ));
   roundTrip(s, before);
   assert.equal(steps(s), 4, "the cut and three pastes");
