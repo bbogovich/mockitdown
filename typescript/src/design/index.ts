@@ -1,6 +1,6 @@
 /**
  * The design document and session module (A-WEB-4): `readDesign`, `writeDesign`, `newDesign`,
- * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync`, the diagnostics list's model, the canvas's view geometry and the frames' naming, placing and snapping. No DOM, network or file system (A-WEB-4.K1), so that a desktop
+ * `mockupOptions`, `DesignSession`, the inspector's model, `CodeSync`, the diagnostics list's model, the canvas's view geometry, the frames' naming, placing and snapping, and the sections' rules. No DOM, network or file system (A-WEB-4.K1), so that a desktop
  * shell's main process can use it in Node as the design tools use it in a browser.
  */
 
@@ -30,6 +30,11 @@ export {
   DEFAULT_NAME_WARNING, duplicateMockupName, EDGE_SNAP, EMPTY_NAME, GRID, isDefaultName, nameTaken, NEW_MOCKUP_CODE, NEW_MOCKUP_GAP, newMockupName, newMockupPlace,
   renameRefusal, snapMove,
 } from "./frames.js";
+export {
+  documentView, EMPTY_SECTION_NAME, framesInside, liesInside, resizeSectionBox, SECTION_EDGES, SECTION_MARGIN, SECTION_MIN, sectionAround,
+  sectionNameRefusal, snapSectionMove,
+  type SectionEdge,
+} from "./sections.js";
 export type { EditOp, EditRefusal, EditResult } from "../core/syntax/edit.js";
 export type { SyntaxTree, TextEdit, ViewNode } from "../core/syntax/tree.js";
 export {

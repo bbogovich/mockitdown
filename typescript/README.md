@@ -597,6 +597,32 @@ session.run("deleteMockup", { mockup: "Inbox copy" });
 import { duplicateMockupName } from "mockitdown/design";
 ```
 
+### Sections and the saved view
+
+A section is a named rectangle behind a group of frames (the document's `sections`, `{name, x, y, w, h}`).
+The canvas draws each one behind the frames (part `section`, `data-section` its index) with its name at
+its top left corner (part `section-label`) and a resize handle on every edge and corner (part
+`section-handle`, `data-edge` n, s, e, w, ne, nw, se, sw; hidden in Preview mode).
+
+- Drag a section's label to move it with every frame lying wholly inside it; its corner snaps to the
+  8-unit grid, freely with Alt. Drag an edge or a corner to resize it (snapped the same way, at least 40
+  units wide and high). Double-click the label to rename it (an empty name is refused beside the field;
+  section names need not be unique). Each is one undo step notifying `change` of kind `sections`, whose
+  `mockup` and `code` are empty.
+- `session.newSection(name)` adds a section enclosing the active mockup's frame with a 40-unit margin.
+- `designer.toJSON()` writes the canvas's zoom and position and the active mockup's name to the
+  document's `view` (`session.saveView(canvas.view)`), and `open` restores them; when neither differs
+  from what the document opened with, the document is left as it was read, so opening and writing back
+  without an edit gives the same text.
+
+```js
+session.newSection("Onboarding");             // {section: 1} or {error}
+session.moveSection(1, 400, 0);               // the frames inside move with it
+session.resizeSection(1, { x: 400, y: 0, w: 900, h: 700 });
+session.renameSection(1, "Onboarding flow");
+import { sectionAround, framesInside, snapSectionMove, resizeSectionBox, documentView } from "mockitdown/design";
+```
+
 ## Development
 
 Node 22 or later.

@@ -424,8 +424,14 @@ export class DesignerElement extends Base {
     this.#open(json);
   }
 
-  /** The opened document with every edit applied (C7): the session's live document. */
+  /**
+   * The opened document with every edit applied (C7): the session's live document, its `view` given the
+   * canvas's zoom and position and the active mockup's name by `session.saveView` (R-TOOL-014.C4) when
+   * they differ from those the document opened with, so that a document written back without an edit
+   * is unchanged (R-TOOL-014.C5).
+   */
   toJSON(): DesignDocument {
+    this.#session.saveView(this.canvas?.view);
     return this.#session.document;
   }
 

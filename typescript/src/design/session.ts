@@ -30,11 +30,16 @@ import type * as A from "../core/syntax/ast.js";
 import { bodySiblings, edit, identifiersOf, indentUnit, nodeCode, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
-import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup } from "./document.js";
+import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup, type DesignSection, type DesignView } from "./document.js";
 import { duplicateMockupName, NEW_MOCKUP_CODE, newMockupName, newMockupPlace, renameRefusal } from "./frames.js";
+import type { CanvasBox, CanvasView } from "./canvas.js";
+import { documentView, framesInside, sectionAround, sectionNameRefusal } from "./sections.js";
 
-/** What a `change` notification changed (C5): the code, the options, the position, or the list of mockups. */
-export type ChangeKind = "code" | "options" | "move" | "mockups";
+/**
+ * What a `change` notification changed (C5): the code, the options, the position, the list of mockups,
+ * or the document's sections (R-TOOL-014), whose `change` names no mockup (`mockup` and `code` empty).
+ */
+export type ChangeKind = "code" | "options" | "move" | "mockups" | "sections";
 
 /** A notification of the session (C4, C5): its kind and its detail. */
 export type DesignNotification =
@@ -208,7 +213,7 @@ export interface DesignSessionOptions {
  * What a step changed: a change kind (R-EDIT-006.C5), or `rename` for a step that renamed its mockup
  * (R-TOOL-012.C7), which notifies `rename` rather than `change` when it is undone and redone.
  */
-type StepKind = ChangeKind | "rename";
+type StepKind = Exclude<ChangeKind, "sections"> | "rename";
 
 /**
  * A mockup as one step of the history sees it: its name, code and last valid tree, its options and
@@ -233,8 +238,11 @@ interface Place {
   nodes: string[];
 }
 
-/** One step of the undo history (R-EDIT-007.C1). */
-interface Step {
+/** One step of the undo history (R-EDIT-007.C1): a mockup's, or the sections'. */
+type Step = MockupStep | SectionStep;
+
+/** A step that changed one mockup, or the list of mockups. */
+interface MockupStep {
   mockup: DesignMockup;
   kind: StepKind;
   before: Snapshot;
@@ -247,6 +255,29 @@ interface Step {
   placeAfter: Place;
   key: string | undefined;
   /** When the step's last change was made. */
+  time: number;
+}
+
+/**
+ * The sections and the frames' positions on one side of a section step (R-TOOL-014.C3): the document's
+ * list of sections (undefined when it had none) with each section's own values, and every mockup's
+ * position. Sections are held as objects, so that a key order read with them is kept.
+ */
+interface SectionsSnapshot {
+  list: DesignSection[] | undefined;
+  values: [DesignSection, { name: string; x: number; y: number; w: number; h: number }][];
+  frames: [DesignMockup, number, number][];
+}
+
+/** A step that changed the sections, and the frames a moved section carried. */
+interface SectionStep {
+  mockup: null;
+  kind: "sections";
+  before: SectionsSnapshot;
+  after: SectionsSnapshot;
+  placeBefore: Place;
+  placeAfter: Place;
+  key: undefined;
   time: number;
 }
 
@@ -1395,6 +1426,150 @@ export class DesignSession {
     return { mockup: mockup.name };
   }
 
+  // --- sections and the view (R-TOOL-014) --------------------------------------------------------
+
+  /** The document's sections, in document order (none when it has no `sections`). */
+  get sections(): readonly DesignSection[] {
+    return this.document.sections ?? [];
+  }
+
+  /**
+   * Add a section named `name` enclosing the active mockup's frame with a margin of 40 canvas units
+   * (C2, {@link sectionAround}; the frame's size from {@link measure}), at the end of the document's
+   * `sections`, which it creates when the document has none. Refused, changing nothing, for an empty
+   * name or with no active mockup. One `change` of kind `sections`; one undo step.
+   */
+  newSection(name: string): { section: number } | Refused {
+    const refused = sectionNameRefusal(name);
+    if (refused !== null) return { error: refused };
+    const active = this.activeName === null ? null : this.mockup(this.activeName);
+    if (!active) return { error: "there is no active mockup" };
+    return this.changeSections((list) => {
+      list.push({ name, ...sectionAround(this.box(active)) });
+      return list.length - 1;
+    });
+  }
+
+  /**
+   * Move section `index` to `(x, y)` (C3) with every frame lying wholly inside it before the move
+   * ({@link framesInside}, the frames' sizes from {@link measure}), each by the same distance. One
+   * `change` of kind `sections`; one undo step; a move to where it is changes nothing.
+   */
+  moveSection(index: number, x: number, y: number): { section: number } | Refused {
+    const section = this.sections[index];
+    if (!section) return { error: `there is no section ${index}` };
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return { error: "x and y must be finite numbers" };
+    if (section.x === x && section.y === y) return { section: index };
+    const dx = x - section.x;
+    const dy = y - section.y;
+    const inside = new Set(framesInside(section, this.document.mockups.map((m) => [m.name, this.box(m)] as const)));
+    return this.changeSections(() => {
+      section.x = x;
+      section.y = y;
+      for (const m of this.document.mockups) {
+        if (!inside.has(m.name)) continue;
+        m.x += dx;
+        m.y += dy;
+      }
+      return index;
+    });
+  }
+
+  /** Give section `index` the box `box` (C3), its frames left where they are. One `change` of kind `sections`; one undo step. */
+  resizeSection(index: number, box: CanvasBox): { section: number } | Refused {
+    const section = this.sections[index];
+    if (!section) return { error: `there is no section ${index}` };
+    const ok = box && Number.isFinite(box.x) && Number.isFinite(box.y) && Number.isFinite(box.w) && Number.isFinite(box.h) && box.w > 0 && box.h > 0;
+    if (!ok) return { error: "a section's box needs finite x and y and a positive w and h" };
+    if (section.x === box.x && section.y === box.y && section.w === box.w && section.h === box.h) return { section: index };
+    return this.changeSections(() => {
+      Object.assign(section, { x: box.x, y: box.y, w: box.w, h: box.h });
+      return index;
+    });
+  }
+
+  /**
+   * Rename section `index` (C3): refused for an empty name; section names need not be unique, and
+   * renaming to its own name changes nothing. One `change` of kind `sections`; one undo step.
+   */
+  renameSection(index: number, name: string): { section: number } | Refused {
+    const section = this.sections[index];
+    if (!section) return { error: `there is no section ${index}` };
+    const refused = sectionNameRefusal(name);
+    if (refused !== null) return { error: refused };
+    if (section.name === name) return { section: index };
+    return this.changeSections(() => {
+      section.name = name;
+      return index;
+    });
+  }
+
+  /**
+   * Write a canvas's view and the active mockup's name to the document's `view` (C4): `zoom`, `x`, `y`
+   * and `active` (removed when no mockup is active), its other keys kept, but only when the view or the
+   * active mockup differs from the one the document opens with ({@link documentView}, and `view.active`
+   * when a mockup holds it, else the first mockup), so that a document opened and written back without
+   * an edit is unchanged (C5). Not a step of the history and notifies nothing. Without `view` the
+   * document's own is kept and only the active mockup is compared. Returns the document's view.
+   */
+  saveView(view?: CanvasView): DesignView | undefined {
+    const doc = this.document;
+    const opened = documentView(doc.view);
+    const named = doc.view?.active;
+    const openedActive = typeof named === "string" && this.mockup(named) ? named : doc.mockups[0]?.name ?? null;
+    const v = view && Number.isFinite(view.zoom) && Number.isFinite(view.x) && Number.isFinite(view.y) ? view : opened;
+    if (v.zoom === opened.zoom && v.x === opened.x && v.y === opened.y && this.activeName === openedActive) return doc.view;
+    const target = (doc.view ??= {});
+    target.zoom = v.zoom;
+    target.x = v.x;
+    target.y = v.y;
+    if (this.activeName === null) delete target.active;
+    else target.active = this.activeName;
+    return target;
+  }
+
+  /** Change the sections as one step of the history: `change` the document's list of sections, notify, settle. */
+  private changeSections(change: (list: DesignSection[]) => number): { section: number } {
+    const place = this.place();
+    const before = this.sectionsSnapshot();
+    const list = (this.document.sections ??= []);
+    const index = change(list);
+    const step: SectionStep = {
+      mockup: null, kind: "sections", before, after: this.sectionsSnapshot(), placeBefore: place, placeAfter: place, key: undefined, time: this.now(),
+    };
+    this.steps.length = this.cursor;
+    this.steps.push(step);
+    if (this.steps.length > this.historyLimit) this.steps.splice(0, this.steps.length - this.historyLimit);
+    this.cursor = this.steps.length;
+    this.open = step;
+    this.notify({ kind: "change", detail: { kind: "sections", mockup: "", edits: [], code: "" } });
+    this.settle(step);
+    return { section: index };
+  }
+
+  private sectionsSnapshot(): SectionsSnapshot {
+    const list = this.document.sections;
+    return {
+      list: list === undefined ? undefined : [...list],
+      values: (list ?? []).map((s) => [s, { name: s.name, x: s.x, y: s.y, w: s.w, h: s.h }]),
+      frames: this.document.mockups.map((m) => [m, m.x, m.y]),
+    };
+  }
+
+  /** Put the sections and the frames back to a snapshot: one `change` of kind `sections`. */
+  private restoreSections(snap: SectionsSnapshot): { mockup: string; edits: TextEdit[] } {
+    if (snap.list === undefined) delete this.document.sections;
+    else if (this.document.sections) this.document.sections.splice(0, this.document.sections.length, ...snap.list);
+    else this.document.sections = [...snap.list];
+    for (const [s, v] of snap.values) Object.assign(s, v);
+    for (const [m, x, y] of snap.frames) {
+      m.x = x;
+      m.y = y;
+    }
+    this.notify({ kind: "change", detail: { kind: "sections", mockup: "", edits: [], code: "" } });
+    return { mockup: "", edits: [] };
+  }
+
   // --- history (R-EDIT-007) -----------------------------------------------------------------------
 
   /**
@@ -1406,6 +1581,7 @@ export class DesignSession {
     if (!this.canUndo) return { error: "there is nothing to undo" };
     const step = this.steps[--this.cursor]!;
     this.open = null;
+    if (step.kind === "sections") return this.restoreSections(step.before);
     return this.restore(step, step.before, step.placeBefore, step.inverse);
   }
 
@@ -1414,6 +1590,7 @@ export class DesignSession {
     if (!this.canRedo) return { error: "there is nothing to redo" };
     const step = this.steps[this.cursor++]!;
     this.open = null;
+    if (step.kind === "sections") return this.restoreSections(step.after);
     return this.restore(step, step.after, step.placeAfter, step.edits);
   }
 
@@ -1435,7 +1612,7 @@ export class DesignSession {
     const after = this.snapshot(p.mockup, p.before.list !== undefined);
     const time = this.now();
     const last = this.cursor > 0 ? this.steps[this.cursor - 1]! : null;
-    if (p.key !== undefined && last && last === this.open && this.cursor === this.steps.length
+    if (p.key !== undefined && last && last.kind !== "sections" && last === this.open && this.cursor === this.steps.length
       && last.key === p.key && last.mockup === p.mockup && last.kind === p.kind && time - last.time <= COALESCE_MS) {
       last.after = after;
       last.time = time;
@@ -1450,7 +1627,7 @@ export class DesignSession {
       }
       return last;
     }
-    const step: Step = {
+    const step: MockupStep = {
       mockup: p.mockup, kind: p.kind, before: p.before, after, edits: [...edits], inverse: diff(after.code, p.before.code),
       placeBefore: p.place, placeAfter: p.place, key: p.key, time,
     };
@@ -1482,7 +1659,7 @@ export class DesignSession {
   }
 
   /** Put a step's mockup back to a snapshot and the active mockup and selection back to a place. */
-  private restore(step: Step, snap: Snapshot, place: Place, edits: TextEdit[]): { mockup: string; edits: TextEdit[] } | Refused {
+  private restore(step: MockupStep, snap: Snapshot, place: Place, edits: TextEdit[]): { mockup: string; edits: TextEdit[] } | Refused {
     const mockup = step.mockup;
     if (snap.list) this.document.mockups.splice(0, this.document.mockups.length, ...snap.list);
     const held = this.document.mockups.includes(mockup);

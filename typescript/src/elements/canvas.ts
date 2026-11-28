@@ -20,7 +20,8 @@
  * its mockup the active one (F-20.C5).
  *
  * The view (`view`: `{zoom, x, y}`, the canvas point at the viewport's top left corner) starts as the
- * document's `view` and is never written back to it. `zoom` holds the zoom factor, clamped to 0.1 to 4
+ * document's `view` (`documentView`); the canvas never writes it back itself: the designer's `toJSON()`
+ * does, through `session.saveView` (R-TOOL-014.C4). `zoom` holds the zoom factor, clamped to 0.1 to 4
  * (C2). Cmd/Ctrl with the wheel or a pinch zooms about the pointer, Cmd/Ctrl+plus and minus step
  * through 10, 25, 50, 75, 100, 150, 200, 300 and 400 % about the viewport's centre (C3); `fit()` and
  * Cmd/Ctrl+0 fit every frame with 40 px margins, Cmd/Ctrl+1 sets 100 %, Shift+2 fits the selected
@@ -41,15 +42,25 @@
  * field with a refused name, cancels. Neither in Preview mode. The canvas measures the frames for the
  * session (`session.measure`), which places a new mockup by them.
  *
- * The geometry is `mockitdown/design`'s canvas.ts and frames.ts. The canvas holds no editing rule
- * (A-WEB-5.K2): it changes the session only through `setActive`, `moveMockup` and `renameMockup`. Its
+ * Sections (R-TOOL-014): each section of the document is a rectangle (part `section`, `data-section`)
+ * in a layer behind the frames (part `sections`), its name at its top left corner (part
+ * `section-label`). Dragging the label moves the section and the frames lying wholly inside it (its
+ * corner snapped to the grid, freely with Alt) through `session.moveSection`; dragging an edge or corner
+ * (part `section-handle`, `data-edge`) resizes it through `session.resizeSection`; a double-click on the
+ * label renames it through `session.renameSection` in the same inline field as a frame's. Each is one
+ * undo step; none in Preview mode.
+ *
+ * The geometry is `mockitdown/design`'s canvas.ts, frames.ts and sections.ts. The canvas holds no editing
+ * rule (A-WEB-5.K2): it changes the session only through `setActive`, `moveMockup`, `renameMockup`,
+ * `moveSection`, `resizeSection` and `renameSection`. Its
  * session is the nearest enclosing designer's, else the one its host sets, else an empty one of its own
  * (R-EDIT-006.C11).
  *
- * Parts: `viewport`, `world`, `frame`, `label`, `rename-field`, `rename-error`, `body`, `minimap`,
+ * Parts: `viewport`, `world`, `sections`, `section`, `section-label`, `section-handle`, `frame`, `label`, `rename-field`, `rename-error`, `body`, `minimap`,
  * `minimap-frame`, `minimap-viewport`.
  * Custom properties: `--mkd-canvas-background`, `--mkd-canvas-label-color`, `--mkd-selection-color`,
- * `--mkd-canvas-minimap-background`, `--mkd-canvas-minimap-frame`, `--mkd-canvas-minimap-viewport`.
+ * `--mkd-canvas-minimap-background`, `--mkd-canvas-minimap-frame`, `--mkd-canvas-minimap-viewport`,
+ * `--mkd-canvas-section-background`, `--mkd-canvas-section-border`, `--mkd-canvas-section-label-color`.
  */
 
 import { FENCE_OPTIONS } from "../core/index.js";
@@ -59,6 +70,7 @@ import {
 } from "../design/canvas.js";
 import { mockupOptions, newDesign } from "../design/document.js";
 import { snapMove } from "../design/frames.js";
+import { documentView, framesInside, resizeSectionBox, SECTION_EDGES, snapSectionMove, type SectionEdge } from "../design/sections.js";
 import { DESIGN_EVENTS, DesignSession, type DesignNotification, type FrameMeasure } from "../design/session.js";
 import { MOCKUP_TAG } from "./mockup.js";
 
@@ -96,6 +108,21 @@ const CANVAS_CSS = `:host{display:block;position:relative;overflow:clip;min-widt
 .mkd-canvas__rename-error{margin-left:.6em;color:var(--mkd-canvas-error-color,#d93025)}
 .mkd-canvas__rename-error[hidden]{display:none}
 .mkd-canvas__frame[data-active] .mkd-canvas__label{color:var(--mkd-selection-color,#ff8a00)}
+.mkd-canvas__sections{position:absolute;left:0;top:0;width:0;height:0}
+.mkd-canvas__section{position:absolute;box-sizing:border-box;pointer-events:none;border:calc(1px / var(--mkd-canvas-zoom,1)) solid var(--mkd-canvas-section-border,rgba(47,128,237,.45));border-radius:calc(8px / var(--mkd-canvas-zoom,1));background:var(--mkd-canvas-section-background,rgba(47,128,237,.06))}
+.mkd-canvas__section-label{position:absolute;left:0;top:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;box-sizing:border-box;pointer-events:auto;font:600 calc(13px / var(--mkd-canvas-zoom,1))/1.3 system-ui,sans-serif;padding:calc(6px / var(--mkd-canvas-zoom,1)) calc(10px / var(--mkd-canvas-zoom,1));color:var(--mkd-canvas-section-label-color,#2f5fa8);user-select:none;-webkit-user-select:none;touch-action:none}
+:host(:not([preview])) .mkd-canvas__section-label{cursor:grab}
+.mkd-canvas__section-handle{position:absolute;pointer-events:auto;touch-action:none;--t:calc(8px / var(--mkd-canvas-zoom,1))}
+:host([preview]) .mkd-canvas__section-handle{display:none}
+.mkd-canvas__section-handle[data-edge="n"],.mkd-canvas__section-handle[data-edge="s"]{left:var(--t);right:var(--t);height:var(--t);cursor:ns-resize}
+.mkd-canvas__section-handle[data-edge="e"],.mkd-canvas__section-handle[data-edge="w"]{top:var(--t);bottom:var(--t);width:var(--t);cursor:ew-resize}
+.mkd-canvas__section-handle[data-edge="n"],.mkd-canvas__section-handle[data-edge="ne"],.mkd-canvas__section-handle[data-edge="nw"]{top:calc(var(--t) / -2)}
+.mkd-canvas__section-handle[data-edge="s"],.mkd-canvas__section-handle[data-edge="se"],.mkd-canvas__section-handle[data-edge="sw"]{bottom:calc(var(--t) / -2)}
+.mkd-canvas__section-handle[data-edge="w"],.mkd-canvas__section-handle[data-edge="nw"],.mkd-canvas__section-handle[data-edge="sw"]{left:calc(var(--t) / -2)}
+.mkd-canvas__section-handle[data-edge="e"],.mkd-canvas__section-handle[data-edge="ne"],.mkd-canvas__section-handle[data-edge="se"]{right:calc(var(--t) / -2)}
+.mkd-canvas__section-handle[data-edge="ne"],.mkd-canvas__section-handle[data-edge="nw"],.mkd-canvas__section-handle[data-edge="se"],.mkd-canvas__section-handle[data-edge="sw"]{width:calc(var(--t) * 1.5);height:calc(var(--t) * 1.5)}
+.mkd-canvas__section-handle[data-edge="ne"],.mkd-canvas__section-handle[data-edge="sw"]{cursor:nesw-resize}
+.mkd-canvas__section-handle[data-edge="nw"],.mkd-canvas__section-handle[data-edge="se"]{cursor:nwse-resize}
 .mkd-canvas__minimap{position:absolute;right:8px;bottom:8px;width:${MINIMAP_WIDTH}px;height:${MINIMAP_HEIGHT}px;box-sizing:border-box;overflow:hidden;z-index:2;border:1px solid var(--mkd-designer-border,#d0d0d7);border-radius:6px;background:var(--mkd-canvas-minimap-background,rgba(255,255,255,.92));cursor:pointer;touch-action:none}
 .mkd-canvas__minimap[hidden]{display:none}
 .mkd-canvas__mini-frame{position:absolute;border-radius:1px;background:var(--mkd-canvas-minimap-frame,#c4c7d0)}
@@ -126,6 +153,14 @@ export class CanvasElement extends Base {
   #miniViewport: HTMLElement;
   #slot: HTMLSlotElement;
   #frames = new Map<string, Frame>();
+  /** The layer behind the frames holding the sections (R-TOOL-014.C1), one element per section in document order. */
+  #sectionLayer: HTMLElement;
+  #sectionEls: HTMLElement[] = [];
+  /** The section being moved by its label or resized by an edge (R-TOOL-014.C3). */
+  #sectionDrag: {
+    id: number; index: number; edge: SectionEdge | null; sx: number; sy: number;
+    box: CanvasBox; inside: { name: string; x: number; y: number }[]; at: CanvasBox | null;
+  } | null = null;
   #miniFrames = new Map<string, HTMLElement>();
   #session: DesignSession | null = null;
   #given: DesignSession | null = null;
@@ -144,8 +179,8 @@ export class CanvasElement extends Base {
   #measuring = 0;
   /** The frame being moved by its label (R-TOOL-012.C1, C2). */
   #move: { id: number; name: string; sx: number; sy: number; x: number; y: number; w: number; h: number; others: CanvasBox[]; at: { x: number; y: number } | null } | null = null;
-  /** The rename field open on a label (R-TOOL-012.C3, C5). */
-  #rename: { name: string; label: HTMLElement; input: HTMLInputElement; error: HTMLElement } | null = null;
+  /** The rename field open on a mockup's label (R-TOOL-012.C3, C5) or, with `section`, a section's (R-TOOL-014.C3). */
+  #rename: { name: string; label: HTMLElement; input: HTMLInputElement; error: HTMLElement; section?: number } | null = null;
   /** What the canvas gives its session as `measure`: its frames' sizes. */
   readonly #measure: FrameMeasure = (name) => {
     const box = this.#boxes().get(name);
@@ -162,6 +197,10 @@ export class CanvasElement extends Base {
     this.#viewport = this.#root.querySelector(".mkd-canvas")!;
     this.#world = this.#root.querySelector(".mkd-canvas__world")!;
     this.#minimap = this.#root.querySelector(".mkd-canvas__minimap")!;
+    this.#sectionLayer = document.createElement("div");
+    this.#sectionLayer.className = "mkd-canvas__sections";
+    this.#sectionLayer.setAttribute("part", "sections");
+    this.#world.append(this.#sectionLayer);
     this.#miniViewport = this.#root.querySelector(".mkd-canvas__mini-viewport")!;
     this.#slot = document.createElement("slot");
     this.#viewport.addEventListener("wheel", (e) => this.#onWheel(e), { passive: false });
@@ -190,6 +229,11 @@ export class CanvasElement extends Base {
       e.stopPropagation();
     }, { capture: true });
     this.#world.addEventListener("click", (e) => this.#onFrameClick(e));
+    this.#world.addEventListener("pointerdown", (e) => this.#onSectionDown(e));
+    this.#world.addEventListener("pointermove", (e) => this.#onSectionMove(e));
+    this.#world.addEventListener("pointerup", (e) => this.#onSectionUp(e, false));
+    this.#world.addEventListener("pointercancel", (e) => this.#onSectionUp(e, true));
+    this.#world.addEventListener("dblclick", (e) => this.#onSectionDoubleClick(e));
     this.#world.addEventListener("pointerdown", (e) => this.#onLabelDown(e));
     this.#world.addEventListener("pointermove", (e) => this.#onLabelMove(e));
     this.#world.addEventListener("pointerup", (e) => this.#onLabelUp(e, false));
@@ -300,14 +344,11 @@ export class CanvasElement extends Base {
       this.#session = next;
       next.measure = this.#measure;
       this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      const v = next.document.view;
-      this.#view = {
-        zoom: clampZoom(typeof v?.zoom === "number" ? v.zoom : 1),
-        x: typeof v?.x === "number" && Number.isFinite(v.x) ? v.x : 0,
-        y: typeof v?.y === "number" && Number.isFinite(v.y) ? v.y : 0,
-      };
+      this.#view = documentView(next.document.view);
       for (const f of this.#frames.values()) f.el.remove();
       this.#frames.clear();
+      for (const el of this.#sectionEls) el.remove();
+      this.#sectionEls = [];
       this.#draw();
     }
     return next;
@@ -404,11 +445,52 @@ export class CanvasElement extends Base {
       f.el.remove();
       this.#frames.delete(name);
     }
-    const current = Array.from(this.#world.children);
+    const current = Array.from(this.#world.children).filter((el) => el !== this.#sectionLayer);
     if (current.length !== order.length || current.some((el, k) => el !== order[k])) {
       for (const el of order) if (el.parentNode !== this.#world || this.#world.lastElementChild !== el) this.#world.append(el);
     }
+    this.#drawSections();
     this.#place();
+  }
+
+  /**
+   * The sections (R-TOOL-014.C1): one rectangle per section of the document (part `section`,
+   * `data-section` its index) in the layer behind the frames, its name as a label at its top left
+   * corner (part `section-label`) and a resize handle on each edge and corner (part `section-handle`,
+   * `data-edge`).
+   */
+  #drawSections(): void {
+    const sections = this.#session?.sections ?? [];
+    while (this.#sectionEls.length > sections.length) this.#sectionEls.pop()!.remove();
+    sections.forEach((s, k) => {
+      let el = this.#sectionEls[k];
+      if (!el) {
+        el = document.createElement("div");
+        el.className = "mkd-canvas__section";
+        el.setAttribute("part", "section");
+        const label = document.createElement("div");
+        label.className = "mkd-canvas__section-label";
+        label.setAttribute("part", "section-label");
+        el.append(label);
+        for (const edge of SECTION_EDGES) {
+          const h = document.createElement("div");
+          h.className = "mkd-canvas__section-handle";
+          h.setAttribute("part", "section-handle");
+          h.dataset.edge = edge;
+          el.append(h);
+        }
+        this.#sectionLayer.append(el);
+        this.#sectionEls[k] = el;
+      }
+      el.dataset.section = String(k);
+      const label = el.firstElementChild as HTMLElement;
+      if (this.#rename?.label !== label && label.textContent !== s.name) label.textContent = s.name;
+      this.#placeSection(el, s);
+    });
+  }
+
+  #placeSection(el: HTMLElement, b: CanvasBox): void {
+    Object.assign(el.style, { left: `${b.x}px`, top: `${b.y}px`, width: `${b.w}px`, height: `${b.h}px` });
   }
 
   /** What each frame shows, by mockup name: its read-only mockup or the slotted editor, with its `rendered` promise. */
@@ -580,12 +662,18 @@ export class CanvasElement extends Base {
     const hit = this.#labelOf(e);
     if (!hit) return;
     e.preventDefault();
+    this.#openRename(hit.label, hit.name, "Mockup name");
+  }
+
+  /** Open the rename field on a mockup's label, or with `section` on that section's label. */
+  #openRename(label: HTMLElement, name: string, aria: string, section?: number): void {
+    const hit = { label, name };
     this.#closeRename();
     const input = document.createElement("input");
     input.type = "text";
     input.className = "mkd-canvas__rename";
     input.setAttribute("part", "rename-field");
-    input.setAttribute("aria-label", "Mockup name");
+    input.setAttribute("aria-label", aria);
     input.spellcheck = false;
     input.value = hit.name;
     input.size = Math.max(12, hit.name.length + 2);
@@ -595,7 +683,7 @@ export class CanvasElement extends Base {
     error.setAttribute("role", "alert");
     error.hidden = true;
     hit.label.replaceChildren(input, error);
-    const rename = { name: hit.name, label: hit.label, input, error };
+    const rename = { name: hit.name, label: hit.label, input, error, ...(section !== undefined ? { section } : {}) };
     this.#rename = rename;
     input.addEventListener("keydown", (k) => {
       if (k.key === "Enter") {
@@ -626,7 +714,9 @@ export class CanvasElement extends Base {
   #commitRename(leaving: boolean): void {
     const r = this.#rename;
     if (!r) return;
-    const result = r.input.value === r.name ? { mockup: r.name } : this.session.renameMockup(r.name, r.input.value);
+    const result = r.input.value === r.name ? { mockup: r.name }
+      : r.section !== undefined ? this.session.renameSection(r.section, r.input.value)
+      : this.session.renameMockup(r.name, r.input.value);
     if ("error" in result) {
       if (leaving) return this.#closeRename();
       r.error.textContent = result.error;
@@ -642,8 +732,90 @@ export class CanvasElement extends Base {
     const r = this.#rename;
     if (!r) return;
     this.#rename = null;
-    const name = (r.label.parentElement as HTMLElement | null)?.dataset.mockup ?? r.name;
+    const name = r.section !== undefined
+      ? this.#session?.sections[r.section]?.name ?? r.name
+      : (r.label.parentElement as HTMLElement | null)?.dataset.mockup ?? r.name;
     r.label.textContent = name;
+  }
+
+  // --- moving, resizing and renaming sections (R-TOOL-014.C3) -------------------------------------
+
+  /** The section label or handle an event is on, with the section's index, outside a rename field and Preview mode. */
+  #sectionPartOf(e: Event): { index: number; label: HTMLElement | null; edge: SectionEdge | null } | null {
+    if (this.hasAttribute("preview")) return null;
+    const path = e.composedPath();
+    if (this.#rename && path.includes(this.#rename.label)) return null;
+    const part = path.find((t) => t instanceof HTMLElement
+      && (t.classList.contains("mkd-canvas__section-label") || t.classList.contains("mkd-canvas__section-handle"))) as HTMLElement | undefined;
+    const index = Number((part?.parentElement as HTMLElement | null)?.dataset.section);
+    if (!part || !Number.isInteger(index) || !this.session.sections[index]) return null;
+    const label = part.classList.contains("mkd-canvas__section-label") ? part : null;
+    return { index, label, edge: label ? null : (part.dataset.edge as SectionEdge) };
+  }
+
+  /** A press on a section's label starts a move, on an edge a resize. */
+  #onSectionDown(e: PointerEvent): void {
+    if (e.button !== 0 || this.#pan || this.#move || this.#sectionDrag) return;
+    const hit = this.#sectionPartOf(e);
+    if (!hit) return;
+    e.preventDefault();
+    this.focus({ preventScroll: true });
+    const s = this.session.sections[hit.index]!;
+    const box = { x: s.x, y: s.y, w: s.w, h: s.h };
+    const inside = hit.edge ? [] : framesInside(box, this.#boxes()).map((name) => {
+      const m = this.session.mockup(name)!;
+      return { name, x: m.x, y: m.y };
+    });
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    this.#sectionDrag = { id: e.pointerId, index: hit.index, edge: hit.edge, sx: e.clientX, sy: e.clientY, box, inside, at: null };
+  }
+
+  /** Where the dragged section goes: moved (snapped to the grid) or resized, freely with Alt. */
+  #sectionAt(e: PointerEvent): CanvasBox {
+    const d = this.#sectionDrag!;
+    const z = this.#view.zoom;
+    const dx = (e.clientX - d.sx) / z;
+    const dy = (e.clientY - d.sy) / z;
+    if (d.edge) return resizeSectionBox(d.box, d.edge, dx, dy, e.altKey);
+    return { ...d.box, ...snapSectionMove(d.box, dx, dy, e.altKey) };
+  }
+
+  #onSectionMove(e: PointerEvent): void {
+    const d = this.#sectionDrag;
+    if (!d || d.id !== e.pointerId) return;
+    if (!d.at && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) < MOVE_THRESHOLD) return;
+    d.at = this.#sectionAt(e);
+    const el = this.#sectionEls[d.index];
+    if (el) this.#placeSection(el, d.at);
+    for (const f of d.inside) {
+      const frame = this.#frames.get(f.name);
+      if (!frame) continue;
+      frame.el.style.left = `${f.x + d.at.x - d.box.x}px`;
+      frame.el.style.top = `${f.y + d.at.y - d.box.y}px`;
+    }
+  }
+
+  /** The drag ends: one `moveSection` or `resizeSection`, one undo step; a cancelled drag puts everything back. */
+  #onSectionUp(e: PointerEvent, cancelled: boolean): void {
+    const d = this.#sectionDrag;
+    if (!d || d.id !== e.pointerId) return;
+    const at = d.at ? this.#sectionAt(e) : null;
+    this.#sectionDrag = null;
+    if (!at) return;
+    this.#suppressClick = true;
+    setTimeout(() => {
+      this.#suppressClick = false;
+    }, 0);
+    const result = cancelled ? null : d.edge ? this.session.resizeSection(d.index, at) : this.session.moveSection(d.index, at.x, at.y);
+    if (!result || "error" in result) this.#draw();
+  }
+
+  /** A double-click on a section's label opens its rename field. */
+  #onSectionDoubleClick(e: MouseEvent): void {
+    const hit = this.#sectionPartOf(e);
+    if (!hit?.label) return;
+    e.preventDefault();
+    this.#openRename(hit.label, this.session.sections[hit.index]!.name, "Section name", hit.index);
   }
 
   #onFrameClick(e: MouseEvent): void {
