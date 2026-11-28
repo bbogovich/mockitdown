@@ -2665,6 +2665,50 @@
       "area": "lang"
     },
     {
+      "name": "edit-nested-stacks",
+      "area": "edit"
+    },
+    {
+      "name": "edit-list-cards",
+      "area": "edit"
+    },
+    {
+      "name": "edit-modifier-chain",
+      "area": "edit"
+    },
+    {
+      "name": "edit-slots",
+      "area": "edit"
+    },
+    {
+      "name": "edit-presentation",
+      "area": "edit"
+    },
+    {
+      "name": "edit-foreach",
+      "area": "edit"
+    },
+    {
+      "name": "edit-if-else",
+      "area": "edit"
+    },
+    {
+      "name": "edit-struct",
+      "area": "edit"
+    },
+    {
+      "name": "edit-literal",
+      "area": "edit"
+    },
+    {
+      "name": "edit-import",
+      "area": "edit"
+    },
+    {
+      "name": "edit-marks",
+      "area": "edit"
+    },
+    {
       "name": "diag-syntax-error",
       "area": "diag"
     },

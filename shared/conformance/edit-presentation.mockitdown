@@ -1,0 +1,17 @@
+// edit mode: an alert and a sheet
+VStack {
+  Text("Inbox")
+  Button("Delete")
+    .alert("Delete?", isPresented: true) {
+      Button("Cancel")
+      Button("Delete", role: .destructive)
+    } message: {
+      Text("This cannot be undone.")
+    }
+}
+.sheet(isPresented: true) {
+  VStack {
+    Text("New message")
+    Button("Send")
+  }
+}

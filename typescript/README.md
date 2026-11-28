@@ -66,7 +66,7 @@ const { html, packs } = render(source, {});
 
 Options use the Python `RenderOptions` field names (`pack`, `default_pack`, `device`, `appearance`,
 `width`, `height`, `chrome`, `title`, `id`, `caption`, `elements`, `source`, `window`, `windowed`, `menubar`, `app`, `url`,
-`import_paths`, `source_path`, `show_warnings`), plus `import_resolver`, a function returning a
+`import_paths`, `source_path`, `show_warnings`, `edit`), plus `import_resolver`, a function returning a
 component file's text for a candidate path, and `asset_base`, the URL local image paths resolve
 against (images are never embedded; without it a local path is reported as not found).
 
@@ -102,6 +102,19 @@ Removing an argument, modifier, identifier or comment that is not there is refus
 that does not parse (its diagnostic counts columns from the given code).
 
 The printing rules are fixed by the edit corpus in `shared/conformance/edit/`.
+
+To tie a rendering back to the source, render with `edit: true` (also `<mockitdown-mockup edit>`; it is
+no fence option). Every role root a view node produced then carries `data-mkd-node` with its ordinal,
+and one a `ForEach`, an `if` or a component body produced also `data-mkd-derived` with that construct's
+ordinal; text from a string literal or a variable carries neither. The Python `render(..., edit=True)`
+writes the same attributes.
+
+```js
+render('VStack { ForEach(["Mon", "Tue"], id: \\.self) { d in Text(d) } }', { edit: true }).html;
+// <div class="mkd-vstack" data-el="VStack" data-mkd-node="n1" …>
+//   <span class="mkd-text" data-el="Text" data-mkd-node="n3" data-mkd-derived="n2" …>Mon</span> …
+tree.byOrdinal("n3");                                 // the ViewNode, with its stable id
+```
 
 ## Development
 

@@ -214,6 +214,29 @@ test("boolean attributes: present without a value means true; unknown attributes
   expect(got).toEqual({ table: true, source: true, caption: "Shown", diagnostics: 0 });
 });
 
+test("TC-4: the edit attribute renders with edit: true; removing it re-renders without data-mkd-node (C13)", async ({ page }) => {
+  await open(page);
+  const code = 'VStack {\n  ForEach(["a", "b"], id: \\.self) { s in Text(s) }\n  Button("Go")\n}';
+  await page.evaluate((c) => {
+    const el = document.createElement("mockitdown-mockup");
+    el.setAttribute("edit", "");
+    el.code = c;
+    document.getElementById("fixture").replaceChildren(el);
+  }, code);
+  await page.evaluate(() => document.querySelector("#fixture mockitdown-mockup").rendered);
+  const viaCore = await page.evaluate(async (src) => (await import("../dist/mockitdown.js")).render(src, { edit: true }).html, code);
+  expect(viaCore).toContain('data-mkd-node="n3" data-mkd-derived="n2"');
+  expect(await shadowHtml(page)).toBe(await normalised(page, viaCore));
+  const after = await page.evaluate(async () => {
+    const el = document.querySelector("#fixture mockitdown-mockup");
+    el.removeAttribute("edit");
+    await el.rendered;
+    return { html: el.shadowRoot.innerHTML, nodes: el.shadowRoot.querySelectorAll("[data-mkd-node]").length };
+  });
+  expect(after.nodes).toBe(0);
+  expect(after.html).not.toContain("data-mkd-");
+});
+
 test("asset-base resolves local images against a URL (C3)", async ({ page }) => {
   await open(page);
   await mount(page, `<mockitdown-mockup asset-base="../shared/img"><script type="text/mockitdown">Image("team.jpg")</script></mockitdown-mockup>`);

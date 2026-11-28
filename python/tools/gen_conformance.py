@@ -29,7 +29,8 @@ that file's resolved path as their source, so the corpus has none (the generator
 Areas (the name prefix): role-* (every base element, by render role), pack-* (every shipped pack,
 plus its own elements in chunks), appearance-*, device-*, chrome-*, option-*, import-*,
 annotate-*, overlay-*, chart-*, shape-*, control-* (SwiftUI control styles), present-* (SwiftUI
-presentations and navigation), image-*, lang-*, diag-*.
+presentations and navigation), image-*, lang-*, edit-* (edit-mode rendering, ``edit: true``, R-EDIT-004),
+diag-*.
 """
 
 from __future__ import annotations
@@ -60,7 +61,7 @@ OPTION_KEYS: dict[str, type] = {
     "pack": str, "default_pack": str, "device": str, "default_device": str, "appearance": str,
     "default_appearance": str, "width": int, "height": int, "chrome": str, "title": str, "id": str,
     "caption": bool, "elements": bool, "source": bool, "window": str, "url": str, "show_warnings": bool,
-    "windowed": bool, "menubar": (bool, str), "app": str,
+    "windowed": bool, "menubar": (bool, str), "app": str, "edit": bool,
 }
 
 #: Own elements per pack-<id>-own-<n> case.
@@ -650,6 +651,155 @@ def lang_cases() -> list[Case]:
     return out
 
 
+def edit_cases() -> list[Case]:
+    """Edit-mode rendering (R-EDIT-004.C9): `data-mkd-node` on every role root a view node produced and
+    `data-mkd-derived` on those a ForEach, an if or a struct body produced."""
+    out = [
+        Case("edit-nested-stacks", "edit mode: nested stacks, a bare identifier as a view", """
+VStack(spacing: 8) {
+  HStack {
+    Text("A")
+    Spacer()
+    Text("B")
+  }
+  HStack(spacing: 4) {
+    Image(systemName: "star")
+    Text("C")
+  }
+  Divider
+}"""),
+        Case("edit-list-cards", "edit mode: a list of cards", """
+List {
+  Card("Standup") {
+    Text("9:00")
+    Button("Join")
+  }
+  Card("Review") {
+    Text("14:00")
+  }
+}"""),
+        Case("edit-modifier-chain", "edit mode: modifier chains and a view in a modifier's closure", """
+VStack {
+  Text("Title")
+    .font(.title)
+    .bold()
+    .padding(8)
+  Button("Go")
+    .buttonStyle(.borderedProminent)
+    .disabled(true)
+  Image(systemName: "bell")
+    .overlay(alignment: .topTrailing) {
+      Badge("3")
+    }
+}"""),
+        Case("edit-slots", "edit mode: labelled closures and a view-valued argument", """
+VStack(alignment: .leading, spacing: 12) {
+  Label {
+    Text("Inbox")
+  } icon: {
+    Image(systemName: "tray")
+  }
+  Card("Plan", subtitle: Text("Due today")) {
+    Text("Body")
+  } header: {
+    Badge("New")
+  }
+}"""),
+        Case("edit-presentation", "edit mode: an alert and a sheet", """
+VStack {
+  Text("Inbox")
+  Button("Delete")
+    .alert("Delete?", isPresented: true) {
+      Button("Cancel")
+      Button("Delete", role: .destructive)
+    } message: {
+      Text("This cannot be undone.")
+    }
+}
+.sheet(isPresented: true) {
+  VStack {
+    Text("New message")
+    Button("Send")
+  }
+}"""),
+        Case("edit-foreach", "edit mode: views of a ForEach, and of an if inside one, are derived", """
+VStack {
+  ForEach(["Mon", "Tue"], id: \\.self) { day in
+    Text(day)
+  }
+  ForEach(1...2, id: \\.self) { i in
+    if i == 1 {
+      Text("one")
+    } else {
+      Badge("\\(i)")
+    }
+  }
+}"""),
+        Case("edit-if-else", "edit mode: views of an if/else and an else-if branch are derived", """
+let signedIn = false
+VStack {
+  if signedIn {
+    Text("Welcome back")
+  } else {
+    Button("Sign in")
+    Text("or create an account")
+  }
+  if signedIn {
+    Text("A")
+  } else if !signedIn {
+    Label("Offline", systemImage: "wifi.slash")
+  }
+}"""),
+        Case("edit-struct", "edit mode: a struct component's body is derived from each call; its content is not", """
+struct TaskRow: View {
+  var title: String
+  var done: Bool = false
+  @ViewBuilder var trailing: Content
+  var body: some View {
+    HStack {
+      Image(systemName: done ? "checkmark.circle" : "circle")
+      Text(title)
+      Spacer()
+      trailing
+    }
+  }
+}
+
+VStack {
+  TaskRow(title: "Write spec", done: true) {
+    Badge("2")
+  }
+  TaskRow(title: "Review") {
+    Text("today")
+  }
+}"""),
+        Case("edit-literal", "edit mode: a string literal and variables used as views carry no attribute", """
+let name = "Ada"
+VStack {
+  "A plain string"
+  Text("A text")
+  name
+  ForEach(["x"], id: \\.self) { s in
+    s
+  }
+}"""),
+        Case("edit-import", "edit mode: an imported component's views are derived from the call, with no node", """
+import "components/pill"
+HStack(spacing: 8) {
+  StatusPill(text: "Online")
+}"""),
+        Case("edit-marks", "edit mode: annotation marks, the Elements table and the source carry no attribute", """
+VStack(spacing: 8) {
+  Text("Inbox").id("title").callout(1, "Title")
+  Button("Compose").id("compose").ref("R-MAIL-001")
+}""", {"elements": True, "source": True}),
+    ]
+    for c in out:
+        c.options.setdefault("device", "fit")
+        c.options["edit"] = True
+    return out
+
+
 def diag_cases() -> list[Case]:
     out = [
         Case("diag-syntax-error", "a syntax error stops rendering", 'VStack { Text("open"'),
@@ -685,7 +835,7 @@ def diag_cases() -> list[Case]:
 def build_cases() -> list[Case]:
     cases = (role_cases() + pack_cases() + appearance_cases() + device_cases() + chrome_cases()
              + option_cases() + import_cases() + annotate_cases() + overlay_cases() + chart_cases()
-             + shape_cases() + control_cases() + present_cases() + image_cases() + lang_cases() + diag_cases())
+             + shape_cases() + control_cases() + present_cases() + image_cases() + lang_cases() + edit_cases() + diag_cases())
     names = [c.name for c in cases]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:

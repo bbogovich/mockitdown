@@ -66,6 +66,9 @@ class RenderOptions:
     #: File the source came from (resolves relative imports and assets), if any.
     source_path: Path | None = None
     show_warnings: bool = False
+    #: Edit-mode rendering (R-EDIT-004): `data-mkd-node` and `data-mkd-derived` on role roots. A library
+    #: option only: the fence and the command line do not offer it.
+    edit: bool = False
 
     def with_overrides(self, **values: object) -> RenderOptions:
         known = {f.name for f in fields(self)}

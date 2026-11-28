@@ -52,7 +52,7 @@ def evaluate(source: str, options: RenderOptions | None = None,
     reg = _registry(tuple(str(p) for p in opts.pack_paths))
     base_dir = opts.source_path.parent if opts.source_path else None
     ev = Evaluator(reg, diags, default_pack=opts.default_pack, pack_override=opts.pack,
-                   imports=ImportContext(_search_paths(opts.import_paths), base_dir))
+                   imports=ImportContext(_search_paths(opts.import_paths), base_dir), edit=opts.edit)
     return ev.evaluate(module), diags
 
 
@@ -69,6 +69,7 @@ def render(source: str, options: RenderOptions | None = None, /, **overrides: ob
     assets = AssetResolver(_search_paths(opts.asset_paths), base_dir, diags, embed=opts.embed_assets,
                            max_bytes=opts.max_embed_bytes)
     renderer = Renderer(screen.pack, diags, assets)
+    renderer.edit = opts.edit
     body = render_screen(screen, renderer, opts, diags, source)
     errors = diags.errors
     shown = errors + (diags.warnings if opts.show_warnings else [])

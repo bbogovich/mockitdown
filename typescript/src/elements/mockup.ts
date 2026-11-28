@@ -14,7 +14,9 @@
  *
  * Attributes: the fence attributes (`pack`, `device`, `appearance`, `chrome`, `title`, `id`, `url`,
  * `width`, `height`, `caption`, `elements`, `source`, `window`, `windowed`, `menubar`, `app`) with the fence's
- * meanings, plus `import-base` and `asset-base` (URLs, default: the document's base URL). A boolean attribute
+ * meanings, plus `import-base` and `asset-base` (URLs, default: the document's base URL) and the boolean `edit`,
+ * which renders with the `edit` option (R-EDIT-004: `data-mkd-node` and `data-mkd-derived` on role roots;
+ * R-WEB-002.C13) and, like the base URLs, is no fence attribute. A boolean attribute
  * present without a value is true, and so is `menubar` (R-DEV-009.C1). Note that `id` and `title` are also global HTML attributes: they
  * set the figure's id and title (and its caption) as well as the element's id and tooltip.
  *
@@ -26,7 +28,7 @@
  */
 
 import {
-  assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS, Location, render, stylesheet,
+  assetsLoaded, coerceFenceOptions, Diagnostic, errorHtml, FENCE_OPTIONS, Location, parseBool, render, stylesheet,
   type RenderResult,
 } from "../core/index.js";
 import { loadAssetsFromUrl } from "./assets.js";
@@ -34,8 +36,8 @@ import { loadAssetsFromUrl } from "./assets.js";
 export const MOCKUP_TAG = "mockitdown-mockup";
 /** The `type` of the script child that holds the code. */
 export const SCRIPT_TYPE = "text/mockitdown";
-/** The attributes the element observes: the fence attributes, then the two base URLs. */
-export const MOCKUP_ATTRIBUTES: readonly string[] = [...FENCE_OPTIONS.keys(), "import-base", "asset-base"];
+/** The attributes the element observes: the fence attributes, then the two base URLs and `edit`. */
+export const MOCKUP_ATTRIBUTES: readonly string[] = [...FENCE_OPTIONS.keys(), "import-base", "asset-base", "edit"];
 /** The event dispatched after a render that produced diagnostics. */
 export const DIAGNOSTICS_EVENT = "mockitdown-diagnostics";
 
@@ -267,6 +269,8 @@ export class MockupElement extends Base {
       const importBase = importAttr !== null ? directoryUrl(new URL(importAttr, base).href) : base;
       const assetAttr = this.getAttribute("asset-base");
       const assetBase = assetAttr !== null ? new URL(assetAttr, base).href : new URL(".", base).href;
+      const editAttr = this.getAttribute("edit");
+      const edit = editAttr !== null && (editAttr === "" || parseBool(editAttr));
       const code = this.code;
 
       // The core resolves imports synchronously: render, fetch the import files it asked for and
@@ -277,6 +281,7 @@ export class MockupElement extends Base {
         result = render(code, {
           ...typed,
           asset_base: assetBase,
+          edit,
           import_resolver: (path: string) => {
             const url = new URL(path, importBase).href;
             if (importTexts.has(url)) return importTexts.get(url);

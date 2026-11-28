@@ -14,6 +14,7 @@ import type { ImportResolver } from "./options.js";
 import type { Pack, PackRegistry } from "./packs/registry.js";
 import type * as A from "./syntax/ast.js";
 import { isViewProperty } from "./syntax/ast.js";
+import { structViewNodes, viewNodeOrdinals } from "./syntax/tree.js";
 import {
   codePoints, isDigits, isFloat, isIntLike, isList, isNumberLike, isSeq, isTuple, num, parseDigits, pyAdd,
   pyBool, pyCompare, PyDict, pyDiv, pyEq, PyError, PyFloat, pyLen, pyMul, pyNeg, pyStr, pySub, pyTypeName,
@@ -30,10 +31,13 @@ const ONCE_MODIFIERS = new Set(["callout", "annotation", "pointer", "cursor", "m
 export class Env {
   readonly vars: Map<string, Value>;
   readonly parent: Env | null;
+  /** In edit mode, the ordinal of the innermost ForEach, if or struct call evaluating here (R-EDIT-004.C5). */
+  derived: string;
 
   constructor(parent: Env | null = null, values?: Map<string, Value>) {
     this.vars = new Map(values ?? []);
     this.parent = parent;
+    this.derived = parent !== null ? parent.derived : "";
   }
 
   lookup(name: string): [boolean, Value] {
@@ -45,6 +49,14 @@ export class Env {
 
   child(values?: Map<string, Value>): Env {
     return new Env(this, values);
+  }
+
+  /** A child environment whose views are derived from `ordinal` (this one when it is ""). */
+  deriving(ordinal: string): Env {
+    if (!ordinal) return this;
+    const env = new Env(this);
+    env.derived = ordinal;
+    return env;
   }
 }
 
@@ -88,10 +100,18 @@ export class Evaluator {
   used_components: string[] = [];
   /** True while rendering the implicit preview of a declarations-only block. */
   preview = false;
+  /** Edit mode (R-EDIT-004): views record the view node they came from and what derived them. */
+  readonly edit: boolean;
+  /** A view node's syntax node of the rendered source → its ordinal. */
+  private ordinals = new Map<A.Node, string>();
+  /** The view nodes' syntax nodes of other sources (imported structs), which have no ordinal. */
+  private readonly foreign = new Set<A.Node>();
+  private readonly foreignDone = new Set<A.StructDecl>();
 
   constructor(registry: PackRegistry, diagnostics: Diagnostics, opts: {
-    default_pack?: string; pack_override?: string | null; imports?: ImportContext;
+    default_pack?: string; pack_override?: string | null; imports?: ImportContext; edit?: boolean;
   } = {}) {
+    this.edit = opts.edit ?? false;
     this.registry = registry;
     this.diags = diagnostics;
     this.default_pack = opts.default_pack ?? "base";
@@ -114,6 +134,10 @@ export class Evaluator {
     this.pack = this.selectPack(module, meta);
     this.loadImports(module.imports, this.imports.base_dir, new Set());
     for (const s of module.structs) this.structs.set(s.name, s);
+    if (this.edit) {
+      this.ordinals = viewNodeOrdinals(module);
+      for (const s of module.structs) this.foreignDone.add(s);
+    }
     const env = new Env();
     let statements = module.statements;
     if (!statements.length && module.structs.length) {
@@ -235,7 +259,7 @@ export class Evaluator {
       if (st.kind === "LetStmt") local.vars.set(st.name, this.value(st.value, local));
       else if (st.kind === "IfStmt") {
         const branch = truthy(this.value(st.cond, local)) ? st.then : st.other;
-        out.push(...this.block(branch, local));
+        out.push(...this.block(branch, this.edit ? local.deriving(this.ordinals.get(st) ?? "") : local));
       } else if (st.kind === "ExprStmt") out.push(...this.views(st.expr, local));
       else this.diags.error("unsupported statement", st.loc);
     }
@@ -265,8 +289,9 @@ export class Evaluator {
     }
     if (expr.kind === "Member") {
       if (expr.base.kind === "Ident" && expr.base.name === "Color" && this.p.element("Color")) {
-        return [this.elementView("Color", { kind: "Call", callee: { kind: "Ident", name: "Color", loc: expr.loc },
-          args: [{ label: null, value: { kind: "EnumCase", name: expr.name, loc: expr.loc } }], trailing: [], loc: expr.loc }, env)];
+        return [this.mark(this.elementView("Color", { kind: "Call", callee: { kind: "Ident", name: "Color", loc: expr.loc },
+          args: [{ label: null, value: { kind: "EnumCase", name: expr.name, loc: expr.loc } }], trailing: [], loc: expr.loc }, env),
+        expr.base, env)];
       }
       // `view.modifier` without parentheses: Swift requires them; accept leniently.
       return this.applyModifier(expr, { kind: "Call", callee: expr, args: [], trailing: [], loc: expr.loc }, env);
@@ -278,7 +303,7 @@ export class Evaluator {
         return this.callView(expr.name, { kind: "Call", callee: expr, args: [], trailing: [], loc: expr.loc }, env);
       }
       this.diags.error(`unknown view or variable ${strRepr(expr.name)}`, expr.loc, "unknown");
-      return [new View(expr.name, "unknown", { loc: expr.loc })];
+      return [this.mark(new View(expr.name, "unknown", { loc: expr.loc }), expr, env)];
     }
     if ((expr.kind === "Literal" || expr.kind === "StringLit") && this.p.element("Text")) {
       const text = this.value(expr, env);
@@ -311,7 +336,7 @@ export class Evaluator {
     if (this.p.element(name)) return [this.elementView(name, call, env)];
     this.diags.error(`${strRepr(name)} is not an element of pack ${strRepr(this.p.id)} and no struct of that name `
       + "is declared or imported", call.loc, "unknown");
-    const v = new View(name, "unknown", { loc: call.loc });
+    const v = this.mark(new View(name, "unknown", { loc: call.loc }), call, env);
     v.children = this.trailingChildren(call, env);
     return [v];
   }
@@ -338,6 +363,10 @@ export class Evaluator {
     if (body === null) {
       this.diags.error("ForEach needs a content closure", call.loc, "foreach");
       return [];
+    }
+    if (this.edit) {
+      const ordinal = this.ordinal(call);
+      if (ordinal) body = new Thunk(body.closure, (body.env as Env).deriving(ordinal));
     }
     if (isIntLike(data)) data = range(0, num(data));
     else if (data instanceof PyDict) data = data.items().map((kv) => tuple(kv));
@@ -464,6 +493,10 @@ export class Evaluator {
       else this.diags.warning(`struct ${decl.name} has no property ${strRepr(label)}`, call.loc, "argument");
     }
     const senv = new Env();
+    if (this.edit) {
+      senv.derived = this.ordinal(call) || env.derived;
+      this.noteForeign(decl);
+    }
     let posIndex = 0;
     const nextPositional = (): Value | typeof MISSING => (posIndex < positional.length ? positional[posIndex++] : MISSING);
     for (const p of props) {
@@ -508,6 +541,34 @@ export class Evaluator {
     return this.p.attrs.get(label, label) as string;
   }
 
+  // --- edit mode (R-EDIT-004) -------------------------------------------------------------------
+
+  /** The ordinal of the view node a call is: the call itself, or the bare identifier it was made for. */
+  private ordinal(call: A.Call): string {
+    return this.ordinals.get(call) ?? (call.callee.kind === "Ident" ? this.ordinals.get(call.callee) : undefined) ?? "";
+  }
+
+  private noteForeign(decl: A.StructDecl): void {
+    if (this.foreignDone.has(decl)) return;
+    this.foreignDone.add(decl);
+    for (const n of structViewNodes(decl)) this.foreign.add(n);
+  }
+
+  /**
+   * In edit mode, record the view node a view came from (C4) and what derived it (C5). A view no view
+   * node produced (a literal or a variable used as a view, C7) gets neither.
+   */
+  private mark(view: View, node: A.Node, env: Env): View {
+    if (!this.edit) return view;
+    const ordinal = node.kind === "Call" ? this.ordinal(node) : this.ordinals.get(node) ?? "";
+    const foreign = this.foreign.has(node) || (node.kind === "Call" && node.callee.kind === "Ident" && this.foreign.has(node.callee));
+    if (ordinal || foreign) {
+      view.node = ordinal;
+      view.derived = env.derived;
+    }
+    return view;
+  }
+
   private elementView(name: string, call: A.Call, env: Env): View {
     const el = this.p.element(name)!;
     const attrs = el.default_attrs;
@@ -523,7 +584,7 @@ export class Evaluator {
       if (i < el.params.length) attrs.set(this.labelFor(el, el.params[i]), val);
       else extra.push(val);
     });
-    const view = new View(name, el.role, { element: el, attrs, extra_args: extra, loc: call.loc });
+    const view = this.mark(new View(name, el.role, { element: el, attrs, extra_args: extra, loc: call.loc }), call, env);
     for (const [label, closure] of call.trailing) {
       const views = this.block(closure.body, env);
       if (label === null) view.children = views;

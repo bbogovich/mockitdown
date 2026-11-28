@@ -1,0 +1,15 @@
+// edit mode: views of an if/else and an else-if branch are derived
+let signedIn = false
+VStack {
+  if signedIn {
+    Text("Welcome back")
+  } else {
+    Button("Sign in")
+    Text("or create an account")
+  }
+  if signedIn {
+    Text("A")
+  } else if !signedIn {
+    Label("Offline", systemImage: "wifi.slash")
+  }
+}

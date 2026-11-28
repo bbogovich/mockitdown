@@ -1,0 +1,23 @@
+// edit mode: a struct component's body is derived from each call; its content is not
+struct TaskRow: View {
+  var title: String
+  var done: Bool = false
+  @ViewBuilder var trailing: Content
+  var body: some View {
+    HStack {
+      Image(systemName: done ? "checkmark.circle" : "circle")
+      Text(title)
+      Spacer()
+      trailing
+    }
+  }
+}
+
+VStack {
+  TaskRow(title: "Write spec", done: true) {
+    Badge("2")
+  }
+  TaskRow(title: "Review") {
+    Text("today")
+  }
+}

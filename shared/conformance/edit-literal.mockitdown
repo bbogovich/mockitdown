@@ -1,0 +1,10 @@
+// edit mode: a string literal and variables used as views carry no attribute
+let name = "Ada"
+VStack {
+  "A plain string"
+  Text("A text")
+  name
+  ForEach(["x"], id: \.self) { s in
+    s
+  }
+}

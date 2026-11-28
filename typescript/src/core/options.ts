@@ -82,6 +82,11 @@ export interface RenderOptions {
    * becomes `<asset_base>/team.jpg`. Without one a local path is reported as not found.
    */
   asset_base: string | null;
+  /**
+   * Edit-mode rendering (R-EDIT-004): `data-mkd-node` and `data-mkd-derived` on role roots. Not a
+   * fence attribute; the mockup element takes it from its `edit` attribute (R-WEB-002.C13).
+   */
+  edit: boolean;
 }
 
 export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
@@ -109,6 +114,7 @@ export const DEFAULT_OPTIONS: Readonly<RenderOptions> = Object.freeze({
   show_warnings: false,
   import_resolver: null,
   asset_base: null,
+  edit: false,
 });
 
 /**

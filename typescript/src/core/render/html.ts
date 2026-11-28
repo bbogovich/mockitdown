@@ -75,6 +75,8 @@ export class Renderer {
   /** Prefix making anchor names unique per figure on a page (set by the document assembler). */
   anchorPrefix = "a";
   anchorSeq = 0;
+  /** Edit mode (R-EDIT-004): write `data-mkd-node` and `data-mkd-derived` on role roots. */
+  edit = false;
 
   constructor(pack: Pack, diags: Diagnostics, assets: AssetResolver) {
     this.pack = pack;
@@ -107,7 +109,7 @@ export class Renderer {
   open(v: View, role: string, tag = "div", opts: OpenOpts = {}): string {
     const [mstyle, mdata, mcls] = this.styles.build(v);
     const classes = [`mkd-${role}`, ...(opts.cls ? [opts.cls] : []), ...mcls];
-    const parts = [`<${tag} class="${esc(classes.join(" "))}" data-el="${esc(v.name)}"`];
+    const parts = [`<${tag} class="${esc(classes.join(" "))}" data-el="${esc(v.name)}"${this.editAttrs(v)}`];
     if (v.component) parts.push(` data-component="${esc(v.component)}"`);
     const d: DataMap = new Map();
     for (const key of PASSTHROUGH) {
@@ -135,6 +137,12 @@ export class Renderer {
       if (val !== null && val !== undefined) parts.push(` ${k}="${esc(val)}"`);
     }
     return parts.join("") + ">";
+  }
+
+  /** `data-mkd-node` then `data-mkd-derived` in edit mode (R-EDIT-004.C4-C6), else "". */
+  editAttrs(v: View): string {
+    if (!this.edit) return "";
+    return (v.node ? ` data-mkd-node="${esc(v.node)}"` : "") + (v.derived ? ` data-mkd-derived="${esc(v.derived)}"` : "");
   }
 
   icon(nameValue: unknown, cls = "mkd-icon", v: View | null = null): string {
@@ -560,7 +568,7 @@ const ROLES: Record<string, RoleFn> = {
   ...ComponentRoles,
   ...AnnotationRoles,
   unknown(v) {
-    return `<div class="mkd-unknown" data-el="${esc(v.name)}"><span class="mkd-unknown__name">${esc(v.name)}</span>`
+    return `<div class="mkd-unknown" data-el="${esc(v.name)}"${this.editAttrs(v)}><span class="mkd-unknown__name">${esc(v.name)}</span>`
       + `${this.views(v.children)}</div>`;
   },
 };

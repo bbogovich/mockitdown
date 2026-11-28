@@ -85,6 +85,11 @@ class View:
     #: Name of the user struct this view is the root of, if any.
     component: str = ""
     loc: Location = field(default_factory=Location)
+    #: Ordinal (``n<k>``) of the view node of the rendered source it was produced from (R-EDIT-001.C4), or "".
+    node: str = ""
+    #: Ordinal of the innermost ``ForEach`` call, ``if`` statement or struct call that produced it
+    #: (R-EDIT-004.C5), or "".
+    derived: str = ""
 
     def mod(self, name: str) -> Modifier | None:
         for m in reversed(self.modifiers):

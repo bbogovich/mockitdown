@@ -1,0 +1,13 @@
+// edit mode: views of a ForEach, and of an if inside one, are derived
+VStack {
+  ForEach(["Mon", "Tue"], id: \.self) { day in
+    Text(day)
+  }
+  ForEach(1...2, id: \.self) { i in
+    if i == 1 {
+      Text("one")
+    } else {
+      Badge("\(i)")
+    }
+  }
+}

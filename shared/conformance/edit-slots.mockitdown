@@ -1,0 +1,13 @@
+// edit mode: labelled closures and a view-valued argument
+VStack(alignment: .leading, spacing: 12) {
+  Label {
+    Text("Inbox")
+  } icon: {
+    Image(systemName: "tray")
+  }
+  Card("Plan", subtitle: Text("Due today")) {
+    Text("Body")
+  } header: {
+    Badge("New")
+  }
+}

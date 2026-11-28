@@ -1,0 +1,14 @@
+// edit mode: modifier chains and a view in a modifier's closure
+VStack {
+  Text("Title")
+    .font(.title)
+    .bold()
+    .padding(8)
+  Button("Go")
+    .buttonStyle(.borderedProminent)
+    .disabled(true)
+  Image(systemName: "bell")
+    .overlay(alignment: .topTrailing) {
+      Badge("3")
+    }
+}

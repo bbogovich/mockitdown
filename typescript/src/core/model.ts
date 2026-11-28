@@ -175,6 +175,10 @@ export class View {
   /** Name of the user struct this view is the root of, if any. */
   component: string;
   loc: Location;
+  /** Ordinal (`n<k>`) of the view node of the rendered source it was produced from (R-EDIT-001.C4), or "". */
+  node = "";
+  /** Ordinal of the innermost `ForEach` call, `if` statement or struct call that produced it (R-EDIT-004.C5), or "". */
+  derived = "";
 
   constructor(name: string, role: string, init: {
     element?: ElementDef | null; attrs?: PyDict<Value>; extra_args?: Value[]; children?: View[];

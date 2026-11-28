@@ -11,6 +11,9 @@ root attributes are:
 ``data-state``      ``disabled`` | ``error`` | ``hover`` | ``focused`` | ``pressed`` | …
 ``data-selected``   ``true`` when selected
 ``data-mkd-id`` / ``data-ref``  from ``.id()`` / ``.ref()`` (the Elements table)
+``data-mkd-node`` / ``data-mkd-derived``  edit mode only (R-EDIT-004), directly after ``data-el``: the
+                    ordinal of the view node the view came from, and of the innermost ``ForEach``, ``if``
+                    or struct call that produced it
 
 No markup is interactive: controls are spans with ARIA roles, links do not navigate, and
 nothing needs JavaScript.
@@ -62,6 +65,8 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
         #: Prefix making anchor names unique per figure on a page (set by the document assembler).
         self.anchor_prefix = "a"
         self.anchor_seq = 0
+        #: Edit mode (R-EDIT-004): write ``data-mkd-node`` and ``data-mkd-derived`` on role roots.
+        self.edit = False
 
     # --- infrastructure ---------------------------------------------------------------------------
 
@@ -84,7 +89,7 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
              style: dict | None = None, attrs: dict | None = None) -> str:
         mstyle, mdata, mcls = self.styles.build(v)
         classes = [f"mkd-{role}"] + ([cls] if cls else []) + mcls
-        parts = [f'<{tag} class="{esc(" ".join(classes))}" data-el="{esc(v.name)}"']
+        parts = [f'<{tag} class="{esc(" ".join(classes))}" data-el="{esc(v.name)}"{self.edit_attrs(v)}']
         if v.component:
             parts.append(f' data-component="{esc(v.component)}"')
         d: dict[str, str] = {}
@@ -121,6 +126,13 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
             if val is not None:
                 parts.append(f' {k}="{esc(val)}"')
         return "".join(parts) + ">"
+
+    def edit_attrs(self, v: View) -> str:
+        """``data-mkd-node`` then ``data-mkd-derived`` in edit mode (R-EDIT-004.C4-C6), else ""."""
+        if not self.edit:
+            return ""
+        return ((f' data-mkd-node="{esc(v.node)}"' if v.node else "")
+                + (f' data-mkd-derived="{esc(v.derived)}"' if v.derived else ""))
 
     def icon(self, name: object, cls: str = "mkd-icon", v: View | None = None) -> str:
         n = _name(name)
@@ -286,7 +298,7 @@ class Renderer(LayoutRoles, ContentRoles, ControlRoles, NavigationRoles,
     # --- fallback ---------------------------------------------------------------------------------
 
     def r_unknown(self, v: View) -> str:
-        return (f'<div class="mkd-unknown" data-el="{esc(v.name)}"><span class="mkd-unknown__name">{esc(v.name)}</span>'
+        return (f'<div class="mkd-unknown" data-el="{esc(v.name)}"{self.edit_attrs(v)}><span class="mkd-unknown__name">{esc(v.name)}</span>'
                 f"{self.views(v.children)}</div>")
 
 

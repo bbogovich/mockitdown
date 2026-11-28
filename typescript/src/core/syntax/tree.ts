@@ -196,6 +196,25 @@ export function applyEdits(text: string, edits: readonly TextEdit[]): string {
   return out + text.slice(at);
 }
 
+/**
+ * @internal The syntax nodes of a module's view nodes and their ordinals, from source positions alone
+ * (R-EDIT-004.C3): what the evaluator writes into edit-mode views. The same numbering as
+ * {@link parseTree}, and as the Python `mockitdown.syntax.nodes.view_nodes`.
+ */
+export function viewNodeOrdinals(module: A.Module): Map<A.Node, string> {
+  const raw = new Collector("", []).collect(module);
+  raw.sort((a, b) => a.first - b.first);
+  return new Map(raw.map((r, i) => [r.syntax, `n${i + 1}`]));
+}
+
+/**
+ * @internal The syntax nodes of a struct's view nodes, unnumbered: those of a struct from another
+ * source, whose views are derived from the call that instantiates them but carry no ordinal (R-EDIT-004.C5).
+ */
+export function structViewNodes(decl: A.StructDecl): Set<A.Node> {
+  return new Set(new Collector("", []).collectStruct(decl).map((r) => r.syntax));
+}
+
 // --- building --------------------------------------------------------------------------------------
 
 interface Prior {
@@ -307,11 +326,14 @@ class Collector {
   }
 
   collect(mod: A.Module): RawNode[] {
-    for (const s of mod.structs) {
-      for (const p of s.properties) if (p.default) this.expr(p.default, null, false);
-      if (s.body) this.stmts(s.body, null);
-    }
+    for (const s of mod.structs) this.collectStruct(s);
     this.stmts(mod.statements, null);
+    return this.out;
+  }
+
+  collectStruct(s: A.StructDecl): RawNode[] {
+    for (const p of s.properties) if (p.default) this.expr(p.default, null, false);
+    if (s.body) this.stmts(s.body, null);
     return this.out;
   }
 

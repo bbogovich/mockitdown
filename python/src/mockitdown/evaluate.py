@@ -17,17 +17,20 @@ from .model import CallValue, EnumValue, Modifier, Screen, Thunk, View, ViewList
 from .packs import Pack, PackRegistry
 from .syntax import ast as A
 from .syntax import parse
+from .syntax.nodes import struct_view_nodes, view_nodes
 
 MAX_DEPTH = 48
 MAX_ITERATIONS = 500
 
 
 class Env:
-    __slots__ = ("vars", "parent")
+    __slots__ = ("vars", "parent", "derived")
 
     def __init__(self, parent: Env | None = None, values: dict | None = None) -> None:
         self.vars: dict[str, object] = dict(values or {})
         self.parent = parent
+        #: In edit mode, the ordinal of the innermost ForEach, if or struct call evaluating here (R-EDIT-004.C5).
+        self.derived: str = parent.derived if parent is not None else ""
 
     def lookup(self, name: str) -> tuple[bool, object]:
         e: Env | None = self
@@ -39,6 +42,14 @@ class Env:
 
     def child(self, values: dict | None = None) -> Env:
         return Env(self, values)
+
+    def deriving(self, ordinal: str) -> Env:
+        """A child environment whose views are derived from ``ordinal`` (unchanged when it is "")."""
+        if not ordinal:
+            return self
+        env = Env(self)
+        env.derived = ordinal
+        return env
 
 
 @dataclass
@@ -93,7 +104,8 @@ def truthy(v: object) -> bool:
 
 class Evaluator:
     def __init__(self, registry: PackRegistry, diagnostics: Diagnostics, *, default_pack: str = "base",
-                 pack_override: str | None = None, imports: ImportContext | None = None) -> None:
+                 pack_override: str | None = None, imports: ImportContext | None = None,
+                 edit: bool = False) -> None:
         self.registry = registry
         self.diags = diagnostics
         self.default_pack = default_pack
@@ -108,6 +120,13 @@ class Evaluator:
         self.used_components: list[str] = []
         #: True while rendering the implicit preview of a declarations-only block.
         self.preview = False
+        #: Edit mode (R-EDIT-004): views record the view node they came from and what derived them.
+        self.edit = edit
+        #: id() of a view node's syntax node of the rendered source → its ordinal.
+        self._ordinals: dict[int, str] = {}
+        #: id() of the view nodes' syntax nodes of other sources (imported structs), which have no ordinal.
+        self._foreign: set[int] = set()
+        self._foreign_done: set[int] = set()
 
     # --- entry -----------------------------------------------------------------------------------
 
@@ -117,6 +136,9 @@ class Evaluator:
         self._load_imports(module.imports, self.imports.base_dir, set())
         for s in module.structs:
             self.structs[s.name] = s
+        if self.edit:
+            self._ordinals = {id(n.node): n.ordinal for n in view_nodes(module)}
+            self._foreign_done = {id(s) for s in module.structs}
         env = Env()
         statements = module.statements
         if not statements and module.structs:
@@ -220,7 +242,7 @@ class Evaluator:
                 local.vars[st.name] = self.value(st.value, local)
             elif isinstance(st, A.IfStmt):
                 branch = st.then if truthy(self.value(st.cond, local)) else st.other
-                out.extend(self.block(branch, local))
+                out.extend(self.block(branch, local.deriving(self._ordinals.get(id(st), "")) if self.edit else local))
             elif isinstance(st, A.ExprStmt):
                 out.extend(self.views(st.expr, local))
             else:  # pragma: no cover - parser produces only the above
@@ -250,9 +272,9 @@ class Evaluator:
             return []
         if isinstance(expr, A.Member):
             if isinstance(expr.base, A.Ident) and expr.base.name == "Color" and self.pack.element("Color"):
-                return [self._element_view("Color", A.Call(A.Ident("Color", expr.loc),
+                return [self._mark(self._element_view("Color", A.Call(A.Ident("Color", expr.loc),
                                                             [A.Arg(None, A.EnumCase(expr.name, expr.loc))],
-                                                            [], expr.loc), env)]
+                                                            [], expr.loc), env), expr.base, env)]
             # `view.modifier` without parentheses: Swift requires them; accept leniently.
             return self._apply_modifier(expr, A.Call(expr, [], [], expr.loc), env)
         if isinstance(expr, A.Ident):
@@ -262,7 +284,7 @@ class Evaluator:
             if expr.name in self.structs or self.pack.element(expr.name):
                 return self._call_view(expr.name, A.Call(expr, [], [], expr.loc), env)
             self.diags.error(f"unknown view or variable {expr.name!r}", expr.loc, "unknown")
-            return [View(expr.name, "unknown", loc=expr.loc)]
+            return [self._mark(View(expr.name, "unknown", loc=expr.loc), expr, env)]
         if isinstance(expr, (A.Literal, A.StringLit)) and self.pack.element("Text"):
             text = self.value(expr, env)
             return [self._element_view("Text", A.Call(A.Ident("Text", expr.loc), [A.Arg(None, A.Literal(text))],
@@ -297,7 +319,7 @@ class Evaluator:
             return [self._element_view(name, call, env)]
         self.diags.error(f"{name!r} is not an element of pack {self.pack.id!r} and no struct of that name "
                          "is declared or imported", call.loc, "unknown")
-        v = View(name, "unknown", loc=call.loc)
+        v = self._mark(View(name, "unknown", loc=call.loc), call, env)
         v.children = self._trailing_children(call, env)
         return [v]
 
@@ -323,6 +345,10 @@ class Evaluator:
         if body is None:
             self.diags.error("ForEach needs a content closure", call.loc, "foreach")
             return []
+        if self.edit:
+            ordinal = self._ordinal(call)
+            if ordinal:
+                body = Thunk(body.closure, body.env.deriving(ordinal))
         if isinstance(data, int):
             data = list(range(data))
         elif isinstance(data, dict):
@@ -445,6 +471,9 @@ class Evaluator:
             else:
                 self.diags.warning(f"struct {decl.name} has no property {label!r}", call.loc, "argument")
         senv = Env()
+        if self.edit:
+            senv.derived = self._ordinal(call) or env.derived
+            self._note_foreign(decl)
         pos_iter = iter(positional)
         for p in props:
             if "computed" in p.attributes:
@@ -478,6 +507,33 @@ class Evaluator:
             v.component = v.component or decl.name
         return views
 
+    # --- edit mode (R-EDIT-004) -------------------------------------------------------------------
+
+    def _ordinal(self, call: A.Call) -> str:
+        """The ordinal of the view node a call is: the call itself, or the bare identifier it was made for."""
+        found = self._ordinals.get(id(call))
+        if found is None and isinstance(call.callee, A.Ident):
+            found = self._ordinals.get(id(call.callee))
+        return found or ""
+
+    def _note_foreign(self, decl: A.StructDecl) -> None:
+        if id(decl) not in self._foreign_done:
+            self._foreign_done.add(id(decl))
+            self._foreign.update(id(n) for n in struct_view_nodes(decl))
+
+    def _mark(self, view: View, node: A.Node, env: Env) -> View:
+        """In edit mode, record the view node a view came from (C4) and what derived it (C5). A view no
+        view node produced (a literal or a variable used as a view, C7) gets neither."""
+        if not self.edit:
+            return view
+        ordinal = self._ordinal(node) if isinstance(node, A.Call) else self._ordinals.get(id(node), "")
+        foreign = id(node) in self._foreign or (isinstance(node, A.Call) and isinstance(node.callee, A.Ident)
+                                                and id(node.callee) in self._foreign)
+        if ordinal or foreign:
+            view.node = ordinal
+            view.derived = env.derived
+        return view
+
     def _element_view(self, name: str, call: A.Call, env: Env) -> View:
         el = self.pack.element(name)
         assert el is not None
@@ -499,7 +555,7 @@ class Evaluator:
                 attrs[renames.get(param) or self.pack.attrs.get(param, param)] = val
             else:
                 extra.append(val)
-        view = View(name, el.role, el, attrs, extra, loc=call.loc)
+        view = self._mark(View(name, el.role, el, attrs, extra, loc=call.loc), call, env)
         for label, closure in call.trailing:
             views = self.block(closure.body, env)
             if label is None:

@@ -1,0 +1,5 @@
+// edit mode: annotation marks, the Elements table and the source carry no attribute
+VStack(spacing: 8) {
+  Text("Inbox").id("title").callout(1, "Title")
+  Button("Compose").id("compose").ref("R-MAIL-001")
+}

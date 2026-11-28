@@ -19,7 +19,9 @@
   "labels-hidden",
   "level",
   "material",
+  "mkd-derived",
   "mkd-id",
+  "mkd-node",
   "orientation",
   "placement",
   "position",
@@ -226,6 +228,7 @@
    ],
    "parts": [
     "actions",
+    "band",
     "body",
     "header",
     "header-actions",
@@ -1165,7 +1168,9 @@
     "Text"
    ],
    "parts": [],
-   "data": []
+   "data": [
+    "deco"
+   ]
   },
   "textfield": {
    "elements": [

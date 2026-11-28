@@ -50,6 +50,7 @@ export function evaluate(source: string, options?: Partial<RenderOptions> | null
   const ev = new Evaluator(registry, diags, {
     default_pack: opts.default_pack, pack_override: opts.pack,
     imports: { search_paths: [...opts.import_paths], base_dir: baseDir, resolver: opts.import_resolver },
+    edit: opts.edit,
   });
   return { screen: ev.evaluate(module), diagnostics: diags };
 }
@@ -94,6 +95,7 @@ export function render(source: string, options?: Partial<RenderOptions> | null):
   if (screen === null) return new RenderResult(errorHtml(diags.items), diags.items);
   const assets = new AssetResolver(opts.asset_base, diags);
   const renderer = new Renderer(screen.pack, diags, assets);
+  renderer.edit = opts.edit;
   let body = renderScreen(screen, renderer, opts, diags, source);
   const shown = [...diags.errors, ...(opts.show_warnings ? diags.warnings : [])];
   const prefix = shown.length ? errorHtml(shown) : "";

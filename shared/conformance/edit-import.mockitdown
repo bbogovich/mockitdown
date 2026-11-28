@@ -1,0 +1,5 @@
+// edit mode: an imported component's views are derived from the call, with no node
+import "components/pill"
+HStack(spacing: 8) {
+  StatusPill(text: "Online")
+}

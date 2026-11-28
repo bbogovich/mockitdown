@@ -9,6 +9,7 @@
 //              rendering, in order (severity, code, message, line, col, source).
 //   renders    render() returns exactly <name>.html minus its final line feed, and all of
 //              <name>.diag.json (R-WEB-001.C8).
+//   edit: false  the same render with `edit: false` added gives the same HTML (R-EDIT-004 TC-2, C2).
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -71,6 +72,19 @@ for (const area of areas) {
         assert.equal(result.html + "\n", html, "HTML (R-WEB-001.C8)");
         assert.deepEqual({ packs: result.packs, diagnostics: result.diagnostics.map((d) => d.toJSON()) }, expected,
           "<name>.diag.json (R-REPO-004.C7)");
+      });
+      it(`${c.name} renders unchanged with edit: false`, () => {
+        // R-EDIT-004 TC-2 (C2): `edit: false` is the same as no option — for an edit-mode case, the same as
+        // leaving its `edit: true` out.
+        const { source, options, html } = load(c.name);
+        const off = render(source, { ...options, edit: false }).html;
+        if (options.edit === true) {
+          const { edit: _edit, ...rest } = options;
+          assert.equal(off, render(source, rest).html);
+          assert.ok(!/data-mkd-(node|derived)/.test(off), "no edit attribute");
+        } else {
+          assert.equal(off + "\n", html, "HTML with edit: false");
+        }
       });
     }
   });

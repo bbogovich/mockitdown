@@ -1,0 +1,13 @@
+// edit mode: nested stacks, a bare identifier as a view
+VStack(spacing: 8) {
+  HStack {
+    Text("A")
+    Spacer()
+    Text("B")
+  }
+  HStack(spacing: 4) {
+    Image(systemName: "star")
+    Text("C")
+  }
+  Divider
+}
