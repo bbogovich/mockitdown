@@ -26,7 +26,7 @@ module for module, held to the Python output by the conformance corpus.
 | `core/options.ts` | `options.py` | `RenderOptions` (Python field names), `DEVICES`, `FENCE_OPTIONS`, `coerceFenceOptions` |
 | `core/syntax/lexer.ts`, `parser.ts`, `ast.ts` | `syntax/` | tokens, recursive-descent parser, syntax tree (plain objects with `kind`); offsets and comments for the editor |
 | `core/syntax/tree.ts` | — | the editing core's tree: view nodes, spans, ids, `parseTree`, `reparse` ([Editing core](editing.md)) |
-| `core/syntax/edit.ts` | — | the edit API: `edit(source or tree, op)` for insert, remove and move, the argument, modifier, identifier, comment and name operations, `indentUnit` ([Editing core](editing.md#the-edit-api)) |
+| `core/syntax/edit.ts` | — | the edit API: `edit(source or tree, op)` for insert, remove and move, the argument, modifier, identifier, comment and name operations, `indentUnit` ([Editing core](editing.md#the-edit-api)); its operation types in `edit-types.ts`, the operations on one node in `edit-arguments.ts`, text helpers in `edit-text.ts` |
 | `core/model.ts` | `model.py` | `View`, `Modifier`, `EnumValue`, `CallValue`, `Thunk`, `ViewList`, `Screen`, `walk` |
 | `core/evaluate.ts` | `evaluate.py` | `Evaluator`, `Env`, `formatValue`, `truthy` |
 | `core/components.ts` | `ImportContext`, `ImportCache` | component files as data: `registerComponents`, candidate paths, parse cache |
@@ -211,3 +211,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.43 | 2026-11-28 | `elements/designer.ts` in the module table (#27) |
 | 0.3.44 | 2026-11-28 | `core/roles.ts` in the module table; `ElementDef.rules`; `RENDER_ROLES` (#28) |
 | 0.3.45 | 2026-11-28 | `dist/shared/reference/` and the manifest's `reference`; `Evaluation.structs`; `elements/gallery.ts` (#29) |
+| 0.3.67 | 2026-11-28 | `core/syntax/edit.ts` split into `edit.ts`, `edit-types.ts`, `edit-arguments.ts` and `edit-text.ts`; exports unchanged (#100) |

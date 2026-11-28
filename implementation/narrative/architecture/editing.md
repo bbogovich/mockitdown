@@ -41,7 +41,10 @@ flowchart LR
 | `typescript/src/core/syntax/parser.ts` | every AST node, `Import`, `Attribute`, `Property` and `StructDecl` gets `start`/`end` through `fin(node, start)`: from its first token to the end of the last token consumed, line breaks skipped. `Call.loc` is still the `(` (the renderer's columns are unchanged) |
 | `typescript/src/core/syntax/ast.ts` | `start?`, `end?` on the node types (optional because the evaluator synthesises nodes of its own) |
 | `typescript/src/core/syntax/tree.ts` | `parseTree`, `reparse`, `applyEdits`, `SyntaxTree`, `ViewNode`; `reparseCarrying` (internal) for moves |
-| `typescript/src/core/syntax/edit.ts` | `edit`, `indentUnit` (defined in `lexer.ts` since #38, re-exported) and the operation types (`InsertOp`, `RemoveOp`, `MoveOp`, `SetArgumentOp`, `SetModifierOp`, `RenameOp`, `SetRefsOp`, `SetCommentOp`, `SetNameOp`, `EditResult`, `EditRefusal`) |
+| `typescript/src/core/syntax/edit.ts` | `edit`, `bodySiblings`, `statementChildren`, `nodeCode`, and the `Editor` (bodies, insert, remove, move, placing code); re-exports `indentUnit` (defined in `lexer.ts` since #38), `identifiersOf`, `stringLiteral` and the operation types, so every import from `edit.ts` is unchanged (#100) |
+| `typescript/src/core/syntax/edit-types.ts` | the operation types (`NodeRef`, `EditIndex`, `InsertOp`, `RemoveOp`, `MoveOp`, `SetArgumentOp`, `SetModifierOp`, `RenameOp`, `SetRefsOp`, `SetCommentOp`, `SetNameOp`, `EditOp`, `EditResult`, `EditRefusal`), and the internals both editing modules share: `Refusal`, `describe`, `Plan` |
+| `typescript/src/core/syntax/edit-arguments.ts` | the operations on one node (R-EDIT-003) as functions over `EditorState` (the tree, its source and tokens, and `node(ref)`): `setArgument`, `setModifier`, `rename`, `setRefs`, `setComment`, `setName`, `identifiersOf`, with `callShape`, `argShape`, `parens`, `modifierShapes`, `probe` and the argument and modifier removals |
+| `typescript/src/core/syntax/edit-text.ts` | text helpers: `mergeRanges`, `reindent`, `stringLiteral`, `quote`, `trailingComment`, `lineStart`, `lineEnd`, `lineIndent`, `startsLine`, `blank`, `descendants` |
 | `shared/conformance/edit/` | the edit corpus: `<name>.mockitdown`, `.op.json`, `.expected.mockitdown` or `.error.txt`, `index.json` |
 
 The lexer still scans by code point (columns match Python's) and counts offsets in code units
@@ -178,8 +181,9 @@ its id by the R-EDIT-001 rules.
 ## Operations on one node
 
 The R-EDIT-003 operations change one node's call and nothing around it. They need positions the AST
-does not keep (an argument's label, a call's parentheses, a modifier's `.`), so `Editor` reads them
-from the tokens:
+does not keep (an argument's label, a call's parentheses, a modifier's `.`), so they read them from
+the tokens. They live in `edit-arguments.ts`, as functions over the `EditorState` the `Editor` hands
+them (its tree, source and tokens, and `node(ref)`); `Editor.plan` dispatches to them:
 
 - `callShape(node)`: where the name ends (`callee.end`, or the identifier's name span), the `(`/`)`
   pair when the first token after the name is `(` (`parens`, matched by depth), each argument's
@@ -267,7 +271,7 @@ See [Testing](../testing.md).
 - A corpus case that fails: print `edit(source, op)` and its `edits` against the expected file;
   `JSON.stringify(r.edits)` shows whether the wrong rule (line, inline, empty, no closure) fired.
 - A refused `setArgument` or `setModifier` on code that looks right: print the node's argument
-  starts and parentheses (`callShape`) — a label on the line before its value, or a comment between
+  starts and parentheses (`callShape` in `edit-arguments.ts`) — a label on the line before its value, or a comment between
   name and `(`, moves the positions read from the tokens.
 - A moved node with a new id: the carried range did not hold exactly the old nodes (count or names);
   compare `r.tree.nodes` whose `first` lies in the inserted text with the moved subtree.
@@ -283,3 +287,4 @@ See [Testing](../testing.md).
 | 0.3.45 | 2026-11-28 | `insert` at the top level (`parent: null`, `placeTop`) and its two corpus cases (#29) |
 | 0.3.46 | 2026-11-28 | Top-level `move`, `statementChildren` (#30) |
 | 0.3.54 | 2026-11-28 | `indentUnit` moved to `lexer.ts` (re-exported by `edit.ts`) for the code view (#38) |
+| 0.3.67 | 2026-11-28 | `edit.ts` split: the operation types in `edit-types.ts`, the operations on one node in `edit-arguments.ts`, the text helpers in `edit-text.ts`; `edit.ts` keeps the entry points, the `Editor` and every export, unchanged (#100) |
