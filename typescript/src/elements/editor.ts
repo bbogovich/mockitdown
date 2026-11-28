@@ -57,6 +57,7 @@ import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, renderWithImports, SCRIPT_TYPE, scriptCode, showInShadow } from "./mockup.js";
+import { RenderScheduler, renderFailure } from "./scheduler.js";
 
 export const EDITOR_TAG = "mockitdown-editor";
 /** The attributes the editor observes: `mockup`, the fence attributes (its own session's defaults) and the two base URLs. */
@@ -152,12 +153,7 @@ export class EditorElement extends Base {
   #field: { node: string; input: HTMLInputElement } | null = null;
   /** Set while a render replaces the shadow root, so that the field's blur then commits nothing. */
   #replacing = false;
-  #generation = 0;
-  #dirty = true;
-  #queued = false;
-  #running = false;
-  #renderedOnce = false;
-  #waiters: (() => void)[] = [];
+  readonly #scheduler = new RenderScheduler(this, (generation) => this.#renderOnce(generation));
 
   constructor() {
     super();
@@ -213,8 +209,7 @@ export class EditorElement extends Base {
 
   /** A promise that resolves after the next render, or at once when rendered and up to date; it never rejects. */
   get rendered(): Promise<void> {
-    if (this.#renderedOnce && !this.#dirty && !this.#running && !this.#queued) return Promise.resolve();
-    return new Promise((resolve) => this.#waiters.push(resolve));
+    return this.#scheduler.rendered;
   }
 
   /**
@@ -239,7 +234,7 @@ export class EditorElement extends Base {
       this.#resize.observe(this);
     }
     this.#attach();
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   disconnectedCallback(): void {
@@ -250,7 +245,7 @@ export class EditorElement extends Base {
   attributeChangedCallback(name: string, old: string | null, value: string | null): void {
     if (old === value) return;
     if (this.#own && this.#session === this.#own && FENCE_OPTIONS.has(name)) this.#own.document.defaults = this.#fenceOptions()[0];
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   // --- the session --------------------------------------------------------------------------------
@@ -265,7 +260,7 @@ export class EditorElement extends Base {
       this.#trail = [];
       this.#cycle = null;
       this.#hoverEl = null;
-      this.#schedule();
+      this.#scheduler.schedule();
     }
     return next;
   }
@@ -319,11 +314,11 @@ export class EditorElement extends Base {
     const name = this.mockup;
     switch (n.kind) {
       case "change":
-        if (n.detail.mockup === name && n.detail.kind !== "move") this.#schedule();
-        else if (n.detail.kind === "mockups" && name === null) this.#schedule();
+        if (n.detail.mockup === name && n.detail.kind !== "move") this.#scheduler.schedule();
+        else if (n.detail.kind === "mockups" && name === null) this.#scheduler.schedule();
         break;
       case "active":
-        if (!this.hasAttribute("mockup")) this.#schedule();
+        if (!this.hasAttribute("mockup")) this.#scheduler.schedule();
         this.#trail = [];
         break;
       case "select":
@@ -338,7 +333,7 @@ export class EditorElement extends Base {
         if (n.detail.mockup === name && this.session.active === name) {
           if (this.#field) this.#closeField(true, false, true);
           this.#pendingText = n.detail.node;
-          this.#schedule();
+          this.#scheduler.schedule();
         }
         break;
     }
@@ -359,38 +354,9 @@ export class EditorElement extends Base {
 
   // --- rendering ----------------------------------------------------------------------------------
 
-  #schedule(): void {
-    this.#generation++;
-    this.#dirty = true;
-    if (!this.isConnected || this.#queued) return;
-    this.#queued = true;
-    queueMicrotask(() => {
-      this.#queued = false;
-      void this.#pump();
-    });
-  }
-
-  async #pump(): Promise<void> {
-    if (this.#running) return;
-    this.#running = true;
-    try {
-      while (this.#dirty && this.isConnected) {
-        this.#dirty = false;
-        await this.#renderOnce(this.#generation);
-      }
-    } finally {
-      this.#running = false;
-    }
-    if (!this.#dirty && this.#renderedOnce) {
-      const waiters = this.#waiters;
-      this.#waiters = [];
-      for (const w of waiters) w();
-    }
-  }
-
   /** One render; abandoned (without touching the shadow root) when a newer change arrived meanwhile. */
   async #renderOnce(generation: number): Promise<void> {
-    const stale = (): boolean => generation !== this.#generation;
+    const stale = (): boolean => this.#scheduler.stale(generation);
     let html = "";
     let packs: string[] = [];
     let diagnostics: Diagnostic[] = [];
@@ -417,9 +383,7 @@ export class EditorElement extends Base {
       }
     } catch (e) {
       if (stale()) return;
-      const message = e instanceof Error ? e.message : String(e);
-      diagnostics = [new Diagnostic("error", `cannot render: ${message}`, new Location(), "element")];
-      html = errorHtml(diagnostics);
+      ({ diagnostics, html } = renderFailure(e));
     }
     if (stale()) return;
     this.#replacing = true;
@@ -434,7 +398,7 @@ export class EditorElement extends Base {
     this.#overlay = this.#root.querySelector(".mkd-editor__overlay");
     this.#diagnostics = diagnostics;
     this.#hoverEl = null;
-    this.#renderedOnce = true;
+    this.#scheduler.done();
     this.#drawOverlay();
     this.#placeField();
   }

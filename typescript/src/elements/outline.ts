@@ -52,6 +52,7 @@ import { READ_ONLY_NOTE } from "../design/code-sync.js";
 import { loadAssetsFromUrl } from "./assets.js";
 import { armDrag, registerDropTarget, type Drag, type DropAnswer } from "./drag.js";
 import { baseUrls, evaluateWithImports } from "./mockup.js";
+import { RenderScheduler } from "./scheduler.js";
 
 export const OUTLINE_TAG = "mockitdown-outline";
 /** The attributes the outline observes: the base URL its mockups' imports resolve against. */
@@ -203,12 +204,7 @@ export class OutlineElement extends Base {
   #drop: DropMark | null = null;
   #typed = "";
   #typedAt = 0;
-  #generation = 0;
-  #dirty = true;
-  #queued = false;
-  #running = false;
-  #renderedOnce = false;
-  #waiters: (() => void)[] = [];
+  readonly #scheduler = new RenderScheduler(this, (generation) => this.#build(generation));
 
   constructor() {
     super();
@@ -268,8 +264,7 @@ export class OutlineElement extends Base {
 
   /** A promise that resolves after the next rebuild of the rows, or at once when up to date; it never rejects. */
   get rendered(): Promise<void> {
-    if (this.#renderedOnce && !this.#dirty && !this.#running && !this.#queued) return Promise.resolve();
-    return new Promise((resolve) => this.#waiters.push(resolve));
+    return this.#scheduler.rendered;
   }
 
   /**
@@ -287,11 +282,11 @@ export class OutlineElement extends Base {
 
   connectedCallback(): void {
     this.#attach();
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   attributeChangedCallback(_name: string, old: string | null, value: string | null): void {
-    if (old !== value) this.#schedule();
+    if (old !== value) this.#scheduler.schedule();
   }
 
   // --- the session --------------------------------------------------------------------------------
@@ -303,7 +298,7 @@ export class OutlineElement extends Base {
       this.#session = next;
       this.#unsubscribe = next.subscribe((n) => this.#notified(n));
       this.#current = null;
-      this.#schedule();
+      this.#scheduler.schedule();
     }
     return next;
   }
@@ -326,11 +321,11 @@ export class OutlineElement extends Base {
       case "change":
         if (n.detail.kind === "mockups") this.#drawMockups();
         // Deleting the last mockup leaves none active and notifies no `active` (R-TOOL-013.C2).
-        if ((n.detail.mockup === session?.active && n.detail.kind !== "move") || (n.detail.kind === "mockups" && session?.active === null)) this.#schedule();
+        if ((n.detail.mockup === session?.active && n.detail.kind !== "move") || (n.detail.kind === "mockups" && session?.active === null)) this.#scheduler.schedule();
         break;
       case "active":
         this.#current = null;
-        this.#schedule();
+        this.#scheduler.schedule();
         this.#drawMockups();
         break;
       case "rename":
@@ -360,38 +355,9 @@ export class OutlineElement extends Base {
 
   // --- building the rows --------------------------------------------------------------------------
 
-  #schedule(): void {
-    this.#generation++;
-    this.#dirty = true;
-    if (!this.isConnected || this.#queued) return;
-    this.#queued = true;
-    queueMicrotask(() => {
-      this.#queued = false;
-      void this.#pump();
-    });
-  }
-
-  async #pump(): Promise<void> {
-    if (this.#running) return;
-    this.#running = true;
-    try {
-      while (this.#dirty && this.isConnected) {
-        this.#dirty = false;
-        await this.#build(this.#generation);
-      }
-    } finally {
-      this.#running = false;
-    }
-    if (!this.#dirty && this.#renderedOnce) {
-      const waiters = this.#waiters;
-      this.#waiters = [];
-      for (const w of waiters) w();
-    }
-  }
-
   /** Evaluate the active mockup in edit mode and make its rows; the last rows stay when it does not evaluate. */
   async #build(generation: number): Promise<void> {
-    const stale = (): boolean => generation !== this.#generation;
+    const stale = (): boolean => this.#scheduler.stale(generation);
     const session = this.session;
     const name = session.active;
     let roots: OutlineRow[] | null = null;
@@ -425,7 +391,7 @@ export class OutlineElement extends Base {
       }
     };
     flat(roots);
-    this.#renderedOnce = true;
+    this.#scheduler.done();
     for (const id of session.selection) this.expandTo(id);
     this.#draw();
     this.#drawMockups();

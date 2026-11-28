@@ -32,6 +32,7 @@ import {
   type Evaluation, type RenderResult,
 } from "../core/index.js";
 import { loadAssetsFromUrl } from "./assets.js";
+import { RenderScheduler, renderFailure } from "./scheduler.js";
 
 export const MOCKUP_TAG = "mockitdown-mockup";
 /** The `type` of the script child that holds the code. */
@@ -241,12 +242,7 @@ export class MockupElement extends Base {
   #root: ShadowRoot;
   #observer: MutationObserver | null = null;
   #diagnostics: Diagnostic[] = [];
-  #generation = 0;
-  #dirty = true;
-  #queued = false;
-  #running = false;
-  #renderedOnce = false;
-  #waiters: (() => void)[] = [];
+  readonly #scheduler = new RenderScheduler(this, (generation) => this.#renderOnce(generation));
 
   constructor() {
     super();
@@ -269,7 +265,7 @@ export class MockupElement extends Base {
     }
     script.textContent = String(value);
     this.#observer?.takeRecords();
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   /** The last render's diagnostics (the render's, then the attribute problems). */
@@ -282,17 +278,16 @@ export class MockupElement extends Base {
    * at once when the element is connected, rendered and up to date. It never rejects.
    */
   get rendered(): Promise<void> {
-    if (this.#observer && this.#observer.takeRecords().length) this.#schedule();
-    if (this.#renderedOnce && !this.#dirty && !this.#running && !this.#queued) return Promise.resolve();
-    return new Promise((resolve) => this.#waiters.push(resolve));
+    if (this.#observer && this.#observer.takeRecords().length) this.#scheduler.schedule();
+    return this.#scheduler.rendered;
   }
 
   connectedCallback(): void {
     if (!this.#observer) {
-      this.#observer = new MutationObserver(() => this.#schedule());
+      this.#observer = new MutationObserver(() => this.#scheduler.schedule());
     }
     this.#observer.observe(this, { childList: true, characterData: true, subtree: true });
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   disconnectedCallback(): void {
@@ -300,7 +295,7 @@ export class MockupElement extends Base {
   }
 
   attributeChangedCallback(_name: string, old: string | null, value: string | null): void {
-    if (old !== value) this.#schedule();
+    if (old !== value) this.#scheduler.schedule();
   }
 
   #script(): HTMLScriptElement | null {
@@ -312,38 +307,9 @@ export class MockupElement extends Base {
     return null;
   }
 
-  #schedule(): void {
-    this.#generation++;
-    this.#dirty = true;
-    if (!this.isConnected || this.#queued) return;
-    this.#queued = true;
-    queueMicrotask(() => {
-      this.#queued = false;
-      void this.#pump();
-    });
-  }
-
-  async #pump(): Promise<void> {
-    if (this.#running) return;
-    this.#running = true;
-    try {
-      while (this.#dirty && this.isConnected) {
-        this.#dirty = false;
-        await this.#renderOnce(this.#generation);
-      }
-    } finally {
-      this.#running = false;
-    }
-    if (!this.#dirty && this.#renderedOnce) {
-      const waiters = this.#waiters;
-      this.#waiters = [];
-      for (const w of waiters) w();
-    }
-  }
-
   /** One render; abandoned (without touching the shadow root) when a newer change arrived meanwhile. */
   async #renderOnce(generation: number): Promise<void> {
-    const stale = (): boolean => generation !== this.#generation;
+    const stale = (): boolean => this.#scheduler.stale(generation);
     let html: string;
     let packs: string[] = [];
     let diagnostics: Diagnostic[];
@@ -368,14 +334,12 @@ export class MockupElement extends Base {
       packs = result.packs;
     } catch (e) {
       if (stale()) return;
-      const message = e instanceof Error ? e.message : String(e);
-      diagnostics = [new Diagnostic("error", `cannot render: ${message}`, new Location(), "element")];
-      html = errorHtml(diagnostics);
+      ({ diagnostics, html } = renderFailure(e));
     }
     if (stale()) return;
     this.#show(packs, html);
     this.#diagnostics = diagnostics;
-    this.#renderedOnce = true;
+    this.#scheduler.done();
     if (diagnostics.length) {
       this.dispatchEvent(new CustomEvent(DIAGNOSTICS_EVENT, {
         bubbles: true, composed: true, detail: { diagnostics: [...diagnostics] },

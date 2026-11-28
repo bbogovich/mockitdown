@@ -40,6 +40,7 @@ import type { EditRefusal, EditResult } from "../core/syntax/edit.js";
 import { defaultAssetsUrl, loadAssetsFromUrl } from "./assets.js";
 import { armDrag } from "./drag.js";
 import { baseUrls, evaluateWithImports, MOCKUP_TAG } from "./mockup.js";
+import { RenderScheduler } from "./scheduler.js";
 
 export const GALLERY_TAG = "mockitdown-gallery";
 /** The attributes the gallery observes: the base URL its mockups' imports resolve against. */
@@ -220,12 +221,7 @@ export class GalleryElement extends Base {
   #observer: IntersectionObserver | null = null;
   /** The name of the card holding the roving tab stop. */
   #current: string | null = null;
-  #generation = 0;
-  #dirty = true;
-  #queued = false;
-  #running = false;
-  #renderedOnce = false;
-  #waiters: (() => void)[] = [];
+  readonly #scheduler = new RenderScheduler(this, (generation) => this.#build(generation));
 
   constructor() {
     super();
@@ -291,8 +287,7 @@ export class GalleryElement extends Base {
 
   /** A promise that resolves after the next rebuild, or at once when up to date; it never rejects. */
   get rendered(): Promise<void> {
-    if (this.#renderedOnce && !this.#dirty && !this.#running && !this.#queued) return Promise.resolve();
-    return new Promise((resolve) => this.#waiters.push(resolve));
+    return this.#scheduler.rendered;
   }
 
   /**
@@ -313,7 +308,7 @@ export class GalleryElement extends Base {
 
   connectedCallback(): void {
     this.#attach();
-    this.#schedule();
+    this.#scheduler.schedule();
   }
 
   disconnectedCallback(): void {
@@ -322,7 +317,7 @@ export class GalleryElement extends Base {
   }
 
   attributeChangedCallback(_name: string, old: string | null, value: string | null): void {
-    if (old !== value) this.#schedule();
+    if (old !== value) this.#scheduler.schedule();
   }
 
   // --- the session --------------------------------------------------------------------------------
@@ -333,7 +328,7 @@ export class GalleryElement extends Base {
       this.#unsubscribe?.();
       this.#session = next;
       this.#unsubscribe = next.subscribe((n) => this.#notified(n));
-      this.#schedule();
+      this.#scheduler.schedule();
     }
     return next;
   }
@@ -354,12 +349,12 @@ export class GalleryElement extends Base {
     const session = this.#session;
     switch (n.kind) {
       case "change":
-        if (n.detail.kind !== "move" && (n.detail.mockup === session?.active || n.detail.kind === "mockups")) this.#schedule();
+        if (n.detail.kind !== "move" && (n.detail.mockup === session?.active || n.detail.kind === "mockups")) this.#scheduler.schedule();
         break;
       case "active":
       case "select":
       case "rename":
-        this.#schedule();
+        this.#scheduler.schedule();
         break;
     }
     if (this.#session === this.#own && n.kind in DESIGN_EVENTS) {
@@ -370,38 +365,9 @@ export class GalleryElement extends Base {
 
   // --- building -----------------------------------------------------------------------------------
 
-  #schedule(): void {
-    this.#generation++;
-    this.#dirty = true;
-    if (!this.isConnected || this.#queued) return;
-    this.#queued = true;
-    queueMicrotask(() => {
-      this.#queued = false;
-      void this.#pump();
-    });
-  }
-
-  async #pump(): Promise<void> {
-    if (this.#running) return;
-    this.#running = true;
-    try {
-      while (this.#dirty && this.isConnected) {
-        this.#dirty = false;
-        await this.#build(this.#generation);
-      }
-    } finally {
-      this.#running = false;
-    }
-    if (!this.#dirty && this.#renderedOnce) {
-      const waiters = this.#waiters;
-      this.#waiters = [];
-      for (const w of waiters) w();
-    }
-  }
-
   /** Evaluate the active mockup (its pack and structs), fetch the pack's reference data and redraw. */
   async #build(generation: number): Promise<void> {
-    const stale = (): boolean => generation !== this.#generation;
+    const stale = (): boolean => this.#scheduler.stale(generation);
     const session = this.session;
     const name = session.active;
     let state: GalleryState = { mockup: null, pack: null, parent: null, cards: [], hidden: [] };
@@ -437,7 +403,7 @@ export class GalleryElement extends Base {
     if (stale()) return;
     this.#state = state;
     this.#samples = samples;
-    this.#renderedOnce = true;
+    this.#scheduler.done();
     this.#draw();
   }
 
