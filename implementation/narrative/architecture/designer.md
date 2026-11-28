@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.43
+impl_version: 0.3.45
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -10,7 +10,7 @@ page_id: IMPL.DESIGNER
 
 Realizes **A-WEB-5** (P1 for `mockitdown-designer` and `pages/designer.html`, K1, K2) and implements
 **R-TOOL-003** (#27): `<mockitdown-designer>`, the composite designer that owns a design session and lays
-out [the outline](outline.md), a gallery placeholder, [the editable view](editor.md), a properties
+out [the outline](outline.md), [the gallery](gallery-element.md) (a placeholder until #29), [the editable view](editor.md), a properties
 placeholder, a toolbar and a status bar. It finishes R-EDIT-006 C7, C8 and C11 (the designer's own event
 dispatch, and components joining a designer's session) and adds the session's `delete` command
 (R-EDIT-006.C19, see [Design documents and the design session](design.md)).
@@ -60,11 +60,11 @@ flowchart TD
   `grid-template-columns` is written from `layout`: `240px 5px minmax(0,1fr) 5px 260px`, the 5 px
   columns being the resizers (`role="separator"`). Each panel's default content sits inside its named
   `<slot>`, so a slotted element replaces it. The left column holds the `outline` slot (a
-  `mockitdown-outline`) above the `gallery` slot (placeholder), the centre the `view` slot (a
+  `mockitdown-outline`) above the `gallery` slot (a `mockitdown-gallery`, R-TOOL-003.C16 as built in #29, which also takes `import-base` and counts in `rendered`), the centre the `view` slot (a
   `mockitdown-editor`), the code `<pre>` and the preview pane, the right column the `inspector` slot
   (placeholder naming the selection).
 - **Session** (C1, C5, R-EDIT-006.C11): the constructor makes a session over an empty document; `open`
-  makes a new one per document. The editor and the outline find it themselves (`#designerSession`
+  makes a new one per document. The editor, the outline and the gallery find it themselves (`#designerSession`
   walks up through the shadow host); after `open` the designer reads `session` on each of them, which
   re-attaches them. Slotted elements are given it (`el.session = designer.session`) on `slotchange` and
   `open`, after `customElements.whenDefined` for an element not defined yet. Joined components never
@@ -106,3 +106,4 @@ flowchart TD
 | Version | Date | Change |
 |---|---|---|
 | 0.3.43 | 2026-11-28 | Page written: `mockitdown-designer`, layout, slots, modes, Delete through `session.delete()`, the designer test page, IT-55 (#27) |
+| 0.3.45 | 2026-11-28 | The gallery panel holds `mockitdown-gallery`, which joins the session and takes `import-base` (R-TOOL-003.C16); see [The gallery element](gallery-element.md) (#29) |

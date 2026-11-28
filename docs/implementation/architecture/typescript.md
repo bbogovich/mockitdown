@@ -1,6 +1,6 @@
 ---
 title: TypeScript core
-impl_version: 0.3.44
+impl_version: 0.3.45
 status: draft
 updated: 2026-11-28
 page_id: IMPL.TS
@@ -52,6 +52,7 @@ module for module, held to the Python output by the conformance corpus.
 | `elements/editor.ts` | — | the `mockitdown-editor` custom element, see [The editor element](editor.md) |
 | `elements/outline.ts` | — | the `mockitdown-outline` custom element, see [The outline element](outline.md) |
 | `elements/designer.ts` | — | the `mockitdown-designer` custom element, see [The designer element](designer.md) |
+| `elements/gallery.ts` | — | the `mockitdown-gallery` custom element, see [The gallery element](gallery-element.md) |
 | `elements/define.ts` | — | `ELEMENT_TAGS` and `defineElements()` for every element of the package |
 | `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core, `loadAssetsFromUrl` and the element API; defines the custom elements where `customElements` exists) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
@@ -64,7 +65,7 @@ sources). The build copies the assets; a host hands them over once.
 
 ```mermaid
 flowchart LR
-  S["shared/<br/>packs, css, icons, language"] -->|"npm run build<br/>scripts/copy-shared.mjs"| D["dist/shared/<br/>packs/&lt;id&gt;/pack.json, pack.css<br/>page.css, icons.json, vocabulary.json<br/>manifest.json"]
+  S["shared/<br/>packs, css, icons, language"] -->|"npm run build<br/>scripts/copy-shared.mjs"| D["dist/shared/<br/>packs/&lt;id&gt;/pack.json, pack.css<br/>page.css, icons.json, vocabulary.json<br/>reference/&lt;id&gt;.json, manifest.json"]
   D -->|"mockitdown/node<br/>loadSharedAssets() (node:fs)"| L["loadAssets(assets)"]
   D -->|"browser: loadAssetsFromUrl(base)<br/>fetch manifest + files"| L
   L --> V["vocabulary.ts"]
@@ -74,7 +75,9 @@ flowchart LR
   C["registerComponents(name, source)<br/>import_resolver option"] --> E["Evaluator imports"]
 ```
 
-`manifest.json` is `{"packs": [ids, sorted], "files": [paths under dist/shared/]}` (R-WEB-001.C13).
+`manifest.json` is `{"packs": [ids, sorted], "files": [paths under dist/shared/], "reference": [reference/index.json, reference/<id>.json, …]}`
+(R-WEB-001.C13, C17): the reference data is in the package for the gallery element, and loaders load
+only `files`.
 `scripts/copy-shared.mjs --check` reports a stale copy, as `python/tools/sync_shared.py --check` does.
 
 ## Python semantics, kept
@@ -166,7 +169,7 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 |---|---|---|
 | `render(source, options)` | `core/api.ts` | `RenderResult` `{html, diagnostics, packs, screen, errors, ok}` |
 | `check(source, options)` | `core/api.ts` | the diagnostics of `render` |
-| `evaluate(source, options)` | `core/api.ts` | `{screen, diagnostics}`; `screen` null on a syntax error |
+| `evaluate(source, options)` | `core/api.ts` | `{screen, diagnostics, structs}`; `screen` null on a syntax error; `structs` the struct names it knows, imported then declared |
 | `stylesheet(packIds?, {minify})` | `core/api.ts` | byte-equal to Python's `stylesheet()` |
 | `loadAssets({vocabulary, packs, pageCss, icons})` | `core/assets.ts` | must run before `evaluate` |
 | `loadAssetsFromUrl(base?, {fetch})` | `elements/assets.ts` | fetches `dist/shared/` (default: beside the module) and calls `loadAssets`; resolves to the manifest |
@@ -207,3 +210,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.42 | 2026-11-28 | `elements/outline.ts` in the module table (#26) |
 | 0.3.43 | 2026-11-28 | `elements/designer.ts` in the module table (#27) |
 | 0.3.44 | 2026-11-28 | `core/roles.ts` in the module table; `ElementDef.rules`; `RENDER_ROLES` (#28) |
+| 0.3.45 | 2026-11-28 | `dist/shared/reference/` and the manifest's `reference`; `Evaluation.structs`; `elements/gallery.ts` (#29) |

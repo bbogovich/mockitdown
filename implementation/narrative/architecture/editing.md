@@ -1,6 +1,6 @@
 ---
 title: Editing core
-impl_version: 0.3.39
+impl_version: 0.3.45
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDIT
@@ -155,6 +155,12 @@ of the source below, go too (C25). A node sharing a line goes with the `;` after
 before it, else the spaces left at the line's end (C26). Ranges of several nodes are merged when
 they touch or overlap.
 
+**Inserting at the top level** (`parent: null`, R-EDIT-002.C4, C31, #29) = `placeTop`: before the
+top-level view statement at the index (on its lines, or inline with `; `), else on a new line after the
+line of the last top-level statement (so before any struct declared below it), else at the end of the
+source; indented as the first top-level view when it starts its line. The design session's `insert`
+uses it when nothing is selected.
+
 **Moving** = the removals plus one insertion of the nodes' lines (with a trailing comment, C29), in
 source order, the index counting the parent's children before the move. An insertion that falls inside
 a removed range (an inline node removed with the separator before it) moves to the range's end. Edits
@@ -203,7 +209,7 @@ one (C16). Every operation but `setComment` refuses an `if` node (`notIf`, C20).
 
 ## The edit corpus
 
-`shared/conformance/edit/` (R-EDIT-002.C15–C18, C30) holds 102 hand-checked cases: `insert-*` (16),
+`shared/conformance/edit/` (R-EDIT-002.C15–C18, C30) holds 104 hand-checked cases: `insert-*` (18, `insert-top-level` and `insert-top-level-empty` since #29),
 `remove-*` (13), `move-*` (13) and `refuse-*` (19) for R-EDIT-002, and 41 for R-EDIT-003 (#22):
 `set-argument-*` (12), `set-modifier-*` (9), `rename-*` (3), `set-refs-*` (3), `set-comment-*` (3),
 `set-name*` (2) and `refuse-*` (9). Each source opens with a `//` line and a blank line
@@ -224,7 +230,7 @@ add it to `index.json`, write the expected text by hand, and run `npm run test:u
 | `SyntaxTree` | `source`, `module`, `comments`, `nodes` (ordinal order), `roots`, `byId(id)`, `byOrdinal("n3" or 3)`, `atOffset(offset)` (innermost, `start <= offset < end`), `text(span)` |
 | `ViewNode` | `id`, `ordinal` (`"n3"`), `index` (3), `kind` (`call`, `ident`, `if`), `name`, `span`, `nameSpan`, `first`, `parent`, `children`, `syntax`, `expr`, `modifiers` |
 | `Token.start`, `Token.end`, `Lexer.comments`, `Comment` | offsets and comments (C1, C2, C17) |
-| `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}`, `{op: "remove", nodes}`, `{op: "move", nodes, parent, index}`, `{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`, `{op: "rename", node, id}`, `{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` or `{op: "setName", node, name}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
+| `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}` (`parent: null`: a top-level statement, C31), `{op: "remove", nodes}`, `{op: "move", nodes, parent, index}`, `{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`, `{op: "rename", node, id}`, `{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` or `{op: "setName", node, name}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
 | `indentUnit(source)` | the indentation unit of C11 |
 | `render(source, {edit: true})` | edit-mode HTML (R-EDIT-004); `RenderOptions.edit` in both variants |
 | `viewNodeOrdinals(module)`, `structViewNodes(decl)` | internal (`tree.ts`): syntax node → ordinal, and an imported struct's view nodes |
@@ -271,3 +277,4 @@ See [Testing](../testing.md).
 | 0.3.36 | 2026-11-27 | The edit API (insert, remove, move), carried ids across a move and the edit corpus (#21) |
 | 0.3.37 | 2026-11-27 | Operations on one node: arguments, modifiers, `.id`, `.ref`, comments and names, and their corpus cases (#22) |
 | 0.3.39 | 2026-11-28 | Edit-mode rendering in both variants: ordinals, `View.node`/`derived`, `Env.derived`, imported structs, the element's `edit` attribute (#23) |
+| 0.3.45 | 2026-11-28 | `insert` at the top level (`parent: null`, `placeTop`) and its two corpus cases (#29) |

@@ -101,11 +101,11 @@ R-DIAG-003 | requirements | active | 0.12.8 r3 | DIAG.1 | Diagnostic codes
 R-DIAG-004 | requirements | active | 0.12.8 r1 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EDIT-001 | requirements | active | 0.12.16 r7 | WEB.3 | Source spans and node identities
-R-EDIT-002 | requirements | active | 0.12.17 r6 | WEB.3 | Edit API: insert, remove and move
+R-EDIT-002 | requirements | active | 0.13.8 r7 | WEB.3 | Edit API: insert, remove and move
 R-EDIT-003 | requirements | active | 0.12.18 r6 | WEB.3 | Edit API: arguments, modifiers and identifiers
 R-EDIT-004 | requirements | active | 0.13.2 r7 | WEB.3 | Edit-mode rendering
 R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document module
-R-EDIT-006 | requirements | active | 0.13.6 r6 | WEB.3 | The design session and its events
+R-EDIT-006 | requirements | active | 0.13.8 r7 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.12.12 r4 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.12.12 r4 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
 R-EDIT-009 | requirements | active | 0.12.12 r5 | WEB.3 | Commands: wrap, unwrap, convert and extract component
@@ -194,8 +194,8 @@ R-REPO-003 | requirements | active | 0.12.12 r8 | REPO.1 | The Python variant af
 R-REPO-004 | requirements | active | 0.12.17 r9 | REPO.1 | Conformance corpus
 R-TOOL-001 | requirements | active | 0.13.4 r6 | WEB.4 | The editable view: mockitdown-editor
 R-TOOL-002 | requirements | active | 0.13.5 r5 | WEB.4 | The outline: mockitdown-outline
-R-TOOL-003 | requirements | active | 0.13.6 r5 | WEB.4 | The composite designer and its test page
-R-TOOL-004 | requirements | active | 0.12.12 r5 | WEB.4 | The gallery: mockitdown-gallery
+R-TOOL-003 | requirements | active | 0.13.8 r6 | WEB.4 | The composite designer and its test page
+R-TOOL-004 | requirements | active | 0.13.8 r6 | WEB.4 | The gallery: mockitdown-gallery
 R-TOOL-005 | requirements | active | 0.12.12 r4 | WEB.4 | Drag and drop onto the outline and the view
 R-TOOL-006 | requirements | active | 0.12.12 r4 | WEB.4 | New elements: sample arguments and first-text editing
 R-TOOL-007 | requirements | active | 0.12.12 r4 | WEB.4 | The inspector: mockitdown-inspector
@@ -206,7 +206,7 @@ R-TOOL-011 | requirements | active | 0.12.12 r4 | WEB.5 | The canvas: mockitdown
 R-TOOL-012 | requirements | active | 0.12.12 r4 | WEB.5 | Mockup frames: labels, moving, renaming and placement
 R-TOOL-013 | requirements | active | 0.12.12 r4 | WEB.5 | The active mockup and inactive previews
 R-TOOL-014 | requirements | active | 0.12.12 r4 | WEB.5 | Sections and the canvas round trip
-R-WEB-001 | requirements | active | 0.12.12 r8 | WEB.1 | TypeScript package and core
+R-WEB-001 | requirements | active | 0.13.8 r9 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.12.12 r9 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.12.12 r7 | WEB.2 | Development server
 R-WEB-004 | requirements | active | 0.12.12 r15 | WEB.2 | Pack gallery test page

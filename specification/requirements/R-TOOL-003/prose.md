@@ -23,7 +23,8 @@ d.layout = { right: { collapsed: true } };                          // sizes and
 d.mode = "preview";                                                  // design, preview or code
 ```
 
-Until the gallery (R-TOOL-004) and the inspector exist, their panels hold placeholders. Delete is the
+The gallery panel holds the gallery element (R-TOOL-004, #29); until the inspector exists, the properties
+panel holds a placeholder. Delete is the
 session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-change` and then one
 `mockitdown-select` for the node selected after it.
 

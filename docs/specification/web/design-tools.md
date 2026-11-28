@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.6
+spec_version: 0.13.8
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -214,7 +214,8 @@ d.layout = { right: { collapsed: true } };                          // sizes and
 d.mode = "preview";                                                  // design, preview or code
 ```
 
-Until the gallery (R-TOOL-004) and the inspector exist, their panels hold placeholders. Delete is the
+The gallery panel holds the gallery element (R-TOOL-004, #29); until the inspector exists, the properties
+panel holds a placeholder. Delete is the
 session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-change` and then one
 `mockitdown-select` for the node selected after it.
 
@@ -281,7 +282,7 @@ shows the active mockup's code with the left column visible, and Design brings t
 | C13 | The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification. |
 | C14 | The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`. |
 | C15 | In Code mode the designer MUST show the active mockup's code read-only in place of the view, keeping the side panels, until the code view (R-TOOL-009) takes that place. |
-| C16 | Until their components exist, the gallery and properties panels MUST hold placeholders, the properties panel naming the first selected element. |
+| C16 | The gallery panel MUST hold a `mockitdown-gallery` (R-TOOL-004) that joins the designer's session and takes its `import-base`, and until the inspector exists the properties panel MUST hold a placeholder naming the first selected element. |
 | C17 | The designer MUST expose the property `rendered`, a promise that resolves once its outline, its view and, in Preview mode, its previews are rendered, and MUST pass its `import-base` and `asset-base` attributes on to its view, outline and previews. |
 | V1 | On `pages/designer.html`, deleting the selected button fires one `mockitdown-change` with its text edits, and `toJSON()` returns the sample document with only that button's lines removed. |
 
@@ -308,6 +309,11 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#29).** The inserted code is the bare call `<Name>()`; R-TOOL-006 gives it the sample's
+arguments. Inserting at the root uses the top-level `insert` of R-EDIT-002 (`parent: null`) through the
+session's `insert` command, so the gallery itself holds no editing rule (A-WEB-5.K2). Components are
+listed by the structs the edit-mode evaluation knows (`evaluate(…).structs`), declared or imported.
+
 **R-TOOL-004.TC-1 — Filtered gallery and Add**
 
 Browser test (`gallery-component.spec.mjs`) on `pages/designer.html`: with an `HStack` selected, no card
@@ -315,25 +321,45 @@ is `NavigationSplitView` or `TabView`, both appear under Hidden here with their 
 `Toggle` appends `Toggle(…)` as the stack's last child, selected, with one `mockitdown-insert` (F-19.AC2).
 With nothing selected, root-only frames are offered. Previews exist only for cards near the viewport.
 
+As built (#29): `typescript/tests/browser/gallery-component.spec.mjs` opens the hand-written
+`tests/browser/fixtures/gallery-sample.mkdesign` in the designer of `pages/designer.html`. With nothing
+selected the frame and layout groups are shown with `NavigationSplitView` and `TabView`; with HStack
+`#actions` selected both are under "A frame cannot be placed inside a horizontal stack" (R-PACK-016's own
+example), the footer's `data-count` and "(n)" equal its listed elements, the first card has a
+`mockitdown-mockup` (`device="fit"`, `pack="base"`) and the last none until it is scrolled to; Add on
+`Toggle` gives the hand-written code with `Toggle()` as the stack's last child, selected, and one
+`mockitdown-insert` from the designer. A second test adds `Text` by double-click and `Divider` by Enter
+with nothing selected, each on a new line at the end of the top level.
+
 **R-TOOL-004.TC-2 — Data, search and components**
 
 Browser test: the gallery fetches `dist/shared/reference/<pack>.json` and no file under `shared/`;
 `filter = "toggle"` leaves the toggle-like cards; a struct declared in the mockup appears in the
 Components group; switching the active mockup to another pack lists that pack's own elements first.
 
+As built (#29): the same spec's TC-2 test records the page's requests: `/dist/shared/reference/base.json`
+and no path under `/shared/`; `Badge`, declared in the mockup, is in the Components group; `filter =
+"toggle"` sets the search field and leaves only cards whose name, role or doc line contains it; typing
+`BADGE` into the field sets `filter` and shows the component; `setActive("Cards")` fetches
+`vuetify.json` and, in every group, lists the elements `shared/reference/vuetify.json` marks `own`
+before the inherited ones.
+
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | The package MUST define the custom element `mockitdown-gallery`, which lists the elements of the active mockup's pack — the pack's own elements first, then the inherited core vocabulary — grouped by the category of their role (R-PACK-016.C1). |
-| C2 | The gallery MUST read the elements, their roles and samples from the reference data published in the package (R-WEB-001.C17), fetched relative to the base that `loadAssetsFromUrl` uses. |
-| C3 | Each element MUST be shown as a card with its name and a live preview, a `mockitdown-mockup` of its sample with `device="fit"` in the mockup's pack, created only when the card comes near the viewport. |
-| C4 | A search field, mirrored by the `filter` property, MUST narrow the cards to the elements whose name, role or doc line contains the search text, ignoring case. |
-| C5 | A Components group MUST list the structs the active mockup declares or imports. |
-| C6 | With no selection the gallery MUST show the elements allowed at the root of a mockup, and with one selected node only those its element may contain (`allowedChildren`, R-PACK-016.C7). |
+| C1 | The package MUST define the custom element `mockitdown-gallery`, which lists the elements of the active mockup's pack (the pack its edit-mode evaluation selects) — the pack's own elements first, then the inherited core vocabulary — grouped by the category of their role (R-PACK-016.C1) in the order frames, bars, layouts, collections, content, overlays and annotations. |
+| C2 | The gallery MUST read the elements, their roles, doc lines and samples from the reference data published in the package (R-WEB-001.C17), `reference/<pack>.json` fetched relative to the base that `loadAssetsFromUrl` uses by default, once per URL, and MUST list a pack without reference data by its registered elements, without previews. |
+| C3 | Each element MUST be shown as a card with its name and a live preview, a `mockitdown-mockup` of its sample with `device="fit"` in the mockup's pack, created only when the card comes within 200 CSS pixels of the gallery's visible part and kept while the pack is shown. |
+| C4 | A search field, mirrored by the `filter` property, MUST narrow the cards to the elements whose name, role or doc line contains the search text, ignoring case, and the components to those whose name contains it; the search MUST NOT narrow Hidden here. |
+| C5 | A Components group, first, MUST list the structs the active mockup declares or imports that the selection may hold, as cards with their name and no preview. |
+| C6 | With no selection the gallery MUST show the elements allowed at the root of a mockup, and with a selection only those the first selected node's element may contain (`allowedChildren`, R-PACK-016.C7). |
 | C7 | A footer group, Hidden here, MUST give the number of elements the selection filters out and list them under their reasons. |
-| C8 | An Add button on each card, a double-click on the card or Enter on the focused card MUST insert the element as the last child of the selected node, else at the end of the mockup's root, select the new node and dispatch `mockitdown-insert` (R-EDIT-006.C5). |
+| C8 | An Add button on each card, a double-click on the card or Enter on the focused card MUST insert `<Name>()` through `session.insert` (R-EDIT-006.C20): as the last child of the first selected node, else at the end of the mockup's top level, select the new node and dispatch `mockitdown-insert` (R-EDIT-006.C5). |
 | V1 | With an `HStack` selected, the gallery shows no `NavigationSplitView` and no `TabView`, lists them under Hidden here, and Add on `Toggle` appends a `Toggle(…)` as the stack's last child (F-19.AC2). |
+| C9 | The cards MUST be one tab stop, Up, Down, Home and End moving the focus among them. |
+| C10 | The gallery MUST join a session as R-EDIT-006.C11 says and dispatch, as DOM events, only the notifications of a session of its own (R-EDIT-006.C8). |
+| C11 | The gallery MUST expose `add(name)`, which inserts as Add does, `state` (the mockup, pack, parent element, the cards before the search and the hidden elements by reason) and `rendered`, a promise that resolves after the next rebuild and never rejects. |
 
 ---
 
@@ -613,6 +639,7 @@ code empties the list ("No problems").
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.8 | 2026-11-28 | as built (#29): the gallery panel holds mockitdown-gallery (C16); as built (#29): pack from the edit-mode evaluation, category order (C1); reference/<pack>.json at loadAssetsFromUrl's default base, registered elements without previews when a pack has none (C2); previews within 200 px of the visible part (C3); search over components, not Hidden here (C4); Components first, filtered, no preview (C5); first selected node (C6); <Name>() through session.insert (C8); keyboard (C9), session join and events (C10), add/state/rendered (C11); TC files name the tests |
 | 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
 | 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |
 | 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |
@@ -622,6 +649,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.6 | 2026-11-28 | as built (#27): C3 panel range, arrow keys, toolbar toggles and layout shape; C4 slotted elements given the session; C5 a new session per open, DesignOpenError; C6 the setter throws; C7 the live document; C9 previews with the fence options, the mockups list and the appearance toggle; C10 radio group, name and default device; C11 through session.delete(), not in Preview or a text field; C12 count wording and crumbs; C14 the sample file; C15-C17 Code mode, placeholders, rendered and base URLs; TC-1, TC-2 name the designer.spec.mjs tests |
 | 0.13.5 | 2026-11-28 | as built (#26): C2 rows also for derived views without a node, other views skipped; C3 the main label is a positional first argument; C5 visible rows; C6 every row of the node, also after a rebuild; C8 aria-current; C10-C15 initial expansion, Right/Left to child and parent, typeahead window, aria-selected rows and activedescendant, the outline's session and events, rebuilds, properties and parts; TC-1, TC-2 name the outline.spec.mjs tests |
 | 0.13.4 | 2026-11-28 | as built (#25): C10 hover colour default #2f80ed; C12-C21 the editor's own session, own-session events, clearing and root clicks, the Enter trail, Alt-click start and wrap, activation, outlines of derived nodes, parts, properties and focus; TC-1 to TC-3 name the editor.spec.mjs tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |

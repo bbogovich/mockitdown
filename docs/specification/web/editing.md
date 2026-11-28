@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.6
+spec_version: 0.13.8
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -170,6 +170,8 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+An `insert` with `parent: null` adds a top-level statement, the root of a mockup: the gallery's Add with nothing selected (R-TOOL-004) appends `Toggle()` on a new line after the last top-level view, before any struct declared below it.
+
 **R-EDIT-002.TC-1 — The edit corpus**
 
 `node:test` (`typescript/tests/unit/edit-corpus.test.ts`) over `shared/conformance/edit/index.json`:
@@ -181,7 +183,7 @@ of C16 (each case's `op.json` carries a `covers` list).
 As built (#21): 61 cases (`insert-*`, `remove-*`, `move-*`, `refuse-*`), each source opening with a `//`
 line saying what it exercises. The meta-test requires the `covers` tags `insert:`, `remove:` and
 `move:` `first`/`middle`/`last`, `insert:empty`, `insert:no-closure`, `remove:all`, `move:empty`,
-`move:no-closure`, `source:comments`, `blank-lines`, `let`, `foreach`, `if`, `struct`, `indent:unit`,
+`move:no-closure`, `insert:top-level` (#29: `insert-top-level`, after the last statement and before a struct declared below it, and `insert-top-level-empty`, a source holding only a comment), `source:comments`, `blank-lines`, `let`, `foreach`, `if`, `struct`, `indent:unit`,
 `tabs`, `relative`, and one `refuse:` tag per refusal (C3, C9, C14, C20 to C24); a refused case carries
 a `refuse:` tag and only a refused case does. It also fails on a file in `edit/` that belongs to no case.
 
@@ -202,7 +204,7 @@ closures, are refused.
 | C1 | The package MUST export `edit(source, op)`, which applies one edit operation to a source, or to a syntax tree whose ids the result then continues, and returns `{edits, source, tree}` — the text edits (M-EDIT-3) in ascending, non-overlapping order, the edited source and its tree (R-EDIT-001.C9) — or `{error, diagnostics}` with a message, the syntax diagnostics when code did not parse, and no edits when the operation is refused. |
 | C2 | Applying the returned edits to the source MUST yield the returned source, and every character outside the edited ranges MUST be kept, comments, blank lines and the formatting of other calls included. |
 | C3 | An operation MUST name its nodes by node id or by ordinal (`n3`, or the number 3), and MUST be refused when a named node is not a view node of the source. |
-| C4 | The operation `insert` MUST take a parent view node, an index among its statement children (C19) (or `end`) and the code of one view (a call with its modifier chain and closures), and insert that code as the parent's child at that position. |
+| C4 | The operation `insert` MUST take a parent view node, or `null` for the top level of the source, an index among its statement children (C19), or among the top level's view statements, (or `end`) and the code of one view (a call with its modifier chain and closures), and insert that code as the parent's child, or as a top-level statement, at that position. |
 | C5 | When the parent of an `insert` has no trailing closure, the edit MUST give it one, written ` {` after the call's arguments and `}` on its own line at the parent's indentation. |
 | C6 | The operation `remove` MUST take one or more sibling view nodes and delete each one's span with its line, so that no blank line is left where there was none. |
 | C7 | When `remove` deletes every child of a closure, the closure's braces MUST stay, with the `{` and the `}` on the lines they were on. |
@@ -214,7 +216,7 @@ closures, are refused.
 | C13 | Code written by an operation from parts (a new closure, a new argument, a new modifier) MUST put one view call per line, chain its modifiers on that line and put each closure child on its own line one unit deeper. |
 | C14 | An `insert` whose code does not parse as exactly one view MUST be refused: with the syntax diagnostic when it does not parse, and with a message saying what it holds (several statements, no view, a `let`, an import, a directive or a struct) otherwise. |
 | C15 | `shared/conformance/edit/` MUST hold the edit corpus: cases named `<name>.mockitdown` (the source), `<name>.op.json` (the operation, its nodes named by ordinal) and `<name>.expected.mockitdown` (the edited source), listed in `shared/conformance/edit/index.json` as `{"cases": [{"name", "op"}, …]}`. |
-| C16 | The edit corpus MUST cover each operation at the first, a middle and the last position, into an empty parent and a parent without a closure, in sources with comments, blank lines, `let`, `ForEach`, `if` and struct declarations, and every refusal of this requirement. |
+| C16 | The edit corpus MUST cover each operation at the first, a middle and the last position, into an empty parent and a parent without a closure, an `insert` at the top level, in sources with comments, blank lines, `let`, `ForEach`, `if` and struct declarations, and every refusal of this requirement. |
 | C17 | The TypeScript test suite MUST run every edit case under `node:test` and fail when the edited source differs from the expected file, or when the edited source renders with a diagnostic that the original source did not have. |
 | C18 | A case whose operation is refused MUST give `<name>.error.txt`, holding the expected message, in place of the expected source. |
 | C19 | The statement children of a view node MUST be the view nodes standing as statements in its content: the unlabelled trailing closure of a call, or the braced branches of an `if` in order, the then branch taking the indexes up to its number of children. |
@@ -229,6 +231,7 @@ closures, are refused.
 | C28 | An `insert` or `move` into an empty closure written on one line (`{}`) MUST put the code on lines of its own and the `}` on its own line at the parent's indentation. |
 | C29 | A moved node that stands on its own lines (C25) MUST carry the comment trailing its last line. |
 | C30 | Each `<name>.op.json` MUST carry a `covers` list naming the situations of C16 the case covers, and the TypeScript test suite MUST fail when a situation is covered by no case. |
+| C31 | An `insert` at the top level MUST write the code before the view statement at its index, on lines of its own when that statement starts its line and else before it on its line followed by `; `, or, at the end, on a new line after the line of the last top-level statement, else at the end of the source, with the indentation of the first top-level view when it starts its line, else none. |
 | V1 | Every case of `shared/conformance/edit/` passes, and each edited source renders without a new diagnostic. |
 
 ---
@@ -590,7 +593,7 @@ tree and notifies `diagnostics`, an operation is then refused, and fixed code ke
 `nodeFor` maps each ordinal of an edit-mode render of the mockup to a node of its tree; selecting two
 non-siblings or an unknown id is refused and the same selection notifies nothing; `setActive` and
 `hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
-`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names. `delete` ("delete removes the selection as one change…") over a VStack holding a Text, an HStack of two Texts and a Text: deleting the HStack gives one `change` then one `select` of the last Text (the next sibling), deleting the last Text selects the HStack (the previous sibling), deleting both Texts of the HStack leaves its braces and selects it (the parent), deleting the only top-level node selects nothing, and a delete with nothing selected is refused and notifies nothing; the expected codes and selections were written by hand.
+`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names. `delete` ("delete removes the selection as one change…") over a VStack holding a Text, an HStack of two Texts and a Text: deleting the HStack gives one `change` then one `select` of the last Text (the next sibling), deleting the last Text selects the HStack (the previous sibling), deleting both Texts of the HStack leaves its braces and selects it (the parent), deleting the only top-level node selects nothing, and a delete with nothing selected is refused and notifies nothing; the expected codes and selections were written by hand. `insert` ("insert adds a view as the last child of the selected node…", #29) over a VStack holding an HStack holding a Text: with the HStack selected `insert("Toggle()")` appends it as the HStack's last child and notifies `change`, `insert` (the new node, element `Toggle`) and `select` of it; with nothing selected `Text("b")` goes on a new line after the VStack; code that does not parse is refused and notifies nothing; the expected codes were written by hand.
 
 **R-EDIT-006.TC-2 — DOM events**
 
@@ -626,6 +629,7 @@ slot, which joins the designer's session (C11).
 | C17 | A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup. |
 | C18 | `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names. |
 | C19 | `session.delete()` MUST remove the selected nodes (R-EDIT-002.C6) as one change, then make the selection the statement after the last of them in their body that is not removed, else the one before it, else their parent view node, else nothing, notifying one `change` and then one `select`, and MUST be refused, changing and notifying nothing, when nothing is selected or the removal is refused. |
+| C20 | `session.insert(code, parent)` MUST insert one view's code (R-EDIT-002.C4) as the last child of `parent`, a node id of the active mockup, by default of the first selected node, else at the end of the mockup's top level (`parent` null), then make the inserted node the selection, notifying one `change`, one `insert` and one `select`, and MUST be refused, changing and notifying nothing, as `apply` refuses an insert. |
 | V1 | A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code. |
 
 ---
@@ -787,6 +791,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.8 | 2026-11-28 | as built (#29): session.insert(code, parent) inserts as the last child of the selection, else at the top level, and selects the new node (C20); as built (#29): insert with parent null adds a top-level statement (C4, C31); the corpus covers it (C16, insert-top-level, insert-top-level-empty) |
 | 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
@@ -800,6 +805,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |

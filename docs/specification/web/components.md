@@ -1,8 +1,8 @@
 ---
 title: "Web components"
-spec_version: 0.12.15
+spec_version: 0.13.8
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: WEB.1
 ---
 
@@ -82,6 +82,12 @@ Automated by `typescript/tests/unit/render.test.ts`: `render` returns html, diag
 from `shared/reference/`; a unit test reads `dist/shared/manifest.json` and checks that `reference` lists
 `reference/index.json` and one `reference/<pack>.json` per pack, that none of them is in `files`, and
 that `loadAssetsFromUrl` with a recording `fetch` requests no reference file.
+
+As built (#29): `typescript/tests/unit/reference.test.ts`. The expected `reference` list is read from
+the files of `shared/reference/`; each copy equals its source; `copy-shared.mjs --check` passes, fails
+(exit 1) after one space is appended to `dist/shared/reference/base.json`, and passes again once it is
+restored; `loadAssetsFromUrl` over `dist/shared/` with a recording `fetch` requests `packs/base/pack.json`
+and no path containing `/reference/`.
 
 **R-WEB-001.TC-6 — Import map in the TypeScript core**
 
@@ -273,6 +279,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.8 | 2026-11-28 | as built (#29): TC-5 names reference.test.ts |
 | 0.12.15 | 2026-11-27 | as built (#63): C6 release notes list the commits since the previous ts-v tag that change typescript/ or shared/ |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81) |
@@ -286,6 +293,7 @@ file of the manifest, and no path under `src/`, `tests/`, `test-build/`, `pages/
 | 0.6.6 | 2026-11-25 | as built (#6): C2 drops the script's first and last blank lines before dedenting; C3 adds window; C6 bubbling composed event with detail.diagnostics; C8 rendered resolves at once when up to date and never rejects; C10 empty boolean attribute is true; C11 fence errors for invalid attributes, other attributes ignored; C12 error box of code element when the element cannot render; TCs name mockup.spec.mjs; reviewed against R-WEB-001@0.6.4 |
 | 0.6.4 | 2026-11-25 | as built (#4): C14 asset_base option joins local image paths; C15 no asset base reports the Python not-found warning and the placeholder; C16 RenderResult (html, diagnostics, packs, screen) and check; TC-4 |
 | 0.6.3 | 2026-11-25 | as built (#3): C8 includes <name>.diag.json (R-REPO-004.C7, 0.6.2 reviewed); C10 imports with no paths try the path as written; C11 imported diagnostics name the normalised path; C12 Python option names; C13 dist/shared/manifest.json |
+| 0.12.15 | 2026-11-27 | as built (#63): C6 release notes list the commits since the previous ts-v tag that change typescript/ or shared/ |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.12.11 | 2026-11-27 | re-checked against R-WEB-001: unaffected (#81) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |

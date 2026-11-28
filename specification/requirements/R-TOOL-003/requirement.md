@@ -2,17 +2,17 @@
 id: R-TOOL-003
 title: The composite designer and its test page
 status: active
-version: 0.13.6
-rev: 5
+version: 0.13.8
+rev: 6
 page: WEB.4
 slot: reqs
 order: 3
-hash: 2fefcccb7f66
+hash: 261e8a549d46
 source: [SRC-12, SRC-13, SRC-16]
 realizes: [F-19, F-20]
 requires: [R-TOOL-001, R-TOOL-002]
 constrained_by: [A-WEB-5]
-refs: [R-EDIT-005, R-EDIT-006, R-TOOL-009]
+refs: [R-EDIT-005, R-EDIT-006, R-TOOL-004, R-TOOL-009]
 ---
 
 C1: The package MUST define the custom element `mockitdown-designer`, which owns a design session (its `session` property) that its components join (R-EDIT-006.C11).
@@ -30,6 +30,6 @@ C12: The status bar MUST show the active mockup's diagnostic count (`0 diagnosti
 C13: The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification.
 C14: The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`.
 C15: In Code mode the designer MUST show the active mockup's code read-only in place of the view, keeping the side panels, until the code view (R-TOOL-009) takes that place.
-C16: Until their components exist, the gallery and properties panels MUST hold placeholders, the properties panel naming the first selected element.
+C16: The gallery panel MUST hold a `mockitdown-gallery` (R-TOOL-004) that joins the designer's session and takes its `import-base`, and until the inspector exists the properties panel MUST hold a placeholder naming the first selected element.
 C17: The designer MUST expose the property `rendered`, a promise that resolves once its outline, its view and, in Preview mode, its previews are rendered, and MUST pass its `import-base` and `asset-base` attributes on to its view, outline and previews.
 V1: On `pages/designer.html`, deleting the selected button fires one `mockitdown-change` with its text edits, and `toJSON()` returns the sample document with only that button's lines removed.
