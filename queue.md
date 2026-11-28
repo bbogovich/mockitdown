@@ -913,8 +913,8 @@ entries:
   - seq: 102
     issue: 82
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261127-181318
     queued: 2026-11-28T03:18:01Z
     queued-by: agent:code-auditor
     started:
@@ -922,8 +922,8 @@ entries:
   - seq: 103
     issue: 83
     action: implement
-    state: planned
-    run:
+    state: waiting
+    run: vibe-20261127-181318
     queued: 2026-11-28T03:18:01Z
     queued-by: agent:code-auditor
     started:
