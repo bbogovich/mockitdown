@@ -1,8 +1,8 @@
 ---
 title: Repository layout and shared assets
-impl_version: 0.3.32
+impl_version: 0.3.40
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.REPO
 ---
 
@@ -25,6 +25,7 @@ mockitdown/                    (main branch)
     package.json, package-lock.json, tsconfig.json, tsconfig.test.json
     src/core/                  the core: syntax/, evaluate, packs/, diagnostics, options, styles …
     src/mockitdown.ts          package entry; src/node.ts the Node loader (mockitdown/node)
+    src/design.ts, src/design/ the design document module and session (mockitdown/design)
     src/elements/              the mockitdown-mockup element and the browser asset loader
     scripts/copy-shared.mjs    copies shared/ into dist/shared/ (+ manifest.json) and the LICENSE
     scripts/serve.mjs          the development server (R-WEB-003)
@@ -33,6 +34,7 @@ mockitdown/                    (main branch)
     playwright.config.mjs, playwright.published.config.mjs   browser tests; the second checks the assembled site
     playwright.migration.config.mjs   the stylesheet-migration screenshots (IT-27), on demand; baseline in migration-baseline/
     tests/unit/, tests/browser/  node:test suites (IT-9, IT-10 …) compiled to test-build/; Playwright specs
+    tests/fixtures/design/     hand-written .mkdesign fixtures (and malformed/ with expected.json) for IT-52
     dist/, test-build/, node_modules/, LICENSE, migration-baseline/   build output, copies and baselines, ignored by git
   shared/                      the single source of what both variants publish
     packs/<id>/pack.json, pack.css
@@ -221,3 +223,4 @@ the groups in menu order and the hidden packs (`hidden()`) sorted by id (R-PACK-
 | 0.3.23 | 2026-11-27 | Stylesheet partials: `shared/packs/_partials/`, resolution in both builds, errors, run-time refusal (R-PACK-018) (#54) |
 | 0.3.24 | 2026-11-27 | The four partials, the two ways one partial serves packs that differ, the duplicate check (R-PACK-018.C9, C10) (#55) |
 | 0.3.32 | 2026-11-27 | Reference JSON for the hidden packs and the `hidden` list of `index.json` (#61) |
+| 0.3.40 | 2026-11-28 | `src/design/` and `tests/fixtures/design/` (#24) |

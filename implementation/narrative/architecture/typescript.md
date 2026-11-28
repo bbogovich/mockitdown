@@ -1,8 +1,8 @@
 ---
 title: TypeScript core
-impl_version: 0.3.37
+impl_version: 0.3.40
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.TS
 ---
 
@@ -50,6 +50,7 @@ module for module, held to the Python output by the conformance corpus.
 | `elements/mockup.ts` | `extension.py`, `fence.py` (the host side) | the `mockitdown-mockup` custom element, see [The mockup element](elements.md) |
 | `mockitdown.ts` | `__init__.py` | the package entry (re-exports the core, `loadAssetsFromUrl` and the element API; defines the custom elements where `customElements` exists) |
 | `node.ts` | — | `mockitdown/node`: `loadSharedAssets()`, `registerComponentFiles(dir)` from the file system |
+| `design.ts`, `design/` | — | `mockitdown/design`: the design document module and the design session, see [Design documents and the design session](design.md) |
 
 ## How the shared assets reach the core
 
@@ -196,3 +197,4 @@ messages are those of the Python registry; a cycle of `extends` is refused inste
 | 0.3.35 | 2026-11-27 | `core/syntax/tree.ts` in the module table; tokens and nodes carry offsets (#20) |
 | 0.3.36 | 2026-11-27 | `core/syntax/edit.ts` in the module table (#21) |
 | 0.3.37 | 2026-11-27 | `core/syntax/edit.ts` also sets arguments, modifiers, identifiers, comments and names (#22) |
+| 0.3.40 | 2026-11-28 | `design.ts` and `design/` (`mockitdown/design`) in the module table (#24) |

@@ -1,11 +1,16 @@
 ---
 id: TC-1
 title: Session notifications
-verifies: [C1, C2, C3, C4, C5, C6, C9, C10]
+verifies: [C1, C2, C3, C4, C5, C6, C9, C10, C12, C13, C14, C15, C16, C17, C18]
 ---
 
-`node:test`: a session over a two-mockup document; `apply` of an insert and of a remove each notify
-one `change` with `kind: "code"` and edits that, applied in turn to the original code, give the current
-code; the selection keeps a surviving node and drops a removed one; a syntax error in the code keeps the
-last valid tree and notifies `diagnostics`; `nodeFor` maps each ordinal of an edit-mode render of the
-mockup to a node of its tree; selecting two non-siblings is refused.
+`node:test` (`typescript/tests/unit/design-session.test.ts`): a session over a two-mockup document; `apply`
+of an insert and of a remove each notify one `change` with `kind: "code"` and edits that, applied in turn
+to the original code, give the current code, the insert followed by one `insert` naming the new node and
+its element; a move notifies one `change` for several edits; the selection keeps a surviving node and
+drops a removed one; a refused operation notifies nothing; a syntax error in the code keeps the last valid
+tree and notifies `diagnostics`, an operation is then refused, and fixed code keeps the untouched ids;
+`nodeFor` maps each ordinal of an edit-mode render of the mockup to a node of its tree; selecting two
+non-siblings or an unknown id is refused and the same selection notifies nothing; `setActive` and
+`hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
+`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names.

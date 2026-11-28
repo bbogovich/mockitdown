@@ -104,8 +104,8 @@ R-EDIT-001 | requirements | active | 0.12.16 r7 | WEB.3 | Source spans and node 
 R-EDIT-002 | requirements | active | 0.12.17 r6 | WEB.3 | Edit API: insert, remove and move
 R-EDIT-003 | requirements | active | 0.12.18 r6 | WEB.3 | Edit API: arguments, modifiers and identifiers
 R-EDIT-004 | requirements | active | 0.13.2 r7 | WEB.3 | Edit-mode rendering
-R-EDIT-005 | requirements | active | 0.12.12 r5 | WEB.3 | The design document module
-R-EDIT-006 | requirements | active | 0.12.12 r4 | WEB.3 | The design session and its events
+R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document module
+R-EDIT-006 | requirements | active | 0.13.3 r5 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.12.12 r4 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.12.12 r4 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
 R-EDIT-009 | requirements | active | 0.12.12 r5 | WEB.3 | Commands: wrap, unwrap, convert and extract component

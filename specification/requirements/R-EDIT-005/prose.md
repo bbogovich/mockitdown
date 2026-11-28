@@ -24,6 +24,19 @@ A mockup may name its own pack (to compare Fluent and Material side by side); on
 code is kept byte for byte, and keys written by a newer tool survive a round trip through an older one.
 Markdown, HTML and folder export stay in the shell for now.
 
+```js
+import { readDesign, writeDesign, mockupOptions } from "mockitdown/design";
+
+const r = readDesign(text);
+if ("errors" in r) for (const e of r.errors) console.log(`${e.path}: ${e.message}`);
+//   mockups[1].code: code must be a string, but it is missing
+else save(writeDesign(r.document));      // the same text when nothing changed
+```
+
+The reader lists every problem at once, so a hand-edited file can be fixed in one pass. Unknown keys keep
+their place even when they look like numbers: the module remembers the order it read, which a plain
+JavaScript object would not.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

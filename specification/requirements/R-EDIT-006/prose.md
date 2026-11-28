@@ -16,6 +16,22 @@ designer.addEventListener("mockitdown-change", (e) => {
 Node ids are the session's; ordinals are what an edit-mode rendering carries (R-EDIT-004). `nodeFor`
 turns one into the other after every parse.
 
+In Node, without any component, the session is used like this:
+
+```js
+import { DesignSession, readDesign, writeDesign } from "mockitdown/design";
+
+const session = new DesignSession(readDesign(text).document);
+const off = session.subscribe(({ kind, detail }) => console.log(kind, detail));
+session.apply({ op: "remove", nodes: ["n3"] });   // change {kind: "code", mockup, edits, code}
+session.setCode("Inbox", typed);                  // change, then diagnostics if they changed
+off();
+save(writeDesign(session.document));              // the live document, every change applied
+```
+
+Code typed as text keeps the last valid tree while it does not parse, and is re-parsed from that tree
+when it does again, so the nodes the typing did not touch keep their ids and the selection survives.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.

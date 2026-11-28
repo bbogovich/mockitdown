@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.2
+spec_version: 0.13.3
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -452,6 +452,19 @@ A mockup may name its own pack (to compare Fluent and Material side by side); on
 code is kept byte for byte, and keys written by a newer tool survive a round trip through an older one.
 Markdown, HTML and folder export stay in the shell for now.
 
+```js
+import { readDesign, writeDesign, mockupOptions } from "mockitdown/design";
+
+const r = readDesign(text);
+if ("errors" in r) for (const e of r.errors) console.log(`${e.path}: ${e.message}`);
+//   mockups[1].code: code must be a string, but it is missing
+else save(writeDesign(r.document));      // the same text when nothing changed
+```
+
+The reader lists every problem at once, so a hand-edited file can be fixed in one pass. Unknown keys keep
+their place even when they look like numbers: the module remembers the order it read, which a plain
+JavaScript object would not.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
@@ -466,22 +479,30 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-EDIT-005.TC-1 — Round trip and key order**
 
-`node:test` (`typescript/tests/unit/design.test.ts`), importing `mockitdown/design` in Node: fixture
-documents with sections, view, imports and unknown keys at every level read and write back to the same
-text; a document built with `newDesign` and written has its keys in M-EDIT-1 order; a code string with
-tabs, CRLF and trailing spaces is kept verbatim. The module imports no DOM global.
+`node:test` (`typescript/tests/unit/design.test.ts`), importing `mockitdown/design` in Node through the
+package's own subpath export: the hand-written fixture documents of `typescript/tests/fixtures/design/`
+(`mail.mkdesign` with sections, view, imports and unknown keys at every level, `minimal.mkdesign`,
+`unicode.mkdesign` with index-like unknown keys) read and write back to the same text; a document whose
+keys are out of order is written with the known keys in M-EDIT-1 and M-EDIT-2 order and the others after
+them in read order; a document built with `newDesign` and written equals `minimal.mkdesign`; a code string
+with tabs, CRLF and trailing spaces is kept verbatim. `dist/design.js` reaches only relative modules, none
+of them a custom-element module, and reads, writes and edits a document with every browser and network
+global made to throw.
 
 **R-EDIT-005.TC-2 — Refusals**
 
-`node:test`: wrong `format`, `version: 2`, `mockups` as an object, a mockup without `code`, `x` as a
-string and two mockups named `Inbox` are each refused, with the expected `path` and a message naming the
-problem.
+`node:test` (`typescript/tests/unit/design.test.ts`): each fixture of `typescript/tests/fixtures/design/malformed/`
+— wrong `format`, `version: 2`, `mockups` as an object, a mockup without `code`, `x` as a string, two
+mockups named `Inbox`, text that is not JSON, a list, and one document with a problem of every C12 kind —
+is refused with exactly the paths and messages of `malformed/expected.json`, written by hand; a refusal
+gives no document. `format` and `version` refusals name the value found (`"1"`, `1.5`).
 
 **R-EDIT-005.TC-3 — Pack per mockup**
 
-`node:test`: with `defaults.pack` `fluent`, a mockup without a pack resolves to `fluent`, one with
-`options.pack` `mui` to `mui`; without defaults, to `base`; `mockupOptions` merges `defaults.appearance`
-under the mockup's own options. The module exports no Markdown or file function.
+`node:test` (`typescript/tests/unit/design.test.ts`): with `defaults.pack` `fluent`, a mockup without a
+pack resolves to `fluent`, one with `options.pack` `mui` to `mui`; without defaults, to `base`; an unknown
+name to null; `mockupOptions` merges `defaults.appearance` under the mockup's own options into a new
+object. The module exports no Markdown, HTML or file function.
 
 **Realizes.** F-20
 
@@ -494,10 +515,14 @@ under the mockup's own options. The module exports no Markdown or file function.
 | C5 | `writeDesign(document)` MUST return JSON text indented by two spaces and ending with one line feed, with the keys of each object in the order of M-EDIT-1 and M-EDIT-2, followed by the keys the module does not know in the order they were read. |
 | C6 | Keys the module does not know, at the document, mockup, section and view levels, MUST be kept with their values by `readDesign` and written back by `writeDesign`. |
 | C7 | `writeDesign(readDesign(text).document)` MUST return `text` unchanged for every text that `writeDesign` produced, and a mockup's `code` MUST reach the document and the text verbatim. |
-| C8 | The pack of a mockup MUST be its `options.pack` when present, else the document's `defaults.pack`, else `base`. |
-| C9 | `mockupOptions(document, name)` MUST return the render options of a mockup: the document's `defaults`, overridden by the mockup's `options`, with the pack of C8. |
+| C8 | The pack of a mockup MUST be its `options.pack` when that is a string, else the document's `defaults.pack` when that is a string, else `base`, and `mockupPack(document, name)` MUST return it. |
+| C9 | `mockupOptions(document, name)` MUST return the render options of a mockup as a new object: the document's `defaults`, overridden by the mockup's `options`, with the pack of C8; `mockupPack` and `mockupOptions` MUST return null for a name no mockup has. |
 | C10 | `newDesign(name)` MUST return a document with `format`, `version` 1, the given `name`, empty `defaults` and an empty `mockups` list. |
 | C11 | The module MUST NOT read or write files, and MUST NOT convert a document to or from Markdown, HTML or a folder of files; these remain with the host. |
+| C12 | `readDesign` MUST also refuse a `name` that is not a string, a `defaults` that is not an object, an `imports` that is not a list of strings, a section that is not an object with a string `name` and numbers `x`, `y`, `w` and `h`, a mockup that is not an object or whose `options` is not an object, and a `view` that is not an object or whose `zoom`, `x` or `y` is not a number or whose `active` is not a string; `imports`, `sections`, a mockup's `options`, `view` and each key of `view` MAY be absent. |
+| C13 | A number of C4 and C12 MUST be finite, and a refusal MUST say `<key> must be <what>, found <value>` (the value as JSON, `a list` or `an object`), or `<key> must be <what>, but it is missing`, and for a repeated name `the name "<name>" is already used by mockups[<k>]` at the later mockup's `name`. |
+| C14 | `readDesign` MUST list every problem it finds, in document order; a text that is not JSON MUST give one problem at the path `""` whose message starts `not valid JSON:` and names the line and column, and a JSON value that is not an object one problem at `""`. |
+| C15 | The order of C5 and C6 MUST be the order of the text even for keys that look like array indices (`"2"`), which a JavaScript object would enumerate first; a key a host adds to a read object MUST be written after the keys that were read. |
 | V1 | Reading and writing every document of the test fixtures yields the same text; each malformed fixture is refused with the expected JSON path. |
 
 ---
@@ -524,6 +549,22 @@ designer.addEventListener("mockitdown-change", (e) => {
 Node ids are the session's; ordinals are what an edit-mode rendering carries (R-EDIT-004). `nodeFor`
 turns one into the other after every parse.
 
+In Node, without any component, the session is used like this:
+
+```js
+import { DesignSession, readDesign, writeDesign } from "mockitdown/design";
+
+const session = new DesignSession(readDesign(text).document);
+const off = session.subscribe(({ kind, detail }) => console.log(kind, detail));
+session.apply({ op: "remove", nodes: ["n3"] });   // change {kind: "code", mockup, edits, code}
+session.setCode("Inbox", typed);                  // change, then diagnostics if they changed
+off();
+save(writeDesign(session.document));              // the live document, every change applied
+```
+
+Code typed as text keeps the last valid tree while it does not parse, and is re-parsed from that tree
+when it does again, so the nodes the typing did not touch keep their ids and the selection survives.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
@@ -535,11 +576,16 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-EDIT-006.TC-1 — Session notifications**
 
-`node:test`: a session over a two-mockup document; `apply` of an insert and of a remove each notify
-one `change` with `kind: "code"` and edits that, applied in turn to the original code, give the current
-code; the selection keeps a surviving node and drops a removed one; a syntax error in the code keeps the
-last valid tree and notifies `diagnostics`; `nodeFor` maps each ordinal of an edit-mode render of the
-mockup to a node of its tree; selecting two non-siblings is refused.
+`node:test` (`typescript/tests/unit/design-session.test.ts`): a session over a two-mockup document; `apply`
+of an insert and of a remove each notify one `change` with `kind: "code"` and edits that, applied in turn
+to the original code, give the current code, the insert followed by one `insert` naming the new node and
+its element; a move notifies one `change` for several edits; the selection keeps a surviving node and
+drops a removed one; a refused operation notifies nothing; a syntax error in the code keeps the last valid
+tree and notifies `diagnostics`, an operation is then refused, and fixed code keeps the untouched ids;
+`nodeFor` maps each ordinal of an edit-mode render of the mockup to a node of its tree; selecting two
+non-siblings or an unknown id is refused and the same selection notifies nothing; `setActive` and
+`hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
+`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names.
 
 **R-EDIT-006.TC-2 — DOM events**
 
@@ -555,14 +601,21 @@ element, with the notification's detail; a `mockitdown-outline` placed outside t
 | C1 | `mockitdown/design` MUST export `DesignSession`, a plain object without DOM access that holds a design document, the name of the active mockup, the selection (the ids of sibling view nodes of the active mockup), the hovered node and, per mockup, its last valid tree and its current diagnostics. |
 | C2 | The session MUST parse a mockup's code with `parseTree` (R-EDIT-001.C5) when the mockup is first needed and after every change of its code, and MUST keep the last valid tree when the code does not parse. |
 | C3 | `session.apply(op)` MUST apply an edit operation (R-EDIT-002, R-EDIT-003) to the active mockup, replace its code with the edited source, keep its tree from `reparse` and keep the selected nodes that still exist. |
-| C4 | `session.subscribe(listener)` MUST register a listener, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active` and `diagnostics` and its detail. |
+| C4 | `session.subscribe(listener)` MUST register a listener and return a function that removes it, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active` and `diagnostics` and its detail, as one object `{kind, detail}`, and MUST NOT notify a request that changes nothing. |
 | C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move` and `mockups` and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`. |
 | C6 | Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made. |
 | C7 | The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`. |
 | C8 | Inside a `mockitdown-designer`, only the designer element MUST dispatch these events; a component used on its own MUST dispatch those of its own session. |
 | C9 | `session.nodeFor(mockup, ordinal)` MUST return the id of the view node with that ordinal in the mockup's current tree, so that an element of an edit-mode rendering (R-EDIT-004.C4) maps to its node. |
-| C10 | `session.select(ids)` MUST refuse a list whose nodes are not siblings, and MUST replace the selection otherwise. |
+| C10 | `session.select(ids)` MUST refuse a list whose nodes are not siblings, or that names an id the active mockup's tree does not have, and MUST replace the selection otherwise; siblings are the children of one view node, or the parentless nodes of the top level or of one struct. |
 | C11 | A component MUST join the session of the nearest enclosing `mockitdown-designer`, else the session its host sets as its `session` property, else a session of its own. |
+| C12 | The active mockup of a new session MUST be the one the document's `view.active` names, else the first mockup, else none, and `session.setActive(name)` MUST make another mockup active, notifying `active` and clearing the selection and the hover. |
+| C13 | `session.apply(op)` MUST be refused, changing nothing and notifying nothing, when the operation is refused or the active mockup's code does not parse, and MUST notify `insert` with the inserted root node after the `change` of an `insert` operation, then `select` or `hover` when they lost a removed node. |
+| C14 | `session.setCode(mockup, code)` MUST replace a mockup's code with text and notify one `change` of kind `code` whose one edit replaces the part between the longest common prefix and suffix, and MUST re-parse from the last valid tree, so that nodes outside the changed text keep their ids. |
+| C15 | `session.hover(id)` MUST set the hovered node of the active mockup, or clear it with null, and MUST refuse an id its tree does not have. |
+| C16 | `session.setOptions(mockup, options)` and `session.moveMockup(mockup, x, y)` MUST replace a mockup's options and position and notify a `change` of kind `options` or `move` with no edits; a position that is not a finite number MUST be refused. |
+| C17 | A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup. |
+| C18 | `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names. |
 | V1 | A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code. |
 
 ---
@@ -724,6 +777,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
@@ -735,6 +789,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
