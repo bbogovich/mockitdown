@@ -56,8 +56,11 @@ def evaluate(source: str, options: RenderOptions | None = None,
     return ev.evaluate(module), diags
 
 
-def render(source: str, options: RenderOptions | None = None, **overrides: object) -> RenderResult:
-    """Render one mockup to an HTML fragment (no CSS; see :func:`stylesheet`)."""
+def render(source: str, options: RenderOptions | None = None, /, **overrides: object) -> RenderResult:
+    """Render one mockup to an HTML fragment (no CSS; see :func:`stylesheet`).
+
+    ``source`` and ``options`` are positional only, so every render option, ``source`` included, can be
+    given as a keyword override."""
     opts = (options or RenderOptions()).with_overrides(**overrides)
     screen, diags = evaluate(source, opts)
     if screen is None:
@@ -77,7 +80,7 @@ def render(source: str, options: RenderOptions | None = None, **overrides: objec
     return RenderResult(prefix + body, diags.items, packs, screen)
 
 
-def check(source: str, options: RenderOptions | None = None, **overrides: object) -> list[Diagnostic]:
+def check(source: str, options: RenderOptions | None = None, /, **overrides: object) -> list[Diagnostic]:
     """All diagnostics for ``source`` (rendering included, so asset and icon problems are found)."""
     return render(source, options, **overrides).diagnostics
 
