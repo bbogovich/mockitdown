@@ -913,12 +913,12 @@ entries:
   - seq: 102
     issue: 82
     action: implement
-    state: in-progress
+    state: done
     run: vibe-20261127-181318
     queued: 2026-11-28T03:18:01Z
     queued-by: agent:code-auditor
     started: 2026-11-28T03:24:28Z
-    finished:
+    finished: 2026-11-28T03:27:47Z
   - seq: 103
     issue: 83
     action: implement
