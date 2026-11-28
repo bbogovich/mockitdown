@@ -1,0 +1,16 @@
+// phosphor own elements: Banner, Box, Caption, CommandLine, Console, Cursor, DataTable, Header, Ledger, LoadBar, Log, MenuList
+VStack(alignment: .leading, spacing: 12) {
+  Banner("Title")
+  Box("Title") { Text("Content"); Button("Action") }
+  Caption("Content")
+  CommandLine("Text")
+  Console("Title") { Text("Content"); Button("Action") }
+  Cursor("Content")
+  DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Header("Content")
+  Ledger(columns: ["A", "B"], rows: [[1, 2], [3, 4]])
+  LoadBar("Label")
+  Log("let total = items.count")
+  MenuList() { Text("First item"); Text("Second item") }
+}
+.padding()

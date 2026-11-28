@@ -129,6 +129,35 @@ test("a missing or unknown #pack= selects the first pack of the side panel (C12)
   await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}&tab=elements$`));
 });
 
+// R-WEB-004 TC-11 step 4 (C32, C12): a hidden pack opens by its address, renders cleanly, and is never listed.
+test("TC-11: #pack=lcars opens a hidden pack the side panel does not list (C32)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const hidden = INDEX.hidden;
+  expect(hidden).toEqual(["hologram", "lcars", "phosphor"]);
+  const lcars = JSON.parse(readFileSync(new URL("../../../shared/reference/lcars.json", import.meta.url), "utf8"));
+  const errors = await open(page, "#pack=lcars");
+  await expect(page).toHaveURL(/#pack=lcars&tab=elements$/);
+  await expect(page.locator("#pack-title")).toHaveText(lcars.name);
+  await expect(page.locator(".pack-head .facts")).toContainText("lcars");
+  await expect(page.locator("#tabbtn-elements")).toBeVisible();
+  await expect(page.locator("#tabbtn-examples")).toBeVisible();
+  expect(await page.$$eval("#tab-elements article.element", (els) => els.map((e) => e.dataset.name)))
+    .toEqual(lcars.elements.map((e) => e.name));
+  for (const id of hidden) await expect(page.locator(`#packs a[data-pack="${id}"]`)).toHaveCount(0);
+  await expect(page.locator("#packs [aria-current]")).toHaveCount(0);
+  for (const id of ["phosphor", "hologram"]) {
+    const summary = await renderPack(page, id);
+    expect(summary.pack, id).toBe(id);
+    expect(summary.patterns, id).toEqual(patternsFor(id).map((p) => p.id));
+    expect(summary.empty, `${id}: mockups without rendered content`).toEqual([]);
+    expect(summary.errors, `${id}: error diagnostics`).toEqual([]);
+    await expect(page.locator("#packs [aria-current]")).toHaveCount(0);
+  }
+  await open(page, "#pack=nope");
+  await expect(page).toHaveURL(new RegExp(`#pack=${PACKS[0]}&tab=elements$`));
+  expect(errors).toEqual([]);
+});
+
 // TC-4 (C13, C15) and R-REND-013 TC-1: after renderAll(), every element card's sample and variants are
 // seen whole — fit frames as wide as their content, wide cards scrolling, no intersecting row children
 // or variant cells, presentation surfaces at full size — and the rows hold again inside a 320-point

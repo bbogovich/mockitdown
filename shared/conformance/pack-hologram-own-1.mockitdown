@@ -1,0 +1,16 @@
+// hologram own elements: Alert, Caption, Critical, DataPanel, DataTable, HUDButton, HUDFrame, Header, HexBadge, Panel, RadialGauge, Readout
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title")
+  Caption("Content")
+  Critical("Title")
+  DataPanel("Title") { Text("Content"); Button("Action") }
+  DataTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  HUDButton("Label")
+  HUDFrame("Title") { Text("Content"); Button("Action") }
+  Header("Content")
+  HexBadge("Text")
+  Panel("Title") { Text("Content"); Button("Action") }
+  RadialGauge("Label")
+  Readout("Label", 60)
+}
+.padding()

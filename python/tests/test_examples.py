@@ -104,6 +104,16 @@ class ReferencePagesTests(unittest.TestCase):
         self.assertEqual(res.returncode, 0,
                          res.stdout + res.stderr + "\nrun: python tools/gen_reference.py")
 
+    def test_hidden_packs_have_egg_pages_only(self):  # R-PACK-010 TC-1 step 3 (C2, C3)
+        mkdocs = (SITE / "mkdocs.yml").read_text(encoding="utf-8")
+        nav = mkdocs[mkdocs.index("\nnav:"):]
+        for pid in ("hologram", "lcars", "phosphor"):
+            with self.subTest(pack=pid):
+                self.assertFalse((SITE / "docs" / "reference" / f"{pid}.md").exists())
+                self.assertTrue((SITE / "docs" / "eggs" / f"{pid}.md").is_file())
+                self.assertNotIn(f"reference/{pid}.md", nav)
+                self.assertNotIn(f"eggs/{pid}.md", nav)
+
 
 @unittest.skipUnless(shutil.which("zensical") or os.environ.get("ZENSICAL"), "zensical not installed")
 class ZensicalBuildTests(unittest.TestCase):

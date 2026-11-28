@@ -180,7 +180,7 @@ def pack_cases() -> list[Case]:
     for pid in sorted(reg.ids()):
         ref = REFERENCE / f"{pid}.json"
         if pid == "base" or not ref.is_file():
-            continue  # base is covered element by element; hidden packs have no Reference data
+            continue  # base is covered element by element
         own = [e for e in _reference(pid)["elements"] if e["own"]]
         for i in range(0, len(own), CHUNK):
             part = own[i:i + CHUNK]

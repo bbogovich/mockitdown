@@ -1065,6 +1065,14 @@
       "area": "pack"
     },
     {
+      "name": "pack-hologram-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-hologram-own-2",
+      "area": "pack"
+    },
+    {
       "name": "pack-kde-plasma-own-1",
       "area": "pack"
     },
@@ -1102,6 +1110,18 @@
     },
     {
       "name": "pack-kde-plasma-own-10",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lcars-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lcars-own-2",
+      "area": "pack"
+    },
+    {
+      "name": "pack-lcars-own-3",
       "area": "pack"
     },
     {
@@ -1234,6 +1254,14 @@
     },
     {
       "name": "pack-nls-own-3",
+      "area": "pack"
+    },
+    {
+      "name": "pack-phosphor-own-1",
+      "area": "pack"
+    },
+    {
+      "name": "pack-phosphor-own-2",
       "area": "pack"
     },
     {

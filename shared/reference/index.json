@@ -65,5 +65,10 @@
     "vista"
    ]
   }
+ ],
+ "hidden": [
+  "hologram",
+  "lcars",
+  "phosphor"
  ]
 }

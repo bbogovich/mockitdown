@@ -1,0 +1,15 @@
+// phosphor own elements: MenuOption, Panel, Plot, Priority, Prompt, Readout, Rule, Screen, StatusLine, VectorPlot, Wireframe
+VStack(alignment: .leading, spacing: 12) {
+  MenuOption("Title")
+  Panel("Title") { Text("Content"); Button("Action") }
+  Plot(values: [3, 5, 2, 6, 4])
+  Priority("Title")
+  Prompt("Text")
+  Readout("Label", 60)
+  Rule("Label")
+  Screen("Title") { Text("Content"); Button("Action") }
+  StatusLine("Title") { Button("Save"); Button("Share") }
+  VectorPlot(values: [3, 5, 2, 6, 4])
+  Wireframe().frame(width: 160, height: 96)
+}
+.padding()

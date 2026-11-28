@@ -8,6 +8,9 @@
 // the tab, reloading restores both, and an unknown tab selects Elements. A pack change is a history
 // entry; a tab change replaces the current one.
 //
+// A hidden (easter-egg) pack, listed under `hidden` in index.json, opens by its fragment
+// (`#pack=lcars`) like any pack, but the side panel lists none and marks none selected (C32).
+//
 // Mockups are created lazily: each card holds an empty slot, and a <mockitdown-mockup> replaces it
 // when the slot comes near the viewport (IntersectionObserver). `window.packGallery` exposes the
 // state and two hooks for the browser tests (tests/browser/gallery-*.spec.mjs):
@@ -93,6 +96,8 @@ const gallery = {
   appearance: "light",
   filter: "",
   groups: [],
+  /** The hidden (easter-egg) packs of index.json: selectable by id, never listed (C32). */
+  hidden: [],
   patterns: [],
   /** Selection in progress or done: {id, promise}. */
   current: null,
@@ -129,8 +134,9 @@ function hashFor(pack, tab = selectedTab) {
   return `#pack=${encodeURIComponent(pack)}&tab=${tab}`;
 }
 
+/** A pack the gallery can show: one of the side panel's, or a hidden one named by its id (C32). */
 function knownPack(id) {
-  return gallery.groups.some((g) => g.packs.includes(id));
+  return gallery.groups.some((g) => g.packs.includes(id)) || gallery.hidden.includes(id);
 }
 
 function buildNav() {
@@ -206,7 +212,7 @@ async function showPack(id) {
         h("li", {}, "import ", ref.modules.map((m, i) => [i ? " " : "", h("code", {}, m)])),
         h("li", {}, "device ", h("b", {}, ref.device)),
         h("li", {}, "chrome ", h("b", {}, ref.chrome)),
-        h("li", {}, "group ", h("b", {}, ref.group)))),
+        ref.group ? h("li", {}, "group ", h("b", {}, ref.group)) : null)),
     h("div", { class: "tabs", role: "tablist", "aria-label": `${ref.name} content` },
       TABS.map(([tab, label]) => h("button", {
         type: "button", role: "tab", id: `tabbtn-${tab}`, "aria-controls": `tab-${tab}`, dataset: { tab },
@@ -472,6 +478,7 @@ async function init() {
 
   const [index, patterns] = await Promise.all([fetchJson(REFERENCE + "index.json"), loadPatterns()]);
   gallery.groups = index.groups;
+  gallery.hidden = index.hidden ?? [];
   gallery.patterns = patterns;
   buildNav();
   window.addEventListener("hashchange", () => { setTab(tabFromHash(), false); select(packFromHash()); });

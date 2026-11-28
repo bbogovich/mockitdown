@@ -1,0 +1,16 @@
+// lcars own elements: Elbow, Frame, Gauge, Header, Indicator, ListItem, Meter, Panel, Pill, Readout, RedAlert, SegmentedBar
+VStack(alignment: .leading, spacing: 12) {
+  Elbow().frame(width: 160, height: 96)
+  Frame("Title") { Text("Content"); Button("Action") }
+  Gauge(60)
+  Header("Content")
+  Indicator("Text")
+  ListItem("Title")
+  Meter("Label")
+  Panel("Title") { Text("Content"); Button("Action") }
+  Pill("Label")
+  Readout("Label", 60)
+  RedAlert("Title")
+  SegmentedBar(60)
+}
+.padding()

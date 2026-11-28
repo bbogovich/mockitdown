@@ -208,5 +208,21 @@ class ReferenceJsonTests(unittest.TestCase):
                                       "sample", "variants_sample"})
 
 
+    def test_hidden_packs_have_reference_data(self):  # R-PACK-010 TC-1 step 2 (C2)
+        import json
+        from mockitdown.packs import registry
+        index = json.loads((SHARED / "reference" / "index.json").read_text(encoding="utf-8"))
+        self.assertEqual(index["hidden"], ["hologram", "lcars", "phosphor"])
+        listed = {i for g in index["groups"] for i in g["packs"]}
+        self.assertFalse(listed & set(index["hidden"]))
+        for pid in index["hidden"]:
+            data = json.loads((SHARED / "reference" / f"{pid}.json").read_text(encoding="utf-8"))
+            self.assertEqual(data["id"], pid)
+            self.assertIsNone(data["group"])
+            self.assertEqual({e["name"] for e in data["elements"]}, set(registry().get(pid).elements))
+        res = subprocess.run([sys.executable, str(ROOT / "tools" / "gen_reference.py"), "--check"],
+                             capture_output=True, text=True)
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+
 if __name__ == "__main__":
     unittest.main()

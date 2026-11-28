@@ -1,0 +1,16 @@
+// lcars own elements: Alert, Bar, Button, Caption, Cascade, ConsoleButton, ConsoleFrame, ConsoleLog, ConsoleTabs, ConsoleToggle, DataGrid, Divider
+VStack(alignment: .leading, spacing: 12) {
+  Alert("Title")
+  Bar().frame(width: 160, height: 96)
+  Button("Label")
+  Caption("Content")
+  Cascade("Content")
+  ConsoleButton("Label")
+  ConsoleFrame("Title") { Text("Content"); Button("Action") }
+  ConsoleLog("let total = items.count")
+  ConsoleTabs(["One", "Two", "Three"]) { Text("First tab").tabItem { Text("One") }; Text("Second tab").tabItem { Text("Two") } }
+  ConsoleToggle("Label")
+  DataGrid(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  Divider()
+}
+.padding()

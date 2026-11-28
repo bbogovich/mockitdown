@@ -206,5 +206,32 @@ class ShippedPackTests(unittest.TestCase):
                 self.assertTrue(row["version"].strip(), "version")
 
 
+HIDDEN = ["hologram", "lcars", "phosphor"]  # R-PACK-010.C3
+
+
+class HiddenPackTests(unittest.TestCase):
+    """R-PACK-010 TC-1 step 1: hidden packs work when named but are not listed (C1, C3)."""
+
+    def test_hidden_packs(self):
+        import contextlib
+        import io
+        import json
+        from mockitdown import RenderOptions, cli
+        from mockitdown import render as render_source
+
+        def packs(*args):
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                self.assertEqual(cli.main(["packs", "--json", *args]), 0)
+            return [r["id"] for r in json.loads(out.getvalue())]
+
+        self.assertFalse(set(HIDDEN) & set(packs()))
+        self.assertLessEqual(set(HIDDEN), set(packs("--all")))
+        for res in (render_source('Text("Hi")', RenderOptions(pack="lcars")),
+                    render_source('import LCARS\nText("Hi")', RenderOptions())):
+            self.assertEqual([d for d in res.diagnostics if d.severity == "error"], [])
+            self.assertEqual(res.packs, ["base", "lcars"])
+
+
 if __name__ == "__main__":
     unittest.main()

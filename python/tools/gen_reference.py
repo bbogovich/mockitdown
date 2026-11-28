@@ -7,7 +7,8 @@
 
 Every element a pack offers is shown rendered in that pack's style, with its role, positional
 arguments, defaults, variants and doc line, taken from `pack.json`. The pack's own elements come
-first, then the core vocabulary it inherits. Hidden (easter-egg) packs are left out.
+first, then the core vocabulary it inherits. Hidden (easter-egg) packs get no page and no nav entry
+(R-PACK-010.C2); their hand-written pages live under `docs/eggs/`.
 
 An element's sample is the `sample` its `pack.json` entry declares (R-PACK-013), used verbatim; a
 declared sample that renders with a diagnostic stops the generator, naming the pack and the element.
@@ -18,15 +19,16 @@ generated pages build cleanly under `strict: true`. The variants sample shows th
 variant (`.variant("…")`), side by side and captioned.
 
 The same data is written as JSON for the TypeScript variant's pack gallery (R-REPO-003.C5,
-R-WEB-004): `shared/reference/<pack>.json` per listed pack and `shared/reference/index.json` with the
-menu groups. Shape of `<pack>.json`::
+R-WEB-004): `shared/reference/<pack>.json` per pack, hidden packs included (R-PACK-010.C2), and
+`shared/reference/index.json` with the menu groups. Shape of `<pack>.json`::
 
     {"id", "name", "framework", "version", "modules": [...], "device", "chrome", "group",
      "elements": [{"name", "role", "params": [...], "defaults": {...}, "variants": [...], "doc",
                    "own": bool, "sample": "<source>", "variants_sample": "<source>" | null}, ...]}
 
 Elements are in page order: the pack's own elements first, then the inherited core vocabulary, each
-sorted by name. `index.json` is `{"groups": [{"title", "packs": [id, ...]}, ...]}`.
+sorted by name. `index.json` is `{"groups": [{"title", "packs": [id, ...]}, ...], "hidden": [id, ...]}`,
+the hidden packs sorted by id and in no group; a hidden pack's `group` is null.
 """
 
 from __future__ import annotations
@@ -343,6 +345,12 @@ def groups() -> list[tuple[str, list[str]]]:
     return out + [("Retro", retro)]
 
 
+def hidden() -> list[str]:
+    """The hidden (easter-egg) packs, sorted by id (R-PACK-010.C2)."""
+    reg = registry()
+    return sorted(i for i in reg.ids() if reg.get(i).hidden)
+
+
 def index() -> str:
     reg = registry()
     out = ["# Reference", "",
@@ -387,7 +395,7 @@ def _json(obj) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=1) + "\n"
 
 
-def pack_json(pid: str, group: str, elements: list[dict]) -> str:
+def pack_json(pid: str, group: str | None, elements: list[dict]) -> str:
     p = registry().get(pid)
     return _json({"id": p.id, "name": p.name, "framework": p.framework, "version": p.version,
                   "modules": list(p.modules), "device": p.device, "chrome": p.chrome_for(p.device),
@@ -396,12 +404,15 @@ def pack_json(pid: str, group: str, elements: list[dict]) -> str:
 
 def files() -> dict[Path, str]:
     out = {MKDOCS: mkdocs_text(), OUT / "index.md": index(),
-           JSON_OUT / "index.json": _json({"groups": [{"title": t, "packs": ids} for t, ids in groups()]})}
+           JSON_OUT / "index.json": _json({"groups": [{"title": t, "packs": ids} for t, ids in groups()],
+                                           "hidden": hidden()})}
     for title, ids in groups():
         for i in ids:
             elements = pack_elements(i)
             out[OUT / f"{i}.md"] = page(i, elements)
             out[JSON_OUT / f"{i}.json"] = pack_json(i, title, elements)
+    for i in hidden():  # reference data for the gallery only: no page, no nav entry
+        out[JSON_OUT / f"{i}.json"] = pack_json(i, None, pack_elements(i))
     return out
 
 

@@ -1,0 +1,12 @@
+// hologram own elements: Reticle, Ring, Rule, Scanner, SegmentBar, TargetLock, Telemetry, Waveform
+VStack(alignment: .leading, spacing: 12) {
+  Reticle().frame(width: 160, height: 96)
+  Ring(60)
+  Rule("Label")
+  Scanner().frame(width: 160, height: 96)
+  SegmentBar("Label")
+  TargetLock().frame(width: 160, height: 96)
+  Telemetry(values: [3, 5, 2, 6, 4])
+  Waveform(values: [3, 5, 2, 6, 4])
+}
+.padding()

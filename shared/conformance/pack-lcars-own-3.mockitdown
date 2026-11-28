@@ -1,0 +1,9 @@
+// lcars own elements: SensorGrid, SensorSweep, SensorTable, SidebarButton, StatusLight
+VStack(alignment: .leading, spacing: 12) {
+  SensorGrid().frame(width: 160, height: 96)
+  SensorSweep().frame(width: 160, height: 96)
+  SensorTable(columns: ["Name", "Status"], rows: [["Ana Lima", "Active"], ["Ben Okafor", "Away"]])
+  SidebarButton("Label")
+  StatusLight("Text")
+}
+.padding()
