@@ -2,9 +2,9 @@
 requirement: R-TOOL-003
 title: The composite designer and its test page
 status: implemented
-version: 0.13.18
+version: 0.13.19
 date: 2026-11-28
-issue: 40
+issue: 41
 ---
 
 # R-TOOL-003 — The composite designer and its test page
@@ -13,6 +13,7 @@ issue: 40
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.13.19 | 2026-11-28 | implemented | #41 | Design and Preview modes on the canvas (canvas property); Preview sets the canvas's preview attribute, its list reveals frames, the appearance toggle sets the canvas's appearance; the zoom control (part zoom) | [The designer element](../narrative/architecture/designer.md), [The canvas](../narrative/architecture/canvas.md) |
 | 0.13.18 | 2026-11-28 | implemented | #40 | the status bar's diagnostic count is a button opening the diagnostics list (C12) | [The designer element](../narrative/architecture/designer.md), [The diagnostics list](../narrative/architecture/diagnostics-list.md) |
 | 0.13.18 | 2026-11-28 | implemented | #39 | Code mode's code view editable, joined by CodeSync (C15) | [The designer element](../narrative/architecture/designer.md) |
 | 0.13.17 | 2026-11-28 | implemented | #38 | Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (C15) | [The designer element](../narrative/architecture/designer.md), [The code view element](../narrative/architecture/code-view.md) |

@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (21)
+## Changes pending (22)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -24,13 +24,14 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-014 | Shape framing | 0.8.3 | 0.10.7 | 2026-11-25 | #9 |
 | R-REPO-001 | Repository layout | 0.6.0 | 0.12.11 | 2026-11-25 | #1 |
 | R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.12 | 2026-11-25 | #1 |
-| R-TOOL-003 | The composite designer and its test page | 0.13.18 | 0.13.19 | 2026-11-28 | #40 |
+| R-TOOL-003 | The composite designer and its test page | 0.13.19 | 0.13.20 | 2026-11-28 | #41 |
 | R-TOOL-010 | The diagnostics list: mockitdown-diagnostics | 0.12.12 | 0.13.19 | 2026-11-28 | #40 |
+| R-TOOL-011 | The canvas: mockitdown-canvas | 0.12.12 | 0.13.20 | 2026-11-28 | #41 |
 | R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (46)
+## Not started (45)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -76,7 +77,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-TOOL-011 | The canvas: mockitdown-canvas | — | 0.12.12 |  |  |
 | R-TOOL-012 | Mockup frames: labels, moving, renaming and placement | — | 0.12.12 |  |  |
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |

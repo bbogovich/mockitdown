@@ -147,3 +147,4 @@ See [New elements](new-elements.md).
 | 0.3.47 | 2026-11-28 | The inline text field opened after an insertion (part `text-field`, R-TOOL-006) (#31) |
 | 0.3.52 | 2026-11-28 | Shift- and Cmd/Ctrl-click on the innermost element select a range or toggle it (R-EDIT-008.C8) (#36) |
 | 0.3.55 | 2026-11-28 | While the code does not parse, renders `session.validCode` with `aria-readonly` and the `readonly` note (R-TOOL-009.C3); see [Two-way editing](two-way-editing.md) (#39) |
+| 0.3.57 | 2026-11-28 | `#scale`: in a scaled or zoomed canvas the outlines, the text field and the drop marks divide client offsets by the editor's scale (R-TOOL-011.C13); see [The canvas](canvas.md) (#41) |

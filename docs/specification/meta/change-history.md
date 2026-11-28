@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.20 | 2026-11-28 | `WEB.4`, `WEB.5` | The canvas as built (#41): R-TOOL-011 C1, C3, C4, C6-C9, new C10-C13, TC-1, TC-2; R-TOOL-003.C9 |
 | 0.13.19 | 2026-11-28 | `WEB.4` | The diagnostics list as built (#40): R-TOOL-010 C1, C5-C9, TC-1; R-TOOL-003.C12 |
 | 0.13.18 | 2026-11-28 | `WEB.4` | Two-way editing, Code mode and the docked code view (#39): CodeSync joins the code view to the session; the code view's applyEdits, mark and mockitdown-caret; the inspector's Edit in code; Code mode editable |
 | 0.13.17 | 2026-11-28 | `WEB.4` | The code view mockitdown-code as built (#38) |

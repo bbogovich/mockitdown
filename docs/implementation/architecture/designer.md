@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.56
+impl_version: 0.3.57
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -51,7 +51,7 @@ flowchart TD
   NS --> RJ["#rejoin: shadow editor/outline and package components inside read .session<br/>#giveSlotted: slotted elements get .session"]
   NS -- notifications --> N["#notified"]
   N --> ST["#drawState: name, pack, device, diagnostic count, breadcrumb"]
-  N --> PV["Preview: #drawPreviews (mockitdown-mockup per mockup)"]
+  N --> PV["Preview: #drawPreviewList; the canvas (preview attribute) shows every mockup read-only"]
   N --> EV["dispatch mockitdown-select, -change, -insert, -rename, -diagnostics"]
   K["keydown Delete/Backspace<br/>(path through a joined editor or outline)"] --> DEL["session.delete()"]
 ```
@@ -61,7 +61,7 @@ flowchart TD
   columns being the resizers (`role="separator"`). Each panel's default content sits inside its named
   `<slot>`, so a slotted element replaces it. The left column holds the `outline` slot (a
   `mockitdown-outline`) above the `gallery` slot (a `mockitdown-gallery`, R-TOOL-003.C16 as built in #29, which also takes `import-base` and counts in `rendered`), the centre the `view` slot (a
-  `mockitdown-editor`), the code view (a `mockitdown-code`, #38, editable since #39) and the preview pane, the right column the `inspector` slot
+  `mockitdown-canvas` holding the `mockitdown-editor`, #41, see [The canvas](canvas.md)), the code view (a `mockitdown-code`, #38, editable since #39) and, in Preview, the list of mockups, the right column the `inspector` slot
   (a `mockitdown-inspector`, #35, which joins the session like the gallery).
 - **Session** (C1, C5, R-EDIT-006.C11): the constructor makes a session over an empty document; `open`
   makes a new one per document. The editor, the outline and the gallery find it themselves (`#designerSession`
@@ -79,11 +79,14 @@ flowchart TD
   focused resizer move it by 16 px. The toolbar's Outline and Properties buttons (`aria-pressed`) toggle
   `collapsed`. `layout` returns a copy; setting it merges the parts given.
 - **Modes** (C8-C10, C15): `mode` reads the attribute through `designerMode` (unknown → `design`) and the
-  setter writes the normalised value. Preview hides the side panels, the resizers, the toggles and the
-  view, and builds one `<figure>` per mockup with a `mockitdown-mockup` carrying the fence options among
-  `mockupOptions` as attributes and the code through its `code` property; a list of buttons beside them
-  scrolls to a preview. The appearance toggle overrides `appearance` on every preview while a button is
-  pressed (pressing it again restores each mockup's own). Leaving Preview removes the previews. Code
+  setter writes the normalised value. Design and Preview show the canvas (R-TOOL-011.C9, #41); Preview
+  hides the side panels, the resizers and the toggles, sets the canvas's `preview` attribute (every
+  frame a `mockitdown-mockup` carrying the fence options among `mockupOptions` as attributes and the code
+  through its `code` property) and shows a list of buttons beside it, each revealing its frame
+  (`canvas.reveal`). The appearance toggle sets the canvas's `appearance` attribute, which overrides
+  `appearance` on every preview while a button is pressed (pressing it again restores each mockup's own);
+  leaving Preview removes it. The toolbar's zoom control (part `zoom`, a `select` of the zoom steps and
+  Fit, with a hidden first option showing a zoom between steps) follows `mockitdown-view`. Code
   mode shows the active mockup's code and diagnostics in a `mockitdown-code` (R-TOOL-003.C15) joined to
   the session by a `CodeSync`, editable (R-TOOL-009, #39); with `docked` the same code view sits below the
   view in Design mode (part `dock` toggles it), and the inspector's `mockitdown-edit-in-code` switches
@@ -117,3 +120,4 @@ flowchart TD
 | 0.3.54 | 2026-11-28 | Code mode shows the active mockup in a read-only `mockitdown-code` with its diagnostics, `#drawCode` setting `value` and `diagnostics` (R-TOOL-003.C15); see [The code view element](code-view.md) (#38) |
 | 0.3.55 | 2026-11-28 | Code mode editable through `CodeSync`, the Dock code toggle (`docked`, part `dock`), `codeView`, Edit in code, the status bar's first error (part `status-message`); the centre a flex column whose view and preview scroll on their own; see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.56 | 2026-11-28 | The status bar's count is a button (part `diagnostics`, `aria-expanded`) opening `mockitdown-diagnostics` above the status bar (part `problems`, `diagnosticsOpen`), Esc closes it, `mockitdown-reveal` shown in the dock or in Code mode (R-TOOL-010.C4, C6, C9; R-TOOL-003.C12); see [The diagnostics list](diagnostics-list.md) (#40) |
+| 0.3.57 | 2026-11-28 | The view is a `mockitdown-canvas` holding the editor (`canvas`), Preview mode on the canvas with its list revealing frames, the zoom control (part `zoom`); see [The canvas](canvas.md) (#41) |
