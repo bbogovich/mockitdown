@@ -2633,6 +2633,10 @@
       "area": "lang"
     },
     {
+      "name": "lang-expressions",
+      "area": "lang"
+    },
+    {
       "name": "diag-syntax-error",
       "area": "diag"
     },

@@ -284,7 +284,11 @@ class Parser:
 
     def parse_expr(self, no_trailing: bool = False) -> A.Node:
         cond = self.parse_binary(0, no_trailing)
-        if self.at("QUESTION"):
+        k = 0
+        while self.peek(k).kind == "NEWLINE":  # `?` on the next line continues the expression (R-LANG-006.C2)
+            k += 1
+        if self.peek(k).kind == "QUESTION":
+            self.pos += k
             q = self.next()
             self.skip_nl_only()
             then = self.parse_expr(no_trailing)

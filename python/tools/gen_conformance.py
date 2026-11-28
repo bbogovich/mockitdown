@@ -636,6 +636,13 @@ def lang_cases() -> list[Case]:
         Case("lang-stacks-spacing", "stack spacing and alignment",
              'HStack(alignment: .top, spacing: 24) { VStack(alignment: .trailing, spacing: 4) { Text("a"); Text("bb") }; '
              'Spacer(); Text("c") }.frame(width: 300)'),
+        Case("lang-expressions", "operators, line feeds in a ternary, values and their text (R-LANG-006, R-EVAL-008)",
+             'let on = true\nlet t = (name: "Ana", 3)\nlet m = ["k": [1, 2]]\nVStack(alignment: .leading) {\n'
+             '  Text(on\n    ? "on"\n    : "off")\n'
+             '  Text("\\(1 + 2 * 3) \\(7 / 2) \\(7.0 / 2) \\(1.0 / 3) \\(3.0) \\("a" + 1) \\(!on || false && on)")\n'
+             '  Text("\\(nil) \\([1, 2]) \\(1...3) \\(0..<2) \\(.red) \\(t.name) \\(t.1) \\(m["k"]!.last)")\n'
+             '  Text("\\("ab".uppercased()) \\(["a", "b"].joined(separator: "-")) \\("".isEmpty) \\(m.count) \\($on)")\n'
+             '}'),
     ]
     for c in out:
         c.options.setdefault("device", "fit")

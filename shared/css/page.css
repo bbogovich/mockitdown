@@ -49,6 +49,16 @@
   isolation: isolate;
   box-sizing: border-box;
   text-align: left;
+  /* Inherited text properties a frame does not set itself would come from the host (R-DEV-006.C1). */
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0;
+  text-shadow: none;
+  font-style: normal;
+  font-weight: 400;
+  white-space: normal;
+  word-break: normal;
   -webkit-font-smoothing: antialiased;
 }
 .mkd-frame[data-fit="true"] {
@@ -62,7 +72,7 @@
 .mkd-frame *,
 .mkd-frame *::before,
 .mkd-frame *::after { box-sizing: border-box; }
-.mkd-frame :where(div, span, nav, label, img, svg, table, thead, tbody, tr, th, td, strong, em, s, code, i) {
+.mkd-frame :where(div, span, nav, label, img, svg, table, thead, tbody, tr, th, td, strong, em, s, code, kbd, i) {
   margin: 0;
   padding: 0;
   border: 0;
@@ -73,7 +83,11 @@
   text-transform: inherit;
   vertical-align: baseline;
   max-width: none;
+  box-shadow: none;
 }
+/* Themes style keys by element (`.md-typeset kbd`); this outranks them and yields to every pack's
+   own key rule. */
+.mkd-figure .mkd-frame kbd { box-shadow: none; }
 .mkd-frame :where(strong) { font-weight: 700; }
 .mkd-frame :where(em) { font-style: italic; }
 .mkd-frame :where(s) { text-decoration: line-through; }

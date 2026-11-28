@@ -1,0 +1,12 @@
+// operators, line feeds in a ternary, values and their text (R-LANG-006, R-EVAL-008)
+let on = true
+let t = (name: "Ana", 3)
+let m = ["k": [1, 2]]
+VStack(alignment: .leading) {
+  Text(on
+    ? "on"
+    : "off")
+  Text("\(1 + 2 * 3) \(7 / 2) \(7.0 / 2) \(1.0 / 3) \(3.0) \("a" + 1) \(!on || false && on)")
+  Text("\(nil) \([1, 2]) \(1...3) \(0..<2) \(.red) \(t.name) \(t.1) \(m["k"]!.last)")
+  Text("\("ab".uppercased()) \(["a", "b"].joined(separator: "-")) \("".isEmpty) \(m.count) \($on)")
+}

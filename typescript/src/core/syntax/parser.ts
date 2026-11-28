@@ -333,7 +333,10 @@ export class Parser {
 
   parseExpr(noTrailing = false): A.Node {
     const cond = this.parseBinary(0, noTrailing);
-    if (this.at("QUESTION")) {
+    let k = 0;
+    while (this.peek(k).kind === "NEWLINE") k++; // `?` on the next line continues the expression (R-LANG-006.C2)
+    if (this.peek(k).kind === "QUESTION") {
+      this.pos += k;
       const q = this.next();
       this.skipNlOnly();
       const then = this.parseExpr(noTrailing);
