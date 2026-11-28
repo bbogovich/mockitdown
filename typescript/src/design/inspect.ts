@@ -19,13 +19,18 @@ import type * as A from "../core/syntax/ast.js";
 import type { Diagnostic } from "../core/diagnostics.js";
 import { iconNames } from "../core/icons.js";
 import { APPEARANCES, DEVICES } from "../core/options.js";
-import { registry, type Pack } from "../core/packs/registry.js";
+import { registry } from "../core/packs/registry.js";
 import type { TypeSpec } from "../core/paramtypes.js";
 import { parameterTypes, rolesLoaded } from "../core/roles.js";
-import { edit, stringLiteral, type EditOp } from "../core/syntax/edit.js";
+import type { EditOp } from "../core/syntax/edit.js";
 import type { SyntaxTree, ViewNode } from "../core/syntax/tree.js";
 import { MODIFIER_GROUPS, modifierTypes, type ModifierGroup } from "../core/vocabulary.js";
 import { mockupOptions, mockupPack } from "./document.js";
+import { applyChecked, attrOf, notUnderstood, opFor, packOf, refuse, selected } from "./inspect-edits.js";
+import {
+  argsCode, codeOf, controlOf, defaultCode, leadingComment, matchArgs, modifierList, numberValue, readValue, stringOf, TEXT,
+  valueCode, type ChainModifier,
+} from "./inspect-values.js";
 import type { DesignSession } from "./session.js";
 
 /** The control a field is edited with (C3); `code` for a value the typed controls cannot express. */
@@ -124,7 +129,6 @@ export const INSPECTOR_DEBOUNCE_MS = 150;
 /** The state arguments Variant and state offers when the element's types name them (C4). */
 export const STATE_LABELS: readonly string[] = ["selected", "disabled", "checked", "value"];
 
-const TEXT: TypeSpec = Object.freeze({ type: "text" });
 const IDENTITY_MODIFIERS = new Set(["id", "ref"]);
 
 // --- reading --------------------------------------------------------------------------------------
@@ -368,24 +372,6 @@ export function iconSuggestions(): string[] {
 
 // --- internals: fields ----------------------------------------------------------------------------
 
-interface ChainModifier {
-  name: string;
-  index: number;
-  syntax: A.Call | A.Member;
-  call: A.Call | null;
-}
-
-/** The node's modifier chain with each modifier's name and occurrence index. */
-function modifierList(node: ViewNode): ChainModifier[] {
-  const seen = new Map<string, number>();
-  return node.modifiers.map((m) => {
-    const name = m.kind === "Call" ? (m.callee as A.Member).name : m.name;
-    const index = seen.get(name) ?? 0;
-    seen.set(name, index + 1);
-    return { name, index, syntax: m, call: m.kind === "Call" ? m : null };
-  });
-}
-
 function typedField(o: {
   key: string; label: string; type: TypeSpec | null; valueNode: A.Node | null; impliedTrue?: boolean; src: string;
   present: boolean; removable: boolean; target: FieldTarget; defaultForm: ValueForm; understood?: boolean;
@@ -403,17 +389,6 @@ function typedField(o: {
   return { ...base, control: controlOf(o.type), type: o.type, value: read.value, form: o.valueNode ? read.form : o.defaultForm, ...(choices ? { choices } : {}) };
 }
 
-function controlOf(type: TypeSpec): InspectorControl {
-  switch (type.type) {
-    case "text": return "text";
-    case "number": return "number";
-    case "bool": return "switch";
-    case "enum": return "choice";
-    case "color": return "color";
-    case "icon": return "icon";
-    case "array": return "list";
-  }
-}
 
 /** The fields of one modifier: one per argument of its vocabulary entry, else one code field. */
 function modifierFields(m: ChainModifier, spec: readonly { label: string | null; type: TypeSpec }[] | null, src: string): InspectorField[] {
@@ -441,27 +416,6 @@ function modifierFields(m: ChainModifier, spec: readonly { label: string | null;
   });
 }
 
-/**
- * The written arguments of a modifier by the key of the vocabulary argument each one is (`label`, or
- * `#k` for the k-th), positional ones matched in order to the next positional argument whose type reads
- * them; null when an argument matches none (the modifier is then edited as code).
- */
-function matchArgs(spec: readonly { label: string | null; type: TypeSpec }[], args: readonly A.Arg[]): Map<string, A.Arg> | null {
-  const out = new Map<string, A.Arg>();
-  let k = 0;
-  for (const a of args) {
-    if (a.label !== null) {
-      if (!spec.some((s) => s.label === a.label) || out.has(a.label)) return null;
-      out.set(a.label, a);
-      continue;
-    }
-    while (k < spec.length && (spec[k]!.label !== null || !readValue(spec[k]!.type, a.value))) k++;
-    if (k >= spec.length) return null;
-    out.set(`#${k}`, a);
-    k++;
-  }
-  return out;
-}
 
 /** Identity (C6): `.id`, `.ref` and the comment lines leading the node. */
 function identityFields(tree: SyntaxTree, node: ViewNode): InspectorField[] {
@@ -516,310 +470,4 @@ function mockupFields(session: DesignSession, name: string): InspectorField[] {
     field("caption", "switch", { type: "bool" }),
     field("elements", "switch", { type: "bool" }),
   ];
-}
-
-// --- internals: values ----------------------------------------------------------------------------
-
-/** A value node read by a type: its value and how it is written, or null when the type cannot show it. */
-function readValue(type: TypeSpec, v: A.Node): { value: FieldValue; form: ValueForm } | null {
-  switch (type.type) {
-    case "text":
-    case "icon": {
-      const s = stringOf(v);
-      return s === null ? null : { value: s, form: "string" };
-    }
-    case "number": {
-      const n = numberOf(v);
-      return n === null ? null : { value: n, form: "string" };
-    }
-    case "bool":
-      return v.kind === "Literal" && typeof v.value === "boolean" ? { value: v.value, form: "string" } : null;
-    case "enum": {
-      if (v.kind === "EnumCase") return type.values.includes(v.name) ? { value: v.name, form: "enum" } : null;
-      const s = stringOf(v);
-      return s !== null && type.values.includes(s) ? { value: s, form: "string" } : null;
-    }
-    case "color": {
-      if (v.kind === "EnumCase") return { value: v.name, form: "enum" };
-      const s = stringOf(v);
-      return s !== null && colourOk(s) ? { value: s, form: "string" } : null;
-    }
-    case "array": {
-      if (v.kind !== "ArrayLit") return null;
-      const items: string[] = [];
-      for (const i of v.items) {
-        const r = readValue(type.items, i);
-        if (!r || r.value === null || Array.isArray(r.value)) return null;
-        items.push(String(r.value));
-      }
-      return { value: items, form: "string" };
-    }
-  }
-}
-
-/** The code a control makes of an input; null removes, when `removable`. */
-function valueCode(control: InspectorControl, type: TypeSpec | null, input: unknown, form: ValueForm, removable: boolean): { code: string | null } | { error: string } {
-  const text = input === null || input === undefined ? "" : typeof input === "string" ? input : String(input);
-  const empty = (): { code: null } | { error: string } => (removable ? { code: null } : { error: "a value is required" });
-  switch (control) {
-    case "text":
-      return { code: stringLiteral(text) };
-    case "icon":
-      return text === "" ? empty() : { code: stringLiteral(text) };
-    case "number": {
-      if (text.trim() === "") return empty();
-      const r = numberValue(text, type as Extract<TypeSpec, { type: "number" }>);
-      return "error" in r ? r : { code: String(r.value) };
-    }
-    case "switch":
-      return { code: input === true || text === "true" ? "true" : "false" };
-    case "choice": {
-      if (text === "") return empty();
-      const values = type && type.type === "enum" ? type.values : [];
-      if (!values.includes(text)) return { error: `${JSON.stringify(text)} is not one of ${values.join(", ")}` };
-      return { code: form === "enum" && /^[A-Za-z_][A-Za-z0-9_]*$/.test(text) ? `.${text}` : stringLiteral(text) };
-    }
-    case "color": {
-      const t = text.trim();
-      if (t === "") return empty();
-      if (!colourOk(t)) return { error: `${JSON.stringify(t)} is not a colour name or a #hex value` };
-      return { code: t.startsWith("#") || form === "string" ? stringLiteral(t) : `.${t}` };
-    }
-    case "list": {
-      if (!Array.isArray(input)) return { error: "a list is required" };
-      const items = type && type.type === "array" ? type.items : TEXT;
-      const codes: string[] = [];
-      for (const [i, x] of (input as unknown[]).entries()) {
-        const r = valueCode(controlOf(items), items, x, "string", false);
-        if ("error" in r) return { error: `item ${i + 1}: ${r.error}` };
-        codes.push(r.code!);
-      }
-      return { code: `[${codes.join(", ")}]` };
-    }
-    case "code":
-      return text.trim() === "" ? empty() : { code: text };
-    default:
-      return { error: "this field cannot be edited" };
-  }
-}
-
-function numberValue(input: unknown, type: Extract<TypeSpec, { type: "number" }> | null): { value: number } | { error: string } {
-  const text = typeof input === "number" ? String(input) : String(input ?? "").trim();
-  if (!/^[+-]?(\d+(\.\d*)?|\.\d+)$/.test(text)) return { error: `${JSON.stringify(text)} is not a number` };
-  const value = Number(text);
-  if (type?.min !== undefined && value < type.min) return { error: `must be at least ${type.min}` };
-  if (type?.max !== undefined && value > type.max) return { error: `must be at most ${type.max}` };
-  return { value };
-}
-
-function colourOk(s: string): boolean {
-  return /^[A-Za-z][A-Za-z0-9]*$/.test(s) || /^#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(s);
-}
-
-/** The value a new argument of a type is added with (C2). */
-function defaultCode(type: TypeSpec): string {
-  switch (type.type) {
-    case "text": return '""';
-    case "number": return String(type.min !== undefined && type.min > 0 ? type.min : 0);
-    case "bool": return "true";
-    case "enum": return stringLiteral(type.values[0]!);
-    case "color": return ".blue";
-    case "icon": return '"star"';
-    case "array": return "[]";
-  }
-}
-
-function stringOf(v: A.Node): string | null {
-  if (v.kind === "Literal") return typeof v.value === "string" ? v.value : null;
-  if (v.kind !== "StringLit") return null;
-  return v.parts.every((p) => typeof p === "string") ? (v.parts as string[]).join("") : null;
-}
-
-function numberOf(v: A.Node): number | null {
-  if (v.kind === "Literal") {
-    const x = v.value as unknown;
-    if (typeof x === "number") return x;
-    if (x && typeof x === "object" && typeof (x as { value?: unknown }).value === "number") return (x as { value: number }).value;
-    return null;
-  }
-  if (v.kind === "Unary" && (v.op === "-" || v.op === "+")) {
-    const n = numberOf(v.operand);
-    return n === null ? null : v.op === "-" ? -n : n;
-  }
-  return null;
-}
-
-function codeOf(v: A.Node, src: string): string {
-  return v.start !== undefined && v.end !== undefined ? src.slice(v.start, v.end) : "";
-}
-
-/** A call's arguments as code (`label: value, …`), each value as written. */
-function argsCode(call: A.Call, src: string): string {
-  return call.args.map((a) => (a.label === null ? codeOf(a.value, src) : `${a.label}: ${codeOf(a.value, src)}`)).join(", ");
-}
-
-/** The text of the comment lines leading a node (R-EDIT-001.C11), or null when none lead it. */
-function leadingComment(tree: SyntaxTree, node: ViewNode): string | null {
-  const src = tree.source;
-  if (node.span.start >= node.first) return null;
-  const start = src.lastIndexOf("\n", node.span.start - 1) + 1;
-  const end = src.lastIndexOf("\n", node.first - 1) + 1;
-  if (end <= start) return null;
-  return src.slice(start, end).replace(/\n$/, "").split("\n").map((l) => l.trim().replace(/^\/\/ ?/, "")).join("\n");
-}
-
-// --- internals: edits ------------------------------------------------------------------------------
-
-/** The registered pack of an id, or null. */
-function packOf(id: string | null | undefined): Pack | null {
-  if (!id) return null;
-  try {
-    return registry.get(id);
-  } catch {
-    return null;
-  }
-}
-
-/** The attribute a pack modifier sets (`.variant` and `.buttonStyle` set `variant`), or null. */
-function attrOf(p: Pack | null, name: string): string | null {
-  const spec = p?.modifiers.get(name, null) as { get(k: string, d: unknown): unknown } | null | undefined;
-  if (!spec || typeof spec.get !== "function") return null;
-  const attr = spec.get("attr", name);
-  return typeof attr === "string" ? attr : null;
-}
-
-/** The positions (`line:col`) of the labels the evaluator reports as not understood (R-EVAL-004.C7). */
-function notUnderstood(diagnostics: readonly Diagnostic[]): Set<string> {
-  const out = new Set<string>();
-  for (const d of diagnostics) {
-    if (d.code === "argument" && d.location.source === "" && d.message.includes("is not understood by")) out.add(`${d.location.line}:${d.location.col}`);
-  }
-  return out;
-}
-
-function selected(session: DesignSession): { tree: SyntaxTree; node: ViewNode } | { error: string } {
-  const name = session.active;
-  if (name === null) return { error: "there is no active mockup" };
-  if (session.selection.length !== 1) return { error: "select one element" };
-  const tree = session.tree(name);
-  const node = tree?.byId(session.selection[0]!);
-  if (!tree || !node) return { error: "the selected element is not in the mockup" };
-  if (tree.source !== session.code(name)) return { error: `the code of mockup ${JSON.stringify(name)} does not parse` };
-  return { tree, node };
-}
-
-/** The edit that writes a field's code (null removes it), or null when there is nothing to change. */
-function opFor(tree: SyntaxTree, node: ViewNode, field: InspectorField, code: string | null): EditOp | null {
-  const t = field.target;
-  switch (t.kind) {
-    case "argument":
-      if (code === null && !field.present) return null;
-      return t.label === null
-        ? { op: "setArgument", node: node.id, label: null, position: t.position, value: code }
-        : { op: "setArgument", node: node.id, label: t.label, value: code };
-    case "state":
-      if (code === null && !field.present) return null;
-      if (t.at.kind === "argument") return { op: "setArgument", node: node.id, label: t.label, value: code };
-      if (t.at.kind === "modifier") return { op: "setModifier", node: node.id, name: t.at.name, index: t.at.index, args: code };
-      if (t.at.modifier) return { op: "setModifier", node: node.id, name: t.label, index: 0, args: code };
-      return { op: "setArgument", node: node.id, label: t.label, value: code };
-    case "modifierCode":
-      return { op: "setModifier", node: node.id, name: t.name, index: t.index, args: code ?? "" };
-    case "modifier":
-      return modifierOp(tree, node, t, code);
-    case "id": {
-      const id = code === null ? "" : code.trim();
-      if (id === "" && !field.present) return null;
-      if (id === field.value) return null;
-      return { op: "rename", node: node.id, id: id === "" ? null : id };
-    }
-    case "comment": {
-      const text = code ?? "";
-      if (text === "" && !field.present) return null;
-      if (text === field.value) return null;
-      return { op: "setComment", node: node.id, text: text === "" ? null : text };
-    }
-    default:
-      return null;
-  }
-}
-
-/** One argument of a modifier set (null: removed); the others kept as written, in their order. */
-function modifierOp(tree: SyntaxTree, node: ViewNode, t: Extract<FieldTarget, { kind: "modifier" }>, code: string | null): EditOp | null {
-  const m = modifierList(node).find((x) => x.name === t.name && x.index === t.index);
-  if (!m) return null;
-  const args = m.call?.args ?? [];
-  const assigned = matchArgs(modifierTypes()[t.name]?.args ?? [], args) ?? new Map<string, A.Arg>();
-  const keyOf = new Map<A.Arg, string>([...assigned].map(([k, a]) => [a, k]));
-  const parts = args.map((a) => ({
-    key: keyOf.get(a) ?? "", text: a.label === null ? codeOf(a.value, tree.source) : `${a.label}: ${codeOf(a.value, tree.source)}`,
-  }));
-  const at = parts.findIndex((p) => p.key === t.arg);
-  const label = t.arg.startsWith("#") ? null : t.arg;
-  const text = code === null ? null : label === null ? code : `${label}: ${code}`;
-  if (at >= 0) {
-    if (text === null) parts.splice(at, 1);
-    else parts[at] = { key: t.arg, text };
-  } else if (text === null) return null;
-  else if (label === null) {
-    // A positional argument goes before the first written argument the vocabulary lists after it.
-    const k = Number(t.arg.slice(1));
-    const i = parts.findIndex((p) => !p.key.startsWith("#") || Number(p.key.slice(1)) > k);
-    parts.splice(i < 0 ? parts.length : i, 0, { key: t.arg, text });
-  } else parts.push({ key: t.arg, text });
-  return { op: "setModifier", node: node.id, name: t.name, index: t.index, args: parts.map((p) => p.text).join(", ") };
-}
-
-/**
- * C9: an edit is checked before it is applied. The edit API may refuse it (a value that does not parse,
- * an identifier in use), and the code it gives may hold diagnostics located at the node that the
- * current code does not; either way nothing is applied and the reason is returned.
- */
-function applyChecked(session: DesignSession, nodeId: string, op: EditOp, key: string): FieldResult {
-  const name = session.active!;
-  const tree = session.tree(name)!;
-  const r = edit(tree, op);
-  if ("error" in r) return { ok: false, error: sentence(r.error), diagnostics: r.diagnostics };
-  if (!r.edits.length) return { ok: true };
-  const before = atNode(session.diagnostics(name), tree.source, tree.byId(nodeId));
-  const after = atNode(session.diagnosticsOf(name, r.source), r.source, r.tree.byId(nodeId));
-  const added = minus(after, before);
-  if (added.length) return { ok: false, error: added[0]!.message, diagnostics: added };
-  const applied = session.apply(op, { coalesce: key });
-  if ("error" in applied) return { ok: false, error: sentence(applied.error), diagnostics: applied.diagnostics };
-  return { ok: true };
-}
-
-/** The diagnostics located in a node's span. */
-function atNode(diagnostics: readonly Diagnostic[], src: string, node: ViewNode | null): Diagnostic[] {
-  if (!node) return [];
-  const starts = [0];
-  for (let i = 0; i < src.length; i++) if (src.charCodeAt(i) === 10) starts.push(i + 1);
-  return diagnostics.filter((d) => {
-    if (d.location.source !== "" || d.location.line < 1) return false;
-    const at = (starts[d.location.line - 1] ?? Infinity) + d.location.col - 1;
-    return at >= node.span.start && at < node.span.end;
-  });
-}
-
-/** The diagnostics of `a` that `b` does not have, by severity, code and message, counted. */
-function minus(a: readonly Diagnostic[], b: readonly Diagnostic[]): Diagnostic[] {
-  const counts = new Map<string, number>();
-  const k = (d: Diagnostic): string => `${d.severity}\n${d.code}\n${d.message}`;
-  for (const d of b) counts.set(k(d), (counts.get(k(d)) ?? 0) + 1);
-  const out: Diagnostic[] = [];
-  for (const d of a) {
-    const n = counts.get(k(d)) ?? 0;
-    if (n > 0) counts.set(k(d), n - 1);
-    else out.push(d);
-  }
-  return out;
-}
-
-function refuse(error: string): FieldResult {
-  return { ok: false, error: sentence(error), diagnostics: [] };
-}
-
-function sentence(text: string): string {
-  return text ? text[0]!.toUpperCase() + text.slice(1) : text;
 }
