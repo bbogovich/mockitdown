@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.55
+impl_version: 0.3.56
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -116,3 +116,4 @@ flowchart TD
 | 0.3.53 | 2026-11-28 | Cmd/Ctrl+G wraps the selection in a `VStack` and Shift+Cmd/Ctrl+G unwraps it, with the focus in the outline or the view (R-EDIT-009.C9); see [Commands on the selection](commands.md) (#37) |
 | 0.3.54 | 2026-11-28 | Code mode shows the active mockup in a read-only `mockitdown-code` with its diagnostics, `#drawCode` setting `value` and `diagnostics` (R-TOOL-003.C15); see [The code view element](code-view.md) (#38) |
 | 0.3.55 | 2026-11-28 | Code mode editable through `CodeSync`, the Dock code toggle (`docked`, part `dock`), `codeView`, Edit in code, the status bar's first error (part `status-message`); the centre a flex column whose view and preview scroll on their own; see [Two-way editing](two-way-editing.md) (#39) |
+| 0.3.56 | 2026-11-28 | The status bar's count is a button (part `diagnostics`, `aria-expanded`) opening `mockitdown-diagnostics` above the status bar (part `problems`, `diagnosticsOpen`), Esc closes it, `mockitdown-reveal` shown in the dock or in Code mode (R-TOOL-010.C4, C6, C9; R-TOOL-003.C12); see [The diagnostics list](diagnostics-list.md) (#40) |

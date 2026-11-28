@@ -2,17 +2,17 @@
 id: R-TOOL-003
 title: The composite designer and its test page
 status: active
-version: 0.13.18
-rev: 8
+version: 0.13.19
+rev: 9
 page: WEB.4
 slot: reqs
 order: 3
-hash: f76e71788193
+hash: a03c73e77c8c
 source: [SRC-12, SRC-13, SRC-16]
 realizes: [F-19, F-20]
 requires: [R-TOOL-001, R-TOOL-002]
 constrained_by: [A-WEB-5]
-refs: [R-EDIT-005, R-EDIT-006, R-TOOL-004, R-TOOL-008, R-TOOL-009]
+refs: [R-EDIT-005, R-EDIT-006, R-TOOL-004, R-TOOL-008, R-TOOL-009, R-TOOL-010]
 ---
 
 C1: The package MUST define the custom element `mockitdown-designer`, which owns a design session (its `session` property) that its components join (R-EDIT-006.C11).
@@ -26,7 +26,7 @@ C8: The `mode` attribute and property MUST take `design` (the default), `preview
 C9: In Preview mode the designer MUST hide the side panels and the view, show each mockup in document order read-only through a `mockitdown-mockup` whose attributes are the fence options among the mockup's options (R-EDIT-005.C9), list the mockups by name beside the previews, each scrolling to its preview when activated, and offer an appearance toggle of light, dark and both that sets every preview's `appearance` while one is pressed.
 C10: The toolbar MUST hold the mode switch (Design, Preview, Code) as a radio group and show the name, the pack and the device of the active mockup, the device being its `device` option, else the pack's default device.
 C11: Delete or Backspace with the focus in the outline or the view, outside Preview mode and outside a text field, MUST delete the selected nodes through `session.delete()` (R-EDIT-006.C19): one change, then the next sibling of the last removed node, else its previous sibling, else its parent selected.
-C12: The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`) and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated.
+C12: The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`), as a button opening the diagnostics list (R-TOOL-010.C4), and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated.
 C13: The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification.
 C14: The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`.
 C15: In Code mode the designer MUST show the active mockup's code and its diagnostics in a code view (R-TOOL-008) in place of the view, keeping the side panels, the code view joined to the session for editing (R-TOOL-009).

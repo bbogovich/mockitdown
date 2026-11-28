@@ -1,6 +1,6 @@
 ---
 title: "Design-tool components"
-spec_version: 0.13.18
+spec_version: 0.13.19
 status: draft
 updated: 2026-11-28
 page_id: WEB.4
@@ -279,7 +279,7 @@ it is editable and coloured, with a line number per line), and Design brings the
 | C9 | In Preview mode the designer MUST hide the side panels and the view, show each mockup in document order read-only through a `mockitdown-mockup` whose attributes are the fence options among the mockup's options (R-EDIT-005.C9), list the mockups by name beside the previews, each scrolling to its preview when activated, and offer an appearance toggle of light, dark and both that sets every preview's `appearance` while one is pressed. |
 | C10 | The toolbar MUST hold the mode switch (Design, Preview, Code) as a radio group and show the name, the pack and the device of the active mockup, the device being its `device` option, else the pack's default device. |
 | C11 | Delete or Backspace with the focus in the outline or the view, outside Preview mode and outside a text field, MUST delete the selected nodes through `session.delete()` (R-EDIT-006.C19): one change, then the next sibling of the last removed node, else its previous sibling, else its parent selected. |
-| C12 | The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`) and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated. |
+| C12 | The status bar MUST show the active mockup's diagnostic count (`0 diagnostics`, `1 diagnostic`), as a button opening the diagnostics list (R-TOOL-010.C4), and a breadcrumb of the element names on the path from the top-level view node to the first selected node, each crumb a button selecting its node when activated. |
 | C13 | The designer MUST dispatch the events of R-EDIT-006.C7, each exactly once per notification. |
 | C14 | The TypeScript project MUST include the test page `pages/designer.html`, which opens the sample design document `pages/designer-sample.mkdesign` of at least two mockups — one nesting a `Button` in a `Card` in a `List`, with a comment, a `let` and a `ForEach` — in a `mockitdown-designer`. |
 | C15 | In Code mode the designer MUST show the active mockup's code and its diagnostics in a code view (R-TOOL-008) in place of the view, keeping the side panels, the code view joined to the session for editing (R-TOOL-009). |
@@ -795,6 +795,12 @@ marked and nothing while typing waits.
 The diagnostics of the active mockup, opened from the status bar's count (SRC-12#s4, SRC-13#p1.c6). An
 entry leads to its element, or, for a syntax error with no element yet, to its place in the code.
 
+As built (#40): the list itself only selects; for a place in the code it tells its host with
+`mockitdown-reveal`, so a host composing its own tools decides which code view shows it. The designer
+uses the docked code view when there is one, so a syntax error does not take the user out of Design
+mode. An unknown element is located at its call's parenthesis (`Bogus()` at column 8 of
+`  Bogus()`), which still lies inside the element's span.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
@@ -806,25 +812,43 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-TOOL-010.TC-1 — Diagnostics lead to their element**
 
-Browser test on `pages/designer.html`: a mockup with `Text("A", bogus: 1)` and an unknown element shows
-two entries; activating the status count opens the list; activating the first entry selects the `Text`
-(F-19.AC7); with a syntax error, activating its entry reveals the location in the code view; fixing the
-code empties the list ("No problems").
+Browser test (`diagnostics.spec.mjs`, IT-68) on `pages/designer.html`, the active mockup given
+`VStack { Text("A", bogus: 1) Bogus() }` on three lines: the count reads "2 diagnostics" with
+`aria-expanded` false; activating it opens the list with two entries, the warning
+"'bogus' is not understood by Text in pack 'base'" at `2:13` and the unknown element's error at `3:8`
+(its call's parenthesis); a click on the first selects `Text("A", bogus: 1)` (F-19.AC7), Enter on the
+second selects `Bogus()`; Esc closes the list and focuses the count. With a missing `)` the one error at
+`3:1` reveals offset 20 in the code view in Code mode; fixing the code empties the open list
+("No problems", "0 diagnostics"). A second test reveals the error in the docked code view without
+leaving Design mode.
+
+`node:test` (`diagnostics.test.ts`, IT-68): the same entries (index, severity, message, line, column,
+`where`), none for another mockup or an empty document; `diagnosticOffset` with a code point past the
+BMP, a column past the line's end and lines out of range; `diagnosticTarget` gives the Text and the
+Bogus nodes, nothing for an imported file's diagnostic or one with no line; `activateDiagnostic` selects
+them, and for broken code returns the range `{20, 20}` and keeps the selection; one list per
+`diagnostics` notification (1, then 0 entries).
 
 **Realizes.** F-19
 
 | | Statement |
 |---|---|
-| C1 | The package MUST define the custom element `mockitdown-diagnostics`, which lists the active mockup's diagnostics in order, each with its severity, message, line and column, and shows "No problems" when there are none. |
+| C1 | The package MUST define the custom element `mockitdown-diagnostics`, which lists the active mockup's diagnostics in the session's order, each as a button (part `entry`, with `data-severity`) holding its severity, message and `line:col` (parts `severity`, `message`, `location`), and shows "No problems" (part `empty`) when there are none. |
 | C2 | Activating an entry by click or Enter MUST select the innermost view node whose span holds the diagnostic's location, else reveal the location in the code view (R-TOOL-008.C1). |
 | C3 | The list MUST update on every `diagnostics` notification of its session. |
 | C4 | In the composite designer, activating the status bar's diagnostic count MUST open the list, and Esc MUST close it. |
+| C5 | When no node holds an entry's location, which is the case while the code does not parse, the list MUST dispatch `mockitdown-reveal` (bubbling, composed, `detail: {mockup, range}`, the location as an empty range of the mockup's code) instead of selecting. |
+| C6 | The composite designer MUST reveal a `mockitdown-reveal` range of its active mockup in its code view, staying in Design mode while the code view is docked (R-TOOL-009.C8) and switching to Code mode otherwise. |
+| C7 | A diagnostic located in an imported file, or with no line, MUST be listed and MUST lead nowhere when activated. |
+| C8 | The rules of C1, C2, C5 and C7 MUST be held by `mockitdown/design` (`diagnosticEntries`, `diagnosticTarget`, `activateDiagnostic`, `diagnosticOffset`, A-WEB-5.K2), which reads a location's column in code points, as the lexer counts it. |
+| C9 | The designer's diagnostic count MUST be the button of part `diagnostics`, its `aria-expanded` true while the list is open; the list MUST stand above the status bar in the part `problems`, its open state the designer's `diagnosticsOpen` property, and opening it MUST focus its first entry. |
 | V1 | Activating a diagnostic about an unknown argument selects the element that carries the argument (F-19.AC7). |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.19 | 2026-11-28 | as built (#40): entries in the session's order with their parts (C1); mockitdown-reveal for an entry with no node (C5); the designer reveals in the dock or Code mode (C6); imported-file and unlocated diagnostics lead nowhere (C7); the rules in mockitdown/design, columns in code points (C8); the count button, the problems part and diagnosticsOpen (C9); TC-1 names its tests (IT-68); as built (#40): the status bar's diagnostic count is a button opening the diagnostics list (C12) |
 | 0.13.18 | 2026-11-28 | as built (#39): Code mode's code view is editable, joined to the session by two-way editing (C15); TC-2: code.spec.mjs checks it is editable; as built (#39): typed text is applied 300 ms after the last keystroke or when the focus leaves, coalesced as code (C1); broken code: the status bar names the first error, outline and editor show the last valid code read-only, edits, commands and drops refused (C3); only the pointer and navigation keys select by the caret, nothing outside every node, typing never selects (C4); typed text waiting is kept past other edits (C5); CodeSync in mockitdown/design holds the rules (C9); session parses, validCode, nodeAt, selectionSpan (C10); the dock toggle, docked and codeView (C11); TC-1, TC-2 name their tests (IT-67); as built (#39): Edit in code for an if, a ForEach, a struct's call or a code-only value, part edit-in-code, dispatching mockitdown-edit-in-code on which the designer switches to Code mode and reveals the span; the model's editInCode (C11); TC-3 names its tests (IT-67); as built (#39): applyEdits keeps the caret, selection and lines in view and sends no input event (C14); mark(range) marks a span without the focus (C15); mockitdown-caret on pointer release and navigation keys (C16); TC-1: Code mode is editable |
 | 0.13.17 | 2026-11-28 | as built (#38): Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (R-TOOL-008) until R-TOOL-009 (C15); as built (#38): highlight(source) in the core lexer colours implicit members and unreadable text and never throws (C10); the caret line's messages shown as text (C4); brackets in strings and comments ignored (C5); Tab alone inserts a unit (C6); exactly one input event per change, none for value (C7); readonly and appearance (C11); the browser's insertText keeps native undo (C12); the written text is the first value (C13); TC-1, TC-2 name their tests (IT-66) |
 | 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
@@ -840,6 +864,7 @@ code empties the list ("No problems").
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.18 | 2026-11-28 | as built (#39): Code mode's code view is editable, joined to the session by two-way editing (C15); TC-2: code.spec.mjs checks it is editable; as built (#39): typed text is applied 300 ms after the last keystroke or when the focus leaves, coalesced as code (C1); broken code: the status bar names the first error, outline and editor show the last valid code read-only, edits, commands and drops refused (C3); only the pointer and navigation keys select by the caret, nothing outside every node, typing never selects (C4); typed text waiting is kept past other edits (C5); CodeSync in mockitdown/design holds the rules (C9); session parses, validCode, nodeAt, selectionSpan (C10); the dock toggle, docked and codeView (C11); TC-1, TC-2 name their tests (IT-67); as built (#39): Edit in code for an if, a ForEach, a struct's call or a code-only value, part edit-in-code, dispatching mockitdown-edit-in-code on which the designer switches to Code mode and reveals the span; the model's editInCode (C11); TC-3 names its tests (IT-67); as built (#39): applyEdits keeps the caret, selection and lines in view and sends no input event (C14); mark(range) marks a span without the focus (C15); mockitdown-caret on pointer release and navigation keys (C16); TC-1: Code mode is editable |
 | 0.13.17 | 2026-11-28 | as built (#38): Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (R-TOOL-008) until R-TOOL-009 (C15); as built (#38): highlight(source) in the core lexer colours implicit members and unreadable text and never throws (C10); the caret line's messages shown as text (C4); brackets in strings and comments ignored (C5); Tab alone inserts a unit (C6); exactly one input event per change, none for value (C7); readonly and appearance (C11); the browser's insertText keeps native undo (C12); the written text is the first value (C13); TC-1, TC-2 name their tests (IT-66) |
 | 0.13.14 | 2026-11-28 | as built (#35): parameters written with their label listed once, sorted Add argument without parameters and state labels, state arguments edited where written else as the pack's modifier, Modifiers without .id/.ref/state modifiers with typed fields and Remove, blur applies, refusals keep the typed text, Mockup tab shows the name (rename with R-TOOL-012), '<n> selected', code fields (C13), number min/max (C14), the model in mockitdown/design (C15), .frame sizes min 0 (C16); TC-1..TC-3 name IT-63 |
 | 0.13.10 | 2026-11-28 | as built (#31): Add inserts the sample's call of R-TOOL-006.C1 instead of <Name>() (C8); as built (#31): a dropped card is inserted as the sample's call of R-TOOL-006.C1 instead of <Name>() (C5); as built (#31): sample calls of the base pack (V1 Button("Label")), the commit as a change of its own until R-EDIT-007, session firstText/setText (C4), an insertion while open and a vanished node (C5), sampleCall in the core (C6); TC-1 as built, TC-2 new |

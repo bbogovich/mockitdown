@@ -143,6 +143,7 @@ nav:
           - The inspector element: implementation/architecture/inspector.md
           - The code view element: implementation/architecture/code-view.md
           - Two-way editing: implementation/architecture/two-way-editing.md
+          - The diagnostics list: implementation/architecture/diagnostics-list.md
           - Drag and drop: implementation/architecture/drag-drop.md
           - New elements: implementation/architecture/new-elements.md
           - Role rules: implementation/architecture/roles.md

@@ -4,7 +4,7 @@ title: The composite designer and its test page
 status: implemented
 version: 0.13.18
 date: 2026-11-28
-issue: 39
+issue: 40
 ---
 
 # R-TOOL-003 — The composite designer and its test page
@@ -13,6 +13,7 @@ issue: 39
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.13.18 | 2026-11-28 | implemented | #40 | the status bar's diagnostic count is a button opening the diagnostics list (C12) | [The designer element](../narrative/architecture/designer.md), [The diagnostics list](../narrative/architecture/diagnostics-list.md) |
 | 0.13.18 | 2026-11-28 | implemented | #39 | Code mode's code view editable, joined by CodeSync (C15) | [The designer element](../narrative/architecture/designer.md) |
 | 0.13.17 | 2026-11-28 | implemented | #38 | Code mode shows the active mockup's code and diagnostics in a read-only mockitdown-code (C15) | [The designer element](../narrative/architecture/designer.md), [The code view element](../narrative/architecture/code-view.md) |
 | 0.13.8 | 2026-11-28 | implemented | #29 | the gallery panel holds mockitdown-gallery, joined on open, given import-base and awaited by rendered (C16) | [The designer element](../narrative/architecture/designer.md) |
