@@ -136,6 +136,82 @@ function directoryUrl(href: string): string {
   return href.endsWith("/") ? href : href + "/";
 }
 
+/** The base URLs of an element (R-WEB-002.C3): its `import-base` (a directory URL) and `asset-base`, default the document's. */
+export function baseUrls(el: Element): { importBase: string; assetBase: string } {
+  const base = document.baseURI;
+  const importAttr = el.getAttribute("import-base");
+  const importBase = importAttr !== null ? directoryUrl(new URL(importAttr, base).href) : base;
+  const assetAttr = el.getAttribute("asset-base");
+  const assetBase = assetAttr !== null ? new URL(assetAttr, base).href : new URL(".", base).href;
+  return { importBase, assetBase };
+}
+
+/**
+ * Render code with imports fetched from `importBase` and images resolved against `assetBase`. The core
+ * resolves imports synchronously: render, fetch the import files it asked for and did not have, and
+ * render again until it asks for nothing new. Null when `stale()` turned true while fetching.
+ */
+export async function renderWithImports(
+  code: string, options: Record<string, unknown>, importBase: string, assetBase: string, stale: () => boolean = () => false,
+): Promise<RenderResult | null> {
+  let result: RenderResult | null = null;
+  for (let round = 0; round < MAX_IMPORT_ROUNDS; round++) {
+    const missing = new Set<string>();
+    result = render(code, {
+      ...options,
+      asset_base: assetBase,
+      import_resolver: (path: string) => {
+        const url = new URL(path, importBase).href;
+        if (importTexts.has(url)) return importTexts.get(url);
+        missing.add(url);
+        return null;
+      },
+    });
+    if (!missing.size) break;
+    await Promise.all([...missing].map(fetchImport));
+    if (stale()) return null;
+  }
+  return result!;
+}
+
+/**
+ * Put rendered HTML into a shadow root with the stylesheet of its packs (shared constructed sheets
+ * where the browser has them, else a `<style>`), plus `extraCss` (the element's own rules); `wrap` turns
+ * the rendered HTML into what the root holds (the editor adds its view container and overlay layer).
+ */
+export function showInShadow(root: ShadowRoot, packs: readonly string[], html: string, extraCss = "", wrap?: (html: string) => string): void {
+  let css = "";
+  try {
+    css = shadowCss(stylesheet(packs));
+  } catch {
+    // no assets: the error box shows the reason, unstyled
+  }
+  const body = wrap ? wrap(html) : html;
+  if (constructable) {
+    hostSheet ??= (() => {
+      const s = new CSSStyleSheet();
+      s.replaceSync(HOST_CSS);
+      return s;
+    })();
+    const own = extraCss ? [extraSheet(extraCss)] : [];
+    root.adoptedStyleSheets = css ? [hostSheet, sheetFor(packs, css), ...own] : [hostSheet, ...own];
+    root.innerHTML = body;
+  } else {
+    root.innerHTML = `<style>${HOST_CSS}${css}${extraCss}</style>${body}`;
+  }
+}
+
+const extraSheets = new Map<string, CSSStyleSheet>();
+function extraSheet(css: string): CSSStyleSheet {
+  let sheet = extraSheets.get(css);
+  if (!sheet) {
+    sheet = new CSSStyleSheet();
+    sheet.replaceSync(css);
+    extraSheets.set(css, sheet);
+  }
+  return sheet;
+}
+
 // In Node (or any host without custom elements) the class is defined over a stand-in, so the package
 // entry can be imported there; it is only registered where `customElements` exists.
 const Base: typeof HTMLElement = (typeof HTMLElement !== "undefined" ? HTMLElement : class {}) as typeof HTMLElement;
@@ -264,39 +340,15 @@ export class MockupElement extends Base {
         raw[name] = value === "" && FENCE_OPTIONS.get(name) === "bool" ? "true" : value;
       }
       const [typed, problems] = coerceFenceOptions(raw);
-      const base = document.baseURI;
-      const importAttr = this.getAttribute("import-base");
-      const importBase = importAttr !== null ? directoryUrl(new URL(importAttr, base).href) : base;
-      const assetAttr = this.getAttribute("asset-base");
-      const assetBase = assetAttr !== null ? new URL(assetAttr, base).href : new URL(".", base).href;
+      const { importBase, assetBase } = baseUrls(this);
       const editAttr = this.getAttribute("edit");
       const edit = editAttr !== null && (editAttr === "" || parseBool(editAttr));
-      const code = this.code;
-
-      // The core resolves imports synchronously: render, fetch the import files it asked for and
-      // did not have, and render again until it asks for nothing new.
-      let result: RenderResult | null = null;
-      for (let round = 0; round < MAX_IMPORT_ROUNDS; round++) {
-        const missing = new Set<string>();
-        result = render(code, {
-          ...typed,
-          asset_base: assetBase,
-          edit,
-          import_resolver: (path: string) => {
-            const url = new URL(path, importBase).href;
-            if (importTexts.has(url)) return importTexts.get(url);
-            missing.add(url);
-            return null;
-          },
-        });
-        if (!missing.size) break;
-        await Promise.all([...missing].map(fetchImport));
-        if (stale()) return;
-      }
+      const result = await renderWithImports(this.code, { ...typed, edit }, importBase, assetBase, stale);
+      if (result === null) return;
       const fence = problems.map((p) => new Diagnostic("error", p, new Location(), "fence"));
-      diagnostics = [...result!.diagnostics, ...fence];
-      html = (fence.length ? errorHtml(fence) : "") + result!.html;
-      packs = result!.packs;
+      diagnostics = [...result.diagnostics, ...fence];
+      html = (fence.length ? errorHtml(fence) : "") + result.html;
+      packs = result.packs;
     } catch (e) {
       if (stale()) return;
       const message = e instanceof Error ? e.message : String(e);
@@ -315,34 +367,8 @@ export class MockupElement extends Base {
   }
 
   #show(packs: readonly string[], html: string): void {
-    let css = "";
-    try {
-      css = shadowCss(stylesheet(packs));
-    } catch {
-      // no assets: the error box shows the reason, unstyled
-    }
-    if (constructable) {
-      hostSheet ??= (() => {
-        const s = new CSSStyleSheet();
-        s.replaceSync(HOST_CSS);
-        return s;
-      })();
-      this.#root.adoptedStyleSheets = css ? [hostSheet, sheetFor(packs, css)] : [hostSheet];
-      this.#root.innerHTML = html;
-    } else {
-      this.#root.innerHTML = `<style>${HOST_CSS}${css}</style>${html}`;
-    }
+    showInShadow(this.#root, packs, html);
   }
-}
-
-/** The tags of every custom element the package defines (each begins with `mockitdown-`). */
-export const ELEMENT_TAGS: readonly string[] = [MOCKUP_TAG];
-
-/** Define the package's custom elements, where the host has `customElements`; idempotent. */
-export function defineElements(): void {
-  const registry = (globalThis as { customElements?: CustomElementRegistry }).customElements;
-  if (!registry) return;
-  if (!registry.get(MOCKUP_TAG)) registry.define(MOCKUP_TAG, MockupElement);
 }
 
 declare global {

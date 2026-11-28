@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editor element</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 1.5rem; max-width: 72rem; }
+    code { background: #f2f2f5; padding: 0 .25em; border-radius: 3px; }
+    .row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+    mockitdown-editor { flex: 0 1 26rem; padding: 1.5rem; }
+    #state { font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; flex: 1 1 20rem; margin: 0; }
+  </style>
+  <script type="module" src="../dist/mockitdown.js"></script>
+</head>
+<body>
+  <!-- The editor test page (R-TOOL-001.C11): one mockitdown-editor over a sample mockup that nests a
+       Button in a Card in a List and has a ForEach. The browser tests (editor.spec.mjs) drive it. -->
+  <h1>Editor element</h1>
+  <p>
+    <code>&lt;mockitdown-editor&gt;</code> renders a mockup in edit mode. Click an element to select it;
+    click it again or press <kbd>Esc</kbd> to select its parent, <kbd>Enter</kbd> to go back;
+    <kbd>Alt</kbd>-click cycles through the elements under the pointer. A row of the
+    <code>ForEach</code> selects the <code>ForEach</code> and shows a "derived" badge.
+  </p>
+
+  <div class="row">
+    <mockitdown-editor id="editor" pack="base" device="fit" caption="false">
+      <script type="text/mockitdown">
+        VStack(spacing: 12) {
+          Text("Inbox").font(.title)
+          List {
+            Card {
+              Text("Quarterly report")
+              Button("Open") {}
+            }
+            ForEach(["Alpha", "Beta", "Gamma"]) { name in
+              Text(name)
+            }
+          }
+        }
+      </script>
+    </mockitdown-editor>
+    <pre id="state" aria-live="polite"></pre>
+  </div>
+
+  <script type="module">
+    await customElements.whenDefined("mockitdown-editor");
+    const editor = document.getElementById("editor");
+    const state = document.getElementById("state");
+    const show = () => {
+      const session = editor.session;
+      const tree = session.tree(editor.mockup);
+      const name = (id) => (tree?.byId(id) ? `${tree.byId(id).name} (${tree.byId(id).ordinal})` : id);
+      state.textContent = `selection: ${session.selection.map(name).join(", ") || "none"}\n`
+        + `hover:     ${session.hovered === null ? "none" : name(session.hovered)}`;
+    };
+    editor.session.subscribe(show);
+    await editor.rendered;
+    show();
+    window.mockitdownDemo = "rendered";
+  </script>
+</body>
+</html>

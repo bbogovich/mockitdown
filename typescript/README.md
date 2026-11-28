@@ -139,6 +139,32 @@ mockupOptions(session.document, "Inbox");             // defaults under the mock
 `writeDesign(readDesign(text).document)` gives `text` back for any text it wrote. Reading and writing
 files, and converting a design to Markdown or HTML, stay with the host.
 
+### The editor element
+
+`<mockitdown-editor>` (from the package entry) is the editable view of one mockup of a design session:
+it renders the mockup in edit mode and turns clicks and hovers into the session's selection and hover.
+
+```html
+<mockitdown-editor pack="mui" device="fit">
+  <script type="text/mockitdown">
+    List { Card { Button("Open") {} } }
+  </script>
+</mockitdown-editor>
+```
+
+- Its session is the enclosing `mockitdown-designer`'s, else the one the host sets
+  (`editor.session = new DesignSession(doc)`, with `mockup="Name"` to show a mockup other than the
+  active one), else its own over the script child's code, with the fence attributes as defaults. Only
+  an editor with a session of its own dispatches `mockitdown-select`, `mockitdown-change`, … to the page.
+- `editor.code` (through `session.setCode`), `editor.session`, `editor.select(nodeId)`, `editor.rendered`.
+- Click: the innermost element; again, or Esc: its parent (a click on the selected root starts again at
+  the innermost); Enter: back to the child; a click on no element clears; Alt-click: cycle
+  through the elements under the pointer; a `ForEach` row, `if` branch or component selects its
+  construct and shows a "derived" badge. Hover outlines the element with `Button · 88 × 32`.
+- Outlines are drawn in a layer above the rendering (`::part(overlay)`, `selection`, `hover`, `tag`,
+  `badge`), coloured by `--mkd-selection-color` (default `#ff8a00`) and `--mkd-hover-color`
+  (default `#2f80ed`). The test page is `pages/editor.html`.
+
 ## Development
 
 Node 22 or later.
