@@ -10,3 +10,10 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#42).** The canvas moves a frame by its label and renames it in place; the session holds the
+rules (`renameMockup`, `newMockup`) and `mockitdown/design`'s frames.ts the arithmetic. A move starts
+after 3 px so that a click or a double-click on a label never moves it. Snapping works per axis: the
+nearest edge of another frame within 6 screen pixels (6 / zoom canvas units) wins over the 8-unit grid.
+A new mockup is placed by the frames' measured sizes, which the canvas lends the session as `measure`;
+without a canvas the options' `width` and `height` stand in.

@@ -1,6 +1,6 @@
 ---
 title: The outline element
-impl_version: 0.3.55
+impl_version: 0.3.58
 status: draft
 updated: 2026-11-28
 page_id: IMPL.OUTLINE
@@ -93,7 +93,10 @@ flowchart TD
   rows), leaving the tree hovers null; a `hover` notification redraws, marking rows of the hovered node
   `mkd-outline__row--hover`. The editor outlines the node hovered here.
 - **Tabs** (C8): two `role="tab"` buttons over two `role="tabpanel"`s; Left and Right move between tabs.
-  The Mockups list is redrawn after `active`, `rename` and a `change` of kind `mockups`.
+  The Mockups list is redrawn after `active`, `rename` and a `change` of kind `mockups`. A name of the
+  form `Mockup <n>` (`isDefaultName`) gets `data-default-name` and a warning icon (part `name-warning`,
+  `role="img"`, its title and label `DEFAULT_NAME_WARNING`) drawn by CSS, so the row's text stays the
+  name (R-TOOL-012.C9).
 
 ## Debugging
 
@@ -113,3 +116,4 @@ flowchart TD
 | 0.3.46 | 2026-11-28 | Rows draggable, the outline as a drop target (`data-drop`) (#30) |
 | 0.3.52 | 2026-11-28 | Shift-click selects a range of siblings, Cmd/Ctrl-click toggles a row (`session.selectRange`, `toggleSelected`, R-EDIT-008.C8) (#36) |
 | 0.3.55 | 2026-11-28 | Rows from `session.validCode`; while the code does not parse the tree has `data-readonly` and the `readonly` note shows (R-TOOL-009.C3); see [Two-way editing](two-way-editing.md) (#39) |
+| 0.3.58 | 2026-11-28 | The Mockups list warns about default names `Mockup <n>` (part `name-warning`, R-TOOL-012.C9; #42) |

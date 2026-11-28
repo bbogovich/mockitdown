@@ -1,6 +1,6 @@
 ---
 title: The canvas
-impl_version: 0.3.57
+impl_version: 0.3.58
 status: draft
 updated: 2026-11-28
 page_id: IMPL.CANVAS
@@ -12,7 +12,8 @@ Realizes **A-WEB-5** (P1: `mockitdown-canvas`; K1 its own shadow root; K2 no edi
 **R-TOOL-011** C1 to C13 (#41): every mockup of a design document as a frame on an infinite canvas,
 zoomed from 10 % to 400 % and panned with the mouse, the trackpad, the keyboard, a zoom control and a
 minimap. It is [the designer](designer.md)'s view in Design and Preview modes (C9, R-TOOL-003.C9), with
-the designer's [editor](editor.md) in the active mockup's frame.
+the designer's [editor](editor.md) in the active mockup's frame. Moving frames by their labels,
+renaming them in place and placing new mockups (R-TOOL-012) are on [Mockup frames](frames.md).
 
 ## Data flow
 
@@ -29,6 +30,7 @@ flowchart LR
   c -- "mockitdown-view {zoom, x, y}" --> d["designer: zoom control"]
   d -- "zoom = step · fit()" --> c
   fo -- "click: setActive(name)" --> s
+  c -- "label drag: moveMockup · double-click: renameMockup · measure" --> s
 ```
 
 ## Files
@@ -118,3 +120,4 @@ IT-55's Preview check reads the previews from the canvas's frames. See [Testing]
 | Version | Date | Change |
 |---|---|---|
 | 0.3.57 | 2026-11-28 | Page written: `mockitdown-canvas`, the arithmetic in `design/canvas.ts`, the designer's canvas, zoom control and Preview on the canvas, the editor's scale, IT-69 (#41) |
+| 0.3.58 | 2026-11-28 | Labels drag and rename their frames, the canvas measures frames for `session.measure`; see [Mockup frames](frames.md) (#42) |

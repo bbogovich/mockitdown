@@ -1,6 +1,6 @@
 ---
 title: Undo and redo history
-impl_version: 0.3.52
+impl_version: 0.3.58
 status: draft
 updated: 2026-11-28
 page_id: IMPL.UNDO
@@ -36,9 +36,11 @@ flowchart LR
 
 ## How it works
 
-- **A step** (`Step`) holds the mockup's name, the change kind (`code`, `options`, `move`), a
-  `Snapshot` before and after (code, the last valid `SyntaxTree`, a `structuredClone` of the options,
-  `x`, `y`), the forward text edits and their inverse (`diff(after.code, before.code)`, one edit), a
+- **A step** (`Step`) holds the mockup as its object (so a later rename leaves earlier steps on the
+  right mockup; the per-mockup states are keyed by the object too), the step kind (`code`, `options`,
+  `move`, `mockups`, or `rename`), a `Snapshot` before and after (name, code, the last valid
+  `SyntaxTree`, a `structuredClone` of the options, `x`, `y`, and for `mockups` the document's list of
+  mockups), the forward text edits and their inverse (`diff(after.code, before.code)`, one edit), a
   `Place` before and after (the active mockup and the selection), the coalescing key and the time of
   its last change.
 - **Recording.** Every changing request calls `begin` before it changes anything (snapshot and
@@ -98,3 +100,4 @@ IT-62: `typescript/tests/unit/undo.test.ts` (R-EDIT-007 TC-1, TC-2 with a fake c
 | 0.3.50 | 2026-11-28 | Page written: the session's undo history, coalescing, the designer's Undo and Redo, IT-62 (#34) |
 | 0.3.51 | 2026-11-28 | C5 for the inspector: its key `<node>:<field>` (#35) |
 | 0.3.52 | 2026-11-28 | The selection commands are one step each through `applyOps` ([Commands on the selection](commands.md), #36) |
+| 0.3.58 | 2026-11-28 | Steps hold the mockup object and its name; `rename` steps notify `rename` on undo and redo, `mockups` steps restore the list of mockups (R-EDIT-007.C1, C7); see [Mockup frames](frames.md) (#42) |

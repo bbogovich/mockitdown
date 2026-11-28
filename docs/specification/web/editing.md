@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.16
+spec_version: 0.13.21
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -697,13 +697,13 @@ word in an inspector field and undoing it in one step (C5) is tested with the in
 
 | | Statement |
 |---|---|
-| C1 | The session MUST keep one undo history per design document, each step holding the mockup, its code, last valid tree, options and position before and after the change, the change's text edits and their inverse, and the active mockup and the selection before and after it. |
+| C1 | The session MUST keep one undo history per design document, each step holding the mockup (as the object, so that a later rename leaves the step on it), its name, code, last valid tree, options and position before and after the change, for a change of kind `mockups` the document's list of mockups before and after it, the change's text edits and their inverse, and the active mockup and the selection before and after it. |
 | C2 | Every operation, command or code change applied through the session MUST be recorded as exactly one step. |
 | C3 | `session.undo()` MUST revert the latest step and restore the active mockup and the selection from before it, the restored nodes keeping their ids; `session.redo()` MUST reapply the step undone last and restore the active mockup and the selection from after it; each MUST be refused, changing and notifying nothing, when there is no such step. |
 | C4 | A change made with the same coalescing key as the latest step, to the same mockup and of the same change kind, within 1000 ms of that step's last change and with no undo or redo since, MUST be merged into that step instead of forming a new one. |
 | C5 | The inspector MUST use the node and field as the coalescing key, and the code view the key `code`, so that one burst of typing forms one step. |
 | C6 | A new step after an undo MUST discard the steps that could have been redone. |
-| C7 | Undo and redo MUST each notify one `change` (R-EDIT-006.C5) of the step's change kind holding the edits they made, the step's inverse for undo and its edits for redo, empty for kinds other than `code`. |
+| C7 | Undo and redo MUST each notify one `change` (R-EDIT-006.C5) of the step's change kind holding the edits they made, the step's inverse for undo and its edits for redo, empty for kinds other than `code`; a rename's step notifies `rename` instead (R-TOOL-012.C10). |
 | C8 | `session.canUndo` and `session.canRedo` MUST say whether a step can be undone or redone. |
 | C9 | The history MUST keep the latest 200 steps, or more when the session's `historyLimit` option says so, dropping the oldest. |
 | C10 | The composite designer MUST bind Cmd/Ctrl+Z to undo and Shift+Cmd/Ctrl+Z and Ctrl+Y to redo while the focus is in it, outside a text field and outside Preview mode, and its toolbar MUST have Undo and Redo buttons (parts `undo` and `redo`) enabled by C8 and disabled in Preview mode. |
@@ -880,6 +880,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
 | 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |
@@ -898,6 +899,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
 | 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |
 | 0.13.9 | 2026-11-28 | as built (#30): session.insert takes an index (C20); session.move moves siblings as one change, ids kept and selected (C21); as built (#30): move with a null parent moves to the top level (C32, corpus case move-top-level) |
