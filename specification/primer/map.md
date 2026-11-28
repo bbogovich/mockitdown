@@ -33,7 +33,7 @@ ADR-13 | decisions | active | 0.11.0 r3 | ADR.2 | The shipped packs
 ADR-14 | decisions | active | 0.2.0 r0 | ADR.2 | Documentation sites build with Zensical
 ADR-15 | decisions | active | 0.10.8 r2 | ADR.1 | Annotation marks use CSS anchor positioning with an inline fallback
 ADR-16 | decisions | active | 0.11.0 r2 | ADR.2 | Retro and easter-egg packs are original homages
-ADR-17 | decisions | active | 0.12.4 r5 | ADR.2 | One repository for both variants, with shared assets
+ADR-17 | decisions | active | pending r6 | ADR.2 | One repository for both variants, with shared assets
 ADR-18 | decisions | active | 0.11.0 r4 | ADR.2 | The web variant is a TypeScript port held to the Python output
 ADR-19 | decisions | active | 0.11.0 r5 | ADR.2 | The mockup element carries its code in a script child
 ADR-2 | decisions | active | 0.10.2 r1 | ADR.1 | The notation is a declarative subset of Swift and SwiftUI

@@ -2,14 +2,15 @@
 id: F-7
 title: Site-defined design packs
 status: active
-version: 0.2.0
-rev: 0
+version: 0.11.1
+rev: 1
 page: FEAT.1
 slot: features
 order: 7
 family: authoring
 source: [SRC-2]
-hash: 69b42e91a31b
+hash: 0e889aad5b9f
+requires: [F-3]
 ---
 
 G1: An organisation with its own design system must be able to mock up screens in that system without changing mockitdown.

@@ -2,15 +2,16 @@
 id: F-14
 title: Example site as user guide and end-to-end test
 status: active
-version: 0.11.0
-rev: 3
+version: 0.11.1
+rev: 4
 page: FEAT.2
 slot: features
 order: 7
 family: rendering
 source: [SRC-2, SRC-6]
-hash: 86c6e89c24fe
-refs: [F-18, UC-2]
+hash: 14c6ddb3cab1
+refs: [F-18, F-3, UC-2]
+requires: [F-3, F-18]
 ---
 
 G1: Users need a working demonstration of every supported framework, and the project needs an end-to-end test that exercises the real documentation toolchain.
@@ -30,3 +31,4 @@ AC4: The test suite fails when a Reference page is out of date with its pack.
 AC5: The header tab and the example site's top section are named User guide, and its first page after the home page is Installation. (UC-2)
 AC6: Following the Installation page literally in a fresh environment produces a site page and an HTML page that each show a rendered mockup. (UC-2)
 AC7: The custom-components page shows the import map configuration, a library block used by a later block, qualified references to two libraries, and a template with slots.
+AC8: The retro pages of the example site's navigation and of its Reference section are listed in the order of the years in F-3.C8, and then the packs of F-3.C10 and C13 in the order of AC8 of F-3.

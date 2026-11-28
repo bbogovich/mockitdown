@@ -2,14 +2,15 @@
 id: F-3
 title: Framework design packs
 status: active
-version: 0.10.0
-rev: 3
+version: 0.11.1
+rev: 4
 page: FEAT.1
 slot: features
 order: 3
 family: authoring
 source: [SRC-2, SRC-3, SRC-4, SRC-5, SRC-6, SRC-7, SRC-9, SRC-18]
-hash: b494715c391f
+hash: 9148452068b3
+requires: [F-2]
 ---
 
 G1: A mockup must look like the framework the final application is built with, so reviewers judge a realistic screen rather than a generic wireframe.
@@ -38,3 +39,4 @@ AC6: Naming an easter-egg pack in a fence (`pack="lcars"`) renders it, while `mo
 AC7: A Windows 1.0 mockup of two tiled windows over the desktop and icon area shows the colours of SRC-18#image1.
 AC8: The Amiga, GEM, GEOS, RISC OS and BeOS packs appear in the Retro group in chronological order, and the Newton, Palm OS, Windows CE and BlackBerry packs in the Mobile group.
 AC9: No run of six stylesheet lines appears in two packs' stylesheets.
+AC10: A mockup in the Apple IIgs GS/OS pack renders each of the screens named in C12 — the boot screen, the Launcher, the desktop with drive icons and Trash, a desk accessory, the Control Panel, the Teach editor and the shut-down screen — without a diagnostic, with coloured icons.

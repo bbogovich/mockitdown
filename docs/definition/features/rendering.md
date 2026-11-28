@@ -1,6 +1,6 @@
 ---
 title: "Features: rendering and integration"
-def_version: 0.11.0
+def_version: 0.11.1
 status: draft
 updated: 2026-11-27
 page_id: FEAT.2
@@ -35,6 +35,8 @@ and controls keep their size. An element shown alone at `fit` is drawn whole, in
 does not change when the page is rebuilt without source changes.
 
 ### F-9 — Light and dark appearance
+
+**Requires:** F-3
 
 **Problem.** A light mockup on a dark documentation page is jarring, and dark-mode screens need
 review too.
@@ -83,6 +85,8 @@ bold, its menus, the status items and clock — with the File menu dropped down 
 showing its commands, shortcuts and separators; below it, the app's window with traffic lights and toolbar.
 
 ### F-11 — Documentation-site integration
+
+**Requires:** F-1
 
 **Problem.** The prototype needed a MkDocs plugin (SRC-3); Zensical, the successor the project
 moves to, does not run MkDocs plugins.
@@ -139,6 +143,8 @@ locally, the page shows the same message above the figure and a `Buton` placehol
 column.
 
 ### F-14 — Example site as user guide and end-to-end test
+
+**Requires:** F-3, F-18
 
 **Problem.** A renderer for seven frameworks regresses easily; users need to see what each pack
 can do before adopting it.
@@ -207,6 +213,7 @@ to, including elements inside dialogs and other overlays.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-3, F-18; AC8 makes C7 observable |
 | 0.11.0 | 2026-11-27 | Demo becomes User guide; Installation page for Python and TypeScript; every term the guide uses is defined (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
@@ -214,6 +221,7 @@ to, including elements inside dialogs and other overlays.
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Header tabs for Demo, Definition, Specification, Implementation and Reference; per-pack element gallery; retro pages in chronological order |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.11.0 | 2026-11-27 | Demo becomes User guide; Installation page for Python and TypeScript; every term the guide uses is defined (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: annotations present a design in a document and are added while it is refined: N1, UC-1, UC-2 |
 | 0.9.1 | 2026-11-26 | definition audit: tab bar has six sections since F-18.CR-4 added Gallery (#47) |
 | 0.9.0 | 2026-11-26 | unknown labelled arguments are warned: C6, AC4, AC5 (ING-1); overlays keep their callouts; marks inside a dialog are placed at their elements: C5, C6, AC3 (ING-1) |

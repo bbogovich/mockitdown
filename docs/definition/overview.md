@@ -18,7 +18,7 @@ with — so reviewers judge a sketch, not the screen users will get.
 The MockItOut prototype (SRC-3) showed that a text notation inside Markdown, rendered by the
 documentation build, closes that gap. It used its own notation, three "kits" and a MkDocs plugin.
 **mockitdown** is its production successor (SRC-2): the notation becomes SwiftUI syntax, the kits
-become data-driven design packs for seven frameworks, and the integration moves to the Markdown
+become data-driven design packs for many frameworks, and the integration moves to the Markdown
 layer so it works under Zensical, which the project's documentation now uses.
 
 ## Who it serves
@@ -30,15 +30,18 @@ layer so it works under Zensical, which the project's documentation now uses.
 | **Developer** | Read mockups as code they already know; paste real SwiftUI; check mockups in CI | F-2, F-12, F-13 |
 | **Documentation-site maintainer** | Add mockups to a MkDocs or Zensical site by configuration; share components; add a corporate design system | F-4, F-7, F-11 |
 | **Pack author** | Add or refine a framework's look without touching the renderer | F-3, F-7 |
+| **Web-application developer, UX designer** | Show and edit mockups inside a web application; review every pack in a browser | F-16 to F-21 |
 | **mockitdown maintainers** | A demo of every framework that is also an end-to-end test | F-14 |
 
 ## Scope
 
 In scope: one visual state per mockup, written declaratively; rendering to static HTML and CSS at
-build time; packs for the neutral wireframe, SwiftUI, Fluent (WinUI 3), Material UI, Angular
-Material, SAPUI5 (Fiori), Bootstrap and shadcn/ui; light and dark appearance; device frames and
+build time; packs for the neutral wireframe, current web, desktop and mobile frameworks, historic
+systems and handheld devices (F-3); light and dark appearance; device frames and
 chrome; images and icons; custom components and libraries; site-defined packs; a command-line
-tool; an example site.
+tool; an example site; a TypeScript library of web components that renders mockups in web
+applications and the design-tool components that edit them (F-16 to F-21); a published pack gallery
+(F-18).
 
 Out of scope:
 
@@ -48,7 +51,8 @@ Out of scope:
   they do not run the framework, so details can differ from the real components.
 - **Executing Swift.** The notation is a declarative subset; functions, initialisers and
   arbitrary Swift are not supported.
-- **A visual designer.** The prototype's designer application is not part of this project.
+- **A designer application.** The project ships the design-tool components (F-19, F-20) for a host
+  to compose; a finished designer application is the host's, not part of this project.
 - **Image output.** The prototype's SVG renderer is retired; mockups render as HTML only.
 
 ## Revision history
@@ -56,3 +60,4 @@ Out of scope:
 | Version | Date | Change |
 |---|---|---|
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.2.1 | 2026-11-27 | Scope and users brought in line with F-3 and F-16 to F-21 (definition audit, #80) |

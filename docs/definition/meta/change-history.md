@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.11.1 | 2026-11-27 | `FEAT.1`, `FEAT.2`, `FEAT.3` | definition audit (#80): requires, family, Gallery tab wording, C12/C7/C14 made observable, stale overview scope and glossary |
 | 0.11.0 | 2026-11-27 | `FEAT.1`, `FEAT.2` | SRC-19: F-4 import map, page library blocks, library-qualified names, components as templates; F-14 User guide with Installation |
 | 0.10.0 | 2026-11-27 | `FEAT.1`, `FEAT.2`, `FEAT.3` | SRC-18: audit answers (all packs recorded in F-3, annotation use cases in F-15, deliberate constraints noted in F-18 and F-20), shared stylesheet rules, gallery home page and easter eggs, TypeScript release builds, Amiga, Windows 1.0 colours, fuller GS/OS, GEM, GEOS, RISC OS, BeOS and classic handhelds |
 | 0.9.3 | 2026-11-26 | `FEAT.3` | audit: F-18, F-19 and F-20 re-checked against F-17 |

@@ -1,6 +1,6 @@
 ---
 title: "Features: authoring"
-def_version: 0.11.0
+def_version: 0.11.1
 status: draft
 updated: 2026-11-27
 page_id: FEAT.1
@@ -76,6 +76,8 @@ located error and drawn as labelled placeholders.
 
 ### F-3 — Framework design packs
 
+**Requires:** F-2
+
 **Problem.** A wireframe does not show what the user will see; one hand-made style per project
 does not scale to the frameworks teams actually use.
 
@@ -146,6 +148,8 @@ blue and red, the Workbench in its blue and orange, the Palm in its 160 × 160 g
 science-fiction pack.
 
 ### F-4 — Custom reusable components
+
+**Requires:** F-2
 
 **Problem.** Real applications use components that no framework ships — a KPI tile, a person row,
 a status pill, the application's own window layout. Repeating their layout in every mockup is
@@ -258,6 +262,8 @@ figure. This keeps the prototype's Elements table (SRC-3) in the new notation.
 
 ### F-7 — Site-defined design packs
 
+**Requires:** F-3
+
 **Problem.** Many applications use a corporate design system derived from a public framework.
 
 **Change.** Packs are data, so a site adds its own the same way mockitdown ships them: a directory
@@ -278,12 +284,14 @@ elements the pack inherits.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.11.1 | 2026-11-27 | definition audit (#80): missing requires / family and order; definition audit (#80): requires F-2; AC10 makes C12 observable |
 | 0.11.0 | 2026-11-27 | import map replaces import directories; page library blocks; library-qualified names; components as templates with slots (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |
 | 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |
 | 0.4.0 | 2026-11-24 | Ant Design has shipped; the roadmap page now names the next packs |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.11.0 | 2026-11-27 | import map replaces import directories; page library blocks; library-qualified names; components as templates with slots (developer prompt 2026-11-27) |
 | 0.10.0 | 2026-11-27 | SRC-18: all shipped packs recorded (C2, C8), easter eggs (C9), Amiga, Windows 1.0 default colours, GS/OS beyond the Finder, GEM, GEOS, RISC OS, BeOS, classic handhelds in Mobile, shared rules written once: C8-C15, AC5-AC9, UC-3, UC-4 |
 | 0.9.0 | 2026-11-26 | dotted element names: C7, AC4 (ING-1) |
 | 0.6.0 | 2026-11-25 | SRC-9: SwiftUI gallery defects, multi-platform chrome, macOS menu bar, meaningful samples |

@@ -2,14 +2,15 @@
 id: F-9
 title: Light and dark appearance
 status: active
-version: 0.2.0
-rev: 0
+version: 0.11.1
+rev: 1
 page: FEAT.2
 slot: features
 order: 2
 family: rendering
 source: [SRC-2]
-hash: 38d480f590a4
+hash: 991ff34a505c
+requires: [F-3]
 ---
 
 G1: Applications ship light and dark modes, and documentation sites have their own light/dark toggle; mockups must show both and fit the page.

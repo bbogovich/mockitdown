@@ -2,13 +2,14 @@
 id: F-15
 title: Annotations and overlays
 status: active
-version: 0.10.0
-rev: 2
+version: 0.11.1
+rev: 3
 page: FEAT.2
 slot: features
-order: 999
+order: 8
+family: rendering
 source: [SRC-4, SRC-12, SRC-18]
-hash: acb4a8c2f1a7
+hash: a733dafece5e
 ---
 
 G1: Documentation can point at parts of a mockup and walk a reader through a workflow.

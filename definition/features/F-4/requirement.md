@@ -2,15 +2,16 @@
 id: F-4
 title: Custom reusable components
 status: active
-version: 0.11.0
-rev: 1
+version: 0.11.1
+rev: 2
 page: FEAT.1
 slot: features
 order: 4
 family: authoring
 source: [SRC-2, SRC-3]
-hash: b4da7abe0e66
+hash: 92a7b9d431dd
 refs: [UC-1, UC-2, UC-3, UC-4]
+requires: [F-2]
 ---
 
 G1: Applications have their own controls; a documentation site must be able to define them once and reuse them in every mockup.

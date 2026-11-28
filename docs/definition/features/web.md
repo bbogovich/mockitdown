@@ -115,7 +115,7 @@ purpose: naming it keeps an implementing agent from importing a web framework fo
 **Actor:** designer or reviewer.
 
 1. The reviewer opens the pack gallery and selects SwiftUI.
-2. The reviewer scrolls past the element cards to the examples.
+2. The reviewer selects the pack's Examples tab.
 
 **Outcome:** each element card shows a meaningful sample and its variants without overlap; the
 examples show an iPhone app, an iPad app and a Mac app with its menu bar.
@@ -139,8 +139,8 @@ itself did not change while they looked.
 **Actor:** reader of the published documentation or the demo site.
 
 1. The reader selects the Gallery header tab.
-2. The published pack gallery opens on its first pack.
-3. The reader selects another pack and its Examples tab.
+2. The published gallery opens on its home page.
+3. The reader follows the link to the pack gallery, selects a pack and its Examples tab.
 
 **Outcome:** the reader sees every pack's elements and examples without installing anything or running a server.
 

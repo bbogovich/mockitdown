@@ -2,14 +2,15 @@
 id: F-11
 title: Documentation-site integration
 status: active
-version: 0.2.0
-rev: 0
+version: 0.11.1
+rev: 1
 page: FEAT.2
 slot: features
 order: 4
 family: rendering
 source: [SRC-2, SRC-3]
-hash: 198514bcf8bf
+hash: 656832882d6b
+requires: [F-1]
 ---
 
 G1: mockitdown must work in the documentation tools teams use, starting with MkDocs and its successor Zensical.

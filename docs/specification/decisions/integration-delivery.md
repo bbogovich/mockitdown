@@ -218,6 +218,8 @@ partials of R-PACK-018. A partial is published only inside the pack stylesheets 
 
 Re-checked with R-REPO-002 and R-PACK-018 as recorded as built (#54): the two builds resolve partials by the same steps, written once in each build script and verified by one fixture in both suites, so a pack change is still one commit both suites verify (C1); no obligation changed.
 
+**Citations.** R-REPO-001, R-REPO-002 and R-REPO-003 each name this decision in their own `constrained_by`; the decision no longer lists them in `constrains`, so that re-checking one of them does not flag the other as a suspect (#81). No obligation changed.
+
 **Constrains.** R-REPO-001, R-REPO-002, R-REPO-003
 
 | | Statement |
