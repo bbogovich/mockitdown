@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.42
+impl_version: 0.3.43
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -10,9 +10,10 @@ page_id: IMPL.DESIGN
 
 Realizes **A-WEB-4** (the design document and session module) over M-EDIT-1, M-EDIT-2 and M-EDIT-3;
 implements R-EDIT-005 (reading, validating and writing `.mkdesign`) and R-EDIT-006 C1 to C6, C9, C10
-and C12 to C18 (the session and its notifications) (#24). The DOM events of the design-tool components
-(R-EDIT-006 C7, C8, C11) come with the components; the session's history and commands (A-WEB-4.P1) with
-the inspector stage.
+and C12 to C18 (the session and its notifications) (#24), and C19, the `delete` command (#27). The DOM
+events of the design-tool components (R-EDIT-006 C7, C8, C11) come with the components, the designer
+finishing them ([The designer element](designer.md)); the session's history and the other commands
+(A-WEB-4.P1) with the inspector stage.
 
 ## Data flow
 
@@ -76,6 +77,7 @@ mockup is first needed; one whose mockup's code was changed outside the session 
 | `setOptions(name, options)`, `moveMockup(name, x, y)` | options replaced (null removes them); position set | `change` of kind `options` or `move`, no edits; `diagnostics` after options |
 | `select(ids)`, `hover(id)` | ids of the active mockup's tree; siblings share a parent node, else the struct or top level they stand in | `select`, `hover` |
 | `setActive(name)` | selection and hover cleared | `active`, then `select`, `hover` when they were set |
+| `delete()` | `remove` of the selection (R-EDIT-006.C19); the next selection is the statement after the last removed node in its body (`bodySiblings`), else the one before, else the parent, else none; refused when nothing is selected | `change`, then one `select` with the new selection, `hover` and `diagnostics` as for `apply` |
 
 A request that changes nothing notifies nothing; a refused one returns `{error}` (an edit refusal also
 its `diagnostics`). Diagnostics are `check(code, {...renderOptions, ...mockupOptions})` when packs are
@@ -90,7 +92,7 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | `readDesign(text)` | `{document}` or `{errors: [{path, message}]}` |
 | `writeDesign(document)` | the JSON text, two-space indent, final line feed |
 | `newDesign(name)`, `findMockup`, `mockupPack`, `mockupOptions` | R-EDIT-005 C8 to C10 |
-| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive` |
+| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `delete`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive` |
 | `DesignNotification` | `{kind, detail}`, the details of R-EDIT-006.C5 |
 | `parseOrdered`, `keysOf`, `writeObject` | internal (`design/json.ts`) |
 
@@ -118,3 +120,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.40 | 2026-11-28 | Page written: `mockitdown/design`, the ordered JSON reader and writer, validation, the session and its notifications (#24) |
 | 0.3.41 | 2026-11-28 | The first component, `mockitdown-editor`, joins a session (C11) and dispatches the events of a session of its own (C7, C8); see [The editor element](editor.md) (#25) |
 | 0.3.42 | 2026-11-28 | `mockitdown-outline` joins a session and dispatches the events of a session of its own (C7, C8, C11); see [The outline element](outline.md) (#26) |
+| 0.3.43 | 2026-11-28 | `session.delete()` (R-EDIT-006.C19) and `applyOp(op, select)`; the designer dispatches the events of its session once each and components inside it join it (C7, C8, C11); see [The designer element](designer.md) (#27) |

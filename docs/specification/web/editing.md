@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.3
+spec_version: 0.13.6
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -558,9 +558,14 @@ const session = new DesignSession(readDesign(text).document);
 const off = session.subscribe(({ kind, detail }) => console.log(kind, detail));
 session.apply({ op: "remove", nodes: ["n3"] });   // change {kind: "code", mockup, edits, code}
 session.setCode("Inbox", typed);                  // change, then diagnostics if they changed
+session.select([id]); session.delete();           // change, then select: the next sibling, else previous, else parent
 off();
 save(writeDesign(session.document));              // the live document, every change applied
 ```
+
+`delete` is the command behind Delete and Backspace in the composite designer (R-TOOL-003.C11). It
+picks the node to select next itself, so that the host hears one `change` and then one `select`, rather
+than a `select` that empties the selection followed by another that fills it.
 
 Code typed as text keeps the last valid tree while it does not parse, and is re-parsed from that tree
 when it does again, so the nodes the typing did not touch keep their ids and the selection survives.
@@ -585,14 +590,18 @@ tree and notifies `diagnostics`, an operation is then refused, and fixed code ke
 `nodeFor` maps each ordinal of an edit-mode render of the mockup to a node of its tree; selecting two
 non-siblings or an unknown id is refused and the same selection notifies nothing; `setActive` and
 `hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
-`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names.
+`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names. `delete` ("delete removes the selection as one change…") over a VStack holding a Text, an HStack of two Texts and a Text: deleting the HStack gives one `change` then one `select` of the last Text (the next sibling), deleting the last Text selects the HStack (the previous sibling), deleting both Texts of the HStack leaves its braces and selects it (the parent), deleting the only top-level node selects nothing, and a delete with nothing selected is refused and notifies nothing; the expected codes and selections were written by hand.
 
 **R-EDIT-006.TC-2 — DOM events**
 
-Browser test (Chromium) on `pages/designer.html`: a listener on `document` receives each of
-`mockitdown-select`, `mockitdown-change` and `mockitdown-insert` once per action, from the designer
-element, with the notification's detail; a `mockitdown-outline` placed outside the designer with its
-`session` set joins that session and dispatches the events of a selection made in it.
+Browser test (Chromium, `typescript/tests/browser/designer.spec.mjs`, "R-EDIT-006 TC-2: DOM events") on
+`pages/designer.html`: a listener on `document` receives one `mockitdown-select` for a row chosen in the
+designer's outline, then one `mockitdown-change` and one `mockitdown-insert` for an insert applied to the
+designer's session, each from the designer element with the notification's detail; a
+`mockitdown-outline` placed outside the designer with its `session` set to the designer's joins that
+session, and a selection made in it reaches the listener once, from the designer, the outline itself
+dispatching nothing. The test of R-TOOL-003.TC-2 adds a `mockitdown-outline` in the designer's `outline`
+slot, which joins the designer's session (C11).
 
 **Realizes.** F-19, F-20
 
@@ -605,7 +614,7 @@ element, with the notification's detail; a `mockitdown-outline` placed outside t
 | C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move` and `mockups` and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`. |
 | C6 | Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made. |
 | C7 | The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`. |
-| C8 | Inside a `mockitdown-designer`, only the designer element MUST dispatch these events; a component used on its own MUST dispatch those of its own session. |
+| C8 | Inside a `mockitdown-designer`, only the designer element MUST dispatch these events, once per notification of its session, also for a change made through a component outside it that joined its session; a component used on its own MUST dispatch those of its own session. |
 | C9 | `session.nodeFor(mockup, ordinal)` MUST return the id of the view node with that ordinal in the mockup's current tree, so that an element of an edit-mode rendering (R-EDIT-004.C4) maps to its node. |
 | C10 | `session.select(ids)` MUST refuse a list whose nodes are not siblings, or that names an id the active mockup's tree does not have, and MUST replace the selection otherwise; siblings are the children of one view node, or the parentless nodes of the top level or of one struct. |
 | C11 | A component MUST join the session of the nearest enclosing `mockitdown-designer`, else the session its host sets as its `session` property, else a session of its own. |
@@ -616,6 +625,7 @@ element, with the notification's detail; a `mockitdown-outline` placed outside t
 | C16 | `session.setOptions(mockup, options)` and `session.moveMockup(mockup, x, y)` MUST replace a mockup's options and position and notify a `change` of kind `options` or `move` with no edits; a position that is not a finite number MUST be refused. |
 | C17 | A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup. |
 | C18 | `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names. |
+| C19 | `session.delete()` MUST remove the selected nodes (R-EDIT-002.C6) as one change, then make the selection the statement after the last of them in their body that is not removed, else the one before it, else their parent view node, else nothing, notifying one `change` and then one `select`, and MUST be refused, changing and notifying nothing, when nothing is selected or the removal is refused. |
 | V1 | A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code. |
 
 ---
@@ -777,6 +787,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.6 | 2026-11-28 | as built (#27): C8 the designer dispatches once per notification, also for a change made through a component outside it that joined its session; C19 session.delete(), the command behind Delete in the designer; TC-1 covers delete; TC-2 names the designer.spec.mjs test |
 | 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
@@ -789,6 +800,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.3 | 2026-11-28 | as built (#24): subscribe returns an unsubscribe function and requests that change nothing notify nothing (C4); siblings and unknown ids (C10); the active mockup (C12), apply refusals and the insert notification (C13), setCode (C14), hover (C15), setOptions and moveMockup (C16), diagnostics (C17), DESIGN_EVENTS (C18); TC-1 names its tests; as built (#24): mockupPack (C8) and null for an unknown name (C9); the other refusals (C12), their wording (C13), every problem listed and non-JSON text (C14), read order kept for index-like keys (C15); TC-1 to TC-3 name their tests and fixtures |
 | 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |

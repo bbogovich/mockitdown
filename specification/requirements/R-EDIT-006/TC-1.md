@@ -1,7 +1,7 @@
 ---
 id: TC-1
 title: Session notifications
-verifies: [C1, C2, C3, C4, C5, C6, C9, C10, C12, C13, C14, C15, C16, C17, C18]
+verifies: [C1, C2, C3, C4, C5, C6, C9, C10, C12, C13, C14, C15, C16, C17, C18, C19]
 ---
 
 `node:test` (`typescript/tests/unit/design-session.test.ts`): a session over a two-mockup document; `apply`
@@ -13,4 +13,4 @@ tree and notifies `diagnostics`, an operation is then refused, and fixed code ke
 `nodeFor` maps each ordinal of an edit-mode render of the mockup to a node of its tree; selecting two
 non-siblings or an unknown id is refused and the same selection notifies nothing; `setActive` and
 `hover` notify their kinds and clear the selection; `setOptions` and `moveMockup` notify `options` and
-`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names.
+`move` with no edits; an unsubscribed listener hears nothing more; diagnostics follow `check` with the mockup's pack; `DESIGN_EVENTS` maps `select`, `change`, `insert`, `rename` and `diagnostics` to their event names. `delete` ("delete removes the selection as one change…") over a VStack holding a Text, an HStack of two Texts and a Text: deleting the HStack gives one `change` then one `select` of the last Text (the next sibling), deleting the last Text selects the HStack (the previous sibling), deleting both Texts of the HStack leaves its braces and selects it (the parent), deleting the only top-level node selects nothing, and a delete with nothing selected is refused and notifies nothing; the expected codes and selections were written by hand.

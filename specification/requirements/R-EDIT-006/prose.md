@@ -25,9 +25,14 @@ const session = new DesignSession(readDesign(text).document);
 const off = session.subscribe(({ kind, detail }) => console.log(kind, detail));
 session.apply({ op: "remove", nodes: ["n3"] });   // change {kind: "code", mockup, edits, code}
 session.setCode("Inbox", typed);                  // change, then diagnostics if they changed
+session.select([id]); session.delete();           // change, then select: the next sibling, else previous, else parent
 off();
 save(writeDesign(session.document));              // the live document, every change applied
 ```
+
+`delete` is the command behind Delete and Backspace in the composite designer (R-TOOL-003.C11). It
+picks the node to select next itself, so that the host hears one `change` and then one `select`, rather
+than a `select` that empties the selection followed by another that fills it.
 
 Code typed as text keeps the last valid tree while it does not parse, and is re-parsed from that tree
 when it does again, so the nodes the typing did not touch keep their ids and the selection survives.

@@ -136,6 +136,7 @@ nav:
           - The mockup element: implementation/architecture/elements.md
           - The editor element: implementation/architecture/editor.md
           - The outline element: implementation/architecture/outline.md
+          - The designer element: implementation/architecture/designer.md
           - The pack gallery: implementation/architecture/gallery.md
       - Repository layout and shared assets: implementation/repository.md
       - Testing: implementation/testing.md

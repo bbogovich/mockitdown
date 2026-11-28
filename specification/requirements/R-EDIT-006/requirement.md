@@ -2,12 +2,12 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: 0.13.3
-rev: 5
+version: 0.13.6
+rev: 6
 page: WEB.3
 slot: reqs
 order: 6
-hash: 55cbf964dde1
+hash: 20ad3e29e5b2
 source: [SRC-12]
 realizes: [F-19, F-20]
 requires: [R-EDIT-005, R-EDIT-002]
@@ -22,7 +22,7 @@ C4: `session.subscribe(listener)` MUST register a listener and return a function
 C5: The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move` and `mockups` and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`.
 C6: Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made.
 C7: The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`.
-C8: Inside a `mockitdown-designer`, only the designer element MUST dispatch these events; a component used on its own MUST dispatch those of its own session.
+C8: Inside a `mockitdown-designer`, only the designer element MUST dispatch these events, once per notification of its session, also for a change made through a component outside it that joined its session; a component used on its own MUST dispatch those of its own session.
 C9: `session.nodeFor(mockup, ordinal)` MUST return the id of the view node with that ordinal in the mockup's current tree, so that an element of an edit-mode rendering (R-EDIT-004.C4) maps to its node.
 C10: `session.select(ids)` MUST refuse a list whose nodes are not siblings, or that names an id the active mockup's tree does not have, and MUST replace the selection otherwise; siblings are the children of one view node, or the parentless nodes of the top level or of one struct.
 C11: A component MUST join the session of the nearest enclosing `mockitdown-designer`, else the session its host sets as its `session` property, else a session of its own.
@@ -33,4 +33,5 @@ C15: `session.hover(id)` MUST set the hovered node of the active mockup, or clea
 C16: `session.setOptions(mockup, options)` and `session.moveMockup(mockup, x, y)` MUST replace a mockup's options and position and notify a `change` of kind `options` or `move` with no edits; a position that is not a finite number MUST be refused.
 C17: A mockup's diagnostics MUST be those of `check` with its render options (R-EDIT-005.C9) over the session's `renderOptions`, when packs are loaded into the core, else its syntax diagnostics, and the session MUST notify `diagnostics` when they change after a change of the mockup.
 C18: `mockitdown/design` MUST export `DESIGN_EVENTS`, the map from the notification kinds of C7 to their DOM event names.
+C19: `session.delete()` MUST remove the selected nodes (R-EDIT-002.C6) as one change, then make the selection the statement after the last of them in their body that is not removed, else the one before it, else their parent view node, else nothing, notifying one `change` and then one `select`, and MUST be refused, changing and notifying nothing, when nothing is selected or the removal is refused.
 V1: A unit test opens a document in a session, applies an insert and a remove, and receives exactly two `change` notifications whose edits, applied to the original code, give the session's code.

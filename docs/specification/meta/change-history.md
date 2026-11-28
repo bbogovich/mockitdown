@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.6 | 2026-11-28 | `WEB.3`, `WEB.4` | As built (#27): the composite designer mockitdown-designer — R-TOOL-003 C3-C7, C9-C12, C14 corrected, C15-C17 and TC-1, TC-2; R-EDIT-006 C8 corrected, C19 session.delete(), TC-1 and TC-2 |
 | 0.13.5 | 2026-11-28 | `WEB.4` | As built (#26): the outline element mockitdown-outline — R-TOOL-002 C2, C3, C5, C6, C8 corrected, C10-C15 and TC-1, TC-2 |
 | 0.13.4 | 2026-11-28 | `WEB.4` | As built (#25): the editor element mockitdown-editor — R-TOOL-001 C10 hover colour default, C12-C21 and TC-1 to TC-3 |
 | 0.13.3 | 2026-11-28 | `WEB.3` | As built (#24): the design document module and the design session — R-EDIT-005 C8, C9, C12-C15 and its test cases; R-EDIT-006 C4, C10, C12-C18 and TC-1 |

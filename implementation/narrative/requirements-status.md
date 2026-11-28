@@ -30,13 +30,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Partly implemented (1)
-
-| Requirement | Title | Implemented | Specification | Date | Issue |
-|---|---|---|---|---|---|
-| R-EDIT-006 | The design session and its events | 0.13.3 | 0.13.3 | 2026-11-28 | #26 |
-
-## Not started (60)
+## Not started (59)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -88,7 +82,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-005 | Text content and inline Markdown | — | 0.10.7 |  |  |
 | R-REND-009 | Presentations and navigation composition | — | 0.10.7 |  |  |
 | R-REND-010 | Elements table and source disclosure | — | 0.2.0 |  |  |
-| R-TOOL-003 | The composite designer and its test page | — | 0.12.12 |  |  |
 | R-TOOL-004 | The gallery: mockitdown-gallery | — | 0.12.12 |  |  |
 | R-TOOL-005 | Drag and drop onto the outline and the view | — | 0.12.12 |  |  |
 | R-TOOL-006 | New elements: sample arguments and first-text editing | — | 0.12.12 |  |  |
@@ -101,7 +94,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (68)
+## Implemented (70)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -137,6 +130,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-002 | Edit API: insert, remove and move | 0.12.17 | 0.12.17 | 2026-11-27 | #21 |
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | 0.12.18 | 0.12.18 | 2026-11-27 | #22 |
 | R-EDIT-005 | The design document module | 0.13.3 | 0.13.3 | 2026-11-28 | #24 |
+| R-EDIT-006 | The design session and its events | 0.13.6 | 0.13.6 | 2026-11-28 | #27 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-008 | Values and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
@@ -170,6 +164,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-28 | #23 |
 | R-TOOL-001 | The editable view: mockitdown-editor | 0.13.4 | 0.13.4 | 2026-11-28 | #25 |
 | R-TOOL-002 | The outline: mockitdown-outline | 0.13.5 | 0.13.5 | 2026-11-28 | #26 |
+| R-TOOL-003 | The composite designer and its test page | 0.13.6 | 0.13.6 | 2026-11-28 | #27 |
 | R-WEB-002 | The mockitdown-mockup element | 0.12.12 | 0.12.12 | 2026-11-28 | #23 |
 | R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
 | R-WEB-006 | Gallery home page | 0.12.14 | 0.12.14 | 2026-11-27 | #62 |

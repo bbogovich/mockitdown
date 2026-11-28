@@ -13,6 +13,20 @@ the document back.
 </script>
 ```
 
+`open` starts a new session over the document, so a host that kept `designer.session` reads it again
+after each `open`; the components inside the designer re-join the new one. An invalid document rejects
+with a `DesignOpenError` whose `errors` list every problem `readDesign` found:
+
+```js
+try { await d.open(text); } catch (e) { showProblems(e.errors); }   // [{path: "version", message: …}]
+d.layout = { right: { collapsed: true } };                          // sizes and collapsed states, in part
+d.mode = "preview";                                                  // design, preview or code
+```
+
+Until the gallery (R-TOOL-004) and the inspector exist, their panels hold placeholders. Delete is the
+session's `delete` command (R-EDIT-006.C19), so the host hears one `mockitdown-change` and then one
+`mockitdown-select` for the node selected after it.
+
 A host can replace any panel through its slot, for example to put its own inspector on the right; the
 replacement joins the designer's session. Code mode is specified with the code view (R-TOOL-009); undo
 and the toolbar's Undo and Redo buttons with the history (R-EDIT-007); the zoom control with the canvas
