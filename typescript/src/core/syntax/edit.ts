@@ -12,117 +12,25 @@
  * argument operations (R-EDIT-003).
  */
 
-import { Diagnostic, Location } from "../diagnostics.js";
 import type * as A from "./ast.js";
 import { indentUnit, Lexer, type Token } from "./lexer.js";
+import { parseTree, reparseCarrying, type CarriedRange, type SyntaxTree, type TextEdit, type ViewNode } from "./tree.js";
+import {
+  describe, Refusal, type EditIndex, type EditOp, type EditRefusal, type EditResult, type InsertOp, type MoveOp, type NodeRef, type Plan,
+  type RemoveOp, type RenameOp, type SetArgumentOp, type SetCommentOp, type SetModifierOp, type SetNameOp, type SetRefsOp,
+} from "./edit-types.js";
+import { blank, descendants, lineEnd, lineIndent, lineStart, mergeRanges, reindent, trailingComment } from "./edit-text.js";
+import { rename, setArgument, setComment, setModifier, setName, setRefs, type EditorState } from "./edit-arguments.js";
 
 export { indentUnit };
-import { parseTree, reparseCarrying, type CarriedRange, type SyntaxTree, type TextEdit, type ViewNode } from "./tree.js";
-
-/** A node named by its id (`id12`) or its ordinal (`n3` or 3) (R-EDIT-002.C3). */
-export type NodeRef = string | number;
-
-/** A position among a parent's statement children: 0 to their count, or `end`. */
-export type EditIndex = number | "end";
-
-/**
- * Insert one view's code as a child of `parent` (C4), or, with `parent` null, as a statement of the
- * top level (the root of the mockup), `index` counting its view statements.
- */
-export interface InsertOp {
-  op: "insert";
-  parent: NodeRef | null;
-  index: EditIndex;
-  code: string;
-}
-
-/** Remove sibling view nodes (C6). */
-export interface RemoveOp {
-  op: "remove";
-  nodes: NodeRef[];
-}
-
-/**
- * Move sibling view nodes under `parent`, before its statement child `index` (C8), or, with `parent`
- * null, to the top level before its view statement `index`. `index` counts the children as they are
- * before the move.
- */
-export interface MoveOp {
-  op: "move";
-  nodes: NodeRef[];
-  parent: NodeRef | null;
-  index: EditIndex;
-}
-
-/**
- * Add, replace or remove one argument of a node's call (R-EDIT-003.C1): the labelled argument `label`,
- * or, with `label` null, the positional argument at `position` among the positional ones. `value` is
- * the code of the value, or null to remove the argument.
- */
-export interface SetArgumentOp {
-  op: "setArgument";
-  node: NodeRef;
-  label?: string | null;
-  position?: number;
-  value: string | null;
-}
-
-/**
- * Add, replace or remove a modifier of a node's chain (R-EDIT-003.C5): occurrence `index` (default 0)
- * of `.name(…)`; `args` is the code between its parentheses, or null to remove it.
- */
-export interface SetModifierOp {
-  op: "setModifier";
-  node: NodeRef;
-  name: string;
-  index?: number;
-  args: string | null;
-}
-
-/** Set the node's `.id(…)` identifier, or remove it with null (R-EDIT-003.C8, C9). */
-export interface RenameOp {
-  op: "rename";
-  node: NodeRef;
-  id: string | null;
-}
-
-/** Set the node's `.ref(…)` references, removing the modifier for an empty list (R-EDIT-003.C10). */
-export interface SetRefsOp {
-  op: "setRefs";
-  node: NodeRef;
-  refs: string[];
-}
-
-/** Replace the comment lines directly above the node, or remove them with null (R-EDIT-003.C11). */
-export interface SetCommentOp {
-  op: "setComment";
-  node: NodeRef;
-  text: string | null;
-}
-
-/** Replace the node's element name, keeping its arguments, modifiers and closures (R-EDIT-003.C12). */
-export interface SetNameOp {
-  op: "setName";
-  node: NodeRef;
-  name: string;
-}
-
-export type EditOp = InsertOp | RemoveOp | MoveOp | SetArgumentOp | SetModifierOp | RenameOp | SetRefsOp | SetCommentOp | SetNameOp;
+export { identifiersOf } from "./edit-arguments.js";
+export { stringLiteral } from "./edit-text.js";
+export type {
+  EditIndex, EditOp, EditRefusal, EditResult, InsertOp, MoveOp, NodeRef, RemoveOp, RenameOp, SetArgumentOp, SetCommentOp, SetModifierOp,
+  SetNameOp, SetRefsOp,
+};
 
 const OPS = "insert, remove, move, setArgument, setModifier, rename, setRefs, setComment or setName";
-
-/** An applied operation: the text edits, the edited source and its tree (C1). */
-export interface EditResult {
-  edits: TextEdit[];
-  source: string;
-  tree: SyntaxTree;
-}
-
-/** A refused operation: why, and the syntax diagnostics when code did not parse (C1, C14). */
-export interface EditRefusal {
-  error: string;
-  diagnostics: Diagnostic[];
-}
 
 /**
  * Apply one edit operation to a source, or to a tree the host already holds (the result's tree then
@@ -193,62 +101,6 @@ export function nodeCode(tree: SyntaxTree, node: ViewNode): string {
   return reindent(new Editor(tree).linesOf(node), "").join("\n");
 }
 
-/** The string identifiers of a node's `.id(…)` modifiers, in order (R-EDIT-003.C8). */
-export function identifiersOf(n: ViewNode): string[] {
-  const out: string[] = [];
-  for (const m of n.modifiers) {
-    if (m.kind !== "Call" || m.callee.kind !== "Member" || m.callee.name !== "id") continue;
-    const v = m.args[0]?.value;
-    if (v?.kind === "Literal" && typeof v.value === "string") out.push(v.value);
-    else if (v?.kind === "StringLit" && v.parts.every((p) => typeof p === "string")) out.push(v.parts.join(""));
-  }
-  return out;
-}
-
-class Refusal extends Error {
-  readonly diagnostics: Diagnostic[];
-  constructor(message: string, diagnostics: Diagnostic[] = []) {
-    super(message);
-    this.diagnostics = diagnostics;
-  }
-}
-
-function describe(d: Diagnostic | undefined): string {
-  if (!d) return "unknown error";
-  return d.location.line ? `${d.message} (line ${d.location.line}, column ${d.location.col})` : d.message;
-}
-
-interface Plan {
-  edits: TextEdit[];
-  /** The insertion holding moved code, and the nodes it carries (C8). */
-  moved?: { edit: TextEdit; nodes: ViewNode[] };
-}
-
-/** An argument of a call: its label, where it starts (its label), where its value starts and its end. */
-interface ArgShape {
-  label: string | null;
-  start: number;
-  valueStart: number;
-  end: number;
-}
-
-/** A call's name end, its parentheses (offsets of `(` and `)`), its arguments and whether it has a trailing closure. */
-interface CallShape {
-  nameEnd: number;
-  parens: [number, number] | null;
-  args: ArgShape[];
-  trailing: boolean;
-}
-
-/** A modifier of a chain: its name, the offset of its `.`, the end of its name, its end and its parentheses. */
-interface ModifierShape {
-  name: string;
-  dot: number;
-  nameEnd: number;
-  end: number;
-  parens: [number, number] | null;
-}
-
 /** A list of statements: the top level, a struct body, a closure or an `if` branch. */
 interface Body {
   stmts: readonly A.Node[];
@@ -288,12 +140,15 @@ class Editor {
   private readonly elseIf = new Set<ViewNode>();
   /** The top level's statements. */
   private top: Body | null = null;
+  /** What the argument operations (`edit-arguments.ts`) read of the Editor. */
+  private readonly state: EditorState;
 
   constructor(tree: SyntaxTree) {
     this.tree = tree;
     this.src = tree.source;
     this.tokens = new Lexer(tree.source).tokens();
     this.unit = indentUnit(tree.source);
+    this.state = { tree, src: this.src, tokens: this.tokens, node: (ref) => this.node(ref) };
     this.index();
   }
 
@@ -320,15 +175,15 @@ class Editor {
     if (kind === "insert") return this.insert(op as InsertOp);
     if (kind === "remove") return this.remove(op as RemoveOp);
     if (kind === "move") return this.move(op as MoveOp);
-    if (kind === "setArgument") return this.setArgument(op as SetArgumentOp);
+    if (kind === "setArgument") return setArgument(this.state, op as SetArgumentOp);
     if (kind === "setModifier") {
       const m = op as SetModifierOp;
-      return this.setModifier(this.node(m.node), m.name, m.index ?? 0, m.args);
+      return setModifier(this.state, this.node(m.node), m.name, m.index ?? 0, m.args);
     }
-    if (kind === "rename") return this.rename(op as RenameOp);
-    if (kind === "setRefs") return this.setRefs(op as SetRefsOp);
-    if (kind === "setComment") return this.setComment(op as SetCommentOp);
-    if (kind === "setName") return this.setName(op as SetNameOp);
+    if (kind === "rename") return rename(this.state, op as RenameOp);
+    if (kind === "setRefs") return setRefs(this.state, op as SetRefsOp);
+    if (kind === "setComment") return setComment(this.state, op as SetCommentOp);
+    if (kind === "setName") return setName(this.state, op as SetNameOp);
     throw new Refusal(`unknown operation ${JSON.stringify(kind ?? null)}: expected ${OPS}`);
   }
 
@@ -371,265 +226,6 @@ class Editor {
     }
     const moved = nodes.flatMap((n) => [n, ...descendants(n)]).sort((a, b) => a.first - b.first);
     return { edits: [...removals, insertion], moved: { edit: insertion, nodes: moved } };
-  }
-
-  // --- arguments, modifiers and identifiers (R-EDIT-003) -------------------------------------------
-
-  private setArgument(op: SetArgumentOp): Plan {
-    const n = this.callNode(op.node);
-    const label = op.label ?? null;
-    if (label !== null && (typeof label !== "string" || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(label))) {
-      throw new Refusal(`${JSON.stringify(label)} is not an argument label`);
-    }
-    if (op.value !== null && typeof op.value !== "string") throw new Refusal("the value of an argument is not a string or null");
-    const value = op.value === null ? null : this.argumentCode(label, op.value);
-    const call = this.callShape(n);
-    const args = call.args;
-    const positional = args.filter((a) => a.label === null);
-    let target: ArgShape | undefined;
-    let position = 0;
-    if (label === null) {
-      position = op.position as number;
-      if (!Number.isInteger(position) || position < 0 || position > positional.length) {
-        throw new Refusal(`position ${JSON.stringify(op.position ?? null)} is out of range for ${n.ordinal}: `
-          + `0 to ${positional.length}`);
-      }
-      target = positional[position];
-    } else target = args.find((a) => a.label === label);
-    const what = label === null ? `positional argument ${position}` : `argument ${label}`;
-    if (value === null) {
-      if (!target) throw new Refusal(`${n.ordinal} has no ${what}`);
-      return { edits: [this.argumentRemoval(call, target)] };
-    }
-    // C2: replace in place.
-    if (target) return { edits: [{ start: target.valueStart, end: target.end, text: value }] };
-    const text = label === null ? value : `${label}: ${value}`;
-    // C4: a call without parentheses gets them directly after its name.
-    if (!call.parens) return { edits: [{ start: call.nameEnd, end: call.nameEnd, text: `(${text})` }] };
-    if (!args.length) return { edits: [{ start: call.parens[0] + 1, end: call.parens[0] + 1, text }] };
-    if (label === null && positional.length) {
-      // A new positional argument at its position: before the one it displaces, else after the last.
-      if (position < positional.length) return { edits: [this.argumentBefore(positional[position], text)] };
-      return { edits: [this.argumentAfter(positional[positional.length - 1], text)] };
-    }
-    if (label === null) return { edits: [this.argumentBefore(args[0], text)] };
-    return { edits: [this.argumentAfter(args[args.length - 1], text)] };
-  }
-
-  /** New argument text before `a`: on its line, or on a line of its own when `a` starts its line. */
-  private argumentBefore(a: ArgShape, text: string): TextEdit {
-    const sep = this.startsLine(a.start) ? `,\n${this.lineIndent(a.start)}` : ", ";
-    return { start: a.start, end: a.start, text: text + sep };
-  }
-
-  /** New argument text after `a`: on its line, or on a line of its own when `a` starts its line. */
-  private argumentAfter(a: ArgShape, text: string): TextEdit {
-    const sep = this.startsLine(a.start) ? `,\n${this.lineIndent(a.start)}` : ", ";
-    return { start: a.end, end: a.end, text: sep + text };
-  }
-
-  /** C3, C4: an argument with the separator before or after it; the last one with empty parentheses before a closure. */
-  private argumentRemoval(call: CallShape, a: ArgShape): TextEdit {
-    const args = call.args;
-    const i = args.indexOf(a);
-    if (args.length === 1) {
-      const [lp, rp] = call.parens!;
-      if (call.trailing) return { start: lp, end: rp + 1, text: "" };
-      return { start: lp + 1, end: rp, text: "" };
-    }
-    if (i < args.length - 1) return { start: a.start, end: args[i + 1].start, text: "" };
-    return { start: args[i - 1].end, end: a.end, text: "" };
-  }
-
-  /** C5–C7: add, replace or remove occurrence `index` of `.name(…)` in the node's chain. */
-  private setModifier(n: ViewNode, name: unknown, index: unknown, args: unknown): Plan {
-    this.notIf(n);
-    if (typeof name !== "string" || !/^[a-z_][A-Za-z0-9_]*$/.test(name)) {
-      throw new Refusal(`${JSON.stringify(name ?? null)} is not a modifier name: an identifier starting with a lower-case letter`);
-    }
-    if (args !== null && typeof args !== "string") throw new Refusal("the arguments of a modifier are not a string or null");
-    const code = args === null ? null : this.modifierArgs(args);
-    const mods = this.modifierShapes(n);
-    const same = mods.filter((m) => m.name === name);
-    if (!Number.isInteger(index) || (index as number) < 0 || (index as number) > same.length
-      || (code === null && index === same.length)) {
-      throw new Refusal(same.length
-        ? `${n.ordinal} has ${same.length} .${name} modifier${same.length > 1 ? "s" : ""}: index ${JSON.stringify(index ?? null)} is out of range`
-        : `${n.ordinal} has no .${name} modifier`);
-    }
-    const target = same[index as number];
-    if (target && code === null) return { edits: [this.modifierRemoval(target)] };
-    if (target) {
-      if (target.parens) return { edits: [{ start: target.parens[0] + 1, end: target.parens[1], text: code! }] };
-      return { edits: [{ start: target.nameEnd, end: target.nameEnd, text: `(${code})` }] };
-    }
-    // C6: appended to the chain, on its line, or on a line of its own like the other continuation lines.
-    const text = `.${name}(${code})`;
-    const end = n.expr.end!;
-    const lines = mods.filter((m) => this.startsLine(m.dot));
-    if (!lines.length) return { edits: [{ start: end, end, text }] };
-    const indent = this.lineIndent(lines[lines.length - 1].dot);
-    const at = blank(this.src.slice(end, lineEnd(this.src, end))) || trailingComment(this.src.slice(end, lineEnd(this.src, end)))
-      ? lineEnd(this.src, end) : end;
-    return { edits: [{ start: at, end: at, text: `\n${indent}${text}` }] };
-  }
-
-  /** C7: a modifier on a line of its own goes with its line; one sharing a line goes with the spaces before it. */
-  private modifierRemoval(m: ModifierShape): TextEdit {
-    const src = this.src;
-    const rest = src.slice(m.end, lineEnd(src, m.end));
-    if (this.startsLine(m.dot) && (blank(rest) || trailingComment(rest))) {
-      const a = lineStart(src, m.dot);
-      const b = lineEnd(src, m.end);
-      if (b >= src.length) return { start: a - 1, end: b, text: "" };
-      return { start: a, end: b + 1, text: "" };
-    }
-    const lead = this.startsLine(m.dot) ? 0 : /[ \t]*$/.exec(src.slice(lineStart(src, m.dot), m.dot))![0].length;
-    return { start: m.dot - lead, end: m.end, text: "" };
-  }
-
-  /** C8, C9: the node's `.id(…)`, refused when another node carries the identifier. */
-  private rename(op: RenameOp): Plan {
-    const n = this.node(op.node);
-    const id = op.id;
-    if (id !== null && (typeof id !== "string" || id === "")) throw new Refusal(`${JSON.stringify(id ?? null)} is not an identifier`);
-    if (id !== null) {
-      for (const other of this.tree.nodes) {
-        if (other !== n && this.identifiers(other).includes(id)) {
-          throw new Refusal(`the identifier ${JSON.stringify(id)} is already used by ${other.ordinal}`);
-        }
-      }
-    }
-    return this.setModifier(n, "id", 0, id === null ? null : quote(id));
-  }
-
-  /** C10: the node's `.ref(…)`, removed for an empty list. */
-  private setRefs(op: SetRefsOp): Plan {
-    const n = this.node(op.node);
-    if (!Array.isArray(op.refs) || op.refs.some((r) => typeof r !== "string")) throw new Refusal("the references are not a list of strings");
-    return this.setModifier(n, "ref", 0, op.refs.length ? op.refs.map(quote).join(", ") : null);
-  }
-
-  /** C11: the comment lines directly above the node, one `//` line per line of the text, at its indentation. */
-  private setComment(op: SetCommentOp): Plan {
-    const n = this.node(op.node);
-    if (op.text !== null && typeof op.text !== "string") throw new Refusal("the comment is not a string or null");
-    if (!this.startsLine(n.first)) throw new Refusal(`${n.ordinal} does not start its line, so it has no comment lines above it`);
-    const start = lineStart(this.src, n.span.start);
-    const end = lineStart(this.src, n.first);
-    const indent = this.lineIndent(n.first);
-    const text = op.text === null || op.text === "" ? ""
-      : op.text.replace(/\r?\n$/, "").split(/\r?\n/).map((l) => `${indent}//${l ? ` ${l}` : ""}\n`).join("");
-    if (start === end && text === "") throw new Refusal(`${n.ordinal} has no comment lines above it`);
-    return { edits: [{ start, end, text }] };
-  }
-
-  /** C12: the node's name, nothing else. */
-  private setName(op: SetNameOp): Plan {
-    const n = this.node(op.node);
-    this.notIf(n);
-    if (typeof op.name !== "string" || !/^\p{Lu}[\p{L}\p{N}_]*(?:\.\p{Lu}[\p{L}\p{N}_]*)*$/u.test(op.name)) {
-      throw new Refusal(`${JSON.stringify(op.name ?? null)} is not an element name: a capitalised identifier, or several joined by dots`);
-    }
-    return { edits: [{ start: n.nameSpan.start, end: n.nameSpan.end, text: op.name }] };
-  }
-
-  private notIf(n: ViewNode): void {
-    if (n.kind === "if") throw new Refusal(`${n.ordinal} is an if statement, not a call`);
-  }
-
-  private callNode(ref: NodeRef): ViewNode {
-    const n = this.node(ref);
-    this.notIf(n);
-    return n;
-  }
-
-  /** The string identifiers of a node's `.id(…)` modifiers. */
-  private identifiers(n: ViewNode): string[] {
-    return identifiersOf(n);
-  }
-
-  /** The code of an argument value, which must parse as one (C1). */
-  private argumentCode(label: string | null, value: string): string {
-    const code = value.trim();
-    const prefix = `X(${label === null ? "" : `${label}: `}`;
-    const call = this.probe(prefix, `${code})`, "the value");
-    if (call.args.length !== 1 || call.args[0].label !== label) throw new Refusal("the value is not one argument value");
-    return code;
-  }
-
-  /** The code between a modifier's parentheses, which must parse as an argument list (C5). */
-  private modifierArgs(args: string): string {
-    const code = args.trim();
-    this.probe("X(", `${code})`, "the modifier arguments");
-    return code;
-  }
-
-  /**
-   * Parse `prefix + code`, which must be one call without closures or modifiers. A syntax diagnostic
-   * on the first line counts its column from the start of `rest` (the caller's code and the closing
-   * `)`), at most just after the caller's code.
-   */
-  private probe(prefix: string, rest: string, what: string): A.Call {
-    const code = prefix + rest;
-    const r = parseTree(code);
-    if (!r.tree) {
-      const diagnostics = r.diagnostics.map((d) => d.location.line !== 1 ? d
-        : new Diagnostic(d.severity, d.message, new Location(1, Math.min(Math.max(1, d.location.col - prefix.length), rest.length), d.location.source), d.code));
-      throw new Refusal(`${what} do${what.endsWith("s") ? "" : "es"} not parse: ${describe(diagnostics[0])}`, diagnostics);
-    }
-    const s = r.tree.module.statements;
-    const e = s.length === 1 && s[0].kind === "ExprStmt" ? s[0].expr : null;
-    if (!e || e.kind !== "Call" || e.callee.kind !== "Ident" || e.trailing.length || e.end !== code.length) {
-      throw new Refusal(`${what} ${what.endsWith("s") ? "are" : "is"} not ${what.endsWith("s") ? "an argument list" : "an argument value"}`);
-    }
-    return e;
-  }
-
-  /** Where a node's call writes its name, parentheses and arguments. */
-  private callShape(n: ViewNode): CallShape {
-    if (n.kind === "ident") return { nameEnd: n.nameSpan.end, parens: null, args: [], trailing: false };
-    const call = n.syntax as A.Call;
-    const nameEnd = call.callee.end!;
-    return { nameEnd, parens: this.parens(nameEnd), args: call.args.map((a) => this.argShape(a)), trailing: call.trailing.length > 0 };
-  }
-
-  private argShape(a: A.Arg): ArgShape {
-    const valueStart = a.value.start!;
-    let start = valueStart;
-    if (a.label !== null) {
-      let i = this.tokens.findIndex((t) => t.start >= valueStart) - 1;
-      while (i >= 0 && this.tokens[i].kind === "NEWLINE") i--;
-      if (i >= 1 && this.tokens[i].kind === "COLON") start = this.tokens[i - 1].start;
-    }
-    return { label: a.label, start, valueStart, end: a.value.end! };
-  }
-
-  /** The `(` directly after `offset` (the end of a name) and its matching `)`, or null. */
-  private parens(offset: number): [number, number] | null {
-    const i = this.tokens.findIndex((t) => t.start >= offset);
-    if (i < 0 || this.tokens[i].kind !== "LPAREN") return null;
-    let depth = 0;
-    for (let j = i; j < this.tokens.length; j++) {
-      const k = this.tokens[j].kind;
-      if (k === "LPAREN") depth++;
-      else if (k === "RPAREN" && --depth === 0) return [this.tokens[i].start, this.tokens[j].start];
-    }
-    return null;
-  }
-
-  /** The node's modifiers with their names, dots and parentheses. */
-  private modifierShapes(n: ViewNode): ModifierShape[] {
-    return n.modifiers.map((m) => {
-      const member = (m.kind === "Call" ? m.callee : m) as A.Member;
-      const dot = this.tokens.find((t) => t.start >= member.base.end! && t.kind === "DOT")!.start;
-      const nameEnd = member.end!;
-      return { name: member.name, dot, nameEnd, end: m.end!, parens: m.kind === "Call" ? this.parens(nameEnd) : null };
-    });
-  }
-
-  private startsLine(at: number): boolean {
-    return blank(this.src.slice(lineStart(this.src, at), at));
   }
 
   // --- naming and checks ---------------------------------------------------------------------------
@@ -760,7 +356,7 @@ class Editor {
   }
 
   private lineIndent(at: number): string {
-    return /^[ \t]*/.exec(this.src.slice(lineStart(this.src, at)))![0];
+    return lineIndent(this.src, at);
   }
 
   /** The lines of the code given to `insert`, which must be exactly one view (C14). */
@@ -911,57 +507,4 @@ class Editor {
     }
     return null;
   }
-}
-
-function descendants(n: ViewNode): ViewNode[] {
-  return n.children.flatMap((c) => [c, ...descendants(c)]);
-}
-
-/** Merge overlapping removals into single ranges. */
-function mergeRanges(edits: TextEdit[]): TextEdit[] {
-  const sorted = [...edits].sort((a, b) => a.start - b.start);
-  const out: TextEdit[] = [];
-  for (const e of sorted) {
-    const last = out[out.length - 1];
-    if (last && e.start <= last.end) out[out.length - 1] = { start: last.start, end: Math.max(last.end, e.end), text: "" };
-    else out.push(e);
-  }
-  return out;
-}
-
-/** C12: re-indent lines so that the first takes `indent` and the others keep their indentation relative to it. */
-function reindent(lines: readonly string[], indent: string): string[] {
-  const first = /^[ \t]*/.exec(lines[0] ?? "")![0];
-  return lines.map((l) => {
-    if (blank(l)) return "";
-    if (l.startsWith(first)) return indent + l.slice(first.length);
-    return indent + l.trimStart();
-  });
-}
-
-/** A string literal for `text`, as the lexer reads it back. */
-export function stringLiteral(text: string): string {
-  return quote(text);
-}
-
-function quote(text: string): string {
-  return `"${text.replace(/[\\"]/g, (c) => `\\${c}`).replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t")}"`;
-}
-
-function trailingComment(rest: string): string {
-  const m = /^([ \t]*);?([ \t]*)(\/\/.*|\/\*.*\*\/)[ \t]*\r?$/.exec(rest);
-  return m ? (m[1] + m[2] || " ") + m[3].replace(/\r$/, "") : "";
-}
-
-function lineStart(src: string, at: number): number {
-  return src.lastIndexOf("\n", at - 1) + 1;
-}
-
-function lineEnd(src: string, at: number): number {
-  const i = src.indexOf("\n", at);
-  return i < 0 ? src.length : i;
-}
-
-function blank(text: string): boolean {
-  return /^[ \t\r]*$/.test(text);
 }
