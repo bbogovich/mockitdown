@@ -2,24 +2,24 @@
 id: R-EDIT-006
 title: The design session and its events
 status: active
-version: 0.13.9
-rev: 8
+version: 0.13.23
+rev: 9
 page: WEB.3
 slot: reqs
 order: 6
-hash: 25af62cee292
+hash: 81413be2474f
 source: [SRC-12]
 realizes: [F-19, F-20]
 requires: [R-EDIT-005, R-EDIT-002]
 constrained_by: [A-WEB-4, M-EDIT-1, M-EDIT-3]
-refs: [M-EDIT-3, R-EDIT-001, R-EDIT-002, R-EDIT-003, R-EDIT-004, R-EDIT-005]
+refs: [M-EDIT-3, R-EDIT-001, R-EDIT-002, R-EDIT-003, R-EDIT-004, R-EDIT-005, R-TOOL-014]
 ---
 
 C1: `mockitdown/design` MUST export `DesignSession`, a plain object without DOM access that holds a design document, the name of the active mockup, the selection (the ids of sibling view nodes of the active mockup), the hovered node and, per mockup, its last valid tree and its current diagnostics.
 C2: The session MUST parse a mockup's code with `parseTree` (R-EDIT-001.C5) when the mockup is first needed and after every change of its code, and MUST keep the last valid tree when the code does not parse.
 C3: `session.apply(op)` MUST apply an edit operation (R-EDIT-002, R-EDIT-003) to the active mockup, replace its code with the edited source, keep its tree from `reparse` and keep the selected nodes that still exist.
 C4: `session.subscribe(listener)` MUST register a listener and return a function that removes it, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active` and `diagnostics` and its detail, as one object `{kind, detail}`, and MUST NOT notify a request that changes nothing.
-C5: The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move` and `mockups` and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`.
+C5: The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move`, `mockups` and `sections` (R-TOOL-014.C8, whose `mockup` and `code` are empty) and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`.
 C6: Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made.
 C7: The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`.
 C8: Inside a `mockitdown-designer`, only the designer element MUST dispatch these events, once per notification of its session, also for a change made through a component outside it that joined its session; a component used on its own MUST dispatch those of its own session.

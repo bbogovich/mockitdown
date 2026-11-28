@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.53
+impl_version: 0.3.60
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -42,6 +42,7 @@ flowchart LR
 | `typescript/src/design/json.ts` | `parseOrdered` (JSON text to plain values, the read order of each object's keys kept in a `WeakMap`), `keysOf`, `stringify` and `writeObject` (the layout of `JSON.stringify(v, null, 2)`, known keys first), `JsonSyntaxError` |
 | `typescript/src/design/document.ts` | `readDesign`, `writeDesign`, `newDesign`, `findMockup`, `mockupPack`, `mockupOptions`, the types `DesignDocument`, `DesignMockup`, `DesignSection`, `DesignView`, `DesignError`, and the key orders `DOCUMENT_KEYS`, `MOCKUP_KEYS`, `SECTION_KEYS`, `VIEW_KEYS` |
 | `typescript/src/design/session.ts` | `DesignSession`, `DesignNotification`, `DESIGN_EVENTS` |
+| `typescript/src/design/sections.ts` | the sections' rules and `documentView` ([Sections and the saved view](sections.md)) |
 
 The module imports only the core (`core/api`, `core/assets`, `core/diagnostics`, `core/packs/registry`,
 `core/syntax/edit`, `core/syntax/tree`), never `elements/`, so it runs in Node and in a desktop shell's
@@ -134,3 +135,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.51 | 2026-11-28 | `diagnosticsOf(name, code)`; the inspector's model `inspect.ts` exported from `mockitdown/design` (R-TOOL-007, #35) |
 | 0.3.52 | 2026-11-28 | The selection commands and multi-select; see [Commands on the selection](commands.md) (R-EDIT-008, #36) |
 | 0.3.53 | 2026-11-28 | Wrap, unwrap, convert, extract component, `commands` and `run`; see [Commands on the selection](commands.md) (R-EDIT-009, #37) |
+| 0.3.60 | 2026-11-28 | `design/sections.ts` (the section rules and `documentView`); the session's section commands, their `SectionStep` and the `change` kind `sections`, and `saveView`; see [Sections and the saved view](sections.md) (R-TOOL-014, #44) |

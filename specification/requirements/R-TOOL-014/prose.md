@@ -10,3 +10,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#44).** The rules are in `mockitdown/design` (`design/sections.ts`) and the session; the
+canvas only draws sections and forwards drags and renames. A section is addressed by its index in the
+document's `sections`, since names need not be unique. The view is written by the designer's `toJSON()`
+only when it differs from the one the document opened with, which is what keeps an opened and unedited
+document byte-identical when written back.

@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.13.22
+spec_version: 0.13.23
 status: draft
 updated: 2026-11-28
 page_id: WEB.5
@@ -245,35 +245,59 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+**As built (#44).** The rules are in `mockitdown/design` (`design/sections.ts`) and the session; the
+canvas only draws sections and forwards drags and renames. A section is addressed by its index in the
+document's `sections`, since names need not be unique. The view is written by the designer's `toJSON()`
+only when it differs from the one the document opened with, which is what keeps an opened and unedited
+document byte-identical when written back.
+
 **R-TOOL-014.TC-1 — Round trip**
 
-Browser test (`canvas.spec.mjs`) on `pages/designer.html` covering F-20.AC1–AC4 together: three
-mockups and a section; zoom, pan, move a frame, rename one, activate one; `toJSON()`, then `open` the
-result in a fresh designer: names, positions, options, code, section, zoom, position and active
-mockup are restored (F-20.AC3, F-20.AC7); `open` then `toJSON()` of the sample without edits yields the
-sample.
+Browser test (`sections.spec.mjs`, IT-72) on `pages/designer.html`: three phone mockups and a section;
+a frame moved and renamed, another activated by a click, a zoom step and a wheel pan; `toJSON()` written
+with `writeDesign` holds the positions, names, options, code, the section unchanged and the view (zoom
+0.75, the canvas's position, the active mockup); a fresh designer opening it shows the same view and
+active mockup and writes the same text (F-20.AC3, F-20.AC7); the sample opened and written back without
+an edit is the sample. Unit part (`sections.test.ts`): `saveView` writes nothing for an unchanged view,
+writes the view and the active mockup with an unknown view key kept after them, follows the active
+mockup, adds no `view` to a document without one until something differs, and records no undo step.
+Every expected value is written by hand before the code runs.
 
 **R-TOOL-014.TC-2 — Sections**
 
-Browser test: `newSection("Onboarding")` encloses the active frame with 40 units of margin, its label
-at the top-left; dragging the label moves the section and the frames inside it but not one partly
-outside; resizing and renaming work and each undoes in one step.
+Browser test (`sections.spec.mjs`, IT-72): the sections layer comes first in the world, behind the
+frames; `newSection("Onboarding")` encloses the active frame with 40 units of margin, its label at the
+top-left, and undoes in one step; dragging the label moves the section, snapped to the grid and freely
+with Alt, and the frame wholly inside it, but not the ones partly outside; dragging a corner resizes it
+on both axes; a double-click renames it, an empty name refused beside the field; each undoes in one
+step with Cmd/Ctrl+Z. Unit part (`sections.test.ts`): `sectionAround`, `framesInside` with edges
+included, `snapSectionMove`, `resizeSectionBox` with the minimum size, `documentView`; the session's
+`newSection` (creating `sections`, its undo removing the key), `moveSection` carrying the frames wholly
+inside and undoing to the written text with an unknown section key kept, `resizeSection`,
+`renameSection`, the refusals changing nothing and the `change` of kind `sections`. Every expected value
+is written by hand before the code runs.
 
 **Realizes.** F-20
 
 | | Statement |
 |---|---|
-| C1 | The canvas MUST draw each section of the document as a named rectangle behind the frames, its name as a label at its top-left corner. |
-| C2 | The session MUST offer the command `newSection(name)`, which adds a section enclosing the active mockup's frame with a margin of 40 canvas units, as one undo step. |
+| C1 | The canvas MUST draw each section of the document as a named rectangle in a layer behind the frames (parts `sections`, `section` with `data-section` its index), its name as a label at its top-left corner inside it (part `section-label`), also in Preview mode. |
+| C2 | The session MUST offer the command `newSection(name)`, which adds a section enclosing the active mockup's frame (its size from `session.measure`) with a margin of 40 canvas units at the end of the document's `sections`, creating the list when the document has none, as one undo step, and returns `{section}`, its index. |
 | C3 | Dragging a section's label MUST move the section and every frame lying wholly inside it; dragging its edges MUST resize it; a double-click on its label MUST rename it; each MUST be one undo step. |
-| C4 | `toJSON()` MUST write the canvas's zoom, its position and the active mockup's name to the document's `view`, and `open` MUST restore them. |
+| C4 | `toJSON()` MUST write the canvas's zoom, its position and the active mockup's name to the document's `view` through `session.saveView(view)`, keeping its other keys, and `open` MUST restore them. |
 | C5 | Sections and the view MUST survive `open` followed by `toJSON()` unchanged when nothing was edited. |
+| C6 | `saveView` MUST leave the document as it is when the zoom (clamped, 1 when absent), the position (0 when absent) and the active mockup (the one `view.active` names, else the first) are those the document opens with, MUST write `zoom`, `x`, `y` and `active` otherwise, and MUST be no step of the history. |
+| C7 | A section's moved corner and its dragged edges MUST snap to the 8-unit grid, freely with Alt held, and a resize MUST keep the opposite edges and a width and height of at least 40 canvas units; the canvas MUST offer a resize handle on every edge and corner (part `section-handle`, `data-edge` one of `n`, `s`, `e`, `w`, `ne`, `nw`, `se`, `sw`) and none of it in Preview mode. |
+| C8 | The session MUST make the changes of C3 through `moveSection(index, x, y)`, `resizeSection(index, box)` and `renameSection(index, name)`, each notifying one `change` of kind `sections` with an empty `mockup` and `code`, as do their undo and redo, and a move, resize or rename to the section's current state MUST change nothing. |
+| C9 | `newSection` and `renameSection` MUST refuse an empty name with "A section's name must not be empty", `newSection` MUST refuse a session with no active mockup, and the section commands MUST refuse an index no section has and a box without finite `x` and `y` and positive `w` and `h`, changing and notifying nothing; section names need not be unique. |
+| C10 | `mockitdown/design` MUST hold the rules of C2, C3 and C7 without the DOM: `sectionAround`, `framesInside`, `snapSectionMove`, `resizeSectionBox` and `documentView`. |
 | V1 | Saving and reloading a canvas of three mockups and a section restores every mockup's name, position, options and code, the section and the view (F-20.AC3, F-20.AC7). |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.23 | 2026-11-28 | as built (#44): the sections layer, its parts and the label inside the top-left corner (C1); newSection's frame size, place and result (C2); toJSON through session.saveView, other view keys kept (C4); saveView writes only a changed view (C6); grid snapping, minimum size and handles of a section drag (C7); moveSection, resizeSection, renameSection and the change of kind sections (C8); refusals, names need not be unique (C9); the rules in mockitdown/design (C10); TC-1 and TC-2 name their tests (IT-72) |
 | 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
 | 0.13.20 | 2026-11-28 | as built (#41): frames with labels and natural widths (C1); zoom control part and steps about the centre (C3); fitSelection, fits clamped and centred (C4); Shift+wheel, minimap drag, no click after a pan (C6); minimap parts, bottom right (C7); CSS zoom above 200 % (C8); the designer's editor in the active frame, read-only frames, the canvas property (C9); click activates (C10); view from the document, mockitdown-view (C11); arithmetic in mockitdown/design (C12); editor outlines in a scaled canvas (C13); TC-1 and TC-2 name their tests (IT-69) |
@@ -282,6 +306,7 @@ outside; resizing and renaming work and each undoes in one step.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
 | 0.13.20 | 2026-11-28 | as built (#41): frames with labels and natural widths (C1); zoom control part and steps about the centre (C3); fitSelection, fits clamped and centred (C4); Shift+wheel, minimap drag, no click after a pan (C6); minimap parts, bottom right (C7); CSS zoom above 200 % (C8); the designer's editor in the active frame, read-only frames, the canvas property (C9); click activates (C10); view from the document, mockitdown-view (C11); arithmetic in mockitdown/design (C12); editor outlines in a scaled canvas (C13); TC-1 and TC-2 name their tests (IT-69) |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |

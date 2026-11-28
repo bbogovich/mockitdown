@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.57
+impl_version: 0.3.60
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -121,3 +121,4 @@ flowchart TD
 | 0.3.55 | 2026-11-28 | Code mode editable through `CodeSync`, the Dock code toggle (`docked`, part `dock`), `codeView`, Edit in code, the status bar's first error (part `status-message`); the centre a flex column whose view and preview scroll on their own; see [Two-way editing](two-way-editing.md) (#39) |
 | 0.3.56 | 2026-11-28 | The status bar's count is a button (part `diagnostics`, `aria-expanded`) opening `mockitdown-diagnostics` above the status bar (part `problems`, `diagnosticsOpen`), Esc closes it, `mockitdown-reveal` shown in the dock or in Code mode (R-TOOL-010.C4, C6, C9; R-TOOL-003.C12); see [The diagnostics list](diagnostics-list.md) (#40) |
 | 0.3.57 | 2026-11-28 | The view is a `mockitdown-canvas` holding the editor (`canvas`), Preview mode on the canvas with its list revealing frames, the zoom control (part `zoom`); see [The canvas](canvas.md) (#41) |
+| 0.3.60 | 2026-11-28 | `toJSON()` writes the canvas's zoom and position and the active mockup to the document's `view` through `session.saveView` when they differ from those it opened with (R-TOOL-014.C4-C6); see [Sections and the saved view](sections.md) (#44) |

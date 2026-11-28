@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.22
+spec_version: 0.13.23
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -622,7 +622,7 @@ slot, which joins the designer's session (C11).
 | C2 | The session MUST parse a mockup's code with `parseTree` (R-EDIT-001.C5) when the mockup is first needed and after every change of its code, and MUST keep the last valid tree when the code does not parse. |
 | C3 | `session.apply(op)` MUST apply an edit operation (R-EDIT-002, R-EDIT-003) to the active mockup, replace its code with the edited source, keep its tree from `reparse` and keep the selected nodes that still exist. |
 | C4 | `session.subscribe(listener)` MUST register a listener and return a function that removes it, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active` and `diagnostics` and its detail, as one object `{kind, detail}`, and MUST NOT notify a request that changes nothing. |
-| C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move` and `mockups` and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`. |
+| C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move`, `mockups` and `sections` (R-TOOL-014.C8, whose `mockup` and `code` are empty) and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`. |
 | C6 | Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made. |
 | C7 | The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`. |
 | C8 | Inside a `mockitdown-designer`, only the designer element MUST dispatch these events, once per notification of its session, also for a change made through a component outside it that joined its session; a component used on its own MUST dispatch those of its own session. |
@@ -880,6 +880,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
@@ -900,6 +901,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |

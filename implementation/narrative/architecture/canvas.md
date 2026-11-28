@@ -1,6 +1,6 @@
 ---
 title: The canvas
-impl_version: 0.3.58
+impl_version: 0.3.60
 status: draft
 updated: 2026-11-28
 page_id: IMPL.CANVAS
@@ -47,7 +47,7 @@ flowchart LR
 
 - **The view** (C2, C11): `{zoom, x, y}`, `(x, y)` being the canvas point at the viewport's top left
   corner, so a canvas point `c` is drawn at `(c - x) × zoom`. It starts as the document's `view` when the
-  canvas joins a session and is never written back. Every change goes through `#setView`, which clamps
+  canvas joins a session (`documentView`); the canvas never writes it back itself, the designer's `toJSON()` does through `session.saveView` when it differs ([Sections and the saved view](sections.md), R-TOOL-014.C4). Every change goes through `#setView`, which clamps
   the zoom, redraws and dispatches `mockitdown-view`; the designer redraws its zoom control from it.
 - **Frames** (C1, C9, C10): `#draw` reconciles one `div` per mockup (part `frame`, `data-mockup`) in
   document order inside the world, at `left: x; top: y`. With the `preview` attribute absent, the active
@@ -121,3 +121,4 @@ IT-55's Preview check reads the previews from the canvas's frames. See [Testing]
 |---|---|---|
 | 0.3.57 | 2026-11-28 | Page written: `mockitdown-canvas`, the arithmetic in `design/canvas.ts`, the designer's canvas, zoom control and Preview on the canvas, the editor's scale, IT-69 (#41) |
 | 0.3.58 | 2026-11-28 | Labels drag and rename their frames, the canvas measures frames for `session.measure`; see [Mockup frames](frames.md) (#42) |
+| 0.3.60 | 2026-11-28 | The view is written back by the designer's `toJSON()` through `session.saveView`, and sections are drawn behind the frames; see [Sections and the saved view](sections.md) (#44) |
