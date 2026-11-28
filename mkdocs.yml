@@ -133,6 +133,7 @@ nav:
           - Editing core: implementation/architecture/editing.md
           - Design documents and session: implementation/architecture/design.md
           - Undo and redo history: implementation/architecture/undo.md
+          - Commands on the selection: implementation/architecture/commands.md
           - Web development: implementation/architecture/web-dev.md
           - The mockup element: implementation/architecture/elements.md
           - The editor element: implementation/architecture/editor.md

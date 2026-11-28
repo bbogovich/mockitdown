@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.15 | 2026-11-28 | `WEB.3` | R-EDIT-008 as built (#36) |
 | 0.13.14 | 2026-11-28 | `WEB.4` | R-TOOL-007 as built: the inspector's groups, controls, checks and Mockup tab (#35) |
 | 0.13.13 | 2026-11-28 | `WEB.3` | R-EDIT-007 as built: the undo history and the designer's Undo and Redo (#34) |
 | 0.13.12 | 2026-11-28 | `LANG.2`, `MODEL.1`, `PACK.3` | Typed parameters and modifiers as built (#33): the role table's reads lists became typed params maps; parameterTypes, modifierTypes; typed labels understood |

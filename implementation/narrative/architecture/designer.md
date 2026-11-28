@@ -1,6 +1,6 @@
 ---
 title: The designer element
-impl_version: 0.3.51
+impl_version: 0.3.52
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGNER
@@ -109,3 +109,4 @@ flowchart TD
 | 0.3.45 | 2026-11-28 | The gallery panel holds `mockitdown-gallery`, which joins the session and takes `import-base` (R-TOOL-003.C16); see [The gallery element](gallery-element.md) (#29) |
 | 0.3.50 | 2026-11-28 | Undo and Redo in the toolbar (parts `undo`, `redo`, enabled by `canUndo` and `canRedo`, disabled in Preview), Cmd/Ctrl+Z, Shift+Cmd/Ctrl+Z and Ctrl+Y outside text fields (R-EDIT-007.C10); see [Undo and redo history](undo.md) (#34) |
 | 0.3.51 | 2026-11-28 | The properties panel holds `mockitdown-inspector` instead of the placeholder, joined like the other components; see [The inspector element](inspector.md) (#35) |
+| 0.3.52 | 2026-11-28 | Cmd/Ctrl+D, X, C, V and Alt+Up/Down with the focus in the outline or the view, the clipboard as `text/plain` with a fallback to the last copy (R-EDIT-008.C9, C14); see [Commands on the selection](commands.md) (#36) |

@@ -12,3 +12,16 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+**As built (#36).** The commands are methods of the design session (`mockitdown/design`); the outline,
+the editor and the designer only call them. A command with several operations (a duplicate or paste of
+several views, a move of several nodes) applies them one after the other to the tree and forms one step
+and one `change`, whose single text edit turns the code before into the code after. The identifiers of
+a copy are renamed only where the mockup already uses them, so a duplicate always renames (`ok` →
+`ok-2`) and a paste after a cut keeps them; duplicating `ok-2` gives `ok-2-2`, by C2's letter, so the
+second duplicate of TC-1 is one of the original. Copied code keeps the comment lines above a node, as a
+move carries them. A paste goes into the one selected node only when it is a container the drop rules
+of R-TOOL-005 would drop into (never a `ForEach`) and its role accepts every pasted element. With
+several nodes selected, a move shifts each of them one position, so a scattered selection stays
+scattered. The designer writes the clipboard with `navigator.clipboard.writeText` and reads it with
+`readText`, falling back to its own last copy when reading is refused.

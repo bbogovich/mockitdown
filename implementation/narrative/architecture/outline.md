@@ -1,6 +1,6 @@
 ---
 title: The outline element
-impl_version: 0.3.46
+impl_version: 0.3.52
 status: draft
 updated: 2026-11-28
 page_id: IMPL.OUTLINE
@@ -111,3 +111,4 @@ flowchart TD
 |---|---|---|
 | 0.3.42 | 2026-11-28 | Page written: `mockitdown-outline`, rows from the edit-mode evaluation, keys, hover, tabs, `evaluateWithImports`, IT-54 (#26) |
 | 0.3.46 | 2026-11-28 | Rows draggable, the outline as a drop target (`data-drop`) (#30) |
+| 0.3.52 | 2026-11-28 | Shift-click selects a range of siblings, Cmd/Ctrl-click toggles a row (`session.selectRange`, `toggleSelected`, R-EDIT-008.C8) (#36) |

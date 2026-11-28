@@ -1,6 +1,6 @@
 ---
 title: Design documents and the design session
-impl_version: 0.3.51
+impl_version: 0.3.52
 status: draft
 updated: 2026-11-28
 page_id: IMPL.DESIGN
@@ -13,7 +13,7 @@ implements R-EDIT-005 (reading, validating and writing `.mkdesign`) and R-EDIT-0
 and C12 to C18 (the session and its notifications) (#24), and C19, the `delete` command (#27). The DOM
 events of the design-tool components (R-EDIT-006 C7, C8, C11) come with the components, the designer
 finishing them ([The designer element](designer.md)); the session's history (R-EDIT-007, #34) is on
-[Undo and redo history](undo.md); the inspector's model (`inspect`, `setField`, … in `inspect.ts`, R-TOOL-007.C15, #35) and `diagnosticsOf(name, code)` are on [The inspector element](inspector.md), and the other commands (A-WEB-4.P1) come with the commands stage.
+[Undo and redo history](undo.md); the inspector's model (`inspect`, `setField`, … in `inspect.ts`, R-TOOL-007.C15, #35) and `diagnosticsOf(name, code)` are on [The inspector element](inspector.md), the selection commands (`duplicate`, `copy`, `cut`, `paste`, `moveUp`, `moveDown`, `selectRange`, `toggleSelected`; R-EDIT-008, #36) are on [Commands on the selection](commands.md), and wrap, unwrap, convert and extract component (R-EDIT-009) come with the next stage.
 
 
 Drag and drop (R-TOOL-005, #30): `insert(code, parent, index)`, `move(nodes, parent, index)` and the drop API `childrenOf`, `isContainer`, `dropPosition`, `checkDrop`, `drop` (R-EDIT-006.C20, C21); see [Drag and drop](drag-drop.md).
@@ -98,7 +98,7 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | `readDesign(text)` | `{document}` or `{errors: [{path, message}]}` |
 | `writeDesign(document)` | the JSON text, two-space indent, final line feed |
 | `newDesign(name)`, `findMockup`, `mockupPack`, `mockupOptions` | R-EDIT-005 C8 to C10 |
-| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `insert`, `delete`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive`, `undo`, `redo`, `canUndo`, `canRedo` (every changing request takes a last `{coalesce}` argument; see [Undo and redo history](undo.md)) |
+| `DesignSession` | `document`, `active`, `selection`, `hovered`, `mockup`, `code`, `options`, `tree`, `diagnostics`, `nodeFor`, `subscribe`, `apply`, `insert`, `delete`, `setCode`, `setOptions`, `moveMockup`, `select`, `hover`, `setActive`, `undo`, `redo`, `canUndo`, `canRedo`, `selectRange`, `toggleSelected`, `copy`, `cut`, `duplicate`, `paste`, `moveUp`, `moveDown` ([Commands on the selection](commands.md)) (every changing request takes a last `{coalesce}` argument; see [Undo and redo history](undo.md)) |
 | `DesignNotification` | `{kind, detail}`, the details of R-EDIT-006.C5 |
 | `parseOrdered`, `keysOf`, `writeObject` | internal (`design/json.ts`) |
 
@@ -132,3 +132,4 @@ components dispatch to `mockitdown-select`, `-change`, `-insert`, `-rename` and 
 | 0.3.47 | 2026-11-28 | `firstText(node)` and `setText(node, text)` (R-TOOL-006.C4) (#31) |
 | 0.3.50 | 2026-11-28 | The undo history: `undo`, `redo`, `canUndo`, `canRedo`, `{coalesce}` on every changing request (R-EDIT-007, #34) |
 | 0.3.51 | 2026-11-28 | `diagnosticsOf(name, code)`; the inspector's model `inspect.ts` exported from `mockitdown/design` (R-TOOL-007, #35) |
+| 0.3.52 | 2026-11-28 | The selection commands and multi-select; see [Commands on the selection](commands.md) (R-EDIT-008, #36) |

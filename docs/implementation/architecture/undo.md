@@ -1,6 +1,6 @@
 ---
 title: Undo and redo history
-impl_version: 0.3.51
+impl_version: 0.3.52
 status: draft
 updated: 2026-11-28
 page_id: IMPL.UNDO
@@ -97,3 +97,4 @@ IT-62: `typescript/tests/unit/undo.test.ts` (R-EDIT-007 TC-1, TC-2 with a fake c
 |---|---|---|
 | 0.3.50 | 2026-11-28 | Page written: the session's undo history, coalescing, the designer's Undo and Redo, IT-62 (#34) |
 | 0.3.51 | 2026-11-28 | C5 for the inspector: its key `<node>:<field>` (#35) |
+| 0.3.52 | 2026-11-28 | The selection commands are one step each through `applyOps` ([Commands on the selection](commands.md), #36) |

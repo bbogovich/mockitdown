@@ -1,6 +1,6 @@
 ---
 title: The editor element
-impl_version: 0.3.47
+impl_version: 0.3.52
 status: draft
 updated: 2026-11-28
 page_id: IMPL.EDITOR
@@ -145,3 +145,4 @@ See [New elements](new-elements.md).
 | 0.3.42 | 2026-11-28 | `pages/editor.html` also holds the outline, which shares the editor's session (#26) |
 | 0.3.46 | 2026-11-28 | The editor as a drop target: container, insertion bar, `drop-target` and `drop-bar` parts (#30) |
 | 0.3.47 | 2026-11-28 | The inline text field opened after an insertion (part `text-field`, R-TOOL-006) (#31) |
+| 0.3.52 | 2026-11-28 | Shift- and Cmd/Ctrl-click on the innermost element select a range or toggle it (R-EDIT-008.C8) (#36) |
