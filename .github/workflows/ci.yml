@@ -20,6 +20,10 @@ jobs:
         run: |
           python -m pip install -e "python[markdown]"
           python -m pip install -r python/examples/site/requirements.txt
+      - name: Role catalogue fixture is current (REF.2 on the docs branch)
+        run: |
+          git fetch --depth=1 origin docs:refs/remotes/origin/docs
+          python python/tools/gen_role_catalogue.py --check
       - name: Test (with the real Zensical build, IT-5)
         working-directory: python
         run: ZENSICAL="$(command -v zensical)" python -m unittest discover -s tests -t .
