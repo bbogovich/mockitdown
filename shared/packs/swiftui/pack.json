@@ -191,7 +191,7 @@
     "Image": {"role": "image", "params": ["name"], "doc": "Image(\"asset.png\") or Image(systemName: \"star.fill\")"},
     "AsyncImage": {"role": "image", "params": ["url"], "doc": "AsyncImage(url: \"photo.jpg\")"},
     "Link": {"role": "link", "params": ["label", "destination"], "doc": "Link(\"Privacy Policy\", destination: url) — accent text"},
-    "ShareLink": {"role": "button", "params": ["label"], "defaults": {"label": "Share", "systemImage": "square.and.arrow.up"}, "doc": "ShareLink(item: url) — share-sheet button"},
+    "ShareLink": {"role": "button", "params": ["label"], "attrs": {"item": "url"}, "defaults": {"label": "Share", "systemImage": "square.and.arrow.up"}, "doc": "ShareLink(item: url) — share-sheet button"},
     "HelpLink": {"role": "button", "defaults": {"systemImage": "questionmark", "iconOnly": true, "variant": "help"}, "doc": "macOS round help (?) button"},
     "SettingsLink": {"role": "button", "params": ["label"], "defaults": {"label": "Settings…"}, "doc": "macOS button that opens the Settings window"},
 

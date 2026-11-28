@@ -1,7 +1,8 @@
 """The role rule table shared/language/roles.json (R-PACK-016 TC-1, TC-2; R-REPO-002 TC-3).
 
-Python reads the table nowhere (rendering never consults it, R-PACK-016.C10); these tests check the
-table itself against the Python renderer's roles and the packs, and that the package carries a copy.
+Python reads only the table's `reads` lists, in the evaluator (R-EVAL-004.C8, tests/test_unknown_labels.py);
+rendering never consults it (R-PACK-016.C10). These tests check the table itself against the Python
+renderer's roles and the packs, and that the package carries a copy.
 The TypeScript suite runs the same checks (typescript/tests/unit/roles.test.ts).
 """
 
@@ -49,7 +50,7 @@ class RoleTableTests(unittest.TestCase):
     def test_every_render_role_has_exactly_one_rule(self):  # C1, C9
         self.assertEqual(sorted(ROLES - set(self.t["roles"])), [], "render roles without a rule")
         self.assertEqual(sorted(set(self.t["roles"]) - ROLES), [], "rules for roles the renderer does not have")
-        self.assertEqual(set(self.t), {"root", "roles"})
+        self.assertEqual(set(self.t), {"reads", "root", "roles"})  # reads: R-EVAL-004.C8
         self.assertEqual(set(self.t["root"]), {"accepts"})
 
     def test_rules_name_known_roles_categories_and_attach_modes(self):  # C1, C2, C3, C9
@@ -57,7 +58,7 @@ class RoleTableTests(unittest.TestCase):
         for role, rule in [(None, self.t["root"]), *roles.items()]:
             with self.subTest(role=role):
                 if role is not None:
-                    self.assertEqual(set(rule), {"title", "category", "accepts", "attach"})
+                    self.assertEqual(set(rule), {"title", "category", "accepts", "attach", "reads"})
                     self.assertIn(rule["category"], CATEGORIES)
                     self.assertEqual(rule["attach"], ATTACH[rule["category"]])
                     self.assertTrue(rule["title"])

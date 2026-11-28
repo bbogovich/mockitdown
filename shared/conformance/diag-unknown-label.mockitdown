@@ -1,0 +1,8 @@
+// unknown labelled arguments: a misspelt label on a core and on a pack element warn; an alias, a default, a slot, an action and a binding do not (R-EVAL-004.C7-C9)
+let query = "rain"
+VStack(spacng: 8) {
+  Button("Save", type: "primary", variant: "default", action: { save() })
+  Input("Search", allowClear: true, onSearch: $query)
+  Card(title: "Orders", extra: Link("More")) { Text("Body") }
+  Switch("Wi-Fi", chekced: true)
+}

@@ -730,7 +730,8 @@
         "label"
       ],
       "attrs": {
-        "href": "url"
+        "href": "url",
+        "destination": "url"
       },
       "doc": "Link(\"View\") — unstyled link (inherits colour)"
     },

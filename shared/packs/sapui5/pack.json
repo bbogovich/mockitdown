@@ -554,6 +554,9 @@
         "text",
         "href"
       ],
+      "attrs": {
+        "destination": "href"
+      },
       "doc": "sap.m.Link"
     },
     "Image": {

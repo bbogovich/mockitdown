@@ -70,7 +70,7 @@ struct SettingSwitch: View {
 
   var body: some View {
     VListItem(title: title, subtitle: subtitle, prependIcon: icon) append: {
-      VSwitch(modelValue: on, color: "primary", hideDetails: true)
+      VSwitch(modelValue: on, color: "primary")
     }
   }
 }

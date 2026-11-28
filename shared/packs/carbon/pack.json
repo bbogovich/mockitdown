@@ -345,7 +345,7 @@
     "DismissibleTag": {"role": "chip", "params": ["label"], "defaults": {"color": "gray", "removable": true}, "attrs": {"type": "color", "text": "label"}},
     "OperationalTag": {"role": "chip", "params": ["label"], "defaults": {"color": "gray"}, "attrs": {"type": "color", "text": "label"}},
     "SelectableTag": {"role": "chip", "params": ["label"], "attrs": {"text": "label"}, "doc": "SelectableTag(\"Python\").selected()"},
-    "Link": {"role": "link", "params": ["label", "href"], "doc": "Link(\"Learn more\", icon: \"ArrowRight\") · size: \"sm\" | \"lg\""},
+    "Link": {"role": "link", "params": ["label", "href"], "attrs": {"destination": "href"}, "doc": "Link(\"Learn more\", icon: \"ArrowRight\") · size: \"sm\" | \"lg\""},
     "UnorderedList": {"role": "list", "doc": "UnorderedList { ListItem(\"…\") } — en-dash bullets"},
     "OrderedList": {"role": "list", "doc": "OrderedList { ListItem(\"…\") } — numbered"},
     "CodeSnippet": {"role": "code", "params": ["code"], "defaults": {"lineNumbers": false}, "attrs": {"type": "variant"},

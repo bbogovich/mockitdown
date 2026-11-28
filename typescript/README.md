@@ -140,6 +140,16 @@ allowedChildren("base", "HStack");                   // {allowed: ["VStack", "HS
 An element the pack does not define (a struct, a typo) has role `unknown`: as a parent it accepts
 everything, as a child it is accepted by any parent that holds children.
 
+The table also lists the labels each role reads (`reads`: the top-level list for every role, each
+rule's for its own; `roleReads(role)` gives both). Evaluation warns, with code `argument`, about a
+labelled argument of an element call that nothing understands — not a param or default of the element,
+an alias of the element or its pack, a label its role reads, a closure or views (a slot), an action, or
+a binding (`$x`) — and still renders the element, exactly as the Python variant does:
+
+```text
+Text("Hi", colour: .red)   →  warning [argument] 'colour' is not understood by Text in pack 'base' (1:12)
+```
+
 ### Design documents
 
 A design (`.mkdesign`) is one JSON file of named mockups, each with its position, options and code.

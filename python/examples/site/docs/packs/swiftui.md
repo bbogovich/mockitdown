@@ -313,7 +313,7 @@ NavigationStack {
             .pickerStyle(.navigationLink)
         }
         Section {
-          ColorPicker("Calendar Color", selection: .blue)
+          ColorPicker("Calendar Color")
           Stepper("Guests", value: 12)
         }
       }

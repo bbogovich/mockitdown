@@ -9,9 +9,9 @@ NavigationSplitView {
   .navigationTitle("Mail")
 } content: {
   List {
-    Row("Ana Lima", subtitle: "Quarterly review", detail: "09:41", avatar: "Ana Lima")
-    Row("Ben Okafor", subtitle: "Build is green again", detail: "Yesterday", avatar: "Ben Okafor")
-    Row("Chen Wu", subtitle: "Research notes", detail: "Mon", avatar: "Chen Wu")
+    ListItem("Ana Lima", subtitle: "Quarterly review", detail: "09:41", avatar: "Ana Lima")
+    ListItem("Ben Okafor", subtitle: "Build is green again", detail: "Yesterday", avatar: "Ben Okafor")
+    ListItem("Chen Wu", subtitle: "Research notes", detail: "Mon", avatar: "Chen Wu")
   }
   .navigationTitle("Inbox")
 } detail: {

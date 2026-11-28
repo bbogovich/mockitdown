@@ -2775,6 +2775,10 @@
     {
       "name": "diag-errors-shown",
       "area": "diag"
+    },
+    {
+      "name": "diag-unknown-label",
+      "area": "diag"
     }
   ]
 }

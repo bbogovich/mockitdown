@@ -442,11 +442,13 @@ class Parser:
                 self.next()
                 return args
             label = None
+            label_loc = None
             if self.peek().kind in ("IDENT", "KEYWORD") and self.at("COLON", k=1):
-                label = self.next().value
+                tok = self.next()
+                label, label_loc = tok.value, tok.location
                 self.next()
                 self.skip_nl_only()
-            args.append(A.Arg(label, self.parse_expr()))
+            args.append(A.Arg(label, self.parse_expr(), label_loc))
             self.skip_nl_only()
             if self.at("COMMA"):
                 self.next()
@@ -474,7 +476,7 @@ class Parser:
         if k == "DOLLAR":  # $binding → the bound value
             self.next()
             name = self.expect("IDENT", "a name after '$'")
-            return A.Ident(name.value, name.location)
+            return A.Ident(name.value, name.location, binding=True)
         if k == "DOT":
             self.next()
             name = self.peek()

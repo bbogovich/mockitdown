@@ -1,7 +1,7 @@
 {
   "op": "setName",
   "node": "n4",
-  "name": "Link",
+  "name": "MenuItem",
   "covers": [
     "setName"
   ]

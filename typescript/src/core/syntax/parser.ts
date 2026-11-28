@@ -522,12 +522,15 @@ export class Parser {
         return args;
       }
       let label: string | null = null;
+      let loc: Location | undefined;
       if ((this.peek().kind === "IDENT" || this.peek().kind === "KEYWORD") && this.at("COLON", null, 1)) {
-        label = this.next().value as string;
+        const tok = this.next();
+        label = tok.value as string;
+        loc = tok.location;
         this.next();
         this.skipNlOnly();
       }
-      args.push({ label, value: this.parseExpr() });
+      args.push(loc ? { label, value: this.parseExpr(), loc } : { label, value: this.parseExpr() });
       this.skipNlOnly();
       if (this.at("COMMA")) this.next();
       else if (!this.at("RPAREN")) throw this.error("expected ',' or ')' in an argument list");
@@ -560,7 +563,7 @@ export class Parser {
     if (k === "DOLLAR") { // $binding → the bound value
       this.next();
       const name = this.expect("IDENT", "a name after '$'");
-      return this.fin({ kind: "Ident", name: name.value as string, loc: name.location } as A.Ident, t.start);
+      return this.fin({ kind: "Ident", name: name.value as string, loc: name.location, binding: true } as A.Ident, t.start);
     }
     if (k === "DOT") {
       this.next();

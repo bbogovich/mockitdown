@@ -1,0 +1,24 @@
+{
+  "packs": [
+    "base",
+    "antd"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "argument",
+      "message": "'spacng' is not understood by VStack in pack 'antd'",
+      "line": 3,
+      "col": 8,
+      "source": ""
+    },
+    {
+      "severity": "warning",
+      "code": "argument",
+      "message": "'chekced' is not understood by Switch in pack 'antd'",
+      "line": 7,
+      "col": 19,
+      "source": ""
+    }
+  ]
+}

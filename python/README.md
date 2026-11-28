@@ -73,6 +73,12 @@ mockitdown packs                                                   # installed p
 mockitdown elements mui --markdown                                 # a pack's element catalogue
 ```
 
+A labelled argument that nothing reads (`Text("Hi", colour: .red)`) is reported as a warning with code
+`argument` ("'colour' is not understood by Text in pack 'base'") and the element still renders. An
+element's params and defaults, its pack's argument aliases, the labels its render role reads
+(`reads` in `shared/language/roles.json`), closures and views (slots), actions and bindings (`$x`) are
+understood.
+
 ## Repository
 
 This is the Python variant, in `python/` of the [mockitdown repository](https://github.com/bbogovich/mockitdown),

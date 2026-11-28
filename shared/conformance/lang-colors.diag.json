@@ -2,5 +2,30 @@
   "packs": [
     "base"
   ],
-  "diagnostics": []
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "argument",
+      "message": "'red' is not understood by Color in pack 'base'",
+      "line": 2,
+      "col": 61,
+      "source": ""
+    },
+    {
+      "severity": "warning",
+      "code": "argument",
+      "message": "'green' is not understood by Color in pack 'base'",
+      "line": 2,
+      "col": 71,
+      "source": ""
+    },
+    {
+      "severity": "warning",
+      "code": "argument",
+      "message": "'blue' is not understood by Color in pack 'base'",
+      "line": 2,
+      "col": 83,
+      "source": ""
+    }
+  ]
 }

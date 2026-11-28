@@ -9,12 +9,12 @@ HStack(alignment: .top, spacing: 0) {
     }
     SearchField("Search")
     List {
-      Row("Design team", subtitle: "Farah: The new icons are up", detail: "09:52", avatar: "Design team").badge(4)
-      Row("Ana Lima", subtitle: "See you at the station!", detail: "09:41", avatar: "Ana Lima")
-      Row("Ben Okafor", subtitle: "You: Sent the build link", detail: "08:30", avatar: "Ben Okafor")
-      Row("Chen Wu", subtitle: "Thanks for the notes", detail: "Yesterday", avatar: "Chen Wu")
-      Row("Dana Park", subtitle: "Photo", detail: "Mon", avatar: "Dana Park")
-      Row("Eli Novak", subtitle: "Let's call tomorrow", detail: "Sun", avatar: "Eli Novak")
+      ListItem("Design team", subtitle: "Farah: The new icons are up", detail: "09:52", avatar: "Design team").badge(4)
+      ListItem("Ana Lima", subtitle: "See you at the station!", detail: "09:41", avatar: "Ana Lima")
+      ListItem("Ben Okafor", subtitle: "You: Sent the build link", detail: "08:30", avatar: "Ben Okafor")
+      ListItem("Chen Wu", subtitle: "Thanks for the notes", detail: "Yesterday", avatar: "Chen Wu")
+      ListItem("Dana Park", subtitle: "Photo", detail: "Mon", avatar: "Dana Park")
+      ListItem("Eli Novak", subtitle: "Let's call tomorrow", detail: "Sun", avatar: "Eli Novak")
     }
     .listStyle(.plain)
   }

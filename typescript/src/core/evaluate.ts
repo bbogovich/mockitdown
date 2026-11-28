@@ -11,7 +11,7 @@ import { basename, dirname, joinPath, loadComponent, pathStr, readComponent } fr
 import { Diagnostics, Location, MockitdownError, MockitdownSyntaxError } from "./diagnostics.js";
 import { CallValue, EnumValue, Modifier, Screen, Thunk, View, ViewList, type Value } from "./model.js";
 import type { ImportResolver } from "./options.js";
-import type { Pack, PackRegistry } from "./packs/registry.js";
+import type { ElementDef, Pack, PackRegistry } from "./packs/registry.js";
 import type * as A from "./syntax/ast.js";
 import { isViewProperty } from "./syntax/ast.js";
 import { structViewNodes, viewNodeOrdinals } from "./syntax/tree.js";
@@ -20,12 +20,15 @@ import {
   pyBool, pyCompare, PyDict, pyDiv, pyEq, PyError, PyFloat, pyLen, pyMul, pyNeg, pyStr, pySub, pyTypeName,
   strLen, strRepr, strTitle, toFloat, tuple, floatRepr, formatG, intStr,
 } from "./values.js";
+import { roleReads } from "./roles.js";
 import { IGNORED, NEUTRAL_MODULES, RENDERED } from "./vocabulary.js";
 
 export const MAX_DEPTH = 48;
 export const MAX_ITERATIONS = 500;
 
 const MISSING = Symbol("missing");
+/** Closure-valued labelled arguments discarded without evaluation (R-EVAL-004.C5). */
+const ACTION_LABELS = new Set(["action", "onCommit", "onEditingChanged", "perform"]);
 const ONCE_MODIFIERS = new Set(["callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"]);
 
 export class Env {
@@ -535,6 +538,21 @@ export class Evaluator {
     return views;
   }
 
+  /**
+   * R-EVAL-004.C7: a labelled argument is understood when the element's params or defaults name it, an
+   * argument alias of the element or its pack renames it, its role reads it, it is a closure or views
+   * (a slot), or a discarded action; a binding (`$name`) is never reported (C9).
+   */
+  private understood(el: ElementDef, arg: A.Arg, val: Value): boolean {
+    const label = arg.label!;
+    const read = roleReads(el.role);
+    if (read === null || read.has(label) || ACTION_LABELS.has(label)) return true;
+    if (el.params.includes(label) || el.defaults.some(([k]) => k === label) || el.attrs.some(([k]) => k === label)) return true;
+    if (this.p.attrs.has(label)) return true;
+    if (val instanceof Thunk || val instanceof ViewList) return true;
+    return arg.value.kind === "Ident" && arg.value.binding === true;
+  }
+
   private labelFor(el: { attrFor(l: string): string | undefined }, label: string): string {
     const own = el.attrFor(label);
     if (own) return own;
@@ -577,7 +595,12 @@ export class Evaluator {
     for (const arg of call.args) {
       const val = this.value(arg.value, env);
       if (arg.label === null) positional.push(val);
-      else attrs.set(this.labelFor(el, arg.label), val);
+      else {
+        if (!this.understood(el, arg, val)) {
+          this.diags.warning(`'${arg.label}' is not understood by ${name} in pack '${this.p.id}'`, arg.loc ?? call.loc, "argument");
+        }
+        attrs.set(this.labelFor(el, arg.label), val);
+      }
     }
     positional.forEach((val, i) => {
       // A positional argument takes its parameter's name through the same renames as a labelled one.
@@ -594,7 +617,7 @@ export class Evaluator {
     for (const [k, val] of attrs.items()) {
       const key = k as string;
       if (val instanceof Thunk) {
-        if (["action", "onCommit", "onEditingChanged", "perform"].includes(key)) {
+        if (ACTION_LABELS.has(key)) {
           attrs.delete(key);
           continue;
         }

@@ -629,8 +629,9 @@ def lang_cases() -> list[Case]:
         Case("lang-modifiers-layout", "padding, frame, background, border, corner radius",
              'Text("Box").padding(12).frame(width: 160, height: 60).background(.surface).border(.separator)'
              '.cornerRadius(8)'),
-        Case("lang-colors", "colour values", 'HStack { Color(.red); Color(.blue); Color("#336699"); '
-             'Color(red: 0.2, green: 0.6, blue: 0.4) }.frame(height: 40)'),
+        Case("lang-colors", "colour values (Color's red:, green:, blue: are not read: a warning each, R-EVAL-004.C9)",
+             'HStack { Color(.red); Color(.blue); Color("#336699"); '
+             'Color(red: 0.2, green: 0.6, blue: 0.4) }.frame(height: 40)', diagnostics=True),
         Case("lang-escape", "HTML is escaped", 'Text("<b>not bold</b> & \\"quoted\\"")'),
         Case("lang-unicode", "non-ASCII text", 'Text("Grüße · 東京 · ⌘K · 🚀")'),
         Case("lang-ids-refs", "`.id()` and `.ref()` attributes",
@@ -823,6 +824,14 @@ def diag_cases() -> list[Case]:
              'import NoSuchKit\nText("x")', {"show_warnings": True}),
         Case("diag-errors-shown", "errors are shown above the figure with the rest rendered",
              'VStack { Text("kept"); Frobnicate() }', {"show_warnings": True}),
+        Case("diag-unknown-label",
+             "unknown labelled arguments: a misspelt label on a core and on a pack element warn; an alias, "
+             "a default, a slot, an action and a binding do not (R-EVAL-004.C7-C9)",
+             'let query = "rain"\nVStack(spacng: 8) {\n'
+             '  Button("Save", type: "primary", variant: "default", action: { save() })\n'
+             '  Input("Search", allowClear: true, onSearch: $query)\n'
+             '  Card(title: "Orders", extra: Link("More")) { Text("Body") }\n'
+             '  Switch("Wi-Fi", chekced: true)\n}', {"pack": "antd"}),
     ]
     for c in out:
         c.diagnostics = True

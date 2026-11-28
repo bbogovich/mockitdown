@@ -28,7 +28,7 @@ function expand(accepts: readonly string[]): Set<string> {
 
 test("TC-1: every render role of the TypeScript renderer has exactly one rule (C1, C9)", () => {
   assert.deepEqual([...core.RENDER_ROLES].sort(), Object.keys(table.roles).sort());
-  assert.deepEqual(Object.keys(table).sort(), ["roles", "root"]);
+  assert.deepEqual(Object.keys(table).sort(), ["reads", "roles", "root"]); // reads: R-EVAL-004.C8
   assert.equal(core.rolesLoaded(), true);
   for (const role of core.RENDER_ROLES) assert.ok(core.roleRule(role), role);
 });
@@ -37,7 +37,7 @@ test("TC-1: rules name known roles, categories and attach modes (C1, C2, C3, C9)
   for (const [role, rule] of [["(root)", table.root] as const, ...Object.entries(table.roles)]) {
     if (role !== "(root)") {
       const r = rule as Rule;
-      assert.deepEqual(Object.keys(r).sort(), ["accepts", "attach", "category", "title"], role);
+      assert.deepEqual(Object.keys(r).sort(), ["accepts", "attach", "category", "reads", "title"], role);
       assert.ok(CATEGORIES.includes(r.category), `${role}: category ${r.category}`);
       assert.equal(r.attach, ATTACH[r.category], `${role}: attach`);
     }

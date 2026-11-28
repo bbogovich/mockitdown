@@ -21,10 +21,10 @@ PATTERNS = ROOT.parent / "shared" / "patterns"
 REQUIRED = ("sign-in", "list-detail", "settings", "dashboard", "data-table", "wizard")
 #: C19 (TC-7): the complex layouts, each with the core elements (or source fragments) its description names.
 COMPLEX = {
-    "mail-client": (r"NavigationSplitView", r"\bcontent:", r"\bdetail:", r'Label\("Inbox"', r"Row\("),
+    "mail-client": (r"NavigationSplitView", r"\bcontent:", r"\bdetail:", r'Label\("Inbox"', r"ListItem\("),
     "admin-console": (r"NavItem\(", r"SearchField\(", r"Avatar\(", r"Stat\(", r"Chart\(", r"Table\("),
     "kanban-board": (r"Board\b", r"BoardColumn\(", r"KanbanCard\("),
-    "chat": (r"MessageBubble\(", r"from: \.me", r"TextField\(", r"Row\("),
+    "chat": (r"MessageBubble\(", r"from: \.me", r"TextField\(", r"ListItem\("),
     "product-page": (r"Image\b", r"Rating\(", r"Picker\(|SegmentedControl\(", r"Stepper\(", r"Button\(", r"Comment\("),
     "calendar": (r"Schedule\(", r"events:", r"DatePicker\(|Calendar\("),
 }

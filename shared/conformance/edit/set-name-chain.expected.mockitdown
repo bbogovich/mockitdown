@@ -7,6 +7,6 @@ VStack(spacing: 8) {
         .padding(.bottom, 4)
 
     Button("Save")
-    Link("Delete", role: .destructive).id("delete")
+    MenuItem("Delete", role: .destructive).id("delete")
     Divider
 }

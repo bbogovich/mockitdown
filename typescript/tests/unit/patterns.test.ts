@@ -108,10 +108,10 @@ test("TC-5: swiftui shows an iPhone, an iPad and a Mac app with the menu bar (C1
 
 /** C19: the complex layouts, each with the core elements (or source fragments) its description names. */
 const COMPLEX: Record<string, RegExp[]> = {
-  "mail-client": [/NavigationSplitView/, /\bcontent:/, /\bdetail:/, /Label\("Inbox"/, /Row\(/],
+  "mail-client": [/NavigationSplitView/, /\bcontent:/, /\bdetail:/, /Label\("Inbox"/, /ListItem\(/],
   "admin-console": [/NavItem\(/, /SearchField\(/, /Avatar\(/, /Stat\(/, /Chart\(/, /Table\(/],
   "kanban-board": [/Board\b/, /BoardColumn\(/, /KanbanCard\(/],
-  "chat": [/MessageBubble\(/, /from: \.me/, /TextField\(/, /Row\(/],
+  "chat": [/MessageBubble\(/, /from: \.me/, /TextField\(/, /ListItem\(/],
   "product-page": [/Image\b/, /Rating\(/, /Picker\(|SegmentedControl\(/, /Stepper\(/, /Button\(/, /Comment\(/],
   "calendar": [/Schedule\(/, /events:/, /DatePicker\(|Calendar\(/],
 };

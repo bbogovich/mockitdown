@@ -34,6 +34,8 @@ class StringLit(Node):
 class Ident(Node):
     name: str
     loc: Location = field(default_factory=Location)
+    #: Written as a binding (`$name`); it evaluates to the bound value (R-EVAL-004.C9 exempts it).
+    binding: bool = False
 
 
 @dataclass
@@ -55,6 +57,8 @@ class Member(Node):
 class Arg:
     label: str | None
     value: Node
+    #: Where the label was written (None for a positional argument).
+    loc: Location | None = None
 
 
 @dataclass

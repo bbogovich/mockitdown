@@ -8,8 +8,8 @@ VStack(alignment: .leading, spacing: 16) {
       TextField("Email address", text: "chen.wu@example.com")
       Picker("Role", selection: "Editor") { Text("Viewer"); Text("Editor"); Text("Admin") }
       List {
-        Row("Ana Lima", subtitle: "Owner", avatar: "Ana Lima")
-        Row("Ben Okafor", subtitle: "Editor", avatar: "Ben Okafor")
+        ListItem("Ana Lima", subtitle: "Owner", avatar: "Ana Lima")
+        ListItem("Ben Okafor", subtitle: "Editor", avatar: "Ben Okafor")
       }
       Checkbox("Send an invitation email", isOn: true)
     }

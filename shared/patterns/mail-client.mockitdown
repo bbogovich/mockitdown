@@ -19,13 +19,13 @@ NavigationSplitView {
   .navigationTitle("Mail")
 } content: {
   List {
-    Row("Ana Lima", subtitle: "Quarterly review — the numbers are in", detail: "09:41", avatar: "Ana Lima").badge("New")
-    Row("Ben Okafor", subtitle: "Build is green again after the fix", detail: "08:15", avatar: "Ben Okafor")
-    Row("Chen Wu", subtitle: "Research notes for Thursday", detail: "Yesterday", avatar: "Chen Wu")
-    Row("Dana Park", subtitle: "Invoice 2026-114 attached", detail: "Yesterday", avatar: "Dana Park")
-    Row("Eli Novak", subtitle: "Re: Offsite agenda", detail: "Mon", avatar: "Eli Novak")
-    Row("Farah Haddad", subtitle: "Design review moved to 3 pm", detail: "Mon", avatar: "Farah Haddad")
-    Row("Gus Moreau", subtitle: "Your flight to Lisbon is confirmed", detail: "Sun", avatar: "Gus Moreau")
+    ListItem("Ana Lima", subtitle: "Quarterly review — the numbers are in", detail: "09:41", avatar: "Ana Lima").badge("New")
+    ListItem("Ben Okafor", subtitle: "Build is green again after the fix", detail: "08:15", avatar: "Ben Okafor")
+    ListItem("Chen Wu", subtitle: "Research notes for Thursday", detail: "Yesterday", avatar: "Chen Wu")
+    ListItem("Dana Park", subtitle: "Invoice 2026-114 attached", detail: "Yesterday", avatar: "Dana Park")
+    ListItem("Eli Novak", subtitle: "Re: Offsite agenda", detail: "Mon", avatar: "Eli Novak")
+    ListItem("Farah Haddad", subtitle: "Design review moved to 3 pm", detail: "Mon", avatar: "Farah Haddad")
+    ListItem("Gus Moreau", subtitle: "Your flight to Lisbon is confirmed", detail: "Sun", avatar: "Gus Moreau")
   }
   .navigationTitle("Inbox")
   .searchable(text: "")

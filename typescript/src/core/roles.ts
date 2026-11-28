@@ -7,13 +7,17 @@
  * (A-WEB-1.K1). Rendering never reads it: the design tools ask {@link canContain} and
  * {@link allowedChildren}, and each refusal comes with a sentence saying why.
  *
- *   {"root": {"accepts": [...]},
- *    "roles": {"<role>": {"title", "category", "accepts", "attach"}, ...}}
+ *   {"reads": [...], "root": {"accepts": [...]},
+ *    "roles": {"<role>": {"title", "category", "accepts", "attach", "reads"}, ...}}
  *
  * An `accepts` entry is a role or a category written `@<category>`. A pack element may narrow its
  * role's `accepts` with `rules: {"accepts": [...]}` in `pack.json` (C5, {@link ElementDef.rules}).
  * A parent of role `unknown` accepts every child, and a child of role `unknown` (an element the pack
  * does not define, a struct) is accepted by every parent that accepts children (C8).
+ *
+ * The `reads` lists (R-EVAL-004.C8) are the labels each role reads, the top-level list those every role
+ * reads through the common element markup; the evaluator asks {@link roleReads} to warn about labelled
+ * arguments nothing reads (R-EVAL-004.C9). The Python variant reads the same file.
  */
 
 import { MockitdownError } from "./diagnostics.js";
@@ -47,15 +51,20 @@ const CATEGORY_NOUN: Record<RoleCategory, string> = {
 };
 
 let rules = new Map<string, RoleRule>();
+let reads = new Map<string, ReadonlySet<string>>();
 let rootAccepts: readonly string[] = [];
 let loaded = false;
 const expanded = new WeakMap<readonly string[], Set<string>>();
 
 /** Install the role rules from the text (or parsed value) of `roles.json`. */
-export function setRoles(data: string | { root?: unknown; roles?: unknown }): void {
-  const raw = (typeof data === "string" ? JSON.parse(data) : data) as { root?: { accepts?: unknown }; roles?: Record<string, unknown> };
+export function setRoles(data: string | { reads?: unknown; root?: unknown; roles?: unknown }): void {
+  const raw = (typeof data === "string" ? JSON.parse(data) : data) as { reads?: unknown; root?: { accepts?: unknown }; roles?: Record<string, unknown> };
   const next = new Map<string, RoleRule>();
+  const nextReads = new Map<string, ReadonlySet<string>>();
+  const common = strings(raw.reads);
   for (const [role, r] of Object.entries(raw.roles ?? {})) {
+    const own = (r as { reads?: unknown }).reads;
+    if (Array.isArray(own)) nextReads.set(role, new Set([...common, ...strings(own)]));
     const rule = r as Partial<RoleRule>;
     next.set(role, Object.freeze({
       role,
@@ -66,6 +75,7 @@ export function setRoles(data: string | { root?: unknown; roles?: unknown }): vo
     }));
   }
   rules = next;
+  reads = nextReads;
   rootAccepts = Object.freeze(strings(raw.root?.accepts));
   loaded = true;
 }
@@ -78,6 +88,14 @@ export function rolesLoaded(): boolean {
 /** The rule of a render role, or null when the table has none. */
 export function roleRule(role: string): RoleRule | null {
   return rules.get(role) ?? null;
+}
+
+/**
+ * The labels a render role reads (R-EVAL-004.C8), the common ones included, or null when no rules are
+ * loaded or the role's rule lists none (then no label of it can be reported).
+ */
+export function roleReads(role: string): ReadonlySet<string> | null {
+  return reads.get(role) ?? null;
 }
 
 /** The roles an `accepts` list names, `@category` entries expanded. */

@@ -182,7 +182,7 @@
       "doc": "Badge(4, color: \"error\") { SvgIcon(\"mail\") } — or .badge(4) on IconButton/Tab/ListItem"},
     "Chip": {"role": "chip", "params": ["label"], "defaults": {"variant": "filled"}, "variants": ["filled", "outlined"],
       "doc": "Chip(\"Active\", color: \"success\", variant: \"outlined\", onDelete: true, icon:, avatar:)"},
-    "Link": {"role": "link", "params": ["label", "href"], "variants": ["always", "hover", "none"]},
+    "Link": {"role": "link", "params": ["label", "href"], "attrs": {"destination": "href"}, "variants": ["always", "hover", "none"]},
     "Rating": {"role": "rating", "params": ["value"], "doc": "Rating(value: 3.5, max: 5, size: \"small\")"},
     "Skeleton": {"role": "shape", "defaults": {"shape": "rectangle", "variant": "text"}, "variants": ["text", "rectangular", "rounded", "circular"],
       "doc": "Skeleton(variant: \"circular\").frame(width: 40, height: 40)"},
@@ -255,7 +255,7 @@
       "doc": "TablePagination(\"Rows per page: 10 ▾    1–10 of 100\") — the label, then prev/next"},
     "MobileStepper": {"role": "pagination", "variants": ["dots", "text", "progress"],
       "doc": "MobileStepper(count: 4, page: 2) — dots with Back/Next"},
-    "Stepper": {"role": "steps", "params": ["steps"], "variants": ["horizontal", "vertical"],
+    "Stepper": {"role": "steps", "params": ["steps"], "attrs": {"value": "activeStep"}, "variants": ["horizontal", "vertical"],
       "doc": "Stepper([\"Shipping\", \"Payment\", \"Review\"], activeStep: 1) · orientation: .vertical"},
     "Timeline": {"role": "steps", "params": ["steps"], "defaults": {"orientation": "vertical"}},
 

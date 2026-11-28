@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field, fields, is_dataclass
 from pathlib import Path
 
-from . import vocabulary
+from . import roles, vocabulary
 from .diagnostics import Diagnostics, Location, MockitdownError, MockitdownSyntaxError
 from .model import CallValue, EnumValue, Modifier, Screen, Thunk, View, ViewList
 from .packs import Pack, PackRegistry
@@ -546,6 +546,9 @@ class Evaluator:
             if arg.label is None:
                 positional.append(val)
             else:
+                if not self._understood(el, arg, val):
+                    self.diags.warning(f"'{arg.label}' is not understood by {name} in pack '{self.pack.id}'",
+                                       arg.loc or call.loc, "argument")
                 label = renames.get(arg.label) or self.pack.attrs.get(arg.label, arg.label)
                 attrs[label] = val
         for i, val in enumerate(positional):
@@ -565,7 +568,7 @@ class Evaluator:
         # A closure passed as a labelled argument (`content: { … }`) is a slot too.
         for key, val in list(attrs.items()):
             if isinstance(val, Thunk):
-                if key in ("action", "onCommit", "onEditingChanged", "perform"):
+                if key in _ACTION_LABELS:
                     del attrs[key]
                     continue
                 views = self.run_thunk(val)
@@ -577,6 +580,22 @@ class Evaluator:
             elif isinstance(val, ViewList):
                 view.slots.setdefault(key, val.views)
         return view
+
+    def _understood(self, el, arg: A.Arg, val: object) -> bool:
+        """R-EVAL-004.C7: a labelled argument is understood when the element's params or defaults name it,
+        an argument alias of the element or its pack renames it, its role reads it, it is a closure or
+        views (a slot), or a discarded action; a binding (`$name`) is never reported (C9)."""
+        label = arg.label
+        read = roles.reads(el.role)
+        if read is None or label in read or label in _ACTION_LABELS:
+            return True
+        if label in el.params or any(k == label for k, _ in el.defaults) or any(k == label for k, _ in el.attrs):
+            return True
+        if label in self.pack.attrs:
+            return True
+        if isinstance(val, (Thunk, ViewList)):
+            return True
+        return isinstance(arg.value, A.Ident) and arg.value.binding
 
     def _apply_modifier(self, member: A.Member, call: A.Call, env: Env) -> list[View]:
         targets = self.views(member.base, env)
@@ -825,4 +844,6 @@ class Evaluator:
 
 
 _MISSING = object()
+#: Closure-valued labelled arguments discarded without evaluation (R-EVAL-004.C5).
+_ACTION_LABELS = frozenset({"action", "onCommit", "onEditingChanged", "perform"})
 _ONCE_MODIFIERS = frozenset({"callout", "annotation", "pointer", "cursor", "marquee", "dragSelect", "highlight", "tap"})

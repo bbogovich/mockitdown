@@ -165,7 +165,7 @@ VStack(alignment: .stretch, spacing: 0) {
         MenuItem("Analytics", icon: "pi pi-chart-bar")
       }
       PanelMenuPanel("Sales", icon: "pi pi-shopping-cart", expanded: true) {
-        MenuItem("Orders", icon: "pi pi-list", badge: 12)
+        MenuItem("Orders", icon: "pi pi-list")
         MenuItem("Products", icon: "pi pi-box")
         MenuItem("Customers", icon: "pi pi-users")
       }

@@ -20,11 +20,13 @@ export type LiteralValue = string | number | PyFloat | boolean | null;
 
 export interface Literal { kind: "Literal"; value: LiteralValue; loc: Location; start?: number; end?: number }
 export interface StringLit { kind: "StringLit"; parts: (string | Node)[]; loc: Location; start?: number; end?: number }
-export interface Ident { kind: "Ident"; name: string; loc: Location; start?: number; end?: number }
+/** `binding` is set for `$name`, which evaluates to the bound value (R-EVAL-004.C9 exempts it). */
+export interface Ident { kind: "Ident"; name: string; loc: Location; binding?: true; start?: number; end?: number }
 /** Implicit member expression: `.red`, `.title`, `.system(size: 12)`. */
 export interface EnumCase { kind: "EnumCase"; name: string; loc: Location; start?: number; end?: number }
 export interface Member { kind: "Member"; base: Node; name: string; loc: Location; start?: number; end?: number }
-export interface Arg { label: string | null; value: Node }
+/** `loc` is where the label was written (absent for a positional argument). */
+export interface Arg { label: string | null; value: Node; loc?: Location }
 export interface Closure { kind: "Closure"; params: string[]; body: Node[]; loc: Location; start?: number; end?: number }
 /** Trailing closures in order; the first is unlabeled (label null), the rest labeled. */
 export interface Call { kind: "Call"; callee: Node; args: Arg[]; trailing: [string | null, Closure][]; loc: Location; start?: number; end?: number }

@@ -104,7 +104,7 @@ VLayout {
       VBadge(content: 3, color: "error") { VBtn(icon: "mdi-bell-outline") }
       VAvatar("Ana Lima", color: "primary", size: "small").padding(.horizontal, 12)
     }
-    VContainer(fluid: true) {
+    VContainer {
       VStack(alignment: .leading, spacing: 24) {
         VRow {
           VCol(3) { StatCard(title: "Revenue", value: "$48,210", delta: "+12.4%", icon: "mdi-currency-usd", trend: [3, 4, 3.5, 5, 6, 5.5, 7]) }
@@ -231,7 +231,7 @@ VContainer {
       }
       HStack(alignment: .top, spacing: 16) {
         VSelect("Country", items: ["France", "Germany", "Portugal"], modelValue: "France")
-        VAutocomplete("Categories", items: ["Lighting", "Cables", "Fixtures"], modelValue: ["Lighting", "Cables"], chips: true)
+        VAutocomplete("Categories", items: ["Lighting", "Cables", "Fixtures"], modelValue: ["Lighting", "Cables"])
         VCombobox("Tags", items: ["preferred", "eu"], modelValue: "", required: true, errorMessages: "Add at least one tag")
       }
       VTextarea("Notes", modelValue: "Ships twice a week from Lyon. Minimum order 40 units.", rows: 3, counter: "52 / 200")
@@ -274,7 +274,7 @@ VApp {
       }
       VDivider()
       HStack(alignment: .top, spacing: 24) {
-        VList(lines: "two") {
+        VList {
           VListSubheader("Notify me about")
           SettingSwitch(title: "Mentions", subtitle: "When someone @mentions you", icon: "mdi-at", on: true)
           SettingSwitch(title: "Comments", subtitle: "Replies to your threads", icon: "mdi-comment-outline", on: true)
@@ -403,11 +403,11 @@ VApp {
   VBanner("You are offline. Messages will send when you reconnect.", icon: "mdi-wifi") actions: {
     VBtn("Retry", variant: "text")
   }
-  VList(lines: "two") {
+  VList {
     ThreadItem(name: "Ana Lima", message: "The mockups look great, ship it!", time: "9:41", photo: "assets/images/avatar-1.svg", unread: 2)
     ThreadItem(name: "Ben Okafor", message: "Can we move stand-up to 10?", time: "9:12", photo: "assets/images/avatar-2.svg", unread: 1)
     ThreadItem(name: "Chloé Martin", message: "Photos from the offsite", time: "Yesterday", photo: "assets/images/avatar-3.svg")
-    VDivider(inset: true)
+    VDivider(variant: "inset")
     ThreadItem(name: "Design team", message: "Dana: new icons are up", time: "Mon")
     ThreadItem(name: "Eli Novak", message: "Thanks, talk soon", time: "Sun", photo: "assets/images/avatar-4.svg")
   }
@@ -443,7 +443,7 @@ VApp {
       VListItem(title: "Duplicate", prependIcon: "mdi-content-copy", active: true)
       VListItem(title: "Move to…", prependIcon: "mdi-folder-open")
       VDivider()
-      VListItem(title: "Delete", prependIcon: "mdi-delete", destructive: true).callout(2, alignment: .leading)
+      VListItem(title: "Delete", prependIcon: "mdi-delete").callout(2, alignment: .leading)
     }
     .callout(1, alignment: .bottomLeading)
   }
