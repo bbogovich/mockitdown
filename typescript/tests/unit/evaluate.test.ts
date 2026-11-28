@@ -93,3 +93,40 @@ test("a syntax error in an imported file is reported with the file as its source
   assert.equal(d.code, "syntax");
   assert.equal(d.location.source, "broken.mockitdown");
 });
+
+// R-EVAL-005 TC-3: a component that reaches itself is rejected statically (C10); the depth limit stays a
+// backstop for non-cyclic nesting (C11).
+const SELF_EMBEDDING: [string, string][] = [
+  ['struct Row: View { var body: some View { Row() } }\nVStack { Row(); Text("after") }', "Row → Row"],
+  ['struct Row: View { var body: some View { VStack { Row(); Row() } } }\nVStack { Row(); Text("after") }', "Row → Row"],
+  ['struct A: View { var body: some View { B() } }\nstruct B: View { var body: some View { if false { A() } } }\n'
+    + 'VStack { A(); Text("after") }', "A → B → A"],
+];
+
+test("self-embedding components report one recursion error naming the cycle and render nothing (R-EVAL-005 TC-3, C10)", () => {
+  for (const [src, cycle] of SELF_EMBEDDING) {
+    const start = Date.now();
+    const r = core.render(src);
+    assert.ok(Date.now() - start < 1000, cycle);
+    const first = cycle.split(" → ")[0];
+    assert.deepEqual(r.diagnostics.map((d) => `${d.code} ${d.message}`), [`recursion struct ${first} uses itself (${cycle})`]);
+    assert.deepEqual(text(src).text, ["after"]);
+    assert.ok(!r.html.includes("data-component"), cycle);
+  }
+  const twice = core.render('struct Row: View { var body: some View { VStack { Row(); Row() } } }\nVStack { Row(); Row(); Text("after") }');
+  assert.deepEqual(twice.diagnostics.map((d) => d.message), ["struct Row uses itself (Row → Row)"]);
+  for (const decl of ["struct A: View { @ViewBuilder var extra: some View = A()\n var body: some View { extra } }",
+    "struct A: View { var inner: some View { A() }\n var body: some View { inner } }"]) {
+    assert.deepEqual(core.render(decl + '\nVStack { A(); Text("after") }').diagnostics.map((d) => d.message),
+      ["struct A uses itself (A → A)"], decl);
+  }
+});
+
+test("a chain of 49 distinct structs nests too deeply (R-EVAL-005 TC-3, C11)", () => {
+  const decls = Array.from({ length: 49 }, (_, i) => `struct S${i}: View { var body: some View { S${i + 1}() } }`).join("\n");
+  const src = decls + '\nstruct S49: View { var body: some View { Text("leaf") } }\nVStack { S0(); Text("after") }';
+  const recursion = core.render(src).diagnostics.filter((d) => d.code === "recursion");
+  assert.equal(recursion.length, 1);
+  assert.match(recursion[0].message, /nests too deeply/);
+  assert.deepEqual(text(src).text, ["after"]);
+});

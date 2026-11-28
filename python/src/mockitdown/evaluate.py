@@ -8,7 +8,7 @@ completes, substituting an ``unknown`` view for anything it cannot resolve.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, is_dataclass
 from pathlib import Path
 
 from . import vocabulary
@@ -102,6 +102,9 @@ class Evaluator:
         self.structs: dict[str, A.StructDecl] = {}
         self.pack: Pack | None = None
         self.depth = 0
+        #: Per struct name: the cycle it reaches itself through (a list of names), or None (R-EVAL-005.C10).
+        self._cycles: dict[str, list[str] | None] = {}
+        self._cycles_reported: set[str] = set()
         self.used_components: list[str] = []
         #: True while rendering the implicit preview of a declarations-only block.
         self.preview = False
@@ -337,9 +340,82 @@ class Evaluator:
             out.extend(self.run_thunk(body, [item]))
         return out
 
+    # --- self-embedding (R-EVAL-005.C10) --------------------------------------------------------
+
+    def _struct_uses(self, decl: A.StructDecl) -> list[str]:
+        """The declared structs named in a struct's body, computed properties and property defaults, in
+        source order, counting branches that may never run."""
+        props = {p.name for p in decl.properties}
+        out: list[str] = []
+
+        def walk(node: object, callee: bool = False) -> None:
+            if isinstance(node, A.Ident):
+                # A bare name that is one of the struct's own properties is that property, not the struct.
+                if node.name in self.structs and (callee or node.name not in props) and node.name not in out:
+                    out.append(node.name)
+                return
+            if isinstance(node, A.Call):
+                walk(node.callee, True)
+                walk(node.args)
+                walk(node.trailing)
+                return
+            if isinstance(node, (list, tuple)):
+                for item in node:
+                    walk(item)
+                return
+            if is_dataclass(node) and not isinstance(node, type):
+                for f in fields(node):
+                    if f.name != "loc":
+                        walk(getattr(node, f.name))
+
+        for p in decl.properties:
+            walk(p.default)
+        walk(decl.body)
+        return out
+
+    def _cycle(self, name: str) -> list[str] | None:
+        """The path by which struct ``name`` reaches itself (``[S, T, S]``), or None; memoized per screen."""
+        if name in self._cycles:
+            return self._cycles[name]
+        found: list[str] | None = None
+        path = [name]
+        on_path = {name}
+        visited: set[str] = set()
+        uses: dict[str, list[str]] = {}
+
+        def edges(n: str) -> list[str]:
+            if n not in uses:
+                uses[n] = self._struct_uses(self.structs[n])
+            return uses[n]
+
+        # Iterative depth-first search, so a long chain of structs cannot exhaust the stack.
+        stack = [iter(edges(name))]
+        while stack and found is None:
+            nxt = next(stack[-1], None)
+            if nxt is None:
+                stack.pop()
+                done = path.pop()
+                on_path.discard(done)
+                visited.add(done)
+                continue
+            if nxt == name:
+                found = path + [name]
+            elif nxt not in on_path and nxt not in visited:
+                path.append(nxt)
+                on_path.add(nxt)
+                stack.append(iter(edges(nxt)))
+        self._cycles[name] = found
+        return found
+
     def _instantiate(self, decl: A.StructDecl, call: A.Call, env: Env) -> list[View]:
+        cycle = self._cycle(decl.name)
+        if cycle is not None:
+            if decl.name not in self._cycles_reported:
+                self._cycles_reported.add(decl.name)
+                self.diags.error(f"struct {decl.name} uses itself ({' → '.join(cycle)})", call.loc, "recursion")
+            return []
         if self.depth >= MAX_DEPTH:
-            self.diags.error(f"struct {decl.name} nests too deeply (recursive?)", call.loc, "recursion")
+            self.diags.error(f"struct {decl.name} nests too deeply", call.loc, "recursion")
             return []
         if decl.name not in self.used_components:
             self.used_components.append(decl.name)

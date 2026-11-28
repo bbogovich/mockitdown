@@ -82,6 +82,9 @@ export class Evaluator {
   readonly structs = new Map<string, A.StructDecl>();
   pack: Pack | null = null;
   depth = 0;
+  /** Per struct name: the cycle it reaches itself through, or null (R-EVAL-005.C10). */
+  private readonly cycles = new Map<string, string[] | null>();
+  private readonly cyclesReported = new Set<string>();
   used_components: string[] = [];
   /** True while rendering the implicit preview of a declarations-only block. */
   preview = false;
@@ -353,9 +356,91 @@ export class Evaluator {
     return out;
   }
 
+  // --- self-embedding (R-EVAL-005.C10) ---------------------------------------------------------
+
+  /** The declared structs named in a struct's body, computed properties and property defaults, in source
+   *  order, counting branches that may never run. */
+  private structUses(decl: A.StructDecl): string[] {
+    const props = new Set(decl.properties.map((p) => p.name));
+    const out: string[] = [];
+    const walk = (node: unknown, callee = false): void => {
+      if (node === null || typeof node !== "object") return;
+      if (Array.isArray(node)) {
+        for (const item of node) walk(item);
+        return;
+      }
+      const n = node as { kind?: string; [key: string]: unknown };
+      if (n.kind === "Ident") {
+        const name = (n as unknown as A.Ident).name;
+        // A bare name that is one of the struct's own properties is that property, not the struct.
+        if (this.structs.has(name) && (callee || !props.has(name)) && !out.includes(name)) out.push(name);
+        return;
+      }
+      if (n.kind === "Call") {
+        const c = n as unknown as A.Call;
+        walk(c.callee, true);
+        walk(c.args);
+        walk(c.trailing);
+        return;
+      }
+      for (const [key, value] of Object.entries(n)) if (key !== "loc" && key !== "start" && key !== "end") walk(value);
+    };
+    for (const p of decl.properties) walk(p.default);
+    walk(decl.body);
+    return out;
+  }
+
+  /** The path by which struct `name` reaches itself (`[S, T, S]`), or null; memoized per screen. */
+  private cycle(name: string): string[] | null {
+    const known = this.cycles.get(name);
+    if (known !== undefined) return known;
+    const uses = new Map<string, string[]>();
+    const edges = (n: string): string[] => {
+      let e = uses.get(n);
+      if (e === undefined) {
+        e = this.structUses(this.structs.get(n)!);
+        uses.set(n, e);
+      }
+      return e;
+    };
+    let found: string[] | null = null;
+    const path = [name];
+    const onPath = new Set([name]);
+    const visited = new Set<string>();
+    // Iterative depth-first search, so a long chain of structs cannot exhaust the stack.
+    const stack = [edges(name)[Symbol.iterator]()];
+    while (stack.length && found === null) {
+      const step = stack[stack.length - 1].next();
+      if (step.done) {
+        stack.pop();
+        const done = path.pop()!;
+        onPath.delete(done);
+        visited.add(done);
+        continue;
+      }
+      const next = step.value;
+      if (next === name) found = [...path, name];
+      else if (!onPath.has(next) && !visited.has(next)) {
+        path.push(next);
+        onPath.add(next);
+        stack.push(edges(next)[Symbol.iterator]());
+      }
+    }
+    this.cycles.set(name, found);
+    return found;
+  }
+
   private instantiate(decl: A.StructDecl, call: A.Call, env: Env): View[] {
+    const cycle = this.cycle(decl.name);
+    if (cycle !== null) {
+      if (!this.cyclesReported.has(decl.name)) {
+        this.cyclesReported.add(decl.name);
+        this.diags.error(`struct ${decl.name} uses itself (${cycle.join(" → ")})`, call.loc, "recursion");
+      }
+      return [];
+    }
     if (this.depth >= MAX_DEPTH) {
-      this.diags.error(`struct ${decl.name} nests too deeply (recursive?)`, call.loc, "recursion");
+      this.diags.error(`struct ${decl.name} nests too deeply`, call.loc, "recursion");
       return [];
     }
     if (!this.used_components.includes(decl.name)) this.used_components.push(decl.name);

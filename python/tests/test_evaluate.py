@@ -289,3 +289,51 @@ class PastedSwiftUITests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SelfEmbeddingTests(unittest.TestCase):
+    """R-EVAL-005 TC-3: a component that reaches itself is rejected statically (C10); the depth limit stays a
+    backstop for non-cyclic nesting (C11)."""
+
+    CASES = (
+        ("struct Row: View { var body: some View { Row() } }\nVStack { Row(); Text(\"after\") }", "Row → Row"),
+        ("struct Row: View { var body: some View { VStack { Row(); Row() } } }\nVStack { Row(); Text(\"after\") }",
+         "Row → Row"),
+        ("struct A: View { var body: some View { B() } }\n"
+         "struct B: View { var body: some View { if false { A() } } }\nVStack { A(); Text(\"after\") }", "A → B → A"),
+    )
+
+    def test_cycles_report_once_and_render_nothing(self):  # TC-3 (C10)
+        import time
+        for src, cycle in self.CASES:
+            with self.subTest(cycle=cycle, src=src):
+                start = time.monotonic()
+                r = render(src)
+                self.assertLess(time.monotonic() - start, 1.0)
+                errors = [d for d in r.diagnostics if d.code == "recursion"]
+                self.assertEqual(len(errors), 1, [str(d) for d in r.diagnostics])
+                self.assertEqual(len(r.diagnostics), 1, [str(d) for d in r.diagnostics])
+                first = cycle.split(" → ")[0]
+                self.assertEqual(errors[0].message, f"struct {first} uses itself ({cycle})")
+                self.assertEqual(texts(r.html), ["after"])
+                self.assertNotIn("data-component", r.html)
+
+    def test_reported_once_per_struct_per_screen(self):  # TC-3 (C10)
+        r = render("struct Row: View { var body: some View { VStack { Row(); Row() } } }\n"
+                   "VStack { Row(); Row(); Text(\"after\") }")
+        self.assertEqual([d.message for d in r.diagnostics], ["struct Row uses itself (Row → Row)"])
+
+    def test_cycle_through_defaults_and_computed_properties(self):  # TC-3 (C10)
+        for decl in ("struct A: View { @ViewBuilder var extra: some View = A()\n var body: some View { extra } }",
+                     "struct A: View { var inner: some View { A() }\n var body: some View { inner } }"):
+            with self.subTest(decl=decl):
+                r = render(decl + "\nVStack { A(); Text(\"after\") }")
+                self.assertEqual([d.message for d in r.diagnostics], ["struct A uses itself (A → A)"])
+
+    def test_deep_chain_reports_nests_too_deeply(self):  # TC-3 (C11)
+        decls = "\n".join(f"struct S{i}: View {{ var body: some View {{ S{i + 1}() }} }}" for i in range(49))
+        r = render(decls + "\nstruct S49: View { var body: some View { Text(\"leaf\") } }\nVStack { S0(); Text(\"after\") }")
+        recursion = [d for d in r.diagnostics if d.code == "recursion"]
+        self.assertEqual(len(recursion), 1, [str(d) for d in r.diagnostics])
+        self.assertIn("nests too deeply", recursion[0].message)
+        self.assertEqual(texts(r.html), ["after"])
