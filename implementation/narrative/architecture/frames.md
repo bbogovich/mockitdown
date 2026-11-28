@@ -1,6 +1,6 @@
 ---
 title: Mockup frames
-impl_version: 0.3.58
+impl_version: 0.3.59
 status: draft
 updated: 2026-11-28
 page_id: IMPL.FRAMES
@@ -35,7 +35,7 @@ flowchart LR
 | File | What it holds |
 |---|---|
 | `typescript/src/design/frames.ts` | the rules, no DOM: `GRID` (8), `EDGE_SNAP` (6), `NEW_MOCKUP_GAP` (80), `NEW_MOCKUP_CODE`, `DEFAULT_NAME_WARNING`, `EMPTY_NAME`, `isDefaultName`, `newMockupName`, `nameTaken`, `renameRefusal`, `snapMove`, `newMockupPlace` |
-| `typescript/src/design/session.ts` | `renameMockup(from, to)`, `newMockup(code?, options?)`, the `measure` property and option (`FrameMeasure`), `setName`, history steps keyed by mockup object (`StepKind` with `rename`, `Snapshot.name`, `Snapshot.list`) |
+| `typescript/src/design/session.ts` | `renameMockup(from, to)`, `newMockup(code?, options?)` (through `addMockup` and `box`), the `measure` property and option (`FrameMeasure`), `setName`, history steps keyed by mockup object (`StepKind` with `rename`, `Snapshot.name`, `Snapshot.list`) |
 | `typescript/src/elements/canvas.ts` | the label's drag (`#onLabelDown`, `#onLabelMove`, `#onLabelUp`, `#movedTo`), the rename field (`#onLabelDoubleClick`, `#commitRename`, `#closeRename`; parts `rename-field`, `rename-error`), `session.measure` set to its frames' boxes |
 | `typescript/src/elements/outline.ts` | the Mockups list's `data-default-name` and part `name-warning` |
 | `typescript/src/design/code-sync.ts` | the shown mockup follows a `rename` |
@@ -74,8 +74,8 @@ flowchart LR
   when it leaves), else the options' `width` and `height`, else 0. The mockup is appended, one step of
   kind `mockups` is recorded (its snapshots hold the list before and after), `change` of kind `mockups`
   is notified and the new mockup is made active. Undo restores the list and the previous active
-  mockup. The `newMockup`, `duplicateMockup` and `deleteMockup` commands of `session.commands` are
-  R-TOOL-013 (#43).
+  mockup. `newMockup` shares `addMockup` and `box` with `duplicateMockup`; the commands of
+  `session.commands` are on [The active mockup and the mockup commands](mockups.md) (R-TOOL-013, #43).
 - **Default names** (C9): see [The outline element](outline.md).
 
 ## Use
@@ -108,3 +108,4 @@ TC-2 on `pages/designer.html`). See [Testing](../testing.md).
 | Version | Date | Change |
 |---|---|---|
 | 0.3.58 | 2026-11-28 | Page written: moving frames by their labels with snapping, renaming in place, `renameMockup`, `newMockup`, `measure`, the Mockups list's warning, the history keyed by mockup object, IT-70 (#42) |
+| 0.3.59 | 2026-11-28 | `newMockup` through `addMockup`; the mockup commands moved to their own page (#43) |

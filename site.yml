@@ -145,6 +145,7 @@ nav:
           - The diagnostics list: implementation/architecture/diagnostics-list.md
           - The canvas: implementation/architecture/canvas.md
           - Mockup frames: implementation/architecture/frames.md
+          - The active mockup and the mockup commands: implementation/architecture/mockups.md
           - Drag and drop: implementation/architecture/drag-drop.md
           - New elements: implementation/architecture/new-elements.md
           - Role rules: implementation/architecture/roles.md

@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.13.21
+spec_version: 0.13.22
 status: draft
 updated: 2026-11-28
 page_id: WEB.5
@@ -174,6 +174,14 @@ One mockup at a time is editable (SRC-12#s10, SRC-15#p1.c2): it is the one the o
 the inspector act on. The others render as plain previews, which keeps large canvases fast. New,
 duplicate and delete are session commands, so a host's Mockup menu can offer them (SRC-16 D39).
 
+As built (#43): a copy goes where a new mockup would go if the copied mockup were active, so duplicating
+the active mockup places the copy exactly as `newMockup` would, and the copy becomes active. Deleting the
+active mockup hands the activity to its neighbour in document order, so that a run of deletes walks
+through the document; the active mockup moves on before the `change` is told, so no component reads the
+removed one. Deleting the last mockup leaves none active and sends no `active` notification (as undoing
+the first mockup of an empty document does); the outline, the inspector and the editor redraw on the
+`change` of kind `mockups` instead.
+
 Re-checked at 0.10.3 together with the items it cites or is cited by (specification audit, #51): the citations are still accurate and no obligation changed.
 
 **Re-checked at specification 0.10.7.** Its prerequisites were re-checked after the renderer split (#48, #49) and the gallery spec split (#50) without any change to an obligation; neither is this item changed.
@@ -185,25 +193,37 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **R-TOOL-013.TC-1 — Activation**
 
-Browser test on `pages/designer.html`: clicking the `Inbox` frame makes it active; the outline shows
-its tree and the inspector its Mockup tab (F-20.AC4); the other frames hold `mockitdown-mockup`
-elements and only `Inbox` holds a `mockitdown-editor`; choosing `Sign in` in the Mockups list activates
-it.
+Browser test (`mockups.spec.mjs`, IT-71) on `pages/designer.html` with its sample (`Sign in`, `Inbox`
+active): clicking the `Sign in` frame makes it active, then clicking the `Inbox` frame makes it active
+again; each time the outline shows the active mockup's tree and the inspector its Mockup tab with its
+device (F-20.AC4), and only the active frame holds the `mockitdown-editor` (`data-active`), the other a
+`mockitdown-mockup`; choosing `Sign in` in the Mockups list activates it (`aria-current` on its row), and
+Enter on the `Inbox` row activates `Inbox`.
 
 **R-TOOL-013.TC-2 — Mockup commands**
 
-`node:test`: `newMockup`, `duplicateMockup` (`Inbox copy`, then `Inbox copy 2`) and `deleteMockup`
-each record one undo step with a `change` of kind `mockups` and undo to the previous document.
+`node:test` (`mockup-commands.test.ts`, IT-71) with hand-computed values: `duplicateMockupName`
+(`Inbox copy`, `Inbox copy 2`, a gap, a lowercase name that does not count, a copy of a copy);
+`newMockup`, `duplicateMockup` (`Inbox copy` at (860, 0), then `Inbox copy 2` at (1240, 0), options and
+unknown keys copied, a named mockup copied beside itself) and `deleteMockup` (the next, then the previous
+mockup made active, a named inactive one leaving the active mockup, the last one leaving none) each
+record one undo step with a `change` of kind `mockups` and undo to the previous document; refusals
+change nothing; `session.run` with `{mockup}`; `session.commands` lists the three with their labels and
+enabled states. Browser part (`mockups.spec.mjs`): `run("duplicateMockup")` and `run("deleteMockup")`
+update the frames and the Mockups list and each undoes with Cmd/Ctrl+Z.
 
 **Realizes.** F-20
 
 | | Statement |
 |---|---|
-| C1 | A click on a frame, or on a row of the Mockups list, MUST make its mockup the active one, clear the selection and notify `active` (R-EDIT-006.C5). |
-| C2 | The outline, the gallery and the inspector MUST show the active mockup and follow every change of it. |
+| C1 | A click on a frame, or a click, Enter or Space on a row of the Mockups list, MUST make its mockup the active one through `session.setActive`, clear the selection and notify `active` (R-EDIT-006.C5). |
+| C2 | The outline, the gallery and the inspector MUST show the active mockup and follow every change of it, and MUST show no mockup once the last one is deleted. |
 | C3 | The canvas MUST render the active mockup as a `mockitdown-editor` with a highlighted frame, and every other mockup as a read-only `mockitdown-mockup` with its options. |
-| C4 | The session MUST offer the commands `newMockup`, `duplicateMockup` and `deleteMockup`, listed in `session.commands` (R-EDIT-009.C8), each one undo step notifying `change` with the kind `mockups`. |
-| C5 | `duplicateMockup` MUST name the copy `<name> copy`, or `<name> copy <n>` with the smallest free `<n>` from 2, and place it as a new mockup is placed (R-TOOL-012.C8). |
+| C4 | The session MUST offer the commands `newMockup`, `duplicateMockup` and `deleteMockup`, listed in `session.commands` (R-EDIT-009.C8) before `undo` with the labels "New Mockup", "Duplicate Mockup" and "Delete Mockup" and no shortcut, `newMockup` always enabled and the other two whenever there is an active mockup, each one undo step notifying `change` with the kind `mockups`. |
+| C5 | `duplicateMockup(name)` MUST copy the named mockup, the active one by default, with its code, its options and every other key, name the copy `<name> copy`, or `<name> copy <n>` with the smallest free `<n>` from 2, place it as a new mockup is placed (R-TOOL-012.C8) beside the mockup it copies, and make the copy the active mockup. |
+| C6 | `deleteMockup(name)` MUST remove the named mockup, the active one by default; deleting the active mockup MUST make the next mockup in document order active, else the one before it, else none, the active mockup changing before `change` is notified; undoing it MUST put the mockup back at its place, active again if it was. |
+| C7 | `duplicateMockup` and `deleteMockup` MUST refuse, changing and notifying nothing, a name no mockup holds and, without a name, a session with no active mockup; `session.run` MUST pass them the argument `mockup`. |
+| C8 | The naming rule of C5 MUST be held by `mockitdown/design` as `duplicateMockupName`, which uses no DOM. |
 | V1 | Activating a mockup on the canvas loads it into the outline and the inspector (F-20.AC4). |
 
 ---
@@ -254,6 +274,7 @@ outside; resizing and renaming work and each undoes in one step.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
 | 0.13.20 | 2026-11-28 | as built (#41): frames with labels and natural widths (C1); zoom control part and steps about the centre (C3); fitSelection, fits clamped and centred (C4); Shift+wheel, minimap drag, no click after a pan (C6); minimap parts, bottom right (C7); CSS zoom above 200 % (C8); the designer's editor in the active frame, read-only frames, the canvas property (C9); click activates (C10); view from the document, mockitdown-view (C11); arithmetic in mockitdown/design (C12); editor outlines in a scaled canvas (C13); TC-1 and TC-2 name their tests (IT-69) |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
@@ -261,6 +282,7 @@ outside; resizing and renaming work and each undoes in one step.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
 | 0.13.20 | 2026-11-28 | as built (#41): frames with labels and natural widths (C1); zoom control part and steps about the centre (C3); fitSelection, fits clamped and centred (C4); Shift+wheel, minimap drag, no click after a pan (C6); minimap parts, bottom right (C7); CSS zoom above 200 % (C8); the designer's editor in the active frame, read-only frames, the canvas property (C9); click activates (C10); view from the document, mockitdown-view (C11); arithmetic in mockitdown/design (C12); editor outlines in a scaled canvas (C13); TC-1 and TC-2 name their tests (IT-69) |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |
 | 0.11.0 | 2026-11-27 | re-checked against R-TOOL-003 (SRC-18): unaffected; re-checked against R-EDIT-007, R-TOOL-011 (SRC-18): unaffected; re-checked against R-TOOL-002, R-TOOL-012 (SRC-18): unaffected; re-checked against R-EDIT-005, R-TOOL-013 (SRC-18): unaffected |

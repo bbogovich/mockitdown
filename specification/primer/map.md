@@ -108,7 +108,7 @@ R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document mod
 R-EDIT-006 | requirements | active | 0.13.9 r8 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.13.21 r6 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.13.15 r5 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
-R-EDIT-009 | requirements | active | 0.13.16 r6 | WEB.3 | Commands: wrap, unwrap, convert and extract component
+R-EDIT-009 | requirements | active | 0.13.22 r7 | WEB.3 | Commands: wrap, unwrap, convert and extract component
 R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
@@ -204,7 +204,7 @@ R-TOOL-009 | requirements | active | 0.13.18 r5 | WEB.4 | Two-way editing and Co
 R-TOOL-010 | requirements | active | 0.13.19 r5 | WEB.4 | The diagnostics list: mockitdown-diagnostics
 R-TOOL-011 | requirements | active | 0.13.20 r5 | WEB.5 | The canvas: mockitdown-canvas
 R-TOOL-012 | requirements | active | 0.13.21 r5 | WEB.5 | Mockup frames: labels, moving, renaming and placement
-R-TOOL-013 | requirements | active | 0.12.12 r4 | WEB.5 | The active mockup and inactive previews
+R-TOOL-013 | requirements | active | 0.13.22 r5 | WEB.5 | The active mockup and inactive previews
 R-TOOL-014 | requirements | active | 0.12.12 r4 | WEB.5 | Sections and the canvas round trip
 R-WEB-001 | requirements | active | 0.13.8 r9 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.12.12 r9 | WEB.1 | The mockitdown-mockup element

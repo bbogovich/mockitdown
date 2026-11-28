@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.21
+spec_version: 0.13.22
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -849,8 +849,8 @@ diagnostic, is one step and undoes to the original with the selection restored.
 
 **R-EDIT-009.TC-2 — Commands for a host menu**
 
-`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the thirteen
-commands in menu order with their labels and shortcuts, all but paste disabled with nothing selected,
+`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the sixteen
+commands in menu order with their labels and shortcuts, all but paste and the three mockup commands disabled with nothing selected,
 for a leaf at the first position moveUp and unwrap disabled, unwrap enabled on a container, undo after
 a step; `session.run("wrap", {name: "VStack"})` gives the code `session.wrap("VStack")` gives, `run`
 undoes and copies, and refuses an unknown name. Browser test (`typescript/tests/browser/commands.spec.mjs`,
@@ -869,7 +869,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | C5 | `convert` MUST keep the labelled arguments that the new element understands (R-EVAL-004.C7), whose value is a closure, a view or a binding, and its positional arguments up to the number of its `params`, and MUST remove the others. |
 | C6 | `session.extractComponent(name)` MUST declare `struct <name>: View` with a `body` holding the selected nodes in source order with their comment lines, indented by the mockup's indentation unit and separated by a blank line, after the mockup's last struct declaration or else before its first view statement, and replace the selection by the call `<name>()`, which it selects. |
 | C7 | `extractComponent` MUST be refused when `name` is already a struct, an element of the mockup's pack, a name the mockup already calls (so that the struct never embeds itself, R-EVAL-005.C10) or not an identifier beginning with an uppercase letter, and when the selection uses a `let` binding, closure parameter or property of its struct declared outside it. |
-| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, undo and redo) with its name, label, shortcut (`Mod` for Cmd/Ctrl, null for none) and whether it is enabled for the current selection (wrap for a `VStack`, convert for one selected element of the pack), and `session.run(name, args)` MUST run one, with `{name}` for wrap, convert and extract component and `{text}` for paste, refusing an unknown name, so that a host can offer them in its own menus. |
+| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, new mockup, duplicate mockup, delete mockup, undo and redo, R-TOOL-013.C4) with its name, label, shortcut (`Mod` for Cmd/Ctrl, null for none) and whether it is enabled for the current selection (wrap for a `VStack`, convert for one selected element of the pack), and `session.run(name, args)` MUST run one, with `{name}` for wrap, convert and extract component, `{text}` for paste and `{mockup}` for duplicate mockup and delete mockup, refusing an unknown name, so that a host can offer them in its own menus. |
 | C9 | The composite designer MUST bind Cmd/Ctrl+G to wrap in a `VStack` and Cmd/Ctrl+Shift+G to unwrap. |
 | C10 | Each command of this requirement MUST be one undo step (R-EDIT-007). |
 | C11 | `unwrap` MUST be refused when the node's content declares a closure parameter (a `ForEach`) or a `let`, which its children could use. |
@@ -880,6 +880,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
@@ -899,6 +900,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |
 | 0.13.15 | 2026-11-28 | as built (#36): copy keeps comment lines and gives an empty text for no selection; cut selects as delete and returns the text; paste into a container whose role accepts every element, else after a placed node, else at the top level's end, selecting the pasted views, refusing non-view text; moves shift each node; pasted ids renamed only when taken (C11); refusals (C12); selectRange/toggleSelected (C13); clipboard fallback (C14); TC-1, TC-2 name their tests |
 | 0.13.13 | 2026-11-28 | as built (#34): steps snapshot code, tree, options, position, active mockup and selection; coalescing per mockup and kind, ended by undo or redo, {coalesce} argument, now clock, empty bursts dropped; historyLimit; designer keys and Undo/Redo parts outside Preview; TC-1/TC-2 name IT-62, the inspector part waits for R-TOOL-007 |

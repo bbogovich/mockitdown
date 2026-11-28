@@ -1,6 +1,6 @@
 ---
 title: Commands on the selection
-impl_version: 0.3.53
+impl_version: 0.3.59
 status: draft
 updated: 2026-11-28
 page_id: IMPL.COMMANDS
@@ -98,12 +98,14 @@ flowchart LR
   `struct <name>: View { var body: some View { … } }` (the nodes' `nodeCode` in source order, two units
   deep, `indentUnit`) after the last struct's end with a blank line, else before the first top-level
   view's line. The call is selected.
-- **The command list** (C8). `commands` gives the thirteen commands in menu order with label and
+- **The command list** (C8). `commands` gives the sixteen commands in menu order with label and
   shortcut (`Mod+D`, `Alt+ArrowUp`, `Mod+G`, `Mod+Shift+G`, …; null for convert and extract) and
   `enabled`: undo/redo from `canUndo`/`canRedo`; everything else needs the active code to parse; paste
   always; delete, cut and copy a selection; duplicate a placed one; the moves a placed one not at that
   edge; wrap the `VStack` plan; unwrap its plan; convert one selected element of the pack; extract the
-  selection checks. `run(name, args)` dispatches by name (copy returns `{text}`).
+  selection checks; newMockup, duplicateMockup and deleteMockup (before undo, no shortcut) are
+  [the mockup commands](mockups.md) of R-TOOL-013. `run(name, args)` dispatches by name (copy returns
+  `{text}`, `{mockup}` names the mockup to duplicate or delete).
 
 ## Use
 
@@ -153,3 +155,4 @@ and `python/tests/test_clipboard.py` (that text in a fence, F-19.AC10). IT-65:
 |---|---|---|
 | 0.3.52 | 2026-11-28 | Page written: the selection commands, multi-select, the designer's command keys and clipboard, IT-64 (#36) |
 | 0.3.53 | 2026-11-28 | Wrap, unwrap, convert and extract component, `commands` and `run`, Cmd/Ctrl+G and Shift+Cmd/Ctrl+G, IT-65 (R-EDIT-009, #37) |
+| 0.3.59 | 2026-11-28 | The mockup commands in `commands` and `run` (R-EDIT-009.C8, R-TOOL-013.C4; #43) |
