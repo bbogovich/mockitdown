@@ -922,12 +922,12 @@ entries:
   - seq: 103
     issue: 83
     action: implement
-    state: in-progress
+    state: done
     run: vibe-20261127-181318
     queued: 2026-11-28T03:18:01Z
     queued-by: agent:code-auditor
     started: 2026-11-28T03:28:31Z
-    finished:
+    finished: 2026-11-28T03:31:38Z
 ---
 
 Written only by the issue client. See R-ISSUE-015.
