@@ -1,6 +1,6 @@
 ---
 title: Testing
-impl_version: 0.3.25
+impl_version: 0.3.26
 status: draft
 updated: 2026-11-27
 page_id: IMPL.TEST
@@ -67,6 +67,9 @@ errors) and `diags(src, **options)`.
 | IT-29 | `python/tests/test_annotations.py`, `typescript/tests/browser/annotations.spec.mjs` (Chromium) | `.pointer` kinds, default, alignment and the `.cursor` alias; `.dragSelect`/`.marquee` in both layers with its colour and the base rule (negative inset, border, `color-mix` tint); `.highlight`, `.tap`; free `SelectionRect` and `Pointer` sized and positioned; `(#n)` and `(#n colour)` in prose through Python-Markdown, `callout_refs: false`, not inside `[text](#1)`. Browser: the selection rectangle outside the list on every side by under 16 px, bordered and translucent | R-ANN-002.TC-1, R-ANN-002.TC-2, R-ANN-004.TC-1 |
 | IT-30 | `python/tests/test_appearance.py`, `typescript/tests/browser/appearance.spec.mjs` (Chromium) | the four appearances (fence, CLI), option over `@Screen` over `default_appearance`, the unknown-appearance warning, frames per appearance; token rules for light, dark, slate `auto` and `prefers-color-scheme` `auto` in base, fluent and mui; `both` as two cells from the same views and the page rules laying them out. Browser, on a page without script: an `auto` frame's `--mkd-bg` following `data-md-color-scheme` and the emulated colour scheme, a light frame staying light; two equal phone frames side by side in a 700 px column | R-APP-001.TC-1, R-APP-002.TC-1, R-APP-002.TC-2, R-APP-003.TC-1, R-APP-003.TC-2 |
 | IT-31 | `python/tests/test_assets.py` | image references: remote and protocol-relative kept, `data:image/…` only, other schemes refused, trimming and empty references, placeholders for images, cards and rows; local files searched in the block's directory then each asset path, `?query`/`#fragment` dropped, `..`, absolute paths and symbolic links out of the roots not found, the not-found message, relative asset paths against the working directory; the image attributes of `Image`, `Avatar`, list rows and cards, system names as icons, `alt`; the icon set (own glyphs, no font), resolution order, normalisation, framework aliases, the unknown glyph and warning, the `svg` attributes and the stroke token | R-ASSET-001.TC-1, R-ASSET-002.TC-1, R-ASSET-004.TC-1, R-ASSET-005.TC-1 |
+| IT-32 | `python/tests/test_cli.py` | the command line through `cli.main` with captured streams: `--version`, `--help`, the installed console script, `-` for standard input, exit codes 0, 1 (an error in the source, `mockitdown: <message>` for a missing file or pack) and 2 (usage); `render` and `check` building the same render options from every flag but `-I`, defaults, repeated paths in order, `source_path` resolved from the file; `render` to standard output or `-o` with diagnostics on standard error, `--standalone` (charset, viewport, title, background, used packs or `base` inlined); `check` summary lines and `--json`; `css` for chosen, all and site packs, minified unless `--pretty`, `-o` creating directories; `packs` (hidden ones only with `--all`), `--json`, `elements` sorted, `--own`, `--markdown` and site packs | R-CLI-001.TC-1, R-CLI-002.TC-2, R-CLI-003.TC-1, R-CLI-004.TC-1, R-CLI-005.TC-1, R-CLI-006.TC-1 |
+| IT-33 | `python/tests/test_diagnostics.py` | diagnostic fields, the printed form for a block, a file, no line and no code, errors against warnings; one collector, nothing printed, stage order, the raised syntax error, de-duplication ignoring the code, `ForEach` reporting once; an AST scan of the sources and the conformance corpus finding only R-DIAG-003 codes, a trigger per code; the error box's title, items, escaping, warnings with `show_warnings` and no box when clean | R-DIAG-001.TC-1, R-DIAG-002.TC-1, R-DIAG-003.TC-1, R-DIAG-004.TC-1 |
+| IT-34 | `python/tests/test_imports.py` | component files beside the block's `source_path`: structs before the block's own, top-level views ignored with one warning, module imports and directives in a component file without effect; nested imports beside the importing file, depth first; cycles and repeated imports loaded once per mockup; module imports (`import Charts`, `import Kpi`) loading no file. The import map (R-IMP-002.TC-1, #75) and libraries (R-IMP-004.TC-1, #77) will join this module | R-IMP-001.TC-1, R-IMP-003.TC-1, R-IMP-006.TC-1 |
 
 ## The example site as fixture
 
@@ -80,8 +83,10 @@ test suite then covers it without new test code.
 
 - No visual regression: the fidelity of pack CSS is reviewed by eye on the example site.
 - Several requirements are verified only through the example site (determinism R-REND-007, safety
-  R-REND-006, CLI behaviour R-CLI); dedicated unit tests would make their test cases explicit
-  (icon resolution R-ASSET-005: IT-31).
+  R-REND-006); dedicated unit tests would make their test cases explicit (icon resolution R-ASSET-005:
+  IT-31; the command line R-CLI: IT-32).
+- R-DIAG-003's code check scans the Python sources; the TypeScript variant's codes are checked through
+  the conformance corpus only (IT-10).
 - R-API-004.C3 (Python 3.11 on macOS, Windows and Linux) is checked by hand before a release
   (TC-M1); CI runs Linux with Python 3.12.
 - `ZensicalBuildTests` builds the example site with a cleared `.cache` and asserts that the built
@@ -117,3 +122,4 @@ test suite then covers it without new test code.
 | 0.3.23 | 2026-11-27 | IT-6, IT-7 and IT-9 cover stylesheet partials (R-PACK-018.TC-1) and R-REPO-002.TC-4 (#54) |
 | 0.3.24 | 2026-11-27 | IT-3 checks duplicated stylesheet runs (R-PACK-018.TC-2); IT-27 the stylesheet-migration screenshots (R-PACK-018.TC-3) (#55) |
 | 0.3.25 | 2026-11-27 | IT-28 to IT-31: the library API, annotation marks and callout references, appearance, images and icons (#56) |
+| 0.3.26 | 2026-11-27 | IT-32 to IT-34: the command line, diagnostics, component imports (#57) |

@@ -2,8 +2,8 @@
 id: R-IMP-001
 title: File imports load components
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: IMP.1
 slot: reqs
 order: 1
@@ -12,7 +12,7 @@ realizes: [F-4]
 constrained_by: [A-EVAL-1]
 decisions: [ADR-10]
 reverse_engineered: true
-hash: f5fbe7bcb71c
+hash: 1827891d697a
 ---
 
 C1: When a block contains `import "path"`, the evaluator MUST load the struct declarations of the named component file before evaluating the block's own declarations and views.

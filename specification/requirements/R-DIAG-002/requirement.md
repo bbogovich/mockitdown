@@ -2,8 +2,8 @@
 id: R-DIAG-002
 title: Collecting diagnostics
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: DIAG.1
 slot: reqs
 order: 2
@@ -11,7 +11,8 @@ source: [SRC-3]
 realizes: [F-12]
 constrained_by: [A-DIAG-1]
 reverse_engineered: true
-hash: 84f28e52ad3e
+hash: 31de751196dc
+refs: [R-LANG-009]
 ---
 
 C1: Every stage MUST report problems to one diagnostics collector per rendering and MUST NOT print or raise them, except that a syntax error is raised (R-LANG-009).

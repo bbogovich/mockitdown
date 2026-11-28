@@ -1,8 +1,8 @@
 ---
 title: "Diagnostics"
-spec_version: 0.10.0
+spec_version: 0.12.8
 status: draft
-updated: 2026-11-26
+updated: 2026-11-27
 page_id: DIAG.1
 ---
 
@@ -14,6 +14,17 @@ How problems are located, collected, coded and shown.
 
 The format is the same in the page, the build log and the CLI, so a message can be searched for
 anywhere.
+
+**R-DIAG-001.TC-1 — Diagnostic content and printed form**
+
+Python unit tests `python/tests/test_diagnostics.py` `ContentTests`: severities are exactly `error` and
+`warning`; a default location is line and column 0 with no file; an unknown element reports severity,
+message, code `unknown` and its line and column; a component file's ignored view carries the file's
+resolved name and its line (C1). `str()` gives `error [unknown] at line 3:5: m`, `warning [icon] at
+a.mockitdown:2:9: m`, the file name alone or `?` without a line, and no code part when the code is empty;
+rendered unknown icons and elements print in that form (C2, V1). An unknown element and a syntax error
+are errors; an unknown modifier, an unknown icon, an unknown directive and a missing image are warnings
+(C3).
 
 **Realizes.** F-12
 
@@ -30,6 +41,16 @@ anywhere.
 
 One collector per rendering means one bad element never hides another, and repeated problems are
 reported once.
+
+**R-DIAG-002.TC-1 — One ordered, de-duplicated collector**
+
+Python unit tests `python/tests/test_diagnostics.py` `CollectorTests`: rendering a block with an unknown
+element, an unknown modifier and a missing image prints nothing on standard output or error and returns
+the three diagnostics in stage order (evaluation, then rendering); `evaluate` returns its collector; a
+syntax error is raised by `parse` as `MockitdownSyntaxError` with code `syntax`, and `evaluate` reports it
+in the collector with no screen (C1). The collector keeps the order reported and drops a diagnostic equal
+in severity, message and location to an earlier one, whatever its code, through `add` and `extend` (C2);
+an unknown icon inside `ForEach(1...5)` is reported once (C2, V1).
 
 **Realizes.** F-12
 
@@ -49,6 +70,15 @@ Codes let tools filter diagnostics (`check --json`) without parsing messages. Th
 `argument` also covers a labelled argument that an element does not understand (R-EVAL-004.C9), a
 warning.
 
+**R-DIAG-003.TC-1 — Every diagnostic uses a listed code**
+
+Python unit tests `python/tests/test_diagnostics.py` `CodeTests`: an AST scan of `python/src/mockitdown`
+finds every diagnostic created (`error`, `warning`, `add`, `Diagnostic(…)`) with a literal code from the
+list of C1; every diagnostic in the conformance corpus (`shared/conformance/*.diag.json`, which both
+variants must reproduce) has a listed code; sources triggering `syntax`, `empty`, `directive`, `pack`,
+`import`, `unknown`, `modifier`, `icon`, `asset` and `appearance` report exactly that code (C1, V1). The
+test's list is the clause's, so a new code fails the scan until the specification lists it (C2).
+
 **Realizes.** F-12
 
 | | Statement |
@@ -62,6 +92,15 @@ warning.
 ### R-DIAG-004 — The error box
 
 The box is styled by the page stylesheet, independent of any pack, so it is legible on any site.
+
+**R-DIAG-004.TC-1 — The error box**
+
+Python unit tests `python/tests/test_diagnostics.py` `ErrorBoxTests`: a block with one unknown element
+and one unknown modifier starts with `div.mkd-error[role=alert]`, its `div.mkd-error__title` reading
+`mockitdown: 1 error` and one escaped list item, before the figure (C1, C2, C3, V1); with `show_warnings`
+the same title and two items, and a block with only a warning is titled `mockitdown: warnings` (C2, C3,
+V1); two unknown elements give `mockitdown: 2 errors` (C2). A clean block, and a block with only warnings
+when they are not shown, starts with the figure and has no box (C4).
 
 **Realizes.** F-12
 
@@ -130,8 +169,10 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_syntax_error_rende
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.8 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#57) |
 | 0.10.0 | 2026-11-26 | code argument also covers labelled arguments an element does not understand: C1 (ING-1) |
 | 0.8.3 | 2026-11-25 | as built (#9): diagnostic code chart (a chart with no data, R-REND-012.C7) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.0 | 2026-11-26 | code argument also covers labelled arguments an element does not understand: C1 (ING-1) |
 | 0.8.3 | 2026-11-25 | as built (#9): diagnostic code chart (a chart with no data, R-REND-012.C7) |
 | 0.2.0 | 2026-11-24 | Page created |

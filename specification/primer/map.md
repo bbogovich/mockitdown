@@ -79,12 +79,12 @@ R-ASSET-002 | requirements | active | 0.12.7 r1 | ASSET.1 | Finding local images
 R-ASSET-003 | requirements | active | 0.2.0 r0 | ASSET.1 | Embedding local images
 R-ASSET-004 | requirements | active | 0.12.7 r2 | ASSET.1 | Image-bearing attributes
 R-ASSET-005 | requirements | active | 0.12.7 r1 | ASSET.1 | Built-in icons
-R-CLI-001 | requirements | active | 0.2.0 r0 | CLI.1 | Commands
-R-CLI-002 | requirements | active | 0.12.0 r3 | CLI.1 | Rendering options on the command line
-R-CLI-003 | requirements | active | 0.2.0 r0 | CLI.1 | render
-R-CLI-004 | requirements | active | 0.2.0 r0 | CLI.1 | check
-R-CLI-005 | requirements | active | 0.2.0 r0 | CLI.1 | css
-R-CLI-006 | requirements | active | 0.2.0 r0 | CLI.1 | packs and elements
+R-CLI-001 | requirements | active | 0.12.8 r1 | CLI.1 | Commands
+R-CLI-002 | requirements | active | 0.12.8 r4 | CLI.1 | Rendering options on the command line
+R-CLI-003 | requirements | active | 0.12.8 r1 | CLI.1 | render
+R-CLI-004 | requirements | active | 0.12.8 r1 | CLI.1 | check
+R-CLI-005 | requirements | active | 0.12.8 r1 | CLI.1 | css
+R-CLI-006 | requirements | active | 0.12.8 r1 | CLI.1 | packs and elements
 R-DEV-001 | requirements | active | 0.2.0 r0 | REND.2 | Device forms and sizes
 R-DEV-002 | requirements | active | 0.2.1 r1 | REND.2 | Device selection
 R-DEV-003 | requirements | active | 0.2.0 r0 | REND.2 | Frame unit scaling
@@ -95,10 +95,10 @@ R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
 R-DEV-008 | requirements | active | 0.10.6 r2 | REND.2 | Fit frames: natural width and presentations
 R-DEV-009 | requirements | active | 0.8.11 r2 | REND.2 | The macOS menu bar
 R-DEV-010 | requirements | active | 0.8.9 r2 | REND.2 | Multi-platform chrome for SwiftUI
-R-DIAG-001 | requirements | active | 0.2.0 r0 | DIAG.1 | Diagnostic content
-R-DIAG-002 | requirements | active | 0.2.0 r0 | DIAG.1 | Collecting diagnostics
-R-DIAG-003 | requirements | active | 0.10.0 r2 | DIAG.1 | Diagnostic codes
-R-DIAG-004 | requirements | active | 0.2.0 r0 | DIAG.1 | The error box
+R-DIAG-001 | requirements | active | 0.12.8 r1 | DIAG.1 | Diagnostic content
+R-DIAG-002 | requirements | active | 0.12.8 r1 | DIAG.1 | Collecting diagnostics
+R-DIAG-003 | requirements | active | 0.12.8 r3 | DIAG.1 | Diagnostic codes
+R-DIAG-004 | requirements | active | 0.12.8 r1 | DIAG.1 | The error box
 R-DIAG-005 | requirements | active | 0.2.0 r0 | DIAG.1 | Syntax errors and partial rendering
 R-EDIT-001 | requirements | active | 0.11.0 r4 | WEB.3 | Source spans and node identities
 R-EDIT-002 | requirements | active | 0.11.0 r4 | WEB.3 | Edit API: insert, remove and move
@@ -120,12 +120,12 @@ R-EVAL-008 | requirements | active | 0.2.0 r0 | LANG.2 | Values and operators
 R-EVAL-009 | requirements | active | 0.10.8 r1 | LANG.2 | Modifiers
 R-EVAL-010 | requirements | active | 0.2.0 r0 | LANG.2 | The @Screen directive
 R-EVAL-011 | requirements | active | 0.2.1 r1 | LANG.2 | Tolerance for pasted SwiftUI
-R-IMP-001 | requirements | active | 0.2.0 r0 | IMP.1 | File imports load components
+R-IMP-001 | requirements | active | 0.12.8 r1 | IMP.1 | File imports load components
 R-IMP-002 | requirements | active | 0.12.0 r1 | IMP.1 | Resolving import paths
-R-IMP-003 | requirements | active | 0.2.0 r0 | IMP.1 | Nested imports and cycles
+R-IMP-003 | requirements | active | 0.12.8 r1 | IMP.1 | Nested imports and cycles
 R-IMP-004 | requirements | active | 0.12.0 r1 | IMP.1 | Definition precedence
 R-IMP-005 | requirements | active | 0.2.0 r0 | IMP.1 | Import errors and caching
-R-IMP-006 | requirements | active | 0.2.0 r0 | IMP.1 | Module imports are not file imports
+R-IMP-006 | requirements | active | 0.12.8 r1 | IMP.1 | Module imports are not file imports
 R-IMP-007 | requirements | active | 0.12.0 r0 | IMP.1 | Library names and qualified references
 R-IMP-008 | requirements | active | 0.12.0 r0 | IMP.1 | Library blocks on a page
 R-IMP-009 | requirements | active | 0.12.0 r0 | IMP.1 | Components as templates with content slots

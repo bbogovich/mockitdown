@@ -2,8 +2,8 @@
 id: R-CLI-004
 title: check
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: CLI.1
 slot: reqs
 order: 4
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-13, F-12]
 constrained_by: [A-CLI-1, A-API-1]
 reverse_engineered: true
-hash: d2bf74a8594c
+hash: f4773ee28c53
 ---
 
 C1: `mockitdown check FILE…` MUST render each file (so asset and icon problems are found) and print its diagnostics, then a summary line `<file>: ok (E errors, W warnings)` or `<file>: FAILED (…)`.

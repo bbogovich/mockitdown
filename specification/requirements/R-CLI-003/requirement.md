@@ -2,8 +2,8 @@
 id: R-CLI-003
 title: render
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: CLI.1
 slot: reqs
 order: 3
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-13]
 constrained_by: [A-CLI-1, A-API-1]
 reverse_engineered: true
-hash: 84a4fcbe17fc
+hash: 22a1629b46b8
 ---
 
 C1: `mockitdown render FILE` MUST write the HTML fragment to standard output, or to the file given by `-o/--output`, and print diagnostics to standard error.

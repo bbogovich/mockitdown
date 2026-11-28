@@ -1,8 +1,8 @@
 ---
 title: Evaluation
-impl_version: 0.3.9
+impl_version: 0.3.26
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.EVAL
 ---
 
@@ -21,7 +21,9 @@ evaluates one `Module` into a `Screen` (M-VIEW-3):
 3. `_load_imports` resolves `import "path"` (`_resolve_import`: absolute, then the base directory,
    then `search_paths`; each as written and with `.mockitdown`), recursing into the imported file's
    imports with a `seen` set; files are parsed through the module-level `ImportCache` keyed by path
-   and mtime (R-IMP).
+   and mtime (R-IMP). The `seen` set is made per mockup, so a file is loaded once per mockup, cycles
+   included (R-IMP-003.C2); a component file's directives, module imports and top-level views take no
+   effect, the views with one `import` warning (R-IMP-001). Tests: IT-34.
 4. The block's own structs are registered last, replacing imported ones (R-IMP-004).
 5. `block(statements, Env())` evaluates statements to views.
 
@@ -80,3 +82,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 | 0.1.1 | 2026-11-24 | Debt #1, #2 fixed |
 | 0.3.2 | 2026-11-25 | Vocabulary loaded from shared/language/vocabulary.json (#1) |
 | 0.3.9 | 2026-11-25 | Positional arguments take their parameter's `attrs` alias (R-PACK-011.C3, #8) |
+| 0.3.26 | 2026-11-27 | Import loading per mockup described; the unreachable `unsupported statement` error carries code `view` (R-DIAG-001.C1); IT-34 (#57) |

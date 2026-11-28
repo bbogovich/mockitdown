@@ -1,6 +1,6 @@
 ---
 title: "Component imports"
-spec_version: 0.12.0
+spec_version: 0.12.8
 status: draft
 updated: 2026-11-27
 page_id: IMP.1
@@ -14,6 +14,15 @@ Loading custom components from component library files with `import "path"`. The
 
 A component file is a library: it declares and never renders, so importing it can never change a
 mockup except by providing components.
+
+**R-IMP-001.TC-1 — Component files**
+
+Python unit tests `python/tests/test_imports.py` `FileImportTests`, with files beside the block's
+`source_path`: a struct declared in the block uses `KPI` from `import "kpi"` with no diagnostic (C1). A
+component file with `KPI` and two `Text` views makes `KPI` available, renders neither view and warns once
+`kpi.mockitdown: top-level views in an imported file are ignored` with code `import` at the first view's
+line in that file (C2, C3, V1); its `import Fluent` selects no pack (C2). Its `@Screen(device:,
+appearance:)` and an unknown `@Foo` change nothing and report nothing (C4).
 
 **Realizes.** F-4 · **Decisions.** ADR-10
 
@@ -81,6 +90,15 @@ Automated in `python/tests/test_imports.py`; the TypeScript variant runs the sam
 
 Cycles are harmless — libraries only declare — so they are ignored rather than reported.
 
+**R-IMP-003.TC-1 — Nested imports and cycles**
+
+Python unit tests `python/tests/test_imports.py` `NestedImportTests`: `lib/a` importing `b` resolves it
+beside `a`; both files' structs are available, and for a struct both declare, `b`'s is taken first and
+`a`'s replaces it with the R-IMP-004.C1 warning (C1). Files `a` and `b` importing each other both load,
+with no diagnostic (C2, V1). A file imported by the block, by a nested import and again as
+`kpi.mockitdown` and `./kpi.mockitdown` is loaded once (its ignored-view warning appears once), and
+another mockup loads it again (C2).
+
 **Realizes.** F-4 · **Decisions.** ADR-10
 
 | | Statement |
@@ -136,6 +154,14 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_imports_and_assets
 ### R-IMP-006 — Module imports are not file imports
 
 The two forms mirror Swift: `import SwiftUI` names a framework, `import "shared/kpi"` names a file.
+
+**R-IMP-006.TC-1 — Module imports load no file**
+
+Python unit tests `python/tests/test_imports.py` `ModuleImportTests`, with `Charts.mockitdown`,
+`Kpi.mockitdown` and `Fluent.mockitdown` beside the block: `import Charts` neither loads the file nor
+warns; `import Kpi` warns `import Kpi names no known pack` (code `pack`) and does not load the file, so
+its struct is unknown; `import Fluent` selects the Fluent pack (C1, V1). `import "Kpi"` loads the file
+(C2).
 
 **Realizes.** F-3, F-4
 
@@ -322,6 +348,8 @@ Automated in `python/tests/test_render.py` and the conformance corpus.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.8 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#57) |
 | 0.12.0 | 2026-11-27 | New R-IMP-008: Library blocks on a page; New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | New R-IMP-008: Library blocks on a page; New R-IMP-009: Components as templates with content slots; New R-IMP-007: Library names and qualified references; SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.2.0 | 2026-11-24 | Page created |

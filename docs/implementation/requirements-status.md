@@ -4,14 +4,12 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (18)
+## Changes pending (16)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-003 | Overlay placement and free positioning | 0.6.2 | 0.10.8 | 2026-11-25 | #2 |
-| R-CLI-002 | Rendering options on the command line | 0.8.9 | 0.12.0 | 2026-11-25 | #13 |
 | R-DEV-008 | Fit frames: natural width and presentations | 0.8.1 | 0.10.6 | 2026-11-25 | #8 |
-| R-DIAG-003 | Diagnostic codes | 0.8.3 | 0.10.0 | 2026-11-25 | #9 |
 | R-PACK-012 | Pack reference gallery and site sections | 0.10.0 | 0.12.0 | 2026-11-26 | #19 |
 | R-PACK-013 | Element samples | 0.8.4 | 0.11.0 | 2026-11-25 | #10 |
 | R-PACK-014 | SwiftUI control styles | 0.8.13 | 0.11.0 | 2026-11-25 | #15 |
@@ -27,26 +25,18 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
 
-## Not started (112)
+## Not started (101)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-001 | Numbered callouts | — | 0.10.0 |  |  |
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
-| R-CLI-001 | Commands | — | 0.2.0 |  |  |
-| R-CLI-003 | render | — | 0.2.0 |  |  |
-| R-CLI-004 | check | — | 0.2.0 |  |  |
-| R-CLI-005 | css | — | 0.2.0 |  |  |
-| R-CLI-006 | packs and elements | — | 0.2.0 |  |  |
 | R-DEV-001 | Device forms and sizes | — | 0.2.0 |  |  |
 | R-DEV-002 | Device selection | — | 0.2.1 |  |  |
 | R-DEV-003 | Frame unit scaling | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DEV-006 | Isolation from the host page | — | 0.2.0 |  |  |
 | R-DEV-007 | Additional chrome kinds | — | 0.3.0 |  |  |
-| R-DIAG-001 | Diagnostic content | — | 0.2.0 |  |  |
-| R-DIAG-002 | Collecting diagnostics | — | 0.2.0 |  |  |
-| R-DIAG-004 | The error box | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
 | R-EDIT-001 | Source spans and node identities | — | 0.11.0 |  |  |
 | R-EDIT-002 | Edit API: insert, remove and move | — | 0.11.0 |  |  |
@@ -68,12 +58,9 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EVAL-009 | Modifiers | — | 0.10.8 |  |  |
 | R-EVAL-010 | The @Screen directive | — | 0.2.0 |  |  |
 | R-EVAL-011 | Tolerance for pasted SwiftUI | — | 0.2.1 |  |  |
-| R-IMP-001 | File imports load components | — | 0.2.0 |  |  |
 | R-IMP-002 | Resolving import paths | — | 0.12.0 |  |  |
-| R-IMP-003 | Nested imports and cycles | — | 0.2.0 |  |  |
 | R-IMP-004 | Definition precedence | — | 0.12.0 |  |  |
 | R-IMP-005 | Import errors and caching | — | 0.2.0 |  |  |
-| R-IMP-006 | Module imports are not file imports | — | 0.2.0 |  |  |
 | R-IMP-007 | Library names and qualified references | — | 0.12.0 |  |  |
 | R-IMP-008 | Library blocks on a page | — | 0.12.0 |  |  |
 | R-IMP-009 | Components as templates with content slots | — | 0.12.0 |  |  |
@@ -144,7 +131,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
 | R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
 
-## Implemented (20)
+## Implemented (33)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -161,9 +148,22 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-002 | Finding local images | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
 | R-ASSET-004 | Image-bearing attributes | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
 | R-ASSET-005 | Built-in icons | 0.12.7 | 0.12.7 | 2026-11-27 | #56 |
+| R-CLI-001 | Commands | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-CLI-002 | Rendering options on the command line | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-CLI-003 | render | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-CLI-004 | check | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-CLI-005 | css | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-CLI-006 | packs and elements | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DEV-005 | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-DIAG-001 | Diagnostic content | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-DIAG-002 | Collecting diagnostics | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-DIAG-003 | Diagnostic codes | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-DIAG-004 | The error box | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-IMP-001 | File imports load components | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-IMP-003 | Nested imports and cycles | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-IMP-006 | Module imports are not file imports | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.5 | 2026-11-27 | #55 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |

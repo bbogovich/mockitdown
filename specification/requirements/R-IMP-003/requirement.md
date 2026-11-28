@@ -2,8 +2,8 @@
 id: R-IMP-003
 title: Nested imports and cycles
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: IMP.1
 slot: reqs
 order: 3
@@ -12,7 +12,7 @@ realizes: [F-4]
 constrained_by: [A-EVAL-1]
 decisions: [ADR-10]
 reverse_engineered: true
-hash: 64e0c562d52e
+hash: d1216904ab4a
 ---
 
 C1: The evaluator MUST process a component file's own file imports, depth first, before taking its struct declarations.

@@ -2,8 +2,8 @@
 id: R-CLI-001
 title: Commands
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: CLI.1
 slot: reqs
 order: 1
@@ -11,7 +11,7 @@ source: [SRC-2, SRC-3]
 realizes: [F-13]
 constrained_by: [A-CLI-1]
 reverse_engineered: true
-hash: 0ec0d1efb95f
+hash: 46dc74352a42
 ---
 
 C1: The CLI MUST be installed as the command `mockitdown` and provide the subcommands `render`, `check`, `css`, `packs` and `elements`, and the option `--version` printing `mockitdown <version>`.

@@ -2,8 +2,8 @@
 id: R-DIAG-004
 title: The error box
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: DIAG.1
 slot: reqs
 order: 4
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-12]
 constrained_by: [A-API-1]
 reverse_engineered: true
-hash: eda87db86b0c
+hash: fbacc57e7692
 ---
 
 C1: When a rendering has errors, the library API MUST place before the figure a `div.mkd-error[role=alert]` holding `div.mkd-error__title` and a list with one item per shown diagnostic.

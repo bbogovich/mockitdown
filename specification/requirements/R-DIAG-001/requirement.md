@@ -2,8 +2,8 @@
 id: R-DIAG-001
 title: Diagnostic content
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.8
+rev: 1
 page: DIAG.1
 slot: reqs
 order: 1
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-12]
 constrained_by: [A-DIAG-1, M-DIAG-1]
 reverse_engineered: true
-hash: 1bcdb2634e6c
+hash: 1d603f86538d
 ---
 
 C1: Every diagnostic MUST carry a severity (`error` or `warning`), a message, a location (line and column, 1-based, and the source file name when the problem is in a file; zero when unknown) and a code.
