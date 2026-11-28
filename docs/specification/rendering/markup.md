@@ -1,6 +1,6 @@
 ---
 title: "Rendering: markup"
-spec_version: 0.10.8
+spec_version: 0.12.9
 status: draft
 updated: 2026-11-27
 page_id: REND.1
@@ -239,11 +239,20 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_elements_table`.
 
 Retro systems each drew their own window frame; a generic frame whose parts a pack switches on avoids a chrome kind per system.
 
+**R-DEV-007.TC-1 — Additional chrome kinds and the generic window**
+
+Python unit tests `python/tests/test_devices.py` `AdditionalChromeTests`: `gnome`, `kde`, `win31` and
+`window` are chrome kinds; `gnome` draws no chrome, `kde` a title bar with the title, `win31` the
+control-menu box, the title and minimise and maximise; the `gtk` pack maps to `gnome` and `win31` to
+`win31` (C1). The `aqua` pack's desktop renders `.mkd-chrome--window` with the title, the leading
+close and menu buttons, the trailing help, minimise, maximise, zoom, collapse and close buttons and the
+grow box in a bottom strip, and the base stylesheet hides the buttons and the strip (C2, V1).
+
 **Realizes.** F-10
 
 | | Statement |
 |---|---|
-| C1 | The chrome kinds MUST include, besides those of R-DEV-004, `gnome` (no title bar: a GNOME app draws its own header bar), `kde` (Breeze title bar), `win31` (Windows 3.1 caption with control-menu box and arrow buttons) and `window`. |
+| C1 | The chrome kinds MUST include, besides those of R-DEV-005, `gnome` (no title bar: a GNOME app draws its own header bar), `kde` (Breeze title bar), `win31` (Windows 3.1 caption with control-menu box and arrow buttons) and `window`. |
 | C2 | The `window` chrome MUST render a generic title bar with a leading group (close, menu buttons), the title, a trailing group (help, minimise, maximise, zoom, collapse, close buttons) and a bottom status strip (grow box), all controls hidden by default, so a pack can show and draw the controls its system had. |
 | V1 | A pack whose desktop chrome is `window` renders `.mkd-chrome--window` with its title. |
 
@@ -349,14 +358,14 @@ shortened):
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.9 | 2026-11-27 | C1 names the chrome kinds of R-DEV-005, not R-DEV-004 (length rewriting); TC-1 verifies C1-C2 (#58) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
-| 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.8.3 | 2026-11-25 | as built (#9): a Circle's stroke and shadow follow the circle (C5); shapes in .background(_, in:) and .clipShape() follow C2 (C6) |
 | 0.8.1 | 2026-11-25 | as built (#8): a deliberate overlap by negative leading margin (joined group segments, stacked avatars) is not a forbidden overlap (C5) |
-| 0.3.0 | 2026-11-24 | New R-DEV-007: Additional chrome kinds |
 | 0.2.0 | 2026-11-24 | Page created |

@@ -25,18 +25,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-004 | Pack gallery test page | 0.10.1 | 0.11.0 | 2026-11-26 | #19 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.11.0 | 2026-11-25 | #5 |
 
-## Not started (101)
+## Not started (90)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
 | R-ANN-001 | Numbered callouts | — | 0.10.0 |  |  |
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
-| R-DEV-001 | Device forms and sizes | — | 0.2.0 |  |  |
-| R-DEV-002 | Device selection | — | 0.2.1 |  |  |
-| R-DEV-003 | Frame unit scaling | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
-| R-DEV-006 | Isolation from the host page | — | 0.2.0 |  |  |
-| R-DEV-007 | Additional chrome kinds | — | 0.3.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
 | R-EDIT-001 | Source spans and node identities | — | 0.11.0 |  |  |
 | R-EDIT-002 | Edit API: insert, remove and move | — | 0.11.0 |  |  |
@@ -47,17 +42,13 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-EDIT-007 | Undo and redo history | — | 0.11.0 |  |  |
 | R-EDIT-008 | Commands: duplicate, clipboard, move and multi-select | — | 0.11.0 |  |  |
 | R-EDIT-009 | Commands: wrap, unwrap, convert and extract component | — | 0.11.0 |  |  |
-| R-EVAL-001 | Evaluation always completes | — | 0.2.0 |  |  |
-| R-EVAL-002 | What a block renders | — | 0.2.0 |  |  |
 | R-EVAL-003 | Name resolution for views | — | 0.12.0 |  |  |
 | R-EVAL-004 | Binding element arguments | — | 0.10.0 |  |  |
 | R-EVAL-005 | Instantiating struct components | — | 0.12.0 |  |  |
 | R-EVAL-006 | ForEach | — | 0.2.0 |  |  |
 | R-EVAL-007 | Conditionals and local bindings | — | 0.2.0 |  |  |
-| R-EVAL-008 | Values and operators | — | 0.2.0 |  |  |
 | R-EVAL-009 | Modifiers | — | 0.10.8 |  |  |
 | R-EVAL-010 | The @Screen directive | — | 0.2.0 |  |  |
-| R-EVAL-011 | Tolerance for pasted SwiftUI | — | 0.2.1 |  |  |
 | R-IMP-002 | Resolving import paths | — | 0.12.0 |  |  |
 | R-IMP-004 | Definition precedence | — | 0.12.0 |  |  |
 | R-IMP-005 | Import errors and caching | — | 0.2.0 |  |  |
@@ -69,9 +60,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-LANG-003 | Module structure | — | 0.12.0 |  |  |
 | R-LANG-004 | Struct declarations | — | 0.12.0 |  |  |
 | R-LANG-005 | Statements | — | 0.2.0 |  |  |
-| R-LANG-006 | Expressions and operators | — | 0.2.1 |  |  |
 | R-LANG-007 | Calls, modifier chains and closures | — | 0.10.0 |  |  |
-| R-LANG-008 | Collection and tuple literals | — | 0.2.0 |  |  |
 | R-LANG-009 | Syntax errors | — | 0.2.0 |  |  |
 | R-MDX-001 | Integration points | — | 0.2.0 |  |  |
 | R-MDX-002 | Extension options | — | 0.12.0 |  |  |
@@ -131,7 +120,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-WEB-006 | Gallery home page | — | 0.11.0 |  |  |
 | R-WEB-007 | TypeScript release builds on GitHub | — | 0.11.0 |  |  |
 
-## Implemented (33)
+## Implemented (44)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -154,16 +143,27 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-CLI-004 | check | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-CLI-005 | css | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-CLI-006 | packs and elements | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
-| R-DEV-005 | Device chrome | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
+| R-DEV-001 | Device forms and sizes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-DEV-002 | Device selection | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-DEV-003 | Frame unit scaling | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-DEV-005 | Device chrome | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-DEV-006 | Isolation from the host page | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-DEV-007 | Additional chrome kinds | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-DEV-009 | The macOS menu bar | 0.8.11 | 0.8.11 | 2026-11-25 | #14 |
 | R-DEV-010 | Multi-platform chrome for SwiftUI | 0.8.9 | 0.8.9 | 2026-11-25 | #13 |
 | R-DIAG-001 | Diagnostic content | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-002 | Collecting diagnostics | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-003 | Diagnostic codes | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-DIAG-004 | The error box | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-EVAL-008 | Values and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-EVAL-011 | Tolerance for pasted SwiftUI | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-IMP-001 | File imports load components | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-IMP-003 | Nested imports and cycles | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-IMP-006 | Module imports are not file imports | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
+| R-LANG-006 | Expressions and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
+| R-LANG-008 | Collection and tuple literals | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-PACK-011 | Argument aliases | 0.8.1 | 0.8.1 | 2026-11-25 | #8 |
 | R-PACK-018 | Stylesheet partials | 0.12.5 | 0.12.5 | 2026-11-27 | #55 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |

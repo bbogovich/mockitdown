@@ -1,8 +1,8 @@
 ---
 title: Conformance corpus
-impl_version: 0.3.15
+impl_version: 0.3.27
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.CONF
 ---
 
@@ -57,7 +57,7 @@ repository path.
 | `control-` | 48 | every variant of the SwiftUI ControlGroup, DatePicker, Form, Gauge, List, Picker and Toggle from its declared sample; glass buttons; a labelled menu group; date picker defaults, components and wheels; first and tagged picker options; pickers without options; a macOS columns form; a bordered list selection |
 | `present-` | 22 | the SwiftUI Alert, ConfirmationDialog, Popover, Sheet, Tab, TabView and NavigationSplitView from their declared samples and every TabView and NavigationSplitView variant; Button children as alert and confirmation actions; a confirmation dialog on a tablet; a lone Tab; unlabelled two- and three-column split views; a content closure on a tablet; the `.popover` arrow |
 | `image-` | 9 | data URI, remote, protocol-relative, placeholder, icons, avatar, modifiers |
-| `lang-` | 10 | let/if, ForEach, inline Markdown, fonts, layout modifiers, colours, escaping |
+| `lang-` | 11 | let/if, ForEach, inline Markdown, fonts, layout modifiers, colours, escaping; operators, a ternary over three lines and the text of values (`lang-expressions`, R-LANG-006, R-EVAL-008) |
 | `diag-` | 17 | syntax errors, unknown element/module/pack/device/chrome/appearance/icon, imports, images, shown warnings |
 
 ## Regenerating
@@ -96,3 +96,4 @@ Key symbols: `build_cases`, `render_case(source, options)` (the harness), `resul
 | 0.3.13 | 2026-11-25 | `present-` area (#12) |
 | 0.3.14 | 2026-11-25 | SwiftUI platform `chrome-` cases, the `windowed` option key (#13) |
 | 0.3.15 | 2026-11-25 | `chrome-menubar-*` cases, the `menubar` and `app` option keys (#14) |
+| 0.3.27 | 2026-11-27 | `lang-expressions` (#58) |

@@ -1,8 +1,8 @@
 ---
 title: Syntax
-impl_version: 0.1.0
+impl_version: 0.3.27
 status: draft
-updated: 2026-11-24
+updated: 2026-11-27
 page_id: IMPL.SYN
 ---
 
@@ -39,8 +39,9 @@ in the module docstring and, normatively, in the [Language reference](../../spec
 
 **Newline handling** is the subtle part. `end_statement` requires a `NEWLINE` or `;` between
 statements. `parse_postfix` looks past newlines for a leading `.name` (modifier continuation);
-`parse_trailing` looks past newlines for `label: {`. `skip_nl_only` is used inside brackets and
-after operators. `no_trailing=True` is passed when parsing an `if` condition so its `{` opens the
+`parse_trailing` looks past newlines for `label: {`; `parse_expr` looks past newlines for a ternary's
+`?`, so `x` / `? a` / `: b` on three lines is one expression (R-LANG-006.C2). `skip_nl_only` is used
+inside brackets and after operators. `no_trailing=True` is passed when parsing an `if` condition so its `{` opens the
 branch.
 
 ## Syntax tree — `syntax/ast.py`
@@ -75,3 +76,4 @@ Tests: `tests/test_syntax.py`.
 | Version | Date | Change |
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
+| 0.3.27 | 2026-11-27 | A ternary's `?` may start the next line (R-LANG-006.C2), in both parsers; IT-37 (#58) |

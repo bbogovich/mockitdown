@@ -2,8 +2,8 @@
 id: R-EVAL-011
 title: Tolerance for pasted SwiftUI
 status: active
-version: 0.2.1
-rev: 1
+version: 0.12.9
+rev: 2
 page: LANG.2
 slot: reqs
 order: 11
@@ -12,7 +12,7 @@ realizes: [F-2]
 constrained_by: [A-EVAL-1, A-SYN-2]
 decisions: [ADR-2]
 reverse_engineered: true
-hash: fce4708196ec
+hash: b79647cd4e14
 refs: [R-EVAL-004]
 ---
 

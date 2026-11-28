@@ -2,8 +2,8 @@
 id: R-LANG-008
 title: Collection and tuple literals
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.9
+rev: 1
 page: LANG.1
 slot: reqs
 order: 8
@@ -12,7 +12,7 @@ realizes: [F-2]
 constrained_by: [A-SYN-2]
 decisions: [ADR-2]
 reverse_engineered: true
-hash: c4b3337f27d5
+hash: c6826c89dad2
 ---
 
 C1: The parser MUST parse `[a, b, …]` as an array literal and `[k: v, …]` as a dictionary literal, allowing line feeds between entries and a trailing comma; `[:]` MUST be an empty dictionary.

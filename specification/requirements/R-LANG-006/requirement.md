@@ -2,8 +2,8 @@
 id: R-LANG-006
 title: Expressions and operators
 status: active
-version: 0.2.1
-rev: 1
+version: 0.12.9
+rev: 2
 page: LANG.1
 slot: reqs
 order: 6
@@ -12,7 +12,7 @@ realizes: [F-2]
 constrained_by: [A-SYN-2]
 decisions: [ADR-2]
 reverse_engineered: true
-hash: 35a1a1107812
+hash: 507c34b5e217
 ---
 
 C1: The parser MUST give operators this precedence, loosest first, all binary levels left-associative: ternary `?:`; logical or (two vertical bars); `&&`; `==` `!=` `<` `>` `<=` `>=`; `...` `..<`; `+` `-`; `*` `/`; prefix `!` and `-`; postfix member access, calls, subscripts and trailing closures.

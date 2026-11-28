@@ -1,6 +1,6 @@
 ---
 title: "Language: semantics"
-spec_version: 0.12.0
+spec_version: 0.12.9
 status: draft
 updated: 2026-11-27
 page_id: LANG.2
@@ -14,6 +14,19 @@ What a parsed block means: how names resolve, how arguments bind to elements and
 
 Evaluation is forgiving by design: the author sees the whole mockup with the problems marked,
 instead of the first problem only. Only syntax errors stop processing (R-LANG-009).
+
+**R-EVAL-001.TC-1 — Evaluation always completes**
+
+Python unit tests `python/tests/test_evaluate.py` `CompletionTests`: `evaluate` turns a module into a
+`Screen` with its views, the pack chosen by `import SwiftUI`, the `@Screen` metadata and the structs
+used, as data (C1). Sixteen sources with semantic problems (unknown elements, names, modifiers and
+directives, bad `ForEach`, out-of-range subscripts, missing arguments, recursion, bad operators) each
+yield a screen and diagnostics, never an exception (C1, C2). An unknown element renders as an `unknown`
+view holding its trailing closure's views and an unknown name as `nil` text, and a block with one
+unknown element and one unknown modifier keeps every other view with one error and one warning
+(C2, V1). Statements run in order (a `let` rebinds for what follows), an `if` branch's `let` shadows
+without leaking, a closure parameter shadows an outer name, and a struct's body does not see the
+block's names (C3).
 
 **Realizes.** F-2, F-12
 
@@ -29,7 +42,18 @@ instead of the first problem only. Only syntax errors stop processing (R-LANG-00
 ### R-EVAL-002 — What a block renders
 
 A block that only declares a view renders it, as Xcode's preview canvas would; this lets authors
-paste a view struct without writing an extra call.
+paste a view struct without writing an extra call. Its required properties show their own names
+(`title`), so the preview reads like a template rather than failing.
+
+**R-EVAL-002.TC-1 — What a block renders**
+
+Python unit tests `python/tests/test_evaluate.py` `BlockContentTests`: top-level statements and those of
+`#Preview` and `#Preview("Named")` blocks render in source order, and declared structs are not rendered
+when there are statements (C1). A block of declarations only renders its last struct, called without
+arguments, without diagnostics; its property `title` without a default shows as `title`, `count = 3`
+as `3`, while an explicit `Card()` still reports the missing argument (C2, C4, V1). An empty block, a
+comment, a lone `let`, a false `if` and a lone import each produce exactly the warning "the mockup has no
+views" with code `empty` (C3, V1).
 
 **Realizes.** F-1, F-2
 
@@ -38,6 +62,7 @@ paste a view struct without writing an extra call.
 | C1 | The evaluator MUST render the module's top-level statements, including those from `#Preview` blocks, as the screen's views. |
 | C2 | When a module has no top-level statements but declares structs, the evaluator MUST render an instance of the last struct declared in the block, called without arguments. |
 | C3 | If the screen has no views, then the evaluator MUST report the warning "the mockup has no views" with code `empty`. |
+| C4 | When the evaluator renders that implicit instance (C2), a property with no default and no argument MUST take its own name as placeholder text (a view property: no views), with no diagnostic; structs that instance uses get no placeholders. |
 | V1 | A block containing only `struct Login: View { var body: some View { … } }` renders the Login view; an empty block produces the `empty` warning. |
 
 ---
@@ -222,17 +247,34 @@ Values are deliberately small: enough to compute labels, counts and choices. Enu
 (`.title`, `.borderedProminent`, `Color.red`) are kept symbolic — the renderer and the packs decide
 what they mean — so the notation needs no knowledge of SwiftUI's type system.
 
+**R-EVAL-008.TC-1 — Values and operators**
+
+Python unit tests `python/tests/test_evaluate.py` `ValueTests`, evaluating expressions directly and
+through interpolation: literals, arrays, dictionaries, `[:]`, tuples and labelled tuples keyed by label
+or position (C1); `3 2.5 nil [1, 2]`, `true`, enum names, six significant digits (`0.333333`,
+`1.23457e+06`) and empty text for a view (C2, V1); `.red`, `.custom("Inter", size: 12)`, `Color.red`,
+`Font.custom("x")`, `.constant(5)` and a variable shadowing a namespace (C3); mapping keys, `count`,
+`isEmpty`, `first`, `last` (`nil` when empty), `.1` and members of enum values (C4); `uppercased`,
+`lowercased`, `capitalized`, `joined` with and without a separator, `contains`, `hasPrefix`,
+`hasSuffix` (C5); concatenation, addition, integer and float division, comparison, truthiness with
+short-circuit (unknown names on the skipped side are never looked up), unary minus and its error (C6,
+V1); closed, half-open, empty and continuous ranges and the bound error (C7); subscripts on arrays,
+tuples, strings and mappings and "subscript out of range" yielding `nil` (C8, V1); `GridItem(.flexible())`
+and `URL(string:)` as call values and key paths as `nil` (C9); operator, division-by-zero, member and
+name errors with codes `value` and `unknown`, each yielding `nil` (C10). The conformance case
+`lang-expressions` holds both variants to the same values.
+
 **Realizes.** F-2
 
 | | Statement |
 |---|---|
 | C1 | The evaluator MUST evaluate literals to strings, integers, floating-point numbers, booleans and `nil`; arrays to lists; dictionaries to mappings; unlabelled tuples to tuples and labelled tuples to mappings keyed by label (or position for unlabelled members). |
-| C2 | The evaluator MUST format interpolated values as: `nil`; `true`/`false`; integral floats without a fraction (`3.0` → `3`); other floats in shortest form; enum values by name; arrays as `[a, b]`; view values as empty text. |
+| C2 | The evaluator MUST format interpolated values as: `nil`; `true`/`false`; integral floats without a fraction (`3.0` → `3`); other floats with at most six significant digits, as C's `%g` (`1.0 / 3` → `0.333333`); enum values by name; arrays as `[a, b]`; view values as empty text. |
 | C3 | The evaluator MUST evaluate `.name` to an enum value, `.name(args)` to an enum value carrying its arguments, `Type.name` and `Type.name(args)` to an enum value in namespace `Type` when `Type` is not a variable, struct or element, and `.constant(x)` to `x`. |
 | C4 | The evaluator MUST support these members: a mapping's keys; `count` and `isEmpty` on strings, arrays, tuples and mappings; `first` and `last` on arrays and tuples (`nil` when empty); `.0`, `.1`, … on tuples; and a member of an enum value as an enum value in that namespace (`.red.opacity(0.3)`). |
-| C5 | The evaluator MUST support the methods `uppercased()`, `lowercased()` and `capitalized()` on strings and `joined(separator:)` on arrays. |
+| C5 | The evaluator MUST support the methods `uppercased()`, `lowercased()`, `capitalized()`, `hasPrefix(_:)` and `hasSuffix(_:)` on strings, `contains(_:)` on strings, arrays, tuples and mappings (a mapping's keys), and `joined(separator:)` on arrays and tuples (separator `""` when omitted). |
 | C6 | The evaluator MUST evaluate `+` as string concatenation when either operand is a string and as addition otherwise; `-`, `*`, comparison and equality as usual; `/` as integer division when both operands are integers; `!` and `&&` and the or-operator (two vertical bars) by truthiness with short-circuit; unary `-` on numbers only. |
-| C7 | The evaluator MUST evaluate `a...b` to the integers a through b and `a..<b` to a through b-1; if either bound is not an integer, then it MUST report "a range needs integer bounds" with code `value`. |
+| C7 | The evaluator MUST evaluate `a...b` to the integers a through b and `a..<b` to a through b-1 when both bounds are integers, and to the list of its two bounds as floats when either is a float (a continuous range, as in `Slider(in: 0.2...0.8)`); if a bound is not a number, then it MUST report "a range needs numeric bounds" with code `value` and yield an empty list. |
 | C8 | The evaluator MUST evaluate subscripts on arrays, tuples, strings and mappings; if the index is absent or invalid, then it MUST report "subscript out of range" with code `value` and yield `nil`. |
 | C9 | The evaluator MUST evaluate a call to a name that is not a view, struct, element or view-valued variable as a call value carrying its name and arguments (for example `GridItem(.flexible())`), and a key path to `nil`. |
 | C10 | If an operator cannot be applied to its operands, a member does not exist, or a name is unknown, then the evaluator MUST report the problem with code `value` (or `unknown` for names) and yield `nil`. |
@@ -296,6 +338,19 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_options_and_screen
 Pasting real code is a primary use case (F-2.UC-1). Everything that only matters at run time is
 accepted and dropped; `@State` values become the state the mockup shows.
 
+**R-EVAL-011.TC-1 — A pasted SwiftUI view**
+
+Python unit tests `python/tests/test_evaluate.py` `PastedSwiftUITests`: a pasted settings view with
+`@State`, `@Binding`, `@ObservedObject`, `@Environment(\.colorScheme)`, a `public static let`,
+`return`, `some View`, type annotations, a force unwrap, `import Combine`, `$wifi`, `.onTapGesture` and
+`.onAppear` closures calling unknown functions and an `action:`/`perform:` closure renders an on toggle
+and its texts with no diagnostics (C1-C5, V1). `@ViewBuilder` marks view properties, computed and slot,
+while another attribute leaves an ordinary property (C1); access and `static` modifiers, conformance
+lists, `return`, optional types, force unwraps and key paths are accepted silently (C2); the ten neutral
+modules select no pack and draw no warning, alongside `import SwiftUI` too, while an unknown module warns
+(C3); `$name` and `.constant(x)` read the value (C4); action closures and behaviour-only modifiers'
+closures produce no views and no diagnostics (C5).
+
 **Realizes.** F-2 · **Decisions.** ADR-2
 
 | | Statement |
@@ -311,11 +366,13 @@ accepted and dropped; `@State` values become the state the mockup shows.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C5 (#58); as built: C4 the implicit preview instance shows a required property's name as placeholder; TC-1 verifies C1-C4 (#58); as built: C2 floats with six significant digits (%g), C5 contains/hasPrefix/hasSuffix, C7 continuous ranges and the numeric-bounds error; TC-1 verifies C1-C10 (#58); test cases backfilled: TC-1 verifies C1-C3 (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.0 | 2026-11-26 | dotted element names resolve to the joined name (F-2.C7): C9, C10, TC-2 (ING-1); unknown labelled arguments are warned (F-12.C6): C7-C10, TC-1 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |

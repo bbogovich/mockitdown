@@ -2,8 +2,8 @@
 id: R-DEV-001
 title: Device forms and sizes
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.9
+rev: 1
 page: REND.2
 slot: reqs
 order: 4
@@ -11,7 +11,7 @@ source: [SRC-2, SRC-3]
 realizes: [F-10]
 constrained_by: [A-OPT-1, A-REND-2]
 reverse_engineered: true
-hash: bb0abe4e9b7f
+hash: 856fa9bae9e8
 ---
 
 C1: mockitdown MUST define these device forms with sizes in logical points (width × height): `phone` 393 × 852, `phone-landscape` 852 × 393, `tablet` 1180 × 820, `tablet-portrait` 820 × 1180, `desktop` 1280 × 800, `wide` 1440 × 900.

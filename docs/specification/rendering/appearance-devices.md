@@ -1,6 +1,6 @@
 ---
 title: "Appearance and devices"
-spec_version: 0.12.7
+spec_version: 0.12.9
 status: draft
 updated: 2026-11-27
 page_id: REND.2
@@ -114,6 +114,14 @@ each at most and within 2 px of half the column minus the stage's gap, labelled 
 The default sizes are current mainstream devices in points (CSS pixels): an iPhone-class phone, an
 iPad-class tablet, a laptop and a wide desktop window. Packs adjust them to their platform.
 
+**R-DEV-001.TC-1 — Device forms, pack sizes and fit**
+
+Python unit tests `python/tests/test_devices.py` `DeviceFormTests`: `DEVICES` holds exactly the six forms
+of C1 with their sizes, and each renders without diagnostics as `--mkd-w`/`--mkd-h` with `data-device`
+(C1). A site pack with `"sizes": {"phone": [390, 844], "watch": [198, 242]}` renders its phone 390 × 844
+and its own `watch` form without a warning, while `base` keeps 393 × 852 and warns about `watch`; the
+shipped `android` phone is 412 × 915 (C2, V1). `device="fit"` renders `data-fit="true"` and no size (C3).
+
 **Realizes.** F-10
 
 | | Statement |
@@ -129,12 +137,25 @@ iPad-class tablet, a laptop and a wide desktop window. Packs adjust them to thei
 
 The site default sits between the block's own metadata and the pack's platform default.
 
+With both `width` and `height` the size is fully given, so an unknown form name is kept as written
+(it appears in `data-device`) and draws no warning.
+
+**R-DEV-002.TC-1 — Device precedence, unknown forms, width and height**
+
+Python unit tests `python/tests/test_devices.py` `DeviceSelectionTests`: the `device` option wins over
+`@Screen(device: .phone)`, which wins over `default_device: tablet`, which wins over the pack's `device`
+(`base` desktop, `android` phone, a site pack's `phone-landscape`) (C1, V1). `@Screen(device: .tv)`
+warns "unknown device 'tv'; using desktop (known: phone, phone-landscape, tablet, tablet-portrait,
+desktop, wide, fit)" with code `device` and renders a desktop, in the pack's own desktop size for `lisa`
+(C2). `width=600` on a phone gives 600 × 852, `height=500` 393 × 500, both 600 × 500; with both given,
+an unknown form is kept as named and not warned about (C2, C3, V1).
+
 **Realizes.** F-10
 
 | | Statement |
 |---|---|
 | C1 | The figure assembler MUST take the device form from the `device` fence attribute or render option, else from `@Screen(device:)`, else from the configured default device (`default_device`), else from the pack's default `device`. |
-| C2 | If the device form is neither `fit`, a pack size nor a default size, then the figure assembler MUST warn "unknown device 'x'; using desktop (known: …)" with code `device` and use `desktop`. |
+| C2 | If the device form is neither `fit`, a pack size nor a default size, and `width` and `height` are not both given, then the figure assembler MUST warn "unknown device 'x'; using desktop (known: …)" with code `device` and use `desktop`. |
 | C3 | When both `width` and `height` are given, the frame MUST have exactly that size; when only one is given, it MUST replace that dimension of the device size. |
 | V1 | A site with `default_device: tablet` renders a block with `@Screen(device: .phone)` as a phone and a block without any device as a tablet; `width=600` on a phone gives 600 × 852. |
 
@@ -146,14 +167,32 @@ Scaling the whole frame with one unit keeps proportions exact: text, padding, ra
 shrink together, the way a screenshot would. The unit is capped at 1px so mockups are never
 blown up beyond their real size.
 
+**R-DEV-003.TC-1 — The frame unit rules**
+
+Python unit tests `python/tests/test_devices.py` `FrameUnitTests`, on `shared/css/page.css`: the
+`.mkd-frame` rule defines `--u: min(1px, calc(100cqw / var(--mkd-w, 1280)))` and sizes the frame
+`var(--mkd-w) × var(--u)` by `var(--mkd-h) × var(--u)`, unscaled in the assembled stylesheet (C1, C2);
+`[data-fit="true"]` sets `--u: 1px`, `max-content` width and automatic height, and the cell holding it
+`max-width: 100%`, `overflow-x: auto` and no size container (C3); `.mkd-figure` and `.mkd-cell` are
+`container-type: inline-size`, and a figure holds its frames in cells (C4).
+
+**R-DEV-003.TC-2 — Frame scaling in a browser**
+
+Chromium test `typescript/tests/browser/devices.spec.mjs`, mockups rendered by the package's Node entry
+on a page without script: a desktop frame in a 640 px column measures 640 × 400 px and in a 1600 px or
+1280 px column 1280 × 800 px, its text's padding and font size scaled by the same factor (C1, C2, V1);
+with `appearance="both"` each phone frame fills its own cell at the phone's aspect ratio (C4); a `fit`
+frame has `--u: 1px`, holds its content without overflow and keeps the same width in a 700 px and a
+120 px column, the cell scrolling sideways (C3).
+
 **Realizes.** F-10 · **Decisions.** ADR-7
 
 | | Statement |
 |---|---|
 | C1 | The page stylesheet MUST define, on every frame with a device size, the frame unit `--u: min(1px, calc(100cqw / var(--mkd-w)))`, where `100cqw` is the width of the frame's cell, and MUST size the frame `var(--mkd-w) × var(--u)` wide and `var(--mkd-h) × var(--u)` tall. |
 | C2 | A frame MUST therefore never be larger than its logical size and MUST shrink proportionally, as one picture, to fit a narrower column. |
-| C3 | In `fit` mode the page stylesheet MUST set `--u: 1px`, size the frame to its content (`max-content`, capped at the column width) with automatic height. |
-| C4 | The figure and each cell MUST be CSS size containers (`container-type: inline-size`) so that `cqw` refers to the available column width. |
+| C3 | In `fit` mode the page stylesheet MUST set `--u: 1px` and size the frame to its content (`max-content`) with automatic height; a narrower column scrolls the cell (R-DEV-008.C1). |
+| C4 | The figure and each cell MUST be CSS size containers (`container-type: inline-size`) so that `cqw` refers to the available column width, except a cell holding a `fit` frame, which sizes to its frame. |
 | V1 | A desktop frame (1280 points) in a 640px column renders 640px wide and 400px tall with all text and spacing halved; in a 1600px column it renders 1280px wide. |
 
 ---
@@ -184,6 +223,20 @@ Automated by `tests/test_render.py::EvaluateRenderTests::test_stylesheet_scales_
 Chrome puts the screen in context — a phone, a Windows app, a web page — without the author
 drawing it. The fixed time and status icons make renderings reproducible.
 
+**R-DEV-005.TC-1 — Chrome kinds, selection and markup**
+
+Python unit tests `python/tests/test_devices.py` `ChromeTests`: every kind of C1 renders without
+diagnostics (C1). The `chrome` option wins over `@Screen(chrome:)`, `auto` in either falls through, and
+the pack's map gives `ios` for a SwiftUI phone, `ipados` for its tablet and `none` for an unmapped form
+or an Android desktop (C2). `chrome="bogus"` and `@Screen(chrome: .bogus)` warn "unknown chrome 'bogus'
+(known: …)" with code `chrome` and draw no chrome (C3). The parts of each kind: 9:41, the island,
+cellular, Wi-Fi and battery icons and the home indicator for `ios`; the date, 100% and the home
+indicator for `ipados`; status bar and handle for `android`; three traffic lights and the title for
+`macos`; app icon, title and minimise, maximise, close for `windows`; lights, back, forward, reload, the
+address (default `https://app.example.com`, the `url` option or `@Screen(url:)`) and the menu for
+`browser` (C4, V1). Each kind's markup carries `mkd-chrome`, its part classes and its `data-chrome`, and
+the base stylesheet styles the four part classes (C5).
+
 **Realizes.** F-10
 
 | | Statement |
@@ -191,8 +244,8 @@ drawing it. The fixed time and status icons make renderings reproducible.
 | C1 | The chrome kinds MUST be `none`, `ios`, `ipados`, `macos`, `windows`, `android` and `browser`. |
 | C2 | The figure assembler MUST take the chrome from the `chrome` option when it is not `auto`, else from `@Screen(chrome:)` when given and not `auto`, else from the pack's `chrome` map for the resolved device (none when unmapped). |
 | C3 | If the chrome kind is unknown, then the figure assembler MUST warn "unknown chrome 'x' (known: …)" with code `chrome` and draw none. |
-| C4 | `ios` MUST draw a status bar (time 9:41, dynamic island, cellular, Wi-Fi and battery icons) and a home indicator; `ipados` a status bar with date and battery percentage and a home indicator; `android` a status bar and a navigation handle; `macos` a title bar with traffic lights and the title (unified with the root's toolbar as R-DEV-010.C2 and C7 say); `windows` a title bar with app icon, title and minimise/maximise/close controls; `browser` a window bar with traffic lights, navigation buttons, an address field showing the `url` option (default `https://app.example.com`) and a menu button. |
-| C5 | Chrome MUST be static markup with classes `mkd-chrome` and one of `mkd-chrome--status`, `mkd-chrome--titlebar`, `mkd-chrome--browser`, `mkd-chrome--home` and `data-chrome=<kind>`, styled by the base pack and restyled by packs. |
+| C4 | `ios` MUST draw a status bar (time 9:41, dynamic island, cellular, Wi-Fi and battery icons) and a home indicator; `ipados` a status bar with date and battery percentage and a home indicator; `android` a status bar and a navigation handle; `macos` a title bar with traffic lights and the title (unified with the root's toolbar as R-DEV-010.C2 and C7 say); `windows` a title bar with app icon, title and minimise/maximise/close controls; `browser` a window bar with traffic lights, navigation buttons, an address field showing the `url` option, else `@Screen(url:)` (default `https://app.example.com`) and a menu button. |
+| C5 | Chrome MUST be static markup with classes `mkd-chrome` and one of `mkd-chrome--status`, `mkd-chrome--titlebar`, `mkd-chrome--browser`, `mkd-chrome--home` (or a part class another requirement names, R-DEV-007, R-DEV-010) and `data-chrome=<kind>`, styled by the base pack and restyled by packs. |
 | V1 | A SwiftUI phone mockup shows the iOS status bar and home indicator; `chrome="browser" url="https://shop.example.com"` shows that address. |
 
 ---
@@ -201,6 +254,26 @@ drawing it. The fixed time and status icons make renderings reproducible.
 
 Documentation themes style every `ul`, `table` and `code` in the content area; without isolation,
 a list inside a mockup would gain the theme's bullets and margins.
+
+**R-DEV-006.TC-1 — Isolation rules**
+
+Python unit tests `python/tests/test_devices.py` `IsolationTests`, on `shared/css/page.css`: the frame
+reset sets margin, padding, border, font, letter spacing, colour, background, maximum width and box
+shadow for every HTML element the renderer writes inside a frame (the conformance corpus, SVG drawing
+elements and table columns aside), boxes are `border-box` and tables collapse (C1); `.mkd-frame` is
+`isolation: isolate`, `overflow: hidden` and `position: relative` (C2); every selector of `page.css` and
+of the base, SwiftUI and Fluent stylesheets names a mockitdown class (C3).
+
+**R-DEV-006.TC-2 — A mockup in a documentation page**
+
+Chromium test `typescript/tests/browser/devices.spec.mjs`: a SwiftUI mockup with a label, text, code
+block, keys, a table, a spreadsheet, a list, an icon, a toggle and a button, at `desktop` and at `fit`,
+placed once on a bare page and once inside `<article class="md-typeset">` under host rules modelled on
+Material's and Zensical's (typography, letter spacing, margins, list, table, code and key styling) and,
+when the repository's `.venv` holds Zensical, under Zensical's own stylesheet: every element in the
+frame has the same box (within half a pixel) and the same font, line height, letter spacing, colours,
+box shadow, margin, padding, list style and text transform (C1, V1). An alert's layer lies inside the
+frame, which is isolated and clips, and the page below the figure is not covered (C2).
 
 **Realizes.** F-8
 
@@ -418,6 +491,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 rules, TC-2 a mockup in a documentation page, Chromium (#58); as built: C4 browser address also from @Screen(url:); C5 part classes of R-DEV-007 and R-DEV-010; TC-1 verifies C1-C5 (#58); as built: C2 warns only when width and height are not both given; TC-1 verifies C1-C3 (#58); as built: C3 a fit frame is not capped, its cell scrolls (R-DEV-008.C1); C4 a fit frame's cell is no size container; TC-1 rules, TC-2 Chromium measurements (#58) |
 | 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
@@ -431,6 +505,7 @@ Python and TypeScript render tests: for every kind of C1, `values: [3, 5, 2, 6, 
 | 0.3.0 | 2026-11-24 | New R-REND-011: Non-standard component roles |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.7 | 2026-11-27 | test cases backfilled: every C clause verified by a TC naming its tests (#56) |
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.6 | 2026-11-27 | test cases name the split gallery specs (#50) (#53) |
 | 0.8.11 | 2026-11-25 | as built (#14): empty menubar value draws the bar; status items in macOS order (battery, Wi-Fi, Control Center, clock); every SwiftUI command placement; warnings for an unknown menu title (C10) and placement (C11); icons, section headers and cascading submenus (C12) |

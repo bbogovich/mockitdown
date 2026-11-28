@@ -1,6 +1,6 @@
 ---
 title: "Language: syntax"
-spec_version: 0.12.0
+spec_version: 0.12.9
 status: draft
 updated: 2026-11-27
 page_id: LANG.1
@@ -162,6 +162,20 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_if_else_and_ranges`.
 Expressions cover what mockups need to compute labels and choose branches. The grammar is Swift's
 precedence ladder without assignment, casts or custom operators.
 
+A chained tuple index such as `t.1.1` lexes `1.1` as a number and is a syntax error; bind the inner
+tuple first (`let u = t.1`, then `u.1`).
+
+**R-LANG-006.TC-1 — Expressions, precedence and line feeds**
+
+Python unit tests `python/tests/test_expressions.py` `ExpressionTests`, printing parsed expressions fully
+parenthesised: the precedence ladder and left associativity of every binary level, nested ternaries,
+prefix and postfix operators (C1, V1); line feeds after binary operators and before or after `?` and
+`:` (`x` / `? "on"` / `: "off"` on three lines renders `on`), and a line feed before an operator ending
+the statement (C2, V1); every primary form (C3); `$isOn` as the identifier `isOn` (C4, V1); a postfix
+`!` dropped, `!a` and `!=` kept (C5); `.default`, `Font.default` and other keywords as member names
+(C6); "expected an expression, found ')'" / "'*'" / "end of input" (C7); `t.0`, `t.1.count` and
+`pairs[0].1` (C8). The conformance case `lang-expressions` holds the TypeScript parser to the same.
+
 **Realizes.** F-2 · **Decisions.** ADR-2
 
 | | Statement |
@@ -218,6 +232,14 @@ member-access callee; `Text("a").font(.title)` still parses as a modifier chain.
 Arrays of tuples are the usual way to feed `ForEach` with row data; dictionaries and labelled
 tuples serve as small records.
 
+**R-LANG-008.TC-1 — Collection and tuple literals**
+
+Python unit tests `python/tests/test_expressions.py` `CollectionLiteralTests`: an array of two tuples, a
+dictionary, entries across line feeds with a trailing comma, `[]`, `[:]` as an empty dictionary and nested
+literals (C1, V1); `[1, "a": 2]` and `["a": 2, 1]` raise "a collection literal mixes array and dictionary
+entries" (C2, V1); two or more expressions or any labelled ones form a tuple, across line feeds too,
+while `(1 + 2)` and `((1))` are the expression itself (C3).
+
 **Realizes.** F-2 · **Decisions.** ADR-2
 
 | | Statement |
@@ -252,10 +274,12 @@ Automated by `tests/test_syntax.py::SyntaxTests::test_errors_are_located` and
 
 | Version | Date | Change |
 |---|---|---|
+| 0.12.9 | 2026-11-27 | test cases backfilled: TC-1 verifies C1-C3 (#58); test cases backfilled: TC-1 verifies C1-C8; prose notes chained tuple indexes (#58) |
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | dotted callees parse as calls (F-2.C7): C8, TC-2 (ING-1) |
 | 0.2.1 | 2026-11-24 | As built: the implementation now matches the clauses; known-deviation note removed |
 | 0.2.0 | 2026-11-24 | Page created |

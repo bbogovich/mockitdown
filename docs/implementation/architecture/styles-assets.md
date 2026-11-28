@@ -1,8 +1,8 @@
 ---
 title: Styles and assets
-impl_version: 0.1.0
+impl_version: 0.3.27
 status: draft
-updated: 2026-11-25
+updated: 2026-11-27
 page_id: IMPL.STYLE
 ---
 
@@ -25,8 +25,18 @@ lineage (root first, each pack once), `pack_css(pack)` then `token_css(pack)`, a
 - `_pack_css_cached(directory, mtime, id)` caches scaled pack CSS by modification time.
 
 `page.css` (unscaled) holds the figure and cell layout, the frame unit
-(`--u: min(1px, calc(100cqw / var(--mkd-w, 1280)))`), `fit` mode, host-typography isolation with
-`:where(...)` resets, the caption, the error box, the Elements table and the source disclosure.
+(`--u: min(1px, calc(100cqw / var(--mkd-w, 1280)))`), `fit` mode, host-typography isolation, the
+caption, the error box, the Elements table and the source disclosure.
+
+Isolation (R-DEV-006) has three parts. `.mkd-frame` sets every inherited text property no pack sets
+on it (letter and word spacing, text transform, indent, shadow, font style and weight, white space,
+word break), so nothing reaches the frame from the theme's `.md-typeset`. `.mkd-frame :where(div,
+span, …, code, kbd, i)` resets margins, padding, borders, font, colour, background, maximum width and
+box shadow at the lowest specificity, so every pack rule overrides it. A theme's element rules
+(`.md-typeset kbd`, specificity 0,1,1) outrank that reset; packs set the properties they draw by
+class, and `.mkd-figure .mkd-frame kbd { box-shadow: none }` (0,2,1) removes the key shadow Zensical
+adds, below every scoped pack rule (0,3,0). `typescript/tests/browser/devices.spec.mjs` compares a
+mockup on a bare page and inside Zensical's stylesheet (IT-35).
 
 ## Asset resolver — `assets.py`
 
@@ -59,3 +69,4 @@ Adding an icon: draw a 24×24 stroke glyph (round caps/joins, `currentColor`), a
 |---|---|---|
 | 0.1.0 | 2026-11-24 | Page written |
 | 0.3.2 | 2026-11-25 | Icon table and page.css in shared/ (#1) |
+| 0.3.27 | 2026-11-27 | Frame isolation: inherited text properties set on the frame, `kbd` and box shadow in the reset (R-DEV-006.C1); IT-35 (#58) |

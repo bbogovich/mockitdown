@@ -1,0 +1,16 @@
+---
+requirement: R-EVAL-011
+title: Tolerance for pasted SwiftUI
+status: implemented
+version: 0.12.9
+date: 2026-11-27
+issue: 58
+---
+
+# R-EVAL-011 — Tolerance for pasted SwiftUI
+
+<!-- written by `vio-docs ledger record`; never edit -->
+
+| Version | Date | Status | Issue | Change in the code | Pages |
+|---|---|---|---|---|---|
+| 0.12.9 | 2026-11-27 | implemented | #58 | C1-C5 implemented (parser attributes and modifiers, vocabulary NEUTRAL_MODULES and IGNORED, _element_view action labels); verified by test_evaluate.py PastedSwiftUITests (TC-1); no code change (#58). | [Evaluation](../narrative/architecture/evaluate.md), [Testing](../narrative/testing.md) |

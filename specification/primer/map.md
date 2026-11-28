@@ -85,13 +85,13 @@ R-CLI-003 | requirements | active | 0.12.8 r1 | CLI.1 | render
 R-CLI-004 | requirements | active | 0.12.8 r1 | CLI.1 | check
 R-CLI-005 | requirements | active | 0.12.8 r1 | CLI.1 | css
 R-CLI-006 | requirements | active | 0.12.8 r1 | CLI.1 | packs and elements
-R-DEV-001 | requirements | active | 0.2.0 r0 | REND.2 | Device forms and sizes
-R-DEV-002 | requirements | active | 0.2.1 r1 | REND.2 | Device selection
-R-DEV-003 | requirements | active | 0.2.0 r0 | REND.2 | Frame unit scaling
+R-DEV-001 | requirements | active | 0.12.9 r1 | REND.2 | Device forms and sizes
+R-DEV-002 | requirements | active | 0.12.9 r2 | REND.2 | Device selection
+R-DEV-003 | requirements | active | 0.12.9 r1 | REND.2 | Frame unit scaling
 R-DEV-004 | requirements | active | 0.2.0 r0 | REND.2 | Length rewriting
-R-DEV-005 | requirements | active | 0.8.9 r1 | REND.2 | Device chrome
-R-DEV-006 | requirements | active | 0.2.0 r0 | REND.2 | Isolation from the host page
-R-DEV-007 | requirements | active | 0.3.0 r0 | REND.1 | Additional chrome kinds
+R-DEV-005 | requirements | active | 0.12.9 r2 | REND.2 | Device chrome
+R-DEV-006 | requirements | active | 0.12.9 r1 | REND.2 | Isolation from the host page
+R-DEV-007 | requirements | active | 0.12.9 r1 | REND.1 | Additional chrome kinds
 R-DEV-008 | requirements | active | 0.10.6 r2 | REND.2 | Fit frames: natural width and presentations
 R-DEV-009 | requirements | active | 0.8.11 r2 | REND.2 | The macOS menu bar
 R-DEV-010 | requirements | active | 0.8.9 r2 | REND.2 | Multi-platform chrome for SwiftUI
@@ -109,17 +109,17 @@ R-EDIT-006 | requirements | active | 0.11.0 r3 | WEB.3 | The design session and 
 R-EDIT-007 | requirements | active | 0.11.0 r3 | WEB.3 | Undo and redo history
 R-EDIT-008 | requirements | active | 0.11.0 r3 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
 R-EDIT-009 | requirements | active | 0.11.0 r3 | WEB.3 | Commands: wrap, unwrap, convert and extract component
-R-EVAL-001 | requirements | active | 0.2.0 r0 | LANG.2 | Evaluation always completes
-R-EVAL-002 | requirements | active | 0.2.0 r0 | LANG.2 | What a block renders
+R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
+R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.12.0 r2 | LANG.2 | Name resolution for views
 R-EVAL-004 | requirements | active | 0.10.0 r1 | LANG.2 | Binding element arguments
 R-EVAL-005 | requirements | active | 0.12.0 r1 | LANG.2 | Instantiating struct components
 R-EVAL-006 | requirements | active | 0.2.0 r0 | LANG.2 | ForEach
 R-EVAL-007 | requirements | active | 0.2.0 r0 | LANG.2 | Conditionals and local bindings
-R-EVAL-008 | requirements | active | 0.2.0 r0 | LANG.2 | Values and operators
+R-EVAL-008 | requirements | active | 0.12.9 r1 | LANG.2 | Values and operators
 R-EVAL-009 | requirements | active | 0.10.8 r1 | LANG.2 | Modifiers
 R-EVAL-010 | requirements | active | 0.2.0 r0 | LANG.2 | The @Screen directive
-R-EVAL-011 | requirements | active | 0.2.1 r1 | LANG.2 | Tolerance for pasted SwiftUI
+R-EVAL-011 | requirements | active | 0.12.9 r2 | LANG.2 | Tolerance for pasted SwiftUI
 R-IMP-001 | requirements | active | 0.12.8 r1 | IMP.1 | File imports load components
 R-IMP-002 | requirements | active | 0.12.0 r1 | IMP.1 | Resolving import paths
 R-IMP-003 | requirements | active | 0.12.8 r1 | IMP.1 | Nested imports and cycles
@@ -134,9 +134,9 @@ R-LANG-002 | requirements | active | 0.2.0 r0 | LANG.1 | String literals and int
 R-LANG-003 | requirements | active | 0.12.0 r1 | LANG.1 | Module structure
 R-LANG-004 | requirements | active | 0.12.0 r1 | LANG.1 | Struct declarations
 R-LANG-005 | requirements | active | 0.2.0 r0 | LANG.1 | Statements
-R-LANG-006 | requirements | active | 0.2.1 r1 | LANG.1 | Expressions and operators
+R-LANG-006 | requirements | active | 0.12.9 r2 | LANG.1 | Expressions and operators
 R-LANG-007 | requirements | active | 0.10.0 r1 | LANG.1 | Calls, modifier chains and closures
-R-LANG-008 | requirements | active | 0.2.0 r0 | LANG.1 | Collection and tuple literals
+R-LANG-008 | requirements | active | 0.12.9 r1 | LANG.1 | Collection and tuple literals
 R-LANG-009 | requirements | active | 0.2.0 r0 | LANG.1 | Syntax errors
 R-MDX-001 | requirements | active | 0.2.0 r0 | MDX.1 | Integration points
 R-MDX-002 | requirements | active | 0.12.0 r2 | MDX.1 | Extension options

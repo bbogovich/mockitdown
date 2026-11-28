@@ -1,6 +1,6 @@
 ---
 title: Evaluation
-impl_version: 0.3.26
+impl_version: 0.3.27
 status: draft
 updated: 2026-11-27
 page_id: IMPL.EVAL
@@ -38,7 +38,9 @@ Two mutually recursive entry points:
   variable → pack element → unknown) or `_apply_modifier` for member calls; literals become `Text`.
 - `value(expr, env)` — where a value is expected: literals, collections, enum values, members
   (`_member_value`), calls (`_call_value`: `.constant(x)`, view calls → `ViewList`, unknown callees
-  → `CallValue`), operators (`_binary`), ranges and subscripts.
+  → `CallValue`), operators (`_binary`), ranges and subscripts. `format_value` writes floats with
+  `%g` (six significant digits) — the TypeScript `formatG` matches it — and a range with a float
+  bound is the list of its two bounds (R-EVAL-008.C2, C7).
 
 Closures are captured as `Thunk(closure, env)` and run only where views are expected
 (`run_thunk`, which also binds closure parameters and destructures tuples for `ForEach`).
@@ -83,3 +85,4 @@ Tests: `tests/test_render.py` (`EvaluateRenderTests`).
 | 0.3.2 | 2026-11-25 | Vocabulary loaded from shared/language/vocabulary.json (#1) |
 | 0.3.9 | 2026-11-25 | Positional arguments take their parameter's `attrs` alias (R-PACK-011.C3, #8) |
 | 0.3.26 | 2026-11-27 | Import loading per mockup described; the unreachable `unsupported statement` error carries code `view` (R-DIAG-001.C1); IT-34 (#57) |
+| 0.3.27 | 2026-11-27 | Float formatting and continuous ranges described (R-EVAL-008 as built); IT-36 (#58) |

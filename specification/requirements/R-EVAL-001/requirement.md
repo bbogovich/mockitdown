@@ -2,8 +2,8 @@
 id: R-EVAL-001
 title: Evaluation always completes
 status: active
-version: 0.2.0
-rev: 0
+version: 0.12.9
+rev: 1
 page: LANG.2
 slot: reqs
 order: 1
@@ -11,7 +11,7 @@ source: [SRC-3]
 realizes: [F-2, F-12]
 constrained_by: [A-EVAL-1, A-DIAG-1]
 reverse_engineered: true
-hash: 2f9acbb7704d
+hash: 360b9029e107
 ---
 
 C1: The evaluator MUST turn a parsed module into a screen — the list of top-level views, the selected pack, the directive metadata and the names of the components used — and MUST NOT raise for any semantic problem.
