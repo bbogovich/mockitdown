@@ -21,6 +21,7 @@ Every role's root element carries:
 |---|---|
 | `class="mkd-<role> …"` | the role, plus classes from `.class(…)` |
 | `data-el="<Element>"` | the element name as written |
+| `data-mkd-node`, `data-mkd-derived` | edit mode only, directly after `data-el`: the ordinal of the view node the view came from and of the `ForEach`, `if` or struct call that produced it (R-EDIT-004) |
 | `data-component="<Struct>"` | the struct whose body the view is the root of |
 | `data-variant`, `data-size`, `data-color`, `data-shape`, `data-density`, `data-elevation`, `data-placement`, `data-orientation`, `data-emphasis`, `data-design`, `data-severity`, `data-kind`, `data-labelStyle`, `data-position`, `data-level`, `data-side`, `data-withHandle`, `data-direction`, `data-labelPlacement`, `data-rowsPerPage` | the attribute of that name, when a safe simple value (R-REND-003.C1) |
 | `data-state` | `state`; `disabled` → `disabled`; `error` → `error` |
@@ -67,7 +68,7 @@ search field in an app bar). The table is generated from the renderer.
 | `calendar` | `Calendar` | `date`, `events`, `firstWeekday`, `label`, `marked`, `month`, `range`, `selection`, `showToday`, `title`, `value`, `year` | `day`, `grid`, `header`, `label`, `nav`, `title`, `title-chevron`, `weekday` | `in-range`, `marked`, `outside`, `today` |
 | `callout` | `Callout` | `color`, `index`, `label`, `message`, `number`, `text`, `title` | `badge`, `text` | — |
 | `canvas` | `Canvas`, `Whiteboard` | `background`, `grid`, `height` | — | `grid` |
-| `card` | `Card`, `GroupBox` | `action`, `actions`, `avatar`, `avatarImage`, `cover`, `description`, `extra`, `footer`, `header`, `headerAction`, `icon`, `image`, `media`, `mediaHeight`, `menu`, `status`, `subheader`, `subtitle`, `systemImage`, `title`, `value` | `actions`, `body`, `header`, `header-actions`, `icon`, `media`, `media--missing`, `status`, `subtitle`, `title`, `titles` | — |
+| `card` | `Card`, `GroupBox` | `action`, `actions`, `avatar`, `avatarImage`, `cover`, `description`, `extra`, `footer`, `header`, `headerAction`, `icon`, `image`, `media`, `mediaHeight`, `menu`, `status`, `subheader`, `subtitle`, `systemImage`, `title`, `value` | `actions`, `band`, `body`, `header`, `header-actions`, `icon`, `media`, `media--missing`, `status`, `subtitle`, `title`, `titles` | — |
 | `chart` | `AreaChart`, `BarChart`, `BubbleChart`, `CandlestickChart`, `Chart`, `ComboChart`, `DonutChart`, `FunnelChart`, `GaugeChart`, `Heatmap`, `Histogram`, `LineChart`, `PieChart`, `RadarChart`, `ScatterChart`, `Sparkline`, `Treemap` | `categories`, `data`, `fromZero`, `height`, `kind`, `labels`, `series`, `title`, `type`, `values`, `variant` | `area`, `axis`, `bar`, `bars`, `candle`, `center`, `dot`, `grid`, `group`, `head`, `key`, `label`, `label--on`, `legend`, `line`, `pie`, `plot`, `plot--bars`, `slice`, `subtitle`, `svg`, `swatch`, `tick`, `title`, `track` | `donut`, `kind` |
 | `checkbox` | `Checkbox` | `checked`, `isOn`, `label`, `on`, `selected`, `state`, `title`, `value` | `box`, `label` | `checked` |
 | `chip` | `Chip`, `Tag` | `avatar`, `avatarImage`, `checkmark`, `closable`, `deletable`, `icon`, `label`, `onDelete`, `removable`, `selected`, `systemImage`, `text`, `title`, `variant` | `avatar`, `check`, `icon`, `label`, `remove` | — |
@@ -131,7 +132,7 @@ search field in an app bar). The table is generated from the renderer.
 | `tablecolumn` | `TableColumn` | — | — | — |
 | `tablerow` | `TableRow` | — | — | — |
 | `tabs` | `TabView`, `Tabs` | `actions`, `active`, `badge`, `choices`, `content`, `current`, `disabled`, `icon`, `image`, `items`, `label`, `name`, `options`, `placement`, `segments`, `selected`, `selection`, `systemImage`, `systemName`, `tabs`, `text`, `title`, `trailing`, `value` | `actions`, `badge`, `bar`, `icon`, `label`, `panel`, `tab` | `placement`, `standalone`, `state` |
-| `text` | `Text` | `content`, `font`, `style`, `text`, `textStyle`, `typography`, `verbatim` | — | — |
+| `text` | `Text` | `content`, `font`, `style`, `text`, `textStyle`, `typography`, `verbatim` | — | `deco` |
 | `textfield` | `SearchField`, `SecureField`, `TextEditor`, `TextField` | `axis`, `clearButton`, `clearable`, `counter`, `description`, `endIcon`, `error`, `errorMessage`, `footer`, `header`, `helper`, `helperText`, `hint`, `icon`, `kind`, `label`, `leadingIcon`, `lineLimit`, `maxLength`, `placeholder`, `prefix`, `prompt`, `required`, `reveal`, `rows`, `startIcon`, `suffix`, `supportingText`, `systemImage`, `text`, `title`, `trailingIcon`, `type`, `unit`, `value` | — | `deco`, `filled`, `labeled` |
 | `timeline` | `Timeline` | `orientation` | — | — |
 | `timelineitem` | `TimelineItem` | `color`, `date`, `description`, `icon`, `label`, `severity`, `status`, `subtitle`, `systemImage`, `text`, `time`, `timestamp`, `title` | `content`, `desc`, `dot`, `line`, `rail`, `time`, `title` | `icon`, `status` |
@@ -174,3 +175,4 @@ timelineitem, gantt, schedule, kbd, skeleton, swatches, canvas, media, emptystat
 | 0.2.0 | 2026-11-24 | Page created |
 | 0.3.0 | 2026-11-24 | Roles for non-standard components and annotations |
 | 0.12.10 | 2026-11-27 | As built (#59): the 24 roles added in 0.3 get their rows; the parts and data attributes the renderer emits completed (chart, datepicker, dialog, form, progress, split, table, toast, toolbar, tooltip and others); `data-appearance` is not copied, `side`, `withHandle`, `direction`, `labelPlacement`, `rowsPerPage` are, and the modifier-driven data attributes are listed |
+| 0.13.2 | 2026-11-28 | As built (#23): the edit-mode attributes `data-mkd-node` and `data-mkd-derived` (R-EDIT-004) in the common table; the card's `band` part (its `header` slot) and `data-deco` on a marked `text` root, both first exercised by the edit-mode corpus |

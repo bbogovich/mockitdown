@@ -10,6 +10,13 @@ construct and shows a "derived" badge.
 </div>
 ```
 
+Derivation follows where code is written. A view in a closure passed to a component (`Card { Text("x") }`)
+is written at the call, so it names its own node and is not derived from the component; the component's
+body is. A component imported from another file has no ordinals in this source: its views carry only
+`data-mkd-derived`, naming the call, which is what the editor can select. Each variant computes the
+ordinals with its own parser (Python: `mockitdown.syntax.nodes.view_nodes`), and both number every
+source of the corpus alike.
+
 The attributes carry ordinals, which both parsers compute the same way, not the TypeScript session's
 stable ids; the session maps one to the other (R-EDIT-006.C9). The option therefore exists in both
 variants and is held to the conformance corpus like every other rendering (ADR-22, ADR-18.C1). It is a

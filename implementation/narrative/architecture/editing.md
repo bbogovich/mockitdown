@@ -1,8 +1,8 @@
 ---
 title: Editing core
-impl_version: 0.3.37
+impl_version: 0.3.39
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: IMPL.EDIT
 ---
 
@@ -11,8 +11,9 @@ page_id: IMPL.EDIT
 Realizes **A-WEB-1.P2** (the editing core) under ADR-21; implements R-EDIT-001: source spans, view
 nodes and node ids in the TypeScript syntax tree (#20), and R-EDIT-002: the edit API's insert, remove
 and move with the edit corpus (#21), and R-EDIT-003: the operations on one node — arguments, modifiers,
-`.id`, `.ref`, its comment and its name (#22). The Python parser is unchanged (ADR-21.D1). The
-edit-mode render option (R-EDIT-004) follows in a later issue.
+`.id`, `.ref`, its comment and its name (#22), and R-EDIT-004: the edit-mode render option in both
+variants (#23, ADR-22). The Python parser is unchanged (ADR-21.D1); Python gains only the view-node
+numbering the edit-mode rendering needs (ADR-22.C2).
 
 ## Data flow
 
@@ -65,6 +66,44 @@ chain and trailing closures). For a view statement or an `if` whose first token 
 line, the span starts at the first of the contiguous comment-only lines directly above it
 (R-EDIT-001.C11, C13): a blank line or a comment trailing code ends them, and a line may hold several
 comments (`/* a */ // b`). Nodes inside arguments start at their first token (C14).
+
+## Edit-mode rendering
+
+`render(source, {edit: true})` (Python: `render(source, edit=True)`; the element: `<mockitdown-mockup edit>`)
+ties the rendered HTML to the source (R-EDIT-004). The option is not a fence attribute and the CLI has
+none (C10).
+
+```mermaid
+flowchart LR
+  mod[parsed module] --> ord[view-node ordinals<br/>viewNodeOrdinals · view_nodes]
+  ord --> ev[Evaluator<br/>View.node, View.derived]
+  env[Env.derived<br/>ForEach · if · struct call] --> ev
+  ev --> r[Renderer.open<br/>data-el, data-mkd-node, data-mkd-derived]
+```
+
+- **Ordinals.** The evaluator numbers the module's view nodes from their positions alone
+  (C3): TypeScript `viewNodeOrdinals(module)` in `tree.ts` runs the same `Collector` as `parseTree`;
+  Python `mockitdown.syntax.nodes.view_nodes(module)` is a port of it, ordered by line and column of the
+  first token (a call's leftmost callee identifier; Python's `Call.loc` is its `(`). Both number all 867
+  sources of the render and edit corpora alike. The maps are keyed by syntax node identity, so only the
+  rendered source's nodes have ordinals.
+- **Node.** `Evaluator._mark` / `mark` sets `View.node` for a view made from a view node: an element
+  call, an unknown call, a bare identifier (the synthesised call's callee is the original `Ident`), and
+  `Color.red` (its base identifier). A string literal or a variable used as a view is turned into a
+  synthesised `Text` call with no ordinal, so it gets neither attribute (C7).
+- **Derived.** `Env.derived` holds the ordinal of the innermost `ForEach` call, `if` statement or struct
+  call; child environments inherit it. An `if` branch is evaluated in `local.deriving(ordinal)`, a
+  `ForEach` body thunk is rewrapped with its environment deriving from the call, and a struct's
+  environment takes the call's ordinal (or the caller's, for a call with none). A closure is a `Thunk`
+  that keeps the environment it was written in, so content passed to a component is derived where it is
+  written, not from the component (C13). A declarations-only preview's implicit call has no ordinal (C14).
+- **Imported structs.** The view nodes of a struct from another file have no ordinal; `structViewNodes`
+  / `struct_view_nodes` collect them once per declaration so that their views still get
+  `data-mkd-derived` (the innermost construct of the rendered source) and no `data-mkd-node` (C11, C12).
+- **Rendering.** `Renderer.edit` is set from the option; `open()` and the `unknown` role write
+  `editAttrs(v)` / `edit_attrs(v)` directly after `data-el` (C6). Marks (`mkd-deco__*`, `mkd-anchored`),
+  the Elements table and the source disclosure are written without `open()`, so they carry neither (C8).
+  With `edit` off nothing is computed and the output is unchanged (C2).
 
 ## Ids and `reparse`
 
@@ -187,6 +226,10 @@ add it to `index.json`, write the expected text by hand, and run `npm run test:u
 | `Token.start`, `Token.end`, `Lexer.comments`, `Comment` | offsets and comments (C1, C2, C17) |
 | `edit(input, op)` | `{edits, source, tree}` or `{error, diagnostics}`; `op` is `{op: "insert", parent, index, code}`, `{op: "remove", nodes}`, `{op: "move", nodes, parent, index}`, `{op: "setArgument", node, label, position, value}`, `{op: "setModifier", node, name, index, args}`, `{op: "rename", node, id}`, `{op: "setRefs", node, refs}`, `{op: "setComment", node, text}` or `{op: "setName", node, name}`; nodes by id, `"n3"` or 3; index 0…count or `"end"` |
 | `indentUnit(source)` | the indentation unit of C11 |
+| `render(source, {edit: true})` | edit-mode HTML (R-EDIT-004); `RenderOptions.edit` in both variants |
+| `viewNodeOrdinals(module)`, `structViewNodes(decl)` | internal (`tree.ts`): syntax node → ordinal, and an imported struct's view nodes |
+| `mockitdown.syntax.nodes.view_nodes(module)` | Python: `ViewNode(ordinal, kind, name, node)` in ordinal order; `struct_view_nodes(decl)` |
+| `View.node`, `View.derived`, `Env.derived` | the two ordinals a view carries (M-VIEW-1.F11, F12), and the evaluation context of C5 |
 | `reparseCarrying(tree, edits, carried)` | internal: `reparse` with carried ranges for moved code |
 
 All are exported from the package entry (`mockitdown`, `mockitdown/node`).
@@ -196,12 +239,19 @@ All are exported from the package entry (`mockitdown`, `mockitdown/node`).
 `typescript/tests/unit/tree.test.ts` (IT-47): R-EDIT-001 TC-1 over every conformance case and on
 crafted sources, TC-2 with `reparse`. `typescript/tests/unit/edit-corpus.test.ts` and `edit.test.ts`
 (IT-48): R-EDIT-002 TC-1 over the edit corpus, TC-2 refusals and ids. The R-EDIT-003 cases run in the
-same corpus test, and `edit-set.test.ts` (IT-49) holds its TC-2 and the ids. See [Testing](../testing.md).
+same corpus test, and `edit-set.test.ts` (IT-49) holds its TC-2 and the ids. R-EDIT-004 (IT-51):
+`python/tests/test_edit_mode.py`, `typescript/tests/unit/edit-mode.test.ts`, the `edit-*` conformance
+cases and the `edit: false` pass in `conformance.test.ts`, and R-WEB-002 TC-4 in `mockup.spec.mjs`.
+See [Testing](../testing.md).
 
 ## Debugging
 
 - `node -e 'const m = await import("./dist/node.js"); const {tree} = m.parseTree(src); for (const n of tree.nodes) console.log(n.ordinal, n.name, JSON.stringify(tree.text(n.span)))'`
   from `typescript/` lists a source's nodes with their text.
+- An edit-mode attribute that is missing or wrong: compare the two numberings —
+  `[(n.ordinal, n.kind, n.name) for n in view_nodes(parse(src))]` in Python and
+  `parseTree(src).tree.nodes.map((n) => [n.ordinal, n.kind, n.name])` in TypeScript; then print
+  `walk(screen.views)` with `v.node`, `v.derived` from `evaluate(src, RenderOptions(edit=True))`.
 - An id that is lost after an edit: print the edits' ranges in the new text against the node's
   `nameSpan`; an insertion exactly at a name's start does not touch it, a replacement covering it does.
 
@@ -220,3 +270,4 @@ same corpus test, and `edit-set.test.ts` (IT-49) holds its TC-2 and the ids. See
 | 0.3.35 | 2026-11-27 | Page written: offsets in the lexer and parser, comments, view nodes, ids and `reparse` (#20) |
 | 0.3.36 | 2026-11-27 | The edit API (insert, remove, move), carried ids across a move and the edit corpus (#21) |
 | 0.3.37 | 2026-11-27 | Operations on one node: arguments, modifiers, `.id`, `.ref`, comments and names, and their corpus cases (#22) |
+| 0.3.39 | 2026-11-28 | Edit-mode rendering in both variants: ordinals, `View.node`/`derived`, `Env.derived`, imported structs, the element's `edit` attribute (#23) |

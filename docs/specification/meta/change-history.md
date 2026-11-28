@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.13.2 | 2026-11-28 | `WEB.3` | As built (#23): edit-mode rendering — R-EDIT-004 C11-C14 (imported component views, content passed to a component, the declarations-only preview), its test cases name their tests; REF.2 lists data-mkd-node and data-mkd-derived, the card's band part and data-deco on text |
 | 0.13.1 | 2026-11-28 | `LANG.2` | R-EVAL-005 as built: self-embedding cycle detection (#84) |
 | 0.13.0 | 2026-11-27 | `LANG.2` | Self-embedding structs rejected by cycle detection (R-EVAL-005.C10, C11, TC-3) |
 | 0.12.18 | 2026-11-27 | `WEB.3` | R-EDIT-003 as built (#22): setArgument placement and refusals, setModifier placement and removal, rename as a string literal, leading comment lines, setName refusals and ids; TC-1 and TC-2 name the tests |

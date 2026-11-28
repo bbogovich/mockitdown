@@ -1,8 +1,8 @@
 ---
 title: The mockup element
-impl_version: 0.3.7
+impl_version: 0.3.39
 status: draft
-updated: 2026-11-25
+updated: 2026-11-28
 page_id: IMPL.ELEMENTS
 ---
 
@@ -83,6 +83,9 @@ flowchart TD
   them, and its problems become `fence` errors after the render's diagnostics, with their own error box
   above the rendering — what `mockitdown.fence.format` does in Python. Other attributes are not
   observed.
+- **Edit** (R-WEB-002.C13): the boolean `edit` attribute is observed too, but is no fence attribute: present
+  (empty, or a true value of `parseBool`) it renders with the `edit` option (R-EDIT-004), so every role
+  root carries `data-mkd-node` and the derived ones `data-mkd-derived`; removing it re-renders without them.
 - **Bases**: `import-base` (made a directory URL) and `asset-base` resolve against `document.baseURI`;
   without them imports resolve against the document URL and images against its directory.
 - **Imports** (K3): the core's resolver is synchronous. The element's resolver answers from
@@ -121,3 +124,4 @@ flowchart TD
 | Version | Date | Change |
 |---|---|---|
 | 0.3.7 | 2026-11-25 | Page written: `mockitdown-mockup` element, demo page, IT-14 (#6) |
+| 0.3.39 | 2026-11-28 | The `edit` attribute (R-WEB-002.C13, #23) |

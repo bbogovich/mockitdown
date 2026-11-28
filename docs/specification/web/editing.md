@@ -1,8 +1,8 @@
 ---
 title: "Editing core"
-spec_version: 0.12.18
+spec_version: 0.13.2
 status: draft
-updated: 2026-11-27
+updated: 2026-11-28
 page_id: WEB.3
 ---
 
@@ -347,6 +347,13 @@ construct and shows a "derived" badge.
 </div>
 ```
 
+Derivation follows where code is written. A view in a closure passed to a component (`Card { Text("x") }`)
+is written at the call, so it names its own node and is not derived from the component; the component's
+body is. A component imported from another file has no ordinals in this source: its views carry only
+`data-mkd-derived`, naming the call, which is what the editor can select. Each variant computes the
+ordinals with its own parser (Python: `mockitdown.syntax.nodes.view_nodes`), and both number every
+source of the corpus alike.
+
 The attributes carry ordinals, which both parsers compute the same way, not the TypeScript session's
 stable ids; the session maps one to the other (R-EDIT-006.C9). The option therefore exists in both
 variants and is held to the conformance corpus like every other rendering (ADR-22, ADR-18.C1). It is a
@@ -374,11 +381,24 @@ edit-mode case, that every element carrying `data-el` that a view node produced 
 that the derived ones carry `data-mkd-derived` naming a `ForEach`, `if` or struct call, and that marks
 and tables carry neither.
 
+As built (#23): the cases are `edit-nested-stacks`, `edit-list-cards`, `edit-modifier-chain`,
+`edit-slots`, `edit-presentation`, `edit-foreach`, `edit-if-else`, `edit-struct` (C13: the content a call
+passes is not derived), `edit-literal`, `edit-import` (C11, C12) and `edit-marks` (C8, with the Elements
+table and the source). `python/tests/test_edit_mode.py` holds, for each, every `data-el` element in
+document order with its two attributes, written by hand from the source before the renderer produced
+them; it also checks the Python numbering (`mockitdown.syntax.nodes.view_nodes`) on a crafted source
+and the preview of a declarations-only block (C14). `typescript/tests/unit/edit-mode.test.ts` checks
+that the evaluator's ordinals equal `parseTree`'s for every corpus case, and a crafted render.
+
 **R-EDIT-004.TC-2 — Off means unchanged**
 
 Both suites render every conformance case with `edit: false` added to its options and compare with the
 unchanged expected HTML. The Python API and TypeScript `render` accept `edit`; the fence reports an `edit`
 attribute as an unknown fence option (R-MDX-003.C4), and the CLI has no such option.
+
+As built (#23): `python/tests/test_edit_mode.py` (`EditOff`) and `typescript/tests/unit/conformance.test.ts`
+("… renders unchanged with edit: false"); for an edit-mode case, `edit: false` is compared with the same
+options without `edit`. `typescript/tests/unit/edit-mode.test.ts` checks the default and the fence.
 
 **Realizes.** F-21
 
@@ -394,6 +414,10 @@ attribute as an unknown fence option (R-MDX-003.C4), and the CLI has no such opt
 | C8 | The annotation marks (R-ANN-003), the Elements table and the source disclosure MUST carry neither attribute. |
 | C9 | The conformance corpus MUST hold edit-mode cases — their `<name>.json` setting `edit: true` — that cover nested stacks, a list of cards, modifier chains, slots and labelled closures, a presentation, `ForEach`, `if`/`else`, a struct component and a string literal used as a view. |
 | C10 | The Python library API and the TypeScript `render` MUST both accept `edit`; the Markdown fence and the command line MUST NOT offer it. |
+| C11 | When `edit` is true, a view produced from a view node of another source (the body of a struct imported from a component file) MUST carry no `data-mkd-node`. |
+| C12 | When `edit` is true and a view of C11 was produced inside the body of a struct instantiated by a call, the renderer MUST give its root element `data-mkd-derived` set to the ordinal of the innermost `ForEach` call, `if` statement or struct call of the rendered source. |
+| C13 | A view written in a closure passed to a struct call (its trailing closure or a view-typed property) MUST be derived as the place where the closure is written, not from that struct call. |
+| C14 | In the preview of a block that holds only declarations, the views of the struct it renders MUST carry no `data-mkd-derived` from that implicit call. |
 | V1 | Every edit-mode case of the conformance corpus renders the same HTML in both variants, and every case renders byte-identically with `edit: false` and without the option. |
 
 ---
@@ -700,6 +724,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.13.2 | 2026-11-28 | as built (#23): imported component views carry data-mkd-derived without data-mkd-node (C11, C12); content passed to a component is derived where it is written (C13); a declarations-only preview is not derived (C14); TC-1 and TC-2 name their tests |
 | 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
@@ -710,6 +735,7 @@ Browser test: Cmd/Ctrl+G wraps the selection in a `VStack`.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.12.18 | 2026-11-27 | as built (#22): replace a value in place, positional placement (C2); parentheses kept without a closure (C4); chain on one line, after a trailing comment (C6); line and inline removal (C7); string literal (C8); leading comment lines (C11); refusals C14, C16-C20; one argument per line kept (C15); TC-1, TC-2 name the tests |
 | 0.12.17 | 2026-11-27 | as built (#21): edit takes a source or a tree, refusals carry diagnostics (C1); nodes by number too (C3); statement children (C4, C8, C19); tab or smallest-step unit (C11); not-one-view messages (C14); refusals C20-C24; line, separator and blank-line rules (C25-C29); covers tags (C30); TC-1, TC-2 name the tests |
 | 0.12.16 | 2026-11-27 | as built (#20): view nodes wherever a call stands (C3); capital-letter dotted names (C12); leading comment lines defined (C13); argument spans (C14); id matching and removals (C15); RangeError on bad edits (C16); token offsets (C17); node fields (C18); TC-1, TC-2 name the tests |
 | 0.12.12 | 2026-11-27 | re-checked with the items it cites after the #81 audit: unaffected (#81) |

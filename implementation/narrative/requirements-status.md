@@ -4,7 +4,7 @@
 
 Specification .. A requirement is **outdated** when the specification changed it after the version recorded here; `vio-docs ledger diff <ID>` shows the clauses to apply.
 
-## Changes pending (21)
+## Changes pending (20)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -25,12 +25,11 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REPO-002 | Shared assets are the single source | 0.12.4 | 0.12.12 | 2026-11-27 | #54 |
 | R-REPO-003 | The Python variant after the move | 0.6.1 | 0.12.12 | 2026-11-25 | #1 |
 | R-WEB-001 | TypeScript package and core | 0.6.4 | 0.12.12 | 2026-11-25 | #4 |
-| R-WEB-002 | The mockitdown-mockup element | 0.8.9 | 0.12.12 | 2026-11-25 | #13 |
 | R-WEB-003 | Development server | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-005 | Web test suites | 0.6.5 | 0.12.12 | 2026-11-25 | #5 |
 | R-WEB-007 | TypeScript release builds on GitHub | 0.12.12 | 0.12.15 | 2026-11-27 | #63 |
 
-## Not started (65)
+## Not started (64)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -38,7 +37,6 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-ASSET-003 | Embedding local images | — | 0.2.0 |  |  |
 | R-DEV-004 | Length rewriting | — | 0.2.0 |  |  |
 | R-DIAG-005 | Syntax errors and partial rendering | — | 0.2.0 |  |  |
-| R-EDIT-004 | Edit-mode rendering | — | 0.12.12 |  |  |
 | R-EDIT-005 | The design document module | — | 0.12.12 |  |  |
 | R-EDIT-006 | The design session and its events | — | 0.12.12 |  |  |
 | R-EDIT-007 | Undo and redo history | — | 0.12.12 |  |  |
@@ -100,7 +98,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-TOOL-013 | The active mockup and inactive previews | — | 0.12.12 |  |  |
 | R-TOOL-014 | Sections and the canvas round trip | — | 0.12.12 |  |  |
 
-## Implemented (64)
+## Implemented (66)
 
 | Requirement | Title | Implemented | Specification | Date | Issue |
 |---|---|---|---|---|---|
@@ -135,6 +133,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-DIAG-004 | The error box | 0.12.8 | 0.12.8 | 2026-11-27 | #57 |
 | R-EDIT-002 | Edit API: insert, remove and move | 0.12.17 | 0.12.17 | 2026-11-27 | #21 |
 | R-EDIT-003 | Edit API: arguments, modifiers and identifiers | 0.12.18 | 0.12.18 | 2026-11-27 | #22 |
+| R-EDIT-004 | Edit-mode rendering | 0.12.12 | 0.12.12 | 2026-11-28 | #23 |
 | R-EVAL-001 | Evaluation always completes | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-002 | What a block renders | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
 | R-EVAL-008 | Values and operators | 0.12.9 | 0.12.9 | 2026-11-27 | #58 |
@@ -165,6 +164,7 @@ Specification .. A requirement is **outdated** when the specification changed it
 | R-REND-008 | Unknown elements and roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-011 | Non-standard component roles | 0.12.10 | 0.12.10 | 2026-11-27 | #59 |
 | R-REND-012 | Charts | 0.8.3 | 0.8.3 | 2026-11-25 | #9 |
-| R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-27 | #21 |
+| R-REPO-004 | Conformance corpus | 0.12.17 | 0.12.17 | 2026-11-28 | #23 |
+| R-WEB-002 | The mockitdown-mockup element | 0.12.12 | 0.12.12 | 2026-11-28 | #23 |
 | R-WEB-004 | Pack gallery test page | 0.12.12 | 0.12.12 | 2026-11-27 | #62 |
 | R-WEB-006 | Gallery home page | 0.12.14 | 0.12.14 | 2026-11-27 | #62 |
