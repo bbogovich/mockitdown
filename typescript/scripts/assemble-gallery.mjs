@@ -4,7 +4,7 @@
 //
 //   node scripts/assemble-gallery.mjs <out>      e.g. public/gallery (run after `npm run build`)
 //
-//   <out>/index.html   a meta refresh and a link to pages/packs.html (C29)
+//   <out>/index.html   a meta refresh and a link to pages/index.html, the gallery home page (C29, R-WEB-006)
 //   <out>/pages/       typescript/pages/
 //   <out>/dist/        typescript/dist/ (the built package, dist/shared/ included)
 //   <out>/shared/      the reference/ and patterns/ folders of the repository's shared/
@@ -18,12 +18,12 @@ import { fileURLToPath } from "node:url";
 const PKG = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SHARED = resolve(PKG, "..", "shared");
 
-/** The redirect page of `/gallery/` (C29). */
+/** The redirect page of `/gallery/` to the home page (C29). */
 export const INDEX_HTML = '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n'
-  + '  <title>mockitdown pack gallery</title>\n'
-  + '  <meta http-equiv="refresh" content="0; url=pages/packs.html">\n'
-  + '  <link rel="canonical" href="pages/packs.html">\n</head>\n<body>\n'
-  + '  <p><a href="pages/packs.html">mockitdown pack gallery</a></p>\n</body>\n</html>\n';
+  + '  <title>mockitdown gallery</title>\n'
+  + '  <meta http-equiv="refresh" content="0; url=pages/index.html">\n'
+  + '  <link rel="canonical" href="pages/index.html">\n</head>\n<body>\n'
+  + '  <p><a href="pages/index.html">mockitdown gallery</a></p>\n</body>\n</html>\n';
 
 /** Copy the gallery into `out` (replacing what is there); the list of top-level entries written. */
 export function assembleGallery(out) {

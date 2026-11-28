@@ -21,7 +21,7 @@ before(async () => {
 after(() => rmSync(scratch, { recursive: true, force: true }));
 
 test("C28: pages/, dist/ and shared/reference, shared/patterns hold the served files", () => {
-  for (const f of ["pages/packs.html", "pages/packs.js", "pages/snippet.js", "dist/mockitdown.js",
+  for (const f of ["pages/index.html", "pages/index.js", "pages/index.css", "pages/packs.html", "pages/packs.js", "pages/snippet.js", "dist/mockitdown.js",
     "dist/shared/manifest.json", "shared/reference/index.json", "shared/patterns/index.json"]) {
     assert.ok(existsSync(join(out, f)), f);
   }
@@ -31,8 +31,8 @@ test("C28: pages/, dist/ and shared/reference, shared/patterns hold the served f
     readdirSync(join(REPO, "shared", "patterns")).sort());
 });
 
-test("C29: index.html redirects to pages/packs.html with a meta refresh and a link", () => {
+test("C29: index.html redirects to pages/index.html, the home page (R-WEB-006), with a meta refresh and a link", () => {
   const html = readFileSync(join(out, "index.html"), "utf8");
-  assert.match(html, /<meta http-equiv="refresh" content="0; url=pages\/packs\.html">/);
-  assert.match(html, /<a href="pages\/packs\.html">/);
+  assert.match(html, /<meta http-equiv="refresh" content="0; url=pages\/index\.html">/);
+  assert.match(html, /<a href="pages\/index\.html">/);
 });

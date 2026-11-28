@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-appearance="light" data-state="loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery home</title>
+  <link rel="stylesheet" href="index.css">
+  <script type="module" src="index.js"></script>
+</head>
+<body>
+  <!-- The gallery home page (R-WEB-006): what the gallery is for, the renderer, using the TypeScript
+       library, the release builds, and last the easter-egg links, which index.js builds from the
+       `hidden` list of shared/reference/index.json. Static text only; no mockup is rendered here. -->
+  <header class="bar">
+    <a class="brand" href="index.html">mockitdown</a>
+    <span class="brand-sub">Gallery</span>
+    <span class="spacer"></span>
+    <a href="packs.html">Pack gallery</a>
+  </header>
+
+  <main>
+    <section id="about">
+      <h1>The mockitdown gallery</h1>
+      <p>The <strong>pack gallery</strong> shows every shipped pack: each element the pack offers, with
+        its role, arguments, defaults and variants, and complete design examples in the pack's style,
+        from a sign-in form to a mail client. It is where packs are reviewed by eye, and it is the
+        end-to-end test page of the TypeScript variant: the browser tests open it, render every pack
+        and fail on any diagnostic.</p>
+      <p class="cta"><a class="button" href="packs.html">Open the pack gallery</a></p>
+    </section>
+
+    <section id="renderer">
+      <h2>Rendered in your browser</h2>
+      <p>Every mockup in the gallery is rendered in the browser by the <strong>TypeScript renderer</strong>,
+        through the <code>mockitdown-mockup</code> web component: the page holds mockitdown source, and the
+        component turns it into HTML in its shadow root. Markdown sites (MkDocs, Zensical) use the Python
+        package instead: <code>pip install mockitdown</code>, whose Markdown extension renders
+        <code>mockitdown</code> fences at build time, with the same output.</p>
+    </section>
+
+    <section id="usage">
+      <h2>Using the TypeScript library</h2>
+      <p>Download the archive attached to a <a href="https://github.com/bbogovich/mockitdown/releases">GitHub
+        release</a> and serve its <code>dist/</code> folder with your page. Load the shared assets (packs,
+        stylesheets, icons) once with <code>loadAssetsFromUrl</code>, then write each mockup as a
+        <code>&lt;mockitdown-mockup&gt;</code> element holding a <code>&lt;script type="text/mockitdown"&gt;</code>:</p>
+      <pre><code>&lt;script type="module"&gt;
+  import { loadAssetsFromUrl } from "./mockitdown/dist/mockitdown.js";
+  await loadAssetsFromUrl();   // the package's own dist/shared/
+&lt;/script&gt;
+
+&lt;mockitdown-mockup pack="fluent" device="fit"&gt;
+  &lt;script type="text/mockitdown"&gt;
+    VStack {
+      Text("Hello").font(.title)
+      Button("Continue") {}
+    }
+  &lt;/script&gt;
+&lt;/mockitdown-mockup&gt;</code></pre>
+      <p>The attributes are those of the Markdown fence (<code>pack</code>, <code>device</code>,
+        <code>appearance</code>, <code>chrome</code>, …). The
+        <a href="https://github.com/bbogovich/mockitdown/blob/main/typescript/README.md">TypeScript README</a>
+        covers the API, Node use and development.</p>
+    </section>
+
+    <section id="more">
+      <h2>More</h2>
+      <ul>
+        <li><a href="packs.html">Pack gallery</a> — every pack, its elements and examples</li>
+        <li><a href="../../definition/">Documentation</a> — the user guide, definition and specification</li>
+        <li><a href="../../demos/">Example site</a> — mockitdown in a Markdown site, with the pack reference</li>
+        <li><a href="https://github.com/bbogovich/mockitdown/releases">Releases</a> — the TypeScript library archives and the Python package versions</li>
+      </ul>
+    </section>
+
+    <section id="easter-eggs" aria-labelledby="eggs-title">
+      <h2 id="eggs-title">You read to the end</h2>
+      <p>A few packs are not in the gallery's list. They are here:</p>
+      <ul id="egg-links"><li class="loading">Loading…</li></ul>
+    </section>
+  </main>
+</body>
+</html>

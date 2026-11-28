@@ -22,10 +22,12 @@ function watch(page) {
   return seen;
 }
 
-test("TC-9 steps 1-3: /gallery/ opens the gallery, base and swiftui render, every request is under /gallery/", async ({ page }) => {
+test("TC-9 steps 1-3: /gallery/ opens the home page, its gallery link the gallery; base and swiftui render; every request is under /gallery/", async ({ page }) => {
   test.setTimeout(240_000);
   const seen = watch(page);
   await page.goto(GALLERY.href);
+  await page.waitForURL(new URL("pages/index.html", GALLERY).href);
+  await page.locator('main a[href="packs.html"]').first().click();
   await page.waitForURL(new URL("pages/packs.html", GALLERY).href + "**");
   await page.waitForFunction(() => window.packGallery?.state === "ready");
   for (const pack of ["base", "swiftui"]) {
@@ -45,7 +47,7 @@ test("TC-9 steps 1-3: /gallery/ opens the gallery, base and swiftui render, ever
 });
 
 test("TC-9 step 4: the assembled gallery holds the pages, the package and the shared files (C28)", async ({ request }) => {
-  for (const path of ["pages/packs.html", "dist/mockitdown.js", "dist/shared/manifest.json",
+  for (const path of ["pages/index.html", "pages/index.js", "pages/index.css", "pages/packs.html", "dist/mockitdown.js", "dist/shared/manifest.json",
     "shared/reference/index.json", "shared/patterns/index.json"]) {
     const r = await request.get(new URL(path, GALLERY).href);
     expect(r.status(), path).toBe(200);
