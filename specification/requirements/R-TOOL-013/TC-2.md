@@ -5,8 +5,9 @@ verifies: [C4, C5, C6, C7, C8]
 ---
 
 `node:test` (`mockup-commands.test.ts`, IT-71) with hand-computed values: `duplicateMockupName`
-(`Inbox copy`, `Inbox copy 2`, a gap, a lowercase name that does not count, a copy of a copy);
-`newMockup`, `duplicateMockup` (`Inbox copy` at (860, 0), then `Inbox copy 2` at (1240, 0), options and
+(`Inbox-copy`, `Inbox-copy-2`, a gap filled, `Inbox Copy` that does not count, a copy of a copy
+`Inbox-copy-copy`);
+`newMockup`, `duplicateMockup` (`Inbox-copy` at (860, 0), then `Inbox-copy-2` at (1240, 0), options and
 unknown keys copied, a named mockup copied beside itself) and `deleteMockup` (the next, then the previous
 mockup made active, a named inactive one leaving the active mockup, the last one leaving none) each
 record one undo step with a `change` of kind `mockups` and undo to the previous document; refusals

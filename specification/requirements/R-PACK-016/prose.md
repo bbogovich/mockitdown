@@ -18,12 +18,13 @@ and layouts name the collections they hold one by one, so that a tree item is of
 The bars may stand in a vertical or horizontal stack or a group as well as in a frame or at the root,
 since the root stack cannot be told apart from any other stack by role alone. The root also accepts the
 overlays, so that a dialog or sheet can be drawn on its own. The sapui5 `ObjectPageLayout` narrows its
-role (`vstack`) to `section`.
+role (`vstack`) to `section`, `card` and `tabs`: its sections, its header (`ObjectPageHeader`,
+`ObjectPageDynamicHeaderTitle`) and its `AnchorBar`, as its pack doc shows (SRC-21#answers).
 
 ```js
 canContain("base", "HStack", "NavigationSplitView") // {ok: false, reason: "A frame cannot be placed inside a horizontal stack"}
 canContain("base", "Toolbar", "Text")              // {ok: false, reason: "A text cannot be placed inside a toolbar"}
-canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section"
+canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section, card and tab view"
 ```
 
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it

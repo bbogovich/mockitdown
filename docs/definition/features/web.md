@@ -182,6 +182,9 @@ one undo step that restores the selection, and a host can put the same commands 
 
 **Re-checked at 0.10.0.** Its cited items F-17 changed with SRC-18 (all packs recorded, stylesheet partials, gallery home page and easter eggs, TypeScript release builds, new packs); no obligation of this item changed.
 
+**Names of copies (SRC-21#answers).** A duplicate is named plainly after what it copies, `ok-copy`, so
+that the designer can see it is a copy and rename it; the tools do not try to guess a better name.
+
 **F-19.UC-1 — Build a screen visually**
 
 **Actor:** UX designer.
@@ -229,6 +232,10 @@ folder export stay in the shell for now.
 
 **Deliberate constraints (SRC-18#answers).** The format and the place of the module are fixed on
 purpose, so that SpecItOut tools and a desktop shell can rely on one readable file and one small module.
+
+**Copies and sections (SRC-21#answers).** A duplicated mockup is named `<name>-copy` for the designer
+to rename, as a duplicated element is (F-19.C23). Sections are created and removed on the canvas
+itself; removing one never moves or removes the mockups it enclosed.
 
 **F-20.UC-1 — Lay out a flow of screens**
 

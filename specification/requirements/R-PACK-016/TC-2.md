@@ -5,7 +5,7 @@ verifies: [C5, C6, C7, C8, C10, C12, C13, C14, C15, C16]
 ---
 
 `typescript/tests/unit/roles.test.ts` "TC-2: …" (`node:test`): the cases of V1, with the hand-written
-reasons; the sapui5 `ObjectPageLayout` accepts only section-role elements while a plain `VStack` of the
+reasons; the sapui5 `ObjectPageLayout` accepts only the roles its pack narrows it to (TC-3) while a plain `VStack` of the
 same pack follows its role; a pack given as a `Pack`; `allowedChildren("base", "HStack")` lists `Toggle`
 and not `TabView`, with `TabView` under "A frame cannot be placed inside a horizontal stack", every
 element exactly once and one group per reason; a leaf parent refuses everything with one reason; an

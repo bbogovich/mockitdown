@@ -18,8 +18,8 @@ the editor and the designer only call them. A command with several operations (a
 several views, a move of several nodes) applies them one after the other to the tree and forms one step
 and one `change`, whose single text edit turns the code before into the code after. The identifiers of
 a copy are renamed only where the mockup already uses them, so a duplicate always renames (`ok` →
-`ok-2`) and a paste after a cut keeps them; duplicating `ok-2` gives `ok-2-2`, by C2's letter, so the
-second duplicate of TC-1 is one of the original. Copied code keeps the comment lines above a node, as a
+`ok-copy`, then `ok-copy-2`) and a paste after a cut keeps them; duplicating `ok-copy` gives
+`ok-copy-copy`. The name only marks the copy: the designer renames it (SRC-21#answers). Copied code keeps the comment lines above a node, as a
 move carries them. A paste goes into the one selected node only when it is a container the drop rules
 of R-TOOL-005 would drop into (never a `ForEach`) and its role accepts every pasted element. With
 several nodes selected, a move shifts each of them one position, so a scattered selection stays

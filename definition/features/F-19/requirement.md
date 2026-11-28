@@ -2,14 +2,14 @@
 id: F-19
 title: Visual mockup editing components
 status: active
-version: 0.10.0
-rev: 5
+version: 0.14.0
+rev: 6
 page: FEAT.3
 slot: features
 order: 4
-hash: 1c1afcecb69a
+hash: 4d5304b49847
 family: design-tools
-source: [SRC-8, SRC-12, SRC-13]
+source: [SRC-8, SRC-12, SRC-13, SRC-21]
 requires: [F-17, F-21]
 ---
 
@@ -46,3 +46,5 @@ C21: One burst of typing in a field forms one undo step.
 C22: The commands are offered to the host too, so that it can show them in its own menus.
 AC9: Each command of C19 can be undone and redone, and after undo the selection is the one before the command.
 AC10: Elements copied from the design tools paste into a Markdown fence as mockitdown code that renders them.
+C23: A duplicated element's identifier is its original's followed by `-copy`, numbered when that is taken, and the designer renames it afterwards.
+AC11: Duplicating an element whose identifier is `ok` gives a copy whose identifier is `ok-copy`, and a second duplicate of the original gives `ok-copy-2`.

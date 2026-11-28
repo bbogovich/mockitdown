@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.14.0 | 2026-11-28 | `MODEL.1`, `PACK.3`, `WEB.3`, `WEB.5` | SRC-21: ObjectPageLayout widens by tabs (R-PACK-016.C5, C17, TC-3; M-PACK-2.F7), <name>-copy for duplicates (R-EDIT-008.C2, C11; R-TOOL-013.C5), New Section and Delete Section (R-TOOL-014.C11-C14, TC-3; R-EDIT-009.C8) |
 | 0.13.25 | 2026-11-28 | `ANN.1` | Overlay layers keep their callouts (#46): R-ANN-003.C3 as built covers every overlay layer and an overlay's own marks; R-ANN-001 and R-ANN-003 TC-1 name their tests (IT-74); REF.2 lists data-deco on dialog, fab and toast |
 | 0.13.24 | 2026-11-28 | `LANG.1`, `LANG.2` | Dotted element names as built (#45): R-EVAL-003 C10 and TC-2, R-LANG-007 TC-2 |
 | 0.13.23 | 2026-11-28 | `WEB.3`, `WEB.5` | As built (#44): sections and the saved view (R-TOOL-014 C1, C2, C4, C6-C10, TC-1, TC-2); the change kind sections (R-EDIT-006 C5) |

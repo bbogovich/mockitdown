@@ -1,6 +1,6 @@
 ---
 title: "Model"
-spec_version: 0.13.12
+spec_version: 0.14.0
 status: draft
 updated: 2026-11-28
 page_id: MODEL.1
@@ -304,7 +304,7 @@ One element of a pack: how a framework component maps onto a render role.
 | F4 | defaults: dict — attribute values applied before the call's arguments |
 | F5 | variants: list — documented values of `variant` |
 | F6 | doc: str — one line of usage |
-| F7 | rules: dict · optional — `{accepts}`, narrowing its role's rule for this element (R-PACK-016.C5) |
+| F7 | rules: dict · optional — `{accepts, widens}`, narrowing its role's rule for this element, widened only by the roles `widens` lists (R-PACK-016.C5) |
 | F8 | types: dict · optional — parameter name → type, adding to or overriding its role's `params` (R-PACK-017.C3) |
 | I1 | The role MUST be one of the renderer's roles. |
 
@@ -464,6 +464,7 @@ A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and c
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): F7 reads |
 | 0.13.7 | 2026-11-28 | as built (#28): F6 title, the role's name in a refusal; the root entry holds only accepts |
@@ -471,6 +472,7 @@ A minimal change to a mockup's code, returned by the edit API (R-EDIT-002) and c
 | 0.12.0 | 2026-11-27 | SRC-19: import map replaces import_paths; library names and qualified references; page library blocks; templates with slots; User guide |
 | 0.10.0 | 2026-11-26 | New M-EDIT-3: TextEdit; New M-EDIT-2: DesignMockup; element rules and types overrides: F7, F8 (ING-1); New M-EDIT-1: DesignDocument; node and derived ordinals: F11, F12 (ING-1); render option edit: F22 (ING-1) |
 | 0.2.0 | 2026-11-24 | Page created |
+| 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): F7 reads |
 | 0.13.7 | 2026-11-28 | as built (#28): F6 title, the role's name in a refusal; the root entry holds only accepts |
 | 0.12.7 | 2026-11-27 | as built: F24-F28 default_device, window, windowed, menubar and app, render options the library already had (#56) |

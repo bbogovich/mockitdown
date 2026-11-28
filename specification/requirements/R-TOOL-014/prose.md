@@ -16,3 +16,8 @@ canvas only draws sections and forwards drags and renames. A section is addresse
 document's `sections`, since names need not be unique. The view is written by the designer's `toJSON()`
 only when it differs from the one the document opened with, which is what keeps an opened and unedited
 document byte-identical when written back.
+
+**Adding and deleting sections (SRC-21#answers).** A section is chosen by clicking its label, and the
+designer's menus offer New Section (around the active mockup, named in the inline field) and Delete
+Section (the current one). Deleting a section removes only the rectangle: the mockups it enclosed stay
+where they are, so a section added and deleted again leaves the document unchanged.

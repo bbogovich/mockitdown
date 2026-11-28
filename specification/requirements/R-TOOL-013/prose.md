@@ -18,3 +18,6 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
+
+Copies are named `<name>-copy` (`Inbox-copy`, then `Inbox-copy-2`), a plain mark for the designer to
+rename (SRC-21#answers), as a duplicated element's identifier is (R-EDIT-008.C2).

@@ -1,6 +1,6 @@
 ---
 title: "Role rules and typed parameters"
-spec_version: 0.13.12
+spec_version: 0.14.0
 status: draft
 updated: 2026-11-28
 page_id: PACK.3
@@ -39,12 +39,13 @@ and layouts name the collections they hold one by one, so that a tree item is of
 The bars may stand in a vertical or horizontal stack or a group as well as in a frame or at the root,
 since the root stack cannot be told apart from any other stack by role alone. The root also accepts the
 overlays, so that a dialog or sheet can be drawn on its own. The sapui5 `ObjectPageLayout` narrows its
-role (`vstack`) to `section`.
+role (`vstack`) to `section`, `card` and `tabs`: its sections, its header (`ObjectPageHeader`,
+`ObjectPageDynamicHeaderTitle`) and its `AnchorBar`, as its pack doc shows (SRC-21#answers).
 
 ```js
 canContain("base", "HStack", "NavigationSplitView") // {ok: false, reason: "A frame cannot be placed inside a horizontal stack"}
 canContain("base", "Toolbar", "Text")              // {ok: false, reason: "A text cannot be placed inside a toolbar"}
-canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section"
+canContain("sapui5", "ObjectPageLayout", "Text")    // … "inside ObjectPageLayout, which its pack limits to section, card and tab view"
 ```
 
 Rendering never reads the table. Both packages carry it, but only the TypeScript design tools enforce it
@@ -78,7 +79,7 @@ reasons of C14.
 **R-PACK-016.TC-2 — canContain and allowedChildren**
 
 `typescript/tests/unit/roles.test.ts` "TC-2: …" (`node:test`): the cases of V1, with the hand-written
-reasons; the sapui5 `ObjectPageLayout` accepts only section-role elements while a plain `VStack` of the
+reasons; the sapui5 `ObjectPageLayout` accepts only the roles its pack narrows it to (TC-3) while a plain `VStack` of the
 same pack follows its role; a pack given as a `Pack`; `allowedChildren("base", "HStack")` lists `Toggle`
 and not `TabView`, with `TabView` under "A frame cannot be placed inside a horizontal stack", every
 element exactly once and one group per reason; a leaf parent refuses everything with one reason; an
@@ -92,6 +93,18 @@ of both variants).
 As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` and `List` hold children, `Text` and
 `Divider` do not, a name `base` does not define does, and the narrowed sapui5 `ObjectPageLayout` still does (C16).
 
+**R-PACK-016.TC-3 — The sapui5 object page holds its header and anchor bar**
+
+`typescript/tests/unit/roles.test.ts` "TC-3: …" (`node:test`), every expected value written by hand
+before the code changes: in the sapui5 pack, `canContain("sapui5", "ObjectPageLayout", n)` is
+`{ok: true}` for `ObjectPageSection` (section), `ObjectPageHeader` and `ObjectPageDynamicHeaderTitle`
+(card) and `AnchorBar` (tab view), and is refused for `Text` and `Button` with the reason
+`… cannot be placed inside ObjectPageLayout, which its pack limits to section, card and tab view`;
+`allowedChildren("sapui5", "ObjectPageLayout")` lists exactly the pack's section, card and tabs
+elements in the pack's order. The pack lists `"widens": ["tabs"]`; the shared test of C9 passes with it and fails, with a
+hand-written message, for a fixture pack whose `rules.accepts` adds `tabs` without listing it in
+`widens` (SRC-21#answers).
+
 **Realizes.** F-16
 
 | | Statement |
@@ -100,11 +113,11 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 | C2 | `accepts` MUST list the roles a role's views may hold as children, each entry a role name or a category written `@<category>`, and `root.accepts` MUST list those allowed at the root of a mockup. |
 | C3 | `attach` MUST be `child` for a view placed among its parent's children, `presentation` for an overlay attached through a presentation modifier (`.sheet`, `.alert`, `.overlay`) and `modifier` for an annotation attached as a modifier. |
 | C4 | The rules MUST follow SRC-12#s6.3: a frame only at the root, as a split-view column or as a tab's content; a bar inside a frame, the root, or a vertical or horizontal stack or group (standing in for the root stack), a toolbar holding only toolbar items, buttons, pickers and search fields; a layout holding layouts, content and the collections, a grid only grid rows; a collection only its item roles; content without children, except a button or link holding its label. |
-| C5 | An element definition in `pack.json` MAY carry `rules: {"accepts": […]}` (M-PACK-2), which MUST name a subset of what its role accepts and replaces the role's `accepts` for that element; a pack element without one MUST follow its role's rule. |
+| C5 | An element definition in `pack.json` MAY carry `rules: {"accepts": […], "widens": […]}` (M-PACK-2), whose `accepts` MUST name a subset of what its role accepts, apart from the roles it also lists in `widens`, and replaces the role's `accepts` for that element; a pack element without one MUST follow its role's rule. |
 | C6 | The TypeScript core MUST export `canContain(pack, parent, child)`, taking a pack id or a loaded pack and element names (or `null` for the root), which returns `{ok: true}` or `{ok: false, reason}`, the reason a sentence naming the rule that refuses (`A frame cannot be placed inside a horizontal stack`). |
 | C7 | The TypeScript core MUST export `allowedChildren(pack, parent)`, which returns `{allowed, refused}`: the names of the pack's elements the parent may hold, in the pack's order, and the others as `{reason, elements}` groups, one per reason. |
 | C8 | A parent view of role `unknown` MUST accept every child, and a child of role `unknown` MUST be accepted by every parent that accepts children. |
-| C9 | A shared test MUST fail when a render role of either variant has no rule, a rule names an unknown role or category, or a pack's `rules` widens its role's. |
+| C9 | A shared test MUST fail when a render role of either variant has no rule, a rule names an unknown role or category, or a pack's `rules` widens its role's by a role its `widens` does not list. |
 | C10 | The Python variant MUST package `roles.json`, MUST read only the labels of its `params` maps (R-EVAL-004.C8) and MUST NOT report a diagnostic from its role rules. |
 | C11 | The item roles of a collection (list item, table row and column, tree item, timeline item, board column, kanban card, menu item, tab, navigation item) MUST have the category `collection`, and a layout or the root MUST name the collections it holds by role, so that an item role is accepted only by its collection. |
 | C12 | `root.accepts` MUST accept the overlays, so that a mockup may show a dialog, sheet or toast on its own. |
@@ -112,7 +125,8 @@ As built (#30): "TC-2: holdsChildren …" in the same file: `VStack`, `HStack` a
 | C14 | The reason MUST be `<A parent> cannot hold other elements` when the parent accepts nothing, `<A child> is attached through a presentation modifier (.sheet, .alert, .overlay), not placed inside <a parent>` for an overlay and `<A child> is attached as a modifier, not placed inside <a parent>` for an annotation, `<A child> cannot be placed inside <Element>, which its pack limits to <titles>` when the parent's pack narrows it, and otherwise `<A child> cannot be placed inside <a parent>` (`at the root of a mockup` for the root), the child named by its category when the parent accepts none of that category and by its title otherwise. |
 | C15 | If no role rules are loaded or the pack is unknown, then `canContain` and `allowedChildren` MUST throw a `MockitdownError`. |
 | C16 | The TypeScript core MUST export `holdsChildren(pack, name)`, true when the element's role, or its pack's narrowing (C5), accepts some role, and for an element the pack does not define. |
-| V1 | `canContain("base", "HStack", "NavigationSplitView")` is refused with a reason, `canContain("vuetify", "VCard", "VBtn")` is allowed as for a card and a button, and a Fiori object page that narrows its rule accepts only sections. |
+| C17 | The sapui5 `ObjectPageLayout` MUST accept the roles `section`, `card` and `tabs` (its sections, its header and its `AnchorBar`), widening its `vstack` rule by `tabs`. |
+| V1 | `canContain("base", "HStack", "NavigationSplitView")` is refused with a reason, `canContain("vuetify", "VCard", "VBtn")` is allowed as for a card and a button, and a Fiori object page that narrows its rule accepts its sections, its header and its anchor bar and nothing else. |
 
 ---
 
@@ -202,6 +216,7 @@ Both conformance suites pass with the types loaded. Expected values written by h
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): C1 the table carries reads (top level and per rule); C10 Python reads only the reads lists |
 | 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
@@ -214,6 +229,7 @@ Both conformance suites pass with the types loaded. Expected values written by h
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.12 | 2026-11-28 | as built (#33): the role table's reads lists became the keys of typed params maps (top-level params for the common labels); parameterTypes and modifierTypes; a label an element's types names is understood |
 | 0.13.11 | 2026-11-28 | as built (#32): C1 the table carries reads (top level and per rule); C10 Python reads only the reads lists |
 | 0.13.9 | 2026-11-28 | as built (#30): holdsChildren(pack, name), the editor's container test (C16) |
 | 0.13.7 | 2026-11-28 | as built (#28): rules carry a title; bars also in stacks and groups; layouts name their collections, item roles in the collection category (C11); root accepts overlays (C12); unknown names (C13); the reason sentences (C14); a pack id or Pack; allowedChildren's shape; unloaded rules or unknown pack throw (C15); TC files name the tests |

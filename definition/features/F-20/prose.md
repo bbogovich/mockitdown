@@ -15,3 +15,7 @@ folder export stay in the shell for now.
 
 **Deliberate constraints (SRC-18#answers).** The format and the place of the module are fixed on
 purpose, so that SpecItOut tools and a desktop shell can rely on one readable file and one small module.
+
+**Copies and sections (SRC-21#answers).** A duplicated mockup is named `<name>-copy` for the designer
+to rename, as a duplicated element is (F-19.C23). Sections are created and removed on the canvas
+itself; removing one never moves or removes the mockups it enclosed.

@@ -56,7 +56,7 @@ M-EDIT-2 | model | active | 0.10.0 r0 | MODEL.1 | DesignMockup
 M-EDIT-3 | model | active | 0.10.0 r0 | MODEL.1 | TextEdit
 M-OPT-1 | model | active | 0.12.7 r3 | MODEL.1 | RenderOptions
 M-PACK-1 | model | active | 0.2.0 r0 | MODEL.1 | Pack
-M-PACK-2 | model | active | 0.10.0 r1 | MODEL.1 | ElementDef
+M-PACK-2 | model | active | 0.14.0 r2 | MODEL.1 | ElementDef
 M-PACK-3 | model | active | 0.13.12 r3 | MODEL.1 | RoleRule
 M-SYN-1 | model | active | 0.2.0 r0 | MODEL.1 | Module
 M-VIEW-1 | model | active | 0.10.0 r1 | MODEL.1 | View
@@ -107,8 +107,8 @@ R-EDIT-004 | requirements | active | 0.13.2 r7 | WEB.3 | Edit-mode rendering
 R-EDIT-005 | requirements | active | 0.13.3 r6 | WEB.3 | The design document module
 R-EDIT-006 | requirements | active | 0.13.23 r9 | WEB.3 | The design session and its events
 R-EDIT-007 | requirements | active | 0.13.21 r6 | WEB.3 | Undo and redo history
-R-EDIT-008 | requirements | active | 0.13.15 r5 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
-R-EDIT-009 | requirements | active | 0.13.22 r7 | WEB.3 | Commands: wrap, unwrap, convert and extract component
+R-EDIT-008 | requirements | active | 0.14.0 r6 | WEB.3 | Commands: duplicate, clipboard, move and multi-select
+R-EDIT-009 | requirements | active | 0.14.0 r8 | WEB.3 | Commands: wrap, unwrap, convert and extract component
 R-EVAL-001 | requirements | active | 0.12.9 r1 | LANG.2 | Evaluation always completes
 R-EVAL-002 | requirements | active | 0.12.9 r1 | LANG.2 | What a block renders
 R-EVAL-003 | requirements | active | 0.13.24 r3 | LANG.2 | Name resolution for views
@@ -159,7 +159,7 @@ R-PACK-012 | requirements | active | 0.12.0 r5 | PACK.1 | Pack reference gallery
 R-PACK-013 | requirements | active | 0.12.11 r5 | PACK.1 | Element samples
 R-PACK-014 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI control styles
 R-PACK-015 | requirements | active | 0.12.12 r9 | PACK.1 | SwiftUI presentations and navigation
-R-PACK-016 | requirements | active | 0.13.12 r10 | PACK.3 | Role rules
+R-PACK-016 | requirements | active | 0.14.0 r11 | PACK.3 | Role rules
 R-PACK-017 | requirements | active | 0.13.12 r6 | PACK.3 | Typed parameters and modifiers
 R-PACK-018 | requirements | active | 0.12.12 r5 | PACK.4 | Stylesheet partials
 R-PACK-019 | requirements | active | 0.12.12 r5 | PACK.5 | Amiga Workbench pack
@@ -204,8 +204,8 @@ R-TOOL-009 | requirements | active | 0.13.18 r5 | WEB.4 | Two-way editing and Co
 R-TOOL-010 | requirements | active | 0.13.19 r5 | WEB.4 | The diagnostics list: mockitdown-diagnostics
 R-TOOL-011 | requirements | active | 0.13.20 r5 | WEB.5 | The canvas: mockitdown-canvas
 R-TOOL-012 | requirements | active | 0.13.21 r5 | WEB.5 | Mockup frames: labels, moving, renaming and placement
-R-TOOL-013 | requirements | active | 0.13.22 r5 | WEB.5 | The active mockup and inactive previews
-R-TOOL-014 | requirements | active | 0.13.23 r5 | WEB.5 | Sections and the canvas round trip
+R-TOOL-013 | requirements | active | 0.14.0 r6 | WEB.5 | The active mockup and inactive previews
+R-TOOL-014 | requirements | active | 0.14.0 r6 | WEB.5 | Sections and the canvas round trip
 R-WEB-001 | requirements | active | 0.13.8 r9 | WEB.1 | TypeScript package and core
 R-WEB-002 | requirements | active | 0.12.12 r9 | WEB.1 | The mockitdown-mockup element
 R-WEB-003 | requirements | active | 0.12.12 r7 | WEB.2 | Development server

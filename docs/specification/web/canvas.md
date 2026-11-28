@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.13.23
+spec_version: 0.14.0
 status: draft
 updated: 2026-11-28
 page_id: WEB.5
@@ -191,6 +191,9 @@ Re-checked at 0.10.3 together with the items it cites or is cited by (specificat
 
 **Re-checked at specification 0.12.12.** Re-read after the clarification records of the items it cites (#81), which closed the suspect citations left by the test-case backfills (#54 to #60) and the SRC-19 import map (0.12.0). No obligation it rests on changed, and none of its clauses is altered.
 
+Copies are named `<name>-copy` (`Inbox-copy`, then `Inbox-copy-2`), a plain mark for the designer to
+rename (SRC-21#answers), as a duplicated element's identifier is (R-EDIT-008.C2).
+
 **R-TOOL-013.TC-1 — Activation**
 
 Browser test (`mockups.spec.mjs`, IT-71) on `pages/designer.html` with its sample (`Sign in`, `Inbox`
@@ -203,8 +206,9 @@ Enter on the `Inbox` row activates `Inbox`.
 **R-TOOL-013.TC-2 — Mockup commands**
 
 `node:test` (`mockup-commands.test.ts`, IT-71) with hand-computed values: `duplicateMockupName`
-(`Inbox copy`, `Inbox copy 2`, a gap, a lowercase name that does not count, a copy of a copy);
-`newMockup`, `duplicateMockup` (`Inbox copy` at (860, 0), then `Inbox copy 2` at (1240, 0), options and
+(`Inbox-copy`, `Inbox-copy-2`, a gap filled, `Inbox Copy` that does not count, a copy of a copy
+`Inbox-copy-copy`);
+`newMockup`, `duplicateMockup` (`Inbox-copy` at (860, 0), then `Inbox-copy-2` at (1240, 0), options and
 unknown keys copied, a named mockup copied beside itself) and `deleteMockup` (the next, then the previous
 mockup made active, a named inactive one leaving the active mockup, the last one leaving none) each
 record one undo step with a `change` of kind `mockups` and undo to the previous document; refusals
@@ -220,7 +224,7 @@ update the frames and the Mockups list and each undoes with Cmd/Ctrl+Z.
 | C2 | The outline, the gallery and the inspector MUST show the active mockup and follow every change of it, and MUST show no mockup once the last one is deleted. |
 | C3 | The canvas MUST render the active mockup as a `mockitdown-editor` with a highlighted frame, and every other mockup as a read-only `mockitdown-mockup` with its options. |
 | C4 | The session MUST offer the commands `newMockup`, `duplicateMockup` and `deleteMockup`, listed in `session.commands` (R-EDIT-009.C8) before `undo` with the labels "New Mockup", "Duplicate Mockup" and "Delete Mockup" and no shortcut, `newMockup` always enabled and the other two whenever there is an active mockup, each one undo step notifying `change` with the kind `mockups`. |
-| C5 | `duplicateMockup(name)` MUST copy the named mockup, the active one by default, with its code, its options and every other key, name the copy `<name> copy`, or `<name> copy <n>` with the smallest free `<n>` from 2, place it as a new mockup is placed (R-TOOL-012.C8) beside the mockup it copies, and make the copy the active mockup. |
+| C5 | `duplicateMockup(name)` MUST copy the named mockup, the active one by default, with its code, its options and every other key, name the copy `<name>-copy`, or `<name>-copy-<n>` with the smallest free `<n>` from 2 when that name is taken, place it as a new mockup is placed (R-TOOL-012.C8) beside the mockup it copies, and make the copy the active mockup. |
 | C6 | `deleteMockup(name)` MUST remove the named mockup, the active one by default; deleting the active mockup MUST make the next mockup in document order active, else the one before it, else none, the active mockup changing before `change` is notified; undoing it MUST put the mockup back at its place, active again if it was. |
 | C7 | `duplicateMockup` and `deleteMockup` MUST refuse, changing and notifying nothing, a name no mockup holds and, without a name, a session with no active mockup; `session.run` MUST pass them the argument `mockup`. |
 | C8 | The naming rule of C5 MUST be held by `mockitdown/design` as `duplicateMockupName`, which uses no DOM. |
@@ -251,6 +255,11 @@ document's `sections`, since names need not be unique. The view is written by th
 only when it differs from the one the document opened with, which is what keeps an opened and unedited
 document byte-identical when written back.
 
+**Adding and deleting sections (SRC-21#answers).** A section is chosen by clicking its label, and the
+designer's menus offer New Section (around the active mockup, named in the inline field) and Delete
+Section (the current one). Deleting a section removes only the rectangle: the mockups it enclosed stay
+where they are, so a section added and deleted again leaves the document unchanged.
+
 **R-TOOL-014.TC-1 — Round trip**
 
 Browser test (`sections.spec.mjs`, IT-72) on `pages/designer.html`: three phone mockups and a section;
@@ -277,6 +286,23 @@ inside and undoing to the written text with an unknown section key kept, `resize
 `renameSection`, the refusals changing nothing and the `change` of kind `sections`. Every expected value
 is written by hand before the code runs.
 
+**R-TOOL-014.TC-3 — New Section and Delete Section**
+
+Unit part (`sections.test.ts`, `node:test`), every expected value written by hand before the code
+runs: `newSection("Flow")` makes its section current; `deleteSection()` removes the current section,
+leaves every frame's position as it was, notifies one `change` of kind `sections` and leaves no section
+current; undo restores the section and redo removes it again; `deleteSection(5)` on a document of one
+section and `deleteSection()` with no current section are refused with no step and no notification;
+`session.commands` lists New Section and Delete Section after Delete Mockup and before Undo with no
+shortcut, Delete Section disabled until a section is current; `session.run("newSection", {name})` and
+`session.run("deleteSection", {section: 0})` run them.
+
+Browser part (`sections.spec.mjs`) on `pages/designer.html`: a click on a section's label marks it
+`data-current`, which Preview hides; running New Section with no name opens the inline field over the
+new section's label, Enter with `Checkout` names it, Esc on a second one keeps `Section 2`; Delete
+Section removes the current section and its layer while the frames stay at their positions; a
+document whose only section was added and deleted writes back as it was opened (F-20.AC8).
+
 **Realizes.** F-20
 
 | | Statement |
@@ -291,12 +317,17 @@ is written by hand before the code runs.
 | C8 | The session MUST make the changes of C3 through `moveSection(index, x, y)`, `resizeSection(index, box)` and `renameSection(index, name)`, each notifying one `change` of kind `sections` with an empty `mockup` and `code`, as do their undo and redo, and a move, resize or rename to the section's current state MUST change nothing. |
 | C9 | `newSection` and `renameSection` MUST refuse an empty name with "A section's name must not be empty", `newSection` MUST refuse a session with no active mockup, and the section commands MUST refuse an index no section has and a box without finite `x` and `y` and positive `w` and `h`, changing and notifying nothing; section names need not be unique. |
 | C10 | `mockitdown/design` MUST hold the rules of C2, C3 and C7 without the DOM: `sectionAround`, `framesInside`, `snapSectionMove`, `resizeSectionBox` and `documentView`. |
-| V1 | Saving and reloading a canvas of three mockups and a section restores every mockup's name, position, options and code, the section and the view (F-20.AC3, F-20.AC7). |
+| C11 | A click on a section's label MUST make that section the current section (attribute `data-current` on its `section` part), `newSection` MUST make the section it adds current, and Preview mode MUST show no current section. |
+| C12 | The session MUST offer the command `deleteSection(index)`, the current section by default, which removes the section from the document's `sections`, leaves every frame where it is, as one undo step notifying `change` of kind `sections`, and leaves no section current; it MUST refuse an index no section has, and a call without an index when no section is current, changing and notifying nothing. |
+| C13 | `session.commands` MUST list `newSection` and `deleteSection` after the mockup commands and before `undo`, labelled "New Section" and "Delete Section" with no shortcut, `newSection` enabled whenever there is an active mockup and `deleteSection` whenever a section is current, and `session.run` MUST run them with `{name}` for `newSection` and `{section}` for `deleteSection`. |
+| C14 | When the composite designer runs New Section without a name, it MUST open the canvas's inline field over the new section's label to name it, an empty or cancelled name keeping the name `Section <n>`, `<n>` being one more than the number of sections before it. |
+| V1 | Saving and reloading a canvas of three mockups and a section restores every mockup's name, position, options and code, the section and the view (F-20.AC3, F-20.AC7), and a section added and then deleted leaves the document as it was (F-20.AC8). |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): the sections layer, its parts and the label inside the top-left corner (C1); newSection's frame size, place and result (C2); toJSON through session.saveView, other view keys kept (C4); saveView writes only a changed view (C6); grid snapping, minimum size and handles of a section drag (C7); moveSection, resizeSection, renameSection and the change of kind sections (C8); refusals, names need not be unique (C9); the rules in mockitdown/design (C10); TC-1 and TC-2 name their tests (IT-72) |
 | 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
@@ -306,6 +337,7 @@ is written by hand before the code runs.
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.23 | 2026-11-28 | as built (#44): the sections layer, its parts and the label inside the top-left corner (C1); newSection's frame size, place and result (C2); toJSON through session.saveView, other view keys kept (C4); saveView writes only a changed view (C6); grid snapping, minimum size and handles of a section drag (C7); moveSection, resizeSection, renameSection and the change of kind sections (C8); refusals, names need not be unique (C9); the rules in mockitdown/design (C10); TC-1 and TC-2 name their tests (IT-72) |
 | 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |
 | 0.13.20 | 2026-11-28 | as built (#41): frames with labels and natural widths (C1); zoom control part and steps about the centre (C3); fitSelection, fits clamped and centred (C4); Shift+wheel, minimap drag, no click after a pan (C6); minimap parts, bottom right (C7); CSS zoom above 200 % (C8); the designer's editor in the active frame, read-only frames, the canvas property (C9); click activates (C10); view from the document, mockitdown-view (C11); arithmetic in mockitdown/design (C12); editor outlines in a scaled canvas (C13); TC-1 and TC-2 name their tests (IT-69) |

@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.13.23
+spec_version: 0.14.0
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -738,8 +738,8 @@ the editor and the designer only call them. A command with several operations (a
 several views, a move of several nodes) applies them one after the other to the tree and forms one step
 and one `change`, whose single text edit turns the code before into the code after. The identifiers of
 a copy are renamed only where the mockup already uses them, so a duplicate always renames (`ok` →
-`ok-2`) and a paste after a cut keeps them; duplicating `ok-2` gives `ok-2-2`, by C2's letter, so the
-second duplicate of TC-1 is one of the original. Copied code keeps the comment lines above a node, as a
+`ok-copy`, then `ok-copy-2`) and a paste after a cut keeps them; duplicating `ok-copy` gives
+`ok-copy-copy`. The name only marks the copy: the designer renames it (SRC-21#answers). Copied code keeps the comment lines above a node, as a
 move carries them. A paste goes into the one selected node only when it is a container the drop rules
 of R-TOOL-005 would drop into (never a `ForEach`) and its role accepts every pasted element. With
 several nodes selected, a move shifts each of them one position, so a scattered selection stays
@@ -750,12 +750,13 @@ scattered. The designer writes the clipboard with `navigator.clipboard.writeText
 
 `node:test` (`typescript/tests/unit/commands.test.ts`, IT-64) on a hand-written mockup
 (`VStack { Text("Title"); Button("A").id("ok"); // the row; HStack { Text("Left").id("left") } }`),
-every expected code written by hand: a duplicate of the button gives `.id("ok-2")` directly after it,
-selected, and a second duplicate of the original `.id("ok-3")`; duplicating the title and the stack
-copies each after itself with the nested `left` becoming `left-2`; `copy` gives the stack with its
+every expected code written by hand: a duplicate of the button gives `.id("ok-copy")` directly after it,
+selected, and a second duplicate of the original `.id("ok-copy-2")`, a duplicate of
+the copy `.id("ok-copy-copy")`; duplicating the title and the stack
+copies each after itself with the nested `left` becoming `left-copy`; `copy` gives the stack with its
 comment at column 0; a cut of the button selects the stack, and its text pasted into the stack goes in
-as the last child with `ok` kept, after the title (a leaf) as `ok-2`, with nothing selected at the end
-of the top level as `ok-3`; several pasted views go after the last of several selected nodes; a paste
+as the last child with `ok` kept, after the title (a leaf) as `ok-copy`, with nothing selected at the end
+of the top level as `ok-copy-2`; several pasted views go after the last of several selected nodes; a paste
 of invalid text (`Button("A"`), of a `let`, of nothing and of a struct is refused with no step and no
 notification; moveUp at the first position and moveDown at the last record no step, moveDown and
 moveUp of the title and moveUp of two siblings move them as one step each; `selectRange` and
@@ -782,7 +783,7 @@ Cmd/Ctrl+V on the title pastes the designer's own copy after it.
 | | Statement |
 |---|---|
 | C1 | `session.duplicate()` MUST insert a copy of each selected node directly after it and select the copies. |
-| C2 | In a copy, each `.id("x")` MUST become `.id("x-<n>")`, `<n>` being the smallest integer from 2 that makes the identifier unique in the mockup. |
+| C2 | In a copy, each `.id("x")` MUST become `.id("x-copy")`, or `.id("x-copy-<n>")` when `x-copy` is used in the mockup, `<n>` being the smallest integer from 2 that makes the identifier unique; the designer renames it afterwards. |
 | C3 | `session.copy()` MUST return, and the composite designer MUST write to the clipboard as `text/plain`, the source text of the selected nodes in source order, each from its leading comment lines to its end with a comment trailing its last line, re-indented to column 0 by its first line, joined by line feeds, and an empty text when nothing is selected. |
 | C4 | `session.cut()` MUST copy the selected nodes and remove them as one step, selecting as `session.delete()` does (R-TOOL-003.C11), and return the copied text with the removal. |
 | C5 | `session.paste(text)` MUST insert the views the text holds, in order, as the last children of the selected node when one node is selected, it is a container (R-TOOL-005.C3) and its role accepts each pasted element in the active mockup's pack (R-PACK-016), else directly after the last selected node when it is placed among its parent's statement children, else at the end of the mockup's top level, and select the pasted views. |
@@ -791,7 +792,7 @@ Cmd/Ctrl+V on the title pastes the designer's own copy after it.
 | C8 | In the outline and the editor, Shift-click MUST select the siblings from the selection's first node to the clicked node (in the editor the innermost element under the pointer), the first node staying first, Cmd/Ctrl-click MUST add or remove the clicked node, and a click on a node that is not a sibling of the selection MUST replace the selection. |
 | C9 | The composite designer MUST bind Cmd/Ctrl+D to duplicate, Cmd/Ctrl+X, C and V to cut, copy and paste, and Alt+Up and Alt+Down to move, while the focus is in the outline or the view, outside a text field and outside Preview mode. |
 | C10 | Each command of this requirement MUST be one undo step (R-EDIT-007). |
-| C11 | In pasted views, each `.id("x")` that the mockup already uses MUST become `.id("x-<n>")` as in C2, and an identifier the mockup does not use MUST be kept. |
+| C11 | In pasted views, each `.id("x")` that the mockup already uses MUST become `.id("x-copy")` or `.id("x-copy-<n>")` as in C2, and an identifier the mockup does not use MUST be kept. |
 | C12 | `session.duplicate()`, `session.moveUp()` and `session.moveDown()` MUST be refused, changing nothing, when nothing is selected or a selected node is not placed among its parent's statement children (an argument, a modifier's content, a struct body). |
 | C13 | The session MUST offer the selection of C8 as `session.selectRange(node)` and `session.toggleSelected(node)`, which the outline and the editor call, so that they hold no selection rule of their own (A-WEB-5.K2). |
 | C14 | When the clipboard cannot be read or is empty, Cmd/Ctrl+V in the composite designer MUST paste the text it copied or cut last. |
@@ -849,8 +850,8 @@ diagnostic, is one step and undoes to the original with the selection restored.
 
 **R-EDIT-009.TC-2 — Commands for a host menu**
 
-`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the sixteen
-commands in menu order with their labels and shortcuts, all but paste and the three mockup commands disabled with nothing selected,
+`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the eighteen
+commands in menu order with their labels and shortcuts, all but paste, the three mockup commands and New Section disabled with nothing selected (Delete Section also needs a current section),
 for a leaf at the first position moveUp and unwrap disabled, unwrap enabled on a container, undo after
 a step; `session.run("wrap", {name: "VStack"})` gives the code `session.wrap("VStack")` gives, `run`
 undoes and copies, and refuses an unknown name. Browser test (`typescript/tests/browser/commands.spec.mjs`,
@@ -869,7 +870,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | C5 | `convert` MUST keep the labelled arguments that the new element understands (R-EVAL-004.C7), whose value is a closure, a view or a binding, and its positional arguments up to the number of its `params`, and MUST remove the others. |
 | C6 | `session.extractComponent(name)` MUST declare `struct <name>: View` with a `body` holding the selected nodes in source order with their comment lines, indented by the mockup's indentation unit and separated by a blank line, after the mockup's last struct declaration or else before its first view statement, and replace the selection by the call `<name>()`, which it selects. |
 | C7 | `extractComponent` MUST be refused when `name` is already a struct, an element of the mockup's pack, a name the mockup already calls (so that the struct never embeds itself, R-EVAL-005.C10) or not an identifier beginning with an uppercase letter, and when the selection uses a `let` binding, closure parameter or property of its struct declared outside it. |
-| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, new mockup, duplicate mockup, delete mockup, undo and redo, R-TOOL-013.C4) with its name, label, shortcut (`Mod` for Cmd/Ctrl, null for none) and whether it is enabled for the current selection (wrap for a `VStack`, convert for one selected element of the pack), and `session.run(name, args)` MUST run one, with `{name}` for wrap, convert and extract component, `{text}` for paste and `{mockup}` for duplicate mockup and delete mockup, refusing an unknown name, so that a host can offer them in its own menus. |
+| C8 | `session.commands` MUST list every command of the session (delete, duplicate, cut, copy, paste, move up, move down, wrap, unwrap, convert, extract component, new mockup, duplicate mockup, delete mockup, new section, delete section, undo and redo, R-TOOL-013.C4, R-TOOL-014.C13) with its name, label, shortcut (`Mod` for Cmd/Ctrl, null for none) and whether it is enabled for the current selection (wrap for a `VStack`, convert for one selected element of the pack), and `session.run(name, args)` MUST run one, with `{name}` for wrap, convert and extract component, `{text}` for paste `{mockup}` for duplicate mockup and delete mockup, `{name}` for new section and `{section}` for delete section, refusing an unknown name, so that a host can offer them in its own menus. |
 | C9 | The composite designer MUST bind Cmd/Ctrl+G to wrap in a `VStack` and Cmd/Ctrl+Shift+G to unwrap. |
 | C10 | Each command of this requirement MUST be one undo step (R-EDIT-007). |
 | C11 | `unwrap` MUST be refused when the node's content declares a closure parameter (a `ForEach`) or a `let`, which its children could use. |
@@ -880,6 +881,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
@@ -901,6 +903,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
 | 0.13.21 | 2026-11-28 | as built (#42): steps hold the mockup object, its name and, for kind mockups, the list of mockups (C1); a rename's step notifies rename on undo and redo (C7) |
 | 0.13.16 | 2026-11-28 | as built (#37): wrap keeps the wrapped ids and refuses a non-element name; unwrap of the one selected node selects its children, refused for no children, a ForEach parameter or a let (C11); convert selects the converted node and keeps closures, views and bindings; extract writes the struct in source order with the file's unit and refuses a name the mockup calls and struct properties; command shortcuts and enabled rules, run args; refusals without a placed selection (C12); TC-1, TC-2 name their tests |

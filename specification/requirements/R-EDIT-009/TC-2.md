@@ -4,8 +4,8 @@ title: Commands for a host menu
 verifies: [C8, C9]
 ---
 
-`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the sixteen
-commands in menu order with their labels and shortcuts, all but paste and the three mockup commands disabled with nothing selected,
+`node:test` (`typescript/tests/unit/restructure.test.ts`, IT-65): `session.commands` lists the eighteen
+commands in menu order with their labels and shortcuts, all but paste, the three mockup commands and New Section disabled with nothing selected (Delete Section also needs a current section),
 for a leaf at the first position moveUp and unwrap disabled, unwrap enabled on a container, undo after
 a step; `session.run("wrap", {name: "VStack"})` gives the code `session.wrap("VStack")` gives, `run`
 undoes and copies, and refuses an unknown name. Browser test (`typescript/tests/browser/commands.spec.mjs`,

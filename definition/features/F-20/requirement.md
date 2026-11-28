@@ -2,14 +2,14 @@
 id: F-20
 title: Infinite canvas of named mockups
 status: active
-version: 0.10.0
-rev: 4
+version: 0.14.0
+rev: 5
 page: FEAT.3
 slot: features
 order: 5
-hash: b4c38df160b8
+hash: c14efe1a49ef
 family: design-tools
-source: [SRC-8, SRC-12, SRC-15, SRC-18]
+source: [SRC-8, SRC-12, SRC-15, SRC-18, SRC-21]
 requires: [F-19]
 refs: [F-19]
 ---
@@ -32,4 +32,8 @@ C10: The document is read, validated and written by a module of the mockitdown p
 AC5: Opening a document of an unknown format or version, or one whose mockup has no code, is refused with a readable message naming the problem.
 AC6: Opening a document that holds keys the tools do not know and writing it back yields the same document, its keys and their order included.
 AC7: Saving and reloading a canvas also restores its sections and its view.
+C11: A duplicated mockup is named after its original followed by `-copy`, numbered when that is taken, and the designer renames it afterwards.
+C12: Sections can be added and deleted on the canvas; deleting a section leaves its mockups where they are.
+AC8: A section added around a mockup and then deleted leaves the canvas as it was, and each step can be undone.
+AC9: Duplicating a mockup named `Inbox` gives `Inbox-copy`, and duplicating `Inbox` again gives `Inbox-copy-2`.
 N1: C6 (one JSON file, `.mkdesign`) and C10 (one module of the mockitdown package, no browser needed) are deliberate constraints of the product, not implementation hints: they keep an implementer from adding a database, a second format or a framework for a document that tools must read without the designer (SRC-18#answers).
