@@ -1,0 +1,9 @@
+{
+  "op": "setComment",
+  "node": "n3",
+  "text": "second",
+  "covers": [
+    "refuse:comment-inline",
+    "source:inline"
+  ]
+}

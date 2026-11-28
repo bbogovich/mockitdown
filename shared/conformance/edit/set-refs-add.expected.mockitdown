@@ -1,0 +1,12 @@
+// add references to a node
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save").ref("R-AUTH-001", "R-AUTH-002")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

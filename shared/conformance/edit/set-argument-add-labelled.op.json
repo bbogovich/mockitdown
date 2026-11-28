@@ -1,0 +1,11 @@
+{
+  "op": "setArgument",
+  "node": "n3",
+  "label": "role",
+  "value": ".cancel",
+  "covers": [
+    "setArgument:add-labelled",
+    "source:comments",
+    "source:blank-lines"
+  ]
+}

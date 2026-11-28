@@ -1,0 +1,10 @@
+{
+  "op": "setRefs",
+  "node": "n2",
+  "refs": [
+    "R-FILE-004"
+  ],
+  "covers": [
+    "setRefs:set"
+  ]
+}

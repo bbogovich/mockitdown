@@ -1,0 +1,9 @@
+{
+  "op": "setArgument",
+  "node": "n3",
+  "label": "role",
+  "value": null,
+  "covers": [
+    "refuse:no-argument"
+  ]
+}

@@ -1,0 +1,13 @@
+// add a comment above a node
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    // The primary action
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

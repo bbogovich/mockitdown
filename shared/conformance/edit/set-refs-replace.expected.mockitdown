@@ -1,0 +1,8 @@
+// replace a node's references
+
+VStack {
+    Button("Delete", role: .destructive)
+        .id("delete")
+        .ref("R-FILE-004")
+    Text("Cannot be undone")
+}

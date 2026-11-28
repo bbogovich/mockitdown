@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n3",
+  "label": null,
+  "position": 2,
+  "value": "\"x\"",
+  "covers": [
+    "refuse:position"
+  ]
+}

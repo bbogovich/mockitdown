@@ -1,0 +1,9 @@
+{
+  "op": "setArgument",
+  "node": "n5",
+  "label": "color",
+  "value": ".red",
+  "covers": [
+    "setArgument:add-parens"
+  ]
+}

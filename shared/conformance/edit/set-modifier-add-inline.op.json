@@ -1,0 +1,9 @@
+{
+  "op": "setModifier",
+  "node": "n4",
+  "name": "bold",
+  "args": "",
+  "covers": [
+    "setModifier:add-inline"
+  ]
+}

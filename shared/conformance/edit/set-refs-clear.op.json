@@ -1,0 +1,9 @@
+{
+  "op": "setRefs",
+  "node": "n2",
+  "refs": [],
+  "covers": [
+    "setRefs:clear",
+    "setModifier:remove-line"
+  ]
+}

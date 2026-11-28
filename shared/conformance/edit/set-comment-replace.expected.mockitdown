@@ -1,0 +1,13 @@
+// replace a node's comment with two lines
+
+VStack(spacing: 8) {
+    // Title
+    // shown at the top
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

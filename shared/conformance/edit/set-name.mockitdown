@@ -1,0 +1,12 @@
+// replace a node's name, keeping its arguments and closure
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

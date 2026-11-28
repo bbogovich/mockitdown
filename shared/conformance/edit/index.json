@@ -238,11 +238,175 @@
     },
     {
       "name": "refuse-unknown-op",
-      "op": "rename"
+      "op": "wrap"
     },
     {
       "name": "refuse-source-syntax",
       "op": "remove"
+    },
+    {
+      "name": "set-argument-add-labelled",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-replace-labelled",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-remove-labelled",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-replace-positional",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-remove-positional",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-add-parens",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-remove-parens",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-add-positional",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-add-parens-closure",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-add-multiline",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-remove-multiline",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-argument-inline",
+      "op": "setArgument"
+    },
+    {
+      "name": "set-modifier-add-inline",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-add-line",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-add-bare",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-replace",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-remove-line",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-remove-inline",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-remove-line-start",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-occurrence",
+      "op": "setModifier"
+    },
+    {
+      "name": "set-modifier-add-after-comment",
+      "op": "setModifier"
+    },
+    {
+      "name": "rename-add",
+      "op": "rename"
+    },
+    {
+      "name": "rename-replace",
+      "op": "rename"
+    },
+    {
+      "name": "rename-remove",
+      "op": "rename"
+    },
+    {
+      "name": "set-refs-add",
+      "op": "setRefs"
+    },
+    {
+      "name": "set-refs-replace",
+      "op": "setRefs"
+    },
+    {
+      "name": "set-refs-clear",
+      "op": "setRefs"
+    },
+    {
+      "name": "set-comment-add",
+      "op": "setComment"
+    },
+    {
+      "name": "set-comment-replace",
+      "op": "setComment"
+    },
+    {
+      "name": "set-comment-remove",
+      "op": "setComment"
+    },
+    {
+      "name": "set-name",
+      "op": "setName"
+    },
+    {
+      "name": "set-name-chain",
+      "op": "setName"
+    },
+    {
+      "name": "refuse-duplicate-id",
+      "op": "rename"
+    },
+    {
+      "name": "refuse-no-argument",
+      "op": "setArgument"
+    },
+    {
+      "name": "refuse-no-modifier",
+      "op": "setModifier"
+    },
+    {
+      "name": "refuse-argument-syntax",
+      "op": "setArgument"
+    },
+    {
+      "name": "refuse-argument-position",
+      "op": "setArgument"
+    },
+    {
+      "name": "refuse-modifier-name",
+      "op": "setModifier"
+    },
+    {
+      "name": "refuse-element-name",
+      "op": "setName"
+    },
+    {
+      "name": "refuse-not-a-call",
+      "op": "setArgument"
+    },
+    {
+      "name": "refuse-comment-inline",
+      "op": "setComment"
     }
   ]
 }

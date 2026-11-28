@@ -1,0 +1,12 @@
+// replace the name of a node with a modifier chain
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

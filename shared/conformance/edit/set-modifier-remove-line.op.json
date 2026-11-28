@@ -1,0 +1,9 @@
+{
+  "op": "setModifier",
+  "node": "n2",
+  "name": "font",
+  "args": null,
+  "covers": [
+    "setModifier:remove-line"
+  ]
+}

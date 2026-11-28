@@ -1,0 +1,12 @@
+// remove the last argument of a call with a trailing closure
+
+VStack {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

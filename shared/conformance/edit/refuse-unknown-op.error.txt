@@ -1,1 +1,1 @@
-unknown operation "rename": expected insert, remove or move
+unknown operation "wrap": expected insert, remove, move, setArgument, setModifier, rename, setRefs, setComment or setName

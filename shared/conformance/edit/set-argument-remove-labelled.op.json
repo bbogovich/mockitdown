@@ -1,0 +1,9 @@
+{
+  "op": "setArgument",
+  "node": "n4",
+  "label": "role",
+  "value": null,
+  "covers": [
+    "setArgument:remove-labelled"
+  ]
+}

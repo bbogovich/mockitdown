@@ -1,0 +1,7 @@
+// an argument for an if statement
+
+VStack {
+    if signedIn {
+        Text("Welcome")
+    }
+}

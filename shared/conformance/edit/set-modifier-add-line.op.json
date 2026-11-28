@@ -1,0 +1,10 @@
+{
+  "op": "setModifier",
+  "node": "n2",
+  "name": "foregroundStyle",
+  "args": ".secondary",
+  "covers": [
+    "setModifier:add-line",
+    "source:blank-lines"
+  ]
+}

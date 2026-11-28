@@ -1,0 +1,8 @@
+// add a modifier after a line with a trailing comment
+
+VStack {
+    Text("Forgot password?").font(.footnote).underline()
+    Text("Total")
+        .padding(4).background(.blue) // a badge
+        .bold()
+}

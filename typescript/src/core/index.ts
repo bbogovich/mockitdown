@@ -30,7 +30,7 @@ export {
 } from "./syntax/tree.js";
 export {
   edit, indentUnit, type EditIndex, type EditOp, type EditRefusal, type EditResult, type InsertOp, type MoveOp, type NodeRef,
-  type RemoveOp,
+  type RemoveOp, type RenameOp, type SetArgumentOp, type SetCommentOp, type SetModifierOp, type SetNameOp, type SetRefsOp,
 } from "./syntax/edit.js";
 export * as pyformat from "./pyformat.js";
 export * as values from "./values.js";

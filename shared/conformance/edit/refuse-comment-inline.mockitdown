@@ -1,0 +1,3 @@
+// a comment for a node that shares its line
+
+HStack { Text("a"); Text("b") }

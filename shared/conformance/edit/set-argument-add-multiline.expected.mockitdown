@@ -1,0 +1,10 @@
+// add a labelled argument to arguments written one per line
+
+Form {
+    Toggle(isOn: true)
+    HStack { Text("Volume"); Slider(value: 0.5) }
+    TextField("Email",
+              text: "",
+              prompt: "you@example.com",
+              axis: .vertical)
+}

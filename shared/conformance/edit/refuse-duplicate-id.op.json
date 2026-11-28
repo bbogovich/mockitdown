@@ -1,0 +1,8 @@
+{
+  "op": "rename",
+  "node": "n3",
+  "id": "delete",
+  "covers": [
+    "refuse:duplicate-id"
+  ]
+}

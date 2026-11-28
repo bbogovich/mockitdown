@@ -1,4 +1,5 @@
-// R-EDIT-002 TC-1 (C1, C2, C4–C8, C10–C13, C15–C18): the edit corpus in shared/conformance/edit/.
+// R-EDIT-002 TC-1 (C1, C2, C4–C8, C10–C13, C15–C18) and R-EDIT-003 TC-1 (C1–C8, C10–C13): the edit
+// corpus in shared/conformance/edit/.
 // Each case's operation applied to its source gives exactly its expected file (or the message of its
 // error file); the returned edits applied to the source give the same text; the edited source renders
 // with no diagnostic the source lacked. A meta-test checks that the corpus covers C16.
@@ -34,6 +35,16 @@ const REQUIRED = [
   "refuse:insert-not-one-view", "refuse:not-siblings", "refuse:not-a-statement", "refuse:index",
   "refuse:named-twice", "refuse:no-nodes", "refuse:labelled-closures", "refuse:else-if", "refuse:unknown-op",
   "refuse:source-syntax",
+  // R-EDIT-003.C13: every operation of R-EDIT-003, and its refusals
+  "setArgument:add-labelled", "setArgument:add-positional", "setArgument:replace-labelled", "setArgument:replace-positional",
+  "setArgument:remove-labelled", "setArgument:remove-positional", "setArgument:add-parens", "setArgument:remove-parens",
+  "setArgument:multiline",
+  "setModifier:add-inline", "setModifier:add-line", "setModifier:replace", "setModifier:occurrence",
+  "setModifier:remove-inline", "setModifier:remove-line",
+  "rename:add", "rename:replace", "rename:remove", "setRefs:set", "setRefs:clear",
+  "setComment:add", "setComment:replace", "setComment:remove", "setName",
+  "refuse:duplicate-id", "refuse:no-argument", "refuse:no-modifier", "refuse:argument-syntax", "refuse:position",
+  "refuse:modifier-name", "refuse:element-name", "refuse:not-a-call", "refuse:comment-inline",
 ];
 
 describe("R-EDIT-002 TC-1: the edit corpus", () => {
@@ -54,7 +65,7 @@ describe("R-EDIT-002 TC-1: the edit corpus", () => {
     assert.deepEqual([...files].filter((f) => !owned.has(f)), []);
   });
 
-  it("covers every situation of C16 (each op.json's covers list)", () => {
+  it("covers every situation of C16 and every operation of R-EDIT-003 (each op.json's covers list)", () => {
     const covered = new Set(cases.flatMap((c) => opOf(c.name).covers));
     assert.deepEqual(REQUIRED.filter((t) => !covered.has(t)), []);
     // A refused case covers a refusal, and only a refused case does.

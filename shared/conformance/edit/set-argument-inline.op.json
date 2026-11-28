@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n5",
+  "label": "step",
+  "value": "0.1",
+  "covers": [
+    "setArgument:add-labelled",
+    "source:inline"
+  ]
+}

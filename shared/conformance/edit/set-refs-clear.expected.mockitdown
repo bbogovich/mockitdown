@@ -1,0 +1,7 @@
+// clear a node's references
+
+VStack {
+    Button("Delete", role: .destructive)
+        .id("delete")
+    Text("Cannot be undone")
+}

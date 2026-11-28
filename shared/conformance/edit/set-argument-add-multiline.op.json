@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n6",
+  "label": "axis",
+  "value": ".vertical",
+  "covers": [
+    "setArgument:add-labelled",
+    "setArgument:multiline"
+  ]
+}

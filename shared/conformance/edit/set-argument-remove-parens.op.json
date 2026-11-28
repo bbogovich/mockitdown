@@ -1,0 +1,9 @@
+{
+  "op": "setArgument",
+  "node": "n1",
+  "label": "spacing",
+  "value": null,
+  "covers": [
+    "setArgument:remove-parens"
+  ]
+}

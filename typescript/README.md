@@ -86,6 +86,21 @@ else apply(r.edits);                                  // [{start, end, text}], a
 // also { op: "remove", nodes: ["n3"] } and { op: "move", nodes: ["n3"], parent: "n2", index: 0 }
 ```
 
+The inspector's operations change one node and leave its neighbours as written:
+
+```js
+edit(tree, { op: "setArgument", node: "n3", label: "role", value: ".destructive" }); // null value removes it
+edit(tree, { op: "setArgument", node: "n3", label: null, position: 0, value: '"Store"' });
+edit(tree, { op: "setModifier", node: "n2", name: "padding", index: 0, args: "8" });   // null args removes it
+edit(tree, { op: "rename", node: "n3", id: "save" });            // .id("save"); refused when another node has it
+edit(tree, { op: "setRefs", node: "n3", refs: ["R-AUTH-001"] });  // [] removes .ref(…)
+edit(tree, { op: "setComment", node: "n3", text: "Primary action" });
+edit(tree, { op: "setName", node: "n3", name: "Link" });
+```
+
+Removing an argument, modifier, identifier or comment that is not there is refused, as is a value
+that does not parse (its diagnostic counts columns from the given code).
+
 The printing rules are fixed by the edit corpus in `shared/conformance/edit/`.
 
 ## Development

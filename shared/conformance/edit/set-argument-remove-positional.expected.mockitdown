@@ -1,0 +1,12 @@
+// remove the first argument with the comma after it
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button(role: .destructive).id("delete")
+    Divider
+}

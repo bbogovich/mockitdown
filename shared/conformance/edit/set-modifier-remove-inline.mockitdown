@@ -1,0 +1,8 @@
+// remove a modifier that shares its line
+
+VStack {
+    Text("Forgot password?").font(.footnote).underline()
+    Text("Total")
+        .padding(4).background(.blue) // a badge
+        .padding(8)
+}

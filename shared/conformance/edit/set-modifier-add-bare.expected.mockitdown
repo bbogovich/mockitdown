@@ -1,0 +1,12 @@
+// add a modifier to a call without a chain
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider.padding(.vertical)
+}

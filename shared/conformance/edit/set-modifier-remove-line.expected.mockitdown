@@ -1,0 +1,11 @@
+// remove a modifier written on a line of its own
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .padding(.bottom, 4)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

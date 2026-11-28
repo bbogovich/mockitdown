@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n2",
+  "label": "spacing",
+  "value": "4",
+  "covers": [
+    "refuse:not-a-call",
+    "source:if"
+  ]
+}

@@ -1,0 +1,9 @@
+// add parentheses to a call with a trailing closure
+
+Form {
+    Toggle(isOn: true)
+    HStack(spacing: 4) { Text("Volume"); Slider(value: 0.5) }
+    TextField("Email",
+              text: "",
+              prompt: "you@example.com")
+}

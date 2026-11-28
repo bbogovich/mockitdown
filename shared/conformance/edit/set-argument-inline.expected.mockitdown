@@ -1,0 +1,9 @@
+// add an argument to a call that shares its line
+
+Form {
+    Toggle(isOn: true)
+    HStack { Text("Volume"); Slider(value: 0.5, step: 0.1) }
+    TextField("Email",
+              text: "",
+              prompt: "you@example.com")
+}

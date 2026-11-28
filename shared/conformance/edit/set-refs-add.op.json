@@ -1,0 +1,11 @@
+{
+  "op": "setRefs",
+  "node": "n3",
+  "refs": [
+    "R-AUTH-001",
+    "R-AUTH-002"
+  ],
+  "covers": [
+    "setRefs:set"
+  ]
+}

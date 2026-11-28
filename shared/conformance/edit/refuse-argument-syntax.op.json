@@ -1,0 +1,9 @@
+{
+  "op": "setArgument",
+  "node": "n3",
+  "label": "role",
+  "value": "Text(\"a\"",
+  "covers": [
+    "refuse:argument-syntax"
+  ]
+}

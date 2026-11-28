@@ -1,0 +1,13 @@
+// add a modifier to a chain written one modifier per line
+
+VStack(spacing: 8) {
+    // The heading
+    Text("Sign in")
+        .font(.title)
+        .padding(.bottom, 4)
+        .foregroundStyle(.secondary)
+
+    Button("Save")
+    Button("Delete", role: .destructive).id("delete")
+    Divider
+}

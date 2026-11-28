@@ -1,0 +1,8 @@
+{
+  "op": "rename",
+  "node": "n4",
+  "id": "remove",
+  "covers": [
+    "rename:replace"
+  ]
+}

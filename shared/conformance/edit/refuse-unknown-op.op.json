@@ -1,5 +1,5 @@
 {
-  "op": "rename",
+  "op": "wrap",
   "nodes": [
     "n2"
   ],

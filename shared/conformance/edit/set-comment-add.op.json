@@ -1,0 +1,8 @@
+{
+  "op": "setComment",
+  "node": "n3",
+  "text": "The primary action",
+  "covers": [
+    "setComment:add"
+  ]
+}

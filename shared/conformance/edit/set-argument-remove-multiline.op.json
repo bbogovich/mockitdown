@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n6",
+  "label": "text",
+  "value": null,
+  "covers": [
+    "setArgument:remove-labelled",
+    "setArgument:multiline"
+  ]
+}

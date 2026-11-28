@@ -1,0 +1,10 @@
+{
+  "op": "setArgument",
+  "node": "n3",
+  "label": null,
+  "position": 0,
+  "value": "\"Store\"",
+  "covers": [
+    "setArgument:replace-positional"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "op": "setName",
+  "node": "n1",
+  "name": "HStack",
+  "covers": [
+    "setName"
+  ]
+}

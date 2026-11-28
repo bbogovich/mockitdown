@@ -1,0 +1,9 @@
+// add a positional argument before the labelled ones
+
+Form {
+    Toggle(isOn: true)
+    HStack { Text("Volume"); Slider(value: 0.5) }
+    TextField("Email",
+              text: "",
+              prompt: "you@example.com")
+}
