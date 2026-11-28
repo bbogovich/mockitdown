@@ -2,12 +2,12 @@
 id: R-TOOL-014
 title: Sections and the canvas round trip
 status: active
-version: 0.14.0
-rev: 6
+version: 0.14.5
+rev: 7
 page: WEB.5
 slot: reqs
 order: 4
-hash: 241bddea2687
+hash: 8b8307dea232
 source: [SRC-21, SRC-12, SRC-15]
 realizes: [F-20]
 requires: [R-TOOL-013, R-EDIT-005]
@@ -28,5 +28,8 @@ C10: `mockitdown/design` MUST hold the rules of C2, C3 and C7 without the DOM: `
 C11: A click on a section's label MUST make that section the current section (attribute `data-current` on its `section` part), `newSection` MUST make the section it adds current, and Preview mode MUST show no current section.
 C12: The session MUST offer the command `deleteSection(index)`, the current section by default, which removes the section from the document's `sections`, leaves every frame where it is, as one undo step notifying `change` of kind `sections`, and leaves no section current; it MUST refuse an index no section has, and a call without an index when no section is current, changing and notifying nothing.
 C13: `session.commands` MUST list `newSection` and `deleteSection` after the mockup commands and before `undo`, labelled "New Section" and "Delete Section" with no shortcut, `newSection` enabled whenever there is an active mockup and `deleteSection` whenever a section is current, and `session.run` MUST run them with `{name}` for `newSection` and `{section}` for `deleteSection`.
-C14: When the composite designer runs New Section without a name, it MUST open the canvas's inline field over the new section's label to name it, an empty or cancelled name keeping the name `Section <n>`, `<n>` being one more than the number of sections before it.
+C14: When the composite designer runs New Section without a name (`designer.run("newSection")`, which runs every other command as `session.run` does), it MUST add the section named `Section <n>` (`newSectionName` of `mockitdown/design`), `<n>` being one more than the number of sections before it, and open the canvas's inline field over its label (`canvas.editSectionName(index)`) to name it, an empty or cancelled name keeping the name `Section <n>`.
+C15: Deleting the last section of a document opened without `sections` MUST remove the key, so that a section added and then deleted leaves the document as it was (F-20.AC8).
+C16: The session MUST offer the current section of C11 as `session.currentSection`, its index or null, and `session.setCurrentSection(index)`, null for none, which MUST refuse an index no section has, MUST notify `section` with the detail `{section}` when the current section changes, and MUST be no step of the history.
+C17: An undo or redo that removes the current section MUST leave no section current, and the current section MUST follow its section when another section's removal or return changes its index.
 V1: Saving and reloading a canvas of three mockups and a section restores every mockup's name, position, options and code, the section and the view (F-20.AC3, F-20.AC7), and a section added and then deleted leaves the document as it was (F-20.AC8).

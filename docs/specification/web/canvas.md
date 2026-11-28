@@ -1,6 +1,6 @@
 ---
 title: "Canvas of named mockups"
-spec_version: 0.14.0
+spec_version: 0.14.5
 status: draft
 updated: 2026-11-28
 page_id: WEB.5
@@ -260,6 +260,16 @@ designer's menus offer New Section (around the active mockup, named in the inlin
 Section (the current one). Deleting a section removes only the rectangle: the mockups it enclosed stay
 where they are, so a section added and deleted again leaves the document unchanged.
 
+**As built (#90).** The current section is held by the session (`currentSection`,
+`setCurrentSection`), as the active mockup is, so that `deleteSection` and the commands' enabled state
+need no canvas; it is kept as the section object, so it follows its section when an undo or another
+deletion shifts the indices. A click on a label that does not become a drag makes the section current;
+New Section and Delete Section change it with their one `change` of kind `sections`, which the canvas
+redraws from, so only `setCurrentSection` notifies `section`. A host's menu runs the commands through
+`designer.run`, which differs from `session.run` only for New Section without a name. An empty list of
+sections is written as none when the document had none, which is what makes an added and deleted
+section leave the document byte-identical.
+
 **R-TOOL-014.TC-1 — Round trip**
 
 Browser test (`sections.spec.mjs`, IT-72) on `pages/designer.html`: three phone mockups and a section;
@@ -289,16 +299,18 @@ is written by hand before the code runs.
 **R-TOOL-014.TC-3 — New Section and Delete Section**
 
 Unit part (`sections.test.ts`, `node:test`), every expected value written by hand before the code
-runs: `newSection("Flow")` makes its section current; `deleteSection()` removes the current section,
+runs: `setCurrentSection(0)` notifies `section` once and refuses an index no section has, and is no step;
+`newSection("Flow")` makes its section current, notifying one `change` only, and undoing it leaves no section current; `deleteSection()` removes the current section,
 leaves every frame's position as it was, notifies one `change` of kind `sections` and leaves no section
 current; undo restores the section and redo removes it again; `deleteSection(5)` on a document of one
 section and `deleteSection()` with no current section are refused with no step and no notification;
 `session.commands` lists New Section and Delete Section after Delete Mockup and before Undo with no
 shortcut, Delete Section disabled until a section is current; `session.run("newSection", {name})` and
-`session.run("deleteSection", {section: 0})` run them.
+`session.run("deleteSection", {section: 0})` run them; `newSectionName` gives `Section 1` and `Section 3`;
+a document without `sections` with a section added and deleted writes the text it was read from (C15).
 
 Browser part (`sections.spec.mjs`) on `pages/designer.html`: a click on a section's label marks it
-`data-current`, which Preview hides; running New Section with no name opens the inline field over the
+`data-current`, which Preview hides; `designer.run("newSection")` with no name opens the inline field over the
 new section's label, Enter with `Checkout` names it, Esc on a second one keeps `Section 2`; Delete
 Section removes the current section and its layer while the frames stay at their positions; a
 document whose only section was added and deleted writes back as it was opened (F-20.AC8).
@@ -320,13 +332,17 @@ document whose only section was added and deleted writes back as it was opened (
 | C11 | A click on a section's label MUST make that section the current section (attribute `data-current` on its `section` part), `newSection` MUST make the section it adds current, and Preview mode MUST show no current section. |
 | C12 | The session MUST offer the command `deleteSection(index)`, the current section by default, which removes the section from the document's `sections`, leaves every frame where it is, as one undo step notifying `change` of kind `sections`, and leaves no section current; it MUST refuse an index no section has, and a call without an index when no section is current, changing and notifying nothing. |
 | C13 | `session.commands` MUST list `newSection` and `deleteSection` after the mockup commands and before `undo`, labelled "New Section" and "Delete Section" with no shortcut, `newSection` enabled whenever there is an active mockup and `deleteSection` whenever a section is current, and `session.run` MUST run them with `{name}` for `newSection` and `{section}` for `deleteSection`. |
-| C14 | When the composite designer runs New Section without a name, it MUST open the canvas's inline field over the new section's label to name it, an empty or cancelled name keeping the name `Section <n>`, `<n>` being one more than the number of sections before it. |
+| C14 | When the composite designer runs New Section without a name (`designer.run("newSection")`, which runs every other command as `session.run` does), it MUST add the section named `Section <n>` (`newSectionName` of `mockitdown/design`), `<n>` being one more than the number of sections before it, and open the canvas's inline field over its label (`canvas.editSectionName(index)`) to name it, an empty or cancelled name keeping the name `Section <n>`. |
+| C15 | Deleting the last section of a document opened without `sections` MUST remove the key, so that a section added and then deleted leaves the document as it was (F-20.AC8). |
+| C16 | The session MUST offer the current section of C11 as `session.currentSection`, its index or null, and `session.setCurrentSection(index)`, null for none, which MUST refuse an index no section has, MUST notify `section` with the detail `{section}` when the current section changes, and MUST be no step of the history. |
+| C17 | An undo or redo that removes the current section MUST leave no section current, and the current section MUST follow its section when another section's removal or return changes its index. |
 | V1 | Saving and reloading a canvas of three mockups and a section restores every mockup's name, position, options and code, the section and the view (F-20.AC3, F-20.AC7), and a section added and then deleted leaves the document as it was (F-20.AC8). |
 
 ## Revision history
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.5 | 2026-11-28 | as built (#90): the current section through session.currentSection and setCurrentSection (C16, notifying section), following its section and cleared by an undo removing it (C17); designer.run and canvas.editSectionName for New Section without a name (C14); deleting the last section of a document opened without sections removes the key (C15); TC-3 verifies C11-C17 |
 | 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): the sections layer, its parts and the label inside the top-left corner (C1); newSection's frame size, place and result (C2); toJSON through session.saveView, other view keys kept (C4); saveView writes only a changed view (C6); grid snapping, minimum size and handles of a section drag (C7); moveSection, resizeSection, renameSection and the change of kind sections (C8); refusals, names need not be unique (C9); the rules in mockitdown/design (C10); TC-1 and TC-2 name their tests (IT-72) |
 | 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
@@ -337,6 +353,7 @@ document whose only section was added and deleted writes back as it was opened (
 | 0.10.8 | 2026-11-27 | re-checked after the renderer split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): the sections layer, its parts and the label inside the top-left corner (C1); newSection's frame size, place and result (C2); toJSON through session.saveView, other view keys kept (C4); saveView writes only a changed view (C6); grid snapping, minimum size and handles of a section drag (C7); moveSection, resizeSection, renameSection and the change of kind sections (C8); refusals, names need not be unique (C9); the rules in mockitdown/design (C10); TC-1 and TC-2 name their tests (IT-72) |
 | 0.13.22 | 2026-11-28 | as built (#43): Enter or Space on a Mockups row, through setActive (C1); no mockup shown after the last is deleted (C2); labels, no shortcut, order and enabled states in session.commands (C4); the copy holds code, options and other keys, placed beside the mockup it copies, made active (C5); deleteMockup's next active mockup and undo (C6); refusals and the run argument mockup (C7); duplicateMockupName in mockitdown/design (C8); TC-1 and TC-2 name their tests (IT-71) |
 | 0.13.21 | 2026-11-28 | as built (#42): label drag of 3 px or more through moveMockup, not in Preview (C1); per-axis nearest edge within 6 px over the 8-unit grid (C2); rename field part, Enter, Esc, leaving (C3); the empty-name refusal (C4); refusal beside the field, part rename-error (C5); placement with no active mockup, the new mockup active (C8); data-default-name and part name-warning (C9); undo and redo of a rename notify rename (C10); session.renameMockup, newMockup and measure (C11); rules in mockitdown/design (C12); TC-1 and TC-2 name their tests, TC-3 the unit rules (IT-70) |

@@ -12,6 +12,7 @@ Every version, newest first, with every page it changed. Generated from `changes
 
 | Version | Date | Pages | Summary |
 |---|---|---|---|
+| 0.14.5 | 2026-11-28 | `WEB.3`, `WEB.5` | As built (#90): R-TOOL-014 C14-C17 and TC-3 (the current section, New Section from the designer, deleting the last section), R-EDIT-006 C4, C5 (the section notification) |
 | 0.14.4 | 2026-11-28 | `WEB.3` | as built (#88): R-EDIT-008 TC-2 names the duplicated card's button open-copy |
 | 0.14.3 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared session link (#89) |
 | 0.14.2 | 2026-11-28 | `ARCH.3` | A-WEB-5 as built: the shared render scheduler (#87) |

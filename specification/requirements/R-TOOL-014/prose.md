@@ -21,3 +21,13 @@ document byte-identical when written back.
 designer's menus offer New Section (around the active mockup, named in the inline field) and Delete
 Section (the current one). Deleting a section removes only the rectangle: the mockups it enclosed stay
 where they are, so a section added and deleted again leaves the document unchanged.
+
+**As built (#90).** The current section is held by the session (`currentSection`,
+`setCurrentSection`), as the active mockup is, so that `deleteSection` and the commands' enabled state
+need no canvas; it is kept as the section object, so it follows its section when an undo or another
+deletion shifts the indices. A click on a label that does not become a drag makes the section current;
+New Section and Delete Section change it with their one `change` of kind `sections`, which the canvas
+redraws from, so only `setCurrentSection` notifies `section`. A host's menu runs the commands through
+`designer.run`, which differs from `session.run` only for New Section without a name. An empty list of
+sections is written as none when the document had none, which is what makes an added and deleted
+section leave the document byte-identical.

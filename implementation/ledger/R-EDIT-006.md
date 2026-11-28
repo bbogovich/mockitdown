@@ -2,9 +2,9 @@
 requirement: R-EDIT-006
 title: The design session and its events
 status: implemented
-version: 0.13.9
+version: 0.13.23
 date: 2026-11-28
-issue: 44
+issue: 90
 ---
 
 # R-EDIT-006 — The design session and its events
@@ -13,6 +13,7 @@ issue: 44
 
 | Version | Date | Status | Issue | Change in the code | Pages |
 |---|---|---|---|---|---|
+| 0.13.23 | 2026-11-28 | implemented | #90 | the notification kind section {section} (C4, C5) | [Sections and the saved view](../narrative/architecture/sections.md) |
 | 0.13.9 | 2026-11-28 | implemented | #44 | change notifications of kind sections (empty mockup and code) for the section commands and their undo and redo. | [Sections and the saved view](../narrative/architecture/sections.md), [Design documents and the design session](../narrative/architecture/design.md) |
 | 0.13.9 | 2026-11-28 | implemented | #30 | session.insert(code, parent, index) (C20) and session.move(nodes, parent, index) (C21); drop API childrenOf, isContainer, dropPosition, checkDrop, drop | [Design documents and the design session](../narrative/architecture/design.md), [Drag and drop](../narrative/architecture/drag-drop.md) |
 | 0.13.8 | 2026-11-28 | implemented | #29 | DesignSession.insert(code, parent?): last child of the first selected node, else the end of the top level; change, insert, select of the new node (C20); unit test | [Design documents and the design session](../narrative/architecture/design.md), [The gallery element](../narrative/architecture/gallery-element.md) |

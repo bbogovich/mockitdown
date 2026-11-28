@@ -1,6 +1,6 @@
 ---
 title: "Editing core"
-spec_version: 0.14.4
+spec_version: 0.14.5
 status: draft
 updated: 2026-11-28
 page_id: WEB.3
@@ -621,8 +621,8 @@ slot, which joins the designer's session (C11).
 | C1 | `mockitdown/design` MUST export `DesignSession`, a plain object without DOM access that holds a design document, the name of the active mockup, the selection (the ids of sibling view nodes of the active mockup), the hovered node and, per mockup, its last valid tree and its current diagnostics. |
 | C2 | The session MUST parse a mockup's code with `parseTree` (R-EDIT-001.C5) when the mockup is first needed and after every change of its code, and MUST keep the last valid tree when the code does not parse. |
 | C3 | `session.apply(op)` MUST apply an edit operation (R-EDIT-002, R-EDIT-003) to the active mockup, replace its code with the edited source, keep its tree from `reparse` and keep the selected nodes that still exist. |
-| C4 | `session.subscribe(listener)` MUST register a listener and return a function that removes it, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active` and `diagnostics` and its detail, as one object `{kind, detail}`, and MUST NOT notify a request that changes nothing. |
-| C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move`, `mockups` and `sections` (R-TOOL-014.C8, whose `mockup` and `code` are empty) and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `diagnostics` `{mockup, diagnostics}`. |
+| C4 | `session.subscribe(listener)` MUST register a listener and return a function that removes it, and the session MUST notify every listener once per state change with one of the kinds `select`, `hover`, `change`, `insert`, `rename`, `active`, `section` (R-TOOL-014.C16) and `diagnostics` and its detail, as one object `{kind, detail}`, and MUST NOT notify a request that changes nothing. |
+| C5 | The detail of a notification MUST be: `select` `{mockup, nodes}`; `hover` `{mockup, node}`; `change` `{kind, mockup, edits, code}` with `kind` one of `code`, `options`, `move`, `mockups` and `sections` (R-TOOL-014.C8, whose `mockup` and `code` are empty) and `edits` the text edits (M-EDIT-3, empty unless `kind` is `code`); `insert` `{mockup, node, element}`; `rename` `{from, to}`; `active` `{mockup}`; `section` `{section}`, the current section's index or null; `diagnostics` `{mockup, diagnostics}`. |
 | C6 | Applying one operation or command MUST produce exactly one `change` notification, however many text edits it made. |
 | C7 | The design-tool components MUST dispatch the notifications of kinds `select`, `change`, `insert`, `rename` and `diagnostics` to the host as bubbling, composed DOM events named `mockitdown-select`, `mockitdown-change`, `mockitdown-insert`, `mockitdown-rename` and `mockitdown-diagnostics`, with the notification's detail as the event's `detail`. |
 | C8 | Inside a `mockitdown-designer`, only the designer element MUST dispatch these events, once per notification of its session, also for a change made through a component outside it that joined its session; a component used on its own MUST dispatch those of its own session. |
@@ -881,6 +881,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 
 | Version | Date | Change |
 |---|---|---|
+| 0.14.5 | 2026-11-28 | as built (#90): the notification kind section {section} (C4, C5), the current section of R-TOOL-014.C16 |
 | 0.14.4 | 2026-11-28 | as built (#88): TC-2's Cmd/Ctrl+D duplicate of the card names the button's copy open-copy (C2), not open-2 |
 | 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
@@ -904,6 +905,7 @@ Cmd/Ctrl+Z undoes the unwrap.
 | 0.10.7 | 2026-11-27 | re-checked after the renderer split and the gallery spec split: unaffected (#53) |
 | 0.10.3 | 2026-11-26 | re-stamped with the items it cites after the audit's prose clarifications; no obligation changes (audit #51) |
 | 0.10.0 | 2026-11-26 | Page created (ING-1) |
+| 0.14.4 | 2026-11-28 | as built (#88): TC-2's Cmd/Ctrl+D duplicate of the card names the button's copy open-copy (C2), not open-2 |
 | 0.14.0 | 2026-11-28 | SRC-21 answers (#85, #88, #90): the sapui5 ObjectPageLayout holds its header and AnchorBar; copies named <name>-copy; New Section and Delete Section |
 | 0.13.23 | 2026-11-28 | as built (#44): change notifications gain the kind sections, with an empty mockup and code (C5) |
 | 0.13.22 | 2026-11-28 | as built (#43): session.commands lists the mockup commands newMockup, duplicateMockup and deleteMockup before undo, and run takes {mockup} for the latter two (C8); TC-2 counts sixteen commands |
