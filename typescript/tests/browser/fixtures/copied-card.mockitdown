@@ -1,0 +1,4 @@
+Card {
+  Text("Quarterly report")
+  Button("Open") {}.id("open")
+}

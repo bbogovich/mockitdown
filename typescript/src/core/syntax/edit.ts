@@ -181,6 +181,28 @@ export function statementChildren(tree: SyntaxTree, parent: ViewNode | null): Vi
   return new Editor(tree).childrenOf(parent);
 }
 
+/**
+ * A node's code as the clipboard holds it (R-EDIT-008.C3): its source text from its leading comment
+ * lines to its end, with a comment trailing its last line when it stands on lines of its own,
+ * re-indented so that its first line starts at column 0 and the others keep their indentation
+ * relative to it.
+ */
+export function nodeCode(tree: SyntaxTree, node: ViewNode): string {
+  return reindent(new Editor(tree).linesOf(node), "").join("\n");
+}
+
+/** The string identifiers of a node's `.id(…)` modifiers, in order (R-EDIT-003.C8). */
+export function identifiersOf(n: ViewNode): string[] {
+  const out: string[] = [];
+  for (const m of n.modifiers) {
+    if (m.kind !== "Call" || m.callee.kind !== "Member" || m.callee.name !== "id") continue;
+    const v = m.args[0]?.value;
+    if (v?.kind === "Literal" && typeof v.value === "string") out.push(v.value);
+    else if (v?.kind === "StringLit" && v.parts.every((p) => typeof p === "string")) out.push(v.parts.join(""));
+  }
+  return out;
+}
+
 class Refusal extends Error {
   readonly diagnostics: Diagnostic[];
   constructor(message: string, diagnostics: Diagnostic[] = []) {
@@ -278,6 +300,11 @@ class Editor {
     if (this.elseIf.has(n)) return null;
     const body = this.bodyOf.get(n);
     return body ? [...body.children] : null;
+  }
+
+  /** A node's lines as a move carries them (its first line's indentation included). */
+  linesOf(n: ViewNode): string[] {
+    return this.nodeLines(n);
   }
 
   /** The statement children `place` counts, or the top level's with null. */
@@ -517,14 +544,7 @@ class Editor {
 
   /** The string identifiers of a node's `.id(…)` modifiers. */
   private identifiers(n: ViewNode): string[] {
-    const out: string[] = [];
-    for (const m of n.modifiers) {
-      if (m.kind !== "Call" || m.callee.kind !== "Member" || m.callee.name !== "id") continue;
-      const v = m.args[0]?.value;
-      if (v?.kind === "Literal" && typeof v.value === "string") out.push(v.value);
-      else if (v?.kind === "StringLit" && v.parts.every((p) => typeof p === "string")) out.push(v.parts.join(""));
-    }
-    return out;
+    return identifiersOf(n);
   }
 
   /** The code of an argument value, which must parse as one (C1). */

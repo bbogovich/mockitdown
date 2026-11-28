@@ -27,7 +27,9 @@
  * default), `preview` (every mockup read-only through `mockitdown-mockup`, the side panels hidden, a
  * list of the mockups and a light, dark and both appearance toggle) or `code` (the active mockup's code;
  * the code view itself comes with R-TOOL-009). Delete and Backspace with the focus in the outline or the
- * view delete the selection through `session.delete()`. Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
+ * view delete the selection through `session.delete()`; there too Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C
+ * and V cut, copy and paste with the system clipboard holding the code as `text/plain`, and Alt+Up and
+ * Alt+Down move the selection among its siblings (R-EDIT-008). Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y
  * redo (R-EDIT-007.C10) while the focus is in the designer but not in a text field, outside Preview
  * mode; the toolbar's Undo and Redo buttons are enabled by `session.canUndo` and `session.canRedo`.
  * The gallery panel holds `mockitdown-gallery`
@@ -193,6 +195,8 @@ export class DesignerElement extends Base {
   #unsubscribe: (() => void) | null = null;
   #layout: DesignerLayout = structuredCloneLayout(DEFAULT_LAYOUT);
   #appearance: PreviewAppearance | null = null;
+  /** The text the designer copied or cut last (R-EDIT-008.C3), pasted when the clipboard cannot be read. */
+  #copied = "";
   #previewsFor: DesignSession | null = null;
   #previewsDirty = true;
   /** The appearance each preview's own options give it, which the toggle overrides. */
@@ -423,16 +427,28 @@ export class DesignerElement extends Base {
   /**
    * Delete or Backspace with the focus in the outline or the view deletes the selection (C11);
    * Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y redo anywhere in the designer (R-EDIT-007.C10).
-   * Neither in a text field, nor in Preview mode.
+   * With the focus in the outline or the view (R-EDIT-008.C9): Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C and
+   * V cut, copy and paste through the clipboard, Alt+Up and Alt+Down move the selection. None of them
+   * in a text field, nor in Preview mode.
    */
   #onKey(e: KeyboardEvent): void {
-    if (e.defaultPrevented || e.altKey) return;
+    if (e.defaultPrevented) return;
     if (this.mode === "preview") return;
     const path = e.composedPath();
     const first = path[0];
     if (first instanceof HTMLElement && (first.isContentEditable || first.localName === "input" || first.localName === "textarea" || first.localName === "select")) return;
     const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
     const command = e.ctrlKey || e.metaKey;
+    const inTools = (): boolean => path.some((t) => t instanceof Element && COMPONENT_TAGS.has(t.localName)
+      && (t as unknown as { session?: unknown }).session === this.#session);
+    const session = this.#session;
+    if (e.altKey) {
+      if (command || e.shiftKey || (key !== "ArrowUp" && key !== "ArrowDown") || !inTools() || !session.selection.length) return;
+      e.preventDefault();
+      if (key === "ArrowUp") session.moveUp();
+      else session.moveDown();
+      return;
+    }
     if (command && key === "z") {
       e.preventDefault();
       this.#history(e.shiftKey ? "redo" : "undo");
@@ -443,13 +459,53 @@ export class DesignerElement extends Base {
       this.#history("redo");
       return;
     }
+    if (command && !e.shiftKey && ["d", "x", "c", "v"].includes(key)) {
+      if (!inTools()) return;
+      if (key === "v") {
+        e.preventDefault();
+        void this.#paste(session);
+        return;
+      }
+      if (!session.selection.length) return;
+      e.preventDefault();
+      if (key === "d") session.duplicate();
+      else if (key === "c") this.#toClipboard(session.copy());
+      else {
+        const r = session.cut();
+        if (!("error" in r)) this.#toClipboard(r.text);
+      }
+      return;
+    }
     if (command || e.shiftKey) return;
     if (e.key !== "Delete" && e.key !== "Backspace") return;
-    const inTools = path.some((t) => t instanceof Element && COMPONENT_TAGS.has(t.localName)
-      && (t as unknown as { session?: unknown }).session === this.#session);
-    if (!inTools || !this.#session.selection.length) return;
+    if (!inTools() || !session.selection.length) return;
     e.preventDefault();
-    this.#session.delete();
+    session.delete();
+  }
+
+  /**
+   * Write copied code to the system clipboard as `text/plain` (R-EDIT-008.C3). The designer keeps the
+   * text too, for a paste where the clipboard cannot be read.
+   */
+  #toClipboard(text: string): void {
+    this.#copied = text;
+    const clipboard = typeof navigator === "undefined" ? undefined : navigator.clipboard;
+    clipboard?.writeText(text).catch(() => undefined);
+  }
+
+  /**
+   * Paste the clipboard's text into the session (R-EDIT-008.C5): the system clipboard's, else, when it
+   * cannot be read or is empty, the text this designer copied last.
+   */
+  async #paste(session: DesignSession): Promise<void> {
+    let text = "";
+    try {
+      text = (await navigator.clipboard?.readText()) ?? "";
+    } catch {
+      text = "";
+    }
+    if (!text) text = this.#copied;
+    if (text && session === this.#session) session.paste(text);
   }
 
   /** Undo or redo one step of the session's history (R-EDIT-007.C3); nothing in Preview mode. */

@@ -211,6 +211,26 @@ comes back to where it started leaves no step. `apply`, `setText`, `setOptions` 
 same `{coalesce}` argument; without one every change is a step of its own. A new step after an undo drops
 the steps that could have been redone. `new DesignSession(doc, { now })` gives coalescing another clock.
 
+#### Commands on the selection
+
+The session's selection commands (R-EDIT-008) each form one undo step, restoring the selection from
+before and after them:
+
+```js
+session.selectRange(id);     // Shift-click: the siblings from the selection's first node to id
+session.toggleSelected(id);  // Cmd/Ctrl-click: add or remove id (a non-sibling replaces the selection)
+session.duplicate();         // a copy after each selected node, selected; .id("x") -> .id("x-2"), "x-3", ...
+session.copy();              // the selected nodes' code at column 0, joined by line feeds ("" for none)
+session.cut();               // copy, then remove as delete() does: {edits, source, tree, text}
+session.paste(text);         // into the one selected container whose role accepts the views, else after
+                             // the last selected node, else at the end of the top level; selected
+session.moveUp();            // each selected node one position up (moveDown: down); nothing at the edge
+```
+
+A paste that does not parse, or holds anything but views (an import, a struct, a `let`), is refused with
+its diagnostics and changes nothing. A pasted `.id` the mockup already uses gets the next free suffix, as
+in a duplicate; one that is free (after a cut) is kept.
+
 ### The editor element
 
 `<mockitdown-editor>` (from the package entry) is the editable view of one mockup of a design session:
@@ -280,6 +300,10 @@ status bar (diagnostic count and a breadcrumb whose crumbs select their node).
 - Cmd/Ctrl+Z undoes, Shift+Cmd/Ctrl+Z and Ctrl+Y redo (`session.undo()`, `session.redo()`) while the
   focus is in the designer but not in a text field; the toolbar's Undo and Redo buttons (parts `undo`,
   `redo`) are enabled by `canUndo` and `canRedo`. Neither works in Preview mode.
+- With the focus in the outline or the view: Cmd/Ctrl+D duplicates, Cmd/Ctrl+X, C and V cut, copy and
+  paste (the system clipboard holds the code as `text/plain`; when it cannot be read, Cmd/Ctrl+V pastes
+  what the designer copied last), Alt+Up and Alt+Down move the selection. Shift-click and Cmd/Ctrl-click
+  in the outline and the view select several siblings. Not in a text field, nor in Preview mode.
 - `mode` (attribute and property): `design` (default), `preview` (every mockup read-only through
   `mockitdown-mockup` with its options, a list of the mockups and a Light, Dark, Both toggle) or `code`
   (the active mockup's code). An unknown value means `design`.

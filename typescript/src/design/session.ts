@@ -12,6 +12,12 @@
  * Every change is a step of the session's undo history (R-EDIT-007): {@link DesignSession.undo} and
  * {@link DesignSession.redo} revert and reapply one step with the selection from before and after it,
  * and changes made with one coalescing key in quick succession form one step.
+ *
+ * The commands on the selection (R-EDIT-008) are methods too: {@link DesignSession.duplicate},
+ * {@link DesignSession.copy}, {@link DesignSession.cut}, {@link DesignSession.paste},
+ * {@link DesignSession.moveUp} and {@link DesignSession.moveDown}, each one step of the history, and
+ * {@link DesignSession.selectRange} and {@link DesignSession.toggleSelected} for Shift- and
+ * Cmd/Ctrl-click.
  */
 
 import { check } from "../core/api.js";
@@ -20,10 +26,10 @@ import { Diagnostic, MockitdownError } from "../core/diagnostics.js";
 import type { RenderOptions } from "../core/options.js";
 import { registry } from "../core/packs/registry.js";
 import { canContain, holdsChildren, rolesLoaded } from "../core/roles.js";
-import { bodySiblings, edit, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
+import { bodySiblings, edit, identifiersOf, nodeCode, statementChildren, stringLiteral, type EditIndex, type EditOp, type EditRefusal, type EditResult } from "../core/syntax/edit.js";
 import { firstText } from "../core/syntax/sample.js";
 import { parseTree, reparse, type SyntaxTree, type TextEdit, type ViewNode } from "../core/syntax/tree.js";
-import { findMockup, mockupOptions, type DesignDocument, type DesignMockup } from "./document.js";
+import { findMockup, mockupOptions, mockupPack, type DesignDocument, type DesignMockup } from "./document.js";
 
 /** What a `change` notification changed (C5): the code, the options, the position, or the list of mockups. */
 export type ChangeKind = "code" | "options" | "move" | "mockups";
@@ -78,6 +84,15 @@ export type DropCheck = { ok: true } | { ok: false; reason: string };
 
 /** Calls that place their content in their parent's: the role rules of the element above them apply. */
 const TRANSPARENT = new Set(["ForEach"]);
+
+/** What `cut` returns: the applied removal and the text it copied (R-EDIT-008.C4). */
+export type CutResult = EditResult & { text: string };
+
+/**
+ * One operation of a command, made from the tree as the command's earlier operations left it and the
+ * views they inserted so far.
+ */
+type OpOf = (tree: SyntaxTree, inserted: readonly string[]) => EditOp | EditRefusal;
 
 /** A refused session request: why. */
 export interface Refused {
@@ -409,6 +424,227 @@ export class DesignSession {
     if (typeof text !== "string") return { error: "text must be a string", diagnostics: [] };
     if (text === current) return { edits: [], source: tree.source, tree };
     return this.applyOp({ op: "setArgument", node, label: null, position: 0, value: stringLiteral(text) }, undefined, history);
+  }
+
+  // --- commands on the selection (R-EDIT-008) -----------------------------------------------------
+
+  /**
+   * Shift-click (C8): select the siblings from the selection's first node to `node`, both included, the
+   * first node staying first; with no selection, or when `node` is not its sibling, `node` alone.
+   */
+  selectRange(node: string): { selection: string[] } | Refused {
+    const found = this.clicked(node);
+    if ("error" in found) return found;
+    const { tree, target } = found;
+    const anchor = this.selected.length ? tree.byId(this.selected[0]!) : null;
+    const group = siblingGroup(tree, target);
+    if (!anchor || siblingGroup(tree, anchor) !== group) return this.select([target.id]);
+    const siblings = tree.nodes.filter((n) => siblingGroup(tree, n) === group).sort((a, b) => a.first - b.first);
+    const a = siblings.indexOf(anchor);
+    const b = siblings.indexOf(target);
+    const range = a <= b ? siblings.slice(a, b + 1) : siblings.slice(b, a + 1).reverse();
+    return this.select(range.map((n) => n.id));
+  }
+
+  /**
+   * Cmd/Ctrl-click (C8): add `node` to the selection, or remove it when it is selected; a node that is
+   * not a sibling of the selection replaces it.
+   */
+  toggleSelected(node: string): { selection: string[] } | Refused {
+    const found = this.clicked(node);
+    if ("error" in found) return found;
+    const { tree, target } = found;
+    if (this.selected.includes(target.id)) return this.select(this.selected.filter((id) => id !== target.id));
+    const anchor = this.selected.length ? tree.byId(this.selected[0]!) : null;
+    if (!anchor || siblingGroup(tree, anchor) !== siblingGroup(tree, target)) return this.select([target.id]);
+    return this.select([...this.selected, target.id]);
+  }
+
+  /**
+   * The selected nodes' code (C3): each node's source text from its leading comment lines to its end,
+   * re-indented to column 0 by its first line, in source order, joined by line feeds; empty when
+   * nothing is selected. Changes nothing.
+   */
+  copy(): string {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (!tree) return "";
+    return this.selectedNodes(tree).map((n) => nodeCode(tree, n)).join("\n");
+  }
+
+  /**
+   * Copy the selected nodes and remove them as one step (C4), selecting as {@link delete} does; the
+   * result carries the copied text. Refused, changing nothing, as `delete` is.
+   */
+  cut(): CutResult | EditRefusal {
+    const text = this.copy();
+    const r = this.delete();
+    if ("error" in r) return r;
+    return { ...r, text };
+  }
+
+  /**
+   * Insert a copy of each selected node directly after it (C1), as one step, and select the copies.
+   * In a copy, an `.id("x")` the mockup already uses becomes `.id("x-<n>")` with the smallest `n` from
+   * 2 that is free (C2). Refused when nothing is selected or a selected node is not placed among its
+   * parent's children (an argument, a modifier's content, a struct body).
+   */
+  duplicate(): EditResult | EditRefusal {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (name === null || !tree) return { error: "there is no active mockup", diagnostics: [] };
+    const nodes = this.selectedNodes(tree);
+    if (!nodes.length) return { error: "nothing is selected", diagnostics: [] };
+    const used = usedIdentifiers(tree);
+    const ops: OpOf[] = [];
+    for (const n of nodes) {
+      if (statementChildren(tree, n.parent).indexOf(n) < 0) return { error: notPlaced(n), diagnostics: [] };
+      const code = freshIdentifiers(nodeCode(tree, n), used);
+      const id = n.id;
+      ops.push((t) => {
+        const at = t.byId(id)!;
+        return { op: "insert", parent: at.parent?.id ?? null, index: statementChildren(t, at.parent).indexOf(at) + 1, code };
+      });
+    }
+    // Copies are inserted from the last node backwards, so that each finds its original where it was.
+    return this.applyOps(name, ops.reverse(), "inserted");
+  }
+
+  /**
+   * Insert the views `text` holds (C5), in order, as one step, and select them: as the last children of
+   * the selected node when exactly one is selected and it is a container whose role accepts every
+   * pasted element (R-PACK-016, with the active mockup's pack); else directly after the last selected
+   * node; else (nothing selected, or a node not placed among its parent's children) at the end of the
+   * mockup's top level. A pasted `.id("x")` the mockup already uses gets a free suffix as in
+   * {@link duplicate}. Text that does not parse, or holds anything but views (an import, a directive,
+   * a struct, a `let`), is refused with its diagnostics and records no step (C6).
+   */
+  paste(text: string): EditResult | EditRefusal {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (name === null || !tree) return { error: "there is no active mockup", diagnostics: [] };
+    const views = pastedViews(text);
+    if ("error" in views) return views;
+    const used = usedIdentifiers(tree);
+    const codes = views.codes.map((c) => freshIdentifiers(c, used));
+    const nodes = this.selectedNodes(tree);
+    const pack = mockupPack(this.document, name) ?? "base";
+    const only = nodes.length === 1 ? nodes[0]! : null;
+    let ops: OpOf[];
+    if (only && this.accepts(tree, only, views.elements, pack)) {
+      ops = codes.map((code) => () => ({ op: "insert", parent: only.id, index: "end", code }));
+    } else {
+      const last = nodes[nodes.length - 1];
+      const placed = last && statementChildren(tree, last.parent).indexOf(last) >= 0 ? last : null;
+      if (placed) {
+        // Each view after the one pasted before it, the first after the last selected node.
+        ops = codes.map((code) => (t, inserted) => {
+          const at = t.byId(inserted[inserted.length - 1] ?? placed.id)!;
+          return { op: "insert", parent: at.parent?.id ?? null, index: statementChildren(t, at.parent).indexOf(at) + 1, code };
+        });
+      } else ops = codes.map((code) => () => ({ op: "insert", parent: null, index: "end", code }));
+    }
+    return this.applyOps(name, ops, "inserted");
+  }
+
+  /** Move the selected nodes one position up among their siblings (C7); at the first position nothing, and no step. */
+  moveUp(): EditResult | EditRefusal {
+    return this.moveBy(-1);
+  }
+
+  /** Move the selected nodes one position down among their siblings (C7); at the last position nothing, and no step. */
+  moveDown(): EditResult | EditRefusal {
+    return this.moveBy(1);
+  }
+
+  /**
+   * Each selected node moves one position among its parent's statement children, as one step; nothing
+   * when the first (up) or last (down) of them is at the edge already.
+   */
+  private moveBy(step: -1 | 1): EditResult | EditRefusal {
+    const name = this.activeName;
+    const tree = name === null ? null : this.tree(name);
+    if (name === null || !tree) return { error: "there is no active mockup", diagnostics: [] };
+    const nodes = this.selectedNodes(tree);
+    if (!nodes.length) return { error: "nothing is selected", diagnostics: [] };
+    const parent = nodes[0]!.parent;
+    const children = statementChildren(tree, parent);
+    for (const n of nodes) if (children.indexOf(n) < 0) return { error: notPlaced(n), diagnostics: [] };
+    const edge = step < 0 ? children.indexOf(nodes[0]!) === 0 : children.indexOf(nodes[nodes.length - 1]!) === children.length - 1;
+    if (edge) return { edits: [], source: tree.source, tree };
+    const parentId = parent?.id ?? null;
+    const order = step < 0 ? nodes : [...nodes].reverse();
+    const ops: OpOf[] = order.map((n) => (t) => {
+      const at = t.byId(n.id)!;
+      const k = statementChildren(t, at.parent).indexOf(at);
+      // `index` counts the children before the move: one up is before the previous one, one down after the next.
+      return { op: "move", nodes: [n.id], parent: parentId, index: step < 0 ? k - 1 : k + 2 };
+    });
+    return this.applyOps(name, ops, [...this.selected]);
+  }
+
+  /** The node of the active mockup a click names, and its tree. */
+  private clicked(node: string): { tree: SyntaxTree; target: ViewNode } | Refused {
+    const name = this.activeName;
+    if (name === null) return { error: "there is no active mockup" };
+    const tree = this.tree(name);
+    const target = tree?.byId(node);
+    if (!tree || !target) return { error: `${JSON.stringify(node)} is not a node of mockup ${JSON.stringify(name)}` };
+    return { tree, target };
+  }
+
+  /** The selected nodes of a tree, in source order. */
+  private selectedNodes(tree: SyntaxTree): ViewNode[] {
+    return this.selected.map((id) => tree.byId(id)).filter((n): n is ViewNode => !!n).sort((a, b) => a.first - b.first);
+  }
+
+  /** Whether pasted elements go into `node` (C5): it is a container whose role accepts each of them. */
+  private accepts(tree: SyntaxTree, node: ViewNode, elements: readonly string[], pack: string): boolean {
+    if (!this.isContainer(node.id, pack)) return false;
+    if (!rolesLoaded() || !registry.ids().includes(pack)) return true;
+    return elements.every((e) => canContain(pack, node.name, e).ok);
+  }
+
+  /**
+   * Apply a command's operations one after the other to the active mockup as one change and one step
+   * (C10): one `change` whose single edit turns the code before into the code after, an `insert` per
+   * inserted view, then the selection (`inserted`: the inserted views in source order). Nothing
+   * changes when any operation is refused.
+   */
+  private applyOps(name: string, ops: readonly OpOf[], select: readonly string[] | "inserted"): EditResult | EditRefusal {
+    const state = this.state(name)!;
+    if (!state.tree || state.tree.source !== state.code) {
+      return { error: `the code of mockup ${JSON.stringify(name)} does not parse`, diagnostics: state.diagnostics.filter((d) => d.severity === "error") };
+    }
+    const start = state.tree;
+    let tree = start;
+    const inserted: string[] = [];
+    for (const make of ops) {
+      const op = make(tree, inserted);
+      if ("error" in op) return op;
+      const r = edit(tree, op);
+      if ("error" in r) return r;
+      if (op.op === "insert") {
+        const n = insertedNode(tree, r.tree);
+        if (n) inserted.push(n.id);
+      }
+      tree = r.tree;
+    }
+    if (tree.source === start.source) return { edits: [], source: start.source, tree: start };
+    const edits = diff(start.source, tree.source);
+    const pending = this.begin(name, "code", {});
+    const mockup = this.mockup(name)!;
+    mockup.code = tree.source;
+    state.code = tree.source;
+    state.tree = tree;
+    const step = this.record(pending, edits);
+    this.notify({ kind: "change", detail: { kind: "code", mockup: name, edits, code: tree.source } });
+    const final = tree;
+    const added = inserted.map((id) => final.byId(id)).filter((n): n is ViewNode => !!n).sort((a, b) => a.first - b.first);
+    for (const n of added) this.notify({ kind: "insert", detail: { mockup: name, node: n.id, element: n.name } });
+    this.afterCodeChange(name, state, select === "inserted" ? added.map((n) => n.id) : select);
+    this.settle(step);
+    return { edits, source: tree.source, tree };
   }
 
   // --- drag and drop (R-TOOL-005) -----------------------------------------------------------------
@@ -821,6 +1057,72 @@ function insertedNode(before: SyntaxTree, after: SyntaxTree): ViewNode | null {
     if (!before.byId(n.id) && (n.parent === null || before.byId(n.parent.id))) return n;
   }
   return null;
+}
+
+/** Why a command cannot act on a node that stands outside its parent's statement children. */
+function notPlaced(n: ViewNode): string {
+  return `${n.name} is not placed among its parent's children (an argument, a modifier's content or a struct body)`;
+}
+
+/** Every string identifier of a tree's `.id(…)` modifiers. */
+function usedIdentifiers(tree: SyntaxTree): Set<string> {
+  const used = new Set<string>();
+  for (const n of tree.nodes) for (const id of identifiersOf(n)) used.add(id);
+  return used;
+}
+
+/**
+ * A view's code with each `.id("x")` that `used` holds renamed to `x-<n>`, `n` the smallest integer
+ * from 2 that `used` does not hold (R-EDIT-008.C2); every identifier of the result is added to `used`.
+ */
+function freshIdentifiers(code: string, used: Set<string>): string {
+  let tree = parseTree(code).tree;
+  if (!tree) return code;
+  for (const id of tree.nodes.map((n) => n.id)) {
+    const n = tree.byId(id);
+    const x = n ? identifiersOf(n)[0] : undefined;
+    if (!n || x === undefined) continue;
+    if (!used.has(x)) {
+      used.add(x);
+      continue;
+    }
+    let k = 2;
+    while (used.has(`${x}-${k}`)) k++;
+    const r = edit(tree, { op: "rename", node: id, id: `${x}-${k}` });
+    if ("error" in r) continue;
+    used.add(`${x}-${k}`);
+    tree = r.tree;
+  }
+  return tree.source;
+}
+
+/**
+ * The views pasted text holds (R-EDIT-008.C5, C6): each top-level view's code at column 0 with its
+ * comment lines, and the element names of the calls among them; refused, with the syntax
+ * diagnostics, when the text does not parse, and when it holds no view or anything but views.
+ */
+function pastedViews(text: unknown): { codes: string[]; elements: string[] } | EditRefusal {
+  if (typeof text !== "string") return { error: "the pasted text is not a string", diagnostics: [] };
+  const r = parseTree(text.replace(/^(?:[ \t]*\r?\n)+/, "").replace(/\s+$/, ""));
+  if (!r.tree) {
+    const errors = r.diagnostics.filter((d) => d.severity === "error");
+    const d = errors[0];
+    const at = d && d.location.line ? ` (line ${d.location.line}, column ${d.location.col})` : "";
+    return { error: `the pasted text does not parse: ${d ? d.message : "unknown error"}${at}`, diagnostics: errors };
+  }
+  const tree = r.tree;
+  const m = tree.module;
+  if (m.imports.length || m.structs.length || m.attributes.length) {
+    return { error: "the pasted text must hold views only, not an import, a directive or a struct", diagnostics: [] };
+  }
+  const roots: ViewNode[] = [];
+  for (const s of m.statements) {
+    const root = tree.roots.find((n) => (s.kind === "IfStmt" ? n.syntax === s : s.kind === "ExprStmt" && n.expr === s.expr));
+    if (!root) return { error: "the pasted text must hold views only, not a let or another statement", diagnostics: [] };
+    roots.push(root);
+  }
+  if (!roots.length) return { error: "the pasted text holds no view", diagnostics: [] };
+  return { codes: roots.map((n) => nodeCode(tree, n)), elements: roots.filter((n) => n.kind === "call").map((n) => n.name) };
 }
 
 /** An edit refusal as a sentence: its first letter capitalised. */

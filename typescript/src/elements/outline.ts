@@ -16,7 +16,9 @@
  * and `aria-selected`) that keeps the focus on itself and points at the current row with
  * `aria-activedescendant`. Selection follows the current row: a click, Up and Down, Home and End, Left
  * (collapse, else the parent row), Right (expand, else the first child) and typed characters (the next
- * row whose name starts with them) select its node in the session; the disclosure triangle expands and
+ * row whose name starts with them) select its node in the session; Shift-click selects the siblings
+ * from the selection's first node to the clicked one, Cmd/Ctrl-click adds or removes the clicked one
+ * (R-EDIT-008.C8, `session.selectRange`, `session.toggleSelected`); the disclosure triangle expands and
  * collapses. Top-level rows start expanded, deeper ones collapsed; a selection made anywhere expands the
  * selected rows' ancestors and scrolls the first into view (`expandTo`). Hovering a row sets the
  * session's hovered node; the rows of the node hovered elsewhere are highlighted.
@@ -588,14 +590,22 @@ export class OutlineElement extends Base {
       this.#draw();
       return;
     }
-    this.#choose(row);
+    this.#choose(row, e.shiftKey ? "range" : e.metaKey || e.ctrlKey ? "toggle" : "replace");
   }
 
-  /** Make a row current and select its node. */
-  #choose(row: OutlineRow): void {
+  /**
+   * Make a row current and select its node: alone, or (R-EDIT-008.C8) with Shift the siblings from the
+   * selection's first node to it (`session.selectRange`), with Cmd/Ctrl added to or removed from the
+   * selection (`session.toggleSelected`).
+   */
+  #choose(row: OutlineRow, how: "replace" | "range" | "toggle" = "replace"): void {
     this.#current = row.key;
     const session = this.session;
-    if (row.node !== null && session.active === this.#rowsOf) session.select([row.node]);
+    if (row.node !== null && session.active === this.#rowsOf) {
+      if (how === "range") session.selectRange(row.node);
+      else if (how === "toggle") session.toggleSelected(row.node);
+      else session.select([row.node]);
+    }
     this.#reveal = row.node;
     this.#draw();
     const el = this.#tree?.querySelector<HTMLElement>(`[data-key="${CSS.escape(row.key)}"]`);

@@ -21,8 +21,10 @@
  * produced (`data-mkd-node`), or the construct it was derived from (`data-mkd-derived`, shown with a
  * "derived" badge); a click on the selected element or Esc selects its parent, Enter goes back to the
  * child it came from (a click on a selected node without a parent selects the innermost element
- * again); Alt-click cycles through every element under the pointer, innermost first; a click outside
- * every element clears the selection. Hovering sets the session's hovered node.
+ * again); Alt-click cycles through every element under the pointer, innermost first; Shift-click
+ * selects the siblings from the selection's first node to the innermost element clicked, Cmd/Ctrl-click
+ * adds it to the selection or removes it (R-EDIT-008.C8; a non-sibling replaces the selection); a click
+ * outside every element clears the selection. Hovering sets the session's hovered node.
  *
  * The outlines are drawn in a layer above the rendering (`part="overlay"`), which changes neither its
  * layout nor its attributes, coloured by `--mkd-selection-color` (default `#ff8a00`) and
@@ -570,7 +572,14 @@ export class EditorElement extends Base {
     this.#cycle = null;
     const stack = this.#nodes(elements);
     if (!stack.length) {
-      session.select([]);
+      if (!e.shiftKey && !e.metaKey && !e.ctrlKey) session.select([]);
+      return;
+    }
+    // R-EDIT-008.C8: Shift-click selects a range of siblings, Cmd/Ctrl-click adds or removes one.
+    if (e.shiftKey || e.metaKey || e.ctrlKey) {
+      this.#trail = [];
+      if (e.shiftKey) session.selectRange(stack[0]!);
+      else session.toggleSelected(stack[0]!);
       return;
     }
     const sel = session.selection;
